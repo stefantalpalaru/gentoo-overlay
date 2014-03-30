@@ -14,7 +14,7 @@ Add it using layman:
 
 Add it manually:
 
-    Edit /etc/layman/layman.cfg and include the following line for "overlays".
+Edit /etc/layman/layman.cfg and include the following line for "overlays".
 
     http://stefantalpalaru.github.io/gentoo-overlay/repositories.xml
 
