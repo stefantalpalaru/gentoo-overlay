@@ -1,0 +1,14 @@
+<?xml version="1.0" ?>
+<repositories version="1.0">
+  <repo priority="50" quality="experimental" status="unofficial">
+    <name>stefantalpalaru</name>
+    <description>ebuilds not in the main tree</description>
+    <homepage>https://github.com/stefantalpalaru/gentoo-overlay</homepage>
+    <owner>
+      <email>stefantalpalaru@yahoo.com</email>
+      <name>Stefan Talpalaru</name>
+    </owner>
+    <source type="git">https://github.com/stefantalpalaru/gentoo-overlay.git</source>
+  </repo>
+</repositories>
+
