@@ -24,5 +24,6 @@ Should look something similar to the lines below if you don't use any other laym
                 http://stefantalpalaru.github.io/gentoo-overlay/repositories.xml
 
 Now add it:
+
     layman -a stefantalpalaru
 
