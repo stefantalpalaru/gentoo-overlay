@@ -1,7 +1,7 @@
 gentoo-overlay
 ==============
 
-Stefan Talpalaru's overlay for Gentoo/Linux packages.
+Stefan Talpalaru's overlay for Gentoo Linux packages.
 
 ##Installing
 
