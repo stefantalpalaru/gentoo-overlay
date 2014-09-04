@@ -1,0 +1,115 @@
+Index: /branches/2.1/configure.ac
+===================================================================
+--- /branches/2.1/configure.ac	(revision 12502)
++++ /branches/2.1/configure.ac	(revision 12663)
+@@ -752,4 +752,5 @@
+ CHECK_JSON=yes
+ HAVE_JSON=no
++HAVE_JSON_C=no
+ 
+ AC_ARG_WITH([json],
+@@ -768,14 +769,4 @@
+ 		AC_MSG_ERROR([you must specify a parameter to --with-jsondir, e.g. --with-jsondir=/path/to])
+ 	else
+-		dnl We need (libjson.so OR libjson.a OR libjson.dll) AND json/json.h
+-		if test ! -e "${JSONDIR}/include/json/json.h" -o \
+-		        ! \( -e "${JSONDIR}/lib/libjson.so" -o \
+-		            -e "${JSONDIR}/lib/libjson.dll" -o \
+-		            -e "${JSONDIR}/lib/libjson.dylib" -o \
+-		            -e "${JSONDIR}/bin/libjson.dll" -o \
+-		            -e "${JSONDIR}/lib/libjson.a" \) 
+-		then
+-			AC_MSG_ERROR([Cannot find json dev files in "$JSONDIR"])
+-		fi
+ 		AC_MSG_RESULT([Using user-specified json-c directory: $JSONDIR])
+ 
+@@ -789,6 +780,7 @@
+ CPPFLAGS_SAVE="$CPPFLAGS"
+ CPPFLAGS="$JSON_CPPFLAGS"
+-AC_CHECK_HEADER([json-c/json.h], [HAVE_JSON=yes], [
+-  AC_CHECK_HEADER([json/json.h], [HAVE_JSON=yes], [])])	
++AC_CHECK_HEADER([json/json.h], [HAVE_JSON=yes], [
++  AC_CHECK_HEADER([json-c/json.h], [HAVE_JSON=yes; HAVE_JSON_C=yes], [])
++])      
+ CPPFLAGS="$CPPFLAGS_SAVE"
+ 
+@@ -803,4 +795,7 @@
+ if test "$HAVE_JSON" = "yes"; then
+ 	AC_DEFINE([HAVE_LIBJSON], 1, [Define to 1 if libjson is present])
++fi
++if test "$HAVE_JSON_C" = "yes"; then
++  AC_DEFINE([HAVE_LIBJSON_C], 1, [Define to 1 if libjson resides in a json-c subdir])
+ fi
+ 
+Index: /branches/2.1/liblwgeom/lwin_geojson.c
+===================================================================
+--- /branches/2.1/liblwgeom/lwin_geojson.c	(revision 12410)
++++ /branches/2.1/liblwgeom/lwin_geojson.c	(revision 12663)
+@@ -18,7 +18,19 @@
+ #ifdef HAVE_LIBJSON
+ 
++#include <string.h>
++
++#ifdef HAVE_LIBJSON_C
++#include <json-c/json.h>
++#include <json-c/json_object_private.h>
++#else
+ #include <json/json.h>
+ #include <json/json_object_private.h>
+-#include <string.h>
++#endif
++
++#ifndef JSON_C_VERSION
++// Adds support for libjson < 0.10
++# define json_tokener_error_desc(x) json_tokener_errors[(x)]
++#endif
++
+ 
+ static void geojson_lwerror(char *msg, int error_code)
+@@ -503,5 +515,5 @@
+ 	json_object* poObj = NULL;
+ 	json_object* poObjSrs = NULL;
+-  *srs = NULL;
++	*srs = NULL;
+ 
+ 	/* Begin to Parse json */
+@@ -511,9 +523,9 @@
+ 	{
+ 		char err[256];
+-		snprintf(err, 256, "%s (at offset %d)", json_tokener_errors[jstok->err], jstok->char_offset);
++		snprintf(err, 256, "%s (at offset %d)", json_tokener_error_desc(jstok->err), jstok->char_offset);
+ 		json_tokener_free(jstok);
+-    json_object_put(poObj);
++		json_object_put(poObj);
+ 		geojson_lwerror(err, 1);
+-    return NULL;
++		return NULL;
+ 	}
+ 	json_tokener_free(jstok);
+@@ -528,11 +540,11 @@
+ 			json_object* poNameURL = findMemberByName( poObjSrsProps, "name" );
+ 			const char* pszName = json_object_get_string( poNameURL );
+-      *srs = lwalloc(strlen(pszName) + 1);
+-      strcpy(*srs, pszName);
++			*srs = lwalloc(strlen(pszName) + 1);
++			strcpy(*srs, pszName);
+ 		}
+ 	}
+ 
+ 	lwgeom = parse_geojson(poObj, &hasz, 0);
+-  json_object_put(poObj);
++	json_object_put(poObj);
+ 
+ 	lwgeom_add_bbox(lwgeom);
+Index: /branches/2.1/postgis_config.h.in
+===================================================================
+--- /branches/2.1/postgis_config.h.in	(revision 12533)
++++ /branches/2.1/postgis_config.h.in	(revision 12663)
+@@ -54,4 +54,7 @@
+ /* Define to 1 if libjson is present */
+ #undef HAVE_LIBJSON
++
++/* Define to 1 if libjson resides in json-c subdir */
++#undef HAVE_LIBJSON_C
+ 
+ /* Define to 1 if you have the `pq' library (-lpq). */
