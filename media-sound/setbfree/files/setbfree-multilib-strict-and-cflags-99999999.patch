@@ -1,0 +1,27 @@
+diff -ur setbfree-99999999/common.mak setbfree-99999999-new/common.mak
+--- a/common.mak	2014-11-09 13:17:45.225221930 +0100
++++ b/common.mak	2014-11-09 13:19:54.659781403 +0100
+@@ -1,18 +1,19 @@
+ # TODO include this only once and export variables
+ 
+ PREFIX ?= /usr/local
+-OPTIMIZATIONS ?= -msse -msse2 -mfpmath=sse -ffast-math -fomit-frame-pointer -O3 -fno-finite-math-only
++LIBDIR ?= lib
+ ENABLE_CONVOLUTION ?= no
+ 
+ bindir = $(PREFIX)/bin
+ sharedir = $(PREFIX)/share/setBfree
+-lv2dir = $(PREFIX)/lib/lv2
++lv2dir = $(PREFIX)/$(LIBDIR)/lv2
+ 
+-CFLAGS ?= $(OPTIMIZATIONS) -Wall
++CFLAGS ?= -Wall
+ override CFLAGS += -fPIC
+ override CFLAGS += -DVERSION="\"$(VERSION)\""
++override CFLAGS += -fpermissive
+ 
+-CXXFLAGS = $(OPTIMIZATIONS) -Wall
++CXXFLAGS = -Wall
+ 
+ # detect Tcl/Tk
+ TCLPREFIX=/usr /usr/local
