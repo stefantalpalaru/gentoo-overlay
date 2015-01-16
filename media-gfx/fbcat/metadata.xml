@@ -1,0 +1,7 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE pkgmetadata SYSTEM "http://www.gentoo.org/dtd/metadata.dtd">
+<pkgmetadata>
+  <use>
+	  <flag name="fbgrab">Install a 'fbgrab' wrapper script around fbcat that mimics media-gfx/fbgrab</flag>
+  </use>
+</pkgmetadata>
