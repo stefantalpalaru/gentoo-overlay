@@ -34,7 +34,7 @@ INPUT_DIRS="cardreader dabstick filereader pmsdr"
 
 src_prepare() {
 	sed -e 's#/usr/include/qwt#/usr/include/qwt6#g' \
-		-e 's#-lqwt#-lqwt6#g' \
+		-e 's#-lqwt#-lqwt6-qt4#g' \
 		-i ${PN}/*.pro ${PN}/plugins/decoders/*/*.pro
 	cd ${PN}
 	eqmake4

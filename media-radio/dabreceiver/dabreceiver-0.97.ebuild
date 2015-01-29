@@ -34,7 +34,7 @@ S="${WORKDIR}/sdr-j-${P}"
 
 src_prepare() {
 	sed -e 's#/usr/include/qwt#/usr/include/qwt6#g' \
-		-e 's#-lqwt#-lqwt6#g' \
+		-e 's#-lqwt#-lqwt6-qt4#g' \
 		-i *.pro
 	eqmake4
 }

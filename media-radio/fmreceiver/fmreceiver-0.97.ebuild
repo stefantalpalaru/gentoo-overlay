@@ -35,7 +35,7 @@ INPUT_DIRS="dabstick filereader pmsdr"
 
 src_prepare() {
 	sed -e 's#/usr/include/qwt#/usr/include/qwt6#g' \
-		-e 's#-lqwt#-lqwt6#g' \
+		-e 's#-lqwt#-lqwt6-qt4#g' \
 		-i src/*.pro
 	cd src
 	eqmake4
