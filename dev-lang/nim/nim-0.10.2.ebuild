@@ -4,10 +4,11 @@
 
 EAPI=5
 
-inherit git-r3
+inherit base git-r3
 
 DESCRIPTION="Nim (formerly known as 'Nimrod') is a compiled, garbage-collected systems programming language"
 HOMEPAGE="http://nim-lang.org/"
+SRC_URI="http://nim-lang.org/download/${P}.zip"
 EGIT_REPO_URI="https://github.com/Araq/Nim"
 EGIT_COMMIT="refs/tags/v${PV}"
 EGIT_CLONE_TYPE="shallow"
@@ -19,14 +20,15 @@ IUSE="doc +readline test"
 
 DEPEND="
 	readline? ( sys-libs/readline )
+	sys-libs/zlib
 "
 RDEPEND=""
 
 src_unpack() {
+	base_src_unpack
+	mv ${P} ${PN}-csources-${PV}
 	git-r3_src_unpack
-	local csources_repo="https://github.com/nim-lang/csources"
-	git-r3_fetch "${csources_repo}" "96a5b7fe23eb1964f2e68e455f14246b390b9507"
-	git-r3_checkout "${csources_repo}" ${WORKDIR}/${P}/csources
+	mv ${PN}-csources-${PV} ${P}/csources
 }
 
 nim_use_enable() {
@@ -39,6 +41,8 @@ src_compile() {
 	cd ..
 	./bin/nim c koch || die "csources nim failed"
 	./koch boot -d:release $(nim_use_enable readline useGnuReadline) || die "koch boot failed"
+	PATH="./bin:${PATH}" nim c -d:release tools/nimgrep.nim
+	PATH="./bin:${PATH}" nim c -d:release compiler/nimfix/nimfix.nim
 	
 	if use doc; then
 		PATH="./bin:$PATH" ./koch web || die "koch web failed"
@@ -54,6 +58,10 @@ src_install() {
 	rm -r "${D}/usr/share/nim/doc"
 	dodir /usr/bin
 	dosym /usr/share/nim/bin/nim /usr/bin/nim
+	exeinto /usr/bin
+	doexe tools/niminst/niminst
+	doexe tools/nimgrep
+	doexe compiler/nimfix/nimfix
 
 	if use doc; then
 		dohtml doc/*.html

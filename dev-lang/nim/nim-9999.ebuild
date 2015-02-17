@@ -18,6 +18,7 @@ IUSE="doc +readline test"
 
 DEPEND="
 	readline? ( sys-libs/readline )
+	sys-libs/zlib
 "
 RDEPEND=""
 
@@ -38,14 +39,16 @@ src_compile() {
 	cd ..
 	./bin/nim c koch || die "csources nim failed"
 	./koch boot -d:release $(nim_use_enable readline useGnuReadline) || die "koch boot failed"
+	PATH="./bin:${PATH}" nim c -d:release tools/nimgrep.nim
+	PATH="./bin:${PATH}" nim c -d:release compiler/nimfix/nimfix.nim
 	
 	if use doc; then
-		PATH="./bin:$PATH" ./koch web || die "koch web failed"
+		PATH="./bin:${PATH}" ./koch web || die "koch web failed"
 	fi
 }
 
 src_test() {
-	PATH="./bin:$PATH" ./koch test
+	PATH="./bin:${PATH}" ./koch test
 }
 
 src_install() {
@@ -53,6 +56,10 @@ src_install() {
 	rm -r "${D}/usr/share/nim/doc"
 	dodir /usr/bin
 	dosym /usr/share/nim/bin/nim /usr/bin/nim
+	exeinto /usr/bin
+	doexe tools/niminst/niminst
+	doexe tools/nimgrep
+	doexe compiler/nimfix/nimfix
 
 	if use doc; then
 		dohtml doc/*.html
