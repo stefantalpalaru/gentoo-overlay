@@ -1,4 +1,4 @@
-# Copyright 1999-2014 Gentoo Foundation
+# Copyright 1999-2015 Gentoo Foundation
 # Distributed under the terms of the GNU General Public License v2
 # $Header: $
 
@@ -23,8 +23,10 @@ RDEPEND="dev-lang/tcl
 	media-libs/liblo
 	media-libs/lv2
 	media-libs/mesa
-	convolution? ( media-libs/libsndfile
-		>=media-libs/zita-convolver-3.1.0 )"
+	convolution? (
+		media-libs/libsndfile
+		>=media-libs/zita-convolver-3.1.0
+	)"
 DEPEND="${RDEPEND}
 	sys-apps/help2man
 	virtual/pkgconfig"

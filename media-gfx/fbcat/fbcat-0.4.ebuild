@@ -4,7 +4,6 @@
 
 EAPI=5
 
-
 DESCRIPTION="utility that takes a screenshot using the framebuffer device"
 HOMEPAGE="https://code.google.com/p/fbcat/"
 SRC_URI="https://bitbucket.org/jwilk/${PN}/downloads/${P}.tar.gz"
@@ -19,7 +18,6 @@ DEPEND="
 	doc? ( dev-libs/libxslt ) \
 	fbgrab? ( !media-gfx/fbgrab ) \
 "
-
 
 src_compile() {
 	emake
@@ -40,4 +38,3 @@ src_install() {
 		fi
 	fi
 }
-

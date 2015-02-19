@@ -39,4 +39,3 @@ src_install() {
 		dodoc doc/c2nim.txt
 	fi
 }
-

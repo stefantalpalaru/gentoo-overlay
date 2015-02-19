@@ -68,4 +68,3 @@ src_install() {
 	elog "Make sure your ~/.jsdr-fm-dab.ini file has 'deviceHandlers=/usr/lib/${PN}' in it"
 	elog "(you'll need to run ${PN} first to create it)"
 }
-

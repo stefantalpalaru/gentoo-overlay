@@ -26,7 +26,7 @@ src_unpack() {
 	git-r3_src_unpack
 	local csources_repo="https://github.com/nim-lang/csources"
 	git-r3_fetch "${csources_repo}"
-	git-r3_checkout "${csources_repo}" ${WORKDIR}/${P}/csources
+	git-r3_checkout "${csources_repo}" "${WORKDIR}/${P}/csources"
 }
 
 nim_use_enable() {
@@ -41,7 +41,7 @@ src_compile() {
 	./koch boot -d:release $(nim_use_enable readline useGnuReadline) || die "koch boot failed"
 	PATH="./bin:${PATH}" nim c -d:release tools/nimgrep.nim
 	PATH="./bin:${PATH}" nim c -d:release compiler/nimfix/nimfix.nim
-	
+
 	if use doc; then
 		PATH="./bin:${PATH}" ./koch web || die "koch web failed"
 	fi
@@ -68,4 +68,3 @@ src_install() {
 		dohtml doc/*.html
 	fi
 }
-

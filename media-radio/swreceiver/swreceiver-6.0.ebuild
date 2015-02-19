@@ -82,4 +82,3 @@ src_install() {
 	elog "Make sure your ~/.jsdr-sw.ini file has 'deviceBase=/usr/lib/${PN}/input' and 'decoderBase=/usr/lib/${PN}/decoder' in it"
 	elog "(you'll need to run ${PN} first to create it)"
 }
-

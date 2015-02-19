@@ -44,4 +44,3 @@ src_install() {
 	exeinto "/usr/bin"
 	newexe "linux-bin/sdr-j-${P}" "${PN}"
 }
-

@@ -19,4 +19,3 @@ IUSE=""
 
 DEPEND="dev-libs/hiredis"
 RDEPEND="${DEPEND}"
-

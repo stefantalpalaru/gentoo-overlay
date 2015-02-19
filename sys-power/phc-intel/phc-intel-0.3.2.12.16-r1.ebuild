@@ -71,4 +71,3 @@ src_prepare() {
 
 	mv acpi-cpufreq.c phc-intel.c || die
 }
-

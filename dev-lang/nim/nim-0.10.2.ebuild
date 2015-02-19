@@ -43,7 +43,7 @@ src_compile() {
 	./koch boot -d:release $(nim_use_enable readline useGnuReadline) || die "koch boot failed"
 	PATH="./bin:${PATH}" nim c -d:release tools/nimgrep.nim
 	PATH="./bin:${PATH}" nim c -d:release compiler/nimfix/nimfix.nim
-	
+
 	if use doc; then
 		PATH="./bin:$PATH" ./koch web || die "koch web failed"
 	fi
@@ -70,4 +70,3 @@ src_install() {
 		dohtml doc/*.html
 	fi
 }
-
