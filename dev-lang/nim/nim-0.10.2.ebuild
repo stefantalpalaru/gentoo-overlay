@@ -62,6 +62,9 @@ src_install() {
 	doexe tools/niminst/niminst
 	doexe tools/nimgrep
 	doexe compiler/nimfix/nimfix
+	insinto /usr/share/nim/lib
+	doins -r compiler
+	rm -r "${D}/usr/share/nim/lib/compiler/{nimcache,nimfix,nimsuggest}"
 
 	if use doc; then
 		dohtml doc/*.html
