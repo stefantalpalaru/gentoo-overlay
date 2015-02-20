@@ -62,7 +62,13 @@ src_install() {
 	doexe compiler/nimfix/nimfix
 	insinto /usr/share/nim/lib
 	doins -r compiler
-	rm -r "${D}/usr/share/nim/lib/compiler/{nimcache,nimfix,nimsuggest}"
+	doins -r doc
+	rm -r "${D}"/usr/share/nim/lib/compiler/{nimcache,nimfix/nimcache,nimfix/nimfix,nimsuggest,nim,nim0,nim1,nim2}
+	cat <<EOF >> "${D}/usr/share/nim/config/nim.cfg"
+
+# Gentoo additions
+path="\$lib/compiler"
+EOF
 
 	if use doc; then
 		dohtml doc/*.html
