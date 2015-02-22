@@ -35,11 +35,20 @@ nim_use_enable() {
 }
 
 src_compile() {
-	cd csources && sh build.sh || die "build.sh failed"
+	cd csources && sh build.sh --extraBuildArgs "${CFLAGS}" || die "build.sh failed"
 	cd ..
-	./bin/nim c koch || die "csources nim failed"
+	sed -i -e "s/^gcc\.options\.speed.*$/gcc.options.speed = \"${CFLAGS}\"/" \
+		-e "s/^gcc\.cpp\.options\.speed.*$/gcc.cpp.options.speed = \"${CFLAGS}\"/" \
+		-e "s/\"-ldl\"/\"-ldl ${LDFLAGS}\"/g" config/nim.cfg
+	cat <<EOF >> config/nim.cfg
+
+# Gentoo additions
+path="\$lib/compiler"
+EOF
+	./bin/nim c -d:release koch || die "csources nim failed"
 	./koch boot -d:release $(nim_use_enable readline useGnuReadline) || die "koch boot failed"
 	PATH="./bin:${PATH}" nim c -d:release tools/nimgrep.nim
+	echo -e "\npath:\"\$projectPath/../..\"" >> compiler/nimfix/nimfix.nim.cfg
 	PATH="./bin:${PATH}" nim c -d:release compiler/nimfix/nimfix.nim
 
 	if use doc; then
@@ -64,11 +73,6 @@ src_install() {
 	doins -r compiler
 	doins -r doc
 	rm -r "${D}"/usr/share/nim/lib/compiler/{nimcache,nimfix/nimcache,nimfix/nimfix,nimsuggest,nim,nim0,nim1,nim2}
-	cat <<EOF >> "${D}/usr/share/nim/config/nim.cfg"
-
-# Gentoo additions
-path="\$lib/compiler"
-EOF
 
 	if use doc; then
 		dohtml doc/*.html
