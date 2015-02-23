@@ -22,11 +22,11 @@ DEPEND="
 RDEPEND=""
 
 src_compile() {
-	nim c -d:release c2nim.nim
+	nim c -d:release c2nim.nim || die "compile failed"
 }
 
 src_test() {
-	nim c -d:release testsuite/tester.nim
+	nim c -d:release testsuite/tester.nim || die "tester.nim compile failed"
 	PATH=".:${PATH}" ./testsuite/tester
 }
 

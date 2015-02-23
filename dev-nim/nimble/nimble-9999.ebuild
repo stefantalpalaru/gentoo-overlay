@@ -22,11 +22,11 @@ DEPEND="
 RDEPEND=""
 
 src_compile() {
-	nim c -d:release src/nimble.nim
+	nim c -d:release src/${PN}.nim || die "compile failed"
 }
 
 src_test() {
-	nim c -d:release tests/tester.nim
+	nim c -d:release tests/tester.nim || die "tester.nim compile failed"
 	cd tests
 	./tester
 }
@@ -34,5 +34,5 @@ src_test() {
 src_install() {
 	dodir /usr/bin
 	exeinto /usr/bin
-	doexe src/nimble
+	doexe src/${PN}
 }

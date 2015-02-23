@@ -46,11 +46,12 @@ src_compile() {
 
 # Gentoo additions
 path="\$lib/compiler"
+path="\$lib/packages"
 EOF
 	./bin/nim c koch || die "csources nim failed"
 	./koch boot -d:release $(nim_use_enable readline useGnuReadline) || die "koch boot failed"
-	PATH="./bin:${PATH}" nim c -d:release tools/nimgrep.nim
-	PATH="./bin:${PATH}" nim c -d:release compiler/nimfix/nimfix.nim
+	PATH="./bin:${PATH}" nim c -d:release tools/nimgrep.nim || die "nimgrep.nim compilation failed"
+	PATH="./bin:${PATH}" nim c -d:release compiler/nimfix/nimfix.nim || die "nimfix.nim compilation failed"
 
 	if use doc; then
 		PATH="./bin:$PATH" ./koch web || die "koch web failed"

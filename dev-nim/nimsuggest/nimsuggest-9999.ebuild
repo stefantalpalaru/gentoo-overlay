@@ -22,11 +22,11 @@ DEPEND="
 RDEPEND=""
 
 src_compile() {
-	nim c -d:release nimsuggest.nim
+	nim c -d:release ${PN}.nim || die "compile failed"
 }
 
 src_install() {
 	dodir /usr/bin
 	exeinto /usr/bin
-	doexe nimsuggest
+	doexe ${PN}
 }
