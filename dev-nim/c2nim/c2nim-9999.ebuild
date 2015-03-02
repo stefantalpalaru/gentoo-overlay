@@ -6,7 +6,7 @@ EAPI=5
 
 inherit git-r3
 
-DESCRIPTION="a tool to translate Ansi C code to Nim"
+DESCRIPTION="a tool to translate ANSI C code to Nim"
 HOMEPAGE="https://github.com/nim-lang/c2nim"
 EGIT_REPO_URI="https://github.com/nim-lang/c2nim"
 EGIT_CLONE_TYPE="shallow"
@@ -22,7 +22,7 @@ DEPEND="
 RDEPEND=""
 
 src_compile() {
-	nim c -d:release c2nim.nim || die "compile failed"
+	nim c -d:release ${PN}.nim || die "compile failed"
 }
 
 src_test() {
@@ -33,7 +33,7 @@ src_test() {
 src_install() {
 	dodir /usr/bin
 	exeinto /usr/bin
-	doexe c2nim
+	doexe ${PN}
 
 	if use doc; then
 		dodoc doc/c2nim.txt
