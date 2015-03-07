@@ -32,7 +32,7 @@ pkg_setup() {
 		eerror "Please use a previous version of ${PN} or a newer kernel."
 		die
 	fi
-	if kernel_is gt 3 18 ; then
+	if kernel_is gt 3 19 ; then
 		eerror "Your kernel version is not yet supported by this version of ${PN}."
 		eerror "Please use a newer version of ${PN} or an older kernel."
 		die
@@ -41,14 +41,6 @@ pkg_setup() {
 }
 
 src_prepare() {
-	epatch \
-		"${FILESDIR}"/phc-intel-0.3.2-rev12-trailing-space-misc.patch \
-		"${FILESDIR}"/phc-intel-0.3.2-rev15-trailing-space-3.5.patch \
-		"${FILESDIR}"/phc-intel-0.3.2-rev14-trailing-space-3.13.patch \
-		"${FILESDIR}"/phc-intel-0.3.2-rev14-trailing-space-3.14.patch \
-		"${FILESDIR}"/phc-intel-0.3.2-rev15-trailing-space-3.15.patch \
-		"${FILESDIR}"/phc-intel-0.3.2-rev16-trailing-space-3.16.patch
-
 	sed -e '/^all:/s:prepare::' \
 		-i Makefile || die
 
