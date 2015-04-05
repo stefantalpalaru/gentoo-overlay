@@ -14,8 +14,8 @@ SLOT="0"
 KEYWORDS=""
 IUSE="convolution"
 
-RDEPEND="dev-lang/tcl
-	dev-lang/tk
+RDEPEND="dev-lang/tcl:0
+	dev-lang/tk:0
 	media-fonts/ttf-bitstream-vera
 	media-sound/jack-audio-connection-kit
 	>=media-libs/alsa-lib-1.0.0
