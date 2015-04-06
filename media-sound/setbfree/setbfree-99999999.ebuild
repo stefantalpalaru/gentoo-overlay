@@ -36,11 +36,6 @@ PATCHES=(
 	"${FILESDIR}/${PN}-multilib-strict-and-cflags-${PV}.patch"
 )
 
-src_prepare() {
-	base_src_prepare
-	sed -i -e "s/private/privatex/g" vb3kb/vb3kb.c vb3kb/vb3kb.h vb3kb/midi_jack.c vb3kb/midi_alsa.c || die "sed failed!"
-}
-
 src_compile() {
 	tc-export CC CXX
 	base_src_make PREFIX="${EPREFIX}"/usr \
