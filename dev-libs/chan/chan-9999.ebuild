@@ -20,7 +20,6 @@ DEPEND=""
 RDEPEND=""
 
 src_prepare() {
-	cp -a "${FILESDIR}/configure.ac" "${FILESDIR}/Makefile.am" .
 	eautoreconf
 }
 
