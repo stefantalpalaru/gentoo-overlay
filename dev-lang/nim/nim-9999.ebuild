@@ -14,7 +14,7 @@ EGIT_CLONE_TYPE="shallow"
 LICENSE="MIT"
 SLOT="0"
 KEYWORDS=""
-IUSE="doc +readline test"
+IUSE="+readline test" # 'doc' is broken because 'nim doc2 ... lib/impure/dialogs.nim' wants to import 'glib2' and 'gtk2'
 
 DEPEND="
 	readline? ( sys-libs/readline )
@@ -52,9 +52,9 @@ EOF
 	echo -e "\npath:\"\$projectPath/../..\"" >> compiler/nimfix/nimfix.nim.cfg
 	PATH="./bin:${PATH}" nim c -d:release compiler/nimfix/nimfix.nim || die "nimfix.nim compilation failed"
 
-	if use doc; then
-		PATH="./bin:${PATH}" ./koch web || die "koch web failed"
-	fi
+	#if use doc; then
+		#PATH="./bin:${PATH}" ./koch web || die "koch web failed"
+	#fi
 }
 
 src_test() {
@@ -75,7 +75,7 @@ src_install() {
 	doins -r doc
 	rm -r "${D}"/usr/share/nim/lib/compiler/{nimcache,nimfix/nimcache,nimfix/nimfix,nimsuggest,nim,nim0,nim1,nim2}
 
-	if use doc; then
-		dohtml doc/*.html
-	fi
+	#if use doc; then
+		#dohtml doc/*.html
+	#fi
 }

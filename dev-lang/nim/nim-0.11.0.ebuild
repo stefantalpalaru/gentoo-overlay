@@ -16,7 +16,7 @@ EGIT_CLONE_TYPE="shallow"
 LICENSE="MIT"
 SLOT="0"
 KEYWORDS="~amd64 ~x86"
-IUSE="doc +readline test"
+IUSE="+readline test" # 'doc' is broken because 'nim doc2 ... lib/impure/dialogs.nim' wants to import 'glib2' and 'gtk2'
 
 DEPEND="
 	readline? ( sys-libs/readline )
@@ -37,7 +37,7 @@ nim_use_enable() {
 }
 
 src_compile() {
-	cd csources && sh build.sh || die "build.sh failed"
+	cd csources && sh build.sh --extraBuildArgs "${CFLAGS}" || die "build.sh failed"
 	cd ..
 	sed -i -e "s/^gcc\.options\.speed.*$/gcc.options.speed = \"${CFLAGS}\"/" \
 		-e "s/^gcc\.cpp\.options\.speed.*$/gcc.cpp.options.speed = \"${CFLAGS}\"/" \
@@ -48,18 +48,19 @@ src_compile() {
 path="\$lib/compiler"
 path="\$lib/packages"
 EOF
-	./bin/nim c koch || die "csources nim failed"
+	./bin/nim c -d:release koch || die "csources nim failed"
 	./koch boot -d:release $(nim_use_enable readline useGnuReadline) || die "koch boot failed"
 	PATH="./bin:${PATH}" nim c -d:release tools/nimgrep.nim || die "nimgrep.nim compilation failed"
+	echo -e "\npath:\"\$projectPath/../..\"" >> compiler/nimfix/nimfix.nim.cfg
 	PATH="./bin:${PATH}" nim c -d:release compiler/nimfix/nimfix.nim || die "nimfix.nim compilation failed"
 
-	if use doc; then
-		PATH="./bin:$PATH" ./koch web || die "koch web failed"
-	fi
+	#if use doc; then
+		#PATH="./bin:${PATH}" ./koch web || die "koch web failed"
+	#fi
 }
 
 src_test() {
-	PATH="./bin:$PATH" ./koch test
+	PATH="./bin:${PATH}" ./koch test
 }
 
 src_install() {
@@ -74,9 +75,9 @@ src_install() {
 	insinto /usr/share/nim/lib
 	doins -r compiler
 	doins -r doc
-	rm -r "${D}"/usr/share/nim/lib/compiler/{nimcache,nimfix/nimcache,nimfix/nimfix,nim,nim0,nim1}
+	rm -r "${D}"/usr/share/nim/lib/compiler/{nimcache,nimfix/nimcache,nimfix/nimfix,nimsuggest,nim,nim0,nim1}
 
-	if use doc; then
-		dohtml doc/*.html
-	fi
+	#if use doc; then
+		#dohtml doc/*.html
+	#fi
 }
