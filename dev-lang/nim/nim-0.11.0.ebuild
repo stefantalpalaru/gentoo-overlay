@@ -16,13 +16,15 @@ EGIT_CLONE_TYPE="shallow"
 LICENSE="MIT"
 SLOT="0"
 KEYWORDS="~amd64 ~x86"
-IUSE="+readline test" # 'doc' is broken because 'nim doc2 ... lib/impure/dialogs.nim' wants to import 'glib2' and 'gtk2'
+IUSE="boehm-gc +readline test" # 'doc' is broken because 'nim doc2 ... lib/impure/dialogs.nim' wants to import 'glib2' and 'gtk2'
 
 DEPEND="
 	readline? ( sys-libs/readline )
 	sys-libs/zlib
 "
-RDEPEND=""
+RDEPEND="
+	boehm-gc? ( dev-libs/boehm-gc )
+"
 
 src_unpack() {
 	base_src_unpack

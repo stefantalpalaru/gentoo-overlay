@@ -5,4 +5,7 @@
 		<email>stefantalpalaru@yahoo.com</email>
 		<name>Ștefan Talpalaru</name>
 	</maintainer>
+<use>
+	<flag name='boehm-gc'>Enable Hans Boehm's garbage collector (<pkg>dev-libs/boehm-gc</pkg>).</flag>
+</use>
 </pkgmetadata>
