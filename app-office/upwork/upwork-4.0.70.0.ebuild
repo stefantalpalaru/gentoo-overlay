@@ -11,8 +11,8 @@ QA_PREBUILT="*"
 
 DESCRIPTION="Project collaboration and tracking software for upwork.com"
 HOMEPAGE="https://www.upwork.com/"
-SRC_URI="amd64? ( http://updates.team.odesk.com/binaries/v4_0_67_0_xfUDxd3YthR6b4Lb/${PN}_x86_64.rpm -> ${P}_x86_64.rpm )
-		 x86? ( http://updates.team.odesk.com/binaries/v4_0_67_0_xfUDxd3YthR6b4Lb/${PN}_i386.rpm -> ${P}_i386.rpm )
+SRC_URI="amd64? ( http://updates.team.odesk.com/binaries/v4_0_70_0_bccbf5c8e0866/${PN}_x86_64.rpm -> ${P}_x86_64.rpm )
+		 x86? ( http://updates.team.odesk.com/binaries/v4_0_70_0_bccbf5c8e0866/${PN}_i386.rpm -> ${P}_i386.rpm )
 "
 LICENSE="ODESK"
 SLOT="0"
