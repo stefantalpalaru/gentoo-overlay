@@ -77,6 +77,9 @@ src_install() {
 	dodoc scripts/drbd.conf.example
 
 	dosym /usr/sbin/drbdadm /sbin/drbdadm
+	for F in /lib/drbd/*
+		do dosym "$F" "/usr/sbin/${F#/lib/drbd/}"
+	done
 }
 
 pkg_postinst() {
