@@ -75,6 +75,8 @@ src_install() {
 	insinto /usr/share/nim/lib
 	doins -r compiler
 	doins -r doc
+	insinto /usr/share/nim/lib/wrappers
+	doins -r lib/wrappers/linenoise
 	rm -r "${D}"/usr/share/nim/lib/compiler/{nimcache,nimfix/nimcache,nimfix/nimfix,nimsuggest,nim,nim0,nim1,nim2}
 
 	#if use doc; then
