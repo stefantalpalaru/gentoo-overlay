@@ -20,12 +20,13 @@ DEPEND="
 	>=dev-lang/nim-0.9.2
 	x11-libs/gtksourceview
 	dev-libs/libpcre
+	dev-nim/dialogs
 	dev-nim/gtk2-nim
 "
 RDEPEND=""
 
 src_compile() {
-	nim c -d:release -p:"\$lib/packages/gtk2" -p:"\$lib/packages/cairo" ${PN}.nim || die "compile failed"
+	nim c -d:release -p:"\$lib/packages/gtk2" -p:"\$lib/packages/cairo" -p:"\$lib/packages/dialogs" ${PN}.nim || die "compile failed"
 }
 
 src_install() {
