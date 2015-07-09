@@ -21,6 +21,7 @@ RDEPEND="
 		dev-python/Babel[${PYTHON_USEDEP}]
 		dev-python/celery[${PYTHON_USEDEP}]
 		dev-python/pytz[${PYTHON_USEDEP}]
+		virtual/python-futures[${PYTHON_USEDEP}]
 		>=www-servers/tornado-4.0.0[${PYTHON_USEDEP}]
 "
 DEPEND="${RDEPEND}
