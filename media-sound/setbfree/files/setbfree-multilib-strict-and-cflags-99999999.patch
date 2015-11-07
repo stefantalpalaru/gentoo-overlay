@@ -1,6 +1,5 @@
-diff -ur a/common.mak b/common.mak
---- a/common.mak	2015-04-06 15:41:32.071101688 +0200
-+++ b/common.mak	2015-04-06 15:45:13.639344653 +0200
+--- a/common.mak	2015-11-07 15:09:19.567306775 +0100
++++ b/common.mak	2015-11-07 16:06:12.690968367 +0100
 @@ -2,6 +2,7 @@
  
  PREFIX ?= /usr/local
@@ -8,11 +7,12 @@ diff -ur a/common.mak b/common.mak
 +LIBDIR ?= lib
  ENABLE_CONVOLUTION ?= no
  FONTFILE?=/usr/share/fonts/truetype/ttf-bitstream-vera/VeraBd.ttf
- VERSION?=$(shell git describe --tags HEAD | sed 's/-g.*$$//;s/^v//' || true)
-@@ -17,14 +18,16 @@
+ VERSION?=$(shell git describe --tags HEAD 2>/dev/null | sed 's/-g.*$$//;s/^v//' || true)
+@@ -19,17 +20,18 @@
+ 
  bindir = $(PREFIX)/bin
  sharedir = $(PREFIX)/share/setBfree
- lv2dir = $(PREFIX)/lib/lv2
+-lv2dir = $(PREFIX)/lib/lv2
 +lv2dir = $(PREFIX)/$(LIBDIR)/lv2
  
 -CFLAGS ?= $(OPTIMIZATIONS) -Wall
@@ -23,8 +23,10 @@ diff -ur a/common.mak b/common.mak
  override CFLAGS += -DVERSION="\"$(VERSION)\""
 +override CFLAGS += -fpermissive
  
--CXXFLAGS = $(OPTIMIZATIONS) -Wall
-+CXXFLAGS = -Wall
+ STRIP    ?= strip
  
- # check for LV2
- LV2AVAIL=$(shell pkg-config --exists lv2 && echo yes)
+-CXXFLAGS ?= $(OPTIMIZATIONS) -Wall
++CXXFLAGS = -Wall
+ GLUICFLAGS=-I. -I.. -Wno-unused-function
+ STRIPFLAGS=-s
+ 

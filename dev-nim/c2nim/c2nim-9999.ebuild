@@ -36,6 +36,6 @@ src_install() {
 	doexe ${PN}
 
 	if use doc; then
-		dodoc doc/c2nim.txt
+		dodoc doc/c2nim.rst
 	fi
 }
