@@ -1,0 +1,14 @@
+diff --git a/core/libs/dimg/filters/lens/lensfuniface.h b/core/libs/dimg/filters/lens/lensfuniface.h
+index ad137ff..d9b9c80 100644
+--- a/core/libs/dimg/filters/lens/lensfuniface.h
++++ b/core/libs/dimg/filters/lens/lensfuniface.h
+@@ -24,10 +24,7 @@
+ 
+ // Lib LensFun includes
+ 
+-extern "C"
+-{
+ #include <lensfun.h>
+-}
+ 
+ // local includes
