@@ -1,0 +1,15 @@
+diff -ur a/makefile.in b/makefile.in
+--- a/makefile.in	2015-12-08 03:51:15.139050820 +0100
++++ b/makefile.in	2015-12-08 03:54:49.016882980 +0100
+@@ -1253,9 +1253,9 @@
+ install:
+ 	@echo "installing..."
+ 	@echo ""
+-	mkdir -p $(DESTDIR)$(exec_prefix)$(libdir)
++	mkdir -p $(DESTDIR)$(libdir)
+ 	mkdir -p $(DESTDIR)$(prefix)/include/liquid
+-	install -m 644 -p $(SHARED_LIB) libliquid.a $(DESTDIR)$(exec_prefix)$(libdir)
++	install -m 644 -p $(SHARED_LIB) libliquid.a $(DESTDIR)$(libdir)
+ 	install -m 644 -p $(addprefix include/,$(headers_install)) $(DESTDIR)$(prefix)/include/liquid
+ 	@echo ""
+ 	@echo "---------------------------------------------------------"

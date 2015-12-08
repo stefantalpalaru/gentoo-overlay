@@ -1,0 +1,12 @@
+diff -ur a/CMakeLists.txt b/CMakeLists.txt
+--- a/CMakeLists.txt	2015-12-08 03:59:01.674415488 +0100
++++ b/CMakeLists.txt	2015-12-08 04:05:31.316357140 +0100
+@@ -77,7 +77,7 @@
+ SET(OTHER_LIBRARIES ${OTHER_LIBRARIES} ${LIQUID_LIBRARIES} ${FFTW_LIBRARIES})
+ #ENDIF()
+ 
+-find_package(wxWidgets COMPONENTS gl core base REQUIRED)
++find_package(wxWidgets COMPONENTS gl core base propgrid REQUIRED)
+ set(wxWidgets_CONFIGURATION mswu)
+ include(${wxWidgets_USE_FILE})
+ 
