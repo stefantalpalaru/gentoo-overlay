@@ -10,7 +10,7 @@ inherit cmake-utils wxwidgets
 
 DESCRIPTION="Cross-Platform Software-Defined Radio Application"
 HOMEPAGE="http://cubicsdr.com/"
-SRC_URI="https://github.com/cjcliffe/CubicSDR/archive/$PV-soapysdr.tar.gz"
+SRC_URI="https://github.com/cjcliffe/CubicSDR/archive/v${PV}-alpha.tar.gz"
 
 LICENSE="GPL-2"
 SLOT="0"
@@ -29,10 +29,6 @@ DEPEND="alsa? ( media-libs/alsa-lib )
 	x11-libs/wxGTK:3.0[opengl]
 "
 RDEPEND="${DEPEND}"
-
-PATCHES=( "${FILESDIR}/${P}-wxwidgets.patch"
-	"${FILESDIR}/${P}-install.patch"
-)
 
 src_unpack() {
 	unpack ${A}
