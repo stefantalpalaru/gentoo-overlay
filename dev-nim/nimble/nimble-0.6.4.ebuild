@@ -18,7 +18,7 @@ KEYWORDS="~amd64 ~x86"
 IUSE=""
 
 DEPEND="
-	>=dev-lang/nim-0.9.4
+	>=dev-lang/nim-0.12.0
 "
 RDEPEND=""
 
