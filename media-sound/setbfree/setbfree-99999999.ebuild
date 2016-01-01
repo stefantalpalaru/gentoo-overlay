@@ -1,9 +1,9 @@
-# Copyright 1999-2015 Gentoo Foundation
+# Copyright 1999-2016 Gentoo Foundation
 # Distributed under the terms of the GNU General Public License v2
 # $Id$
 
 EAPI="5"
-inherit base toolchain-funcs multilib git-2
+inherit eutils toolchain-funcs multilib git-2
 
 DESCRIPTION="MIDI controlled DSP tonewheel organ"
 HOMEPAGE="http://setbfree.org"
@@ -38,13 +38,13 @@ PATCHES=(
 
 src_compile() {
 	tc-export CC CXX
-	base_src_make PREFIX="${EPREFIX}"/usr \
+	emake PREFIX="${EPREFIX}"/usr \
 		FONTFILE="/usr/share/fonts/ttf-bitstream-vera/VeraBd.ttf" \
-		$(use convolution && echo "ENABLE_CONVOLUTION=yes")
+		$(use convolution && echo "ENABLE_CONVOLUTION=yes") || die "died running emake, $FUNCNAME"
 }
 
 src_install() {
-	base_src_install $(use convolution && echo "ENABLE_CONVOLUTION=yes") \
+	default_src_install $(use convolution && echo "ENABLE_CONVOLUTION=yes") \
 		FONTFILE="/usr/share/fonts/ttf-bitstream-vera/VeraBd.ttf" \
 		PREFIX="${EPREFIX}"/usr LIBDIR="$(get_libdir)"
 

@@ -1,9 +1,9 @@
-# Copyright 1999-2015 Gentoo Foundation
+# Copyright 1999-2016 Gentoo Foundation
 # Distributed under the terms of the GNU General Public License v2
 # $Id$
 
 EAPI=5
-inherit base multilib toolchain-funcs
+inherit multilib toolchain-funcs
 
 DESCRIPTION="A high performance audio signal convolver library"
 HOMEPAGE="http://kokkinizita.linuxaudio.org/linuxaudio/"
@@ -27,6 +27,7 @@ src_compile() {
 }
 
 src_install() {
+	sed -i -e '/ldconfig/d' libs/Makefile
 	emake -C libs DESTDIR="${D}" PREFIX="${EPREFIX}"/usr \
 		LIBDIR="$(get_libdir)" LDCONFIG= install
 	dodoc AUTHORS README

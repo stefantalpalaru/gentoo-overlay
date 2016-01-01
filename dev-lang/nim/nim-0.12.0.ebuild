@@ -1,10 +1,10 @@
-# Copyright 1999-2015 Gentoo Foundation
+# Copyright 1999-2016 Gentoo Foundation
 # Distributed under the terms of the GNU General Public License v2
 # $Id$
 
 EAPI=5
 
-inherit base git-r3
+inherit git-r3
 
 DESCRIPTION="Nim (formerly known as 'Nimrod') is a compiled, garbage-collected systems programming language"
 HOMEPAGE="http://nim-lang.org/"
@@ -27,7 +27,7 @@ RDEPEND="
 "
 
 src_unpack() {
-	base_src_unpack
+	default_src_unpack
 	mv ${P} ${PN}-csources-${PV}
 	git-r3_src_unpack
 	mv ${PN}-csources-${PV} ${P}/csources
