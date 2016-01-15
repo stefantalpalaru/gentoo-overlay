@@ -1,0 +1,28 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE pkgmetadata SYSTEM "http://www.gentoo.org/dtd/metadata.dtd">
+<pkgmetadata>
+	<maintainer>
+		<email>stefantalpalaru@yahoo.com</email>
+		<name>Ștefan Talpalaru</name>
+	</maintainer>
+<use>
+	<flag name="bzip2">
+		Add support for pcregrep command to search within
+		bzip2-compressed files (via <pkg>app-arch/bzip2</pkg>).
+	</flag>
+	<flag name="pcre16">Build PCRE2 library for 16 bit characters (e.g. UTF-16).</flag>
+	<flag name="pcre32">Build PCRE2 library for 32 bit characters (e.g. UTF-32).</flag>
+	<flag name="readline">
+		Add support for command line editing to pcre2test, through
+		<pkg>sys-libs/readline</pkg>.
+	</flag>
+	<flag name="recursion-limit">
+		Limit match recursion to 8192; if disabled, the default limit is
+		used, which is the same as the match limit.
+	</flag>
+	<flag name="zlib">
+		Add support for pcregrep command to search within
+		gzip-compressed files (via <pkg>sys-libs/zlib</pkg>).
+	</flag>
+</use>
+</pkgmetadata>
