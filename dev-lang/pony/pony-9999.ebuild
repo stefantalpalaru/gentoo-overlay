@@ -14,7 +14,7 @@ EGIT_CLONE_TYPE="shallow"
 LICENSE="BSD-2"
 SLOT="0"
 KEYWORDS=""
-IUSE="test"
+IUSE="test vim-syntax"
 RESTRICT="strip"
 
 RDEPEND="dev-libs/libpcre2
@@ -22,6 +22,7 @@ RDEPEND="dev-libs/libpcre2
 	sys-devel/llvm:0/3.6
 	sys-libs/ncurses:=
 	sys-libs/zlib
+	vim-syntax? ( app-vim/pony-syntax )
 "
 DEPEND="${RDEPEND}
 	virtual/pkgconfig
