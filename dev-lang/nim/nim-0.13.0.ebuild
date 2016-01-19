@@ -6,9 +6,9 @@ EAPI=5
 
 inherit git-r3
 
-DESCRIPTION="Nim (formerly known as 'Nimrod') is a compiled, garbage-collected systems programming language"
+DESCRIPTION="Nim is a compiled, garbage-collected systems programming language"
 HOMEPAGE="http://nim-lang.org/"
-SRC_URI="http://nim-lang.org/download/${P}.zip"
+SRC_URI="http://nim-lang.org/download/${P}.tar.xz"
 EGIT_REPO_URI="https://github.com/Araq/Nim"
 EGIT_COMMIT="refs/tags/v${PV}"
 EGIT_CLONE_TYPE="shallow"
@@ -16,7 +16,7 @@ EGIT_CLONE_TYPE="shallow"
 LICENSE="MIT"
 SLOT="0"
 KEYWORDS="~amd64 ~x86"
-IUSE="boehm-gc +readline test" # 'doc' is broken because 'nim doc2 ... lib/impure/dialogs.nim' wants to import 'glib2' and 'gtk2'
+IUSE="boehm-gc doc +readline test"
 
 DEPEND="
 	readline? ( sys-libs/readline )
@@ -39,11 +39,18 @@ nim_use_enable() {
 }
 
 src_compile() {
-	cd csources && sh build.sh --extraBuildArgs "${CFLAGS}" || die "build.sh failed"
+	cd csources
+	sed -i \
+		-e "s/^COMP_FLAGS =.*$/COMP_FLAGS = ${CFLAGS} -fno-strict-aliasing/" \
+		-e "s/^LINK_FLAGS =.*$/LINK_FLAGS = ${LDFLAGS}/" \
+		makefile
+	emake
 	cd ..
-	sed -i -e "s/^gcc\.options\.speed.*$/gcc.options.speed = \"${CFLAGS}\"/" \
-		-e "s/^gcc\.cpp\.options\.speed.*$/gcc.cpp.options.speed = \"${CFLAGS}\"/" \
-		-e "s/\"-ldl\"/\"-ldl ${LDFLAGS}\"/g" config/nim.cfg
+	sed -i \
+		-e "s/^gcc\.options\.speed.*$/gcc.options.speed = \"${CFLAGS} -fno-strict-aliasing\"/" \
+		-e "s/^gcc\.cpp\.options\.speed.*$/gcc.cpp.options.speed = \"${CFLAGS} -fno-strict-aliasing\"/" \
+		-e "s/\"-ldl\"/\"-ldl ${LDFLAGS}\"/g" \
+		config/nim.cfg
 	cat <<EOF >> config/nim.cfg
 
 # Gentoo additions
@@ -56,9 +63,9 @@ EOF
 	echo -e "\npath:\"\$projectPath/../..\"" >> compiler/nimfix/nimfix.nim.cfg
 	PATH="./bin:${PATH}" nim c -d:release compiler/nimfix/nimfix.nim || die "nimfix.nim compilation failed"
 
-	#if use doc; then
-		#PATH="./bin:${PATH}" ./koch web || die "koch web failed"
-	#fi
+	if use doc; then
+		PATH="./bin:${PATH}" ./koch web || die "koch web failed"
+	fi
 }
 
 src_test() {
@@ -79,7 +86,7 @@ src_install() {
 	doins -r doc
 	rm -r "${D}"/usr/share/nim/lib/compiler/{nimcache,nimfix/nimcache,nimfix/nimfix,nimsuggest,nim,nim0,nim1}
 
-	#if use doc; then
-		#dohtml doc/*.html
-	#fi
+	if use doc; then
+		dohtml doc/*.html
+	fi
 }
