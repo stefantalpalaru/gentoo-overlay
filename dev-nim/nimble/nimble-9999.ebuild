@@ -17,7 +17,7 @@ KEYWORDS=""
 IUSE="test"
 
 DEPEND="
-	>=dev-lang/nim-0.12.1
+	>=dev-lang/nim-0.13.1
 "
 RDEPEND=""
 
