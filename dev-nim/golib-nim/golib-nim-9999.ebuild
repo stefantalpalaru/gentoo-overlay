@@ -17,7 +17,7 @@ KEYWORDS=""
 IUSE=""
 
 DEPEND="
-	dev-lang/nim
+	>=dev-lang/nim-0.13.0
 	dev-libs/golib
 "
 RDEPEND=""
