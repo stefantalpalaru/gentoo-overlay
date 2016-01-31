@@ -32,7 +32,7 @@ pkg_setup() {
 		eerror "Please use a previous version of ${PN} or a newer kernel."
 		die
 	fi
-	if kernel_is gt 4 3 ; then
+	if kernel_is gt 4 4 ; then
 		eerror "Your kernel version is not yet supported by this version of ${PN}."
 		eerror "Please use a newer version of ${PN} or an older kernel."
 		die
