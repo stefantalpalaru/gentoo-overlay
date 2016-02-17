@@ -1,0 +1,147 @@
+--- a/ntfsprogs/ntfsclone.c	2015-03-14 15:10:12.000000000 +0100
++++ b/ntfsprogs/ntfsclone.c	2015-11-09 08:27:24.921612100 +0100
+@@ -2458,64 +2458,27 @@
+ 		set_filesize(input_size);
+ }
+ 
+-static ntfs_attr_search_ctx *attr_get_search_ctx(ntfs_inode *ni)
+-{
+-	ntfs_attr_search_ctx *ret;
+-
+-	if ((ret = ntfs_attr_get_search_ctx(ni, NULL)) == NULL)
+-		perr_printf("ntfs_attr_get_search_ctx");
+-
+-	return ret;
+-}
+-
+-/**
+- * lookup_data_attr
+- *
+- * Find the $DATA attribute (with or without a name) for the given ntfs inode.
+- */
+-static ntfs_attr_search_ctx *lookup_data_attr(ntfs_inode *ni, const char *aname)
+-{
+-	ntfs_attr_search_ctx *ctx;
+-	ntfschar *ustr;
+-	int len = 0;
+-
+-	if ((ctx = attr_get_search_ctx(ni)) == NULL)
+-		return NULL;
+-
+-	if ((ustr = ntfs_str2ucs(aname, &len)) == NULL) {
+-		perr_printf("Couldn't convert '%s' to Unicode", aname);
+-		goto error_out;
+-	}
+-
+-	if (ntfs_attr_lookup(AT_DATA, ustr, len, CASE_SENSITIVE,
+-				0, NULL, 0, ctx)) {
+-		perr_printf("ntfs_attr_lookup");
+-		goto error_out;
+-	}
+-	ntfs_ucsfree(ustr);
+-	return ctx;
+-error_out:
+-	ntfs_attr_put_search_ctx(ctx);
+-	return NULL;
+-}
+-
+ static void ignore_bad_clusters(ntfs_walk_clusters_ctx *image)
+ {
+ 	ntfs_inode *ni;
+-	ntfs_attr_search_ctx *ctx = NULL;
+-	runlist *rl, *rl_bad;
++	ntfs_attr *na;
++	runlist *rl;
+ 	s64 nr_bad_clusters = 0;
++	static le16 Bad[4] = {
++		const_cpu_to_le16('$'), const_cpu_to_le16('B'),
++		const_cpu_to_le16('a'), const_cpu_to_le16('d')
++	} ;
+ 
+ 	if (!(ni = ntfs_inode_open(vol, FILE_BadClus)))
+ 		perr_exit("ntfs_open_inode");
+ 
+-	if ((ctx = lookup_data_attr(ni, "$Bad")) == NULL)
+-		exit(1);
+-
+-	if (!(rl_bad = ntfs_mapping_pairs_decompress(vol, ctx->attr, NULL)))
+-		perr_exit("ntfs_mapping_pairs_decompress");
++	na = ntfs_attr_open(ni, AT_DATA, Bad, 4);
++	if (!na)
++		perr_exit("ntfs_attr_open");
++	if (ntfs_attr_map_whole_runlist(na))
++		perr_exit("ntfs_attr_map_whole_runlist");
+ 
+-	for (rl = rl_bad; rl->length; rl++) {
++	for (rl = na->rl; rl->length; rl++) {
+ 		s64 lcn = rl->lcn;
+ 
+ 		if (lcn == LCN_HOLE || lcn < 0)
+@@ -2529,9 +2492,7 @@
+ 	if (nr_bad_clusters)
+ 		Printf("WARNING: The disk has %lld or more bad sectors"
+ 		       " (hardware faults).\n", (long long)nr_bad_clusters);
+-	free(rl_bad);
+-
+-	ntfs_attr_put_search_ctx(ctx);
++	ntfs_attr_close(na);
+ 	if (ntfs_inode_close(ni))
+ 		perr_exit("ntfs_inode_close failed for $BadClus");
+ }
+--- a/ntfsprogs/ntfsresize.c	2015-11-08 18:51:46.315895000 +0100
++++ b/ntfsprogs/ntfsresize.c	2015-11-08 18:51:46.696521500 +0100
+@@ -2569,8 +2569,13 @@
+ {
+ 	ntfs_attr_search_ctx *ctx;
+ 	ntfs_inode *base_ni;
++	ntfs_attr *na;
+ 	runlist *rl;
+ 	s64 i, badclusters = 0;
++	static le16 Bad[4] = {
++		const_cpu_to_le16('$'), const_cpu_to_le16('B'),
++		const_cpu_to_le16('a'), const_cpu_to_le16('d')
++	} ;
+ 
+ 	ntfs_log_verbose("Checking for bad sectors ...\n");
+ 
+@@ -2580,23 +2585,16 @@
+ 	if (!base_ni)
+ 		base_ni = ctx->ntfs_ino;
+ 
+-	if (NInoAttrList(base_ni)) {
+-		err_printf("Too many bad sectors have been detected!\n");
+-		printf("%s", many_bad_sectors_msg);
++	na = ntfs_attr_open(base_ni, AT_DATA, Bad, 4);
++	if (!na) {
++		err_printf("Could not access the bad sector list\n");
+ 		exit(1);
+ 	}
+-
+-	if (!ctx->attr->non_resident)
+-		err_exit("Resident attribute in $BadClust! Please report to "
+-			 "%s\n", NTFS_DEV_LIST);
+-	/*
+-	 * FIXME: The below would be partial for non-base records in the
+-	 * not yet supported multi-record case. Alternatively use audited
+-	 * ntfs_attr_truncate after an umount & mount.
+-	 */
+-	if (!(rl = ntfs_mapping_pairs_decompress(vol, ctx->attr, NULL)))
+-		perr_exit("Decompressing $BadClust:$Bad mapping pairs failed");
+-
++	if (ntfs_attr_map_whole_runlist(na) || !na->rl) {
++		err_printf("Could not decode the bad sector list\n");
++		exit(1);
++	}
++	rl = na->rl;
+ 	for (i = 0; rl[i].length; i++) {
+ 		/* CHECKME: LCN_RL_NOT_MAPPED check isn't needed */
+ 		if (rl[i].lcn == LCN_HOLE || rl[i].lcn == LCN_RL_NOT_MAPPED)
+@@ -2622,7 +2620,7 @@
+ 			       "problems and massive data loss!!!\n");
+ 	}
+ 
+-	free(rl);
++	ntfs_attr_close(na);
+ #if CLEAN_EXIT
+ 	close_inode_and_context(ctx);
+ #else
