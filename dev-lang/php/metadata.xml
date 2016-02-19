@@ -1,7 +1,6 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <!DOCTYPE pkgmetadata SYSTEM "http://www.gentoo.org/dtd/metadata.dtd">
 <pkgmetadata>
-	<herd>php</herd>
 	<use>
 		<flag name='cli'>Enable CLI SAPI</flag>
 		<flag name='embed'>Enable embed SAPI</flag>
