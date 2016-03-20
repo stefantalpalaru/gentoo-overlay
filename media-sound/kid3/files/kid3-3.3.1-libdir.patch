@@ -1,0 +1,23 @@
+diff -ur a/CMakeLists.txt b/CMakeLists.txt
+--- a/CMakeLists.txt    2016-03-16 22:10:11.518402304 +0200
++++ b/CMakeLists.txt    2016-03-16 22:12:53.611398761 +0200
+@@ -159,7 +159,7 @@
+   endif (BUILD_KDE_APP OR BUILD_SHARED_LIBS)
+   set(WITH_QMLDIR_DEFAULT "share/kid3/qml")
+   set(WITH_BINDIR_DEFAULT "bin")
+-  set(WITH_LIBDIR_DEFAULT "lib${LIB_SUFFIX}/kid3")
++  set(WITH_LIBDIR_DEFAULT "lib${LIB_SUFFIX}")
+   set(WITH_PLUGINSDIR_DEFAULT "${WITH_LIBDIR_DEFAULT}/plugins")
+ endif (APPLE)
+ 
+@@ -189,6 +189,10 @@
+ #IGNORE   set(CMAKE_INSTALL_PREFIX_SLASH "")
+ endif (CMAKE_INSTALL_PREFIX)
+ 
++if (NOT APPLE AND NOT WIN32)
++  set(WITH_PLUGINSDIR "${WITH_LIBDIR_DEFAULT}/qt4/plugins/kid3")
++endif ()
++
+ if (APPLE)
+ file(RELATIVE_PATH CFG_DATAROOTDIR "/kid3.app/Contents/MacOS" /${WITH_DATAROOTDIR})
+ file(RELATIVE_PATH CFG_DOCDIR "/kid3.app/Contents/MacOS" /${WITH_DOCDIR})
