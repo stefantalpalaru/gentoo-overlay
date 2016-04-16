@@ -20,7 +20,7 @@ DESCRIPTION="vim plugin: a code-completion engine for Vim"
 HOMEPAGE="http://valloric.github.io/YouCompleteMe/"
 
 LICENSE="GPL-3"
-IUSE="+clang test"
+IUSE="clang test"
 REQUIRED_USE="${PYTHON_REQUIRED_USE}"
 
 COMMON_DEPEND="
