@@ -19,7 +19,7 @@ IUSE=""
 
 RDEPEND="
 	>=app-crypt/acme-0.1.1[${PYTHON_USEDEP}]
-	>=app-crypt/letsencrypt-0.1.1[${PYTHON_USEDEP}]
+	app-crypt/certbot[${PYTHON_USEDEP}]
 	dev-python/boto3
 	>=dev-python/pyparsing-1.5.5[${PYTHON_USEDEP}]
 	dev-python/mock[${PYTHON_USEDEP}]
