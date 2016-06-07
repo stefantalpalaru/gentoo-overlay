@@ -38,13 +38,12 @@ nim_use_enable() {
 
 src_compile() {
 	cd csources
-	sh build.sh --extraBuildArgs "${CFLAGS}" || die "build.sh failed"
-	## waiting for this to be fixed: https://github.com/nim-lang/csources/issues/19
-	#sed -i \
-		#-e "s/^COMP_FLAGS =.*$/COMP_FLAGS = ${CFLAGS} -fno-strict-aliasing/" \
-		#-e "s/^LINK_FLAGS =.*$/LINK_FLAGS = ${LDFLAGS}/" \
-		#makefile
-	#emake
+	#sh build.sh --extraBuildArgs "${CFLAGS}" || die "build.sh failed"
+	sed -i \
+		-e "s/^COMP_FLAGS =.*$/COMP_FLAGS = ${CFLAGS} -fno-strict-aliasing/" \
+		-e "s/^LINK_FLAGS =.*$/LINK_FLAGS = ${LDFLAGS}/" \
+		makefile
+	emake
 	cd ..
 	sed -i \
 		-e "s/^gcc\.options\.speed.*$/gcc.options.speed = \"${CFLAGS} -fno-strict-aliasing\"/" \
