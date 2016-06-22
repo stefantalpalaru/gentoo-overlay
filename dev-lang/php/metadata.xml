@@ -3,6 +3,7 @@
 <pkgmetadata>
 	<use>
 		<flag name='cli'>Enable CLI SAPI</flag>
+		<flag name='curlwrappers'>Enable curl wrappers</flag>
 		<flag name='embed'>Enable embed SAPI</flag>
 		<flag name='enchant'>Add supports Enchant spelling library.</flag>
 		<flag name='fileinfo'>Add fileinfo extension support</flag>
