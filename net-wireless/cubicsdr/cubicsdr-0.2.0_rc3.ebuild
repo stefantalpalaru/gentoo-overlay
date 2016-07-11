@@ -5,12 +5,13 @@
 EAPI=5
 
 WX_GTK_VER="3.0"
+MY_PV="${PV%_rc?}"
 
 inherit cmake-utils wxwidgets
 
 DESCRIPTION="Cross-Platform Software-Defined Radio Application"
 HOMEPAGE="http://cubicsdr.com/"
-SRC_URI="https://github.com/cjcliffe/CubicSDR/archive/v${PV}-alpha.tar.gz"
+SRC_URI="https://github.com/cjcliffe/CubicSDR/archive/${MY_PV}-beta-rc3.tar.gz"
 
 LICENSE="GPL-2"
 SLOT="0"
@@ -24,7 +25,6 @@ DEPEND="alsa? ( media-libs/alsa-lib )
 	>=net-wireless/soapysdr-0.4.0
 	pulseaudio? ( media-sound/pulseaudio )
 	rtlsdr? ( net-wireless/soapy-rtlsdr )
-	sci-libs/fftw:3.0
 	virtual/opengl
 	x11-libs/wxGTK:3.0[opengl]
 "
@@ -36,7 +36,7 @@ src_unpack() {
 }
 
 src_prepare() {
-	rm -rf external/fftw* external/liquid-dsp rtaudio
+	rm -rf external/fftw* external/liquid-dsp
 	cmake-utils_src_prepare
 }
 

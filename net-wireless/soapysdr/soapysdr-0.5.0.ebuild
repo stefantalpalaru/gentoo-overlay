@@ -41,7 +41,10 @@ src_configure() {
 			-DPYTHON_SUFFIX="-${EPYTHON}"
 			$(cmake-utils_use_enable python PYTHON)
 		)
-		#if python_is_python3; then
+
+		## Python 2/3 support seems broken in cmake
+
+		#if [ -n "${EPYTHON}" ] && python_is_python3; then
 			#mycmakeargs+=( -DBUILD_PYTHON3=ON )
 		#else
 			#mycmakeargs+=( -DBUILD_PYTHON3=OFF )

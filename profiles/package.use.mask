@@ -1,0 +1,3 @@
+# Python support broken in cmake
+net-wireless/soapysdr python
+
