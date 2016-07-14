@@ -4,15 +4,16 @@
 
 EAPI=5
 
-inherit rpm eutils
+inherit rpm eutils pax-utils
 
 # Binary only distribution
 QA_PREBUILT="*"
 
 DESCRIPTION="Project collaboration and tracking software for upwork.com"
 HOMEPAGE="https://www.upwork.com/"
-SRC_URI="amd64? ( http://updates.team.odesk.com/binaries/v4_0_144_0_mj9j7zmoj9asg5f0/${PN}_x86_64.rpm -> ${P}_x86_64.rpm )
-		 x86? ( http://updates.team.odesk.com/binaries/v4_0_144_0_mj9j7zmoj9asg5f0/${PN}_i386.rpm -> ${P}_i386.rpm )
+SRC_URI="
+	amd64? ( http://updates.team.odesk.com/binaries/v4_1_321_0_jyypcrocn10is1qc/upwork_x86_64.rpm -> ${P}_x86_64.rpm )
+	x86? ( http://updates.team.odesk.com/binaries/v4_1_321_0_jyypcrocn10is1qc/upwork_i386.rpm -> ${P}_i386.rpm )
 "
 LICENSE="ODESK"
 SLOT="0"
@@ -22,6 +23,7 @@ S=${WORKDIR}
 
 RDEPEND="
 	dev-libs/libgcrypt:11
+	gnome-base/gconf
 	media-libs/alsa-lib
 	sys-libs/libcap
 	virtual/udev
@@ -38,6 +40,7 @@ src_install() {
 	dobin usr/bin/upwork
 
 	insinto /usr/share
+	pax-mark m usr/share/upwork/upwork
 	doins -r usr/share/upwork
 	dosym /usr/lib/libudev.so /usr/share/upwork/libudev.so.0
 
