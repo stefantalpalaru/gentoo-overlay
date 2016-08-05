@@ -7,9 +7,8 @@ EAPI=5
 inherit autotools eutils git-r3
 
 DESCRIPTION="Tool to guess CPU_FLAGS_X86 flags for the host"
-HOMEPAGE="https://bitbucket.org/mgorny/cpuinfo2cpuflags"
-#SRC_URI="https://bitbucket.org/mgorny/cpuinfo2cpuflags/downloads/${P}.tar.bz2"
-EGIT_REPO_URI="https://bitbucket.org/mgorny/${PN}.git"
+HOMEPAGE="https://github.com/mgorny/cpuid2cpuflags"
+EGIT_REPO_URI="https://github.com/mgorny/${PN}.git"
 
 LICENSE="BSD-2"
 SLOT="0"
