@@ -10,7 +10,7 @@ DESCRIPTION="Processor Hardware Control for Intel CPUs"
 HOMEPAGE="http://www.linux-phc.org/
 	http://www.linux-phc.org/forum/viewtopic.php?f=7&t=267"
 #no automatic filenames here, sorry
-SRC_URI="http://www.linux-phc.org/forum/download/file.php?id=169 -> phc-intel-pack-rev20.tar.bz2"
+SRC_URI="http://www.linux-phc.org/forum/download/file.php?id=172 -> phc-intel-pack-rev22.tar.bz2"
 
 LICENSE="GPL-2"
 SLOT="0"
@@ -32,7 +32,7 @@ pkg_setup() {
 		eerror "Please use a previous version of ${PN} or a newer kernel."
 		die
 	fi
-	if kernel_is gt 4 5 ; then
+	if kernel_is gt 4 7 ; then
 		eerror "Your kernel version is not yet supported by this version of ${PN}."
 		eerror "Please use a newer version of ${PN} or an older kernel."
 		die
@@ -55,8 +55,8 @@ src_prepare() {
 
 	if kernel_is lt 3 0 ; then
 		epatch inc/${KV_MAJOR}.${KV_MINOR}.${KV_PATCH}/linux-phc-0.3.2.patch
-	elif kernel_is gt 4 5; then
-		epatch inc/4.5/linux-phc-0.3.2.patch
+	elif kernel_is gt 4 7; then
+		epatch inc/4.7/linux-phc-0.3.2.patch
 	else
 		epatch inc/${KV_MAJOR}.${KV_MINOR}/linux-phc-0.3.2.patch
 	fi
