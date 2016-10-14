@@ -62,7 +62,6 @@ pkg_setup() {
 src_prepare() {
 	# Skip test that needs some locales to be present
 	sed -i -e '/test_suite_gnc_date/d' src/libqof/qof/test/test-qof.c || die
-	epatch "${FILESDIR}/guile2.patch"
 	gnome2_src_prepare
 }
 
