@@ -73,8 +73,9 @@ src_test() {
 }
 
 src_install() {
-	./koch install "${D}/usr/share" || die "koch install failed"
-	rm -r "${D}/usr/share/nim/doc"
+	# env var workaround for a 0.15.2 bug
+	NIMINSTDEPS="foo" ./koch distrohelper "${D}/usr/share" || die "koch distrohelper failed"
+	./install.sh "${D}/usr/share" || die "install.sh failed"
 	dodir /usr/bin
 	dosym /usr/share/nim/bin/nim /usr/bin/nim
 	exeinto /usr/bin
@@ -84,7 +85,7 @@ src_install() {
 	insinto /usr/share/nim/lib
 	doins -r compiler
 	doins -r doc
-	rm -r "${D}"/usr/share/nim/lib/compiler/{nimcache,nimfix/nimcache,nimfix/nimfix,nimsuggest,nim,nim0,nim1}
+	rm -r "${D}"/usr/share/nim/lib/compiler/{nimfix/nimcache,nimfix/nimfix,nimsuggest,nim,nim0,nim1}
 
 	if use doc; then
 		dohtml doc/*.html
