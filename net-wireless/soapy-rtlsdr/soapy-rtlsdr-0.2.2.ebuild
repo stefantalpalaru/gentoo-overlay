@@ -16,7 +16,7 @@ KEYWORDS="~amd64 ~x86"
 IUSE=""
 
 DEPEND="net-wireless/rtl-sdr
-	net-wireless/soapysdr
+	net-wireless/soapysdr:=
 "
 RDEPEND="${DEPEND}"
 
