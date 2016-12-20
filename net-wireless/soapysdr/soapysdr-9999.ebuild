@@ -4,7 +4,7 @@
 
 EAPI=5
 
-PYTHON_COMPAT=( python2_7 python3_{3,4,5} )
+PYTHON_COMPAT=( python2_7 python3_{4,5} )
 CMAKE_IN_SOURCE_BUILD="1"
 
 inherit cmake-utils git-2 python-r1
@@ -15,7 +15,7 @@ EGIT_REPO_URI="https://github.com/pothosware/SoapySDR.git"
 EGIT_CLONE_TYPE="shallow"
 
 LICENSE="Boost-1.0"
-SLOT="0"
+SLOT="0/${PV}"
 KEYWORDS=""
 
 IUSE="python"
@@ -27,21 +27,23 @@ DEPEND="${RDEPEND}
 "
 
 src_prepare() {
+	# this particular CMakeLists.txt tries to enable Python 3 behind our backs:
+	sed -i -e '/BUILD_PYTHON3/d' python/CMakeLists.txt
+	cmake-utils_src_prepare
 	use python && python_copy_sources
 }
 
 src_configure() {
 	configuration() {
 		local mycmakeargs=(
-			-DPYTHON_BASENAME="-${EPYTHON}"
-			-DPYTHON_SUFFIX="-${EPYTHON}"
 			$(cmake-utils_use_enable python PYTHON)
 		)
-		#if python_is_python3; then
-			#mycmakeargs+=( -DBUILD_PYTHON3=ON )
-		#else
-			#mycmakeargs+=( -DBUILD_PYTHON3=OFF )
-		#fi
+
+		if [ -n "${EPYTHON}" ] && python_is_python3; then
+			mycmakeargs+=( -DBUILD_PYTHON3=ON )
+		else
+			mycmakeargs+=( -DBUILD_PYTHON3=OFF )
+		fi
 
 		CMAKE_USE_DIR="${BUILD_DIR}" cmake-utils_src_configure
 	}
