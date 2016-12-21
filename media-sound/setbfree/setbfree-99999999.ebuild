@@ -44,9 +44,12 @@ src_compile() {
 }
 
 src_install() {
-	default_src_install $(use convolution && echo "ENABLE_CONVOLUTION=yes") \
+	emake DESTDIR="${D}" \
+		$(use convolution && echo "ENABLE_CONVOLUTION=yes") \
 		FONTFILE="/usr/share/fonts/ttf-bitstream-vera/VeraBd.ttf" \
-		PREFIX="${EPREFIX}"/usr LIBDIR="$(get_libdir)"
+		PREFIX="${EPREFIX}"/usr \
+		LIBDIR="$(get_libdir)" \
+		install
 
 	doman doc/*.1
 
