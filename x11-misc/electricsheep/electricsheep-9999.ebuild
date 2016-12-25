@@ -25,12 +25,12 @@ DEPEND="dev-lang/lua:0
 	media-libs/freeglut
 	media-libs/glee
 	media-libs/libpng:*
+	media-video/ffmpeg:0/54.56.56
 	net-misc/curl
 	sys-libs/zlib
 	x11-libs/libX11
 	x11-libs/libXrender
 	x11-libs/wxGTK:3.0
-	virtual/ffmpeg
 	virtual/opengl"
 RDEPEND="${DEPEND}"
 
