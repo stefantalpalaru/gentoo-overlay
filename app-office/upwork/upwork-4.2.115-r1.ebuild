@@ -25,6 +25,7 @@ RDEPEND="
 	dev-libs/libgcrypt:11
 	gnome-base/gconf
 	media-libs/alsa-lib
+	net-print/cups
 	sys-libs/libcap
 	virtual/udev
 	x11-libs/gtk+:2
