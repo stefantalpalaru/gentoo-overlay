@@ -6,11 +6,13 @@ EAPI=5
 
 PYTHON_COMPAT=( python2_7 )
 
-inherit linux-info autotools eutils python-single-r1 user
+inherit linux-info autotools git-2 eutils python-single-r1 user
 
 DESCRIPTION="A linux trace/probe tool"
 HOMEPAGE="http://www.sourceware.org/systemtap/"
-SRC_URI="http://www.sourceware.org/${PN}/ftp/releases/${P}.tar.gz"
+EGIT_REPO_URI="http://sourceware.org/git/systemtap.git"
+EGIT_COMMIT="7e8210aeaa556e8d165db1e960b5dd644ad2d04f"
+EGIT_CLONE_TYPE="shallow"
 
 LICENSE="GPL-2"
 SLOT="0"
