@@ -1,4 +1,4 @@
-# Copyright 1999-2016 Gentoo Foundation
+# Copyright 1999-2017 Gentoo Foundation
 # Distributed under the terms of the GNU General Public License v2
 # $Id$
 
@@ -27,6 +27,11 @@ DEPEND="dev-libs/keybinder[python]
 RDEPEND="${DEPEND}"
 
 S="${WORKDIR}/${PN}"
+
+src_prepare() {
+	sed -i -e "s/^VERSION :=.*$/VERSION := ${PV}/" Makefile
+	gunzip -k gtk3.xml.gz
+}
 
 src_install() {
 	exeinto /usr/bin
