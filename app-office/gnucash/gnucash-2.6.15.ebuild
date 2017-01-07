@@ -1,4 +1,4 @@
-# Copyright 1999-2016 Gentoo Foundation
+# Copyright 1999-2017 Gentoo Foundation
 # Distributed under the terms of the GNU General Public License v2
 # $Id$
 
@@ -6,7 +6,7 @@ EAPI="6"
 GNOME2_LA_PUNT="yes"
 PYTHON_COMPAT=( python2_7 )
 
-inherit gnome2 python-single-r1
+inherit autotools gnome2 python-single-r1
 
 DESCRIPTION="A personal finance manager"
 HOMEPAGE="http://www.gnucash.org/"
@@ -29,6 +29,7 @@ RDEPEND="
 	gnome-base/libgnomecanvas
 	>=net-libs/webkit-gtk-1.2:2
 	>=sys-libs/zlib-1.1.4
+	!=sys-libs/zlib-1.2.9
 	>=x11-libs/gtk+-2.24:2
 	>=x11-libs/goffice-0.7.0:0.8[gnome]
 	x11-libs/pango
@@ -63,6 +64,8 @@ src_prepare() {
 	# Skip test that needs some locales to be present
 	sed -i -e '/test_suite_gnc_date/d' src/libqof/qof/test/test-qof.c || die
 	gnome2_src_prepare
+	# mainly to upgrade libtool and fix some rpath issues where it tries to link to existing libraries from previous gnucash versions
+	eautoreconf
 }
 
 src_configure() {
@@ -75,10 +78,11 @@ src_configure() {
 	else
 		myconf+=" --disable-dbi"
 	fi
+	# upstream makes improper use of AC_ARG_ENABLE and --disable-debug does the same thing as --enable-debug
+	use debug && myconf+=" --enable-debug"
 
 	# gtkmm is experimental and shouldn't be enabled, upstream bug #684166
 	gnome2_src_configure \
-		$(use_enable debug) \
 		$(use_enable gnome-keyring password-storage) \
 		$(use_enable ofx) \
 		$(use_enable hbci aqbanking) \
