@@ -1,4 +1,4 @@
-# Copyright 1999-2016 Gentoo Foundation
+# Copyright 1999-2017 Gentoo Foundation
 # Distributed under the terms of the GNU General Public License v2
 # $Id$
 
@@ -85,9 +85,9 @@ src_install() {
 	doins -r doc
 	insinto /usr/share/nim/lib/wrappers
 	doins -r lib/wrappers/linenoise
-	rm -r "${D}"/usr/share/nim/lib/compiler/{nimcache,nimfix/nimcache,nimfix/nimfix,nimsuggest,nim,nim0,nim1}
+	rm -r "${D}"/usr/share/nim/lib/compiler/{nimfix/nimcache,nimfix/nimfix,nim,nim0,nim1}
 
 	if use doc; then
-		dohtml doc/*.html
+		dohtml doc/html/*.html
 	fi
 }
