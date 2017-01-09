@@ -1,4 +1,4 @@
-# Copyright 1999-2016 Gentoo Foundation
+# Copyright 1999-2017 Gentoo Foundation
 # Distributed under the terms of the GNU General Public License v2
 # $Id$
 
@@ -11,8 +11,7 @@ inherit distutils-r1 git-r3
 DESCRIPTION="Fastimport parser in Python"
 HOMEPAGE="https://launchpad.net/${PN}"
 SRC_URI=""
-EGIT_REPO_URI="https://jelmer.uk/code/${PN}"
-EGIT_CLONE_TYPE="shallow"
+EGIT_REPO_URI="https://github.com/jelmer/${PN}"
 
 LICENSE="GPL-2"
 SLOT="0"
