@@ -73,8 +73,7 @@ src_test() {
 }
 
 src_install() {
-	# env var workaround for a 0.15.2 bug
-	NIMINSTDEPS="foo" ./koch distrohelper "${D}/usr/share" || die "koch distrohelper failed"
+	./koch distrohelper "${D}/usr/share" || die "koch distrohelper failed"
 	./install.sh "${D}/usr/share" || die "install.sh failed"
 	dodir /usr/bin
 	dosym /usr/share/nim/bin/nim /usr/bin/nim
