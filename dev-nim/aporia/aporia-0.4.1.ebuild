@@ -6,7 +6,7 @@ EAPI=6
 
 DESCRIPTION="IDE for the Nim programming language"
 HOMEPAGE="https://github.com/nim-lang/Aporia"
-SRC_URI="https://github.com/nim-lang/Aporia/archive/v${PV}.tar.gz -> ${P}.tar.gz"
+SRC_URI="mirror://github/nim-lang/Aporia/archive/v${PV}.tar.gz -> ${P}.tar.gz"
 
 LICENSE="MIT"
 SLOT="0"
