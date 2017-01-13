@@ -2,18 +2,15 @@
 # Distributed under the terms of the GNU General Public License v2
 # $Id$
 
-EAPI=5
-
-inherit git-r3
+EAPI=6
 
 DESCRIPTION="IDE for the Nim programming language"
 HOMEPAGE="https://github.com/nim-lang/Aporia"
-EGIT_REPO_URI="https://github.com/nim-lang/Aporia"
-EGIT_CLONE_TYPE="shallow"
+SRC_URI="https://github.com/nim-lang/Aporia/archive/v${PV}.tar.gz -> ${P}.tar.gz"
 
 LICENSE="MIT"
 SLOT="0"
-KEYWORDS=""
+KEYWORDS="~amd64 ~x86"
 IUSE=""
 
 DEPEND="
@@ -24,6 +21,8 @@ DEPEND="
 	dev-nim/gtk2-nim
 "
 RDEPEND=""
+
+S="${WORKDIR}/Aporia-${PV}"
 
 src_compile() {
 	nim c -d:release -p:"\$lib/packages/gtk2" -p:"\$lib/packages/cairo" -p:"\$lib/packages/dialogs" ${PN}.nim || die "compile failed"
