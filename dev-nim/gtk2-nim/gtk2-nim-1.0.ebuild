@@ -6,7 +6,7 @@ EAPI=6
 
 DESCRIPTION="Nim bindings for GTK+ 2"
 HOMEPAGE="https://github.com/nim-lang/gtk2"
-SRC_URI="mirror://github/nim-lang/gtk2/archive/v${PV}.tar.gz -> ${P}.tar.gz"
+SRC_URI="https://github.com/nim-lang/gtk2/archive/v${PV}.tar.gz -> ${P}.tar.gz"
 
 LICENSE="MIT"
 SLOT="0"
