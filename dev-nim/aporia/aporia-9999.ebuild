@@ -1,4 +1,4 @@
-# Copyright 1999-2016 Gentoo Foundation
+# Copyright 1999-2017 Gentoo Foundation
 # Distributed under the terms of the GNU General Public License v2
 # $Id$
 
@@ -17,7 +17,7 @@ KEYWORDS=""
 IUSE=""
 
 DEPEND="
-	>=dev-lang/nim-0.9.2
+	>=dev-lang/nim-0.11.0
 	x11-libs/gtksourceview
 	dev-libs/libpcre
 	dev-nim/dialogs

@@ -10,7 +10,7 @@ SRC_URI="https://github.com/nim-lang/gtk2/archive/v${PV}.tar.gz -> ${P}.tar.gz"
 
 LICENSE="MIT"
 SLOT="0"
-KEYWORDS="~amd64"
+KEYWORDS="~amd64 ~x86"
 IUSE=""
 
 DEPEND="
@@ -19,6 +19,8 @@ DEPEND="
 	x11-libs/gtk+:2
 "
 RDEPEND=""
+
+S="${WORKDIR}/gtk2-${PV}"
 
 src_install() {
 	dodir /usr/share/nim/lib/packages/gtk2
