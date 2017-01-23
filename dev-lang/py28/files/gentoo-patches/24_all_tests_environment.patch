@@ -1,0 +1,191 @@
+https://bugs.python.org/issue1674555
+
+--- Lib/site.py
++++ Lib/site.py
+@@ -527,8 +527,12 @@
+     known_paths = removeduppaths()
+     if ENABLE_USER_SITE is None:
+         ENABLE_USER_SITE = check_enableusersite()
+-    known_paths = addusersitepackages(known_paths)
+-    known_paths = addsitepackages(known_paths)
++    if os.environ.get("_PYTHONNOSITEPACKAGES") is None:
++        known_paths = addusersitepackages(known_paths)
++        known_paths = addsitepackages(known_paths)
++    else:
++        # Initialize USER_BASE and USER_SITE.
++        getusersitepackages()
+     if sys.platform == 'os2emx':
+         setBEGINLIBPATH()
+     setquit()
+--- Lib/test/regrtest.py
++++ Lib/test/regrtest.py
+@@ -169,6 +169,7 @@
+ import imp
+ import platform
+ import sysconfig
++from subprocess import Popen, PIPE
+ 
+ 
+ # Some times __path__ and __file__ are not absolute (e.g. while running from
+@@ -464,9 +465,62 @@
+     test_support.use_resources = use_resources
+     save_modules = set(sys.modules)
+ 
++    opt_args = test_support.args_from_interpreter_flags()
++    base_cmd = [sys.executable] + opt_args + ['-m', 'test.regrtest']
++    # required to spawn a new process with PGO flag on/off
++    if pgo:
++        base_cmd = base_cmd + ['--pgo']
++    debug_output_pat = re.compile(r"\[\d+ refs\]$")
++
++    def get_args_tuple(test, verbose, quiet, huntrleaks, use_resources, pgo):
++        return (
++            (test, verbose, quiet),
++            dict(huntrleaks=huntrleaks, use_resources=use_resources, pgo=pgo)
++        )
++
++    def _runtest(test, verbose, quiet, huntrleaks=False,
++                 use_resources=None, pgo=False):
++        if test == "test_site":
++            args_tuple = get_args_tuple(test, verbose, quiet, huntrleaks,
++                                        use_resources, pgo)
++            env = os.environ.copy()
++            try:
++                del env["_PYTHONNOSITEPACKAGES"]
++            except KeyError:
++                pass
++            popen = Popen(base_cmd + ['--slaveargs', json.dumps(args_tuple)],
++                          stdout=PIPE, stderr=PIPE,
++                          universal_newlines=True,
++                          close_fds=(os.name != 'nt'),
++                          cwd=test_support.SAVEDCWD,
++                          env=env)
++            stdout, stderr = popen.communicate()
++            # Strip last refcount output line if it exists, since it
++            # comes from the shutdown of the interpreter in the subcommand.
++            stderr = debug_output_pat.sub("", stderr)
++            stdout, _, result = stdout.strip().rpartition("\n")
++            if not result:
++                return (None, None)
++            result = json.loads(result)
++            stdout = stdout.rstrip()
++            stderr = stderr.rstrip()
++            if stdout:
++                print stdout
++            if stderr and not pgo:
++                print >>sys.stderr, stderr
++            sys.stdout.flush()
++            sys.stderr.flush()
++            if result[0] == INTERRUPTED:
++                raise KeyboardInterrupt
++            return result
++        else:
++            return runtest(test, verbose, quiet, huntrleaks=huntrleaks,
++                           use_resources=use_resources, pgo=pgo)
++
+     def accumulate_result(test, result):
+         ok, test_time = result
+-        test_times.append((test_time, test))
++        if ok not in (None, INTERRUPTED):
++            test_times.append((test_time, test))
+         if ok == PASSED:
+             good.append(test)
+         elif ok == FAILED:
+@@ -501,23 +555,13 @@
+             print "Multiprocess option requires thread support"
+             sys.exit(2)
+         from Queue import Queue
+-        from subprocess import Popen, PIPE
+-        debug_output_pat = re.compile(r"\[\d+ refs\]$")
+         output = Queue()
+         def tests_and_args():
+             for test in tests:
+-                args_tuple = (
+-                    (test, verbose, quiet),
+-                    dict(huntrleaks=huntrleaks, use_resources=use_resources,
+-                         pgo=pgo)
+-                )
++                args_tuple = get_args_tuple(test, verbose, quiet, huntrleaks,
++                                            use_resources, pgo)
+                 yield (test, args_tuple)
+         pending = tests_and_args()
+-        opt_args = test_support.args_from_interpreter_flags()
+-        base_cmd = [sys.executable] + opt_args + ['-m', 'test.regrtest']
+-        # required to spawn a new process with PGO flag on/off
+-        if pgo:
+-            base_cmd = base_cmd + ['--pgo']
+         def work():
+             # A worker thread.
+             try:
+@@ -587,16 +631,16 @@
+             if trace:
+                 # If we're tracing code coverage, then we don't exit with status
+                 # if on a false return value from main.
+-                tracer.runctx('runtest(test, verbose, quiet)',
++                tracer.runctx('_runtest(test, verbose, quiet)',
+                               globals=globals(), locals=vars())
+             else:
+                 try:
+-                    result = runtest(test, verbose, quiet, huntrleaks, None, pgo)
++                    result = _runtest(test, verbose, quiet, huntrleaks, None, pgo)
+                     accumulate_result(test, result)
+                     if verbose3 and result[0] == FAILED:
+                         if not pgo:
+                             print "Re-running test %r in verbose mode" % test
+-                        runtest(test, True, quiet, huntrleaks, None, pgo)
++                        _runtest(test, True, quiet, huntrleaks, None, pgo)
+                 except KeyboardInterrupt:
+                     interrupted = True
+                     break
+@@ -664,7 +708,7 @@
+             sys.stdout.flush()
+             try:
+                 test_support.verbose = True
+-                ok = runtest(test, True, quiet, huntrleaks, None, pgo)
++                ok = _runtest(test, True, quiet, huntrleaks, None, pgo)
+             except KeyboardInterrupt:
+                 # print a newline separate from the ^C
+                 print
+@@ -893,8 +937,9 @@
+         for name, get, restore in self.resource_info():
+             current = get()
+             original = saved_values.pop(name)
+-            # Check for changes to the resource's value
+-            if current != original:
++            # Check for changes to the resource's value. test_site is always run
++            # in a subprocess and is allowed to change os.environ and sys.path.
++            if current != original and self.testname != "test_site":
+                 self.changed = True
+                 restore(original)
+                 if not self.quiet and not self.pgo:
+--- Lib/test/test_site.py
++++ Lib/test/test_site.py
+@@ -8,6 +8,7 @@
+ from test.test_support import run_unittest, TESTFN, EnvironmentVarGuard
+ from test.test_support import captured_output
+ import __builtin__
++import imp
+ import os
+ import sys
+ import re
+@@ -21,6 +22,9 @@
+ # already.
+ if "site" in sys.modules:
+     import site
++    if "_PYTHONNOSITEPACKAGES" in os.environ:
++        del os.environ["_PYTHONNOSITEPACKAGES"]
++        imp.reload(site)
+ else:
+     raise unittest.SkipTest("importation of site.py suppressed")
+ 
+--- Makefile.pre.in
++++ Makefile.pre.in
+@@ -893,7 +893,7 @@
+ 
+ TESTOPTS=	-l $(EXTRATESTOPTS)
+ TESTPROG=	$(srcdir)/Lib/test/regrtest.py
+-TESTPYTHON=	$(RUNSHARED) ./$(BUILDPYTHON) -Wd -3 -E -tt $(TESTPYTHONOPTS)
++TESTPYTHON=	_PYTHONNOSITEPACKAGES=1 $(RUNSHARED) ./$(BUILDPYTHON) -Wd -3 -E -tt $(TESTPYTHONOPTS)
+ test:		all platform
+ 		-find $(srcdir)/Lib -name '*.py[co]' -print | xargs rm -f
+ 		-$(TESTPYTHON) $(TESTPROG) $(TESTOPTS)
