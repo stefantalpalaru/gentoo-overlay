@@ -3,15 +3,15 @@
 # $Id$
 
 EAPI="6"
-inherit eutils toolchain-funcs multilib git-r3
+inherit eutils toolchain-funcs multilib
 
 DESCRIPTION="MIDI controlled DSP tonewheel organ"
 HOMEPAGE="http://setbfree.org"
-EGIT_REPO_URI="https://github.com/pantherb/setBfree.git"
+SRC_URI="https://github.com/pantherb/setBfree/archive/v${PV}.tar.gz -> ${P}.tar.gz"
 
 LICENSE="GPL-2"
 SLOT="0"
-KEYWORDS=""
+KEYWORDS="~amd64 ~x86"
 IUSE="convolution"
 
 RDEPEND="dev-lang/tcl:0
@@ -33,8 +33,10 @@ DEPEND="${RDEPEND}
 
 DOCS=(ChangeLog README.md)
 PATCHES=(
-	"${FILESDIR}/${PN}-multilib-strict-and-cflags-${PV}.patch"
+	"${FILESDIR}/${PN}-multilib-strict-and-cflags-99999999.patch"
 )
+
+S="${WORKDIR}/setBfree-${PV}"
 
 src_compile() {
 	tc-export CC CXX
