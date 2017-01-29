@@ -1,8 +1,8 @@
-# Copyright 1999-2016 Gentoo Foundation
+# Copyright 1999-2017 Gentoo Foundation
 # Distributed under the terms of the GNU General Public License v2
 # $Id$
 
-EAPI=5
+EAPI=6
 
 inherit rpm eutils pax-utils
 
@@ -12,14 +12,15 @@ QA_PREBUILT="*"
 DESCRIPTION="Project collaboration and tracking software for upwork.com"
 HOMEPAGE="https://www.upwork.com/"
 SRC_URI="
-	amd64? ( https://updates-desktopapp.upwork.com/binaries/v4_2_115_0_7n66kq4suk1ud047/upwork_x86_64.rpm -> ${P}_x86_64.rpm )
-	x86? ( https://updates-desktopapp.upwork.com/binaries/v4_2_115_0_7n66kq4suk1ud047/upwork_i386.rpm -> ${P}_i386.rpm )
+	amd64? ( https://updates-desktopapp.upwork.com/binaries/v4_2_136_0_y3wmiwgkm81z1nlk/upwork_x86_64.rpm -> ${P}_x86_64.rpm )
+	x86? ( https://updates-desktopapp.upwork.com/binaries/v4_2_136_0_y3wmiwgkm81z1nlk/upwork_i386.rpm -> ${P}_i386.rpm )
 "
 LICENSE="ODESK"
 SLOT="0"
 KEYWORDS="~amd64 ~x86"
 
 S=${WORKDIR}
+PATCHES=( "${FILESDIR}/${PN}-desktop.patch" )
 
 RDEPEND="
 	dev-libs/libgcrypt:11
@@ -31,10 +32,6 @@ RDEPEND="
 	x11-libs/gtk+:2
 	x11-libs/gtkglext
 "
-
-src_prepare() {
-	epatch "${FILESDIR}/${PN}-desktop.patch"
-}
 
 src_install() {
 	# Wrapper to the real executable
