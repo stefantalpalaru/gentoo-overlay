@@ -1,0 +1,41 @@
+From d323691f59c90904788b14b1d9c0b76e5f4ac542 Mon Sep 17 00:00:00 2001
+From: Onur Aslan <onuraslan@gmail.com>
+Date: Wed, 21 Dec 2016 12:20:07 +0300
+Subject: [PATCH] Update bottle to 0.12.11
+
+Fixes: #670
+
+Currently ycmd is only working with bottle that comes with ycmd.
+It is really an old version of bottle and ycmd is not compatible with
+recent version.
+
+A Debian package must use system-dependencies instead of third_party modules.
+
+This patch is updating bottle and making ycmd to compatible with latest
+bottle.
+---
+ ycmd/bottle_utils.py | 7 ++++---
+ 2 files changed, 5 insertions(+), 4 deletions(-)
+
+diff --git a/ycmd/bottle_utils.py b/ycmd/bottle_utils.py
+index 41d84e5..29440fc 100644
+--- a/ycmd/bottle_utils.py
++++ b/ycmd/bottle_utils.py
+@@ -24,7 +24,7 @@
+ from builtins import *  # noqa
+ 
+ from future.utils import PY2
+-from ycmd.utils import ToBytes, ToUnicode
++from ycmd.utils import ToUnicode
+ import bottle
+ 
+ 
+@@ -39,5 +39,6 @@
+ # making life easier for codebases that work across versions, thus preventing
+ # tracebacks in the depths of WSGI server frameworks.
+ def SetResponseHeader( name, value ):
+-  name = ToBytes( name ) if PY2 else ToUnicode( name )
+-  bottle.response.set_header( name, ToUnicode( value ) )
++  name = name.encode( 'utf8' ) if PY2 else ToUnicode( name )
++  value = value.encode( 'utf8' ) if PY2 else ToUnicode( value )
++  bottle.response.set_header( name, value )
