@@ -1,12 +1,12 @@
-diff -ur py28-2.8.0_pre20170104.orig/configure.ac py28-2.8.0_pre20170104/configure.ac
---- py28-2.8.0_pre20170104.orig/configure.ac	2017-01-22 20:11:08.249497719 +0100
-+++ py28-2.8.0_pre20170104/configure.ac	2017-01-22 20:12:13.167247810 +0100
+diff -ur tauthon-2.8.0_pre20170104.orig/configure.ac tauthon-2.8.0_pre20170104/configure.ac
+--- tauthon-2.8.0_pre20170104.orig/configure.ac	2017-01-22 20:11:08.249497719 +0100
++++ tauthon-2.8.0_pre20170104/configure.ac	2017-01-22 20:12:13.167247810 +0100
 @@ -8,7 +8,7 @@
  AC_PREREQ(2.65)
  
  AC_REVISION($Revision$)
 -AC_INIT(python, PYTHON_VERSION, https://bugs.python.org/)
-+AC_INIT(py28, PYTHON_VERSION, https://github.com/naftaliharris/placeholder)
++AC_INIT(tauthon, PYTHON_VERSION, https://github.com/naftaliharris/tauthon)
  AC_CONFIG_SRCDIR([Include/object.h])
  AC_CONFIG_HEADER(pyconfig.h)
  
@@ -15,10 +15,10 @@ diff -ur py28-2.8.0_pre20170104.orig/configure.ac py28-2.8.0_pre20170104/configu
  
  if test "$cross_compiling" = yes; then
 -    AC_MSG_CHECKING([for python interpreter for cross build])
-+    AC_MSG_CHECKING([for py28 interpreter for cross build])
++    AC_MSG_CHECKING([for tauthon interpreter for cross build])
      if test -z "$PYTHON_FOR_BUILD"; then
 -        for interp in python$PACKAGE_VERSION python2 python; do
-+        for interp in py$PACKAGE_VERSION python2 python; do
++        for interp in tauthon$PACKAGE_VERSION python2 python; do
  	    which $interp >/dev/null 2>&1 || continue
 -	    if $interp -c 'import sys;sys.exit(not (sys.version_info@<:@:2@:>@ >= (2,7) and sys.version_info@<:@0@:>@ < 3))'; then
 +	    if $interp -c 'import sys;sys.exit(not (sys.version_info@<:@:2@:>@ >= (2,8) and sys.version_info@<:@0@:>@ < 3))'; then
@@ -28,7 +28,7 @@ diff -ur py28-2.8.0_pre20170104.orig/configure.ac py28-2.8.0_pre20170104/configu
  	done
          if test x$interp = x; then
 -	    AC_MSG_ERROR([python$PACKAGE_VERSION interpreter not found])
-+	    AC_MSG_ERROR([py$PACKAGE_VERSION interpreter not found])
++	    AC_MSG_ERROR([tauthon$PACKAGE_VERSION interpreter not found])
  	fi
          AC_MSG_RESULT($interp)
  	PYTHON_FOR_BUILD='_PYTHON_PROJECT_BASE=$(abs_builddir) _PYTHON_HOST_PLATFORM=$(_PYTHON_HOST_PLATFORM) PYTHONPATH=$(shell test -f pybuilddir.txt && echo $(abs_builddir)/`cat pybuilddir.txt`:)$(srcdir)/Lib:$(srcdir)/Lib/$(PLATDIR) '$interp
@@ -37,7 +37,7 @@ diff -ur py28-2.8.0_pre20170104.orig/configure.ac py28-2.8.0_pre20170104/configu
  if test -z "$LIBRARY"
  then
 -	LIBRARY='libpython$(VERSION).a'
-+	LIBRARY='libpy$(VERSION).a'
++	LIBRARY='libtauthon$(VERSION).a'
  fi
  AC_MSG_RESULT($LIBRARY)
  
@@ -46,27 +46,27 @@ diff -ur py28-2.8.0_pre20170104.orig/configure.ac py28-2.8.0_pre20170104/configu
    case $ac_sys_system in
      BeOS*)
 -          LDLIBRARY='libpython$(VERSION).so'
-+          LDLIBRARY='libpyn$(VERSION).so'
++          LDLIBRARY='libtauthon$(VERSION).so'
            ;;
      CYGWIN*)
 -          LDLIBRARY='libpython$(VERSION).dll.a'
 -          DLLLIBRARY='libpython$(VERSION).dll'
-+          LDLIBRARY='libpy$(VERSION).dll.a'
-+          DLLLIBRARY='libpy$(VERSION).dll'
++          LDLIBRARY='libtauthon$(VERSION).dll.a'
++          DLLLIBRARY='libtauthon$(VERSION).dll'
            ;;
      SunOS*)
 -	  LDLIBRARY='libpython$(VERSION).so'
 -	  BLDLIBRARY='-Wl,-R,$(LIBDIR) -L. -lpython$(VERSION)'
-+	  LDLIBRARY='libpy$(VERSION).so'
-+	  BLDLIBRARY='-Wl,-R,$(LIBDIR) -L. -lpy$(VERSION)'
++	  LDLIBRARY='libtauthon$(VERSION).so'
++	  BLDLIBRARY='-Wl,-R,$(LIBDIR) -L. -ltauthon$(VERSION)'
  	  RUNSHARED=LD_LIBRARY_PATH=`pwd`${LD_LIBRARY_PATH:+:${LD_LIBRARY_PATH}}
  	  INSTSONAME="$LDLIBRARY".$SOVERSION
            ;;
      Linux*|GNU*|NetBSD*|FreeBSD*|DragonFly*|OpenBSD*)
 -	  LDLIBRARY='libpython$(VERSION).so'
 -	  BLDLIBRARY='-L. -lpython$(VERSION)'
-+	  LDLIBRARY='libpy$(VERSION).so'
-+	  BLDLIBRARY='-L. -lpy$(VERSION)'
++	  LDLIBRARY='libtauthon$(VERSION).so'
++	  BLDLIBRARY='-L. -ltauthon$(VERSION)'
  	  RUNSHARED=LD_LIBRARY_PATH=`pwd`${LD_LIBRARY_PATH:+:${LD_LIBRARY_PATH}}
  	  case $ac_sys_system in
  	      FreeBSD*)
@@ -75,41 +75,41 @@ diff -ur py28-2.8.0_pre20170104.orig/configure.ac py28-2.8.0_pre20170104/configu
  	  case `uname -m` in
  		ia64)
 -			LDLIBRARY='libpython$(VERSION).so'
-+			LDLIBRARY='libpy$(VERSION).so'
++			LDLIBRARY='libtauthon$(VERSION).so'
  			;;
  		*)
 -			LDLIBRARY='libpython$(VERSION).sl'
-+			LDLIBRARY='libpy$(VERSION).sl'
++			LDLIBRARY='libtauthon$(VERSION).sl'
  			;;
  	  esac
 -	  BLDLIBRARY='-Wl,+b,$(LIBDIR) -L. -lpython$(VERSION)'
-+	  BLDLIBRARY='-Wl,+b,$(LIBDIR) -L. -lpy$(VERSION)'
++	  BLDLIBRARY='-Wl,+b,$(LIBDIR) -L. -ltauthon$(VERSION)'
  	  RUNSHARED=SHLIB_PATH=`pwd`${SHLIB_PATH:+:${SHLIB_PATH}}
  	  ;;
      OSF*)
 -	  LDLIBRARY='libpython$(VERSION).so'
 -	  BLDLIBRARY='-rpath $(LIBDIR) -L. -lpython$(VERSION)'
-+	  LDLIBRARY='libpy$(VERSION).so'
-+	  BLDLIBRARY='-rpath $(LIBDIR) -L. -lpy$(VERSION)'
++	  LDLIBRARY='libtauthon$(VERSION).so'
++	  BLDLIBRARY='-rpath $(LIBDIR) -L. -ltauthon$(VERSION)'
  	  RUNSHARED=LD_LIBRARY_PATH=`pwd`${LD_LIBRARY_PATH:+:${LD_LIBRARY_PATH}}
  	  ;;
      atheos*)
 -	  LDLIBRARY='libpython$(VERSION).so'
 -	  BLDLIBRARY='-L. -lpython$(VERSION)'
-+	  LDLIBRARY='libpy$(VERSION).so'
-+	  BLDLIBRARY='-L. -lpy$(VERSION)'
++	  LDLIBRARY='libtauthon$(VERSION).so'
++	  BLDLIBRARY='-L. -ltauthon$(VERSION)'
  	  RUNSHARED=DLL_PATH=`pwd`:${DLL_PATH:-/atheos/sys/libs:/atheos/autolnk/lib}
  	  ;;
      Darwin*)
 -    	LDLIBRARY='libpython$(VERSION).dylib'
 -	BLDLIBRARY='-L. -lpython$(VERSION)'
-+    	LDLIBRARY='libpy$(VERSION).dylib'
-+	BLDLIBRARY='-L. -lpy$(VERSION)'
++    	LDLIBRARY='libtauthon$(VERSION).dylib'
++	BLDLIBRARY='-L. -ltauthon$(VERSION)'
  	RUNSHARED=DYLD_LIBRARY_PATH=`pwd`${DYLD_LIBRARY_PATH:+:${DYLD_LIBRARY_PATH}}
  	;;
      AIX*)
 -	LDLIBRARY='libpython$(VERSION).so'
-+	LDLIBRARY='libpy$(VERSION).so'
++	LDLIBRARY='libtauthon$(VERSION).so'
  	RUNSHARED=LIBPATH=`pwd`${LIBPATH:+:${LIBPATH}}
  	;;
  
@@ -118,31 +118,31 @@ diff -ur py28-2.8.0_pre20170104.orig/configure.ac py28-2.8.0_pre20170104/configu
      CYGWIN*)
            BLDLIBRARY='$(LIBRARY)'
 -          LDLIBRARY='libpython$(VERSION).dll.a'
-+          LDLIBRARY='libpy$(VERSION).dll.a'
++          LDLIBRARY='libtauthon$(VERSION).dll.a'
            ;;
    esac
  fi
-diff -ur py28-2.8.0_pre20170104.orig/Lib/distutils/command/build_ext.py py28-2.8.0_pre20170104/Lib/distutils/command/build_ext.py
---- py28-2.8.0_pre20170104.orig/Lib/distutils/command/build_ext.py	2017-01-22 20:11:06.679552131 +0100
-+++ py28-2.8.0_pre20170104/Lib/distutils/command/build_ext.py	2017-01-22 20:12:13.167247810 +0100
+diff -ur tauthon-2.8.0_pre20170104.orig/Lib/distutils/command/build_ext.py tauthon-2.8.0_pre20170104/Lib/distutils/command/build_ext.py
+--- tauthon-2.8.0_pre20170104.orig/Lib/distutils/command/build_ext.py	2017-01-22 20:11:06.679552131 +0100
++++ tauthon-2.8.0_pre20170104/Lib/distutils/command/build_ext.py	2017-01-22 20:12:13.167247810 +0100
 @@ -759,7 +759,7 @@
          else:
              from distutils import sysconfig
              if sysconfig.get_config_var('Py_ENABLE_SHARED'):
 -                template = "python%d.%d"
-+                template = "py%d.%d"
++                template = "tauthon%d.%d"
                  pythonlib = (template %
                               (sys.hexversion >> 24, (sys.hexversion >> 16) & 0xff))
                  return ext.libraries + [pythonlib]
-diff -ur py28-2.8.0_pre20170104.orig/Lib/distutils/sysconfig.py py28-2.8.0_pre20170104/Lib/distutils/sysconfig.py
---- py28-2.8.0_pre20170104.orig/Lib/distutils/sysconfig.py	2017-01-22 20:11:07.909509503 +0100
-+++ py28-2.8.0_pre20170104/Lib/distutils/sysconfig.py	2017-01-22 20:14:25.762652334 +0100
+diff -ur tauthon-2.8.0_pre20170104.orig/Lib/distutils/sysconfig.py tauthon-2.8.0_pre20170104/Lib/distutils/sysconfig.py
+--- tauthon-2.8.0_pre20170104.orig/Lib/distutils/sysconfig.py	2017-01-22 20:11:07.909509503 +0100
++++ tauthon-2.8.0_pre20170104/Lib/distutils/sysconfig.py	2017-01-22 20:14:25.762652334 +0100
 @@ -90,7 +90,7 @@
                  # Include is located in the srcdir
                  inc_dir = os.path.join(srcdir, "Include")
              return inc_dir
 -        return os.path.join(prefix, "include", "python" + get_python_version())
-+        return os.path.join(prefix, "include", "py" + get_python_version())
++        return os.path.join(prefix, "include", "tauthon" + get_python_version())
      elif os.name == "nt":
          return os.path.join(prefix, "include")
      elif os.name == "os2":
@@ -151,22 +151,22 @@ diff -ur py28-2.8.0_pre20170104.orig/Lib/distutils/sysconfig.py py28-2.8.0_pre20
      if os.name == "posix":
          libpython = os.path.join(prefix,
 -                                 "@@GENTOO_LIBDIR@@", "python" + get_python_version())
-+                                 "@@GENTOO_LIBDIR@@", "py" + get_python_version())
++                                 "@@GENTOO_LIBDIR@@", "tauthon" + get_python_version())
          if standard_lib:
              return libpython
          else:
-diff -ur py28-2.8.0_pre20170104.orig/Lib/plat-linux2/regen py28-2.8.0_pre20170104/Lib/plat-linux2/regen
---- py28-2.8.0_pre20170104.orig/Lib/plat-linux2/regen	2017-01-22 20:11:07.849511584 +0100
-+++ py28-2.8.0_pre20170104/Lib/plat-linux2/regen	2017-01-22 20:12:13.167247810 +0100
+diff -ur tauthon-2.8.0_pre20170104.orig/Lib/plat-linux2/regen tauthon-2.8.0_pre20170104/Lib/plat-linux2/regen
+--- tauthon-2.8.0_pre20170104.orig/Lib/plat-linux2/regen	2017-01-22 20:11:07.849511584 +0100
++++ tauthon-2.8.0_pre20170104/Lib/plat-linux2/regen	2017-01-22 20:12:13.167247810 +0100
 @@ -5,4 +5,4 @@
  	exit 1;;
  esac
  set -v
 -python$EXE ../../Tools/scripts/h2py.py -i '(u_long)' /usr/include/sys/types.h /usr/include/netinet/in.h /usr/include/dlfcn.h /usr/include/linux/cdrom.h
-+py$EXE ../../Tools/scripts/h2py.py -i '(u_long)' /usr/include/sys/types.h /usr/include/netinet/in.h /usr/include/dlfcn.h /usr/include/linux/cdrom.h
-diff -ur py28-2.8.0_pre20170104.orig/Makefile.pre.in py28-2.8.0_pre20170104/Makefile.pre.in
---- py28-2.8.0_pre20170104.orig/Makefile.pre.in	2017-01-22 20:11:08.149501186 +0100
-+++ py28-2.8.0_pre20170104/Makefile.pre.in	2017-01-22 20:12:13.167247810 +0100
++tauthon$EXE ../../Tools/scripts/h2py.py -i '(u_long)' /usr/include/sys/types.h /usr/include/netinet/in.h /usr/include/dlfcn.h /usr/include/linux/cdrom.h
+diff -ur tauthon-2.8.0_pre20170104.orig/Makefile.pre.in tauthon-2.8.0_pre20170104/Makefile.pre.in
+--- tauthon-2.8.0_pre20170104.orig/Makefile.pre.in	2017-01-22 20:11:08.149501186 +0100
++++ tauthon-2.8.0_pre20170104/Makefile.pre.in	2017-01-22 20:12:13.167247810 +0100
 @@ -114,11 +114,11 @@
  SCRIPTDIR=	$(prefix)/@@GENTOO_LIBDIR@@
  
@@ -176,11 +176,11 @@ diff -ur py28-2.8.0_pre20170104.orig/Makefile.pre.in py28-2.8.0_pre20170104/Make
 -INCLUDEPY=	$(INCLUDEDIR)/python$(VERSION)
 -CONFINCLUDEPY=	$(CONFINCLUDEDIR)/python$(VERSION)
 -LIBP=		$(LIBDIR)/python$(VERSION)
-+BINLIBDEST=	$(LIBDIR)/py$(VERSION)
-+LIBDEST=	$(SCRIPTDIR)/py$(VERSION)
-+INCLUDEPY=	$(INCLUDEDIR)/py$(VERSION)
-+CONFINCLUDEPY=	$(CONFINCLUDEDIR)/py$(VERSION)
-+LIBP=		$(LIBDIR)/py$(VERSION)
++BINLIBDEST=	$(LIBDIR)/tauthon$(VERSION)
++LIBDEST=	$(SCRIPTDIR)/tauthon$(VERSION)
++INCLUDEPY=	$(INCLUDEDIR)/tauthon$(VERSION)
++CONFINCLUDEPY=	$(CONFINCLUDEDIR)/tauthon$(VERSION)
++LIBP=		$(LIBDIR)/tauthon$(VERSION)
  
  # Symbols used for using shared libraries
  SO=		@SO@
@@ -190,8 +190,8 @@ diff -ur py28-2.8.0_pre20170104.orig/Makefile.pre.in py28-2.8.0_pre20170104/Make
  
 -PYTHON=		python$(EXE)
 -BUILDPYTHON=	python$(BUILDEXE)
-+PYTHON=		py$(EXE)
-+BUILDPYTHON=	py$(BUILDEXE)
++PYTHON=		tauthon$(EXE)
++BUILDPYTHON=	tauthon$(BUILDEXE)
  
  PYTHON_FOR_BUILD=@PYTHON_FOR_BUILD@
  _PYTHON_HOST_PLATFORM=@_PYTHON_HOST_PLATFORM@
@@ -200,7 +200,7 @@ diff -ur py28-2.8.0_pre20170104.orig/Makefile.pre.in py28-2.8.0_pre20170104/Make
  	$(RANLIB) $@
  
 -libpython$(VERSION).so: $(LIBRARY_OBJS)
-+libpy$(VERSION).so: $(LIBRARY_OBJS)
++libtauthon$(VERSION).so: $(LIBRARY_OBJS)
  	if test $(INSTSONAME) != $(LDLIBRARY); then \
  		$(BLDSHARED) -Wl,-h$(INSTSONAME) -o $(INSTSONAME) $(LIBRARY_OBJS) $(MODLIBS) $(SHLIBS) $(LIBC) $(LIBM) $(LDLAST); \
  		$(LN) -f $(INSTSONAME) $@; \
@@ -210,12 +210,12 @@ diff -ur py28-2.8.0_pre20170104.orig/Makefile.pre.in py28-2.8.0_pre20170104/Make
  
 -libpython$(VERSION).dylib: $(LIBRARY_OBJS)
 -	 $(CC) -dynamiclib -Wl,-single_module $(LDFLAGS) -undefined dynamic_lookup -Wl,-install_name,$(prefix)/lib/libpython$(VERSION).dylib -Wl,-compatibility_version,$(VERSION) -Wl,-current_version,$(VERSION) -o $@ $(LIBRARY_OBJS) $(SHLIBS) $(LIBC) $(LIBM) $(LDLAST); \
-+libpy$(VERSION).dylib: $(LIBRARY_OBJS)
-+	 $(CC) -dynamiclib -Wl,-single_module $(LDFLAGS) -undefined dynamic_lookup -Wl,-install_name,$(prefix)/lib/libpy$(VERSION).dylib -Wl,-compatibility_version,$(VERSION) -Wl,-current_version,$(VERSION) -o $@ $(LIBRARY_OBJS) $(SHLIBS) $(LIBC) $(LIBM) $(LDLAST); \
++libtauthon$(VERSION).dylib: $(LIBRARY_OBJS)
++	 $(CC) -dynamiclib -Wl,-single_module $(LDFLAGS) -undefined dynamic_lookup -Wl,-install_name,$(prefix)/lib/libtauthon$(VERSION).dylib -Wl,-compatibility_version,$(VERSION) -Wl,-current_version,$(VERSION) -o $@ $(LIBRARY_OBJS) $(SHLIBS) $(LIBC) $(LIBM) $(LDLAST); \
  
  
 -libpython$(VERSION).sl: $(LIBRARY_OBJS)
-+libpy$(VERSION).sl: $(LIBRARY_OBJS)
++libtauthon$(VERSION).sl: $(LIBRARY_OBJS)
  	$(LDSHARED) -o $@ $(LIBRARY_OBJS) $(MODLIBS) $(SHLIBS) $(LIBC) $(LIBM) $(LDLAST)
  
  # Copy up the gdb python hooks into a position where they can be automatically
@@ -224,7 +224,7 @@ diff -ur py28-2.8.0_pre20170104.orig/Makefile.pre.in py28-2.8.0_pre20170104/Make
  		fi; \
  	done
 -	$(INSTALL_PROGRAM) $(BUILDPYTHON) $(DESTDIR)$(BINDIR)/python$(VERSION)$(EXE)
-+	$(INSTALL_PROGRAM) $(BUILDPYTHON) $(DESTDIR)$(BINDIR)/py$(VERSION)$(EXE)
++	$(INSTALL_PROGRAM) $(BUILDPYTHON) $(DESTDIR)$(BINDIR)/tauthon$(VERSION)$(EXE)
  	if test -f $(LDLIBRARY); then \
  		if test -n "$(DLLLIBRARY)" ; then \
  			$(INSTALL_SHARED) $(DLLLIBRARY) $(DESTDIR)$(BINDIR); \
@@ -233,68 +233,68 @@ diff -ur py28-2.8.0_pre20170104.orig/Makefile.pre.in py28-2.8.0_pre20170104/Make
  	# Substitution happens here, as the completely-expanded BINDIR
  	# is not available in configure
 -	sed -e "s,@EXENAME@,$(BINDIR)/python$(VERSION)$(EXE)," < $(srcdir)/Misc/python-config.in >python-config
-+	sed -e "s,@EXENAME@,$(BINDIR)/py$(VERSION)$(EXE)," < $(srcdir)/Misc/python-config.in >python-config
++	sed -e "s,@EXENAME@,$(BINDIR)/tauthon$(VERSION)$(EXE)," < $(srcdir)/Misc/python-config.in >python-config
  
  # Install the include files
  INCLDIRSTOMAKE=$(INCLUDEDIR) $(CONFINCLUDEDIR) $(INCLUDEPY) $(CONFINCLUDEPY)
-diff -ur py28-2.8.0_pre20170104.orig/Misc/python-config.in py28-2.8.0_pre20170104/Misc/python-config.in
---- py28-2.8.0_pre20170104.orig/Misc/python-config.in	2017-01-22 20:11:07.619519555 +0100
-+++ py28-2.8.0_pre20170104/Misc/python-config.in	2017-01-22 20:12:13.167247810 +0100
+diff -ur tauthon-2.8.0_pre20170104.orig/Misc/python-config.in tauthon-2.8.0_pre20170104/Misc/python-config.in
+--- tauthon-2.8.0_pre20170104.orig/Misc/python-config.in	2017-01-22 20:11:07.619519555 +0100
++++ tauthon-2.8.0_pre20170104/Misc/python-config.in	2017-01-22 20:12:13.167247810 +0100
 @@ -44,7 +44,7 @@
          print ' '.join(flags)
  
      elif opt in ('--libs', '--ldflags'):
 -        libs = ['-lpython' + pyver]
-+        libs = ['-lpy' + pyver]
++        libs = ['-ltauthon' + pyver]
          libs += getvar('LIBS').split()
          libs += getvar('SYSLIBS').split()
          if opt == '--ldflags':
-diff -ur py28-2.8.0_pre20170104.orig/Misc/python.pc.in py28-2.8.0_pre20170104/Misc/python.pc.in
---- py28-2.8.0_pre20170104.orig/Misc/python.pc.in	2017-01-22 20:11:07.029540001 +0100
-+++ py28-2.8.0_pre20170104/Misc/python.pc.in	2017-01-22 20:12:13.167247810 +0100
+diff -ur tauthon-2.8.0_pre20170104.orig/Misc/python.pc.in tauthon-2.8.0_pre20170104/Misc/python.pc.in
+--- tauthon-2.8.0_pre20170104.orig/Misc/python.pc.in	2017-01-22 20:11:07.029540001 +0100
++++ tauthon-2.8.0_pre20170104/Misc/python.pc.in	2017-01-22 20:12:13.167247810 +0100
 @@ -3,11 +3,11 @@
  libdir=@libdir@
  includedir=@includedir@
  
 -Name: Python
 -Description: Python library
-+Name: Py28
-+Description: Py28 library
++Name: Tauthon
++Description: Tauthon library
  Requires: 
  Version: @VERSION@
  Libs.private: @LIBS@
 -Libs: -L${libdir} -lpython@VERSION@
 -Cflags: -I${includedir}/python@VERSION@ 
-+Libs: -L${libdir} -lpy@VERSION@
-+Cflags: -I${includedir}/py@VERSION@ 
++Libs: -L${libdir} -ltauthon@VERSION@
++Cflags: -I${includedir}/tauthon@VERSION@ 
  
-diff -ur py28-2.8.0_pre20170104.orig/Modules/getpath.c py28-2.8.0_pre20170104/Modules/getpath.c
---- py28-2.8.0_pre20170104.orig/Modules/getpath.c	2017-01-22 20:11:07.709516434 +0100
-+++ py28-2.8.0_pre20170104/Modules/getpath.c	2017-01-22 20:12:13.167247810 +0100
+diff -ur tauthon-2.8.0_pre20170104.orig/Modules/getpath.c tauthon-2.8.0_pre20170104/Modules/getpath.c
+--- tauthon-2.8.0_pre20170104.orig/Modules/getpath.c	2017-01-22 20:11:07.709516434 +0100
++++ tauthon-2.8.0_pre20170104/Modules/getpath.c	2017-01-22 20:12:13.167247810 +0100
 @@ -108,7 +108,7 @@
  static char exec_prefix[MAXPATHLEN+1];
  static char progpath[MAXPATHLEN+1];
  static char *module_search_path = NULL;
 -static char lib_python[] = "@@GENTOO_LIBDIR@@/python" VERSION;
-+static char lib_python[] = "@@GENTOO_LIBDIR@@/py" VERSION;
++static char lib_python[] = "@@GENTOO_LIBDIR@@/tauthon" VERSION;
  
  static void
  reduce(char *dir)
-diff -ur py28-2.8.0_pre20170104.orig/Modules/makesetup py28-2.8.0_pre20170104/Modules/makesetup
---- py28-2.8.0_pre20170104.orig/Modules/makesetup	2017-01-22 20:11:07.619519555 +0100
-+++ py28-2.8.0_pre20170104/Modules/makesetup	2017-01-22 20:12:13.167247810 +0100
+diff -ur tauthon-2.8.0_pre20170104.orig/Modules/makesetup tauthon-2.8.0_pre20170104/Modules/makesetup
+--- tauthon-2.8.0_pre20170104.orig/Modules/makesetup	2017-01-22 20:11:07.619519555 +0100
++++ tauthon-2.8.0_pre20170104/Modules/makesetup	2017-01-22 20:12:13.167247810 +0100
 @@ -91,7 +91,7 @@
  	 else
  	 	ExtraLibDir='$(LIBDIR)'
  	 fi
 -	 ExtraLibs="-L$ExtraLibDir -lpython\$(VERSION)";;
-+	 ExtraLibs="-L$ExtraLibDir -lpy\$(VERSION)";;
++	 ExtraLibs="-L$ExtraLibDir -ltauthon\$(VERSION)";;
  esac
  
  # Main loop
-diff -ur py28-2.8.0_pre20170104.orig/setup.py py28-2.8.0_pre20170104/setup.py
---- py28-2.8.0_pre20170104.orig/setup.py	2017-01-22 20:11:08.309495641 +0100
-+++ py28-2.8.0_pre20170104/setup.py	2017-01-22 20:12:13.167247810 +0100
+diff -ur tauthon-2.8.0_pre20170104.orig/setup.py tauthon-2.8.0_pre20170104/setup.py
+--- tauthon-2.8.0_pre20170104.orig/setup.py	2017-01-22 20:11:08.309495641 +0100
++++ tauthon-2.8.0_pre20170104/setup.py	2017-01-22 20:12:13.167247810 +0100
 @@ -471,10 +471,6 @@
  
      def detect_modules(self):

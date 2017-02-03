@@ -8,9 +8,9 @@ WANT_LIBTOOL="none"
 inherit autotools eutils flag-o-matic git-r3 multilib pax-utils python-utils-r1 toolchain-funcs multiprocessing
 
 DESCRIPTION="Python 2.7 fork with new syntax, builtins, and libraries backported from Python 3"
-HOMEPAGE="https://github.com/naftaliharris/placeholder"
-EGIT_REPO_URI="https://github.com/naftaliharris/placeholder.git"
-EGIT_COMMIT="fa5d5e255b06c5ef097ab75be5576ddcb0998ced"
+HOMEPAGE="https://github.com/naftaliharris/tauthon"
+EGIT_REPO_URI="https://github.com/naftaliharris/tauthon.git"
+EGIT_COMMIT="0c7adacaf72585232fc58dbcf54649f7ae737051"
 
 LICENSE="PSF-2"
 SLOT="2.8"
@@ -67,7 +67,7 @@ PDEPEND=">=app-eselect/eselect-python-20140125-r1"
 pkg_setup() {
 	if use berkdb; then
 		ewarn "'bsddb' module is out-of-date and no longer maintained inside"
-		ewarn "dev-lang/py28. 'bsddb' and 'dbhash' modules have been additionally"
+		ewarn "dev-lang/tauthon. 'bsddb' and 'dbhash' modules have been additionally"
 		ewarn "removed in Python 3. A maintained alternative of 'bsddb3' module"
 		ewarn "is provided by dev-python/bsddb3."
 	else
@@ -96,7 +96,7 @@ src_prepare() {
 	epatch "${FILESDIR}/python-2.7.9-ncurses-pkg-config.patch"
 	epatch "${FILESDIR}/python-2.7.10-cross-compile-warn-test.patch"
 	epatch "${FILESDIR}/python-2.7.10-system-libffi.patch"
-	epatch "${FILESDIR}/py28-rename.patch"
+	epatch "${FILESDIR}/tauthon-rename.patch"
 
 	epatch_user
 
@@ -130,7 +130,7 @@ src_configure() {
 		export PYTHON_DISABLE_MODULES="${disable}"
 
 		if ! use xml; then
-			ewarn "You have configured Python without XML support."
+			ewarn "You have configured Tauthon without XML support."
 			ewarn "This is NOT a recommended configuration as you"
 			ewarn "may face problems parsing any XML documents."
 		fi
@@ -163,8 +163,8 @@ src_configure() {
 	# http://bugs.python.org/issue15506
 	export ac_cv_path_PKG_CONFIG=$(tc-getPKG_CONFIG)
 
-	# Set LDFLAGS so we link modules with -lpy2.8 correctly.
-	# Needed on FreeBSD unless py28 is already installed.
+	# Set LDFLAGS so we link modules with -ltauthon correctly.
+	# Needed on FreeBSD unless Tauthon is already installed.
 	# Please query BSD team before removing this!
 	append-ldflags "-L."
 
@@ -258,15 +258,15 @@ src_test() {
 }
 
 src_install() {
-	local libdir=${ED}/usr/$(get_libdir)/py${SLOT}
+	local libdir=${ED}/usr/$(get_libdir)/tauthon${SLOT}
 
 	cd "${BUILD_DIR}" || die
 	emake DESTDIR="${D}" altinstall
 
 	# symlinks for autotools
-	ln -s py${SLOT} "${ED}/usr/$(get_libdir)/python${SLOT}"
-	ln -s libpy${SLOT}.a "${ED}/usr/$(get_libdir)/libpython${SLOT}.a"
-	ln -s libpy${SLOT}.so "${ED}/usr/$(get_libdir)/libpython${SLOT}.so"
+	ln -s tauthon${SLOT} "${ED}/usr/$(get_libdir)/python${SLOT}"
+	ln -s libtauthon${SLOT}.a "${ED}/usr/$(get_libdir)/libpython${SLOT}.a"
+	ln -s libtauthon${SLOT}.so "${ED}/usr/$(get_libdir)/libpython${SLOT}.so"
 
 	sed -e "s/\(LDFLAGS=\).*/\1/" -i "${libdir}/config/Makefile" || die "sed failed"
 
@@ -307,13 +307,13 @@ src_install() {
 
 	# if not using a cross-compiler, use the fresh binary
 	if ! tc-is-cross-compiler; then
-		local -x PYTHON=./py
+		local -x PYTHON=./tauthon
 		local -x LD_LIBRARY_PATH=${LD_LIBRARY_PATH+${LD_LIBRARY_PATH}:}.
 	else
 		vars=( PYTHON "${vars[@]}" )
 	fi
 
-	python_export "py${SLOT}" "${vars[@]}"
+	python_export "tauthon${SLOT}" "${vars[@]}"
 	echo "EPYTHON='${EPYTHON}'" > epython.py || die
 	python_domodule epython.py
 
@@ -321,7 +321,7 @@ src_install() {
 	local pymajor=${SLOT%.*}
 	mkdir -p "${D}${PYTHON_SCRIPTDIR}" || die
 	# python and pythonX
-	ln -s "../../../bin/py${SLOT}" \
+	ln -s "../../../bin/tauthon${SLOT}" \
 		"${D}${PYTHON_SCRIPTDIR}/python${pymajor}" || die
 	ln -s "python${pymajor}" \
 		"${D}${PYTHON_SCRIPTDIR}/python" || die

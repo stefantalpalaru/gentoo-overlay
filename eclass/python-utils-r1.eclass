@@ -44,7 +44,7 @@ _PYTHON_ALL_IMPLS=(
 	jython2_7
 	pypy pypy3
 	python2_7
-	py2_8
+	tauthon2_8
 	python3_4 python3_5
 )
 readonly _PYTHON_ALL_IMPLS
@@ -69,7 +69,7 @@ _python_impl_supported() {
 	# keep in sync with _PYTHON_ALL_IMPLS!
 	# (not using that list because inline patterns shall be faster)
 	case "${impl}" in
-		python2_7|py2_8|python3_[45]|jython2_7)
+		python2_7|tauthon2_8|python3_[45]|jython2_7)
 			return 0
 			;;
 		pypy1_[89]|pypy2_0|python2_[56]|python3_[123])
@@ -300,7 +300,7 @@ python_export() {
 	local impl var
 
 	case "${1}" in
-		python*|jython*|py2*)
+		python*|jython*|tauthon*)
 			impl=${1/_/.}
 			shift
 			;;
@@ -361,7 +361,7 @@ python_export() {
 				local val
 
 				case "${impl}" in
-					python*)
+					python*|tauthon*)
 						# python-2.7, python-3.2, etc.
 						val=$($(tc-getPKG_CONFIG) --cflags ${impl/n/n-}) || die
 						;;
@@ -377,7 +377,7 @@ python_export() {
 				local val
 
 				case "${impl}" in
-					python*)
+					python*|tauthon*)
 						# python-2.7, python-3.2, etc.
 						val=$($(tc-getPKG_CONFIG) --libs ${impl/n/n-}) || die
 						;;
@@ -393,7 +393,7 @@ python_export() {
 				local flags val
 
 				case "${impl}" in
-					python*)
+					python*|tauthon*)
 						[[ -n ${PYTHON} ]] || die "PYTHON needs to be set for ${var} to be exported, or requested before it"
 						flags=$("${PYTHON}" -c 'import sysconfig; print(sysconfig.get_config_var("ABIFLAGS") or "")') || die
 						val=${PYTHON}${flags}-config
@@ -421,8 +421,8 @@ python_export() {
 						PYTHON_PKG_DEP='virtual/pypy3:0=';;
 					jython2.7)
 						PYTHON_PKG_DEP='dev-java/jython:2.7';;
-					py2.8)
-						PYTHON_PKG_DEP='dev-lang/py28';;
+					tauthon2.8)
+						PYTHON_PKG_DEP='dev-lang/tauthon:2.8';;
 					*)
 						die "Invalid implementation: ${impl}"
 				esac
@@ -643,7 +643,7 @@ python_optimize() {
 		instpath=/${instpath##/}
 
 		case "${EPYTHON}" in
-			python2.7|python3.[34])
+			python2.7|python3.[34]|tauthon2.8)
 				"${PYTHON}" -m compileall -q -f -d "${instpath}" "${d}"
 				"${PYTHON}" -OO -m compileall -q -f -d "${instpath}" "${d}"
 				;;
@@ -956,7 +956,7 @@ python_wrapper_setup() {
 		local nonsupp=( "python${pyother}" "python${pyother}-config" )
 
 		# CPython-specific
-		if [[ ${EPYTHON} == python* ]]; then
+		if [[ ${EPYTHON} == python* || ${EPYTHON} == tauthon* ]]; then
 			python_export "${impl}" PYTHON_CONFIG
 
 			cat > "${workdir}/bin/python-config" <<-_EOF_ || die
@@ -969,7 +969,7 @@ python_wrapper_setup() {
 				"${workdir}/bin/python${pyver}-config" || die
 
 			# Python 2.6+.
-			ln -s "${PYTHON/python/2to3-}" "${workdir}"/bin/2to3 || die
+			ln -s "${PYTHON/+(python|tauthon)/2to3-}" "${workdir}"/bin/2to3 || die
 
 			# Python 2.7+.
 			ln -s "${EPREFIX}"/usr/$(get_libdir)/pkgconfig/${EPYTHON/n/n-}.pc \
