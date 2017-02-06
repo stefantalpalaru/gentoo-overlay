@@ -1,19 +1,8 @@
-From 03eb22a5c78240763a6970d7a2f9bc394bf8ad44 Mon Sep 17 00:00:00 2001
-From: Stefan Talpalaru <stefantalpalaru@yahoo.com>
-Date: Fri, 2 Sep 2016 17:54:23 +0200
-Subject: [PATCH] use the system RtAudio on Linux
-
----
- CMakeLists.txt                  | 60 ++++++++++++-----------------------------
- cmake/Modules/FindRtAudio.cmake | 48 +++++++++++++++++++++++++++++++++
- 2 files changed, 65 insertions(+), 43 deletions(-)
- create mode 100644 cmake/Modules/FindRtAudio.cmake
-
 diff --git a/CMakeLists.txt b/CMakeLists.txt
-index a817a1d..cd1466f 100644
+index c034495..40ef69d 100644
 --- a/CMakeLists.txt
 +++ b/CMakeLists.txt
-@@ -177,48 +177,26 @@ ENDIF (WIN32)
+@@ -217,48 +217,26 @@ ENDIF (WIN32)
  IF (UNIX AND NOT APPLE)
      set(BUILD_DEB OFF CACHE BOOL "Build DEB")
  
@@ -79,23 +68,23 @@ index a817a1d..cd1466f 100644
  ENDIF(UNIX AND NOT APPLE)
  
  IF (APPLE)
-@@ -304,7 +282,6 @@ SET (cubicsdr_sources
-     src/forms/SDRDevices/SDRDevicesForm.cpp
-     src/forms/SDRDevices/SDRDeviceAdd.cpp
-     src/forms/SDRDevices/SDRDeviceAddForm.cpp
--	external/rtaudio/RtAudio.cpp
- 	external/lodepng/lodepng.cpp
- 	external/tinyxml/tinyxml.cpp
- 	external/tinyxml/tinystr.cpp
-@@ -408,7 +385,6 @@ SET (cubicsdr_headers
-     src/forms/SDRDevices/SDRDevicesForm.h
-     src/forms/SDRDevices/SDRDeviceAdd.h
-     src/forms/SDRDevices/SDRDeviceAddForm.h
--	external/rtaudio/RtAudio.h
- 	external/lodepng/lodepng.h
- 	external/tinyxml/tinyxml.h
- 	external/tinyxml/tinystr.h
-@@ -512,7 +488,6 @@ SOURCE_GROUP("Visual" REGULAR_EXPRESSION "src/visual/${REG_EXT}")
+@@ -350,7 +328,6 @@ SET (cubicsdr_sources
+     src/forms/Bookmark/BookmarkView.cpp
+     src/forms/Dialog/ActionDialogBase.cpp
+     src/forms/Dialog/ActionDialog.cpp
+-    external/rtaudio/RtAudio.cpp
+     external/lodepng/lodepng.cpp
+     external/tinyxml/tinyxml.cpp
+     external/tinyxml/tinystr.cpp
+@@ -455,7 +432,6 @@ SET (cubicsdr_headers
+     src/forms/Bookmark/BookmarkView.h
+     src/forms/Dialog/ActionDialogBase.h
+     src/forms/Dialog/ActionDialog.h
+-    external/rtaudio/RtAudio.h
+     external/lodepng/lodepng.h
+     external/tinyxml/tinyxml.h
+     external/tinyxml/tinystr.h
+@@ -556,7 +532,6 @@ SOURCE_GROUP("Visual" REGULAR_EXPRESSION "src/visual/${REG_EXT}")
  SOURCE_GROUP("Panel" REGULAR_EXPRESSION "src/panel/${REG_EXT}")
  SOURCE_GROUP("Process" REGULAR_EXPRESSION "src/process/${REG_EXT}")
  SOURCE_GROUP("UI" REGULAR_EXPRESSION "src/ui/${REG_EXT}")
@@ -103,14 +92,14 @@ index a817a1d..cd1466f 100644
  SOURCE_GROUP("_ext-LodePNG" REGULAR_EXPRESSION "external/lodepng/.*${REG_EXT}")
  SOURCE_GROUP("_ext-TinyXML" REGULAR_EXPRESSION "external/tinyxml/.*${REG_EXT}")
  SOURCE_GROUP("_ext-CubicVR2" REGULAR_EXPRESSION "external/cubicvr2/.*${REG_EXT}")
-@@ -534,7 +509,6 @@ include_directories (
- 	${PROJECT_SOURCE_DIR}/src/ui
- 	${PROJECT_SOURCE_DIR}/src/rig
- 	${PROJECT_SOURCE_DIR}/src
--	${PROJECT_SOURCE_DIR}/external/rtaudio
- 	${PROJECT_SOURCE_DIR}/external/lodepng 
- 	${PROJECT_SOURCE_DIR}/external/tinyxml
- 	${PROJECT_SOURCE_DIR}/external/cubicvr2/math
+@@ -580,7 +555,6 @@ include_directories (
+     ${PROJECT_SOURCE_DIR}/src/ui
+     ${PROJECT_SOURCE_DIR}/src/rig
+     ${PROJECT_SOURCE_DIR}/src
+-    ${PROJECT_SOURCE_DIR}/external/rtaudio
+     ${PROJECT_SOURCE_DIR}/external/lodepng 
+     ${PROJECT_SOURCE_DIR}/external/tinyxml
+     ${PROJECT_SOURCE_DIR}/external/cubicvr2/math
 diff --git a/cmake/Modules/FindRtAudio.cmake b/cmake/Modules/FindRtAudio.cmake
 new file mode 100644
 index 0000000..28c7b73
@@ -165,6 +154,3 @@ index 0000000..28c7b73
 +
 +#mark_as_advanced(RTAUDIO_INCLUDE_DIR RTAUDIO_LIBRARIES)
 +
--- 
-2.9.3
-
