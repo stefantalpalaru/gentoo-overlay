@@ -2,17 +2,16 @@
 # Distributed under the terms of the GNU General Public License v2
 # $Id$
 
-EAPI=5
+EAPI=6
 
 PYTHON_COMPAT=( python2_7 )
 
-inherit linux-info autotools git-2 eutils python-single-r1 user
+inherit linux-info autotools git-r3 eutils python-single-r1 user
 
 DESCRIPTION="A linux trace/probe tool"
 HOMEPAGE="http://www.sourceware.org/systemtap/"
 EGIT_REPO_URI="http://sourceware.org/git/systemtap.git"
-EGIT_COMMIT="7e8210aeaa556e8d165db1e960b5dd644ad2d04f"
-EGIT_CLONE_TYPE="shallow"
+EGIT_COMMIT="844e8bb928c20e0660ca6868478f7f45fceeb5a4"
 
 LICENSE="GPL-2"
 SLOT="0"
@@ -44,7 +43,7 @@ pkg_setup() {
 }
 
 src_prepare() {
-	python_fix_shebang .
+	default
 
 	sed -i \
 		-e 's:-Werror::g' \
@@ -62,8 +61,7 @@ src_prepare() {
 		scripts/kprobes_test/gen_code.py \
 		|| die "Failed to clean up sources"
 
-	epatch_user
-
+	python_fix_shebang .
 	eautoreconf
 }
 
