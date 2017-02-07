@@ -1,18 +1,17 @@
-# Copyright 1999-2016 Gentoo Foundation
+# Copyright 1999-2017 Gentoo Foundation
 # Distributed under the terms of the GNU General Public License v2
 # $Id$
 
-EAPI=5
+EAPI=6
 
 PYTHON_COMPAT=( python2_7 python3_{4,5} )
 CMAKE_IN_SOURCE_BUILD="1"
 
-inherit cmake-utils git-2 python-r1
+inherit cmake-utils git-r3 python-r1
 
 DESCRIPTION="vendor and platform neutral SDR support library"
 HOMEPAGE="http://github.com/pothosware/SoapySDR"
 EGIT_REPO_URI="https://github.com/pothosware/SoapySDR.git"
-EGIT_CLONE_TYPE="shallow"
 
 LICENSE="Boost-1.0"
 SLOT="0/${PV}"
@@ -27,6 +26,7 @@ DEPEND="${RDEPEND}
 "
 
 src_prepare() {
+	default
 	# this particular CMakeLists.txt tries to enable Python 3 behind our backs:
 	sed -i -e '/BUILD_PYTHON3/d' python/CMakeLists.txt
 	cmake-utils_src_prepare
@@ -36,7 +36,7 @@ src_prepare() {
 src_configure() {
 	configuration() {
 		local mycmakeargs=(
-			$(cmake-utils_use_enable python PYTHON)
+			-DENABLE_PYTHON="$(usex python)"
 		)
 
 		if [ -n "${EPYTHON}" ] && python_is_python3; then
