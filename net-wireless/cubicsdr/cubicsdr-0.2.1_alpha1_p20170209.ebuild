@@ -11,7 +11,7 @@ inherit cmake-utils git-r3 wxwidgets
 DESCRIPTION="Cross-Platform Software-Defined Radio Application"
 HOMEPAGE="http://cubicsdr.com/"
 EGIT_REPO_URI="https://github.com/cjcliffe/CubicSDR.git"
-EGIT_COMMIT="e181849a1d2acdf01466b798b2e16c427a0a219c"
+EGIT_COMMIT="8c1d785ff6799acd5a61c2afd0615a79fd881ec6"
 
 LICENSE="GPL-2"
 SLOT="0"
@@ -33,9 +33,15 @@ RDEPEND="${DEPEND}"
 #}
 
 src_prepare() {
-	eapply "${FILESDIR}/system_rtaudio.patch"
-	eapply_user
+	default
 
 	rm -rf external/liquid-dsp external/rtaudio
 	cmake-utils_src_prepare
+}
+
+src_configure() {
+	local mycmakeargs=(
+	-DUSE_SYSTEM_RTAUDIO=ON
+	)
+	cmake-utils_src_configure
 }
