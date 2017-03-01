@@ -1,0 +1,51 @@
+diff -ur pngquant-2.8.0.orig/configure pngquant-2.8.0/configure
+--- pngquant-2.8.0.orig/configure	2017-03-01 22:31:32.251171470 +0100
++++ pngquant-2.8.0/configure	2017-03-01 22:31:49.840590312 +0100
+@@ -468,5 +468,3 @@
+ SOLIBSUFFIX = $SOLIBSUFFIX
+ " > "$CONFIG"
+ 
+-# Configure static library the same way
+-cp "$CONFIG" lib/
+diff -ur pngquant-2.8.0.orig/Makefile pngquant-2.8.0/Makefile
+--- pngquant-2.8.0.orig/Makefile	2016-11-16 21:45:03.000000000 +0100
++++ pngquant-2.8.0/Makefile	2017-03-01 22:31:49.840590312 +0100
+@@ -48,8 +48,8 @@
+ test: $(BIN) $(TESTBIN)
+ 	./test/test.sh ./test $(BIN) $(TESTBIN)
+ 
+-bin.shared: $(OBJS) $(SHAREDLIB)
+-	$(CC) $^ $(CFLAGS) $(LDFLAGS) -o $(BIN)
++bin.shared: $(OBJS)
++	$(CC) $^ $(CFLAGS) $(LDFLAGS) -limagequant -o $(BIN)
+ 
+ testbin.shared: test/test.o $(SHAREDLIB)
+ 	$(CC) $^ $(CFLAGS) $(LDFLAGS) -o $(TESTBIN)
+@@ -86,7 +86,7 @@
+ 	$(MAKE) -C lib distclean
+ 	rm -f config.mk pngquant-*-src.tar.gz
+ 
+-config.mk: lib/libimagequant.h
++config.mk:
+ ifeq ($(filter %clean %distclean, $(MAKECMDGOALS)), )
+ 	./configure
+ endif
+@@ -94,5 +94,5 @@
+ lib/libimagequant.h:
+ 	git submodule init && git submodule update
+ 
+-.PHONY: all clean dist distclean dll install uninstall test staticlib
++.PHONY: all clean dist distclean dll install uninstall test staticlib config.mk
+ .DELETE_ON_ERROR:
+diff -ur pngquant-2.8.0.orig/pngquant.c pngquant-2.8.0/pngquant.c
+--- pngquant-2.8.0.orig/pngquant.c	2016-11-16 21:45:03.000000000 +0100
++++ pngquant-2.8.0/pngquant.c	2017-03-01 22:32:13.369812901 +0100
+@@ -88,7 +88,7 @@
+ #endif
+ 
+ #include "rwpng.h"  /* typedefs, common macros, public prototypes */
+-#include "lib/libimagequant.h"
++#include <libimagequant.h>
+ 
+ struct pngquant_options {
+     liq_attr *liq;
