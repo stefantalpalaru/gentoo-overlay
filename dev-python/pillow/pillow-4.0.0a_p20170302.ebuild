@@ -6,18 +6,16 @@ EAPI=6
 PYTHON_COMPAT=( python2_7 python3_{4,5,6} pypy )
 PYTHON_REQ_USE='tk?,threads(+)'
 
-inherit distutils-r1 eutils virtualx
-
-MY_PN=Pillow
-MY_P=${MY_PN}-${PV}
+inherit git-r3 distutils-r1 eutils virtualx
 
 DESCRIPTION="Python Imaging Library (fork)"
 HOMEPAGE="https://github.com/python-imaging/Pillow https://pypi.python.org/pypi/Pillow"
-SRC_URI="https://github.com/python-pillow/Pillow/archive/${PV}.tar.gz -> ${P}.tar.gz"
+EGIT_REPO_URI="https://github.com/python-imaging/Pillow"
+EGIT_COMMIT="5ce44d07eda62b1c93880a00baa4ddfe5fb57b9b"
 
 LICENSE="HPND"
 SLOT="0"
-KEYWORDS="alpha amd64 arm hppa ia64 ppc ppc64 sparc x86 ~x86-fbsd ~amd64-linux ~x86-linux ~ppc-macos ~x64-macos ~x86-macos ~x86-solaris"
+KEYWORDS="~alpha ~amd64 ~arm ~hppa ~ia64 ~ppc ~ppc64 ~sparc ~x86 ~x86-fbsd ~amd64-linux ~x86-linux ~ppc-macos ~x64-macos ~x86-macos ~x86-solaris"
 IUSE="doc examples imagequant jpeg jpeg2k lcms test tiff tk truetype webp zlib"
 
 REQUIRED_USE="test? ( jpeg tiff )"
@@ -43,13 +41,12 @@ DEPEND="${RDEPEND}
 	test? (	dev-python/nose[${PYTHON_USEDEP}] )
 	"
 
-S="${WORKDIR}/${MY_P}"
-
 # See _render and _clean in Tests/test_imagefont.py
 DISTUTILS_IN_SOURCE_BUILD=1
 
 PATCHES=(
 	"${FILESDIR}/pillow-4.0.0-no-scripts.patch"
+	"${FILESDIR}/pillow-4.0.0-gif-fixes.patch"
 )
 
 python_prepare_all() {
