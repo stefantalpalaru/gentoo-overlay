@@ -1,0 +1,11 @@
+diff -ur Pillow-4.0.0a.original/setup.py Pillow-4.0.0a/setup.py
+--- Pillow-4.0.0a.original/setup.py	2017-03-02 00:47:17.535881925 +0100
++++ Pillow-4.0.0a/setup.py	2017-03-02 00:49:11.132128677 +0100
+@@ -771,7 +771,6 @@
+           ext_modules=[Extension("PIL._imaging", ["_imaging.c"])],
+           include_package_data=True,
+           packages=find_packages(),
+-          scripts=glob.glob("Scripts/*.py"),
+           install_requires=['olefile'],
+           test_suite='nose.collector',
+           keywords=["Imaging", ],
