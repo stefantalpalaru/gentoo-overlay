@@ -1,8 +1,8 @@
-# Copyright 1999-2016 Gentoo Foundation
+# Copyright 1999-2017 Gentoo Foundation
 # Distributed under the terms of the GNU General Public License v2
 # $Id$
 
-EAPI=5
+EAPI=6
 
 DESCRIPTION="An application for viewing, editing and converting GPS data."
 HOMEPAGE="http://activityworkshop.net/software/gpsprune/index.html"
@@ -13,7 +13,7 @@ SLOT="0"
 KEYWORDS="~amd64 ~x86"
 IUSE=""
 
-DEPEND="virtual/jre:1.7"
+DEPEND="virtual/jre:*"
 RDEPEND="${DEPEND}"
 
 gpsprune_bin="${WORKDIR}/gpsprune"
@@ -23,6 +23,8 @@ S="${WORKDIR}"
 
 src_prepare()
 {
+	default
+
 	# Provide the necessary files
 	cp "${DISTDIR}/${A}" "${WORKDIR}" || die
 	for size in 128 96 72 64 48 36 32 24 22 16; do
