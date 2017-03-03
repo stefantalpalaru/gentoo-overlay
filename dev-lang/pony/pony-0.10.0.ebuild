@@ -1,8 +1,8 @@
-# Copyright 1999-2016 Gentoo Foundation
+# Copyright 1999-2017 Gentoo Foundation
 # Distributed under the terms of the GNU General Public License v2
 # $Id$
 
-EAPI=5
+EAPI=6
 
 inherit git-r3
 
@@ -20,7 +20,7 @@ RESTRICT="strip"
 
 RDEPEND="dev-libs/libpcre2
 	dev-libs/openssl:=
-	>=sys-devel/llvm-3.6
+	>=sys-devel/llvm-3.6:=
 	sys-libs/ncurses:=
 	sys-libs/zlib
 "
@@ -29,6 +29,7 @@ DEPEND="${RDEPEND}
 "
 
 src_prepare() {
+	default
 	# bug #457530 means that '-ltinfo' might be needed besides '-lncurses' if a USE flag is enabled
 	# for sys-libs/ncurses, so we use pkg-config to get the ncurses libs
 	sed -i \
