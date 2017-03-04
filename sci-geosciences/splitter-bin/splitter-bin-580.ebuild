@@ -1,15 +1,14 @@
-# Copyright 1999-2011 Gentoo Foundation
+# Copyright 1999-2017 Gentoo Foundation
 # Distributed under the terms of the GNU General Public License v2
-# $Header: $
 
-EAPI=4
+EAPI=6
 
 inherit java-pkg-2
 
 DESCRIPTION="Tile splitter for mkgmap"
 HOMEPAGE="http://www.mkgmap.org.uk/page/tile-splitter"
 MY_PN=${PN%-bin}
-SRC_URI="http://www.mkgmap.org.uk/${MY_PN}/${MY_PN}-r${PV}.tar.gz"
+SRC_URI="http://www.mkgmap.org.uk/download/splitter-r${PV}.tar.gz"
 
 LICENSE="GPL-3"
 SLOT="0"
