@@ -1,8 +1,7 @@
-# Copyright 1999-2016 Gentoo Foundation
+# Copyright 1999-2017 Gentoo Foundation
 # Distributed under the terms of the GNU General Public License v2
-# $Id$
 
-EAPI=5
+EAPI=6
 
 inherit linux-info linux-mod eutils
 
@@ -10,7 +9,7 @@ DESCRIPTION="Processor Hardware Control for Intel CPUs"
 HOMEPAGE="http://www.linux-phc.org/
 	http://www.linux-phc.org/forum/viewtopic.php?f=7&t=267"
 #no automatic filenames here, sorry
-SRC_URI="http://www.linux-phc.org/forum/download/file.php?id=173 -> phc-intel-pack-rev23.tar.bz2"
+SRC_URI="http://www.linux-phc.org/forum/download/file.php?id=178 -> phc-intel-pack-rev24.tar.bz2"
 
 LICENSE="GPL-2"
 SLOT="0"
@@ -25,6 +24,8 @@ BUILD_PARAMS="KERNELSRC=\"${KERNEL_DIR}\" -j1"
 BUILD_TARGETS="all"
 
 S=${WORKDIR}/${A/.tar.bz2}
+MAX_KV_MAJOR=4
+MAX_KV_MINOR=10
 
 pkg_setup() {
 	if kernel_is lt 2 6 27 ; then
@@ -32,7 +33,7 @@ pkg_setup() {
 		eerror "Please use a previous version of ${PN} or a newer kernel."
 		die
 	fi
-	if kernel_is gt 4 9 ; then
+	if kernel_is gt ${MAX_KV_MAJOR} ${MAX_KV_MINOR} ; then
 		eerror "Your kernel version is not yet supported by this version of ${PN}."
 		eerror "Please use a newer version of ${PN} or an older kernel."
 		die
@@ -41,6 +42,8 @@ pkg_setup() {
 }
 
 src_prepare() {
+	default
+
 	sed -e '/^all:/s:prepare::' \
 		-i Makefile || die
 
@@ -55,8 +58,8 @@ src_prepare() {
 
 	if kernel_is lt 3 0 ; then
 		epatch inc/${KV_MAJOR}.${KV_MINOR}.${KV_PATCH}/linux-phc-0.3.2.patch
-	elif kernel_is gt 4 7; then
-		epatch inc/4.7/linux-phc-0.3.2.patch
+	elif kernel_is gt ${MAX_KV_MAJOR} ${MAX_KV_MINOR} ; then
+		epatch inc/${MAX_KV_MAJOR}.${MAX_KV_MINOR}/linux-phc-0.3.2.patch
 	else
 		epatch inc/${KV_MAJOR}.${KV_MINOR}/linux-phc-0.3.2.patch
 	fi
