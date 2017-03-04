@@ -1,22 +1,20 @@
-# Copyright 1999-2015 Gentoo Foundation
+# Copyright 1999-2017 Gentoo Foundation
 # Distributed under the terms of the GNU General Public License v2
-# $Id$
 
-EAPI=3
+EAPI=6
 
-inherit webapp
+inherit git-r3 webapp
 
 DESCRIPTION="Collectd-web is a web-based front-end for RRD data collected by collectd"
-HOMEPAGE="http://collectdweb.appspot.com/"
-SRC_URI="https://github.com/httpdss/${PN}/tarball/${PV} -> ${P}.tar.gz"
+HOMEPAGE="https://github.com/httpdss/collectd-web"
+EGIT_REPO_URI="https://github.com/httpdss/collectd-web"
+EGIT_COMMIT="70a277d8689ed91febac2be097c2d837fcde4283"
 
 LICENSE="GPL-2"
-KEYWORDS="amd64 x86"
+KEYWORDS="~amd64 ~x86"
 IUSE=""
 
 need_httpd_cgi
-
-S="${WORKDIR}/httpdss-collectd-web-8e0ee4a"
 
 DEPEND="dev-perl/HTML-Parser
 	net-analyzer/rrdtool[perl,graph]
