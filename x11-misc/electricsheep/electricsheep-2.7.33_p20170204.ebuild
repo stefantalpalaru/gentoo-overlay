@@ -8,18 +8,19 @@ inherit autotools git-r3 wxwidgets
 DESCRIPTION="realize the collective dream of sleeping computers from all over the internet"
 HOMEPAGE="http://electricsheep.org/"
 EGIT_REPO_URI="https://github.com/scottdraves/electricsheep"
+EGIT_COMMIT="12420cd40dfad8c32fb70b88f3d680d84f795c63"
 
 IUSE=""
 LICENSE="GPL-2"
 SLOT="0"
-KEYWORDS=""
+KEYWORDS="~amd64 ~x86"
 
 DEPEND="dev-lang/lua:0
 	dev-libs/boost[threads]
 	dev-libs/expat
 	dev-libs/tinyxml
 	gnome-base/libgtop
-	=media-gfx/flam3-9999
+	media-gfx/flam3
 	media-libs/freeglut
 	media-libs/glee
 	media-libs/libpng:*

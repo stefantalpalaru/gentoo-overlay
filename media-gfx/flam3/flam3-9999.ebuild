@@ -1,37 +1,43 @@
-# Copyright 1999-2016 Gentoo Foundation
+# Copyright 1999-2017 Gentoo Foundation
 # Distributed under the terms of the GNU General Public License v2
-# $Id$
 
-EAPI=5
-
-inherit autotools
+EAPI=6
+inherit autotools git-r3
 
 DESCRIPTION="Tools and a library for creating fractal flames"
 HOMEPAGE="http://flam3.com/"
-SRC_URI="https://storage.googleapis.com/google-code-archive-source/v2/code.google.com/flam3/source-archive.zip -> ${P}.zip"
+EGIT_REPO_URI="https://github.com/scottdraves/flam3"
 
 LICENSE="GPL-2"
 SLOT="0"
 KEYWORDS=""
-IUSE=""
+IUSE="static-libs"
 
-DEPEND="dev-libs/libxml2
-	virtual/jpeg:*
+RDEPEND="dev-libs/libxml2
 	media-libs/libpng:*
-	!<=x11-misc/electricsheep-2.6.8-r2"
-RDEPEND="${DEPEND}"
-S="${WORKDIR}/${PN}/trunk/src"
+	virtual/jpeg:*"
+DEPEND="${RDEPEND}"
+
+DOCS=( README.txt )
 
 src_prepare() {
-	sed -e "s/AM_CONFIG_HEADER/AC_CONFIG_HEADERS/" -i configure.in || die
+	default
+
+	sed -e "s/AM_CONFIG_HEADER/AC_CONFIG_HEADERS/" -i configure.ac || die
 	eautoreconf
 }
 
 src_configure() {
-	econf --enable-shared
+	econf \
+		--enable-shared \
+		$(use_enable static-libs static)
 }
 
 src_install() {
-	emake install DESTDIR="${D}" || die "emake install failed"
-	dodoc README.txt *.flam3 || die "dodoc failed"
+	default
+
+	rm -f "${D}"usr/lib*/libflam3.la
+
+	docinto examples
+	dodoc *.flam3
 }
