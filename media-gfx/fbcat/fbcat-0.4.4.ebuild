@@ -1,12 +1,11 @@
-# Copyright 1999-2016 Gentoo Foundation
+# Copyright 1999-2017 Gentoo Foundation
 # Distributed under the terms of the GNU General Public License v2
-# $Id$
 
-EAPI=5
+EAPI=6
 
 DESCRIPTION="utility that takes a screenshot using the framebuffer device"
-HOMEPAGE="https://code.google.com/p/fbcat/"
-SRC_URI="https://bitbucket.org/jwilk/${PN}/downloads/${P}.tar.gz"
+HOMEPAGE="http://jwilk.net/software/fbcat"
+SRC_URI="https://github.com/jwilk/${PN}/archive/${PV}.tar.gz"
 
 LICENSE="GPL-2"
 SLOT="0"
