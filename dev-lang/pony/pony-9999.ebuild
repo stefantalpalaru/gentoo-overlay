@@ -26,10 +26,6 @@ DEPEND="${RDEPEND}
 	virtual/pkgconfig
 "
 
-PATCHES=(
-	"${FILESDIR}/as-needed.patch"
-)
-
 src_prepare() {
 	default
 	# bug #457530 means that '-ltinfo' might be needed besides '-lncurses' if a USE flag is enabled
