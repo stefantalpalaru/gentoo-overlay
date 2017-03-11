@@ -1,0 +1,13 @@
+diff -ur pony-0.11.0.orig/Makefile pony-0.11.0/Makefile
+--- pony-0.11.0.orig/Makefile	2017-03-11 17:31:50.529862138 +0100
++++ pony-0.11.0/Makefile	2017-03-11 17:34:33.374276908 +0100
+@@ -560,8 +560,8 @@
+     linker := $(CXX)
+   endif
+ 
+-  $(foreach lk,$($(1).links),$(eval $(call CONFIGURE_LIBS,$(lk))))
+   $(eval $(call CONFIGURE_LINKER_WHOLE,$(1)))
++  $(foreach lk,$($(1).links),$(eval $(call CONFIGURE_LIBS,$(lk))))
+   linkcmd += $(libs) $($(1).linkoptions)
+ endef
+ 

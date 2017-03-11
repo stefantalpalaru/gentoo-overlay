@@ -1,32 +1,34 @@
 # Copyright 1999-2017 Gentoo Foundation
 # Distributed under the terms of the GNU General Public License v2
-# $Id$
 
 EAPI=6
 
-inherit git-r3
-
 DESCRIPTION="Compiler for the Pony language"
 HOMEPAGE="http://www.ponylang.org/"
-EGIT_REPO_URI="https://github.com/CausalityLtd/ponyc"
-EGIT_COMMIT="refs/tags/${PV}"
-EGIT_CLONE_TYPE="shallow"
+SRC_URI="https://github.com/ponylang/ponyc/archive/${PV}.tar.gz -> ${P}.tar.gz"
 
 LICENSE="BSD-2"
 SLOT="0"
 KEYWORDS="~amd64 ~x86"
-IUSE="test"
+IUSE="test vim-syntax"
 RESTRICT="strip"
 
 RDEPEND="dev-libs/libpcre2
 	dev-libs/openssl:=
-	>=sys-devel/llvm-3.6:=
+	>=sys-devel/llvm-3.7:0
 	sys-libs/ncurses:=
 	sys-libs/zlib
+	vim-syntax? ( app-vim/pony-syntax )
 "
 DEPEND="${RDEPEND}
 	virtual/pkgconfig
 "
+
+PATCHES=(
+	"${FILESDIR}/as-needed.patch"
+)
+
+S="${WORKDIR}/ponyc-${PV}"
 
 src_prepare() {
 	default
