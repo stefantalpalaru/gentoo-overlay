@@ -12,7 +12,7 @@ SRC_URI="https://github.com/JvanKatwijk/qt-dab/archive/${P}.tar.gz"
 LICENSE="GPL-2"
 SLOT="0"
 KEYWORDS="~amd64 ~x86"
-IUSE="cpu_flags_x86_sse"
+IUSE=""
 
 DEPEND="!media-radio/dabstick-radio
 	dev-qt/qtcore:5
@@ -41,7 +41,6 @@ src_prepare() {
 		-e '/CONFIG\s\++= sdrplay/d' \
 		-e '/CONFIG\s\++= airspy/d' \
 		-i *.pro
-	use cpu_flags_x86_sse && sed -i -e '/CONFIG\s\++= NO_SSE_SUPPORT/d' *.pro
 }
 
 src_configure() {
