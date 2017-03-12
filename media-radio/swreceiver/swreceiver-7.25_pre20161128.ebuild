@@ -1,22 +1,22 @@
-# Copyright 1999-2016 Gentoo Foundation
+# Copyright 1999-2017 Gentoo Foundation
 # Distributed under the terms of the GNU General Public License v2
-# $Id$
 
-EAPI=5
+EAPI=6
 
-inherit eutils qt4-r2
+inherit eutils git-r3 qmake-utils
 
 DESCRIPTION="SDR-J SW receiver for RTL2832-based USB sticks"
 HOMEPAGE="http://www.sdr-j.tk/"
-SRC_URI="http://www.sdr-j.tk/sdr-j-${P}.tar.gz"
+EGIT_REPO_URI="https://github.com/JvanKatwijk/sdr-j-sw"
+EGIT_COMMIT="f0d01cce7bcb5634cf3955f6bbf4e4768ce3e0ff"
 
 LICENSE="GPL-2"
 SLOT="0"
 KEYWORDS="~amd64 ~x86"
 IUSE=""
 
-DEPEND="dev-qt/qtcore:4[qt3support]
-	dev-qt/qtgui:4
+DEPEND="dev-qt/qtcore:5
+	dev-qt/qtgui:5
 	media-libs/faad2
 	media-libs/libsamplerate
 	media-libs/libsndfile
@@ -25,46 +25,52 @@ DEPEND="dev-qt/qtcore:4[qt3support]
 	sci-libs/fftw:3.0
 	virtual/ffmpeg
 	virtual/libusb:1
-	x11-libs/qwt:6"
+	x11-libs/qwt:6[qt5]"
 
 RDEPEND="${DEPEND}"
 
-S="${WORKDIR}/sdr-j-${P}"
+PATCHES=(
+	"${FILESDIR}/const_cast.patch"
+)
+S="${WORKDIR}/${P}/swreceiver"
 INPUT_DIRS="cardreader dabstick filereader pmsdr"
 
 src_prepare() {
+	default
 	sed -e 's#/usr/include/qwt#/usr/include/qwt6#g' \
-		-e 's#-lqwt#-lqwt6-qt4#g' \
-		-i ${PN}/*.pro ${PN}/plugins/decoders/*/*.pro
-	cd ${PN}
-	eqmake4
+		-e 's#/usr/include/qt5/qwt#/usr/include/qwt6#g' \
+		-e 's#-lqwt#-lqwt6#g' \
+		-i *.pro plugins/decoders/*/*.pro
+}
+
+src_configure() {
+	eqmake5
 	cd plugins/input
 	for d in $INPUT_DIRS; do
 		cd $d
-		eqmake4
+		eqmake5
 		cd ..
 	done
 	cd ../decoders
 	for d in *-decoder; do
 		cd $d
-		nonfatal eqmake4
+		nonfatal eqmake5
 		cd ..
 	done
 }
 
 src_compile() {
-	cd ${PN}
-	qt4-r2_src_compile
+	default
 	cd plugins/input
 	for d in $INPUT_DIRS; do
 		cd $d
-		qt4-r2_src_compile
+		default
 		cd ..
 	done
 	cd ../decoders
 	for d in *-decoder; do
 		cd $d
-		nonfatal qt4-r2_src_compile
+		nonfatal default
 		cd ..
 	done
 }
@@ -72,13 +78,13 @@ src_compile() {
 src_install() {
 	cd "${BUILD_DIR}"
 	exeinto "/usr/bin"
-	newexe "linux-bin/sdr-j-swradio-${PV}" "${PN}"
+	newexe ../../linux-bin/sdr-j-swreceiver-* "${PN}"
 	dodir "/usr/lib/${PN}/input"
 	insinto "/usr/lib/${PN}/input"
-	doins linux-bin/input-plugins/*.so
+	doins ../../linux-bin/input-plugins-sw/*.so
 	dodir "/usr/lib/${PN}/decoder"
 	insinto "/usr/lib/${PN}/decoder"
-	doins linux-bin/decoder-plugins/*.so
+	doins ../../linux-bin/decoder-plugins/*.so
 	elog "Make sure your ~/.jsdr-sw.ini file has 'deviceBase=/usr/lib/${PN}/input' and 'decoderBase=/usr/lib/${PN}/decoder' in it"
 	elog "(you'll need to run ${PN} first to create it)"
 }
