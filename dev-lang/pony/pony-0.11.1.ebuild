@@ -18,15 +18,9 @@ RDEPEND="dev-libs/libpcre2
 	>=sys-devel/llvm-3.7:0
 	sys-libs/ncurses:=
 	sys-libs/zlib
-	vim-syntax? ( app-vim/pony-syntax )
-"
+	vim-syntax? ( app-vim/pony-syntax )"
 DEPEND="${RDEPEND}
-	virtual/pkgconfig
-"
-
-PATCHES=(
-	"${FILESDIR}/as-needed.patch"
-)
+	virtual/pkgconfig"
 
 S="${WORKDIR}/ponyc-${PV}"
 
