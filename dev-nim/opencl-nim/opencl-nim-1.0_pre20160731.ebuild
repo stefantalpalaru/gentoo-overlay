@@ -8,10 +8,11 @@ inherit git-r3
 DESCRIPTION="Nim bindings for OpenCL"
 HOMEPAGE="https://github.com/nim-lang/opencl"
 EGIT_REPO_URI="https://github.com/nim-lang/opencl"
+EGIT_COMMIT="d7bbf5ad6676512e824c0820c986ec018e86c2bb"
 
 LICENSE="MIT"
 SLOT="0"
-KEYWORDS=""
+KEYWORDS="~amd64 ~x64"
 IUSE=""
 
 DEPEND="
