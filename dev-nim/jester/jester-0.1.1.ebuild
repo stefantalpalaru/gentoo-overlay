@@ -3,11 +3,9 @@
 
 EAPI=6
 
-inherit git-r3
-
 DESCRIPTION="sinatra-like web framework for Nim"
 HOMEPAGE="https://github.com/dom96/jester/"
-EGIT_REPO_URI="https://github.com/dom96/jester/"
+SRC_URI="https://github.com/dom96/jester/archive/v${PV}.tar.gz -> ${P}.tar.gz"
 
 LICENSE="MIT"
 SLOT="0"
