@@ -1,16 +1,13 @@
-# Copyright 1999-2016 Gentoo Foundation
+# Copyright 1999-2017 Gentoo Foundation
 # Distributed under the terms of the GNU General Public License v2
-# $Id$
 
-EAPI=5
+EAPI=6
 
-inherit autotools-utils git-r3
+inherit autotools eutils
 
 DESCRIPTION="pure C implementation of Go channels"
 HOMEPAGE="https://github.com/tylertreat/chan"
-EGIT_REPO_URI="https://github.com/tylertreat/chan"
-EGIT_COMMIT="refs/tags/${PV}"
-EGIT_CLONE_TYPE="shallow"
+SRC_URI="https://github.com/tylertreat/chan/archive/${PV}.tar.gz -> ${P}.tar.gz"
 
 LICENSE="Apache-2.0"
 SLOT="0"
@@ -21,12 +18,17 @@ DEPEND=""
 RDEPEND=""
 
 src_prepare() {
-	cp -a "${FILESDIR}/configure.ac" "${FILESDIR}/Makefile.am" .
+	default
 	eautoreconf
+}
+
+src_configure() {
+	econf $(use_enable static-libs static)
 }
 
 src_install() {
 	DOCS=""
 	use doc && DOCS="README.md"
-	autotools-utils_src_install
+	default
+	prune_libtool_files
 }
