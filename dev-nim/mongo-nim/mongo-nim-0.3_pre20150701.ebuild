@@ -8,10 +8,11 @@ inherit git-r3
 DESCRIPTION="Nim bindings for MongoDB"
 HOMEPAGE="https://github.com/nim-lang/mongo"
 EGIT_REPO_URI="https://github.com/nim-lang/mongo"
+EGIT_COMMIT="a78161f8a89d950fa9102cff2a09d3b3863b9213"
 
 LICENSE="MIT"
 SLOT="0"
-KEYWORDS=""
+KEYWORDS="~amd64 ~x86"
 IUSE=""
 
 DEPEND="
