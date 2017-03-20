@@ -8,10 +8,11 @@ inherit git-r3
 DESCRIPTION="Nim bindings for ZeroMQ"
 HOMEPAGE="https://github.com/nim-lang/nim-zmq"
 EGIT_REPO_URI="https://github.com/nim-lang/nim-zmq"
+EGIT_COMMIT="a9f7db68659d9720bbf0cc665ae70a3e989ad1b0"
 
 LICENSE="MIT"
 SLOT="0"
-KEYWORDS=""
+KEYWORDS="~amd64 ~x86"
 IUSE=""
 
 DEPEND="
