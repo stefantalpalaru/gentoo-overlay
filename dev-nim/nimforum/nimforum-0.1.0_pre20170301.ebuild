@@ -8,10 +8,11 @@ inherit git-r3
 DESCRIPTION="Nim forum"
 HOMEPAGE="https://github.com/nim-lang/nimforum"
 EGIT_REPO_URI="https://github.com/nim-lang/nimforum"
+EGIT_COMMIT="d5892db6476a5636cd5a447ae1d646e619d7090a"
 
 LICENSE="MIT"
 SLOT="0"
-KEYWORDS=""
+KEYWORDS="~amd64 ~x86"
 IUSE=""
 
 DEPEND="
