@@ -8,10 +8,11 @@ inherit cmake-utils git-r3
 DESCRIPTION="multicore enabled coroutine library written in C"
 HOMEPAGE="https://github.com/halayli/lthread"
 EGIT_REPO_URI="https://github.com/halayli/lthread"
+EGIT_COMMIT="21e3cf3cf962347644f3472a27cfee8d53cbf7a7"
 
 LICENSE="BSD-2"
 SLOT="0"
-KEYWORDS=""
+KEYWORDS="~amd64 ~x86"
 IUSE="+debug static-libs test"
 RESTRICT="debug" # this library needs its asserts to work
 
