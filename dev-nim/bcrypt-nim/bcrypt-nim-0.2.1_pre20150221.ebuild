@@ -8,10 +8,11 @@ inherit git-r3
 DESCRIPTION="Nim bindings for bcrypt"
 HOMEPAGE="https://github.com/runvnc/bcryptnim"
 EGIT_REPO_URI="https://github.com/runvnc/bcryptnim"
+EGIT_COMMIT="a4e47bf75d11484c3d00c6b1930618376282e929"
 
 LICENSE="BSD"
 SLOT="0"
-KEYWORDS=""
+KEYWORDS="~amd64 ~x86"
 IUSE=""
 
 DEPEND="
