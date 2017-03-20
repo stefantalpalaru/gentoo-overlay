@@ -8,10 +8,11 @@ inherit git-r3
 DESCRIPTION="a tool to translate ANSI C code to Nim"
 HOMEPAGE="https://github.com/nim-lang/c2nim"
 EGIT_REPO_URI="https://github.com/nim-lang/c2nim"
+EGIT_COMMIT="9a8a7395b219658209bb4754f9a436c2273fffe3"
 
 LICENSE="MIT"
 SLOT="0"
-KEYWORDS=""
+KEYWORDS="~amd64 ~x86"
 IUSE="doc test"
 
 DEPEND="
