@@ -8,10 +8,11 @@ inherit git-r3
 DESCRIPTION="IRC client module for Nim"
 HOMEPAGE="https://github.com/nim-lang/irc"
 EGIT_REPO_URI="https://github.com/nim-lang/irc"
+EGIT_COMMIT="d57745d510ad6a16538dafa2a09c5199c3088b04"
 
 LICENSE="MIT"
 SLOT="0"
-KEYWORDS=""
+KEYWORDS="~amd64 ~x86"
 IUSE=""
 
 DEPEND="
