@@ -8,10 +8,11 @@ inherit git-r3
 DESCRIPTION="Nim bindings for X11"
 HOMEPAGE="https://github.com/nim-lang/x11"
 EGIT_REPO_URI="https://github.com/nim-lang/x11"
+EGIT_COMMIT="e2b1281e7f54c8821a83ef4cf48628e4b91bf0af"
 
 LICENSE="MIT"
 SLOT="0"
-KEYWORDS=""
+KEYWORDS="~amd64 ~x86"
 IUSE=""
 
 DEPEND="
