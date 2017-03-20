@@ -1,6 +1,5 @@
 # Copyright 1999-2017 Gentoo Foundation
 # Distributed under the terms of the GNU General Public License v2
-# $Id$
 
 EAPI=6
 
@@ -20,7 +19,7 @@ DEPEND="
 	>dev-lang/nim-0.9.2
 	x11-libs/cairo
 "
-RDEPEND=""
+RDEPEND="${DEPEND}"
 
 src_install() {
 	dodir /usr/share/nim/lib/packages/cairo
