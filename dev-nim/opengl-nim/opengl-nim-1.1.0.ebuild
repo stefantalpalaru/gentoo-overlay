@@ -3,11 +3,9 @@
 
 EAPI=6
 
-inherit git-r3
-
 DESCRIPTION="Nim bindings for OpenGL"
 HOMEPAGE="https://github.com/nim-lang/opengl"
-EGIT_REPO_URI="https://github.com/nim-lang/opengl"
+SRC_URI="https://github.com/nim-lang/opengl/archive/${PV}.tar.gz -> ${P}.tar.gz"
 
 LICENSE="MIT"
 SLOT="0"
@@ -20,6 +18,8 @@ DEPEND="
 	virtual/opengl
 "
 RDEPEND=""
+
+S="${WORKDIR}/opengl-${PV}"
 
 src_install() {
 	dodir /usr/share/nim/lib/packages/opengl
