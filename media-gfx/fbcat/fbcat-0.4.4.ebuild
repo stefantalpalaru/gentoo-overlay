@@ -5,7 +5,7 @@ EAPI=6
 
 DESCRIPTION="utility that takes a screenshot using the framebuffer device"
 HOMEPAGE="http://jwilk.net/software/fbcat"
-SRC_URI="https://github.com/jwilk/${PN}/archive/${PV}.tar.gz"
+SRC_URI="https://github.com/jwilk/${PN}/archive/${PV}.tar.gz -> ${P}.tar.gz"
 
 LICENSE="GPL-2"
 SLOT="0"
