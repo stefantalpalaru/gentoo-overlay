@@ -8,10 +8,11 @@ inherit git-r3
 DESCRIPTION="Nim bindings for SDL 2"
 HOMEPAGE="https://github.com/nim-lang/sdl2"
 EGIT_REPO_URI="https://github.com/nim-lang/sdl2"
+EGIT_COMMIT="6e8394deb5304eb02e3b9ad076571d917e7c4da3"
 
 LICENSE="MIT"
 SLOT="0"
-KEYWORDS=""
+KEYWORDS="~amd64 ~x86"
 IUSE=""
 
 DEPEND="
