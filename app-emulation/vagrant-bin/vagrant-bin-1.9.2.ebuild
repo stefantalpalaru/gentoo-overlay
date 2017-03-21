@@ -1,8 +1,7 @@
-# Copyright 1999-2016 Gentoo Foundation
+# Copyright 1999-2017 Gentoo Foundation
 # Distributed under the terms of the GNU General Public License v2
-# $Id$
 
-EAPI=5
+EAPI=6
 
 MY_PN=${PN/-bin/}
 inherit unpacker eutils
@@ -10,11 +9,9 @@ inherit unpacker eutils
 DESCRIPTION="Tool for building and distributing virtual machines"
 HOMEPAGE="http://vagrantup.com/"
 
-SRC_URI_AMD64="https://dl.bintray.com/mitchellh/${MY_PN}/${MY_PN}_${PV}_x86_64.deb"
-SRC_URI_X86="https://dl.bintray.com/mitchellh/${MY_PN}/${MY_PN}_${PV}_i686.deb"
 SRC_URI="
-	amd64? ( ${SRC_URI_AMD64} )
-	x86? ( ${SRC_URI_X86} )
+	amd64? ( "https://releases.hashicorp.com/vagrant/${PV}/vagrant_${PV}_x86_64.deb" )
+	x86? ( "https://releases.hashicorp.com/vagrant/${PV}/vagrant_${PV}_i686.deb" )
 "
 
 LICENSE="MIT"
@@ -38,6 +35,7 @@ src_unpack() {
 }
 
 src_prepare() {
+	default
 	sed -i 's/cached: true/cached: false/g' ./embedded/gems/gems/${MY_PN}-${PV}/plugins/provisioners/chef/provisioner/chef_solo.rb
 }
 
