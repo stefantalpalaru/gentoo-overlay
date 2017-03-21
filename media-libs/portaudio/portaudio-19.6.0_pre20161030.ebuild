@@ -1,10 +1,8 @@
-# Copyright 1999-2016 Gentoo Foundation
+# Copyright 1999-2017 Gentoo Foundation
 # Distributed under the terms of the GNU General Public License v2
-# $Id$
 
-EAPI=5
-AUTOTOOLS_PRUNE_LIBTOOL_FILES=all
-inherit autotools-multilib
+EAPI=6
+inherit eutils multilib-minimal
 
 MY_P=pa_stable_v${PV/pre}
 MY_P=${MY_P//./0}
@@ -15,13 +13,12 @@ SRC_URI="http://www.portaudio.com/archives/${MY_P}.tgz"
 
 LICENSE="MIT"
 SLOT="0"
-KEYWORDS="alpha amd64 arm hppa ia64 ppc ppc64 ~sh sparc x86 ~amd64-fbsd ~amd64-linux ~x86-linux"
+KEYWORDS="~alpha ~amd64 ~arm ~hppa ~ia64 ~ppc ~ppc64 ~sh ~sparc ~x86 ~amd64-fbsd ~amd64-linux ~x86-linux"
 IUSE="alsa +cxx debug jack oss static-libs"
 
-RDEPEND="alsa? ( >=media-libs/alsa-lib-1.0.27.2[${MULTILIB_USEDEP}] )
-	jack? ( virtual/jack[${MULTILIB_USEDEP}] )
-	abi_x86_32? ( !<=app-emulation/emul-linux-x86-soundlibs-20130224-r8
-					!app-emulation/emul-linux-x86-soundlibs[-abi_x86_32(-)] )"
+RDEPEND="
+	alsa? ( >=media-libs/alsa-lib-1.0.27.2[${MULTILIB_USEDEP}] )
+	jack? ( virtual/jack[${MULTILIB_USEDEP}] )"
 DEPEND="${RDEPEND}
 	virtual/pkgconfig"
 
@@ -29,19 +26,27 @@ S=${WORKDIR}/${PN}
 DOCS=( README.txt )
 HTML_DOCS=( index.html )
 
-src_configure() {
-	local myeconfargs=(
-		$(use_enable debug debug-output)
-		$(use_enable cxx)
-		$(use_with alsa)
-		$(use_with jack)
-		$(use_with oss)
-	)
-
-	autotools-multilib_src_configure
+src_prepare() {
+	default
+	multilib_copy_sources
 }
 
-src_compile() {
-	autotools-multilib_src_compile lib/libportaudio.la
-	autotools-multilib_src_compile
+multilib_src_configure() {
+	econf \
+		$(use_enable debug debug-output) \
+		$(use_enable cxx) \
+		$(use_enable static-libs static) \
+		$(use_with alsa) \
+		$(use_with jack) \
+		$(use_with oss)
+}
+
+multilib_src_compile() {
+	emake lib/libportaudio.la
+	default
+}
+
+multilib_src_install() {
+	default
+	prune_libtool_files
 }

@@ -1,8 +1,7 @@
-# Copyright 1999-2016 Gentoo Foundation
+# Copyright 1999-2017 Gentoo Foundation
 # Distributed under the terms of the GNU General Public License v2
-# $Id$
 
-EAPI=5
+EAPI=6
 
 PYTHON_COMPAT=( python2_7 python3_{4,5} )
 
@@ -52,13 +51,13 @@ DEPEND="
 		dev-python/sqlalchemy[${PYTHON_USEDEP}]
 		)"
 
-PATCHES=(
-	"${FILESDIR}"/celery-docs.patch
-	"${FILESDIR}"/${PN}-3.1.19-test.patch
-)
-
 # testsuite needs it own source
 DISTUTILS_IN_SOURCE_BUILD=1
+python_prepare_all() {
+	eapply -p0 "${FILESDIR}"/celery-docs.patch
+	eapply "${FILESDIR}"/${PN}-3.1.19-test.patch
+	distutils-r1_python_prepare_all
+}
 
 python_compile_all() {
 	if use doc; then

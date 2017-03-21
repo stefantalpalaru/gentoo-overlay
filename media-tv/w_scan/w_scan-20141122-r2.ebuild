@@ -1,10 +1,7 @@
-# Copyright 1999-2016 Gentoo Foundation
+# Copyright 1999-2017 Gentoo Foundation
 # Distributed under the terms of the GNU General Public License v2
-# $Id$
 
-EAPI=5
-
-inherit autotools-utils
+EAPI=6
 
 DESCRIPTION="Scan for DVB-C/DVB-T/DVB-S channels without prior knowledge of frequencies and modulations"
 HOMEPAGE="http://wirbel.htpc-forum.de/w_scan/index2.html"
@@ -23,7 +20,7 @@ PATCHES=(
 )
 
 src_install() {
-	autotools-utils_src_install
+	default
 
 	dodoc ChangeLog README
 

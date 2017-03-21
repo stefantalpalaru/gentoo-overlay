@@ -1,8 +1,7 @@
-# Copyright 1999-2016 Gentoo Foundation
+# Copyright 1999-2017 Gentoo Foundation
 # Distributed under the terms of the GNU General Public License v2
-# $Id$
 
-EAPI=5
+EAPI=6
 
 PYTHON_COMPAT=( python2_7 python3_{4,5} )
 CMAKE_IN_SOURCE_BUILD="1"
@@ -31,6 +30,7 @@ src_unpack() {
 }
 
 src_prepare() {
+	default
 	# this particular CMakeLists.txt tries to enable Python 3 behind our backs:
 	sed -i -e '/BUILD_PYTHON3/d' python/CMakeLists.txt
 	cmake-utils_src_prepare
@@ -40,7 +40,7 @@ src_prepare() {
 src_configure() {
 	configuration() {
 		local mycmakeargs=(
-			$(cmake-utils_use_enable python PYTHON)
+			-DENABLE_PYTHON="$(usex python)"
 		)
 
 		if [ -n "${EPYTHON}" ] && python_is_python3; then

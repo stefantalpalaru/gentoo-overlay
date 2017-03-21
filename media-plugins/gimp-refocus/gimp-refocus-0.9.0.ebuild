@@ -1,8 +1,7 @@
-# Copyright 1999-2016 Gentoo Foundation
+# Copyright 1999-2017 Gentoo Foundation
 # Distributed under the terms of the GNU General Public License v2
-# $Id$
 
-EAPI=5
+EAPI=6
 
 inherit autotools eutils toolchain-funcs
 
@@ -28,6 +27,8 @@ DEPEND="${RDEPEND}
 S=${WORKDIR}/${MY_P}
 
 src_prepare() {
+	default
+
 	epatch "${FILESDIR}"/${MY_PN}-gimp-2.0.patch
 	epatch "${FILESDIR}"/${MY_PN}-0.9.0-gimp-2.2_rlx.diff
 	epatch "${FILESDIR}"/${PN}-gimp2.6.patch

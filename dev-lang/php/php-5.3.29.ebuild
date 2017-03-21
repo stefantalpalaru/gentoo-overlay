@@ -1,15 +1,13 @@
-# Copyright 1999-2016 Gentoo Foundation
+# Copyright 1999-2017 Gentoo Foundation
 # Distributed under the terms of the GNU General Public License v2
-# $Id$
 
-EAPI=5
+EAPI=6
 
-inherit eutils autotools flag-o-matic versionator depend.apache apache-module db-use libtool systemd
+inherit apache-module autotools db-use depend.apache eutils flag-o-matic libtool systemd versionator
 
-KEYWORDS="alpha amd64 arm hppa ia64 ~mips ppc ppc64 ~s390 ~sh sparc x86 ~amd64-fbsd"
+KEYWORDS="~alpha ~amd64 ~arm ~hppa ~ia64 ~mips ~ppc ~ppc64 ~s390 ~sh ~sparc ~x86 ~amd64-fbsd"
 
-function php_get_uri ()
-{
+php_get_uri () {
 	case "${1}" in
 		"php-pre")
 			echo "http://downloads.php.net/johannes/${2}"
@@ -194,9 +192,8 @@ REQUIRED_USE="
 
 	!cli? ( !cgi? ( !fpm? ( !apache2? ( !embed? ( cli ) ) ) ) )"
 
-RDEPEND="${DEPEND}"
-
-RDEPEND="${RDEPEND} fpm? ( selinux? ( sec-policy/selinux-phpfpm ) )"
+RDEPEND="${DEPEND}
+	fpm? ( selinux? ( sec-policy/selinux-phpfpm ) )"
 
 DEPEND="${DEPEND}
 	<sys-devel/bison-3
@@ -282,6 +279,7 @@ php_set_ini_dir() {
 }
 
 src_prepare() {
+	default
 	epatch "${FILESDIR}/php-5.5.14-remove-randegd.diff"
 	# USE=sharedmem (session/mod_mm to be exact) tries to mmap() this path
 	# ([empty session.save_path]/session_mm_[sapi][gid].sem)
@@ -331,9 +329,6 @@ src_prepare() {
 		sed -e 's|PHP_ADD_LIBRARY(k5crypto, 1, $1)||g' -i acinclude.m4 \
 			|| die "Failed to fix heimdal crypt library reference"
 	fi
-
-	#Add user patches #357637
-	epatch_user
 
 	#force rebuilding aclocal.m4
 	rm aclocal.m4
@@ -714,6 +709,8 @@ src_install() {
 		"${ED}/usr/$(get_libdir)/php${SLOT}/bin/php-config"
 
 	use fpm && systemd_newunit "${FILESDIR}/php-fpm_at-simple.service" "php-fpm@${SLOT}.service"
+
+	prune_libtool_files
 }
 
 src_test() {

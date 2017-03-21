@@ -1,10 +1,9 @@
-# Copyright 1999-2016 Gentoo Foundation
+# Copyright 1999-2017 Gentoo Foundation
 # Distributed under the terms of the GNU General Public License v2
-# $Id$
 
-EAPI=5
+EAPI=6
 
-inherit autotools-utils
+inherit autotools
 
 DESCRIPTION="Scan for DVB-C/DVB-T/DVB-S channels without prior knowledge of frequencies and modulations (w_scan fork)"
 HOMEPAGE="https://github.com/stefantalpalaru/w_scan2"
@@ -19,11 +18,12 @@ DEPEND=">=virtual/linuxtv-dvb-headers-5.8"
 RDEPEND=""
 
 src_prepare() {
+	default
 	eautoreconf
 }
 
 src_install() {
-	autotools-utils_src_install
+	default
 
 	dodoc ChangeLog README.md
 
