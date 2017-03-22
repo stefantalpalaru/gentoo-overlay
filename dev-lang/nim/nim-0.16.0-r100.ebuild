@@ -1,7 +1,7 @@
 # Copyright 1999-2017 Gentoo Foundation
 # Distributed under the terms of the GNU General Public License v2
 
-EAPI=5
+EAPI=6
 
 inherit git-r3
 
@@ -10,7 +10,6 @@ HOMEPAGE="http://nim-lang.org/"
 SRC_URI="http://nim-lang.org/download/${P}.tar.xz"
 EGIT_REPO_URI="https://github.com/Araq/Nim"
 EGIT_COMMIT="refs/tags/v${PV}"
-EGIT_CLONE_TYPE="shallow"
 
 LICENSE="MIT"
 SLOT="0"
@@ -18,10 +17,11 @@ KEYWORDS="~amd64 ~x86"
 IUSE="boehm-gc doc +readline test"
 
 DEPEND="
-	readline? ( sys-libs/readline )
+	readline? ( sys-libs/readline:= )
 	sys-libs/zlib
 "
 RDEPEND="
+	${DEPEND}
 	boehm-gc? ( dev-libs/boehm-gc )
 "
 
@@ -86,6 +86,7 @@ src_install() {
 	rm -r "${D}"/usr/share/nim/lib/compiler/{nimfix/nimcache,nimfix/nimfix,nim,nim0,nim1}
 
 	if use doc; then
-		dohtml doc/html/*.html
+		HTML_DOCS=doc/html/*.html
+		einstalldocs
 	fi
 }

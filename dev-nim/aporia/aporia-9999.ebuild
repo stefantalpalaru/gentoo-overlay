@@ -1,14 +1,13 @@
 # Copyright 1999-2017 Gentoo Foundation
 # Distributed under the terms of the GNU General Public License v2
 
-EAPI=5
+EAPI=6
 
 inherit git-r3
 
 DESCRIPTION="IDE for the Nim programming language"
 HOMEPAGE="https://github.com/nim-lang/Aporia"
 EGIT_REPO_URI="https://github.com/nim-lang/Aporia"
-EGIT_CLONE_TYPE="shallow"
 
 LICENSE="MIT"
 SLOT="0"
