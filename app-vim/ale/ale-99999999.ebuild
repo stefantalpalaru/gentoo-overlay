@@ -21,21 +21,7 @@ VIM_PLUGIN_HELPFILES="${PN}"
 
 src_prepare() {
 	default
-	rm -r Makefile test img CONTRIBUTING.md custom-checks Dockerfile LICENSE README.md stdin-wrapper.bat || die
-
-	# protect them from ending up as docs
-	mkdir ale_scripts
-	for script in dmd-wrapper stdin-wrapper; do
-		mv "${script}" ale_scripts/ale-"${script}" || die
-		sed -i -e "s/${script}/ale-${script}/g" autoload/ale/util.vim ale_linters/d/dmd.vim || die
-	done
-}
-
-src_install() {
-	vim-plugin_src_install
-	fperms -R 0755 /usr/share/vim/vimfiles/ale_scripts
-	mv "${D}"/usr/share/vim/vimfiles/ale_scripts/* "${D}"/usr/share/vim/vimfiles/ || die
-	rm -r "${D}"/usr/share/vim/vimfiles/ale_scripts || die
+	rm -r Makefile test img CONTRIBUTING.md custom-checks Dockerfile LICENSE README.md ISSUE_TEMPLATE.md || die
 }
 
 pkg_postinst() {
