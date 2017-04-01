@@ -19,6 +19,97 @@ index 96a56cdee..190609a8f 100644
              case 'd': *dump_settings = true;
                        break;
              case 'e': if (reopen_log_file (optarg))
+diff --git a/extras/rpc-spec.txt b/extras/rpc-spec.txt
+index 593aac232..71296194b 100644
+--- a/extras/rpc-spec.txt
++++ b/extras/rpc-spec.txt
+@@ -459,6 +459,7 @@
+    "blocklist-size"                 | number     | number of rules in the blocklist
+    "cache-size-mb"                  | number     | maximum size of the disk cache (MB)
+    "config-dir"                     | string     | location of transmission's configuration directory
++   "default-trackers"               | string     | a list of default trackers to be added to new public torrents (and existing ones, after a reload)
+    "download-dir"                   | string     | default path to download torrents
+    "download-queue-size"            | number     | max number of torrents to download at once (see download-queue-enabled)
+    "download-queue-enabled"         | boolean    | if true, limit how many torrents can be downloaded at once
+diff --git a/gtk/main.c b/gtk/main.c
+index 5fada5377..33850163e 100644
+--- a/gtk/main.c
++++ b/gtk/main.c
+@@ -1128,6 +1128,10 @@ on_prefs_changed (TrCore * core UNUSED, const tr_quark key, gpointer data)
+         tr_sessionSetEncryption (tr, gtr_pref_int_get (key));
+         break;
+ 
++      case TR_KEY_default_trackers:
++        tr_sessionSetDefaultTrackers (tr, gtr_pref_string_get (key));
++        break;
++
+       case TR_KEY_download_dir:
+         tr_sessionSetDownloadDir (tr, gtr_pref_string_get (key));
+         break;
+diff --git a/gtk/tr-prefs.c b/gtk/tr-prefs.c
+index f473ed251..518b7a4df 100644
+--- a/gtk/tr-prefs.c
++++ b/gtk/tr-prefs.c
+@@ -221,6 +221,46 @@ new_entry (const tr_quark  key,
+ }
+ 
+ static void
++text_buffer_changed_cb (GtkTextBuffer * buffer, gpointer core)
++{
++  const tr_quark key = GPOINTER_TO_INT (g_object_get_data (G_OBJECT(buffer), PREF_KEY));
++  GtkTextIter start, end;
++  gtk_text_buffer_get_start_iter (buffer, &start);
++  gtk_text_buffer_get_end_iter (buffer, &end);
++  const char * value = gtk_text_buffer_get_text (buffer, &start, &end, FALSE);
++
++  gtr_core_set_pref (TR_CORE(core), key, value);
++}
++
++static GtkWidget*
++new_text_view (const tr_quark  key,
++               gpointer        core)
++{
++  GtkWidget * scroll = gtk_scrolled_window_new (NULL, NULL);
++  GtkWidget * w = gtk_text_view_new ();
++  GtkTextBuffer * buffer = gtk_text_view_get_buffer (GTK_TEXT_VIEW (w));
++  const char * value = gtr_pref_string_get (key);
++
++  if (value)
++    gtk_text_buffer_set_text (buffer, value, -1);
++
++  /* set up the scrolled window and put the text view in it */
++  gtk_scrolled_window_set_policy (GTK_SCROLLED_WINDOW (scroll),
++                                  GTK_POLICY_AUTOMATIC,
++                                  GTK_POLICY_AUTOMATIC);
++  gtk_scrolled_window_set_shadow_type (GTK_SCROLLED_WINDOW (scroll),
++                                       GTK_SHADOW_IN);
++  gtk_container_add (GTK_CONTAINER (scroll), w);
++  gtk_widget_set_size_request (scroll, -1, 200);
++
++  /* key and signal */
++  g_object_set_data (G_OBJECT (buffer), PREF_KEY, GINT_TO_POINTER(key));
++  g_signal_connect (buffer, "changed", G_CALLBACK (text_buffer_changed_cb), core);
++
++  return scroll;
++}
++
++static void
+ chosen_cb (GtkFileChooser * w, gpointer core)
+ {
+   const tr_quark key = GPOINTER_TO_INT (g_object_get_data (G_OBJECT (w), PREF_KEY));
+@@ -1246,6 +1286,12 @@ networkPage (GObject * core)
+   gtk_widget_set_tooltip_text (w, s);
+   hig_workarea_add_wide_control (t, &row, w);
+ 
++  hig_workarea_add_section_title (t, &row, _("Default Trackers"));
++  w = new_text_view (TR_KEY_default_trackers, core);
++  s = _("a list of default trackers to be added to new public torrents (and existing ones, after a reload)");
++  gtk_widget_set_tooltip_text (w, s);
++  hig_workarea_add_wide_control (t, &row, w);
++
+   return t;
+ }
+ 
 diff --git a/libtransmission/quark.c b/libtransmission/quark.c
 index 21b577482..43861ecb8 100644
 --- a/libtransmission/quark.c
@@ -43,8 +134,33 @@ index cbbc9d8a5..f31697493 100644
    TR_KEY_delete_local_data,
    TR_KEY_desiredAvailable,
    TR_KEY_destination,
+diff --git a/libtransmission/rpcimpl.c b/libtransmission/rpcimpl.c
+index f13ff90ac..1a8b2a4b0 100644
+--- a/libtransmission/rpcimpl.c
++++ b/libtransmission/rpcimpl.c
+@@ -1892,6 +1892,9 @@ sessionSet (tr_session               * session,
+   if (tr_variantDictFindBool (args_in, TR_KEY_queue_stalled_enabled, &boolVal))
+     tr_sessionSetQueueStalledEnabled (session, boolVal);
+ 
++  if (tr_variantDictFindStr (args_in, TR_KEY_default_trackers, &str, NULL))
++    tr_sessionSetDefaultTrackers (session, str);
++
+   if (tr_variantDictFindInt (args_in, TR_KEY_download_queue_size, &i))
+     tr_sessionSetQueueSize (session, TR_DOWN, i);
+ 
+@@ -2095,6 +2098,10 @@ addSessionField (tr_session * s,
+         tr_variantDictAddStr (d, key, tr_sessionGetConfigDir (s));
+         break;
+ 
++      case TR_KEY_default_trackers:
++        tr_variantDictAddStr (d, key, tr_sessionGetDefaultTrackers (s));
++        break;
++
+       case TR_KEY_download_dir:
+         tr_variantDictAddStr (d, key, tr_sessionGetDownloadDir (s));
+         break;
 diff --git a/libtransmission/session.c b/libtransmission/session.c
-index c25b90f50..77fa1a4af 100644
+index c25b90f50..0eb022275 100644
 --- a/libtransmission/session.c
 +++ b/libtransmission/session.c
 @@ -324,6 +324,7 @@ tr_sessionGetDefaultSettings (tr_variant * d)
@@ -72,7 +188,7 @@ index c25b90f50..77fa1a4af 100644
    if (tr_variantDictFindInt (settings, TR_KEY_peer_limit_per_torrent, &i))
      tr_sessionSetPeerLimitPerTorrent (session, i);
    if (tr_variantDictFindBool (settings, TR_KEY_pex_enabled, &boolVal))
-@@ -2226,6 +2230,50 @@ tr_sessionGetCacheLimit_MB (const tr_session * session)
+@@ -2226,6 +2230,53 @@ tr_sessionGetCacheLimit_MB (const tr_session * session)
  ****
  ***/
  
@@ -96,10 +212,13 @@ index c25b90f50..77fa1a4af 100644
 +  /* build the new list entries */
 +  for (walk=defaultTrackersStr; walk && *walk;)
 +    {
-+      const char * delimiters = " ,;";
++      const char * delimiters = " ,;\r\n\t";
 +      const size_t len = strcspn (walk, delimiters);
-+      char * token = tr_strndup (walk, len);
-+      tr_list_append (&session->defaultTrackers, token);
++      if (len)
++        {
++          char * token = tr_strndup (walk, len);
++          tr_list_append (&session->defaultTrackers, token);
++        }
 +
 +      if (walk[len]=='\0')
 +        break;
@@ -124,7 +243,7 @@ index c25b90f50..77fa1a4af 100644
  {
    bool enabled;
 diff --git a/libtransmission/session.h b/libtransmission/session.h
-index b0e9af527..e5bdc1317 100644
+index b0e9af527..d42fa5ce6 100644
 --- a/libtransmission/session.h
 +++ b/libtransmission/session.h
 @@ -220,6 +220,9 @@ struct tr_session
@@ -137,15 +256,8 @@ index b0e9af527..e5bdc1317 100644
  };
  
  static inline tr_port
-@@ -326,3 +329,6 @@ void tr_sessionGetNextQueuedTorrents (tr_session   * session,
- 
- int tr_sessionCountQueueFreeSlots (tr_session * session, tr_direction);
- 
-+void tr_sessionSetDefaultTrackers (tr_session * session, const char * defaultTrackersStr);
-+const char* tr_sessionGetDefaultTrackers (const tr_session * session);
-+
 diff --git a/libtransmission/torrent.c b/libtransmission/torrent.c
-index c2890cfbb..8357fbb56 100644
+index c2890cfbb..2cf872f6c 100644
 --- a/libtransmission/torrent.c
 +++ b/libtransmission/torrent.c
 @@ -35,6 +35,7 @@
@@ -173,7 +285,7 @@ index c2890cfbb..8357fbb56 100644
 +  bool duplicate;
 +  bool changed = false;
 +
-+  if (!numNewTrackers)
++  if (!numNewTrackers || tor->info.isPrivate)
 +      return;
 +
 +  // copy existing trackers
@@ -222,38 +334,251 @@ index c2890cfbb..8357fbb56 100644
  tr_parse_result
  tr_torrentParse (const tr_ctor * ctor, tr_info * setmeInfo)
  {
-@@ -1040,12 +1100,14 @@ tr_torrentNew (const tr_ctor * ctor, int * setme_error, int * setme_duplicate_id
- {
-   size_t len;
-   bool hasInfo;
-+  bool isPrivate = false;
-   tr_info tmpInfo;
-   tr_parse_result r;
-   tr_torrent * tor = NULL;
-+  tr_session * session = tr_ctorGetSession (ctor);
- 
-   assert (ctor != NULL);
--  assert (tr_isSession (tr_ctorGetSession (ctor)));
-+  assert (tr_isSession (session));
- 
-   r = torrentParseImpl (ctor, &tmpInfo, &hasInfo, &len, setme_duplicate_id);
-   if (r == TR_PARSE_OK)
-@@ -1054,9 +1116,17 @@ tr_torrentNew (const tr_ctor * ctor, int * setme_error, int * setme_duplicate_id
-       tor->info = tmpInfo;
- 
-       if (hasInfo)
--        tor->infoDictLength = len;
-+        {
-+          tor->infoDictLength = len;
-+          isPrivate = tor->info.isPrivate;
-+        }
+@@ -1057,6 +1117,7 @@ tr_torrentNew (const tr_ctor * ctor, int * setme_error, int * setme_duplicate_id
+         tor->infoDictLength = len;
  
        torrentInit (tor, ctor);
-+
-+      if (!isPrivate)
-+        {
-+          tr_torrentAddDefaultTrackers (tor);
-+        }
++      tr_torrentAddDefaultTrackers (tor);
      }
    else
      {
+diff --git a/libtransmission/transmission.h b/libtransmission/transmission.h
+index dd8add849..c414bea68 100644
+--- a/libtransmission/transmission.h
++++ b/libtransmission/transmission.h
+@@ -519,6 +519,8 @@ tr_encryption_mode tr_sessionGetEncryption (tr_session * session);
+ void               tr_sessionSetEncryption (tr_session * session,
+                                             tr_encryption_mode    mode);
+ 
++void tr_sessionSetDefaultTrackers (tr_session * session, const char * defaultTrackersStr);
++const char* tr_sessionGetDefaultTrackers (const tr_session * session);
+ 
+ /***********************************************************************
+ ** Incoming Peer Connections Port
+diff --git a/qt/Prefs.cc b/qt/Prefs.cc
+index 9c0a6019b..d2b7dcb64 100644
+--- a/qt/Prefs.cc
++++ b/qt/Prefs.cc
+@@ -77,6 +77,7 @@ Prefs::PrefItem Prefs::myItems[] =
+   { ALT_SPEED_LIMIT_TIME_DAY, TR_KEY_alt_speed_time_day, QVariant::Int },
+   { BLOCKLIST_ENABLED, TR_KEY_blocklist_enabled, QVariant::Bool },
+   { BLOCKLIST_URL, TR_KEY_blocklist_url, QVariant::String },
++  { DEFAULT_TRACKERS, TR_KEY_default_trackers, QVariant::String },
+   { DSPEED, TR_KEY_speed_limit_down, QVariant::Int },
+   { DSPEED_ENABLED, TR_KEY_speed_limit_down_enabled, QVariant::Bool },
+   { DOWNLOAD_DIR, TR_KEY_download_dir, QVariant::String },
+diff --git a/qt/Prefs.h b/qt/Prefs.h
+index f8be21e1a..74e760f56 100644
+--- a/qt/Prefs.h
++++ b/qt/Prefs.h
+@@ -82,6 +82,7 @@ class Prefs: public QObject
+       ALT_SPEED_LIMIT_TIME_DAY,
+       BLOCKLIST_ENABLED,
+       BLOCKLIST_URL,
++      DEFAULT_TRACKERS,
+       DSPEED,
+       DSPEED_ENABLED,
+       DOWNLOAD_DIR,
+diff --git a/qt/PrefsDialog.cc b/qt/PrefsDialog.cc
+index f6ccff232..c95aeadc1 100644
+--- a/qt/PrefsDialog.cc
++++ b/qt/PrefsDialog.cc
+@@ -132,6 +132,8 @@ PrefsDialog::updateWidgetValue (QWidget * widget, int prefKey)
+     w->setPath (myPrefs.getString (prefKey));
+   else if (auto w = qobject_cast<FreeSpaceLabel*> (widget))
+     w->setPath (myPrefs.getString (prefKey));
++  else if (auto w = qobject_cast<QPlainTextEdit*> (widget))
++    w->setPlainText (myPrefs.getString (prefKey));
+   else
+     return false;
+ 
+@@ -155,6 +157,8 @@ PrefsDialog::linkWidgetToPref (QWidget * widget, int prefKey)
+     connect (widget, SIGNAL (pathChanged (QString)), SLOT (pathChanged (QString)));
+   else if (widget->inherits ("QAbstractSpinBox"))
+     connect (widget, SIGNAL (editingFinished ()), SLOT (spinBoxEditingFinished ()));
++  else if (widget->inherits ("QPlainTextEdit"))
++    connect (widget, SIGNAL (textChanged ()), SLOT (plainTextChanged ()));
+ }
+ 
+ void
+@@ -200,6 +204,17 @@ PrefsDialog::pathChanged (const QString& path)
+     setPref(getPrefKey (b), path);
+ }
+ 
++void
++PrefsDialog::plainTextChanged ()
++{
++  if (auto e = qobject_cast<const QPlainTextEdit*> (sender ()))
++    {
++      if (e->document()->isModified ())
++        myPrefs.set (getPrefKey (e), e->toPlainText());
++      // we avoid using setPref() because the included refreshPref() call would reset the cursor while we're editing
++    }
++}
++
+ /***
+ ****
+ ***/
+@@ -345,6 +360,7 @@ PrefsDialog::initNetworkTab ()
+   linkWidgetToPref (ui.enablePexCheck, Prefs::PEX_ENABLED);
+   linkWidgetToPref (ui.enableDhtCheck, Prefs::DHT_ENABLED);
+   linkWidgetToPref (ui.enableLpdCheck, Prefs::LPD_ENABLED);
++  linkWidgetToPref (ui.defaultTrackersPlainTextEdit, Prefs::DEFAULT_TRACKERS);
+ 
+   ColumnResizer * cr (new ColumnResizer (this));
+   cr->addLayout (ui.incomingPeersSectionLayout);
+@@ -668,6 +684,7 @@ PrefsDialog::refreshPref (int key)
+     {
+       QWidget * w (it.value ());
+ 
++      w->blockSignals (true);
+       if (!updateWidgetValue (w, key))
+         {
+           if (key == Prefs::ENCRYPTION)
+@@ -677,5 +694,6 @@ PrefsDialog::refreshPref (int key)
+               comboBox->setCurrentIndex (index);
+             }
+         }
++      w->blockSignals (false);
+     }
+ }
+diff --git a/qt/PrefsDialog.h b/qt/PrefsDialog.h
+index 73f8f3afd..87f08b14c 100644
+--- a/qt/PrefsDialog.h
++++ b/qt/PrefsDialog.h
+@@ -56,6 +56,7 @@ class PrefsDialog: public BaseDialog
+     void timeEditingFinished ();
+     void lineEditingFinished ();
+     void pathChanged (const QString& path);
++    void plainTextChanged ();
+     void refreshPref (int key);
+     void encryptionEdited (int);
+     void altSpeedDaysEdited (int);
+diff --git a/qt/PrefsDialog.ui b/qt/PrefsDialog.ui
+index 3f0d1b6f3..1ea5e6517 100644
+--- a/qt/PrefsDialog.ui
++++ b/qt/PrefsDialog.ui
+@@ -951,6 +951,26 @@
+            </property>
+           </widget>
+          </item>
++         <item>
++          <widget class="QLabel" name="defaultTrackersLabel">
++           <property name="toolTip">
++            <string>a list of default trackers to be added to new public torrents (and existing ones, after a reload)</string>
++           </property>
++           <property name="text">
++            <string>Default Trackers:</string>
++           </property>
++          </widget>
++         </item>
++         <item>
++          <widget class="QPlainTextEdit" name="defaultTrackersPlainTextEdit">
++           <property name="lineWrapMode">
++            <enum>QPlainTextEdit::NoWrap</enum>
++           </property>
++           <property name="plainText">
++            <string notr="true"/>
++           </property>
++          </widget>
++         </item>
+         </layout>
+        </item>
+        <item>
+diff --git a/qt/Session.cc b/qt/Session.cc
+index 9ac09849a..0201c29ea 100644
+--- a/qt/Session.cc
++++ b/qt/Session.cc
+@@ -148,6 +148,7 @@ Session::updatePref (int key)
+       case Prefs::BLOCKLIST_DATE:
+       case Prefs::BLOCKLIST_ENABLED:
+       case Prefs::BLOCKLIST_URL:
++      case Prefs::DEFAULT_TRACKERS:
+       case Prefs::DHT_ENABLED:
+       case Prefs::DOWNLOAD_QUEUE_ENABLED:
+       case Prefs::DOWNLOAD_QUEUE_SIZE:
+diff --git a/web/index.html b/web/index.html
+index 86e462cb3..5050be4f9 100755
+--- a/web/index.html
++++ b/web/index.html
+@@ -182,6 +182,12 @@
+ 						<div class="title">Options</div>
+ 						<div class="checkbox-row"><input type="checkbox" id="utp-enabled" title="uTP is a tool for reducing network congestion."/>
+ 						                          <label for="utp-enabled" title="uTP is a tool for reducing network congestion.">Enable uTP for peer communication</label></div>
++						<div class="row">
++							<div class="key">
++								Default trackers (added to new public torrents and to existing ones on reload):
++							</div>
++							<textarea type="textarea" id="default-trackers"></textarea>
++						</div>
+ 					</div>
+ 				</div>
+ 			</div>
+diff --git a/web/javascript/prefs-dialog.js b/web/javascript/prefs-dialog.js
+index 1db6566b1..535a07450 100644
+--- a/web/javascript/prefs-dialog.js
++++ b/web/javascript/prefs-dialog.js
+@@ -23,6 +23,7 @@ function PrefsDialog(remote) {
+             'blocklist-enabled',
+             'blocklist-size',
+             'blocklist-url',
++            'default-trackers',
+             'dht-enabled',
+             'download-dir',
+             'encryption',
+@@ -114,6 +115,7 @@ function PrefsDialog(remote) {
+             return e.prop('checked');
+ 
+         case 'text':
++        case 'textarea':
+         case 'url':
+         case 'email':
+         case 'number':
+@@ -197,6 +199,7 @@ function PrefsDialog(remote) {
+             case 'checkbox':
+             case 'radio':
+             case 'select-one':
++            case 'textarea':
+                 e.change(onControlChanged);
+                 break;
+ 
+@@ -261,6 +264,7 @@ function PrefsDialog(remote) {
+                 setGroupEnabled(key, val);
+                 break;
+             case 'text':
++            case 'textarea':
+             case 'url':
+             case 'email':
+             case 'number':
+diff --git a/web/style/transmission/common.css b/web/style/transmission/common.css
+index 1f6d8d82d..a2a93ebb6 100644
+--- a/web/style/transmission/common.css
++++ b/web/style/transmission/common.css
+@@ -350,6 +350,10 @@ ul.torrent_list {
+   .prefs-section #blocklist-info {
+     font-size: smaller;
+     margin-top: 3px; }
++  .prefs-section #default-trackers {
++    width: 100%;
++    height: 100px;
++    margin-top: 10px; }
+ 
+ /***
+ ****
+diff --git a/web/style/transmission/common.scss b/web/style/transmission/common.scss
+index 11094b1f1..a7bb2adb2 100644
+--- a/web/style/transmission/common.scss
++++ b/web/style/transmission/common.scss
+@@ -475,6 +475,12 @@ ul.torrent_list
+ 		font-size: smaller;
+ 		margin-top: 3px;
+ 	}
++
++  #default-trackers {
++    width: 100%;
++    height: 100px;
++    margin-top: 10px;
++  }
+ }
+ 
+ /***
