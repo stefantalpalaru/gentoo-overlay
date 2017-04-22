@@ -33,6 +33,7 @@ src_prepare() {
 		-e 's/-O3//' \
 		-e 's/LINKER_FLAGS =/LINKER_FLAGS = $(LDFLAGS)/' \
 		-e 's/-march=$(arch)/$(CFLAGS)/' \
+		-e 's/-mtune=$(tune)//' \
 		-e 's#ln -sf $(destdir)#ln -sf ../lib/pony/$(tag)#' \
 		-e "s#-lncurses#$(pkg-config ncurses --libs)#" \
 		Makefile
