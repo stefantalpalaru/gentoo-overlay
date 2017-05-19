@@ -9,7 +9,7 @@ inherit autotools eutils flag-o-matic git-r3 multilib pax-utils python-utils-r1 
 DESCRIPTION="Python 2.7 fork with new syntax, builtins, and libraries backported from Python 3"
 HOMEPAGE="https://github.com/naftaliharris/tauthon"
 EGIT_REPO_URI="https://github.com/naftaliharris/tauthon.git"
-EGIT_COMMIT="0c7adacaf72585232fc58dbcf54649f7ae737051"
+EGIT_COMMIT="736faed7324528ae5cdff5b6e5a46126c8f9de82"
 
 LICENSE="PSF-2"
 SLOT="2.8"
@@ -266,6 +266,7 @@ src_install() {
 	ln -s tauthon${SLOT} "${ED}/usr/$(get_libdir)/python${SLOT}"
 	ln -s libtauthon${SLOT}.a "${ED}/usr/$(get_libdir)/libpython${SLOT}.a"
 	ln -s libtauthon${SLOT}.so "${ED}/usr/$(get_libdir)/libpython${SLOT}.so"
+	ln -s python${SLOT}-config "${ED}/usr/bin/tauthon${SLOT}-config"
 
 	sed -e "s/\(LDFLAGS=\).*/\1/" -i "${libdir}/config/Makefile" || die "sed failed"
 

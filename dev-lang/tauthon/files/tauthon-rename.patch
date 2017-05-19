@@ -1,6 +1,6 @@
-diff -ur tauthon-2.8.0_pre20170104.orig/configure.ac tauthon-2.8.0_pre20170104/configure.ac
---- tauthon-2.8.0_pre20170104.orig/configure.ac	2017-01-22 20:11:08.249497719 +0100
-+++ tauthon-2.8.0_pre20170104/configure.ac	2017-01-22 20:12:13.167247810 +0100
+diff -ur tauthon-2.8.0_pre20170519.orig/configure.ac tauthon-2.8.0_pre20170519/configure.ac
+--- tauthon-2.8.0_pre20170519.orig/configure.ac	2017-05-20 01:06:20.509051717 +0200
++++ tauthon-2.8.0_pre20170519/configure.ac	2017-05-20 01:06:48.658064284 +0200
 @@ -8,7 +8,7 @@
  AC_PREREQ(2.65)
  
@@ -122,9 +122,9 @@ diff -ur tauthon-2.8.0_pre20170104.orig/configure.ac tauthon-2.8.0_pre20170104/c
            ;;
    esac
  fi
-diff -ur tauthon-2.8.0_pre20170104.orig/Lib/distutils/command/build_ext.py tauthon-2.8.0_pre20170104/Lib/distutils/command/build_ext.py
---- tauthon-2.8.0_pre20170104.orig/Lib/distutils/command/build_ext.py	2017-01-22 20:11:06.679552131 +0100
-+++ tauthon-2.8.0_pre20170104/Lib/distutils/command/build_ext.py	2017-01-22 20:12:13.167247810 +0100
+diff -ur tauthon-2.8.0_pre20170519.orig/Lib/distutils/command/build_ext.py tauthon-2.8.0_pre20170519/Lib/distutils/command/build_ext.py
+--- tauthon-2.8.0_pre20170519.orig/Lib/distutils/command/build_ext.py	2017-05-20 01:06:19.059102580 +0200
++++ tauthon-2.8.0_pre20170519/Lib/distutils/command/build_ext.py	2017-05-20 01:06:48.658064284 +0200
 @@ -759,7 +759,7 @@
          else:
              from distutils import sysconfig
@@ -134,9 +134,9 @@ diff -ur tauthon-2.8.0_pre20170104.orig/Lib/distutils/command/build_ext.py tauth
                  pythonlib = (template %
                               (sys.hexversion >> 24, (sys.hexversion >> 16) & 0xff))
                  return ext.libraries + [pythonlib]
-diff -ur tauthon-2.8.0_pre20170104.orig/Lib/distutils/sysconfig.py tauthon-2.8.0_pre20170104/Lib/distutils/sysconfig.py
---- tauthon-2.8.0_pre20170104.orig/Lib/distutils/sysconfig.py	2017-01-22 20:11:07.909509503 +0100
-+++ tauthon-2.8.0_pre20170104/Lib/distutils/sysconfig.py	2017-01-22 20:14:25.762652334 +0100
+diff -ur tauthon-2.8.0_pre20170519.orig/Lib/distutils/sysconfig.py tauthon-2.8.0_pre20170519/Lib/distutils/sysconfig.py
+--- tauthon-2.8.0_pre20170519.orig/Lib/distutils/sysconfig.py	2017-05-20 01:06:20.189062940 +0200
++++ tauthon-2.8.0_pre20170519/Lib/distutils/sysconfig.py	2017-05-20 01:06:48.668063933 +0200
 @@ -90,7 +90,7 @@
                  # Include is located in the srcdir
                  inc_dir = os.path.join(srcdir, "Include")
@@ -155,18 +155,18 @@ diff -ur tauthon-2.8.0_pre20170104.orig/Lib/distutils/sysconfig.py tauthon-2.8.0
          if standard_lib:
              return libpython
          else:
-diff -ur tauthon-2.8.0_pre20170104.orig/Lib/plat-linux2/regen tauthon-2.8.0_pre20170104/Lib/plat-linux2/regen
---- tauthon-2.8.0_pre20170104.orig/Lib/plat-linux2/regen	2017-01-22 20:11:07.849511584 +0100
-+++ tauthon-2.8.0_pre20170104/Lib/plat-linux2/regen	2017-01-22 20:12:13.167247810 +0100
+diff -ur tauthon-2.8.0_pre20170519.orig/Lib/plat-linux2/regen tauthon-2.8.0_pre20170519/Lib/plat-linux2/regen
+--- tauthon-2.8.0_pre20170519.orig/Lib/plat-linux2/regen	2017-05-20 01:06:20.149064345 +0200
++++ tauthon-2.8.0_pre20170519/Lib/plat-linux2/regen	2017-05-20 01:06:48.668063933 +0200
 @@ -5,4 +5,4 @@
  	exit 1;;
  esac
  set -v
 -python$EXE ../../Tools/scripts/h2py.py -i '(u_long)' /usr/include/sys/types.h /usr/include/netinet/in.h /usr/include/dlfcn.h /usr/include/linux/cdrom.h
 +tauthon$EXE ../../Tools/scripts/h2py.py -i '(u_long)' /usr/include/sys/types.h /usr/include/netinet/in.h /usr/include/dlfcn.h /usr/include/linux/cdrom.h
-diff -ur tauthon-2.8.0_pre20170104.orig/Makefile.pre.in tauthon-2.8.0_pre20170104/Makefile.pre.in
---- tauthon-2.8.0_pre20170104.orig/Makefile.pre.in	2017-01-22 20:11:08.149501186 +0100
-+++ tauthon-2.8.0_pre20170104/Makefile.pre.in	2017-01-22 20:12:13.167247810 +0100
+diff -ur tauthon-2.8.0_pre20170519.orig/Makefile.pre.in tauthon-2.8.0_pre20170519/Makefile.pre.in
+--- tauthon-2.8.0_pre20170519.orig/Makefile.pre.in	2017-05-20 01:06:20.399055574 +0200
++++ tauthon-2.8.0_pre20170519/Makefile.pre.in	2017-05-20 01:06:48.668063933 +0200
 @@ -114,11 +114,11 @@
  SCRIPTDIR=	$(prefix)/@@GENTOO_LIBDIR@@
  
@@ -184,17 +184,6 @@ diff -ur tauthon-2.8.0_pre20170104.orig/Makefile.pre.in tauthon-2.8.0_pre2017010
  
  # Symbols used for using shared libraries
  SO=		@SO@
-@@ -197,8 +197,8 @@
- LIBOBJS=	@LIBOBJS@
- UNICODE_OBJS=   @UNICODE_OBJS@
- 
--PYTHON=		python$(EXE)
--BUILDPYTHON=	python$(BUILDEXE)
-+PYTHON=		tauthon$(EXE)
-+BUILDPYTHON=	tauthon$(BUILDEXE)
- 
- PYTHON_FOR_BUILD=@PYTHON_FOR_BUILD@
- _PYTHON_HOST_PLATFORM=@_PYTHON_HOST_PLATFORM@
 @@ -585,7 +585,7 @@
  	$(AR) $(ARFLAGS) $@ $(MODOBJS)
  	$(RANLIB) $@
@@ -237,9 +226,9 @@ diff -ur tauthon-2.8.0_pre20170104.orig/Makefile.pre.in tauthon-2.8.0_pre2017010
  
  # Install the include files
  INCLDIRSTOMAKE=$(INCLUDEDIR) $(CONFINCLUDEDIR) $(INCLUDEPY) $(CONFINCLUDEPY)
-diff -ur tauthon-2.8.0_pre20170104.orig/Misc/python-config.in tauthon-2.8.0_pre20170104/Misc/python-config.in
---- tauthon-2.8.0_pre20170104.orig/Misc/python-config.in	2017-01-22 20:11:07.619519555 +0100
-+++ tauthon-2.8.0_pre20170104/Misc/python-config.in	2017-01-22 20:12:13.167247810 +0100
+diff -ur tauthon-2.8.0_pre20170519.orig/Misc/python-config.in tauthon-2.8.0_pre20170519/Misc/python-config.in
+--- tauthon-2.8.0_pre20170519.orig/Misc/python-config.in	2017-05-20 01:06:19.919072413 +0200
++++ tauthon-2.8.0_pre20170519/Misc/python-config.in	2017-05-20 01:06:48.668063933 +0200
 @@ -44,7 +44,7 @@
          print ' '.join(flags)
  
@@ -249,9 +238,9 @@ diff -ur tauthon-2.8.0_pre20170104.orig/Misc/python-config.in tauthon-2.8.0_pre2
          libs += getvar('LIBS').split()
          libs += getvar('SYSLIBS').split()
          if opt == '--ldflags':
-diff -ur tauthon-2.8.0_pre20170104.orig/Misc/python.pc.in tauthon-2.8.0_pre20170104/Misc/python.pc.in
---- tauthon-2.8.0_pre20170104.orig/Misc/python.pc.in	2017-01-22 20:11:07.029540001 +0100
-+++ tauthon-2.8.0_pre20170104/Misc/python.pc.in	2017-01-22 20:12:13.167247810 +0100
+diff -ur tauthon-2.8.0_pre20170519.orig/Misc/python.pc.in tauthon-2.8.0_pre20170519/Misc/python.pc.in
+--- tauthon-2.8.0_pre20170519.orig/Misc/python.pc.in	2017-05-20 01:06:19.379091354 +0200
++++ tauthon-2.8.0_pre20170519/Misc/python.pc.in	2017-05-20 01:06:48.668063933 +0200
 @@ -3,11 +3,11 @@
  libdir=@libdir@
  includedir=@includedir@
@@ -268,9 +257,9 @@ diff -ur tauthon-2.8.0_pre20170104.orig/Misc/python.pc.in tauthon-2.8.0_pre20170
 +Libs: -L${libdir} -ltauthon@VERSION@
 +Cflags: -I${includedir}/tauthon@VERSION@ 
  
-diff -ur tauthon-2.8.0_pre20170104.orig/Modules/getpath.c tauthon-2.8.0_pre20170104/Modules/getpath.c
---- tauthon-2.8.0_pre20170104.orig/Modules/getpath.c	2017-01-22 20:11:07.709516434 +0100
-+++ tauthon-2.8.0_pre20170104/Modules/getpath.c	2017-01-22 20:12:13.167247810 +0100
+diff -ur tauthon-2.8.0_pre20170519.orig/Modules/getpath.c tauthon-2.8.0_pre20170519/Modules/getpath.c
+--- tauthon-2.8.0_pre20170519.orig/Modules/getpath.c	2017-05-20 01:06:20.019068904 +0200
++++ tauthon-2.8.0_pre20170519/Modules/getpath.c	2017-05-20 01:06:48.668063933 +0200
 @@ -108,7 +108,7 @@
  static char exec_prefix[MAXPATHLEN+1];
  static char progpath[MAXPATHLEN+1];
@@ -280,9 +269,9 @@ diff -ur tauthon-2.8.0_pre20170104.orig/Modules/getpath.c tauthon-2.8.0_pre20170
  
  static void
  reduce(char *dir)
-diff -ur tauthon-2.8.0_pre20170104.orig/Modules/makesetup tauthon-2.8.0_pre20170104/Modules/makesetup
---- tauthon-2.8.0_pre20170104.orig/Modules/makesetup	2017-01-22 20:11:07.619519555 +0100
-+++ tauthon-2.8.0_pre20170104/Modules/makesetup	2017-01-22 20:12:13.167247810 +0100
+diff -ur tauthon-2.8.0_pre20170519.orig/Modules/makesetup tauthon-2.8.0_pre20170519/Modules/makesetup
+--- tauthon-2.8.0_pre20170519.orig/Modules/makesetup	2017-05-20 01:06:19.929072062 +0200
++++ tauthon-2.8.0_pre20170519/Modules/makesetup	2017-05-20 01:06:48.668063933 +0200
 @@ -91,7 +91,7 @@
  	 else
  	 	ExtraLibDir='$(LIBDIR)'
@@ -292,9 +281,9 @@ diff -ur tauthon-2.8.0_pre20170104.orig/Modules/makesetup tauthon-2.8.0_pre20170
  esac
  
  # Main loop
-diff -ur tauthon-2.8.0_pre20170104.orig/setup.py tauthon-2.8.0_pre20170104/setup.py
---- tauthon-2.8.0_pre20170104.orig/setup.py	2017-01-22 20:11:08.309495641 +0100
-+++ tauthon-2.8.0_pre20170104/setup.py	2017-01-22 20:12:13.167247810 +0100
+diff -ur tauthon-2.8.0_pre20170519.orig/setup.py tauthon-2.8.0_pre20170519/setup.py
+--- tauthon-2.8.0_pre20170519.orig/setup.py	2017-05-20 01:06:20.559049964 +0200
++++ tauthon-2.8.0_pre20170519/setup.py	2017-05-20 01:06:48.668063933 +0200
 @@ -471,10 +471,6 @@
  
      def detect_modules(self):
