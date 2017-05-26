@@ -5,11 +5,12 @@ EAPI=6
 
 PYTHON_COMPAT=( python{2_7,3_4,3_5} )
 
-inherit distutils-r1
+inherit distutils-r1 git-r3
 
 DESCRIPTION="Yet another boost.python based wrapper for GraphicsMagick"
-HOMEPAGE="https://pypi.python.org/pypi/pgmagick/ https://bitbucket.org/hhatto/pgmagick/"
-SRC_URI="mirror://pypi/${PN:0:1}/${PN}/${P}.tar.gz"
+HOMEPAGE="https://pypi.python.org/pypi/pgmagick/ https://github.com/hhatto/pgmagick"
+EGIT_REPO_URI="https://github.com/hhatto/pgmagick"
+EGIT_COMMIT="b7ef0105fb03b9f7953447afe3a824156ec1c7a2"
 
 LICENSE="MIT"
 SLOT="0"
