@@ -5,23 +5,17 @@ EAPI=6
 
 inherit vim-plugin
 
-if [[ ${PV} == 9999* ]] ; then
-	EGIT_REPO_URI="https://github.com/w0rp/ale"
-	inherit git-r3
-else
-	KEYWORDS="~amd64 ~x86"
-	SRC_URI="https://github.com/w0rp/${PN}/archive/v${PV}.tar.gz -> ${P}.tar.gz"
-fi
-
 DESCRIPTION="Asynchronous Lint Engine for vim"
 HOMEPAGE="https://github.com/w0rp/ale"
+KEYWORDS="~amd64 ~x86"
+SRC_URI="https://github.com/w0rp/${PN}/archive/v${PV}.tar.gz -> ${P}.tar.gz"
 LICENSE="BSD-2"
 
 VIM_PLUGIN_HELPFILES="${PN}"
 
 src_prepare() {
 	default
-	rm -r LICENSE ISSUE_TEMPLATE.md || die
+	rm LICENSE || die
 }
 
 pkg_postinst() {

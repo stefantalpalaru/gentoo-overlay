@@ -3,25 +3,18 @@
 
 EAPI=6
 
-inherit vim-plugin
-
-if [[ ${PV} == 9999* ]] ; then
-	EGIT_REPO_URI="https://github.com/w0rp/ale"
-	inherit git-r3
-else
-	KEYWORDS="~amd64 ~x86"
-	SRC_URI="https://github.com/w0rp/${PN}/archive/v${PV}.tar.gz -> ${P}.tar.gz"
-fi
+inherit git-r3 vim-plugin
 
 DESCRIPTION="Asynchronous Lint Engine for vim"
 HOMEPAGE="https://github.com/w0rp/ale"
+EGIT_REPO_URI="https://github.com/w0rp/ale"
 LICENSE="BSD-2"
 
 VIM_PLUGIN_HELPFILES="${PN}"
 
 src_prepare() {
 	default
-	rm -r Makefile test img CONTRIBUTING.md custom-checks Dockerfile LICENSE README.md ISSUE_TEMPLATE.md || die
+	rm -r test img CONTRIBUTING.md custom-checks run-tests Dockerfile LICENSE README.md ISSUE_TEMPLATE.md PULL_REQUEST_TEMPLATE.md || die
 }
 
 pkg_postinst() {
