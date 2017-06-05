@@ -52,6 +52,7 @@ IUSE="a52 aalib alsa altivec +avcodec
 	vlm vnc vorbis vpx wma-fixed +X x264 x265 +xcb xml xv zeroconf zvbi wayland"
 
 RDEPEND="
+	app-arch/libarchive
 	dev-libs/libgpg-error:0
 	net-dns/libidn:0
 	sys-libs/zlib:0[minizip]
@@ -330,6 +331,7 @@ src_configure() {
 		--disable-update-check \
 		--enable-fast-install \
 		--enable-screen \
+		--enable-archive \
 		$(use_enable a52) \
 		$(use_enable aalib aa) \
 		$(use_enable alsa) \
