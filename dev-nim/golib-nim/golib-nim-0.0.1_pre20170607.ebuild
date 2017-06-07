@@ -8,7 +8,7 @@ inherit git-r3
 DESCRIPTION="Nim bindings for golib"
 HOMEPAGE="https://github.com/stefantalpalaru/golib-nim"
 EGIT_REPO_URI="https://github.com/stefantalpalaru/golib-nim"
-EGIT_COMMIT="445b4e1e6e18e12182d84d906a816b3618542a25"
+EGIT_COMMIT="686a6e8e77f3a54ac824837e8179f5c9ada108a5"
 
 LICENSE="BSD-2"
 SLOT="0"
