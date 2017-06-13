@@ -6,7 +6,7 @@ EAPI=6
 inherit cmake-utils git-r3 gnome2-utils readme.gentoo-r1 systemd user xdg-utils
 
 EGIT_REPO_URI="https://github.com/transmission/transmission"
-EGIT_COMMIT="fdfbe225dac3ba72edbf8fef19ae4bef223c4cf4"
+EGIT_COMMIT="deea6fc6a206701e7f724522b61739140d78bbff"
 KEYWORDS="~amd64 ~arm ~mips ~ppc ~ppc64 ~x86 ~x86-fbsd ~amd64-linux"
 
 DESCRIPTION="A fast, easy, and free BitTorrent client"
