@@ -15,7 +15,7 @@ IUSE="convolution"
 
 RDEPEND="dev-lang/tcl:0
 	dev-lang/tk:0
-	media-fonts/ttf-bitstream-vera
+	media-fonts/dejavu
 	media-sound/jack-audio-connection-kit
 	>=media-libs/alsa-lib-1.0.0
 	media-libs/ftgl
@@ -40,14 +40,14 @@ S="${WORKDIR}/setBfree-${PV}"
 src_compile() {
 	tc-export CC CXX
 	emake PREFIX="${EPREFIX}"/usr \
-		FONTFILE="/usr/share/fonts/ttf-bitstream-vera/VeraBd.ttf" \
+		FONTFILE="/usr/share/fonts/dejavu/DejaVuSans-Bold.ttf" \
 		$(use convolution && echo "ENABLE_CONVOLUTION=yes") || die "died running emake, $FUNCNAME"
 }
 
 src_install() {
 	emake DESTDIR="${D}" \
 		$(use convolution && echo "ENABLE_CONVOLUTION=yes") \
-		FONTFILE="/usr/share/fonts/ttf-bitstream-vera/VeraBd.ttf" \
+		FONTFILE="/usr/share/fonts/dejavu/DejaVuSans-Bold.ttf" \
 		PREFIX="${EPREFIX}"/usr \
 		LIBDIR="$(get_libdir)" \
 		install
@@ -63,5 +63,5 @@ src_install() {
 pkg_postinst() {
 	elog "Use setBfree-start to run setBfree."
 	elog "For the LV2 GUI you need a LV2 host with Gtk2 support, like media-sound/jalv with the 'gtk2' USE flag enabled."
-	elog "Start the LV2 plugin like this: jalv.gtk http://gareus.org/oss/lv2/b_synth"
+	elog "Start the LV2 plugin like this: jalv.gtk -l ~/.config/setBfree http://gareus.org/oss/lv2/b_synth"
 }
