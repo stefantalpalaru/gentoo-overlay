@@ -1,0 +1,51 @@
+# ChangeLog for media-sound/jack_capture
+# Copyright 1999-2013 Gentoo Foundation; Distributed under the GPL v2
+# $Header: $
+
+*jack_capture-0.9.70 (20 Apr 2013)
+
+  20 Apr 2013; Karl Linden (lilrc) <lilrc@users.sourceforge.net>
+  -jack_capture-0.9.56.ebuild, -files/jack_capture-0.9.56-Makefile.patch,
+  -jack_capture-0.9.69.ebuild, +jack_capture-0.9.70.ebuild,
+  +files/jack_capture-0.9.70-Makefile.patch, metadata.xml:
+  Version bump and remove old ebuilds.
+  Move to EAPI 5.
+  Use base eclass.
+  Use emake instead of make.
+  Depend on virtual/pkgconfig.
+  Remove no-herd from metadata.
+
+*jack_capture-0.9.69 (23 Nov 2012)
+
+  23 Nov 2012; Dominique Michel <dominique.michel@sourceforge.net>
+  +jack_capture-0.9.69.ebuild
+  -jack_capture-0.9.44.ebuild, -files/jack_capture-0.9.44-Makefile.patch
+  -jack_capture-0.9.5.ebuild
+
+*jack_capture-0.9.56 (09 Nov 2010)
+
+  09 Nov 2010; Gavin Pryke <gavinlee303@googlemail.com>
+  +jack_capture-0.9.56.ebuild, +files/jack_capture-0.9.56-Makefile.patch:
+  bump
+
+  23 Oct 2010; Gavin Pryke <gavinlee303@googlemail.com>
+  jack_capture-0.9.6.ebuild, jack_capture-0.9.44.ebuild:
+  add RESTRICT=mirror. die if no binaries are found at src_install.
+
+*jack_capture-0.9.44 (03 May 2010)
+
+  03 May 2010; Gavin Pryke <gavinlee303@googlemail.com>
+  -jack_capture-0.3.7.ebuild, -jack_capture-0.3.9.ebuild,
+  -jack_capture-0.9.3.ebuild, -jack_capture-0.9.5.ebuild,
+  -jack_capture-0.9.19.ebuild, +jack_capture-0.9.44.ebuild,
+  +files/jack_capture-0.9.44-Makefile.patch:
+  remove ancient ebuilds and ones that do not compile. bump to 0.9.44, add
+  makefile patch and make use of in-tree gtk2 gui instead of xdialog.
+
+  10 Jul 2008; Frieder Buerzele <evermind@tuxfamily.org>;
+  +jack_capture-0.9.19.ebuild:
+  bumped jack_capture-0.9.19
+
+  17 Dec 2007; Thomas Kuther <gimpel@sonnenkinder.org> ChangeLog:
+  added a changelog
+
