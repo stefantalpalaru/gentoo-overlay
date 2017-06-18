@@ -16,7 +16,7 @@ IUSE="convolution"
 RDEPEND="dev-lang/tcl:0
 	dev-lang/tk:0
 	media-fonts/dejavu
-	media-sound/jack-audio-connection-kit
+	virtual/jack
 	>=media-libs/alsa-lib-1.0.0
 	media-libs/ftgl
 	media-libs/liblo
