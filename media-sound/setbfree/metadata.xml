@@ -2,8 +2,8 @@
 <!DOCTYPE pkgmetadata SYSTEM "http://www.gentoo.org/dtd/metadata.dtd">
 <pkgmetadata>
 	<maintainer type="person">
-		<email>proaudio@tuxfamily.org</email>
-		<name>pro-audio overlay team</name>
+		<email>stefantalpalaru@yahoo.com</email>
+		<name>Ștefan Talpalaru</name>
 	</maintainer>
 	<use>
 		<flag name="convolution">enable experimental built-in convolution reverb used for leslie cabinet simulation</flag>
