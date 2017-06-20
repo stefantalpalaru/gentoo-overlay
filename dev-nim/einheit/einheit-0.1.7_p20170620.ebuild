@@ -8,7 +8,7 @@ inherit git-r3
 DESCRIPTION="Nim unit test library"
 HOMEPAGE="https://github.com/jyapayne/einheit"
 EGIT_REPO_URI="https://github.com/jyapayne/einheit"
-EGIT_COMMIT="50ce1eca9724b7e635390264fe0dadafb5966323"
+EGIT_COMMIT="be17ec1963cedee359a58c4970d550023d376d92"
 
 LICENSE="MIT"
 SLOT="0"
