@@ -61,6 +61,11 @@ pkg_pretend() {
 	fi
 }
 
+src_prepare() {
+	cp -a resources/CMakeLists.txt .
+	default
+}
+
 src_configure() {
 	local mycmakeargs=(
 		-DBUILD_LIB=ON
