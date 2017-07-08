@@ -25,19 +25,19 @@ BUILD_TARGETS="all"
 
 S=${WORKDIR}/${A/.tar.bz2}
 
-pkg_setup() {
-	if kernel_is lt 2 6 27 ; then
-		eerror "Your kernel version is no longer supported by this version of ${PN}."
-		eerror "Please use a previous version of ${PN} or a newer kernel."
-		die
-	fi
-	if kernel_is gt 4 11 ; then
-		eerror "Your kernel version is not yet supported by this version of ${PN}."
-		eerror "Please use a newer version of ${PN} or an older kernel."
-		die
-	fi
-	linux-mod_pkg_setup
-}
+#pkg_setup() {
+	#if kernel_is lt 2 6 27 ; then
+		#eerror "Your kernel version is no longer supported by this version of ${PN}."
+		#eerror "Please use a previous version of ${PN} or a newer kernel."
+		#die
+	#fi
+	#if kernel_is gt 4 11 ; then
+		#eerror "Your kernel version is not yet supported by this version of ${PN}."
+		#eerror "Please use a newer version of ${PN} or an older kernel."
+		#die
+	#fi
+	#linux-mod_pkg_setup
+#}
 
 src_prepare() {
 	sed -e '/^all:/s:prepare::' \
