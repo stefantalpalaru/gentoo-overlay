@@ -18,11 +18,7 @@ RDEPEND="media-libs/libpng:0=
 	sys-libs/zlib:=
 	lcms? ( media-libs/lcms:2 )"
 DEPEND="${RDEPEND}
-	media-libs/libimagequant"
-
-PATCHES=(
-	"${FILESDIR}/system-lib.patch"
-)
+	media-gfx/libimagequant"
 
 src_prepare() {
 	rm -rf lib
@@ -41,10 +37,6 @@ src_configure() {
 		$(use_with lcms lcms2) \
 		CFLAGS="${CFLAGS} ${CPPFLAGS}" \
 		LDFLAGS="${LDFLAGS}"
-}
-
-src_compile() {
-	emake bin.shared || die "make failed"
 }
 
 src_install() {
