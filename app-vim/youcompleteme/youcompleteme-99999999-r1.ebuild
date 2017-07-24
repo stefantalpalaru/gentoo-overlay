@@ -18,7 +18,6 @@ EGIT_SUBMODULES=(
 	'-third_party/waitress'
 	'-third_party/requests'
 	'-third_party/gocode'
-	'-third_party/racerd'
 	'-third_party/godef'
 	'-third_party/python-future'
 	'-vendor/waitress'
@@ -30,12 +29,12 @@ EGIT_SUBMODULES=(
 LICENSE="GPL-3"
 SLOT="0"
 KEYWORDS=""
-IUSE="clang doc test"
+IUSE="clang doc test rust"
 REQUIRED_USE="${PYTHON_REQUIRED_USE}"
 
 COMMON_DEPEND="
 	${PYTHON_DEPS}
-	clang? ( >=sys-devel/clang-3.8:= )
+	clang? ( >=sys-devel/clang-3.9:= )
 	dev-libs/boost[python,threads,${PYTHON_USEDEP}]
 	|| (
 		app-editors/vim[python,${PYTHON_USEDEP}]
@@ -54,6 +53,10 @@ RDEPEND="
 "
 DEPEND="
 	${COMMON_DEPEND}
+	rust? (
+		|| ( dev-lang/rust dev-lang/rust-bin )
+		|| ( dev-util/cargo dev-util/cargo-bin )
+	)
 	test? (
 		>=dev-python/mock-1.0.1[${PYTHON_USEDEP}]
 		>=dev-python/nose-1.3.0[${PYTHON_USEDEP}]
@@ -67,12 +70,13 @@ CMAKE_USE_DIR=${S}/third_party/ycmd/cpp
 
 VIM_PLUGIN_HELPFILES="${PN}"
 
+src_unpack() {
+	use rust || EGIT_SUBMODULES+=('-third_party/racerd')
+	git-r3_src_unpack
+}
+
 src_prepare() {
 	default
-
-	cd third_party/ycmd
-	eapply "${FILESDIR}/bottle.patch"
-	cd - >/dev/null
 
 	if ! use test ; then
 		sed -i '/^add_subdirectory( tests )/d' third_party/ycmd/cpp/ycm/CMakeLists.txt || die
@@ -96,6 +100,15 @@ src_configure() {
 		-DUSE_SYSTEM_GMOCK=ON
 	)
 	cmake-utils_src_configure
+}
+
+src_compile() {
+	cmake-utils_src_compile
+
+	if use rust ; then
+		cd "${S}"/third_party/ycmd/third_party/racerd || die "Failed to move to racerd directory"
+		cargo build --release || die "Failed to build racerd"
+	fi
 }
 
 src_test() {

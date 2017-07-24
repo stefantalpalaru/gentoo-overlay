@@ -7,5 +7,6 @@
 	</maintainer>
 	<use>
 		<flag name="clang">Enable semantic support for C-family languages using <pkg>sys-devel/clang</pkg></flag>
+		<flag name="rust">Enable semantic support for Rust</flag>
 	</use>
 </pkgmetadata>
