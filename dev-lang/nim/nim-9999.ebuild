@@ -12,7 +12,8 @@ EGIT_REPO_URI="https://github.com/Araq/Nim"
 LICENSE="MIT"
 SLOT="0"
 KEYWORDS=""
-IUSE="boehm-gc doc +readline test"
+#IUSE="boehm-gc doc +readline test"
+IUSE="boehm-gc +readline test"
 
 DEPEND="
 	readline? ( sys-libs/readline:= )
@@ -61,9 +62,9 @@ EOF
 	echo -e "\npath:\"\$projectPath/../..\"" >> compiler/nimfix/nimfix.nim.cfg
 	PATH="./bin:${PATH}" nim c -d:release compiler/nimfix/nimfix.nim || die "nimfix.nim compilation failed"
 
-	if use doc; then
-		PATH="./bin:${PATH}" ./koch web || die "koch web failed"
-	fi
+	#if use doc; then
+		#PATH="./bin:${PATH}" ./koch web || die "koch web failed"
+	#fi
 }
 
 src_test() {
@@ -86,8 +87,8 @@ src_install() {
 	doins -r lib/wrappers/linenoise
 	rm -r "${D}"/usr/share/nim/lib/compiler/{nimfix/nimcache,nimfix/nimfix,nim,nim0,nim1}
 
-	if use doc; then
-		HTML_DOCS=doc/html/*.html
-		einstalldocs
-	fi
+	#if use doc; then
+		#HTML_DOCS=doc/html/*.html
+		#einstalldocs
+	#fi
 }
