@@ -21,27 +21,28 @@ KEYWORDS="~amd64 ~x86"
 S=${WORKDIR}
 PATCHES=( "${FILESDIR}/${PN}-desktop.patch" )
 
+DEPEND="dev-util/patchelf"
 RDEPEND="
 	dev-libs/libgcrypt:11
 	gnome-base/gconf
 	media-libs/alsa-lib
 	net-print/cups
 	sys-libs/libcap
-	virtual/udev
 	x11-libs/gtk+:2
 	x11-libs/gtkglext
 "
 
 src_install() {
-	# Wrapper to the real executable
+	pax-mark m usr/share/upwork/upwork
+
 	dobin usr/bin/upwork
 
-	insinto /usr/share
-	pax-mark m usr/share/upwork/upwork
-	doins -r usr/share/upwork
-	dosym /usr/lib/libudev.so /usr/share/upwork/libudev.so.0
+	patchelf --set-rpath /usr/share/upwork usr/share/upwork/upwork
+	dolib usr/share/upwork/libcef.so
+	rm usr/share/upwork/libcef.so
 
-	# Make this executable because it's the real executable
+	insinto /usr/share
+	doins -r usr/share/upwork
 	fperms 0755 /usr/share/upwork/upwork
 
 	domenu usr/share/applications/upwork.desktop
