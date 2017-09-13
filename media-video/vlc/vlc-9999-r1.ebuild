@@ -8,9 +8,9 @@ if [[ ${PV} = *9999 ]] ; then
 	SCM="git-r3"
 
 	if [ "${PV%.9999}" != "${PV}" ] ; then
-		EGIT_REPO_URI="git://git.videolan.org/vlc/vlc-${PV%.9999}.git"
+		EGIT_REPO_URI="https://git.videolan.org/git/vlc/vlc-${PV%.9999}.git"
 	else
-		EGIT_REPO_URI="git://git.videolan.org/vlc.git"
+		EGIT_REPO_URI="https://git.videolan.org/git/vlc.git"
 	fi
 fi
 
@@ -214,9 +214,6 @@ REQUIRED_USE="
 PATCHES=(
 	# Fix build system mistake.
 	"${FILESDIR}"/${PN}-2.1.0-fix-libtremor-libs.patch
-
-	# Patch up incompatibilities and reconfigure autotools.
-	"${FILESDIR}"/${PN}-9999-libva-1.2.1-compat.patch
 
 	# Fix up broken audio when skipping using a fixed reversed bisected commit.
 	"${FILESDIR}"/${PN}-2.1.0-TomWij-bisected-PA-broken-underflow.patch
