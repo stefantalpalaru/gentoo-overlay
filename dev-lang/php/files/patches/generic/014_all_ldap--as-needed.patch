@@ -1,0 +1,22 @@
+# Allow ext/ldap to compile with --as-needed
+# Patch by Peter Volkov <pva@gentoo.org>, bug 212679
+
+--- ext/ldap/config.m4.orig	2008-05-05 23:43:07.000000000 +0400
++++ ext/ldap/config.m4	2008-05-05 23:44:22.000000000 +0400
+@@ -49,6 +49,8 @@
+   else
+     SASL_LIB="-L$LDAP_SASL_LIBDIR -lsasl2"
+   fi
++  _SAVE_LIBS_SASL=$LIBS
++  LIBS="$LIBS $SASL_LIB"
+   
+   PHP_CHECK_LIBRARY(ldap, sasl_version,
+   [
+@@ -60,6 +62,7 @@
+   ], [
+     $LDAP_SHARED_LIBADD $SASL_LIB
+   ])
++  LIBS=$_SAVE_LIBS_SASL
+ ])
+ 
+ PHP_ARG_WITH(ldap,for LDAP support,

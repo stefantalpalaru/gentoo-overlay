@@ -1,0 +1,21 @@
+diff -ur php5.2-200708051230-orig/acinclude.m4 php5.2-200708051230/acinclude.m4
+--- php5.2-200708051230-orig/acinclude.m4	2007-08-05 17:24:52.000000000 +0200
++++ php5.2-200708051230/acinclude.m4	2007-08-05 17:25:32.000000000 +0200
+@@ -441,7 +441,7 @@
+ dnl Adds a path to linkpath/runpath (LDFLAGS)
+ dnl
+ AC_DEFUN([PHP_ADD_LIBPATH],[
+-  if test "$1" != "/usr/$PHP_LIBDIR" && test "$1" != "/usr/lib"; then
++  if test "$1" != "/usr/$PHP_LIBDIR" && test "$1" != "/usr/lib" && test "$1" != "/usr/lib64"; then
+     PHP_EXPAND_PATH($1, ai_p)
+     ifelse([$2],,[
+       _PHP_ADD_LIBPATH_GLOBAL([$ai_p])
+@@ -2033,7 +2033,7 @@
+ dnl Search for the sendmail binary
+ dnl
+ AC_DEFUN([PHP_PROG_SENDMAIL], [
+-  PHP_ALT_PATH=/usr/bin:/usr/sbin:/usr/etc:/etc:/usr/ucblib:/usr/lib
++  PHP_ALT_PATH=/usr/bin:/usr/sbin:/usr/etc:/etc:/usr/ucblib:/usr/lib:/usr/lib64
+   AC_PATH_PROG(PROG_SENDMAIL, sendmail,[], $PATH:$PHP_ALT_PATH)
+   PHP_SUBST(PROG_SENDMAIL)
+ ])

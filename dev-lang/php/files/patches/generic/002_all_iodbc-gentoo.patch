@@ -1,0 +1,14 @@
+--- php5.2-200708051230-orig/ext/odbc/config.m4	2007-08-05 17:24:52.000000000 +0200
++++ php5.2-200708051230/ext/odbc/config.m4	2007-08-05 17:48:59.000000000 +0200
+@@ -374,9 +374,9 @@
+       PHP_IODBC=/usr/local
+     fi
+     PHP_ADD_LIBRARY_WITH_PATH(iodbc, $PHP_IODBC/$PHP_LIBDIR)
+-    PHP_ADD_INCLUDE($PHP_IODBC/include, 1)
++    PHP_ADD_INCLUDE($PHP_IODBC/include/iodbc, 1)
+     ODBC_TYPE=iodbc
+-    ODBC_INCLUDE=-I$PHP_IODBC/include
++    ODBC_INCLUDE=-I$PHP_IODBC/include/iodbc
+     ODBC_LFLAGS=-L$PHP_IODBC/$PHP_LIBDIR
+     ODBC_LIBS=-liodbc
+     AC_DEFINE(HAVE_IODBC,1,[ ])

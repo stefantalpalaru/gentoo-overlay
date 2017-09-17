@@ -1,0 +1,11 @@
+--- ./ext/mysql/php_mysql.c	2010-03-22 12:15:16.000000000 +0600
++++ ./ext/mysql/php_mysql.c.new	2010-03-22 12:19:25.639835892 +0600
+@@ -616,7 +616,7 @@
+ 
+ 	socket = MySG(default_socket);
+ 
+-	if (MySG(default_port) < 0) {
++	if (MySG(default_port) <= 0) {
+ #if !defined(PHP_WIN32) && !defined(NETWARE)
+ 		struct servent *serv_ptr;
+ 		char *env;

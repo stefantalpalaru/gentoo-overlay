@@ -1,0 +1,23 @@
+Avoid compilation errors due to undefined OCI_ATTR_SPOOL_AUTH in Oracle
+instantclient 11.2.0.0.2.  That symbol is included from version 11.2.0.1
+onwards, but there is no preprocessor macro to check for that version number
+detail.  Therefore checking for the actual macro we rely on seems safest.
+
+2010-07-30 Martin von Gagern
+
+References:
+http://bugs.gentoo.org/327589
+
+Index: php-5.3.3/ext/oci8/oci8.c
+===================================================================
+--- php-5.3.3.orig/ext/oci8/oci8.c
++++ php-5.3.3/ext/oci8/oci8.c
+@@ -2653,7 +2653,7 @@ static php_oci_spool *php_oci_create_spo
+ 	poolmode = OCI_SPC_HOMOGENEOUS;
+ #endif
+ 
+-#if ((OCI_MAJOR_VERSION > 11) || ((OCI_MAJOR_VERSION == 11) && (OCI_MINOR_VERSION >= 2)))
++#if ((OCI_MAJOR_VERSION > 11) || ((OCI_MAJOR_VERSION == 11) && (OCI_MINOR_VERSION >= 2) && defined(OCI_ATTR_SPOOL_AUTH)))
+ 	/* Allocate auth handle for session pool {{{ */
+ 	PHP_OCI_CALL_RETURN(OCI_G(errcode), OCIHandleAlloc, (session_pool->env, (dvoid **)&(spoolAuth), OCI_HTYPE_AUTHINFO, 0, NULL));
+ 

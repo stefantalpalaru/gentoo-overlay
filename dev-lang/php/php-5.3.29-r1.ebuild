@@ -15,9 +15,6 @@ php_get_uri () {
 		"php")
 			echo "http://www.php.net/distributions/${2}"
 		;;
-		"olemarkus")
-			echo "http://dev.gentoo.org/~olemarkus/php/${2}"
-		;;
 		"gentoo")
 			echo "mirror://gentoo/${2}"
 		;;
@@ -41,20 +38,12 @@ PHP_RELEASE="php"
 [[ ${PV} == ${PV/_rc/} ]] || PHP_RELEASE="php-pre"
 PHP_P="${PN}-${PHP_PV}"
 
-PHP_PATCHSET_LOC="olemarkus"
-
 PHP_SRC_URI="$(php_get_uri "${PHP_RELEASE}" "${PHP_P}.tar.bz2")"
-
-PHP_PATCHSET="0"
-PHP_PATCHSET_URI="
-	$(php_get_uri "${PHP_PATCHSET_LOC}" "php-patchset-${SLOT}-r${PHP_PATCHSET}.tar.bz2")"
 
 PHP_FPM_INIT_VER="4"
 PHP_FPM_CONF_VER="1"
 
-SRC_URI="
-	${PHP_SRC_URI}
-	${PHP_PATCHSET_URI}"
+SRC_URI="${PHP_SRC_URI}"
 
 DESCRIPTION="The PHP language runtime engine: CLI, CGI, FPM/FastCGI, Apache2 and embed SAPIs"
 HOMEPAGE="http://php.net/"
@@ -294,7 +283,7 @@ src_prepare() {
 		-i configure.in || die "Unable to change PHP branding"
 
 	# Apply generic PHP patches
-	EPATCH_SOURCE="${WORKDIR}/patches/generic" EPATCH_SUFFIX="patch" \
+	EPATCH_SOURCE="${FILESDIR}/patches/generic" EPATCH_SUFFIX="patch" \
 		EPATCH_FORCE="yes" \
 		EPATCH_MULTI_MSG="Applying generic patches and fixes from upstream..." epatch
 
@@ -329,6 +318,11 @@ src_prepare() {
 		sed -e 's|PHP_ADD_LIBRARY(k5crypto, 1, $1)||g' -i acinclude.m4 \
 			|| die "Failed to fix heimdal crypt library reference"
 	fi
+
+	# modern mysql and mariadb libraries are already reentrant
+	epatch "${FILESDIR}"/libmysqlclient.patch
+	# mariadb puts my_global.h in /usr/include/mysql/server
+	epatch "${FILESDIR}"/mysql-include.patch
 
 	#force rebuilding aclocal.m4
 	rm aclocal.m4
@@ -801,7 +795,7 @@ pkg_postinst() {
 
 	elog
 	elog "For more details on how minor version slotting works (PHP_TARGETS) please read the upgrade guide:"
-	elog "http://www.gentoo.org/proj/en/php/php-upgrading.xml"
+	elog "https://www.gentoo.org/proj/en/php/php-upgrading.xml"
 	elog
 }
 

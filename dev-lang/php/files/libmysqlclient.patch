@@ -1,0 +1,43 @@
+diff -ur php-5.3.29.orig/ext/mysql/config.m4 php-5.3.29/ext/mysql/config.m4
+--- a/ext/mysql/config.m4	2014-08-13 21:22:50.000000000 +0200
++++ b/ext/mysql/config.m4	2017-09-17 20:16:55.330089921 +0200
+@@ -78,11 +78,7 @@
+ Note that the MySQL client library is not bundled anymore!])
+   fi
+ 
+-  if test "$enable_maintainer_zts" = "yes"; then
+-    MYSQL_LIBNAME=mysqlclient_r
+-  else
+-    MYSQL_LIBNAME=mysqlclient
+-  fi
++  MYSQL_LIBNAME=mysqlclient
+   case $host_alias in
+     *netware*[)]
+       MYSQL_LIBNAME=mysql
+diff -ur php-5.3.29.orig/ext/mysqli/config.m4 php-5.3.29/ext/mysqli/config.m4
+--- php-5.3.29.orig/ext/mysqli/config.m4	2014-08-13 21:22:50.000000000 +0200
++++ php-5.3.29/ext/mysqli/config.m4	2017-09-17 20:17:58.714865636 +0200
+@@ -31,7 +31,6 @@
+     mysqli_extra_sources="mysqli_embedded.c"
+   elif test "$enable_maintainer_zts" = "yes"; then
+     MYSQL_LIB_CFG='--libs_r'
+-    MYSQL_LIB_NAME='mysqlclient_r'
+   else
+     MYSQL_LIB_CFG='--libs'
+   fi
+diff -ur php-5.3.29.orig/ext/pdo_mysql/config.m4 php-5.3.29/ext/pdo_mysql/config.m4
+--- php-5.3.29.orig/ext/pdo_mysql/config.m4	2014-08-13 21:22:50.000000000 +0200
++++ php-5.3.29/ext/pdo_mysql/config.m4	2017-09-17 20:17:24.454067909 +0200
+@@ -64,11 +64,10 @@
+       if test "x$SED" = "x"; then
+         AC_PATH_PROG(SED, sed)
+       fi
++       PDO_MYSQL_LIBNAME=mysqlclient
+       if test "$enable_maintainer_zts" = "yes"; then
+-        PDO_MYSQL_LIBNAME=mysqlclient_r
+         PDO_MYSQL_LIBS=`$PDO_MYSQL_CONFIG --libs_r | $SED -e "s/'//g"`
+       else
+-        PDO_MYSQL_LIBNAME=mysqlclient
+         PDO_MYSQL_LIBS=`$PDO_MYSQL_CONFIG --libs | $SED -e "s/'//g"`
+       fi
+       PDO_MYSQL_INCLUDE=`$PDO_MYSQL_CONFIG --cflags | $SED -e "s/'//g"`

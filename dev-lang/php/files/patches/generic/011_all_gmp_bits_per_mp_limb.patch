@@ -1,0 +1,15 @@
+taken from http://bugs.php.net/bug.php?id=50990
+--- php-5.3.2.orig/ext/gmp/gmp.c	2010-02-23 12:18:24.000000000 +0100
++++ php-5.3.2/ext/gmp/gmp.c	2010-07-04 00:31:26.000000000 +0200
+@@ -1374,11 +1374,7 @@
+ 
+ 		GMPG(rand_initialized) = 1;
+ 	}
+-#ifdef GMP_LIMB_BITS
+ 	mpz_urandomb(*gmpnum_result, GMPG(rand_state), GMP_ABS (limiter) * GMP_LIMB_BITS);
+-#else
+-	mpz_urandomb(*gmpnum_result, GMPG(rand_state), GMP_ABS (limiter) * __GMP_BITS_PER_MP_LIMB);
+-#endif
+ 	ZEND_REGISTER_RESOURCE(return_value, gmpnum_result, le_gmp);
+ }
+ /* }}} */

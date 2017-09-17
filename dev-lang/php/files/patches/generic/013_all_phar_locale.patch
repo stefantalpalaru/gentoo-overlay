@@ -1,0 +1,25 @@
+upstream bug #52258
+gentoo bug #327049
+
+diff -ur php-5.3.5.orig/ext/phar/build_precommand.php php-5.3.5/ext/phar/build_precommand.php
+--- php-5.3.5.orig/ext/phar/build_precommand.php	2011-01-24 00:04:41.000000000 +0100
++++ php-5.3.5/ext/phar/build_precommand.php	2011-01-24 00:08:20.000000000 +0100
+@@ -26,6 +26,9 @@
+ 	'PharCommand',
+ 	);
+ 
++$locale = setlocale(LC_CTYPE, "0");
++setlocale(LC_CTYPE, 'C');
++
+ foreach($classes as $name) {
+ 	echo "if (!class_exists('$name', 0))\n{\n";
+ 	$f = file(dirname(__FILE__) . '/phar/' . strtolower($name) . '.inc');
+@@ -50,6 +53,8 @@
+ 	echo "\n}\n\n";
+ }
+ 
++setlocale(LC_CTYPE, $locale);
++
+ echo 'new PharCommand($argc, $argv);'."\n";
+ 
+ ?>
