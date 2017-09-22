@@ -30,7 +30,6 @@
 		<flag name="gcrypt">Enables cryptography support via libgcrypt.</flag>
 		<flag name="gme">Enables support for <pkg>media-libs/game-music-emu</pkg> for playing various video game music formats.</flag>
 		<flag name="gstreamer">Enables GStreamer based decoding support (currently supports only video decoding)</flag>
-		<flag name="httpd">Enables a web based interface for vlc.</flag>
 		<flag name="kate">Adds support for Ogg Kate subtitles via libkate.</flag>
 		<flag name="libtar">Uses libtar instead of the built-in tar reader for reading custom skins.</flag>
 		<flag name="libtiger">Enables Ogg Kate subtitles rendering using libtiger.</flag>

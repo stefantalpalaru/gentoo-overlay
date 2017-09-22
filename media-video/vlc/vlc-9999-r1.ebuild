@@ -39,15 +39,15 @@ fi
 
 IUSE="a52 aalib alsa altivec +avcodec
 	+avformat bidi bluray cddb chromaprint chromecast dbus dc1394 debug
-	directfb directx dts dvb +dvbpsi dvd dxva2 elibc_glibc +encode faad fdk
-	fluidsynth +ffmpeg flac fontconfig +gcrypt gme gnutls gstreamer httpd
+	directx dts dvb +dvbpsi dvd dxva2 elibc_glibc +encode faad fdk
+	fluidsynth +ffmpeg flac fontconfig +gcrypt gme gnutls gstreamer
 	ieee1394 jack jpeg kate kde libass libav libcaca libnotify
 	+libsamplerate libtiger linsys libtar lirc live lua
 	macosx-notifications macosx-qtkit
 	matroska cpu_flags_x86_mmx modplug mp3 mpeg mtp musepack
 	ncurses neon ogg omxil opencv opengl optimisememory opus
 	png postproc projectm pulseaudio +qt4 qt5 rdp rtsp run-as-root samba
-	schroedinger sdl sdl-image sftp shout sid skins speex cpu_flags_x86_sse svg +swscale
+	schroedinger sdl-image sftp shout sid skins speex cpu_flags_x86_sse svg +swscale
 	taglib theora tremor truetype twolame udev upnp vaapi v4l vcd vdpau
 	vlm vnc vorbis vpx wma-fixed +X x264 x265 +xcb xml xv zeroconf zvbi wayland"
 
@@ -75,7 +75,6 @@ RDEPEND="
 	chromecast? ( >=dev-libs/protobuf-2.5.0 )
 	dbus? ( >=sys-apps/dbus-1.6:0 )
 	dc1394? ( >=sys-libs/libraw1394-2.0.1:0 >=media-libs/libdc1394-2.1:2 )
-	directfb? ( dev-libs/DirectFB:0 sys-libs/zlib:0 )
 	dts? ( >=media-libs/libdca-0.0.5:0 )
 	dvbpsi? ( >=media-libs/libdvbpsi-1.2.0:0= )
 	dvd? ( >=media-libs/libdvdread-4.9:0 >=media-libs/libdvdnav-4.9:0 )
@@ -126,8 +125,7 @@ RDEPEND="
 	rdp? ( =net-misc/freerdp-1*:0=[client] )
 	samba? ( >=net-fs/samba-4.0.0_alpha1:0[client] )
 	schroedinger? ( >=media-libs/schroedinger-1.0.10:0 )
-	sdl? ( >=media-libs/libsdl-1.2.10:0
-		sdl-image? ( >=media-libs/sdl-image-1.2.10:0 sys-libs/zlib:0 ) )
+	sdl-image? ( >=media-libs/sdl-image-1.2.10:0 sys-libs/zlib:0 )
 	sftp? ( net-libs/libssh2:0 )
 	shout? ( >=media-libs/libshout-2.1:0 )
 	sid? ( media-libs/libsidplay:2 )
@@ -197,13 +195,11 @@ REQUIRED_USE="
 	ffmpeg? ( avcodec avformat swscale )
 	fontconfig? ( truetype )
 	gnutls? ( gcrypt )
-	httpd? ( lua )
 	libcaca? ( X )
 	libtar? ( skins )
 	libtiger? ( kate )
 	qt4? ( X )
 	qt5? ( X )
-	sdl? ( X )
 	skins? ( truetype X xml || ( qt4 qt5 ) )
 	vaapi? ( avcodec X )
 	vdpau? ( X )
@@ -341,7 +337,6 @@ src_configure() {
 		$(use_enable chromaprint) \
 		$(use_enable chromecast) \
 		$(use_enable dbus) \
-		$(use_enable directfb) \
 		$(use_enable directx) \
 		$(use_enable dc1394) \
 		$(use_enable debug) \
@@ -359,7 +354,6 @@ src_configure() {
 		$(use_enable gme) \
 		$(use_enable gnutls) \
 		$(use_enable gstreamer gst-decode) \
-		$(use_enable httpd) \
 		$(use_enable ieee1394 dv1394) \
 		$(use_enable jack) \
 		$(use_enable jpeg) \
@@ -399,7 +393,6 @@ src_configure() {
 		$(use_enable run-as-root) \
 		$(use_enable samba smbclient) \
 		$(use_enable schroedinger) \
-		$(use_enable sdl) \
 		$(use_enable sdl-image) \
 		$(use_enable sid) \
 		$(use_enable sftp) \
