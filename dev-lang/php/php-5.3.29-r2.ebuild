@@ -64,7 +64,7 @@ IUSE="${IUSE} bcmath berkdb bzip2 calendar cdb cjk
 	enchant exif +fileinfo +filter firebird
 	flatfile ftp gd gdbm gmp +hash +iconv imap inifile
 	intl iodbc ipv6 +json kerberos ldap ldap-sasl libedit libressl mhash
-	mssql mysql mysqlnd mysqli nls
+	mssql mysql mysqli nls
 	oci8-instant-client odbc pcntl pdo +phar +posix postgres qdbm
 	readline recode selinux +session sharedmem
 	+simplexml snmp soap sockets spell sqlite ssl
@@ -104,10 +104,6 @@ DEPEND="
 	ldap-sasl? ( dev-libs/cyrus-sasl >=net-nds/openldap-1.2.11 )
 	libedit? ( || ( sys-freebsd/freebsd-lib dev-libs/libedit ) )
 	mssql? ( dev-db/freetds[mssql] )
-	!mysqlnd? (
-		mysql? ( virtual/mysql )
-		mysqli? ( >=virtual/mysql-4.1 )
-	)
 	nls? ( sys-devel/gettext )
 	oci8-instant-client? ( dev-db/oracle-instantclient-basic )
 	odbc? ( >=dev-db/unixODBC-1.8.13 )
@@ -168,11 +164,6 @@ REQUIRED_USE="
 	ldap-sasl? ( ldap )
 	mhash? ( hash )
 	phar? ( hash )
-	mysqlnd? ( || (
-		mysql
-		mysqli
-		pdo
-	) )
 
 	qdbm? ( !gdbm )
 	readline? ( !libedit )
@@ -462,25 +453,14 @@ src_configure() {
 
 	# MySQL support
 	if use mysql ; then
-		if use mysqlnd ; then
-			my_conf+="
-			$(use_with mysqlnd mysql mysqlnd)"
-		else
-			my_conf+="
-			$(use_with mysql mysql /usr)"
-		fi
 		my_conf+="
+		$(use_with mysql mysql mysqlnd)
 		$(use_with mysql mysql-sock /var/run/mysqld/mysqld.sock)"
 	fi
 
 	# MySQLi support
-	if use mysqlnd ; then
-		my_conf+="
-		$(use_with mysqli mysqli mysqlnd)"
-	else
-		my_conf+="
-		$(use_with mysqli mysqli /usr/bin/mysql_config)"
-	fi
+	my_conf+="
+	$(use_with mysqli mysqli mysqlnd)"
 
 	# ODBC support
 	if use odbc ; then
@@ -502,15 +482,8 @@ src_configure() {
 	# PDO support
 	if use pdo ; then
 		my_conf+="
-		$(use_with mssql pdo-dblib )"
-		if use mysqlnd ; then
-			my_conf+="
-			$(use_with mysql pdo-mysql mysqlnd)"
-		else
-			my_conf+="
-			$(use_with mysql pdo-mysql /usr)"
-		fi
-		my_conf+="
+		$(use_with mssql pdo-dblib )
+		$(use_with mysql pdo-mysql mysqlnd)
 		$(use_with postgres pdo-pgsql )
 		$(use_with sqlite pdo-sqlite /usr)
 		$(use_with odbc pdo-odbc unixODBC,/usr)"
