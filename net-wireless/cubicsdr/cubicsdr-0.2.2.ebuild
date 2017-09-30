@@ -10,7 +10,7 @@ inherit cmake-utils git-r3 wxwidgets
 DESCRIPTION="Cross-Platform Software-Defined Radio Application"
 HOMEPAGE="http://cubicsdr.com/"
 EGIT_REPO_URI="https://github.com/cjcliffe/CubicSDR.git"
-EGIT_COMMIT="8c1d785ff6799acd5a61c2afd0615a79fd881ec6"
+SRC_URI="https://github.com/cjcliffe/CubicSDR/archive/${PV}.tar.gz -> ${P}.tar.gz"
 
 LICENSE="GPL-2"
 SLOT="0"
@@ -25,11 +25,6 @@ DEPEND="media-libs/rtaudio
 	x11-libs/wxGTK:3.0[opengl]
 "
 RDEPEND="${DEPEND}"
-
-#src_unpack() {
-	#unpack ${A}
-	#mv CubicSDR-* "${S}"
-#}
 
 src_prepare() {
 	default
