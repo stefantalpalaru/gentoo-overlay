@@ -8,7 +8,7 @@ inherit autotools flag-o-matic git-r3 multilib-minimal
 DESCRIPTION="digital signal processing library for software-defined radios"
 HOMEPAGE="http://liquidsdr.org/"
 EGIT_REPO_URI="https://github.com/jgaeddert/liquid-dsp.git"
-EGIT_COMMIT="7c53e1311798d4c7660abe24df37bc2d22c770cc"
+EGIT_COMMIT="150455e0bc8982e68a71744c117fa3c52f895f6d"
 
 LICENSE="MIT-with-advertising"
 SLOT="0"
