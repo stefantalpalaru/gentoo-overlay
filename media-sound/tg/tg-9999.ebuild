@@ -35,10 +35,10 @@ pkg_preinst() {
 
 pkg_postinst() {
 	gnome2_icon_cache_update
-	fdo-xdg_desktop_database_update	
+	fdo-xdg_desktop_database_update
 }
 
 pkg_postrm() {
 	gnome2_icon_cache_update
-	fdo-xdg_desktop_database_update	
+	fdo-xdg_desktop_database_update
 }
