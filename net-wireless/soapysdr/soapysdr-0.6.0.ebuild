@@ -9,7 +9,7 @@ CMAKE_IN_SOURCE_BUILD="1"
 inherit cmake-utils python-r1
 
 DESCRIPTION="vendor and platform neutral SDR support library"
-HOMEPAGE="http://github.com/pothosware/SoapySDR"
+HOMEPAGE="https://github.com/pothosware/SoapySDR"
 SRC_URI="https://github.com/pothosware/SoapySDR/tarball/soapy-sdr-${PV} -> ${P}.tar.gz"
 
 LICENSE="Boost-1.0"
