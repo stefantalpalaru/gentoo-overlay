@@ -3,7 +3,7 @@
 
 EAPI=6
 
-inherit autotools gnome2-utils fdo-mime
+inherit autotools gnome2-utils xdg-utils
 
 DESCRIPTION="a program for timing mechanical watches"
 HOMEPAGE="https://github.com/vacaboja/tg"
@@ -35,10 +35,10 @@ pkg_preinst() {
 
 pkg_postinst() {
 	gnome2_icon_cache_update
-	fdo-mime_desktop_database_update
+	fdo-xdg_desktop_database_update	
 }
 
 pkg_postrm() {
 	gnome2_icon_cache_update
-	fdo-mime_desktop_database_update
+	fdo-xdg_desktop_database_update
 }
