@@ -1,0 +1,13 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE pkgmetadata SYSTEM "http://www.gentoo.org/dtd/metadata.dtd">
+<pkgmetadata>
+	<maintainer type="person">
+		<email>stefantalpalaru@yahoo.com</email>
+		<name>Ștefan Talpalaru</name>
+	</maintainer>
+	<use>
+		<flag name="gdb">GDB debugging support</flag>
+		<flag name="llvm">LLVM recompiler support</flag>
+		<flag name="vulkan">Vulkan video output support</flag>
+	</use>
+</pkgmetadata>
