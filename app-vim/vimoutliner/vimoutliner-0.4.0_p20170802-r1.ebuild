@@ -3,16 +3,16 @@
 
 EAPI=6
 
-PYTHON_COMPAT=( python{2_7,3_4,3_5,3_6} )
+PYTHON_COMPAT=( python2_7 )
 
 inherit git-r3 python-single-r1 vim-plugin
 
-DESCRIPTION="vim plugin: easy and fast outlining"
+DESCRIPTION="Vim plugin for easy and fast outlining"
 HOMEPAGE="https://github.com/vimoutliner/vimoutliner"
 SRC_URI=""
 EGIT_REPO_URI="https://github.com/vimoutliner/vimoutliner"
 EGIT_COMMIT="c13141d604959d84225c3a53dc4b0ef5ae8b2bfe"
-LICENSE="GPL-2"
+LICENSE="GPL-3"
 KEYWORDS="~amd64 ~x86"
 
 REQUIRED_USE="${PYTHON_REQUIRED_USE}"
@@ -36,11 +36,6 @@ src_compile() {
 	for pyscript in $(find "${S}" -type f -name \*.py); do
 		_pyscript=$(basename "${pyscript}")
 		[ ${_pyscript} == "otl.py" ] && continue
-		einfo "Processing ${_pyscript}"
-		sed -i -e 's#[ \t]*$##g;' "${pyscript}" || die
-		python_is_python3 && (2to3 --no-diffs -w -n "${pyscript}" 2> /dev/null || die)
-		autopep8 -i "${pyscript}" || die
 		python_fix_shebang -q "${pyscript}"
-		eend $?
 	done
 }
