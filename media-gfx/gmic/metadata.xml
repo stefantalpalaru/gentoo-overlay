@@ -6,8 +6,12 @@
 		<name>Gentoo Graphics Project</name>
 	</maintainer>
 	<use>
-		<flag name="cli">Build CLI interface</flag>
+		<flag name="cli">Build the CLI interface</flag>
+		<flag name="gui">Build the standalone Qt5 GUI</flag>
+		<flag name="krita">Build the Krita plugin</flag>
+		<flag name="libgmic">Build libgmic (not used by any of the tools)</flag>
 		<flag name="opencv">Enable support for webcams using the OpenCV library</flag>
+		<flag name="zart">Build ZArt - a GUI for the realtime manipulation of a webcam video stream</flag>
 	</use>
 	<upstream>
 		<remote-id type="github">dtschump/gmic</remote-id>
