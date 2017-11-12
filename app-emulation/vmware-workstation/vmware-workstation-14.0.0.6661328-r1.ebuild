@@ -5,27 +5,39 @@ EAPI=6
 
 inherit eutils versionator readme.gentoo-r1 gnome2-utils pam systemd xdg-utils
 
-MY_PN="VMware-Workstation"
+MY_PN="VMware-Workstation-Full"
 MY_PV=$(get_version_component_range 1-3)
 PV_MODULES="329.$(get_version_component_range 2-3)"
 PV_BUILD=$(get_version_component_range 4)
 MY_P="${MY_PN}-${MY_PV}-${PV_BUILD}"
-
+VMWARE_FUSION_VER="10.0.1_6754183"
 SYSTEMD_UNITS_TAG="gentoo-02"
 
 DESCRIPTION="Emulate a complete PC without the performance overhead of most emulators"
 HOMEPAGE="http://www.vmware.com/products/workstation/"
-BASE_URI="https://softwareupdate.vmware.com/cds/vmw-desktop/ws/${MY_PV}/${PV_BUILD}/linux/core/"
 SRC_URI="
-	${BASE_URI}${MY_P}.x86_64.bundle.tar
-	macos-guests? ( https://github.com/DrDonk/unlocker/archive/fd216eb4892857ffc7755a965cedb8f740eb42ea.zip -> unlocker-2.1.1.zip )
+	https://download3.vmware.com/software/wkst/file/${MY_P}.x86_64.bundle
+	macos-guests? (
+		https://github.com/DrDonk/unlocker/archive/fd216eb4892857ffc7755a965cedb8f740eb42ea.zip -> unlocker-2.1.1.zip
+		vmware-tools-darwinPre15? ( https://softwareupdate.vmware.com/cds/vmw-desktop/fusion/${VMWARE_FUSION_VER/_//}/packages/com.vmware.fusion.tools.darwinPre15.zip.tar )
+		vmware-tools-darwin? ( https://softwareupdate.vmware.com/cds/vmw-desktop/fusion/${VMWARE_FUSION_VER/_//}/packages/com.vmware.fusion.tools.darwin.zip.tar )
+	)
 	systemd? ( https://github.com/akhuettel/systemd-vmware/archive/${SYSTEMD_UNITS_TAG}.tar.gz -> vmware-systemd-${SYSTEMD_UNITS_TAG}.tgz )
 	"
 
 LICENSE="GPL-2 GPL-3 MIT-with-advertising vmware"
 SLOT="0"
 KEYWORDS="~amd64"
-IUSE="bundled-libs cups doc macos-guests ovftool server systemd vix vmware-tools"
+IUSE="bundled-libs cups doc macos-guests ovftool server systemd vix"
+DARWIN_GUESTS="darwin darwinPre15"
+IUSE_VMWARE_GUESTS="${DARWIN_GUESTS} freebsd linux linuxPreGlibc25 netware solaris windows winPre2k winPreVista"
+for guest in ${IUSE_VMWARE_GUESTS}; do
+	IUSE+=" vmware-tools-${guest}"
+done
+REQUIRED_USE="
+	vmware-tools-darwin? ( macos-guests )
+	vmware-tools-darwinPre15? ( macos-guests )
+"
 RESTRICT="mirror strip"
 
 BUNDLED_LIBS_DIR=/opt/vmware/lib/vmware/lib
@@ -158,6 +170,9 @@ BUNDLED_LIB_DEPENDS="
 # precompiled binary package thats linked to glibc.
 RDEPEND="
 	app-arch/bzip2
+	app-arch/unzip
+	app-shells/bash
+	dev-db/sqlite:3
 	dev-libs/dbus-glib
 	dev-libs/gmp:0
 	dev-libs/icu
@@ -186,7 +201,7 @@ RDEPEND="
 "
 PDEPEND="
 	~app-emulation/vmware-modules-${PV_MODULES}
-	vmware-tools? ( app-emulation/vmware-tools )"
+"
 DEPEND="
 	dev-lang/python:2.7
 	>=dev-util/patchelf-0.9
@@ -201,9 +216,17 @@ VM_HOSTD_USER="root"
 QA_PREBUILT="/opt/*"
 
 QA_WX_LOAD="opt/vmware/lib/vmware/tools-upgraders/vmware-tools-upgrader-32 opt/vmware/lib/vmware/bin/vmware-vmx-stats opt/vmware/lib/vmware/bin/vmware-vmx-debug opt/vmware/lib/vmware/bin/vmware-vmx"
+# adding "opt/vmware/lib/vmware/lib/libvmware-gksu.so/libvmware-gksu.so" to QA_WX_LOAD doesn't work
 
 src_unpack() {
-	default
+	for a in ${A}; do
+		if [ ${a##*.} == 'bundle' ]; then
+			cp "${DISTDIR}/${a}" "${WORKDIR}"
+		else
+			unpack ${a}
+		fi
+	done
+
 	local bundle=${MY_P}.x86_64.bundle
 	chmod 755 ${bundle}
 	./${bundle} --console --extract extracted
@@ -219,6 +242,15 @@ src_unpack() {
 	if ! use vix; then
 		rm -r extracted/vmware-vix-core extracted/vmware-vix-lib-Workstation* || die "unable to remove dir"
 	fi
+
+	for guest in ${DARWIN_GUESTS}; do
+		if use vmware-tools-${guest}; then
+			mkdir extracted/vmware-tools-${guest}
+			unzip -q com.vmware.fusion.tools.${guest}.zip payload/\*
+			mv payload/* extracted/vmware-tools-${guest}/
+			rm -r payload com.vmware.fusion.tools.${guest}.zip
+		fi
+	done
 }
 
 clean_bundled_libs() {
@@ -299,9 +331,9 @@ src_install() {
 	# install the libraries
 	insinto "${VM_INSTALL_DIR}"/lib/vmware
 	doins -r */lib/* vmware-vmx/roms
-	rm -r "${D}${VM_INSTALL_DIR}"/lib/vmware/*.so
+	rm -rf "${D}${VM_INSTALL_DIR}"/lib/vmware/*.so
 
-	# install the installer 
+	# install the installer
 	insinto "${VM_INSTALL_DIR}"/lib/vmware-installer/$vmware_installer_version
 	doins vmware-installer/{vmis,vmis-launcher,vmware-installer,vmware-installer.py}
 	insinto /etc/vmware-installer
@@ -439,6 +471,7 @@ src_install() {
 	cat > "${envd}" <<-EOF
 		PATH='${VM_INSTALL_DIR}/bin'
 		ROOTPATH='${VM_INSTALL_DIR}/bin'
+		CONFIG_PROTECT_MASK='/etc/vmware-installer'
 	EOF
 	use bundled-libs && echo 'VMWARE_USE_SHIPPED_LIBS=1' >> "${envd}"
 
@@ -595,10 +628,37 @@ src_install() {
 	fi
 
 	# install systemd unit files
-	use systemd && systemd_dounit "${WORKDIR}/systemd-vmware-${SYSTEMD_UNITS_TAG}/"*.{service,target}
+	if use systemd; then
+		systemd_dounit "${WORKDIR}/systemd-vmware-${SYSTEMD_UNITS_TAG}/"*.{service,target}
+	fi
 
 	# enable macOS guests support
-	use macos-guests && python2 "${WORKDIR}"/unlocker-*/unlocker.py >/dev/null || die "unlocker.py failed"
+	if use macos-guests; then
+		python2 "${WORKDIR}"/unlocker-*/unlocker.py >/dev/null || die "unlocker.py failed"
+	fi
+
+	# VMware tools
+	for guest in ${IUSE_VMWARE_GUESTS}; do
+		if use vmware-tools-${guest}; then
+			local dbfile="${D}/etc/vmware-installer/database"
+			if ! [ -e "${dbfile}" ]; then
+				> "${dbfile}"
+				sqlite3 "${dbfile}" "CREATE TABLE settings(key VARCHAR PRIMARY KEY, value VARCHAR NOT NULL, component_name VARCHAR NOT NULL);"
+				sqlite3 "${dbfile}" "INSERT INTO settings(key,value,component_name) VALUES('db.schemaVersion','2','vmware-installer');"
+				sqlite3 "${dbfile}" "CREATE TABLE components(id INTEGER PRIMARY KEY, name VARCHAR NOT NULL, version VARCHAR NOT NULL, buildNumber INTEGER NOT NULL, component_core_id INTEGER NOT NULL, longName VARCHAR NOT NULL, description VARCHAR, type INTEGER NOT NULL);"
+			fi
+			local manifest="vmware-tools-${guest}/manifest.xml"
+			if [ -e "${manifest}" ]; then
+				local version="$(grep -oPm1 '(?<=<version>)[^<]+' ${manifest})"
+				sqlite3 "${dbfile}" "INSERT INTO components(name,version,buildNumber,component_core_id,longName,description,type) VALUES(\"vmware-tools-$guest\",\"$version\",\"${PV_BUILD}\",1,\"$guest\",\"$guest\",1);"
+			else
+				sqlite3 "${dbfile}" "INSERT INTO components(name,version,buildNumber,component_core_id,longName,description,type) VALUES(\"vmware-tools-$guest\",\"${VMWARE_FUSION_VER%_*}\",\"${VMWARE_FUSION_VER#*_}\",1,\"$guest\",\"$guest\",1);"
+			fi
+			insinto "${VM_INSTALL_DIR}/lib/vmware/isoimages"
+			doins vmware-tools-${guest}/${guest}.iso
+			doins vmware-tools-${guest}/${guest}.iso.sig
+		fi
+	done
 
 	readme.gentoo_create_doc
 }
