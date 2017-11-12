@@ -20,9 +20,9 @@ IUSE="pax_kernel +vmci +vsock"
 REQUIRED_USE="!vsock? ( !vmci )"
 
 RDEPEND=""
-DEPEND="${RDEPEND}
-	|| ( =app-emulation/vmware-player-14.${PV_MINOR}*
-	=app-emulation/vmware-workstation-14.${PV_MINOR}* )"
+DEPEND="
+	=app-emulation/vmware-workstation-14.${PV_MINOR}*
+"
 
 S=${WORKDIR}
 
