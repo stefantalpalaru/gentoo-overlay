@@ -206,6 +206,8 @@ DEPEND="
 	dev-lang/python:2.7
 	>=dev-util/patchelf-0.9
 	ovftool? ( app-admin/chrpath )
+	sys-libs/ncurses:0
+	sys-libs/readline:0
 "
 
 S=${WORKDIR}/extracted
@@ -229,7 +231,7 @@ src_unpack() {
 
 	local bundle=${MY_P}.x86_64.bundle
 	chmod 755 ${bundle}
-	./${bundle} --console --extract extracted
+	./${bundle} --console --extract extracted || die "unable to extract bundle"
 
 	if ! use ovftool; then
 		rm -r extracted/vmware-ovftool || die "unable to remove dir"
@@ -310,7 +312,6 @@ src_prepare() {
 Before you can use ${PN}, you must configure a default network setup.
 You can do this by running 'emerge --config ${PN}'.\n
 To be able to run ${PN} your user must be in the vmware group.\n
-You MUST set USE=bundled-libs if you are running gcc-5, otherwise vmware will not start.
 "
 }
 
