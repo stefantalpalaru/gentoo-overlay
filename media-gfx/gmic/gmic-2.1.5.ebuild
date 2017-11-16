@@ -10,7 +10,7 @@ MY_PV=${PV//./}
 DESCRIPTION="GREYC's Magic Image Converter"
 HOMEPAGE="http://gmic.eu/ https://github.com/dtschump/gmic"
 GMIC_QT_URI="https://github.com/c-koi/gmic-qt/archive/v.${MY_PV}.tar.gz -> gmic-qt-${PV}.tar.gz"
-GMIC_COMMUNITY_COMMIT="a028d638cc8a0af4ccdd8b98e1c099d51240f13c"
+GMIC_COMMUNITY_COMMIT="6f48cdf9588e4b835ec078d01ed26da30cf8a80e"
 SRC_URI="http://gmic.eu/files/source/${PN}_${PV}.tar.gz
 	gimp? ( ${GMIC_QT_URI} )
 	gui? ( ${GMIC_QT_URI} )
@@ -107,9 +107,7 @@ src_prepare() {
 			-e '/CMAKE_CXX_FLAGS_RELEASE/d' \
 			../${GMIC_QT_DIR}/CMakeLists.txt
 		local S="${WORKDIR}/${GMIC_QT_DIR}"
-		local PATCHES=(
-			"${FILESDIR}"/${PN}-2.1.1-gimp.patch
-		)
+		local PATCHES=()
 		cmake-utils_src_prepare
 	fi
 }
