@@ -206,7 +206,7 @@ DEPEND="
 	dev-lang/python:2.7
 	>=dev-util/patchelf-0.9
 	ovftool? ( app-admin/chrpath )
-	sys-libs/ncurses:0
+	sys-libs/ncurses:5
 	sys-libs/readline:0
 "
 
@@ -274,7 +274,7 @@ clean_bundled_libs() {
 		patchelf --replace-needed libssl.so.1.0.{2,0} \
 			--replace-needed libcrypto.so.1.0.{2,0} \
 			libcds.so || die
-		popd >/dev/null
+		cd - >/dev/null
 	done
 }
 
@@ -410,6 +410,8 @@ src_install() {
 		# create directory for shared virtual machines.
 		keepdir "${VM_DATA_STORE_DIR}"
 		keepdir /var/log/vmware
+
+		cd - >/dev/null
 	fi
 
 	# install vmware-vix
@@ -442,6 +444,8 @@ src_install() {
 
 		chmod 0755 "${D}${VM_INSTALL_DIR}"/lib/vmware-ovftool/{ovftool,ovftool.bin}
 		dosym "${D}${VM_INSTALL_DIR}"/lib/vmware-ovftool/ovftool "${VM_INSTALL_DIR}"/bin/ovftool
+
+		cd - >/dev/null
 	fi
 
 	# create symlinks for the various tools
