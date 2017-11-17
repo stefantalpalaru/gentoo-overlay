@@ -16,7 +16,7 @@ SRC_URI=""
 LICENSE="GPL-2"
 SLOT="0"
 KEYWORDS="~amd64"
-IUSE="pax_kernel +vmci +vsock"
+IUSE="+vmci +vsock"
 REQUIRED_USE="!vsock? ( !vmci )"
 
 RDEPEND=""
@@ -75,7 +75,6 @@ src_unpack() {
 }
 
 src_prepare() {
-
 	# from Arch Linux: https://aur.archlinux.org/packages/vmware-workstation/
 	epatch "${FILESDIR}/${PV_MAJOR}-vmblock.patch"
 	use vmci && epatch "${FILESDIR}/${PV_MAJOR}-vmci.patch"
@@ -87,6 +86,9 @@ src_prepare() {
 	kernel_is ge 4 12 0 && epatch "${FILESDIR}/${PV_MAJOR}-4.12-00-vmmon-use-standard-definition-of-MSR_MISC_FEATURES_E.patch"
 	kernel_is ge 4 13 0 && epatch "${FILESDIR}/${PV_MAJOR}-4.13-00-vmmon-use-standard-definition-of-CR3_PCID_MASK-if-av.patch"
 	kernel_is ge 4 13 0 && epatch "${FILESDIR}/${PV_MAJOR}-4.13-01-vmmon-fix-page-accounting.patch"
+
+	# decouple the kernel include dir from the running kernel version: https://github.com/stefantalpalaru/gentoo-overlay/issues/17
+	sed -i -e "s%HEADER_DIR = /lib/modules/\$(VM_UNAME)/build/include%HEADER_DIR = ${KERNEL_DIR}/include%" */Makefile || die "sed failed"
 
 	# Allow user patches so they can support RC kernels and whatever else
 	default
