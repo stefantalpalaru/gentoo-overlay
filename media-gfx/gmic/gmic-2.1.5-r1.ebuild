@@ -22,10 +22,11 @@ KEYWORDS="~amd64 ~x86"
 
 LICENSE="CeCILL-2 GPL-3"
 SLOT="0"
-IUSE="bash-completion +cli ffmpeg fftw gimp graphicsmagick gui jpeg krita libgmic opencv openexr openmp png static-libs tiff X zart"
+IUSE="bash-completion +cli ffmpeg fftw gimp gimp-gtk graphicsmagick gui jpeg krita opencv openexr openmp png static-libs tiff X zart"
 REQUIRED_USE="
-	|| ( cli gimp gui krita libgmic zart )
+	|| ( cli gimp gimp-gtk gui krita zart )
 	gimp? ( png fftw X )
+	gimp-gtk? ( png fftw X )
 	gui? ( png fftw X )
 	krita? ( png fftw X )
 	zart? ( fftw opencv openmp )
@@ -47,6 +48,9 @@ COMMON_DEPEND="
 	fftw? ( sci-libs/fftw:3.0[threads] )
 	gimp? (
 		${QT_DEPS}
+		>=media-gfx/gimp-2.8.0
+	)
+	gimp-gtk? (
 		>=media-gfx/gimp-2.4.0
 	)
 	graphicsmagick? ( media-gfx/graphicsmagick )
@@ -81,6 +85,7 @@ DEPEND="${COMMON_DEPEND}
 PATCHES=(
 	"${FILESDIR}"/${PN}-1.7.9-flags.patch
 	"${FILESDIR}"/${PN}-1.7.9-man.patch
+	"${FILESDIR}"/${PN}-2.1.5-dynamic-linking.patch
 )
 
 GMIC_QT_DIR="gmic-qt-v.${MY_PV}"
@@ -115,12 +120,13 @@ src_prepare() {
 src_configure() {
 	local CMAKE_BUILD_TYPE="Release"
 
-	if use cli || use libgmic; then
+	if use cli || use gimp-gtk; then
 		local mycmakeargs=(
-			-DBUILD_LIB=$(usex libgmic ON OFF)
+			-DBUILD_LIB=ON
+			-DBUILD_LIB_STATIC=$(usex static-libs ON OFF)
 			-DBUILD_CLI=$(usex cli ON OFF)
 			-DBUILD_MAN=$(usex cli ON OFF)
-			-DBUILD_PLUGIN=OFF
+			-DBUILD_PLUGIN=$(usex gimp-gtk ON OFF)
 			-DENABLE_X=$(usex X ON OFF)
 			-DENABLE_FFMPEG=$(usex ffmpeg ON OFF)
 			-DENABLE_FFTW=$(usex fftw ON OFF)
@@ -132,12 +138,8 @@ src_configure() {
 			-DENABLE_PNG=$(usex png ON OFF)
 			-DENABLE_TIFF=$(usex tiff ON OFF)
 			-DENABLE_ZLIB=ON
+			-DENABLE_DYNAMIC_LINKING=ON
 		)
-		if use libgmic; then
-			mycmakeargs+=( -DBUILD_LIB_STATIC=$(usex static-libs ON OFF) )
-		else
-			mycmakeargs+=( -DBUILD_LIB_STATIC=OFF )
-		fi
 
 		CMAKE_USE_DIR=${S}
 		cmake-utils_src_configure
@@ -170,7 +172,7 @@ src_configure() {
 }
 
 src_compile() {
-	if use cli || use libgmic; then
+	if use cli || use gimp-gtk; then
 		cmake-utils_src_compile
 	fi
 
@@ -210,7 +212,7 @@ src_install() {
 	insinto "${PLUGIN_DIR}"
 	doins "resources/gmic_film_cluts.gmz"
 
-	if use cli || use libgmic; then
+	if use cli || use gimp-gtk; then
 		cmake-utils_src_install
 	fi
 	use cli && use bash-completion && newbashcomp "resources/${PN}_bashcompletion.sh" ${PN}

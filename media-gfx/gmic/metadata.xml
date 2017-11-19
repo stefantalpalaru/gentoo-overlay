@@ -7,9 +7,10 @@
 	</maintainer>
 	<use>
 		<flag name="cli">Build the CLI interface</flag>
+		<flag name="gimp">Build the Qt5 GIMP plugin</flag>
+		<flag name="gimp-gtk">Build the (deprecated) GTK+ GIMP plugin</flag>
 		<flag name="gui">Build the standalone Qt5 GUI</flag>
 		<flag name="krita">Build the Krita plugin</flag>
-		<flag name="libgmic">Build libgmic (not used by any of the tools)</flag>
 		<flag name="opencv">Enable support for webcams using the OpenCV library</flag>
 		<flag name="zart">Build ZArt - a GUI for the realtime manipulation of a webcam video stream</flag>
 	</use>

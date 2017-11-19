@@ -1,0 +1,369 @@
+diff --git a/CMakeLists.txt b/CMakeLists.txt
+index eea4f6d..8f9664a 100644
+--- a/CMakeLists.txt
++++ b/CMakeLists.txt
+@@ -22,6 +22,7 @@ option(ENABLE_OPENMP "Add support for parallel processing" ON)
+ option(ENABLE_PNG "Add support for handling images in PNG format" ON)
+ option(ENABLE_TIFF "Add support for handling images in Tiff format" ON)
+ option(ENABLE_ZLIB "Add support for data compression via Zlib" ON)
++option(ENABLE_DYNAMIC_LINKING "Dynamically link the binaries to the GMIC shared library" OFF)
+ 
+ # compile flags
+ set(CMAKE_MODULE_PATH ${CMAKE_CURRENT_SOURCE_DIR}/modules)
+@@ -96,7 +97,7 @@ if(FFTW3_FOUND)
+   if(APPLE)
+     set(COMPILE_FLAGS "${COMPILE_FLAGS} -Dcimg_use_fftw3_singlethread")
+   else(APPLE)
+-  	set(EXTRA_LIBRARIES "${EXTRA_LIBRARIES} -lfftw3_threads")
++    set(EXTRA_LIBRARIES "${EXTRA_LIBRARIES} -lfftw3_threads")
+   endif(APPLE)
+ endif(FFTW3_FOUND)
+ 
+@@ -161,6 +162,11 @@ if(OPENEXR_FOUND)
+ endif(OPENEXR_FOUND)
+ 
+ 
++if(ENABLE_DYNAMIC_LINKING)
++  if(NOT BUILD_LIB)
++    message(FATAL_ERROR "ENABLE_DYNAMIC_LINKING needs BUILD_LIB")
++  endif(NOT BUILD_LIB)
++endif(ENABLE_DYNAMIC_LINKING)
+ 
+ # CImg.h header
+ file(WRITE ${CMAKE_CURRENT_BINARY_DIR}/CImg_download.cmake "file(DOWNLOAD https://github.com/dtschump/CImg/blob/master/CImg.h?raw=true ${CMAKE_SOURCE_DIR}/src/CImg.h)")
+@@ -273,59 +279,68 @@ endif(BUILD_LIB_STATIC)
+ if(BUILD_CLI)
+   add_executable(gmic ${CLI_Includes} ${CLI_Sources})
+   add_dependencies(gmic gmic_extra_headers)
+-  set_target_properties(gmic PROPERTIES COMPILE_FLAGS "${CLI_COMPILE_FLAGS} -Dgmic_main ")
+-  target_link_libraries(gmic
+-    ${X11_LIBRARIES}
+-    ${TIFF_LIBRARIES}
+-    ${PNG_LIBRARIES}
+-    ${JPEG_LIBRARIES}
+-    ${GRAPHICSMAGICK_LIBRARIES}
+-    ${OPENEXR_LIBRARIES}
+-    ${OPENCV_LIBRARIES}
+-    ${ZLIB_LIBRARIES}
+-    ${FFTW3_LIBRARIES}
+-    ${EXTRA_LIBRARIES}
+-    )
+ 
++  if(ENABLE_DYNAMIC_LINKING)
++    add_dependencies(gmic libgmic)
++    target_link_libraries(gmic
++      "libgmic"
++      )
++    set(CLI_COMPILE_FLAGS "${CLI_COMPILE_FLAGS} -Dgmic_dynamic_linking ")
++  else(ENABLE_DYNAMIC_LINKING)
++    target_link_libraries(gmic
++      ${X11_LIBRARIES}
++      ${TIFF_LIBRARIES}
++      ${PNG_LIBRARIES}
++      ${JPEG_LIBRARIES}
++      ${GRAPHICSMAGICK_LIBRARIES}
++      ${OPENEXR_LIBRARIES}
++      ${OPENCV_LIBRARIES}
++      ${ZLIB_LIBRARIES}
++      ${FFTW3_LIBRARIES}
++      ${EXTRA_LIBRARIES}
++      )
++  endif(ENABLE_DYNAMIC_LINKING)
++
++  set_target_properties(gmic PROPERTIES COMPILE_FLAGS "${CLI_COMPILE_FLAGS} -Dgmic_main ")
+   INSTALL(TARGETS gmic RUNTIME DESTINATION bin)
+ endif(BUILD_CLI)
+ 
+ 
+ # GIMP plug-in
+ if(BUILD_PLUGIN)
+-  pkg_check_modules(GIMP gimp-2.0)
+-  if (GIMP_FOUND)
+-    pkg_check_modules(GIMPUI gimpui-2.0)
+-    if (GIMPUI_FOUND)
+-      include_directories(${GIMP_INCLUDE_DIRS})
+-      link_directories(${GIMP_LIBRARY_DIRS})
+-      include_directories(${GIMPUI_INCLUDE_DIRS})
+-      link_directories(${GIMPUI_LIBRARY_DIRS})
+-
+-      add_executable(gmic_gimp_gtk ${CLI_Includes} ${CLI_Sources} ./src/gmic_gimp_gtk.cpp)
+-      add_dependencies(gmic_gimp_gtk gmic_extra_headers)
+-
+-      set_target_properties(gmic_gimp_gtk PROPERTIES COMPILE_FLAGS " -Dgmic_gui")
+-
+-      target_link_libraries(gmic_gimp_gtk
+-	${X11_LIBRARIES}
+-	${ZLIB_LIBRARIES}
+-	${FFTW3_LIBRARIES}
+-	${GIMP_LIBRARIES}
+-	${GIMPUI_LIBRARIES}
+-	${EXTRA_LIBRARIES}
+-	)
+-
+-      if (PLUGIN_INSTALL_PREFIX)
+-        INSTALL(TARGETS gmic_gimp_gtk RUNTIME DESTINATION ${PLUGIN_INSTALL_PREFIX})
+-        INSTALL(FILES ${CMAKE_SOURCE_DIR}/resources/gmic_film_cluts.gmz DESTINATION ${PLUGIN_INSTALL_PREFIX})
+-      else (PLUGIN_INSTALL_PREFIX)
+-        INSTALL(TARGETS gmic_gimp_gtk RUNTIME DESTINATION ${GIMP_PREFIX}/lib/gimp/2.0/plug-ins)
+-        INSTALL(FILES ${CMAKE_SOURCE_DIR}/resources/gmic_film_cluts.gmz DESTINATION ${GIMP_PREFIX}/lib/gimp/2.0/plug-ins)
+-      endif  (PLUGIN_INSTALL_PREFIX)
+-
+-    endif (GIMPUI_FOUND)
+-  endif (GIMP_FOUND)
++  execute_process(COMMAND gimptool-2.0 --gimpplugindir OUTPUT_VARIABLE GIMP2_PLUGIN_DIR OUTPUT_STRIP_TRAILING_WHITESPACE)
++  execute_process(COMMAND gimptool-2.0 --libs OUTPUT_VARIABLE GIMP2_LIBRARIES OUTPUT_STRIP_TRAILING_WHITESPACE)
++  execute_process(COMMAND gimptool-2.0 --cflags OUTPUT_VARIABLE GIMP2_INCLUDE_DIRS OUTPUT_STRIP_TRAILING_WHITESPACE)
++
++  add_executable(gmic_gimp_gtk ${CLI_Includes} ./src/gmic_gimp_gtk.cpp)
++  add_dependencies(gmic_gimp_gtk gmic_extra_headers)
++  set_target_properties(gmic_gimp_gtk PROPERTIES COMPILE_FLAGS "${GIMP2_INCLUDE_DIRS} -Dgmic_gui")
++
++  if(ENABLE_DYNAMIC_LINKING)
++    add_dependencies(gmic_gimp_gtk libgmic)
++    target_link_libraries(gmic_gimp_gtk
++      ${GIMP2_LIBRARIES}
++      "libgmic"
++      )
++  else(ENABLE_DYNAMIC_LINKING)
++    target_sources(gmic_gimp_gtk PUBLIC ${CLI_Sources})
++    target_link_libraries(gmic_gimp_gtk
++      ${X11_LIBRARIES}
++      ${ZLIB_LIBRARIES}
++      ${FFTW3_LIBRARIES}
++      ${GIMP2_LIBRARIES}
++      ${EXTRA_LIBRARIES}
++      )
++  endif(ENABLE_DYNAMIC_LINKING)
++
++  if(PLUGIN_INSTALL_PREFIX)
++    INSTALL(TARGETS gmic_gimp_gtk RUNTIME DESTINATION ${PLUGIN_INSTALL_PREFIX})
++    INSTALL(FILES ${CMAKE_SOURCE_DIR}/resources/gmic_film_cluts.gmz DESTINATION ${PLUGIN_INSTALL_PREFIX})
++  else(PLUGIN_INSTALL_PREFIX)
++    INSTALL(TARGETS gmic_gimp_gtk RUNTIME DESTINATION ${GIMP2_PLUGIN_DIR}/plug-ins)
++    INSTALL(FILES ${CMAKE_SOURCE_DIR}/resources/gmic_film_cluts.gmz DESTINATION ${GIMP2_PLUGIN_DIR}/plug-ins)
++  endif(PLUGIN_INSTALL_PREFIX)
++
+ endif(BUILD_PLUGIN)
+ 
+ if(BUILD_MAN)
+diff --git a/src/gmic.cpp b/src/gmic.cpp
+index 8b439d8..b3d8663 100644
+--- a/src/gmic.cpp
++++ b/src/gmic.cpp
+@@ -40,6 +40,7 @@
+  #
+ */
+ 
++
+ // Add G'MIC-specific methods to the CImg library.
+ //------------------------------------------------
+ #ifdef cimg_plugin
+@@ -2020,7 +2021,11 @@ static const CImgList<T>& save_gmz(const char *filename, const CImgList<T>& imag
+ #else // #ifdef cimg_plugin
+ 
+ #include "gmic.h"
+-#include "gmic_stdlib.h"
++
++#ifndef gmic_dynamic_linking
++# include "gmic_stdlib.h"
++#endif // #ifndef gmic_dynamic_linking
++
+ using namespace cimg_library;
+ #undef min
+ #undef max
+@@ -2041,6 +2046,8 @@ using namespace cimg_library;
+ #define gmic_pixel_type float
+ #endif
+ 
++#ifndef gmic_dynamic_linking
++
+ // Macro to force stringifying selection for error messages.
+ #define gmic_selection_err selection2string(selection,images_names,1,gmic_selection)
+ 
+@@ -3607,7 +3614,7 @@ void gmic::_gmic(const char *const commands_line,
+   // Launch the G'MIC interpreter.
+   const CImgList<char> items = commands_line?commands_line_to_CImgList(commands_line):CImgList<char>::empty();
+   try {
+-    _run(items,images,images_names,p_progress,p_is_abort);
++    _run(items,images,images_names,p_progress,p_is_abort,false);
+   } catch (gmic_exception&) {
+     print(images,0,"Abort G'MIC interpreter.\n");
+     throw;
+@@ -4530,17 +4537,17 @@ CImg<char> gmic::substitute_item(const char *const source,
+ // Main parsing procedures.
+ //-------------------------
+ gmic& gmic::run(const char *const commands_line,
+-                float *const p_progress, bool *const p_is_abort) {
++                float *const p_progress, bool *const p_is_abort, bool const p_is_cli) {
+   gmic_list<gmic_pixel_type> images;
+   gmic_list<char> images_names;
+   return run(commands_line,images,images_names,
+-             p_progress,p_is_abort);
++             p_progress,p_is_abort,p_is_cli);
+ }
+ 
+ template<typename T>
+ gmic& gmic::run(const char *const commands_line,
+                 gmic_list<T> &images, gmic_list<char> &images_names,
+-                float *const p_progress, bool *const p_is_abort) {
++                float *const p_progress, bool *const p_is_abort, bool const p_is_cli) {
+   cimg::mutex(26);
+   if (is_running)
+     error(images,0,0,
+@@ -4551,7 +4558,7 @@ gmic& gmic::run(const char *const commands_line,
+   starting_commands_line = commands_line;
+   is_debug = false;
+   _run(commands_line_to_CImgList(commands_line),
+-       images,images_names,p_progress,p_is_abort);
++       images,images_names,p_progress,p_is_abort,p_is_cli);
+   is_running = false;
+   return *this;
+ }
+@@ -4559,7 +4566,7 @@ gmic& gmic::run(const char *const commands_line,
+ template<typename T>
+ gmic& gmic::_run(const gmic_list<char>& commands_line,
+                  gmic_list<T> &images, gmic_list<char> &images_names,
+-                 float *const p_progress, bool *const p_is_abort) {
++                 float *const p_progress, bool *const p_is_abort, bool const p_is_cli) {
+   CImg<unsigned int> variables_sizes(gmic_varslots,1,1,1,0);
+   unsigned int position = 0;
+   setlocale(LC_NUMERIC,"C");
+@@ -4584,6 +4591,7 @@ gmic& gmic::_run(const gmic_list<char>& commands_line,
+   if (p_progress) progress = p_progress; else { _progress = -1; progress = &_progress; }
+   if (p_is_abort) is_abort = p_is_abort; else { _is_abort = false; is_abort = &_is_abort; }
+   is_abort_thread = false;
++  _is_cli = p_is_cli;
+   *progress = -1;
+   cimglist_for(commands_line,l) {
+     const char *it = commands_line[l].data();
+@@ -14362,29 +14370,29 @@ gmic& gmic::_run(const CImgList<char>& commands_line, unsigned int& position,
+ 
+     // Display or print result, if not 'released' before.
+     if (!is_released && callstack.size()==1 && images) {
+-#ifdef gmic_main
++      if(_is_cli) {
+ #if cimg_display!=0
+-      CImgList<unsigned int> lselection, lselection3d;
+-      bool is_first3d = false;
+-      _display_windows[0].assign();
+-      cimglist_for(images,l) {
+-        const bool is_3d = images[l].is_CImg3d(false);
+-        if (!l) is_first3d = is_3d;
+-        CImg<unsigned int>::vector(l).move_to(is_3d?lselection3d:lselection);
+-      }
+-      if (is_first3d) {
+-        display_objects3d(images,images_names,lselection3d>'y',CImg<unsigned char>::empty(),false);
+-        if (lselection) display_images(images,images_names,lselection>'y',0,false);
+-      } else {
+-        if (lselection) display_images(images,images_names,lselection>'y',0,false);
+-        if (lselection3d) display_objects3d(images,images_names,lselection3d>'y',CImg<unsigned char>::empty(),false);
+-      }
++        CImgList<unsigned int> lselection, lselection3d;
++        bool is_first3d = false;
++        _display_windows[0].assign();
++        cimglist_for(images,l) {
++          const bool is_3d = images[l].is_CImg3d(false);
++          if (!l) is_first3d = is_3d;
++          CImg<unsigned int>::vector(l).move_to(is_3d?lselection3d:lselection);
++        }
++        if (is_first3d) {
++          display_objects3d(images,images_names,lselection3d>'y',CImg<unsigned char>::empty(),false);
++          if (lselection) display_images(images,images_names,lselection>'y',0,false);
++        } else {
++          if (lselection) display_images(images,images_names,lselection>'y',0,false);
++          if (lselection3d) display_objects3d(images,images_names,lselection3d>'y',CImg<unsigned char>::empty(),false);
++        }
+ #else
+-      CImg<unsigned int> seq(1,images.width());
+-      cimg_forY(seq,y) seq[y] = y;
+-      print_images(images,images_names,seq,true);
++        CImg<unsigned int> seq(1,images.width());
++        cimg_forY(seq,y) seq[y] = y;
++        print_images(images,images_names,seq,true);
+ #endif // #if cimg_display!=0
+-#endif // #ifdef gmic_main
++      }
+       is_released = true;
+     }
+ 
+@@ -14450,6 +14458,8 @@ gmic& gmic::_run(const CImgList<char>& commands_line, unsigned int& position,
+   return *this;
+ }
+ 
++#endif // #ifndef gmic_dynamic_linking
++
+ // Fallback function for segfault signals.
+ #if cimg_OS==1
+ void gmic_segfault_sigaction(int signal, siginfo_t *si, void *arg) {
+@@ -14671,7 +14681,7 @@ int main(int argc, char **argv) {
+   try {
+     CImgList<gmic_pixel_type> images;
+     CImgList<char> images_names;
+-    gmic_instance.run(commands_line.data(),images,images_names);
++    gmic_instance.run(commands_line.data(),images,images_names,0,0,true);
+   } catch (gmic_exception &e) {
+ 
+     // Something went wrong during the pipeline execution.
+@@ -14712,7 +14722,7 @@ int main(int argc, char **argv) {
+   return 0;
+ }
+ 
+-#else
++#else // #ifdef gmic_main
+ 
+ // Explicitely instanciate constructors and destructor when building the library.
+ #ifdef gmic_pixel_type
+@@ -14723,7 +14733,7 @@ template gmic::gmic(const char *const commands_line,
+ 
+ template gmic& gmic::run(const char *const commands_line,
+                          gmic_list<gmic_pixel_type> &images, gmic_list<char> &images_names,
+-                         float *const p_progress, bool *const p_is_abort);
++                         float *const p_progress, bool *const p_is_abort, bool const p_is_cli);
+ 
+ template CImgList<gmic_pixel_type>::~CImgList();
+ #endif
+@@ -14736,7 +14746,7 @@ template gmic::gmic(const char *const commands_line,
+ 
+ template gmic& gmic::run(const char *const commands_line,
+                          gmic_list<gmic_pixel_type2> &images, gmic_list<char> &images_names,
+-                         float *const p_progress=0, bool *const p_is_abort=0);
++                         float *const p_progress=0, bool *const p_is_abort=0, bool const p_is_cli=false);
+ 
+ template CImgList<gmic_pixel_type2>::~CImgList();
+ #endif
+diff --git a/src/gmic.h b/src/gmic.h
+index 8c39632..83be70b 100644
+--- a/src/gmic.h
++++ b/src/gmic.h
+@@ -221,12 +221,12 @@ struct gmic {
+ 
+   // Run G'MIC pipeline on an already-constructed object.
+   gmic& run(const char *const commands_line,
+-            float *const p_progress=0, bool *const p_is_abort=0);
++            float *const p_progress=0, bool *const p_is_abort=0, bool const p_is_cli=false);
+ 
+   template<typename T>
+   gmic& run(const char *const commands_line,
+             gmic_list<T> &images, gmic_list<char> &images_names,
+-            float *const p_progress=0, bool *const p_is_abort=0);
++            float *const p_progress=0, bool *const p_is_abort=0, bool const p_is_cli=false);
+ 
+   // These functions return (or init) G'MIC-specific paths.
+   static const char* path_user(const char *const custom_path=0);
+@@ -351,7 +351,7 @@ struct gmic {
+   template<typename T>
+   gmic& _run(const gmic_list<char>& commands_line,
+              gmic_list<T> &images, gmic_list<char> &images_names,
+-             float *const p_progress, bool *const p_is_abort);
++             float *const p_progress, bool *const p_is_abort, bool const p_is_cli);
+ 
+   template<typename T>
+   gmic& _run(const gmic_list<char>& commands_line, unsigned int& position,
+@@ -381,6 +381,7 @@ struct gmic {
+   bool is_released, is_debug, is_running, is_start, is_return, is_quit, is_double3d, is_debug_info, check_elif;
+   const char *starting_commands_line;
+   bool _is_abort, *is_abort, is_abort_thread;
++  bool _is_cli;
+ };
+ 
+ // Class 'gmic_exception'.
