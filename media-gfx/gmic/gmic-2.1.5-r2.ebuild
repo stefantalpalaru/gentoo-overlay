@@ -112,7 +112,9 @@ src_prepare() {
 			-e '/CMAKE_CXX_FLAGS_RELEASE/d' \
 			../${GMIC_QT_DIR}/CMakeLists.txt
 		local S="${WORKDIR}/${GMIC_QT_DIR}"
-		local PATCHES=()
+		local PATCHES=(
+			"${FILESDIR}"/${PN}-2.1.5-dynamic-linking-qt.patch
+		)
 		cmake-utils_src_prepare
 	fi
 }
@@ -147,19 +149,23 @@ src_configure() {
 
 	# gmic-qt
 	local CMAKE_USE_DIR="${WORKDIR}/${GMIC_QT_DIR}"
+	local mycmakeargs=(
+		-DENABLE_DYNAMIC_LINKING=ON
+		-DGMIC_LIB_PATH="../${P}_build"
+	)
 	if use gimp; then
 		local BUILD_DIR=${WORKDIR}/gimp_build
-		local mycmakeargs=( -DGMIC_QT_HOST=gimp )
+		mycmakeargs+=( -DGMIC_QT_HOST=gimp )
 		cmake-utils_src_configure
 	fi
 	if use gui; then
 		local BUILD_DIR=${WORKDIR}/gui_build
-		local mycmakeargs=( -DGMIC_QT_HOST=none )
+		mycmakeargs+=( -DGMIC_QT_HOST=none )
 		cmake-utils_src_configure
 	fi
 	if use krita; then
 		local BUILD_DIR=${WORKDIR}/krita_build
-		local mycmakeargs=( -DGMIC_QT_HOST=krita )
+		mycmakeargs+=( -DGMIC_QT_HOST=krita )
 		cmake-utils_src_configure
 	fi
 
@@ -172,9 +178,7 @@ src_configure() {
 }
 
 src_compile() {
-	if use cli || use gimp-gtk; then
-		cmake-utils_src_compile
-	fi
+	cmake-utils_src_compile
 
 	# gmic-qt
 	local S="${WORKDIR}/${GMIC_QT_DIR}"
@@ -212,9 +216,7 @@ src_install() {
 	insinto "${PLUGIN_DIR}"
 	doins "resources/gmic_film_cluts.gmz"
 
-	if use cli || use gimp-gtk; then
-		cmake-utils_src_install
-	fi
+	cmake-utils_src_install
 	use cli && use bash-completion && newbashcomp "resources/${PN}_bashcompletion.sh" ${PN}
 
 	# gmic-qt

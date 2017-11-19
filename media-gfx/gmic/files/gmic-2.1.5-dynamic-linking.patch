@@ -1,5 +1,5 @@
 diff --git a/CMakeLists.txt b/CMakeLists.txt
-index eea4f6d..8f9664a 100644
+index eea4f6d..75bc881 100644
 --- a/CMakeLists.txt
 +++ b/CMakeLists.txt
 @@ -22,6 +22,7 @@ option(ENABLE_OPENMP "Add support for parallel processing" ON)
@@ -19,7 +19,7 @@ index eea4f6d..8f9664a 100644
    endif(APPLE)
  endif(FFTW3_FOUND)
  
-@@ -161,6 +162,11 @@ if(OPENEXR_FOUND)
+@@ -161,6 +162,12 @@ if(OPENEXR_FOUND)
  endif(OPENEXR_FOUND)
  
  
@@ -27,11 +27,12 @@ index eea4f6d..8f9664a 100644
 +  if(NOT BUILD_LIB)
 +    message(FATAL_ERROR "ENABLE_DYNAMIC_LINKING needs BUILD_LIB")
 +  endif(NOT BUILD_LIB)
++  set(CMAKE_SKIP_RPATH TRUE)
 +endif(ENABLE_DYNAMIC_LINKING)
  
  # CImg.h header
  file(WRITE ${CMAKE_CURRENT_BINARY_DIR}/CImg_download.cmake "file(DOWNLOAD https://github.com/dtschump/CImg/blob/master/CImg.h?raw=true ${CMAKE_SOURCE_DIR}/src/CImg.h)")
-@@ -273,59 +279,68 @@ endif(BUILD_LIB_STATIC)
+@@ -273,59 +280,68 @@ endif(BUILD_LIB_STATIC)
  if(BUILD_CLI)
    add_executable(gmic ${CLI_Includes} ${CLI_Sources})
    add_dependencies(gmic gmic_extra_headers)
