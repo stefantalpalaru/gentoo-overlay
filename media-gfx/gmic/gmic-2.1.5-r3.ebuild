@@ -24,7 +24,6 @@ LICENSE="CeCILL-2 GPL-3"
 SLOT="0"
 IUSE="bash-completion +cli ffmpeg fftw gimp gimp-gtk graphicsmagick gui jpeg krita opencv openexr openmp png static-libs tiff X zart"
 REQUIRED_USE="
-	|| ( cli gimp gimp-gtk gui krita zart )
 	gimp? ( png fftw X )
 	gimp-gtk? ( png fftw X )
 	gui? ( png fftw X )
@@ -117,35 +116,39 @@ src_prepare() {
 		)
 		cmake-utils_src_prepare
 	fi
+
+	if use zart; then
+		cd "${WORKDIR}/${GMIC_COMMUNITY_DIR}"
+		eapply "${FILESDIR}"/${PN}-2.1.5-dynamic-linking-zart.patch
+		cd - >/dev/null
+	fi
 }
 
 src_configure() {
 	local CMAKE_BUILD_TYPE="Release"
 
-	if use cli || use gimp-gtk; then
-		local mycmakeargs=(
-			-DBUILD_LIB=ON
-			-DBUILD_LIB_STATIC=$(usex static-libs ON OFF)
-			-DBUILD_CLI=$(usex cli ON OFF)
-			-DBUILD_MAN=$(usex cli ON OFF)
-			-DBUILD_PLUGIN=$(usex gimp-gtk ON OFF)
-			-DENABLE_X=$(usex X ON OFF)
-			-DENABLE_FFMPEG=$(usex ffmpeg ON OFF)
-			-DENABLE_FFTW=$(usex fftw ON OFF)
-			-DENABLE_GRAPHICSMAGICK=$(usex graphicsmagick ON OFF)
-			-DENABLE_JPEG=$(usex jpeg ON OFF)
-			-DENABLE_OPENCV=$(usex opencv ON OFF)
-			-DENABLE_OPENEXR=$(usex openexr ON OFF)
-			-DENABLE_OPENMP=$(usex openmp ON OFF)
-			-DENABLE_PNG=$(usex png ON OFF)
-			-DENABLE_TIFF=$(usex tiff ON OFF)
-			-DENABLE_ZLIB=ON
-			-DENABLE_DYNAMIC_LINKING=ON
-		)
+	local mycmakeargs=(
+		-DBUILD_LIB=ON
+		-DBUILD_LIB_STATIC=$(usex static-libs ON OFF)
+		-DBUILD_CLI=$(usex cli ON OFF)
+		-DBUILD_MAN=$(usex cli ON OFF)
+		-DBUILD_PLUGIN=$(usex gimp-gtk ON OFF)
+		-DENABLE_X=$(usex X ON OFF)
+		-DENABLE_FFMPEG=$(usex ffmpeg ON OFF)
+		-DENABLE_FFTW=$(usex fftw ON OFF)
+		-DENABLE_GRAPHICSMAGICK=$(usex graphicsmagick ON OFF)
+		-DENABLE_JPEG=$(usex jpeg ON OFF)
+		-DENABLE_OPENCV=$(usex opencv ON OFF)
+		-DENABLE_OPENEXR=$(usex openexr ON OFF)
+		-DENABLE_OPENMP=$(usex openmp ON OFF)
+		-DENABLE_PNG=$(usex png ON OFF)
+		-DENABLE_TIFF=$(usex tiff ON OFF)
+		-DENABLE_ZLIB=ON
+		-DENABLE_DYNAMIC_LINKING=ON
+	)
 
-		CMAKE_USE_DIR=${S}
-		cmake-utils_src_configure
-	fi
+	CMAKE_USE_DIR=${S}
+	cmake-utils_src_configure
 
 	# gmic-qt
 	local CMAKE_USE_DIR="${WORKDIR}/${GMIC_QT_DIR}"
@@ -172,7 +175,7 @@ src_configure() {
 	# ZArt
 	if use zart; then
 		cd "${WORKDIR}/${GMIC_COMMUNITY_DIR}/zart"
-		eqmake5 zart.pro
+		eqmake5 CONFIG+=enable_dynamic_linking GMIC_LIB_PATH="../${P}_build" zart.pro
 		cd -
 	fi
 }
