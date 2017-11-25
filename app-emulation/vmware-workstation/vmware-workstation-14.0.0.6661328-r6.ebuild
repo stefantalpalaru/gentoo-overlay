@@ -198,6 +198,7 @@ RDEPEND="
 	x11-themes/hicolor-icon-theme
 	!bundled-libs? ( ${BUNDLED_LIB_DEPENDS} )
 	!app-emulation/vmware-player
+	!app-emulation/vmware-tools
 "
 PDEPEND="
 	~app-emulation/vmware-modules-${PV_MODULES}
@@ -681,11 +682,6 @@ pkg_postinst() {
 	xdg_mimeinfo_database_update
 	gnome2_icon_cache_update
 	readme.gentoo_print_elog
-}
-
-pkg_prerm() {
-	einfo "Stopping ${PN} for safe unmerge"
-	/etc/init.d/vmware stop
 }
 
 pkg_postrm() {
