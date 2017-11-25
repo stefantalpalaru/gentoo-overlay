@@ -7,7 +7,7 @@
 -    OUTPUT ${CMAKE_SOURCE_DIR}/man/gmic.1.gz
 +    OUTPUT ${CMAKE_SOURCE_DIR}/man/gmic.1
      DEPENDS gmic
-     COMMAND ${CMAKE_BINARY_DIR}/gmic -v - ${CMAKE_SOURCE_DIR}/src/gmic_stdlib.gmic raw:${CMAKE_SOURCE_DIR}/src/gmic_stdlib.gmic,uchar -__help man 2> ${CMAKE_SOURCE_DIR}/man/gmic.1
+     COMMAND LD_LIBRARY_PATH=. ${CMAKE_BINARY_DIR}/gmic -v - ${CMAKE_SOURCE_DIR}/src/gmic_stdlib.gmic raw:${CMAKE_SOURCE_DIR}/src/gmic_stdlib.gmic,uchar -__help man 2> ${CMAKE_SOURCE_DIR}/man/gmic.1
 -    COMMAND gzip -f ${CMAKE_SOURCE_DIR}/man/gmic.1
    )
 -  add_custom_target(man ALL DEPENDS ${CMAKE_SOURCE_DIR}/man/gmic.1.gz)

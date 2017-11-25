@@ -82,9 +82,9 @@ DEPEND="${COMMON_DEPEND}
 "
 
 PATCHES=(
-	"${FILESDIR}"/${PN}-1.7.9-flags.patch
-	"${FILESDIR}"/${PN}-1.7.9-man.patch
 	"${FILESDIR}"/${PN}-2.1.5-dynamic-linking.patch
+	"${FILESDIR}"/${PN}-1.7.9-flags.patch
+	"${FILESDIR}"/${PN}-9999-man.patch
 )
 
 GMIC_QT_DIR="gmic-qt-v.${MY_PV}"
@@ -175,7 +175,7 @@ src_configure() {
 	# ZArt
 	if use zart; then
 		cd "${WORKDIR}/${GMIC_COMMUNITY_DIR}/zart"
-		eqmake5 CONFIG+=enable_dynamic_linking GMIC_LIB_PATH="../${P}_build" zart.pro
+		eqmake5 CONFIG+=enable_dynamic_linking GMIC_LIB_PATH="../../${P}_build" zart.pro
 		cd -
 	fi
 }
