@@ -3,32 +3,25 @@
 
 EAPI=6
 
-inherit bash-completion-r1 cmake-utils qmake-utils
+inherit bash-completion-r1 cmake-utils git-r3
 
 MY_PV=${PV//./}
 
 DESCRIPTION="GREYC's Magic Image Converter"
 HOMEPAGE="http://gmic.eu/ https://github.com/dtschump/gmic"
-GMIC_QT_URI="https://github.com/c-koi/gmic-qt/archive/v.${MY_PV}.tar.gz -> gmic-qt-${PV}.tar.gz"
-GMIC_COMMUNITY_COMMIT="6f48cdf9588e4b835ec078d01ed26da30cf8a80e"
-SRC_URI="http://gmic.eu/files/source/${PN}_${PV}.tar.gz
-	gimp? ( ${GMIC_QT_URI} )
-	gui? ( ${GMIC_QT_URI} )
-	krita? ( ${GMIC_QT_URI} )
-	zart? ( https://github.com/dtschump/gmic-community/archive/${GMIC_COMMUNITY_COMMIT}.zip -> gmic-community-${GMIC_COMMUNITY_COMMIT}.zip )
-"
+EGIT_REPO_URI="https://github.com/dtschump/gmic.git"
+EGIT_REPO_URI_2="https://github.com/c-koi/gmic-qt.git"
 
-KEYWORDS="~amd64 ~x86"
+KEYWORDS=""
 
 LICENSE="CeCILL-2 GPL-3"
 SLOT="0"
-IUSE="bash-completion +cli ffmpeg fftw gimp gimp-gtk graphicsmagick gui jpeg krita opencv openexr openmp png static-libs tiff X zart"
+IUSE="bash-completion +cli ffmpeg fftw gimp gimp-gtk graphicsmagick gui jpeg krita opencv openexr openmp png static-libs tiff X"
 REQUIRED_USE="
 	gimp? ( png fftw X )
 	gimp-gtk? ( png fftw X )
 	gui? ( png fftw X )
 	krita? ( png fftw X )
-	zart? ( fftw opencv openmp )
 "
 
 QT_DEPS="
@@ -36,12 +29,6 @@ QT_DEPS="
 	dev-qt/qtgui:5
 	dev-qt/qtnetwork:5
 	dev-qt/qtwidgets:5
-"
-ZART_DEPS="
-	dev-qt/qtcore:5
-	dev-qt/qtgui:5
-	dev-qt/qtnetwork:5
-	dev-qt/qtxml:5
 "
 COMMON_DEPEND="
 	fftw? ( sci-libs/fftw:3.0[threads] )
@@ -69,7 +56,6 @@ COMMON_DEPEND="
 		x11-libs/libX11
 		x11-libs/libXext
 	)
-	zart? ( ${ZART_DEPS} )
 "
 RDEPEND="${COMMON_DEPEND}
 	ffmpeg? ( media-video/ffmpeg:0 )
@@ -82,13 +68,13 @@ DEPEND="${COMMON_DEPEND}
 "
 
 PATCHES=(
-	"${FILESDIR}"/${PN}-2.1.5-dynamic-linking.patch
+	"${FILESDIR}"/${PN}-9999-dynamic-linking.patch
 	"${FILESDIR}"/${PN}-1.7.9-flags.patch
 	"${FILESDIR}"/${PN}-9999-man.patch
 )
 
-GMIC_QT_DIR="gmic-qt-v.${MY_PV}"
-GMIC_COMMUNITY_DIR="gmic-community-${GMIC_COMMUNITY_COMMIT}"
+GMIC_QT_DIR="gmic-qt"
+S="${WORKDIR}/${PN}"
 
 pkg_pretend() {
 	if use openmp ; then
@@ -100,27 +86,30 @@ pkg_pretend() {
 	fi
 }
 
-src_prepare() {
-	cp -a resources/CMakeLists.txt .
-	cmake-utils_src_prepare
+src_unpack() {
+	EGIT_CHECKOUT_DIR="${S}"
+	git-r3_src_unpack
 
-	ln -sr ../${P} ../${PN}
+	if use gimp || use gui || use krita; then
+		EGIT_REPO_URI="${EGIT_REPO_URI_2}"
+		EGIT_CHECKOUT_DIR="${WORKDIR}/${GMIC_QT_DIR}"
+		git-r3_src_unpack
+	fi
+}
+
+src_prepare() {
+	#cp -a resources/CMakeLists.txt .
+	cmake-utils_src_prepare
 
 	if use gimp || use gui || use krita; then
 		sed -i \
 			-e '/CMAKE_CXX_FLAGS_RELEASE/d' \
-			../${GMIC_QT_DIR}/CMakeLists.txt
+			../${GMIC_QT_DIR}/CMakeLists.txt || die "sed failed"
 		local S="${WORKDIR}/${GMIC_QT_DIR}"
 		local PATCHES=(
 			"${FILESDIR}"/${PN}-2.1.5-dynamic-linking-qt.patch
 		)
 		cmake-utils_src_prepare
-	fi
-
-	if use zart; then
-		cd "${WORKDIR}/${GMIC_COMMUNITY_DIR}"
-		eapply "${FILESDIR}"/${PN}-2.1.5-dynamic-linking-zart.patch
-		cd - >/dev/null
 	fi
 }
 
@@ -132,6 +121,7 @@ src_configure() {
 		-DBUILD_LIB_STATIC=$(usex static-libs ON OFF)
 		-DBUILD_CLI=$(usex cli ON OFF)
 		-DBUILD_MAN=$(usex cli ON OFF)
+		-DBUILD_BASH_COMPLETION=$(usex cli $(usex bash-completion ON OFF) OFF)
 		-DBUILD_PLUGIN=$(usex gimp-gtk ON OFF)
 		-DENABLE_X=$(usex X ON OFF)
 		-DENABLE_FFMPEG=$(usex ffmpeg ON OFF)
@@ -171,13 +161,6 @@ src_configure() {
 		mycmakeargs+=( -DGMIC_QT_HOST=krita )
 		cmake-utils_src_configure
 	fi
-
-	# ZArt
-	if use zart; then
-		cd "${WORKDIR}/${GMIC_COMMUNITY_DIR}/zart"
-		eqmake5 CONFIG+=enable_dynamic_linking GMIC_LIB_PATH="../../${P}_build" zart.pro
-		cd -
-	fi
 }
 
 src_compile() {
@@ -197,13 +180,6 @@ src_compile() {
 		local BUILD_DIR="${WORKDIR}/krita_build"
 		cmake-utils_src_compile
 	fi
-
-	# ZArt
-	if use zart; then
-		cd "${WORKDIR}/${GMIC_COMMUNITY_DIR}/zart"
-		emake
-		cd -
-	fi
 }
 
 src_install() {
@@ -220,6 +196,14 @@ src_install() {
 	doins "resources/gmic_film_cluts.gmz"
 
 	cmake-utils_src_install
+
+	# By default, gmic.cpp includes gmic.h which defines cimg_plugin to "gmic.cpp" and then
+	# includes CImg.h which includes cimg_plugin which is gmic.cpp, of course.
+	#
+	# Yes, upstream is bad and they should feel bad. Undo this madness so we can build media-gfx/zart
+	# using the installed gmic.h.
+	sed -i -e '/^#define cimg_plugin/d' "${ED}/usr/include/gmic.h" || die "sed failed"
+
 	use cli && use bash-completion && newbashcomp "resources/${PN}_bashcompletion.sh" ${PN}
 
 	# gmic-qt
@@ -232,10 +216,5 @@ src_install() {
 	fi
 	if use krita; then
 		dobin "${WORKDIR}/krita_build/gmic_krita_qt"
-	fi
-
-	# ZArt
-	if use zart; then
-		dobin "${WORKDIR}/${GMIC_COMMUNITY_DIR}/zart/zart"
 	fi
 }

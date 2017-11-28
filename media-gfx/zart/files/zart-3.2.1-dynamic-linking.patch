@@ -1,7 +1,7 @@
-diff --git a/zart/zart.pro b/zart/zart.pro
+diff --git a/zart.pro b/zart.pro
 index 43fa5ad..197dad6 100644
---- a/zart/zart.pro
-+++ b/zart/zart.pro
+--- a/zart.pro
++++ b/zart.pro
 @@ -46,9 +46,17 @@ openmp {
      QMAKE_LFLAGS += -fopenmp
  }

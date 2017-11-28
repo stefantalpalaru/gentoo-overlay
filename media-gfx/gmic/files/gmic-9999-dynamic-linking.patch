@@ -1,9 +1,9 @@
 diff --git a/CMakeLists.txt b/CMakeLists.txt
 new file mode 100644
-index 0000000..c518b54
+index 0000000..8e04dee
 --- /dev/null
 +++ b/CMakeLists.txt
-@@ -0,0 +1,372 @@
+@@ -0,0 +1,368 @@
 +cmake_minimum_required(VERSION 2.8.9)
 +
 +project(gmic CXX C)
@@ -285,10 +285,6 @@ index 0000000..c518b54
 +
 +
 +if(BUILD_CLI)
-+  # the statically linked CLI tool needs to compile the same source file twice
-+  # (once with -Dgmic_cli, once without) and then link the two different objects together
-+  configure_file(src/gmic.cpp ${CMAKE_CURRENT_SOURCE_DIR}/src/gmic_cli.cpp COPYONLY)
-+  set_source_files_properties(src/gmic_cli.cpp PROPERTIES COMPILE_FLAGS -Dgmic_cli)
 +  if(ENABLE_DYNAMIC_LINKING)
 +    add_executable(gmic ${CLI_Includes} src/gmic_cli.cpp)
 +    add_dependencies(gmic gmic_extra_headers)

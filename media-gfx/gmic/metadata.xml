@@ -12,7 +12,6 @@
 		<flag name="gui">Build the standalone Qt5 GUI</flag>
 		<flag name="krita">Build the Krita plugin</flag>
 		<flag name="opencv">Enable support for webcams using the OpenCV library</flag>
-		<flag name="zart">Build ZArt - a GUI for the realtime manipulation of a webcam video stream</flag>
 	</use>
 	<upstream>
 		<remote-id type="github">dtschump/gmic</remote-id>
