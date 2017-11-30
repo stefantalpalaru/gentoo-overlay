@@ -28,7 +28,7 @@ SRC_URI="
 LICENSE="GPL-2 GPL-3 MIT-with-advertising vmware"
 SLOT="0"
 KEYWORDS="~amd64"
-IUSE="bundled-libs cups doc macos-guests ovftool server systemd vix"
+IUSE="bundled-libs cups doc macos-guests +modules ovftool server systemd vix"
 DARWIN_GUESTS="darwin darwinPre15"
 IUSE_VMWARE_GUESTS="${DARWIN_GUESTS} freebsd linux linuxPreGlibc25 netware solaris windows winPre2k winPreVista"
 for guest in ${IUSE_VMWARE_GUESTS}; do
@@ -201,7 +201,7 @@ RDEPEND="
 	!app-emulation/vmware-tools
 "
 PDEPEND="
-	~app-emulation/vmware-modules-${PV_MODULES}
+	modules? ( ~app-emulation/vmware-modules-${PV_MODULES} )
 "
 DEPEND="
 	dev-lang/python:2.7

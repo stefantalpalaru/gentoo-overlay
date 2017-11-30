@@ -12,6 +12,7 @@
 	<use>
 		<flag name="bundled-libs">Use precompiled bundled libraries instead of the system installation.</flag>
 		<flag name="macos-guests">Support macOS guests.</flag>
+		<flag name="modules">Install <pkg>app-emulation/vmware-modules</pkg> in order to run VMs locally.</flag>
 		<flag name="ovftool">Install OVF tool.</flag>
 		<flag name="server">Install VMware Workstation Server component.</flag>
 		<flag name="vix">Install VIX. The VIX API allows you to write programs and scripts
