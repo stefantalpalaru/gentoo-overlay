@@ -9,7 +9,6 @@ depend() {
 
 start() {
 	ebegin Starting VMware USB Arbitrator
-	#start-stop-daemon --start --exec @@BINDIR@@/vmware-usbarbitrator
 	@@BINDIR@@/vmware-usbarbitrator
 	eend $?
 	ebegin Starting VMware services
@@ -53,7 +52,6 @@ start() {
 
 stop() {
 	ebegin Stopping VMware USB Arbitrator
-	#start-stop-daemon --stop --exec @@BINDIR@@/vmware-usbarbitrator
 	killall --wait vmware-usbarbitrator
 	eend $?
 	@@BINDIR@@/vmware-networks --stop

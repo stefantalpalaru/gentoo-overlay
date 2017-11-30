@@ -1,5 +1,5 @@
 #!/sbin/openrc-run
-# Copyright 1999-2013 Gentoo Foundation
+# Copyright 1999-2017 Gentoo Foundation
 # Distributed under the terms of the GNU General Public License v2
 
 depend() {
@@ -8,11 +8,13 @@ depend() {
 }
 
 checkconfig() {
+	checkpath -d /var/run/vmware
+
 	# Check if certificates exist.  If not, we need to generate them, ala sshd.
 	if [ ! -e @@ETCDIR@@/ssl/rui.key -o ! -e @@ETCDIR@@/ssl/rui.crt ]; then
-		mkdir -p @@ETCDIR@@/ssl
+		checkpath -d -m 0600 @@ETCDIR@@/ssl
 		openssl req -x509 -days 365 -newkey rsa:2048 -keyout @@ETCDIR@@/ssl/rui.key -out @@ETCDIR@@/ssl/rui.crt -config @@ETCDIR@@/ssl/hostd.ssl.config
-		chmod -R 600 @@ETCDIR@@/ssl
+		checkpath -f -m 0600 @@ETCDIR@@/ssl/rui.key @@ETCDIR@@/ssl/rui.crt
 	fi
 }
 
@@ -21,14 +23,13 @@ start() {
 
 	ebegin Starting VMware Authentication Daemon
 	start-stop-daemon --start \
-	  --exec @@PREFIX@@/sbin/vmware-authdlauncher
+		--exec @@PREFIX@@/sbin/vmware-authdlauncher
 	eend $?
 	ebegin Starting VMware Workstation Server
 	start-stop-daemon --start \
-	  --pidfile /var/run/vmware/vmware-hostd.PID \
-	  --exec @@BINDIR@@/vmware-hostd \
-	  -- -a -d @@ETCDIR@@/hostd/config.xml
-
+		--pidfile /var/run/vmware/vmware-hostd.PID \
+		--exec @@BINDIR@@/vmware-hostd \
+		-- -a -d @@ETCDIR@@/hostd/config.xml
 	eend $?
 }
 
@@ -43,12 +44,9 @@ stop() {
 
 	ebegin Stopping VMware Workstation Server
 	start-stop-daemon --stop \
-	  --pidfile /var/run/vmware/vmware-hostd.PID \
-	  --exec @@BINDIR@@/vmware-hostd 
+		--pidfile /var/run/vmware/vmware-hostd.PID
 	eend $?
 	ebegin Stopping VMware Authentication Daemon
-	#start-stop-daemon --stop \
-	#  --exec @@PREFIX@@/sbin/vmware-authdlauncher
-	killall @@PREFIX@@/sbin/vmware-authdlauncher
+	killall --wait vmware-authdlauncher
 	eend $?
 }
