@@ -3,15 +3,15 @@
 
 EAPI=6
 
-inherit autotools git-r3 gnome2-utils xdg-utils
+inherit autotools gnome2-utils xdg-utils
 
 DESCRIPTION="a program for timing mechanical watches"
 HOMEPAGE="https://github.com/vacaboja/tg"
-EGIT_REPO_URI="https://github.com/vacaboja/tg"
+SRC_URI="https://github.com/vacaboja/tg/archive/v${PV}.tar.gz -> ${P}.tar.gz"
 
 LICENSE="GPL-2"
 SLOT="0"
-KEYWORDS=""
+KEYWORDS="~amd64 ~x86"
 IUSE=""
 
 RDEPEND="
@@ -35,10 +35,10 @@ pkg_preinst() {
 
 pkg_postinst() {
 	gnome2_icon_cache_update
-	fdo-xdg_desktop_database_update
+	xdg_desktop_database_update
 }
 
 pkg_postrm() {
 	gnome2_icon_cache_update
-	fdo-xdg_desktop_database_update
+	xdg_desktop_database_update
 }
