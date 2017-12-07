@@ -39,6 +39,7 @@ RDEPEND="${DEPEND}
 S="${WORKDIR}/${MY_P}"
 
 export CONFIG_PROTECT="${CONFIG_PROTECT} /var/spool/fax/etc /usr/lib/fax"
+export CONFIG_PROTECT_MASK="${CONFIG_PROTECT_MASK} /var/spool/fax/etc/xferfaxlog"
 
 src_prepare() {
 	epatch "${FILESDIR}/ldconfig-patch"
@@ -174,5 +175,6 @@ generate_files() {
 	cat <<-EOF > "${T}/99${PN}"
 	PATH="/var/spool/fax/bin"
 	CONFIG_PROTECT="/var/spool/fax/etc /usr/$(get_libdir)/fax"
+	CONFIG_PROTECT_MASK="/var/spool/fax/etc/xferfaxlog"
 	EOF
 }
