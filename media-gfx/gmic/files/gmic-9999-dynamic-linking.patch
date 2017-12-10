@@ -1,10 +1,11 @@
 diff --git a/CMakeLists.txt b/CMakeLists.txt
 new file mode 100644
-index 0000000..8e04dee
+index 0000000..5fcd65d
 --- /dev/null
 +++ b/CMakeLists.txt
-@@ -0,0 +1,368 @@
+@@ -0,0 +1,365 @@
 +cmake_minimum_required(VERSION 2.8.9)
++cmake_policy(SET CMP0046 OLD)
 +
 +project(gmic CXX C)
 +
@@ -177,28 +178,19 @@ index 0000000..8e04dee
 +endif(ENABLE_DYNAMIC_LINKING)
 +
 +# CImg.h header
-+file(WRITE ${CMAKE_CURRENT_BINARY_DIR}/CImg_download.cmake "file(DOWNLOAD https://github.com/dtschump/CImg/blob/master/CImg.h?raw=true ${CMAKE_SOURCE_DIR}/src/CImg.h)")
-+add_custom_command(
-+  OUTPUT ${CMAKE_SOURCE_DIR}/src/CImg.h
-+  COMMAND ${CMAKE_COMMAND} -P ${CMAKE_CURRENT_BINARY_DIR}/CImg_download.cmake
-+  #COMMAND ${WGET_EXECUTABLE} https://github.com/dtschump/CImg/blob/master/CImg.h?raw=true -O ${CMAKE_SOURCE_DIR}/src/CImg.h
-+  COMMAND touch ${CMAKE_SOURCE_DIR}/src/CImg.h
-+)
-+add_custom_target(CImg_download ALL DEPENDS ${CMAKE_SOURCE_DIR}/src/CImg.h)
-+
++if(NOT EXISTS ${CMAKE_SOURCE_DIR}/src/CImg.h)
++  file(DOWNLOAD https://github.com/dtschump/CImg/raw/master/CImg.h ${CMAKE_SOURCE_DIR}/src/CImg.h)
++  execute_process(COMMAND touch ${CMAKE_SOURCE_DIR}/src/CImg.h)
++endif(NOT EXISTS ${CMAKE_SOURCE_DIR}/src/CImg.h)
 +
 +# gmic_stdlib.h header
-+file(WRITE ${CMAKE_CURRENT_BINARY_DIR}/gmic_stdlib_download.cmake "file(DOWNLOAD http://gmic.eu/gmic_stdlib.h ${CMAKE_SOURCE_DIR}/src/gmic_stdlib.h)")
-+add_custom_command(
-+  OUTPUT ${CMAKE_SOURCE_DIR}/src/gmic_stdlib.h
-+  COMMAND ${CMAKE_COMMAND} -P ${CMAKE_CURRENT_BINARY_DIR}/gmic_stdlib_download.cmake
-+  #COMMAND ${WGET_EXECUTABLE} http://gmic.eu/gmic_stdlib.h -O ${CMAKE_SOURCE_DIR}/src/gmic_stdlib.h
-+  COMMAND touch ${CMAKE_SOURCE_DIR}/src/gmic_stdlib.h
-+)
-+add_custom_target(gmic_stdlib_download ALL DEPENDS ${CMAKE_SOURCE_DIR}/src/gmic_stdlib.h)
++if(NOT EXISTS ${CMAKE_SOURCE_DIR}/src/gmic_stdlib.h)
++  file(DOWNLOAD http://gmic.eu/gmic_stdlib.h ${CMAKE_SOURCE_DIR}/src/gmic_stdlib.h)
++  execute_process(COMMAND touch ${CMAKE_SOURCE_DIR}/src/gmic_stdlib.h)
++endif(NOT EXISTS ${CMAKE_SOURCE_DIR}/src/gmic_stdlib.h)
 +
++add_custom_target(gmic_extra_headers DEPENDS ./src/CImg.h ./src/gmic_stdlib.h)
 +
-+add_custom_target(gmic_extra_headers DEPENDS CImg_download gmic_stdlib_download)
 +
 +if(NOT CMAKE_BUILD_TYPE)
 +  set(CMAKE_BUILD_TYPE "Release" CACHE STRING
@@ -320,8 +312,13 @@ index 0000000..8e04dee
 +  execute_process(COMMAND gimptool-2.0 --libs OUTPUT_VARIABLE GIMP2_LIBRARIES OUTPUT_STRIP_TRAILING_WHITESPACE)
 +  execute_process(COMMAND gimptool-2.0 --cflags OUTPUT_VARIABLE GIMP2_INCLUDE_DIRS OUTPUT_STRIP_TRAILING_WHITESPACE)
 +
++  if(NOT EXISTS ${CMAKE_SOURCE_DIR}/src/gmic_gimp_gtk.h)
++    file(DOWNLOAD http://gmic.eu/gmic_gimp_gtk.h ${CMAKE_SOURCE_DIR}/src/gmic_gimp_gtk.h)
++    execute_process(COMMAND touch ${CMAKE_SOURCE_DIR}/src/gmic_gimp_gtk.h)
++  endif(NOT EXISTS ${CMAKE_SOURCE_DIR}/src/gmic_gimp_gtk.h)
++
 +  add_executable(gmic_gimp_gtk ${CLI_Includes} ./src/gmic_gimp_gtk.cpp)
-+  add_dependencies(gmic_gimp_gtk gmic_extra_headers)
++  add_dependencies(gmic_gimp_gtk gmic_extra_headers ./src/gmic_gimp_gtk.h)
 +  set_target_properties(gmic_gimp_gtk PROPERTIES COMPILE_FLAGS "${GIMP2_INCLUDE_DIRS} -Dgmic_gui")
 +
 +  if(ENABLE_DYNAMIC_LINKING)
