@@ -3,27 +3,14 @@
 
 EAPI=6
 
-inherit eutils bash-completion-r1 versionator
+inherit eutils bash-completion-r1
 
 DESCRIPTION="Phoronix's comprehensive, cross-platform testing and benchmark suite"
 HOMEPAGE="http://www.phoronix-test-suite.com"
-SRC_URI=""
-
+SRC_URI="https://github.com/phoronix-test-suite/phoronix-test-suite/archive/v${PV}.tar.gz -> ${P}.tar.gz"
 LICENSE="GPL-3"
 SLOT="0"
-MY_MAJORV="$(get_version_component_range 1-3)"
-MY_P="${PN}-${MY_MAJORV}"
-if [ -z "$(get_version_component_range 4)" ]; then
-	KEYWORDS="~amd64 ~x86"
-	SRC_URI="http://www.phoronix-test-suite.com/download.php?file=${MY_P} -> ${MY_P}.tar.gz"
-else
-	KEYWORDS=""
-	MY_MINORV="$(get_version_component_range 4)"
-	MY_MINORV="${MY_MINORV/pre/m}"
-	MY_P="${MY_P}${MY_MINORV}"
-	SRC_URI="http://www.phoronix-test-suite.com/download.php?file=development/${MY_P} -> ${MY_P}.tar.gz"
-fi
-S="${WORKDIR}/${PN}"
+KEYWORDS="~amd64 ~x86"
 
 DEPEND=""
 RDEPEND="dev-lang/php[cli,curl,gd,json,posix,pcntl,truetype,zip]"
