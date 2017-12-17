@@ -15,7 +15,7 @@ RESTRICT="strip"
 
 RDEPEND="dev-libs/libpcre2
 	dev-libs/openssl:=
-	>=sys-devel/llvm-3.7:0
+	>=sys-devel/llvm-3.7:=
 	sys-libs/ncurses:=
 	sys-libs/zlib
 	vim-syntax? ( app-vim/pony-syntax )"
@@ -44,7 +44,7 @@ src_prepare() {
 		src/libponyc/codegen/genexe.c
 }
 
-common_make_args="config=release prefix=\"${D}usr\" verbose=yes"
+common_make_args="config=release prefix=\"${D}usr\" verbose=yes default_pic=true"
 
 src_compile() {
 	emake ${common_make_args}
