@@ -7,7 +7,7 @@ inherit git-r3
 
 DESCRIPTION="solarized version of Numix"
 HOMEPAGE="https://github.com/mzgnr/solarized-dark-xfce"
-EGIT_REPO_URI="git://github.com/mzgnr/solarized-dark-xfce"
+EGIT_REPO_URI="https://github.com/mzgnr/solarized-dark-xfce"
 
 LICENSE="GPL-3 MIT"
 SLOT="0"
