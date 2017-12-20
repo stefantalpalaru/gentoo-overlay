@@ -77,8 +77,13 @@ src_unpack() {
 src_prepare() {
 	# from Arch Linux: https://aur.archlinux.org/packages/vmware-workstation/
 	epatch "${FILESDIR}/${PV_MAJOR}-vmblock.patch"
-	use vmci && epatch "${FILESDIR}/${PV_MAJOR}-vmci.patch"
-	use vsock && epatch "${FILESDIR}/${PV_MAJOR}-vsock.patch"
+	if use vmci; then
+		epatch "${FILESDIR}/${PV_MAJOR}-vmci.patch"
+	fi
+	if use vsock; then
+		epatch "${FILESDIR}/${PV_MAJOR}-vsock.patch"
+		epatch "${FILESDIR}/${PV_MAJOR}-4.14-00-vsock-gcc-plugins-randstruct.patch"
+	fi
 	# from https://github.com/mkubecek/vmware-host-modules/tree/workstation-14.0.0
 	epatch "${FILESDIR}/${PV_MAJOR}-00-vmmon-quick-workaround-for-objtool-warnings.patch"
 	kernel_is ge 4 9 0 && epatch "${FILESDIR}/${PV_MAJOR}-4.09-00-vmnet-use-standard-definition-of-PCI_VENDOR_ID_VMWAR.patch"
@@ -86,6 +91,7 @@ src_prepare() {
 	kernel_is ge 4 12 0 && epatch "${FILESDIR}/${PV_MAJOR}-4.12-00-vmmon-use-standard-definition-of-MSR_MISC_FEATURES_E.patch"
 	kernel_is ge 4 13 0 && epatch "${FILESDIR}/${PV_MAJOR}-4.13-00-vmmon-use-standard-definition-of-CR3_PCID_MASK-if-av.patch"
 	kernel_is ge 4 13 0 && epatch "${FILESDIR}/${PV_MAJOR}-4.13-01-vmmon-fix-page-accounting.patch"
+	kernel_is ge 4 15 0 && epatch "${FILESDIR}/${PV_MAJOR}-4.15-00-vmmon-convert-timers-to-use-timer_setup.patch"
 
 	# decouple the kernel include dir from the running kernel version: https://github.com/stefantalpalaru/gentoo-overlay/issues/17
 	sed -i -e "s%HEADER_DIR = /lib/modules/\$(VM_UNAME)/build/include%HEADER_DIR = ${KERNEL_DIR}/include%" */Makefile || die "sed failed"

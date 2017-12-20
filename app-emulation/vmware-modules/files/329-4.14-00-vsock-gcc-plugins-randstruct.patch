@@ -1,0 +1,84 @@
+--- a/vsock-only/linux/notify.c	2017-10-03 06:52:10.953893050 +0300
++++ b/vsock-only/linux/notify.c	2017-10-03 05:42:48.642701836 +0300
+@@ -1193,20 +1193,20 @@ VSockVmciNotifyPktProcessNegotiate(struc
+ 
+ 
+ /* Socket control packet based operations. */
+-VSockVmciNotifyOps vSockVmciNotifyPktOps = {
+-   VSockVmciNotifyPktSocketInit,
+-   VSockVmciNotifyPktSocketDestruct,
+-   VSockVmciNotifyPktPollIn,
+-   VSockVmciNotifyPktPollOut,
+-   VSockVmciNotifyPktHandlePkt,
+-   VSockVmciNotifyPktRecvInit,
+-   VSockVmciNotifyPktRecvPreBlock,
+-   VSockVmciNotifyPktRecvPreDequeue,
+-   VSockVmciNotifyPktRecvPostDequeue,
+-   VSockVmciNotifyPktSendInit,
+-   VSockVmciNotifyPktSendPreBlock,
+-   VSockVmciNotifyPktSendPreEnqueue,
+-   VSockVmciNotifyPktSendPostEnqueue,
+-   VSockVmciNotifyPktProcessRequest,
+-   VSockVmciNotifyPktProcessNegotiate,
++VSockVmciNotifyOps vSockVmciNotifyPktOps __refdata = {
++   .socketInit = VSockVmciNotifyPktSocketInit,
++   .socketDestruct = VSockVmciNotifyPktSocketDestruct,
++   .pollIn = VSockVmciNotifyPktPollIn,
++   .pollOut = VSockVmciNotifyPktPollOut,
++   .handleNotifyPkt = VSockVmciNotifyPktHandlePkt,
++   .recvInit = VSockVmciNotifyPktRecvInit,
++   .recvPreBlock = VSockVmciNotifyPktRecvPreBlock,
++   .recvPreDequeue = VSockVmciNotifyPktRecvPreDequeue,
++   .recvPostDequeue = VSockVmciNotifyPktRecvPostDequeue,
++   .sendInit = VSockVmciNotifyPktSendInit,
++   .sendPreBlock = VSockVmciNotifyPktSendPreBlock,
++   .sendPreEnqueue = VSockVmciNotifyPktSendPreEnqueue,
++   .sendPostEnqueue = VSockVmciNotifyPktSendPostEnqueue,
++   .processRequest = VSockVmciNotifyPktProcessRequest,
++   .processNegotiate = VSockVmciNotifyPktProcessNegotiate,
+ };
+diff -urp a/vsock-only/linux/notifyQState.c b/vsock-only/linux/notifyQState.c
+--- a/vsock-only/linux/notifyQState.c	2017-10-03 06:52:10.952893329 +0300
++++ b/vsock-only/linux/notifyQState.c	2017-10-03 05:43:02.950697125 +0300
+@@ -771,21 +770,24 @@ VSockVmciNotifyPktProcessNegotiate(struc
+ }
+ 
+ 
+-/* Socket always on control packet based operations. */
+-VSockVmciNotifyOps vSockVmciNotifyPktQStateOps = {
+-   VSockVmciNotifyPktSocketInit,
+-   VSockVmciNotifyPktSocketDestruct,
+-   VSockVmciNotifyPktPollIn,
+-   VSockVmciNotifyPktPollOut,
+-   VSockVmciNotifyPktHandlePkt,
+-   VSockVmciNotifyPktRecvInit,
+-   VSockVmciNotifyPktRecvPreBlock,
+-   NULL, /* recvPreDequeue */
+-   VSockVmciNotifyPktRecvPostDequeue,
+-   VSockVmciNotifyPktSendInit,
+-   NULL, /* sendPreBlock */
+-   NULL, /* sendPreEnqueue */
+-   VSockVmciNotifyPktSendPostEnqueue,
+-   VSockVmciNotifyPktProcessRequest,
+-   VSockVmciNotifyPktProcessNegotiate,
++
++
++// Socket always on control packet based operations.
++VSockVmciNotifyOps vSockVmciNotifyPktQStateOps __refdata = {
++    .socketInit       = VSockVmciNotifyPktSocketInit,
++    .socketDestruct   = VSockVmciNotifyPktSocketDestruct,
++    .pollIn           = VSockVmciNotifyPktPollIn,
++    .pollOut          = VSockVmciNotifyPktPollOut,
++    .handleNotifyPkt  = VSockVmciNotifyPktHandlePkt,
++    .recvInit         = VSockVmciNotifyPktRecvInit,
++    .recvPreBlock     = VSockVmciNotifyPktRecvPreBlock,
++    .recvPreDequeue   = NULL,
++    .recvPostDequeue  = VSockVmciNotifyPktRecvPostDequeue,
++    .sendInit         = VSockVmciNotifyPktSendInit,
++    .sendPreBlock     = NULL,
++    .sendPreEnqueue   = NULL,
++    .sendPostEnqueue  = VSockVmciNotifyPktSendPostEnqueue,
++    .processRequest   = VSockVmciNotifyPktProcessRequest,
++    .processNegotiate = VSockVmciNotifyPktProcessNegotiate,
++
+ };
