@@ -5,22 +5,24 @@ EAPI="6"
 
 PYTHON_COMPAT=( python2_7 )
 PYTHON_REQ_USE="threads(+)"
-inherit eutils python-single-r1 waf-utils multilib-minimal
+inherit python-single-r1 waf-utils multilib-minimal
 
-DESCRIPTION="A low-latency audio server (media-sound/jack2 copy because of #602898)"
+DESCRIPTION="Jackdmp jack implemention for multi-processor machine"
 HOMEPAGE="http://jackaudio.org/"
 
 MY_PV="${PV/_rc/-RC}"
-MY_P="${PN}-${MY_PV}"
-S="${WORKDIR}/${MY_P/-audio-connection-kit/2}"
-SRC_URI="https://github.com/jackaudio/jack2/archive/v${MY_PV}.tar.gz -> ${MY_P}.tar.gz"
+MY_P="jack2-${MY_PV}"
+S="${WORKDIR}/${MY_P}"
+SRC_URI="https://github.com/jackaudio/jack2/releases/download/v${MY_PV}/${MY_P}.tar.gz"
 KEYWORDS=""
 
 LICENSE="GPL-2"
 SLOT="2"
-IUSE="alsa celt dbus doc opus pam classic sndfile libsamplerate readline"
+IUSE="alsa celt dbus doc opus pam +classic sndfile libsamplerate readline"
 
-REQUIRED_USE="${PYTHON_REQUIRED_USE}"
+REQUIRED_USE="
+	${PYTHON_REQUIRED_USE}
+	|| ( classic dbus )"
 
 CDEPEND="media-libs/libsamplerate
 	media-libs/libsndfile
@@ -33,13 +35,13 @@ CDEPEND="media-libs/libsamplerate
 		sys-apps/dbus[${MULTILIB_USEDEP}]
 	)
 	opus? ( media-libs/opus[custom-modes,${MULTILIB_USEDEP}] )"
-DEPEND="!media-sound/jack-audio-connection-kit:0
-	${CDEPEND}
+DEPEND="${CDEPEND}
 	virtual/pkgconfig
 	doc? ( app-doc/doxygen )"
 RDEPEND="${CDEPEND}
 	dbus? ( dev-python/dbus-python[${PYTHON_USEDEP}] )
-	pam? ( sys-auth/realtime-base )"
+	pam? ( sys-auth/realtime-base )
+	!media-sound/jack-audio-connection-kit:0"
 
 DOCS=( ChangeLog README README_NETJACK2 TODO )
 
