@@ -2,6 +2,7 @@
 # Distributed under the terms of the GNU General Public License v2
 
 EAPI=6
+CMAKE_MAKEFILE_GENERATOR="emake"
 
 inherit bash-completion-r1 cmake-utils
 
@@ -72,7 +73,7 @@ DEPEND="${COMMON_DEPEND}
 "
 
 PATCHES=(
-	"${FILESDIR}"/${PN}-2.1.5-dynamic-linking.patch
+	"${FILESDIR}"/${PN}-2.1.8-dynamic-linking.patch
 	"${FILESDIR}"/${PN}-1.7.9-flags.patch
 	"${FILESDIR}"/${PN}-9999-man.patch
 )
