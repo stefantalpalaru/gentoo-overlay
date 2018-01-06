@@ -71,9 +71,9 @@
          'data'   : '{userbase}',
 --- Lib/test/test_site.py
 +++ Lib/test/test_site.py
-@@ -247,10 +247,10 @@
+@@ -253,10 +253,10 @@
          elif os.sep == '/':
-             # OS X non-framwework builds, Linux, FreeBSD, etc
+             # OS X, Linux, FreeBSD, etc
              self.assertEqual(len(dirs), 2)
 -            wanted = os.path.join('xoxo', 'lib', 'python' + sys.version[:3],
 +            wanted = os.path.join('xoxo', '@@GENTOO_LIBDIR@@', 'python' + sys.version[:3],
@@ -86,7 +86,7 @@
              # other platforms
 --- Makefile.pre.in
 +++ Makefile.pre.in
-@@ -111,7 +111,7 @@
+@@ -110,7 +110,7 @@
  MANDIR=		@mandir@
  INCLUDEDIR=	@includedir@
  CONFINCLUDEDIR=	$(exec_prefix)/include
@@ -117,7 +117,7 @@
  
  static void
  reduce(char *dir)
-@@ -522,7 +522,7 @@
+@@ -520,7 +520,7 @@
      }
      else
          strncpy(zip_path, PREFIX, MAXPATHLEN);
@@ -126,7 +126,7 @@
      bufsz = strlen(zip_path);   /* Replace "00" with version */
      zip_path[bufsz - 6] = VERSION[0];
      zip_path[bufsz - 5] = VERSION[2];
-@@ -532,7 +532,7 @@
+@@ -530,7 +530,7 @@
              fprintf(stderr,
                  "Could not find platform dependent libraries <exec_prefix>\n");
          strncpy(exec_prefix, EXEC_PREFIX, MAXPATHLEN);
@@ -193,7 +193,7 @@
              ]
              sqlite_libfile = self.compiler.find_library_file(
                                  sqlite_dirs_to_check + lib_dirs, 'sqlite3')
-@@ -1953,15 +1949,14 @@
+@@ -1956,15 +1952,14 @@
              added_lib_dirs.append('/usr/openwin/lib')
          elif os.path.exists('/usr/X11R6/include'):
              include_dirs.append('/usr/X11R6/include')

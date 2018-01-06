@@ -1,15 +1,15 @@
-# Copyright 1999-2017 Gentoo Foundation
+# Copyright 1999-2018 Gentoo Foundation
 # Distributed under the terms of the GNU General Public License v2
 
-EAPI="5"
+EAPI="6"
 WANT_LIBTOOL="none"
 
 inherit autotools eutils flag-o-matic git-r3 multilib pax-utils python-utils-r1 toolchain-funcs multiprocessing
 
-DESCRIPTION="Python 2.7 fork with new syntax, builtins, and libraries backported from Python 3"
+DESCRIPTION="Python 2.7 fork with new syntax, builtins, and libraries backported from Python3"
 HOMEPAGE="https://github.com/naftaliharris/tauthon"
 EGIT_REPO_URI="https://github.com/naftaliharris/tauthon.git"
-EGIT_COMMIT="736faed7324528ae5cdff5b6e5a46126c8f9de82"
+EGIT_COMMIT="1d2580021179f8dc7084453fed08c3d569d87d27"
 
 LICENSE="PSF-2"
 SLOT="2.8"
@@ -95,9 +95,10 @@ src_prepare() {
 	epatch "${FILESDIR}/python-2.7.9-ncurses-pkg-config.patch"
 	epatch "${FILESDIR}/python-2.7.10-cross-compile-warn-test.patch"
 	epatch "${FILESDIR}/python-2.7.10-system-libffi.patch"
+	epatch "${FILESDIR}/2.7-disable-nis.patch"
 	epatch "${FILESDIR}/tauthon-rename.patch"
 
-	epatch_user
+	eapply_user
 
 	sed -i -e "s:@@GENTOO_LIBDIR@@:$(get_libdir):g" \
 		Lib/distutils/command/install.py \
@@ -212,9 +213,9 @@ src_compile() {
 
 	# Work around bug 329499. See also bug 413751 and 457194.
 	if has_version dev-libs/libffi[pax_kernel]; then
-		pax-mark E py
+		pax-mark E tauthon
 	else
-		pax-mark m py
+		pax-mark m tauthon
 	fi
 }
 
@@ -234,6 +235,11 @@ src_test() {
 		mv "${S}"/Lib/test/test_${test}.py "${T}"
 	done
 
+	# Daylight saving time problem
+	# https://bugs.python.org/issue22067
+	# https://bugs.gentoo.org/610628
+	local -x TZ=UTC
+
 	# Rerun failed tests in verbose mode (regrtest -w).
 	emake test EXTRATESTOPTS="-w" < /dev/tty
 	local result="$?"
@@ -248,7 +254,7 @@ src_test() {
 	done
 
 	elog "If you would like to run them, you may:"
-	elog "cd '${EPREFIX}/usr/$(get_libdir)/py${SLOT}/test'"
+	elog "cd '${EPREFIX}/usr/$(get_libdir)/tauthon${SLOT}/test'"
 	elog "and run the tests separately."
 
 	if [[ "${result}" -ne 0 ]]; then
@@ -276,7 +282,7 @@ src_install() {
 	mv "${ED}usr/bin/idle" "${ED}usr/bin/idle${SLOT}"
 	rm -f "${ED}usr/bin/smtpd.py"
 
-	use berkdb || rm -r "${libdir}/"{bsddb,dbhash.py,test/test_bsddb*} || die
+	use berkdb || rm -r "${libdir}/"{bsddb,dbhash.py*,test/test_bsddb*} || die
 	use sqlite || rm -r "${libdir}/"{sqlite3,test/test_sqlite*} || die
 	use tk || rm -r "${ED}usr/bin/idle${SLOT}" "${libdir}/"{idlelib,lib-tk} || die
 	use elibc_uclibc && rm -fr "${libdir}/"{bsddb/test,test}
@@ -308,7 +314,7 @@ src_install() {
 	# if not using a cross-compiler, use the fresh binary
 	if ! tc-is-cross-compiler; then
 		local -x PYTHON=./tauthon
-		local -x LD_LIBRARY_PATH=${LD_LIBRARY_PATH+${LD_LIBRARY_PATH}:}.
+		local -x LD_LIBRARY_PATH=${LD_LIBRARY_PATH+${LD_LIBRARY_PATH}:}${PWD}
 	else
 		vars=( PYTHON "${vars[@]}" )
 	fi

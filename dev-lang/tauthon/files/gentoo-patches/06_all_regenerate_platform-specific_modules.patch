@@ -1,34 +1,32 @@
-diff -ur Lib/plat-aix4/regen Lib/plat-aix4/regen
---- Lib/plat-aix4/regen	2017-01-05 23:02:47.386580383 +0100
-+++ Lib/plat-aix4/regen	2017-01-05 23:05:20.581257542 +0100
+https://bugs.python.org/issue12619
+
+--- Lib/plat-aix4/regen
++++ Lib/plat-aix4/regen
 @@ -5,4 +5,4 @@
          exit 1;;
  esac
  set -v
 -h2py.py -i '(u_long)' /usr/include/netinet/in.h
 +python$EXE ../../Tools/scripts/h2py.py -i '(u_long)' /usr/include/netinet/in.h
-diff -ur Lib/plat-linux2/regen Lib/plat-linux2/regen
---- Lib/plat-linux2/regen	2017-01-05 23:02:47.386580383 +0100
-+++ Lib/plat-linux2/regen	2017-01-05 23:05:56.000026895 +0100
+--- Lib/plat-linux2/regen
++++ Lib/plat-linux2/regen
 @@ -5,4 +5,4 @@
  	exit 1;;
  esac
  set -v
 -h2py -i '(u_long)' /usr/include/sys/types.h /usr/include/netinet/in.h /usr/include/dlfcn.h
 +python$EXE ../../Tools/scripts/h2py.py -i '(u_long)' /usr/include/sys/types.h /usr/include/netinet/in.h /usr/include/dlfcn.h /usr/include/linux/cdrom.h
-diff -ur Lib/plat-sunos5/regen Lib/plat-sunos5/regen
---- Lib/plat-sunos5/regen	2017-01-05 23:02:47.406579691 +0100
-+++ Lib/plat-sunos5/regen	2017-01-05 23:06:24.099050576 +0100
-@@ -5,5 +5,5 @@
+--- Lib/plat-sunos5/regen
++++ Lib/plat-sunos5/regen
+@@ -5,5 +5,4 @@
  	exit 1;;
  esac
  set -v
 -h2py -i '(u_long)' /usr/include/sys/types.h /usr/include/netinet/in.h /usr/include/sys/stropts.h /usr/include/dlfcn.h
+-
 +python$EXE ../../Tools/scripts/h2py.py -i '(u_long)' /usr/include/sys/types.h /usr/include/netinet/in.h /usr/include/sys/stropts.h /usr/include/dlfcn.h
- 
-diff -ur Lib/plat-unixware7/regen Lib/plat-unixware7/regen
---- Lib/plat-unixware7/regen	2017-01-05 23:02:47.406579691 +0100
-+++ Lib/plat-unixware7/regen	2017-01-05 23:07:00.997768508 +0100
+--- Lib/plat-unixware7/regen
++++ Lib/plat-unixware7/regen
 @@ -5,5 +5,5 @@
  	exit 1;;
  esac
@@ -37,10 +35,9 @@ diff -ur Lib/plat-unixware7/regen Lib/plat-unixware7/regen
 -h2py /usr/include/sys/stropts.h
 +python$EXE ../../Tools/scripts/h2py.py -i '(u_long)' /usr/include/netinet/in.h
 +python$EXE ../../Tools/scripts/h2py.py /usr/include/sys/stropts.h
-diff -ur Makefile.pre.in Makefile.pre.in
---- Makefile.pre.in	2017-01-05 23:02:48.236550853 +0100
-+++ Makefile.pre.in	2017-01-05 23:11:29.718431642 +0100
-@@ -429,7 +429,7 @@
+--- Makefile.pre.in
++++ Makefile.pre.in
+@@ -401,7 +401,7 @@
  
  # Default target
  all:		@DEF_MAKE_ALL_RULE@
@@ -49,7 +46,7 @@ diff -ur Makefile.pre.in Makefile.pre.in
  
  # Compile a binary with profile guided optimization.
  profile-opt:
-@@ -547,6 +547,32 @@
+@@ -518,6 +518,32 @@
  		_TCLTK_INCLUDES='$(TCLTK_INCLUDES)' _TCLTK_LIBS='$(TCLTK_LIBS)' \
  		$(PYTHON_FOR_BUILD) $(srcdir)/setup.py $$quiet build
  
@@ -82,7 +79,7 @@ diff -ur Makefile.pre.in Makefile.pre.in
  # Build static library
  # avoid long command lines, same as LIBRARY_OBJS
  $(LIBRARY): $(LIBRARY_OBJS)
-@@ -1075,7 +1101,7 @@
+@@ -1067,7 +1093,7 @@
  		unittest unittest/test \
  		lib-old \
  		curses pydoc_data $(MACHDEPS)
@@ -91,7 +88,7 @@ diff -ur Makefile.pre.in Makefile.pre.in
  	@for i in $(SCRIPTDIR) $(LIBDEST); \
  	do \
  		if test ! -d $(DESTDIR)$$i; then \
-@@ -1158,23 +1184,6 @@
+@@ -1150,23 +1176,6 @@
  	-PYTHONPATH=$(DESTDIR)$(LIBDEST) $(RUNSHARED) \
  		$(PYTHON_FOR_BUILD) -m lib2to3.pgen2.driver $(DESTDIR)$(LIBDEST)/lib2to3/PatternGrammar.txt
  
@@ -115,7 +112,7 @@ diff -ur Makefile.pre.in Makefile.pre.in
  python-config: $(srcdir)/Misc/python-config.in
  	# Substitution happens here, as the completely-expanded BINDIR
  	# is not available in configure
-@@ -1475,7 +1484,7 @@
+@@ -1465,7 +1474,7 @@
  Python/thread.o: @THREADHEADERS@
  
  # Declare targets that aren't real files

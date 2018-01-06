@@ -262,7 +262,7 @@ https://bugs.python.org/issue1222585
                      linker = _osx_support.compiler_fixup(linker, ld_args)
 --- Makefile.pre.in
 +++ Makefile.pre.in
-@@ -544,7 +544,7 @@
+@@ -514,7 +514,7 @@
  	    *\ -s*|s*) quiet="-q";; \
  	    *) quiet="";; \
  	esac; \
