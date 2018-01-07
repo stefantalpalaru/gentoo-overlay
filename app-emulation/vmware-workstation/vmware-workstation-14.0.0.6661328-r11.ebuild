@@ -191,6 +191,7 @@ RDEPEND="
 	cups? ( net-print/cups )
 	sys-apps/tcp-wrappers
 	sys-apps/util-linux
+	x11-libs/gksu
 	x11-libs/libXxf86vm
 	x11-libs/libdrm
 	x11-libs/libxshmfence
