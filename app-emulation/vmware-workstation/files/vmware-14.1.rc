@@ -1,5 +1,5 @@
 #!/sbin/openrc-run
-# Copyright 1999-2017 Gentoo Foundation
+# Copyright 1999-2018 Gentoo Foundation
 # Distributed under the terms of the GNU General Public License v2
 
 depend() {
@@ -41,10 +41,16 @@ start() {
 		fi
 	done
 
+	# vmblock
+	if [[ -f /lib/modules/$(uname -r)/misc/vmblock.ko ]]; then
+		modprobe -v vmblock
+		eend $?
+	fi
+
 	# vmci or vsock were already loaded by the previous modprobe,
 	# no need to do it here
 	# quiet for vmci because it may not be there
-	modprobe -av vmmon vmblock vmnet
+	modprobe -av vmmon vmnet
 	eend $?
 	@@BINDIR@@/vmware-networks --start
 	eend $?
@@ -57,7 +63,7 @@ stop() {
 	@@BINDIR@@/vmware-networks --stop
 	eend $?
 	ebegin Stopping VMware services
-	modprobe -rv vmmon vmblock vmnet
+	modprobe -rv vmmon vmnet
 	eend $?
 
 	# vsock might be:
@@ -87,4 +93,10 @@ stop() {
 			break
 		fi
 	done
+
+	# vmblock
+	if [[ -f /lib/modules/$(uname -r)/misc/vmblock.ko ]]; then
+		modprobe -rv vmblock
+		eend $?
+	fi
 }

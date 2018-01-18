@@ -1,4 +1,4 @@
-# Copyright 1999-2017 Gentoo Foundation
+# Copyright 1999-2018 Gentoo Foundation
 # Distributed under the terms of the GNU General Public License v2
 
 EAPI=6
@@ -10,7 +10,7 @@ MY_PV=$(get_version_component_range 1-3)
 PV_MODULES="329.$(get_version_component_range 2-3)"
 PV_BUILD=$(get_version_component_range 4)
 MY_P="${MY_PN}-${MY_PV}-${PV_BUILD}"
-VMWARE_FUSION_VER="10.0.1_6754183"
+VMWARE_FUSION_VER="10.1.1_7520154"
 SYSTEMD_UNITS_TAG="gentoo-02"
 
 DESCRIPTION="Emulate a complete PC without the performance overhead of most emulators"
@@ -18,7 +18,7 @@ HOMEPAGE="http://www.vmware.com/products/workstation/"
 SRC_URI="
 	https://download3.vmware.com/software/wkst/file/${MY_P}.x86_64.bundle
 	macos-guests? (
-		https://github.com/DrDonk/unlocker/archive/fd216eb4892857ffc7755a965cedb8f740eb42ea.zip -> unlocker-2.1.1.zip
+		https://github.com/DrDonk/unlocker/archive/b036c40ab1922d9abf4f7d68e34f1eca3b4dc2ad.zip -> unlocker-2.1.1_p1.zip
 		vmware-tools-darwinPre15? ( https://softwareupdate.vmware.com/cds/vmw-desktop/fusion/${VMWARE_FUSION_VER/_//}/packages/com.vmware.fusion.tools.darwinPre15.zip.tar )
 		vmware-tools-darwin? ( https://softwareupdate.vmware.com/cds/vmw-desktop/fusion/${VMWARE_FUSION_VER/_//}/packages/com.vmware.fusion.tools.darwin.zip.tar )
 	)
@@ -208,6 +208,7 @@ PDEPEND="
 DEPEND="
 	dev-lang/python:2.7
 	>=dev-util/patchelf-0.9
+	macos-guests? ( dev-python/six )
 	ovftool? ( app-admin/chrpath )
 	sys-libs/ncurses:5
 	sys-libs/readline:0
@@ -375,6 +376,10 @@ src_install() {
 
 	# pam
 	pamd_mimic_system vmware-authd auth account
+
+	# fuse
+	insinto /etc/modprobe.d
+	newins vmware-vmx/etc/modprobe.d/modprobe-vmware-fuse.conf vmware-fuse.conf
 
 	# install vmware workstation server
 	if use server; then
