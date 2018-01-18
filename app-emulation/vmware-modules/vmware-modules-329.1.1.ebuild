@@ -1,4 +1,4 @@
-# Copyright 1999-2017 Gentoo Foundation
+# Copyright 1999-2018 Gentoo Foundation
 # Distributed under the terms of the GNU General Public License v2
 
 EAPI=6
@@ -16,7 +16,7 @@ SRC_URI=""
 LICENSE="GPL-2"
 SLOT="0"
 KEYWORDS="~amd64"
-IUSE="+vmci +vsock"
+IUSE="vmblock vmci vsock"
 REQUIRED_USE="!vsock? ( !vmci )"
 
 RDEPEND=""
@@ -49,9 +49,10 @@ pkg_setup() {
 	VMWARE_GROUP=${VMWARE_GROUP:-vmware}
 
 	VMWARE_MODULE_LIST_ALL="vmblock vmmon vmnet vmci vsock"
-	VMWARE_MODULE_LIST="vmblock vmmon vmnet"
+	VMWARE_MODULE_LIST="vmmon vmnet"
 	use vmci && VMWARE_MODULE_LIST="${VMWARE_MODULE_LIST} vmci"
 	use vsock && VMWARE_MODULE_LIST="${VMWARE_MODULE_LIST} vsock"
+	use vmblock && VMWARE_MODULE_LIST="${VMWARE_MODULE_LIST} vmblock"
 
 	VMWARE_MOD_DIR="${PN}-${PVR}"
 
@@ -76,7 +77,9 @@ src_unpack() {
 
 src_prepare() {
 	# from Arch Linux: https://aur.archlinux.org/packages/vmware-workstation/
-	epatch "${FILESDIR}/${PV_MAJOR}-vmblock.patch"
+	if use vmblock; then
+		epatch "${FILESDIR}/${PV_MAJOR}-vmblock.patch"
+	fi
 	if use vmci; then
 		epatch "${FILESDIR}/${PV_MAJOR}-vmci.patch"
 	fi
@@ -90,7 +93,6 @@ src_prepare() {
 	kernel_is ge 4 10 0 && epatch "${FILESDIR}/${PV_MAJOR}-4.10-00-vmnet-use-standard-definition-of-PCI_VENDOR_ID_VMWAR.patch"
 	kernel_is ge 4 12 0 && epatch "${FILESDIR}/${PV_MAJOR}-4.12-00-vmmon-use-standard-definition-of-MSR_MISC_FEATURES_E.patch"
 	kernel_is ge 4 13 0 && epatch "${FILESDIR}/${PV_MAJOR}-4.13-00-vmmon-use-standard-definition-of-CR3_PCID_MASK-if-av.patch"
-	kernel_is ge 4 13 0 && epatch "${FILESDIR}/${PV_MAJOR}-4.13-01-vmmon-fix-page-accounting.patch"
 	kernel_is ge 4 15 0 && epatch "${FILESDIR}/${PV_MAJOR}-4.15-00-vmmon-convert-timers-to-use-timer_setup.patch"
 
 	# decouple the kernel include dir from the running kernel version: https://github.com/stefantalpalaru/gentoo-overlay/issues/17
