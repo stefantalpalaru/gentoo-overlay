@@ -5,7 +5,7 @@ EAPI="6"
 
 PYTHON_COMPAT=( python{2_7,3_4,3_5,3_6} pypy )
 
-inherit user autotools systemd python-r1
+inherit autotools flag-o-matic python-r1 systemd user
 
 DESCRIPTION="Varnish is a state-of-the-art, high-performance HTTP accelerator"
 HOMEPAGE="http://www.varnish-cache.org/"
@@ -59,6 +59,9 @@ src_prepare() {
 	# https://bugs.gentoo.org/614984
 	cp -a "${FILESDIR}/ax_with_curses.m4" m4/
 	sed -i -e 's/@CURSES_LIB@/@CURSES_LIBS@/g' bin/*/Makefile.am
+
+	# https://github.com/varnishcache/varnish-cache/issues/1875
+	append-flags "-fexcess-precision=standard"
 
 	eapply_user
 
