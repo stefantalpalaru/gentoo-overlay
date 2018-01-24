@@ -1,19 +1,23 @@
-# Copyright 1999-2017 Gentoo Foundation
+# Copyright 1999-2018 Gentoo Foundation
 # Distributed under the terms of the GNU General Public License v2
 
 EAPI=6
 CMAKE_MAKEFILE_GENERATOR="emake"
 
-inherit bash-completion-r1 cmake-utils git-r3
+inherit bash-completion-r1 cmake-utils
 
 MY_PV=${PV//./}
 
 DESCRIPTION="GREYC's Magic Image Converter"
 HOMEPAGE="http://gmic.eu/ https://github.com/dtschump/gmic"
-EGIT_REPO_URI="https://github.com/dtschump/gmic.git"
-EGIT_REPO_URI_2="https://github.com/c-koi/gmic-qt.git"
+GMIC_QT_URI="https://github.com/c-koi/gmic-qt/archive/v.${MY_PV}.tar.gz -> gmic-qt-${PV}.tar.gz"
+SRC_URI="http://gmic.eu/files/source/${PN}_${PV}.tar.gz
+	gimp? ( ${GMIC_QT_URI} )
+	gui? ( ${GMIC_QT_URI} )
+	krita? ( ${GMIC_QT_URI} )
+"
 
-KEYWORDS=""
+KEYWORDS="~amd64 ~x86"
 
 LICENSE="CeCILL-2 GPL-3"
 SLOT="0"
@@ -74,8 +78,7 @@ PATCHES=(
 	"${FILESDIR}"/${PN}-9999-man.patch
 )
 
-GMIC_QT_DIR="gmic-qt"
-S="${WORKDIR}/${PN}"
+GMIC_QT_DIR="gmic-qt-v.${MY_PV}"
 
 pkg_pretend() {
 	if use openmp ; then
@@ -87,20 +90,11 @@ pkg_pretend() {
 	fi
 }
 
-src_unpack() {
-	EGIT_CHECKOUT_DIR="${S}"
-	git-r3_src_unpack
-
-	if use gimp || use gui || use krita; then
-		EGIT_REPO_URI="${EGIT_REPO_URI_2}"
-		EGIT_CHECKOUT_DIR="${WORKDIR}/${GMIC_QT_DIR}"
-		git-r3_src_unpack
-	fi
-}
-
 src_prepare() {
-	#cp -a resources/CMakeLists.txt .
+	cp -a resources/CMakeLists.txt .
 	cmake-utils_src_prepare
+
+	ln -sr ../${P} ../${PN}
 
 	if use gimp || use gui || use krita; then
 		sed -i \
@@ -108,7 +102,7 @@ src_prepare() {
 			../${GMIC_QT_DIR}/CMakeLists.txt || die "sed failed"
 		local S="${WORKDIR}/${GMIC_QT_DIR}"
 		local PATCHES=(
-			"${FILESDIR}"/${PN}-2.1.5-dynamic-linking-qt.patch
+			"${FILESDIR}"/${PN}-2.1.9-dynamic-linking-qt.patch
 		)
 		cmake-utils_src_prepare
 	fi
@@ -122,7 +116,6 @@ src_configure() {
 		-DBUILD_LIB_STATIC=$(usex static-libs ON OFF)
 		-DBUILD_CLI=$(usex cli ON OFF)
 		-DBUILD_MAN=$(usex cli ON OFF)
-		-DBUILD_BASH_COMPLETION=$(usex cli $(usex bash-completion ON OFF) OFF)
 		-DBUILD_PLUGIN=$(usex gimp-gtk ON OFF)
 		-DENABLE_X=$(usex X ON OFF)
 		-DENABLE_FFMPEG=$(usex ffmpeg ON OFF)

@@ -1,8 +1,8 @@
 diff --git a/CMakeLists.txt b/CMakeLists.txt
-index 59139a3..0cb6579 100644
+index d0d61ff..61497f9 100644
 --- a/CMakeLists.txt
 +++ b/CMakeLists.txt
-@@ -19,6 +19,9 @@ message("Building version:" ${GMIC_QT_HOST})
+@@ -24,6 +24,9 @@ endif()
  set (GMIC_PATH "../gmic/src" CACHE STRING "Define the path to the gmic headers")
  message("G'MIC path: " ${GMIC_PATH})
  
@@ -12,11 +12,11 @@ index 59139a3..0cb6579 100644
  #
  # Look for G'MIC repository
  #
-@@ -344,9 +347,22 @@ set (gmic_qt_SRCS
-     src/ZoomLevelSelector.cpp
-     src/LanguageSelectionWidget.cpp
-     src/TreeView.cpp
--    ${GMIC_PATH}/gmic.cpp
+@@ -362,9 +365,22 @@ set (gmic_qt_SRCS
+   src/Widgets/LanguageSelectionWidget.cpp
+   src/Widgets/ProgressInfoWindow.cpp
+ 
+-  ${GMIC_PATH}/gmic.cpp
  )
  
 +if(ENABLE_DYNAMIC_LINKING)
@@ -29,10 +29,10 @@ index 59139a3..0cb6579 100644
 +else(ENABLE_DYNAMIC_LINKING)
 +  set(gmic_qt_SRCS
 +    ${gmic_qt_SRCS}
-+    ${GMIC_PATH}/gmic.cpp
++  ${GMIC_PATH}/gmic.cpp
 +    )
 +endif(ENABLE_DYNAMIC_LINKING)
 +
  qt5_wrap_ui(gmic_qt_SRCS
-     ui/inoutpanel.ui
-     ui/multilinetextparameterwidget.ui
+   ui/dialogsettings.ui
+   ui/filtersview.ui
