@@ -1,4 +1,4 @@
-# Copyright 1999-2017 Gentoo Foundation
+# Copyright 1999-2018 Gentoo Foundation
 # Distributed under the terms of the GNU General Public License v2
 
 EAPI=6
@@ -9,7 +9,9 @@ inherit eutils cmake-utils git-r3 multilib python-single-r1 vim-plugin
 
 DESCRIPTION="vim plugin: a code-completion engine for Vim"
 HOMEPAGE="http://valloric.github.io/YouCompleteMe/"
-EGIT_REPO_URI="git://github.com/Valloric/YouCompleteMe.git"
+SRC_URI=""
+EGIT_REPO_URI="https://github.com/Valloric/YouCompleteMe.git"
+EGIT_COMMIT="d183f11fa72471ed6c4df595b4047dfff98abf75"
 EGIT_SUBMODULES=(
 	'*'
 	'-third_party/OmniSharpServer'
@@ -28,7 +30,7 @@ EGIT_SUBMODULES=(
 
 LICENSE="GPL-3"
 SLOT="0"
-KEYWORDS=""
+KEYWORDS="~amd64 ~x86"
 IUSE="clang doc test rust"
 REQUIRED_USE="${PYTHON_REQUIRED_USE}"
 
@@ -55,7 +57,7 @@ DEPEND="
 	${COMMON_DEPEND}
 	rust? (
 		|| ( dev-lang/rust dev-lang/rust-bin )
-		|| ( dev-util/cargo dev-util/cargo-bin )
+		dev-util/cargo
 	)
 	test? (
 		>=dev-python/mock-1.0.1[${PYTHON_USEDEP}]
@@ -94,8 +96,8 @@ src_prepare() {
 
 src_configure() {
 	local mycmakeargs=(
-		-DUSE_CLANG_COMPLETER="$(usex clang)"
-		-DUSE_SYSTEM_LIBCLANG="$(usex clang)"
+		-DUSE_CLANG_COMPLETER="$(usex clang ON OFF)"
+		-DEXTERNAL_LIBCLANG_PATH="$(usex clang $(clang --print-file-name=libclang.so) '')"
 		-DUSE_SYSTEM_BOOST=ON
 		-DUSE_SYSTEM_GMOCK=ON
 	)
