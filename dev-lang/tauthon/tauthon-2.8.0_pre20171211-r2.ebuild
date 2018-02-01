@@ -1,7 +1,7 @@
 # Copyright 1999-2018 Gentoo Foundation
 # Distributed under the terms of the GNU General Public License v2
 
-EAPI="6"
+EAPI=6
 WANT_LIBTOOL="none"
 
 inherit autotools eutils flag-o-matic git-r3 multilib pax-utils python-utils-r1 toolchain-funcs multiprocessing
@@ -14,7 +14,7 @@ EGIT_COMMIT="1d2580021179f8dc7084453fed08c3d569d87d27"
 LICENSE="PSF-2"
 SLOT="2.8"
 KEYWORDS="alpha amd64 arm ~arm64 hppa ia64 ~m68k ~mips ppc ppc64 ~s390 ~sh sparc x86 ~amd64-fbsd ~x86-fbsd"
-IUSE="-berkdb build doc elibc_uclibc examples gdbm hardened ipv6 libressl +ncurses +readline sqlite +ssl +threads tk +wide-unicode wininst +xml"
+IUSE="-berkdb build doc elibc_uclibc examples gdbm hardened ipv6 libressl +ncurses +optimizations +readline sqlite +ssl +threads tk +wide-unicode wininst +xml"
 
 # Do not add a dependency on dev-lang/python to this ebuild.
 # If you need to apply a patch which requires python for bootstrapping, please
@@ -37,6 +37,7 @@ RDEPEND="app-arch/bzip2:0=
 		sys-libs/db:4.2
 	) )
 	gdbm? ( sys-libs/gdbm:0=[berkdb] )
+	optimizations? ( sys-devel/llvm:* )
 	ncurses? (
 		>=sys-libs/ncurses-5.2:0=
 		readline? ( >=sys-libs/readline-4.1:0= )
@@ -168,6 +169,11 @@ src_configure() {
 	# Please query BSD team before removing this!
 	append-ldflags "-L."
 
+	# LTO needs this
+	if use optimizations; then
+		append-ldflags "${CFLAGS}"
+	fi
+
 	local dbmliborder
 	if use gdbm; then
 		dbmliborder+="${dbmliborder:+:}gdbm"
@@ -187,6 +193,7 @@ src_configure() {
 		$(use_enable ipv6) \
 		$(use_with threads) \
 		$(use wide-unicode && echo "--enable-unicode=ucs4" || echo "--enable-unicode=ucs2") \
+		$(use_enable optimizations) \
 		--infodir='${prefix}/share/info' \
 		--mandir='${prefix}/share/man' \
 		--with-computed-gotos \
@@ -209,7 +216,17 @@ src_compile() {
 	touch Include/graminit.h Python/graminit.c
 
 	cd "${BUILD_DIR}" || die
-	emake
+
+	# extract the number of parallel jobs in MAKEOPTS
+	echo ${MAKEOPTS} | egrep -o '(\-j|\-\-jobs)(=?|[[:space:]]*)[[:digit:]]+' > /dev/null
+	if [ $? -eq 0 ]; then
+		par_arg="-j$(echo ${MAKEOPTS} | egrep -o '(\-j|\-\-jobs)(=?|[[:space:]]*)[[:digit:]]+' | tail -n1 | egrep -o '[[:digit:]]+')"
+	else
+		par_arg=""
+	fi
+	export par_arg
+
+	emake PROFILE_TASK="-m test.regrtest ${par_arg} --pgo -uall,-audio -x test_asyncore test_gdb test_multiprocessing test_subprocess test_distutils test_xpickle"
 
 	# Work around bug 329499. See also bug 413751 and 457194.
 	if has_version dev-libs/libffi[pax_kernel]; then
@@ -229,7 +246,7 @@ src_test() {
 	cd "${BUILD_DIR}" || die
 
 	# Skip failing tests.
-	local skipped_tests="distutils gdb"
+	local skipped_tests="distutils gdb curses xpickle"
 
 	for test in ${skipped_tests}; do
 		mv "${S}"/Lib/test/test_${test}.py "${T}"
@@ -241,7 +258,7 @@ src_test() {
 	local -x TZ=UTC
 
 	# Rerun failed tests in verbose mode (regrtest -w).
-	emake test EXTRATESTOPTS="-w" < /dev/tty
+	emake test TESTOPTS="-w -uall,-audio ${par_arg}" < /dev/tty
 	local result="$?"
 
 	for test in ${skipped_tests}; do
