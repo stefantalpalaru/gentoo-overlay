@@ -15,6 +15,7 @@
 		<name>Proxy Maintainers</name>
 	</maintainer>
 	<use>
+		<flag name="aom">Enable AV1 codec support.</flag>
 		<flag name="avcodec">Enables libavcodec support for video/audio encoding/decoding. libavcodec is part of FFmpeg.</flag>
 		<flag name="avformat">Enables libformat support for reading and writing various media containers. libavformat is part of FFmpeg.</flag>
 		<flag name="bluray">Enables libbluray for Blu-ray disc support.</flag>
@@ -30,7 +31,9 @@
 		<flag name="gcrypt">Enables cryptography support via libgcrypt.</flag>
 		<flag name="gme">Enables support for <pkg>media-libs/game-music-emu</pkg> for playing various video game music formats.</flag>
 		<flag name="gstreamer">Enables GStreamer based decoding support (currently supports only video decoding)</flag>
+		<flag name="harfbuzz">Enables OpenType shaping via media-libs/harfbuzz.</flag>
 		<flag name="kate">Adds support for Ogg Kate subtitles via libkate.</flag>
+		<flag name="libsecret">Use libsecret for keystore.</flag>
 		<flag name="libtar">Uses libtar instead of the built-in tar reader for reading custom skins.</flag>
 		<flag name="libtiger">Enables Ogg Kate subtitles rendering using libtiger.</flag>
 		<flag name="linsys">Enables support for Linux Linear Systems Ltd. SDI and HD-SDI input cards.</flag>
@@ -40,6 +43,7 @@
 		<flag name="macosx-qtkit">Enables Mac OS X qtkit module: qtcapture (video) and qtsound (audio) module.</flag>
 		<flag name="matroska">Enables matroska support using reference libraries (fallback on other existing matroska support if disabled, i.e., matroska enabled FFmpeg)</flag>
 		<flag name="mpeg">Add libmpeg2 support for mpeg-1 and mpeg-2 video streams</flag>
+		<flag name="nfs">Support NFS protocol via <pkg>net-fs/libnfs</pkg></flag>
 		<flag name="omxil">Enables OpenMAX Integration Layer codec module.</flag>
 		<flag name="optimisememory">Enable optimisation for memory rather than performance.</flag>
 		<flag name="opencv">Enabled OpenCV (computer vision) filter module.</flag>
@@ -56,6 +60,9 @@
 		<flag name="sftp">Enables libssh2 to support SFTP file transfer.</flag>
 		<flag name="shout">Enables libshout output.</flag>
 		<flag name="skins">Enables support for the skins2 interface.</flag>
+		<flag name="soxr">Use the SoX resampling library.</flag>
+		<flag name="spatialaudio">Enables an Ambisonic channel mixer and binauralizer using <pkg>media-libs/libspatialaudio</pkg>.</flag>
+		<flag name="srt">Enables Secure Reliable Transport using <pkg>media-libs/libsrt</pkg></flag>
 		<flag name="swscale">Enables image scaling and conversion via libswscale (part of FFmpeg).</flag>
 		<flag name="tremor">Enables tremor, a fixed-point version of the Ogg Vorbis decoder.</flag>
 		<flag name="twolame">Enables twolame support (MPEG Audio Layer 2 encoder).</flag>

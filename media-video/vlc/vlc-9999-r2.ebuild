@@ -37,28 +37,28 @@ if [[ ${PV} != *9999 ]] ; then
 	KEYWORDS="~amd64 ~arm ~ppc ~ppc64 -sparc ~x86 ~x86-fbsd"
 fi
 
-IUSE="a52 aalib alsa altivec +avcodec
+IUSE="a52 alsa altivec aom +avcodec
 	+avformat bidi bluray cddb chromaprint chromecast dbus dc1394 debug
 	directx dts dvb +dvbpsi dvd dxva2 elibc_glibc +encode faad fdk
-	fluidsynth +ffmpeg flac fontconfig +gcrypt gme gnutls gstreamer
+	fluidsynth +ffmpeg flac fontconfig +gcrypt gme gnutls gstreamer harfbuzz
 	ieee1394 jack jpeg kate kde libass libav libcaca libnotify
-	+libsamplerate libtiger linsys libtar lirc live lua
+	+libsamplerate libsecret libtiger linsys libtar lirc live lua
 	macosx-notifications macosx-qtkit
-	matroska cpu_flags_x86_mmx modplug mp3 mpeg mtp musepack
+	matroska nfs cpu_flags_x86_mmx modplug mp3 mpeg mtp musepack
 	ncurses neon ogg omxil opencv opengl optimisememory opus
 	png postproc projectm pulseaudio +qt4 qt5 rdp rtsp run-as-root samba
-	schroedinger sdl-image sftp shout sid skins speex cpu_flags_x86_sse svg +swscale
+	schroedinger sdl-image sftp shout sid skins soxr spatialaudio speex srt cpu_flags_x86_sse svg +swscale
 	taglib theora tremor truetype twolame udev upnp vaapi v4l vcd vdpau
 	vlm vnc vorbis vpx wma-fixed +X x264 x265 +xcb xml xv zeroconf zvbi wayland"
 
 RDEPEND="
+	aom? ( media-libs/libaom )
 	app-arch/libarchive
 	dev-libs/libgpg-error:0
 	net-dns/libidn:0
 	sys-libs/zlib:0[minizip]
 	virtual/libintl:0
 	a52? ( >=media-libs/a52dec-0.7.4-r3:0 )
-	aalib? ( media-libs/aalib:0 )
 	alsa? ( >=media-libs/alsa-lib-1.0.24:0 )
 	avcodec? (
 		!libav? ( media-video/ffmpeg:0= )
@@ -88,14 +88,16 @@ RDEPEND="
 	gme? ( media-libs/game-music-emu:0 )
 	gnutls? ( >=net-libs/gnutls-3.2.0:0 )
 	gstreamer? ( >=media-libs/gst-plugins-base-1.4.5:1.0 )
+	harfbuzz? ( media-libs/harfbuzz )
 	ieee1394? ( >=sys-libs/libraw1394-2.0.1:0 >=sys-libs/libavc1394-0.5.3:0 )
 	jack? ( virtual/jack )
 	jpeg? ( virtual/jpeg:0 )
 	kate? ( >=media-libs/libkate-0.3:0 )
 	libass? ( >=media-libs/libass-0.9.8:0= media-libs/fontconfig:1.0 )
 	libcaca? ( >=media-libs/libcaca-0.99_beta14:0 )
-	libnotify? ( x11-libs/libnotify:0 x11-libs/gtk+:2 x11-libs/gdk-pixbuf:2 dev-libs/glib:2 )
+	libnotify? ( x11-libs/libnotify:0 x11-libs/gtk+:3 x11-libs/gdk-pixbuf:2 dev-libs/glib:2 )
 	libsamplerate? ( media-libs/libsamplerate:0 )
+	libsecret? ( app-crypt/libsecret )
 	libtar? ( >=dev-libs/libtar-1.2.11-r3:0 )
 	libtiger? ( >=media-libs/libtiger-0.3.1:0 )
 	linsys? ( >=media-libs/zvbi-0.2.28:0 )
@@ -109,6 +111,7 @@ RDEPEND="
 	mtp? ( >=media-libs/libmtp-1:0 )
 	musepack? ( >=media-sound/musepack-tools-444:0 )
 	ncurses? ( sys-libs/ncurses:0=[unicode] )
+	nfs? ( net-fs/libnfs )
 	ogg? ( >=media-libs/libogg-1:0 )
 	opencv? ( >media-libs/opencv-2:0 )
 	opengl? ( virtual/opengl:0 >=x11-libs/libX11-1.3.99.901:0 )
@@ -130,7 +133,10 @@ RDEPEND="
 	shout? ( >=media-libs/libshout-2.1:0 )
 	sid? ( media-libs/libsidplay:2 )
 	skins? ( x11-libs/libXext:0 x11-libs/libXpm:0 x11-libs/libXinerama:0 )
+	soxr? ( >=media-libs/soxr-0.1.2 )
+	spatialaudio? ( media-libs/libspatialaudio )
 	speex? ( media-libs/speex:0 )
+	srt? ( >=media-libs/libsrt-1.2.2 )
 	svg? ( >=gnome-base/librsvg-2.9:2 >=x11-libs/cairo-1.13.1:0 )
 	swscale? (
 		!libav? ( media-video/ffmpeg:0= )
@@ -158,13 +164,11 @@ RDEPEND="
 	zeroconf? ( >=net-dns/avahi-0.6:0[dbus] )
 "
 
-# Temporarily block non-live FFMPEG versions as they break vdpau, 9999 works;
-# thus we'll have to wait for a new release there.
 RDEPEND="${RDEPEND}
 	vdpau? (
 		x11-libs/libvdpau:0
-		!libav? ( media-video/ffmpeg:0= )
-		libav? ( >=media-video/libav-10:0= )
+		!libav? ( media-video/ffmpeg:0=[vdpau] )
+		libav? ( >=media-video/libav-10:0=[vdpau] )
 	)
 	vnc? ( >=net-libs/libvncserver-0.9.9:0 )
 	vorbis? ( media-libs/libvorbis:0 )
@@ -188,7 +192,6 @@ DEPEND="${RDEPEND}
 "
 
 REQUIRED_USE="
-	aalib? ( X )
 	bidi? ( truetype )
 	dvb? ( dvbpsi )
 	dxva2? ( avcodec )
@@ -326,9 +329,9 @@ src_configure() {
 		--enable-screen \
 		--enable-archive \
 		$(use_enable a52) \
-		$(use_enable aalib aa) \
 		$(use_enable alsa) \
 		$(use_enable altivec) \
+		$(use_enable aom) \
 		$(use_enable avcodec) \
 		$(use_enable avformat) \
 		$(use_enable bidi fribidi) \
@@ -354,6 +357,7 @@ src_configure() {
 		$(use_enable gme) \
 		$(use_enable gnutls) \
 		$(use_enable gstreamer gst-decode) \
+		$(use_enable harfbuzz) \
 		$(use_enable ieee1394 dv1394) \
 		$(use_enable jack) \
 		$(use_enable jpeg) \
@@ -362,6 +366,7 @@ src_configure() {
 		$(use_enable libcaca caca) \
 		$(use_enable libnotify notify) \
 		$(use_enable libsamplerate samplerate) \
+		$(use_enable libsecret secret) \
 		$(use_enable libtar) \
 		$(use_enable libtiger tiger) \
 		$(use_enable linsys) \
@@ -370,6 +375,7 @@ src_configure() {
 		$(use_enable lua) \
 		$(use_enable macosx-notifications osx-notifications) \
 		$(use_enable macosx-qtkit) \
+		$(use_enable matroska) \
 		$(use_enable cpu_flags_x86_mmx mmx) \
 		$(use_enable modplug mod) \
 		$(use_enable mp3 mad) \
@@ -377,10 +383,10 @@ src_configure() {
 		$(use_enable mtp) \
 		$(use_enable musepack mpc) \
 		$(use_enable ncurses) \
+		$(use_enable nfs) \
 		$(use_enable neon) \
-		$(use_enable ogg) $(use_enable ogg) \
-		$(use_enable omxil) \
-		$(use_enable omxil omxil-vout) \
+		$(use_enable ogg) $(use_enable ogg oggspots) \
+		$(use_enable omxil) $(use_enable omxil) \
 		$(use_enable opencv) \
 		$(use_enable opus) \
 		$(use_enable optimisememory optimize-memory) \
@@ -398,7 +404,9 @@ src_configure() {
 		$(use_enable sftp) \
 		$(use_enable shout) \
 		$(use_enable skins skins2) \
+		$(use_enable soxr) \
 		$(use_enable speex) \
+		$(use_enable srt) \
 		$(use_enable cpu_flags_x86_sse sse) \
 		$(use_enable svg) \
 		$(use_enable svg svgdec) \
@@ -428,19 +436,27 @@ src_configure() {
 		$(use_enable x265) \
 		$(use_enable zeroconf avahi) \
 		$(use_enable zvbi) $(use_enable !zvbi telx) \
+		--disable-aribb25 \
+		--disable-aribsub \
 		--disable-asdcp \
 		--disable-coverage \
 		--disable-cprof \
 		--disable-crystalhd \
+		--disable-d3d11va \
 		--disable-decklink \
+		--disable-dsm \
+		--disable-fluidlite \
 		--disable-gles2 \
 		--disable-goom \
+		--disable-libplacebo \
 		--disable-kai \
 		--disable-kva \
 		--disable-maintainer-mode \
 		--disable-merge-ffmpeg \
 		--disable-mfx \
+		--disable-microdns \
 		--disable-mmal \
+		--disable-mpg123 \
 		--disable-opensles \
 		--disable-oss \
 		--disable-rpi-omxil \
