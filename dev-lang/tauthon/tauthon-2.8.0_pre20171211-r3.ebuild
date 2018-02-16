@@ -226,7 +226,7 @@ src_compile() {
 	fi
 	export par_arg
 
-	emake PROFILE_TASK="-m test.regrtest ${par_arg} --pgo -uall,-audio -x test_asyncore test_gdb test_multiprocessing test_subprocess test_distutils test_xpickle"
+	emake LLVM_PROF_FILE="_PYTHONNOSITEPACKAGES=1 \$(RUNSHARED)" PROFILE_TASK="-E \$(TESTPROG) ${par_arg} --pgo -uall,-audio -x test_asyncore test_gdb test_multiprocessing test_subprocess test_distutils test_xpickle"
 
 	# Work around bug 329499. See also bug 413751 and 457194.
 	if has_version dev-libs/libffi[pax_kernel]; then
