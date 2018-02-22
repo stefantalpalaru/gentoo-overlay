@@ -16,19 +16,18 @@ DESCRIPTION="Alliance for Open Media AV1 Codec SDK"
 HOMEPAGE="http://aomedia.org"
 
 LICENSE="BSD-2"
-SLOT="0/4"
-IUSE="cpu_flags_arm_neon cpu_flags_x86_avx cpu_flags_x86_avx2 doc cpu_flags_x86_mmx cpu_flags_x86_sse cpu_flags_x86_sse2 cpu_flags_x86_sse3 cpu_flags_x86_ssse3 cpu_flags_x86_sse4_1 mipsdspr2 mipsmsa"
+SLOT="0/0"
+IUSE="doc examples"
+IUSE="${IUSE} cpu_flags_arm_neon cpu_flags_x86_avx cpu_flags_x86_avx2 cpu_flags_x86_mmx cpu_flags_x86_sse cpu_flags_x86_sse2 cpu_flags_x86_sse3 cpu_flags_x86_ssse3 cpu_flags_x86_sse4_1 mipsdspr2 mipsmsa"
 
-RDEPEND="abi_x86_32? ( !app-emulation/emul-linux-x86-medialibs[-abi_x86_32(-)] )"
-DEPEND="abi_x86_32? ( dev-lang/yasm )
+RDEPEND=""
+DEPEND="${RDEPEND}
+	abi_x86_32? ( dev-lang/yasm )
 	abi_x86_64? ( dev-lang/yasm )
 	abi_x86_x32? ( dev-lang/yasm )
 	x86-fbsd? ( dev-lang/yasm )
 	amd64-fbsd? ( dev-lang/yasm )
-	doc? (
-		app-doc/doxygen
-		dev-lang/php
-	)
+	doc? ( app-doc/doxygen )
 "
 
 REQUIRED_USE="
@@ -37,8 +36,6 @@ REQUIRED_USE="
 "
 
 src_prepare() {
-	default
-
 	sed -i -e "s/DESTINATION \"\${CMAKE_INSTALL_PREFIX}\/lib/DESTINATION \"\${CMAKE_INSTALL_PREFIX}\/\${CMAKE_INSTALL_LIBDIR}/" \
 		CMakeLists.txt
 
@@ -50,6 +47,8 @@ multilib_src_configure() {
 	local mycmakeargs=(
 		-DCMAKE_INSTALL_LIBDIR=$(get_libdir)
 		-DENABLE_TOOLS=OFF
+		-DENABLE_DOCS=$(multilib_native_usex doc ON OFF)
+		-DENABLE_EXAMPLES=$(multilib_native_usex examples ON OFF)
 		-DENABLE_NEON=$(usex cpu_flags_arm_neon ON OFF)
 		-DENABLE_NEON_ASM=$(usex cpu_flags_arm_neon ON OFF)
 		-DENABLE_DSPR2=$(usex mipsdspr2 ON OFF)
@@ -63,8 +62,6 @@ multilib_src_configure() {
 		-DENABLE_AVX=$(usex cpu_flags_x86_avx ON OFF)
 		-DENABLE_AVX2=$(usex cpu_flags_x86_avx2 ON OFF)
 		-DBUILD_SHARED_LIBS=ON
-		-DENABLE_EXAMPLES=OFF
-		-DENABLE_DOCS=$(usex doc ON OFF)
 		-DCONFIG_ANALYZER=0
 		-DCONFIG_UNIT_TESTS=0
 	)
@@ -74,5 +71,8 @@ multilib_src_configure() {
 multilib_src_install() {
 	cmake-utils_src_install
 
-	[ "${ABI}" = "${DEFAULT_ABI}" ] && use doc && dodoc -r docs/html
+	if multilib_is_native_abi && use doc; then
+		docinto html
+		dodoc docs/html/*
+	fi
 }
