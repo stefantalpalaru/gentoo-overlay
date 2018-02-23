@@ -3,14 +3,12 @@
 
 EAPI=6
 
-inherit bash-completion-r1 eutils flag-o-matic git-r3 multilib udev
+inherit bash-completion-r1 eutils flag-o-matic multilib udev
 
 LICENSE="GPL-2"
 
 DESCRIPTION="mirror/replicate block-devices across a network-connection"
-# this package's build system relies on a Git working copy, so we're not just being lazy about using an archived submodule
-EGIT_REPO_URI="https://github.com/LINBIT/drbd-utils"
-EGIT_COMMIT="v${PV}"
+SRC_URI="http://www.linbit.com/downloads/drbd/utils/${P}.tar.gz"
 HOMEPAGE="http://www.drbd.org"
 
 KEYWORDS="~amd64 ~x86"
@@ -90,7 +88,8 @@ src_install() {
 
 	dodoc scripts/drbd.conf.example
 
-	dosym /usr/sbin/drbdadm /sbin/drbdadm
+	dosym ../../usr/sbin/drbdadm /sbin/drbdadm
+	keepdir "/var/lib/drbd"
 }
 
 pkg_postinst() {
