@@ -1,4 +1,4 @@
-# Copyright 1999-2017 Gentoo Foundation
+# Copyright 1999-2018 Gentoo Foundation
 # Distributed under the terms of the GNU General Public License v2
 
 EAPI=6
@@ -43,7 +43,7 @@ src_compile() {
 		-e "s/^COMP_FLAGS =.*$/COMP_FLAGS = ${CFLAGS} -fno-strict-aliasing/" \
 		-e "s/^LINK_FLAGS =.*$/LINK_FLAGS = ${LDFLAGS}/" \
 		makefile
-	emake
+	emake CC=gcc LD=gcc
 	cd ..
 	sed -i \
 		-e "s/^gcc\.options\.speed.*$/gcc.options.speed = \"${CFLAGS} -fno-strict-aliasing\"/" \
@@ -82,6 +82,7 @@ src_install() {
 	doexe compiler/nimfix/nimfix
 	insinto /usr/share/nim/lib
 	doins -r compiler
+	rm -rf doc/nimcache
 	doins -r doc
 	rm -r "${D}"/usr/share/nim/lib/compiler/{nimfix/nimcache,nimfix/nimfix,nim,nim0,nim1}
 

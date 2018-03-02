@@ -1,4 +1,4 @@
-# Copyright 1999-2017 Gentoo Foundation
+# Copyright 1999-2018 Gentoo Foundation
 # Distributed under the terms of the GNU General Public License v2
 
 EAPI=6
@@ -12,8 +12,7 @@ EGIT_REPO_URI="https://github.com/Araq/Nim"
 LICENSE="MIT"
 SLOT="0"
 KEYWORDS=""
-#IUSE="boehm-gc doc +readline test"
-IUSE="boehm-gc +readline test"
+IUSE="boehm-gc doc +readline test"
 
 DEPEND="
 	readline? ( sys-libs/readline:= )
@@ -43,7 +42,7 @@ src_compile() {
 		-e "s/^COMP_FLAGS =.*$/COMP_FLAGS = ${CFLAGS} -fno-strict-aliasing/" \
 		-e "s/^LINK_FLAGS =.*$/LINK_FLAGS = ${LDFLAGS}/" \
 		makefile
-	emake
+	emake CC=gcc LD=gcc
 	cd ..
 	sed -i \
 		-e "s/^gcc\.options\.speed.*$/gcc.options.speed = \"${CFLAGS} -fno-strict-aliasing\"/" \
@@ -62,9 +61,9 @@ EOF
 	echo -e "\npath:\"\$projectPath/../..\"" >> compiler/nimfix/nimfix.nim.cfg
 	PATH="./bin:${PATH}" nim c -d:release compiler/nimfix/nimfix.nim || die "nimfix.nim compilation failed"
 
-	#if use doc; then
-		#PATH="./bin:${PATH}" ./koch web || die "koch web failed"
-	#fi
+	if use doc; then
+		PATH="./bin:${PATH}" ./koch web || die "koch web failed"
+	fi
 }
 
 src_test() {
@@ -82,13 +81,14 @@ src_install() {
 	doexe compiler/nimfix/nimfix
 	insinto /usr/share/nim/lib
 	doins -r compiler
+	rm -rf doc/nimcache
 	doins -r doc
 	insinto /usr/share/nim/lib/wrappers
 	doins -r lib/wrappers/linenoise
 	rm -r "${D}"/usr/share/nim/lib/compiler/{nimfix/nimcache,nimfix/nimfix,nim,nim0,nim1}
 
-	#if use doc; then
-		#HTML_DOCS=doc/html/*.html
-		#einstalldocs
-	#fi
+	if use doc; then
+		HTML_DOCS=doc/html/*.html
+		einstalldocs
+	fi
 }
