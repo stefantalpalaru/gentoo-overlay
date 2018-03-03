@@ -3,16 +3,18 @@
 
 EAPI=6
 
-inherit git-r3
+inherit bash-completion-r1 git-r3
 
 DESCRIPTION="Nim is a compiled, garbage-collected systems programming language"
 HOMEPAGE="http://nim-lang.org/"
+SRC_URI="http://nim-lang.org/download/${P}.tar.xz"
 EGIT_REPO_URI="https://github.com/Araq/Nim"
+EGIT_COMMIT="refs/tags/v${PV}"
 
 LICENSE="MIT"
 SLOT="0"
-KEYWORDS=""
-IUSE="boehm-gc doc +readline test"
+KEYWORDS="~amd64 ~x86"
+IUSE="bash-completion boehm-gc doc +readline test"
 
 DEPEND="
 	readline? ( sys-libs/readline:= )
@@ -24,10 +26,10 @@ RDEPEND="
 "
 
 src_unpack() {
+	default_src_unpack
+	mv ${P} ${PN}-csources-${PV}
 	git-r3_src_unpack
-	local csources_repo="https://github.com/nim-lang/csources"
-	git-r3_fetch "${csources_repo}"
-	git-r3_checkout "${csources_repo}" "${WORKDIR}/${P}/csources"
+	mv ${PN}-csources-${PV} ${P}/csources
 }
 
 nim_use_enable() {
@@ -37,7 +39,6 @@ nim_use_enable() {
 
 src_compile() {
 	cd csources
-	#sh build.sh --extraBuildArgs "${CFLAGS}" || die "build.sh failed"
 	sed -i \
 		-e "s/^COMP_FLAGS =.*$/COMP_FLAGS = ${CFLAGS} -fno-strict-aliasing/" \
 		-e "s/^LINK_FLAGS =.*$/LINK_FLAGS = ${LDFLAGS}/" \
@@ -90,5 +91,9 @@ src_install() {
 	if use doc; then
 		HTML_DOCS=doc/html/*.html
 		einstalldocs
+	fi
+
+	if use bash-completion; then
+		newbashcomp tools/nim.bash-completion ${PN}
 	fi
 }

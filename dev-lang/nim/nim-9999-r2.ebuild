@@ -3,18 +3,16 @@
 
 EAPI=6
 
-inherit git-r3
+inherit bash-completion-r1 git-r3
 
 DESCRIPTION="Nim is a compiled, garbage-collected systems programming language"
 HOMEPAGE="http://nim-lang.org/"
-SRC_URI="http://nim-lang.org/download/${P}.tar.xz"
 EGIT_REPO_URI="https://github.com/Araq/Nim"
-EGIT_COMMIT="refs/tags/v${PV}"
 
 LICENSE="MIT"
 SLOT="0"
-KEYWORDS="~amd64 ~x86"
-IUSE="boehm-gc doc +readline test"
+KEYWORDS=""
+IUSE="bash-completion boehm-gc doc +readline test"
 
 DEPEND="
 	readline? ( sys-libs/readline:= )
@@ -26,10 +24,10 @@ RDEPEND="
 "
 
 src_unpack() {
-	default_src_unpack
-	mv ${P} ${PN}-csources-${PV}
 	git-r3_src_unpack
-	mv ${PN}-csources-${PV} ${P}/csources
+	local csources_repo="https://github.com/nim-lang/csources"
+	git-r3_fetch "${csources_repo}"
+	git-r3_checkout "${csources_repo}" "${WORKDIR}/${P}/csources"
 }
 
 nim_use_enable() {
@@ -39,6 +37,7 @@ nim_use_enable() {
 
 src_compile() {
 	cd csources
+	#sh build.sh --extraBuildArgs "${CFLAGS}" || die "build.sh failed"
 	sed -i \
 		-e "s/^COMP_FLAGS =.*$/COMP_FLAGS = ${CFLAGS} -fno-strict-aliasing/" \
 		-e "s/^LINK_FLAGS =.*$/LINK_FLAGS = ${LDFLAGS}/" \
@@ -72,8 +71,8 @@ src_test() {
 }
 
 src_install() {
-	./koch distrohelper "${D}/usr/share" || die "koch distrohelper failed"
-	./install.sh "${D}/usr/share" || die "install.sh failed"
+	./koch install "${D}/usr/share" || die "koch install failed"
+	rm -r "${D}/usr/share/nim/doc"
 	dodir /usr/bin
 	dosym /usr/share/nim/bin/nim /usr/bin/nim
 	exeinto /usr/bin
@@ -84,10 +83,16 @@ src_install() {
 	doins -r compiler
 	rm -rf doc/nimcache
 	doins -r doc
+	insinto /usr/share/nim/lib/wrappers
+	doins -r lib/wrappers/linenoise
 	rm -r "${D}"/usr/share/nim/lib/compiler/{nimfix/nimcache,nimfix/nimfix,nim,nim0,nim1}
 
 	if use doc; then
 		HTML_DOCS=doc/html/*.html
 		einstalldocs
+	fi
+
+	if use bash-completion; then
+		newbashcomp tools/nim.bash-completion ${PN}
 	fi
 }
