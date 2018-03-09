@@ -1,5 +1,5 @@
 diff --git a/CMakeLists.txt b/CMakeLists.txt
-index b4720e4..b62c476 100644
+index b4720e4..fd32f7f 100644
 --- a/CMakeLists.txt
 +++ b/CMakeLists.txt
 @@ -1,9 +1,18 @@
@@ -22,7 +22,7 @@ index b4720e4..b62c476 100644
  list(APPEND headers
      include/AmbisonicBase.h
      include/AmbisonicDecoderPresets.h
-@@ -67,11 +76,27 @@ if(${MYSOFA_FOUND})
+@@ -67,11 +76,26 @@ if(${MYSOFA_FOUND})
      include_directories(${MYSOFA_INCLUDE_DIRS})
  endif(${MYSOFA_FOUND})
  
@@ -48,13 +48,12 @@ index b4720e4..b62c476 100644
 +    set_property(TARGET spatialaudio-shared PROPERTY VERSION "${PACKAGE_VERSION_MAJOR}.${PACKAGE_VERSION_MINOR}.${PACKAGE_VERSION_PATCH}")
 +    set_property(TARGET spatialaudio-shared PROPERTY SOVERSION ${PACKAGE_VERSION_MAJOR} )
 +    set_property(TARGET spatialaudio-shared PROPERTY C_VISIBILITY_PRESET hidden)
-+    set_property(TARGET spatialaudio-shared PROPERTY CXX_VISIBILITY_PRESET hidden)
 +    install(TARGETS spatialaudio-shared LIBRARY DESTINATION ${CMAKE_INSTALL_LIBDIR})
 +endif(BUILD_SHARED_LIBS)
  
  option(HAVE_MIT_HRTF "Should MIT HRTF be built-in" ON)
  
-@@ -81,19 +106,18 @@ configure_file(
+@@ -81,19 +105,18 @@ configure_file(
  )
  
  if(${HAVE_MYSOFA})
