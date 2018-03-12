@@ -6,11 +6,9 @@ CMAKE_MAKEFILE_GENERATOR="emake"
 
 inherit bash-completion-r1 cmake-utils
 
-MY_PV=${PV//./}
-
 DESCRIPTION="GREYC's Magic Image Converter"
 HOMEPAGE="http://gmic.eu/ https://github.com/dtschump/gmic"
-GMIC_QT_URI="https://github.com/c-koi/gmic-qt/archive/v.${MY_PV}.tar.gz -> gmic-qt-${PV}.tar.gz"
+GMIC_QT_URI="https://github.com/c-koi/gmic-qt/archive/v.${PV}.tar.gz -> gmic-qt-${PV}.tar.gz"
 SRC_URI="http://gmic.eu/files/source/${PN}_${PV}.tar.gz
 	gimp? ( ${GMIC_QT_URI} )
 	gui? ( ${GMIC_QT_URI} )
@@ -78,7 +76,7 @@ PATCHES=(
 	"${FILESDIR}"/${PN}-9999-man.patch
 )
 
-GMIC_QT_DIR="gmic-qt-v.${MY_PV}"
+GMIC_QT_DIR="gmic-qt-v.${PV}"
 
 pkg_pretend() {
 	if use openmp ; then
