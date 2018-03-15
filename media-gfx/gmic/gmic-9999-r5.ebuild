@@ -68,12 +68,6 @@ DEPEND="${COMMON_DEPEND}
 	virtual/pkgconfig
 "
 
-PATCHES=(
-	"${FILESDIR}"/${PN}-2.1.8-dynamic-linking.patch
-	"${FILESDIR}"/${PN}-1.7.9-flags.patch
-	"${FILESDIR}"/${PN}-9999-man.patch
-)
-
 GMIC_QT_DIR="gmic-qt"
 S="${WORKDIR}/${PN}"
 
@@ -107,9 +101,6 @@ src_prepare() {
 			-e '/CMAKE_CXX_FLAGS_RELEASE/d' \
 			../${GMIC_QT_DIR}/CMakeLists.txt || die "sed failed"
 		local S="${WORKDIR}/${GMIC_QT_DIR}"
-		local PATCHES=(
-			"${FILESDIR}"/${PN}-2.1.9-dynamic-linking-qt.patch
-		)
 		cmake-utils_src_prepare
 	fi
 }
