@@ -1,9 +1,10 @@
-# Copyright 1999-2017 Gentoo Foundation
+# Copyright 1999-2018 Gentoo Foundation
 # Distributed under the terms of the GNU General Public License v2
 
 EAPI=6
 
-inherit git-r3
+inherit git-r3 llvm
+LLVM_MAX_SLOT=5
 
 DESCRIPTION="Compiler for the Pony language"
 HOMEPAGE="http://www.ponylang.org/"
@@ -17,7 +18,7 @@ RESTRICT="strip"
 
 RDEPEND="dev-libs/libpcre2
 	dev-libs/openssl:=
-	>=sys-devel/llvm-3.7:=
+	>=sys-devel/llvm-3.9.1:=
 	sys-libs/ncurses:=
 	sys-libs/zlib
 	vim-syntax? ( app-vim/pony-syntax )"
