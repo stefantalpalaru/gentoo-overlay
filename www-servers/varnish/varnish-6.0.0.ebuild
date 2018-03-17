@@ -1,7 +1,7 @@
 # Copyright 1999-2018 Gentoo Foundation
 # Distributed under the terms of the GNU General Public License v2
 
-EAPI="6"
+EAPI=6
 
 PYTHON_COMPAT=( python{2_7,3_4,3_5,3_6} pypy )
 
@@ -14,7 +14,7 @@ SRC_URI="https://github.com/varnishcache/varnish-cache/archive/${P}.tar.gz"
 LICENSE="BSD-2 GPL-2"
 SLOT="0"
 KEYWORDS="~amd64 ~mips ~ppc ~ppc64 ~x86"
-IUSE="jemalloc jit static-libs"
+IUSE="+jemalloc jit static-libs"
 
 CDEPEND="
 	sys-libs/readline:0=
@@ -50,21 +50,10 @@ src_prepare() {
 	# Remove -Werror bug #528354
 	sed -i -e 's/-Werror\([^=]\)/\1/g' configure.ac
 
-	# Upstream doesn't put varnish.m4 in the m4/ directory
-	# We link because the Makefiles look for the file in
-	# the original location
-	ln -sf ../varnish.m4 m4/varnish.m4
-
-	# upgrade ax_with_curses.m4 so we can support ncurses[tinfo]
-	# https://bugs.gentoo.org/614984
-	cp -a "${FILESDIR}/ax_with_curses.m4" m4/
-	sed -i -e 's/@CURSES_LIB@/@CURSES_LIBS@/g' bin/*/Makefile.am
-
 	# https://github.com/varnishcache/varnish-cache/issues/1875
 	append-flags "-fexcess-precision=standard"
 
 	eapply_user
-
 	eautoreconf
 }
 
@@ -77,6 +66,7 @@ src_configure() {
 
 src_install() {
 	emake DESTDIR="${D}" install
+	keepdir /var/lib/varnish/
 
 	python_replicate_script "${D}/usr/share/varnish/vmodtool.py"
 
@@ -95,6 +85,7 @@ src_install() {
 	diropts -m750
 
 	dodir /var/log/varnish/
+	keepdir /var/log/varnish/
 
 	systemd_dounit "${FILESDIR}/${PN}d.service"
 
