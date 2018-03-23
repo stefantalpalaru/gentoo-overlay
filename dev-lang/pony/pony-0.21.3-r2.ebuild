@@ -19,6 +19,7 @@ RESTRICT="strip"
 RDEPEND="dev-libs/libpcre2
 	dev-libs/openssl:=
 	>=sys-devel/llvm-3.9.1:=
+	<sys-devel/llvm-6.0.0:=
 	sys-libs/ncurses:=
 	sys-libs/zlib
 	vim-syntax? ( app-vim/pony-syntax )"
