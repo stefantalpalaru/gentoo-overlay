@@ -1,15 +1,14 @@
-# Copyright 1999-2017 Gentoo Foundation
+# Copyright 1999-2018 Gentoo Foundation
 # Distributed under the terms of the GNU General Public License v2
 
 EAPI=6
 
 WX_GTK_VER="3.0"
 
-inherit cmake-utils git-r3 wxwidgets
+inherit cmake-utils wxwidgets
 
 DESCRIPTION="Cross-Platform Software-Defined Radio Application"
 HOMEPAGE="http://cubicsdr.com/"
-EGIT_REPO_URI="https://github.com/cjcliffe/CubicSDR.git"
 SRC_URI="https://github.com/cjcliffe/CubicSDR/archive/${PV}.tar.gz -> ${P}.tar.gz"
 
 LICENSE="GPL-2"
@@ -25,6 +24,7 @@ DEPEND="media-libs/rtaudio
 	x11-libs/wxGTK:3.0[opengl]
 "
 RDEPEND="${DEPEND}"
+S="${WORKDIR}/CubicSDR-${PV}"
 
 src_prepare() {
 	default
