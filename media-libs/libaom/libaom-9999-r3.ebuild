@@ -36,14 +36,12 @@ REQUIRED_USE="
 "
 
 src_prepare() {
-	sed -i -e "s/DESTINATION \"\${CMAKE_INSTALL_PREFIX}\/lib/DESTINATION \"\${CMAKE_INSTALL_PREFIX}\/\${CMAKE_INSTALL_LIBDIR}/" \
-		CMakeLists.txt
+	sed -e 's/lib"/lib${LIB_SUFFIX}"/' -i CMakeLists.txt || die
 
 	cmake-utils_src_prepare
 }
 
 multilib_src_configure() {
-	echo $(get_libdir)
 	local mycmakeargs=(
 		-DCMAKE_INSTALL_LIBDIR=$(get_libdir)
 		-DENABLE_TOOLS=OFF
