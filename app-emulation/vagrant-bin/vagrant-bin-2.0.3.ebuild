@@ -1,4 +1,4 @@
-# Copyright 1999-2017 Gentoo Foundation
+# Copyright 1999-2018 Gentoo Foundation
 # Distributed under the terms of the GNU General Public License v2
 
 EAPI=6
@@ -36,7 +36,7 @@ src_unpack() {
 
 src_prepare() {
 	default
-	sed -i 's/cached: true/cached: false/g' ./embedded/gems/gems/${MY_PN}-${PV}/plugins/provisioners/chef/provisioner/chef_solo.rb
+	sed -i 's/cached: true/cached: false/g' ./embedded/gems/${PV}/gems/${MY_PN}-${PV}/plugins/provisioners/chef/provisioner/chef_solo.rb || die
 }
 
 src_install() {
