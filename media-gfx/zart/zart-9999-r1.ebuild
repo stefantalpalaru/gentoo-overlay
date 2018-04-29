@@ -1,4 +1,4 @@
-# Copyright 1999-2017 Gentoo Foundation
+# Copyright 1999-2018 Gentoo Foundation
 # Distributed under the terms of the GNU General Public License v2
 
 EAPI=6
@@ -29,7 +29,7 @@ DEPEND="${RDEPEND}
 "
 
 PATCHES=(
-	"${FILESDIR}"/${PN}-3.2.1-dynamic-linking.patch
+	"${FILESDIR}"/${PN}-3.2.1-dynamic-linking-r1.patch
 )
 
 pkg_pretend() {
@@ -41,7 +41,7 @@ pkg_pretend() {
 }
 
 src_configure() {
-	eqmake5 CONFIG+=enable_dynamic_linking zart.pro
+	eqmake5 GMIC_DYNAMIC_LINKING=on zart.pro
 }
 
 src_install() {

@@ -1,4 +1,4 @@
-# Copyright 1999-2017 Gentoo Foundation
+# Copyright 1999-2018 Gentoo Foundation
 # Distributed under the terms of the GNU General Public License v2
 
 EAPI=6
@@ -7,7 +7,7 @@ inherit flag-o-matic qmake-utils
 
 DESCRIPTION="G'MIC GUI for video streams"
 HOMEPAGE="https://github.com/c-koi/zart"
-ZART_COMMIT="54bc6ec2b855b8c31fe317a68e4da8a3f786e8c7"
+ZART_COMMIT="34f7e483a819dd2af4f772d0f748928119f22f6d"
 SRC_URI="https://github.com/c-koi/zart/archive/${ZART_COMMIT}.zip -> ${P}.zip"
 
 LICENSE="CeCILL-2"
@@ -30,7 +30,7 @@ DEPEND="${RDEPEND}
 "
 
 PATCHES=(
-	"${FILESDIR}"/${PN}-3.2.1-dynamic-linking.patch
+	"${FILESDIR}"/${PN}-3.2.1-dynamic-linking-r1.patch
 )
 
 S="${WORKDIR}/${PN}-${ZART_COMMIT}"
@@ -44,7 +44,7 @@ pkg_pretend() {
 }
 
 src_configure() {
-	eqmake5 CONFIG+=enable_dynamic_linking zart.pro
+	eqmake5 GMIC_DYNAMIC_LINKING=on zart.pro
 }
 
 src_install() {
