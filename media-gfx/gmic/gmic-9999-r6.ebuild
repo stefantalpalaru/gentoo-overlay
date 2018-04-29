@@ -93,7 +93,6 @@ src_unpack() {
 }
 
 src_prepare() {
-	#cp -a resources/CMakeLists.txt .
 	cmake-utils_src_prepare
 
 	if use gimp || use gui || use krita; then
@@ -196,7 +195,7 @@ src_install() {
 	# using the installed gmic.h.
 	sed -i -e '/^#define cimg_plugin/d' "${ED}/usr/include/gmic.h" || die "sed failed"
 
-	use cli && use bash-completion && newbashcomp "resources/${PN}_bashcompletion.sh" ${PN}
+	use cli && use bash-completion && newbashcomp "${WORKDIR}/${P}_build/resources/${PN}_bashcompletion.sh" ${PN}
 
 	# gmic-qt
 	if use gimp; then

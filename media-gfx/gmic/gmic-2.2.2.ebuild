@@ -9,7 +9,7 @@ inherit bash-completion-r1 cmake-utils
 DESCRIPTION="GREYC's Magic Image Converter"
 HOMEPAGE="http://gmic.eu/ https://github.com/dtschump/gmic"
 GMIC_QT_URI="https://github.com/c-koi/gmic-qt/archive/v.${PV}.tar.gz -> gmic-qt-${PV}.tar.gz"
-SRC_URI="http://gmic.eu/files/source/${PN}_${PV}.tar.gz
+SRC_URI="https://github.com/dtschump/gmic/archive/v.${PV}.tar.gz -> ${P}.tar.gz
 	gimp? ( ${GMIC_QT_URI} )
 	gui? ( ${GMIC_QT_URI} )
 	krita? ( ${GMIC_QT_URI} )
@@ -46,6 +46,7 @@ COMMON_DEPEND="
 	gui? ( ${QT_DEPS} )
 	jpeg? ( virtual/jpeg:0 )
 	krita? ( ${QT_DEPS} )
+	=media-libs/cimg-${PV}
 	net-misc/curl
 	opencv? ( >=media-libs/opencv-2.3.1a-r1 )
 	openexr? (
@@ -70,13 +71,8 @@ DEPEND="${COMMON_DEPEND}
 	virtual/pkgconfig
 "
 
-PATCHES=(
-	"${FILESDIR}"/${PN}-2.1.8-dynamic-linking.patch
-	"${FILESDIR}"/${PN}-1.7.9-flags.patch
-	"${FILESDIR}"/${PN}-9999-man.patch
-)
-
 GMIC_QT_DIR="gmic-qt-v.${PV}"
+S="${WORKDIR}/${PN}-v.${PV}"
 
 pkg_pretend() {
 	if use openmp ; then
@@ -89,19 +85,16 @@ pkg_pretend() {
 }
 
 src_prepare() {
-	cp -a resources/CMakeLists.txt .
+	ln -s "${EPREFIX}"/usr/include/CImg.h ./src/
 	cmake-utils_src_prepare
 
-	ln -sr ../${P} ../${PN}
+	ln -sr ../${PN}-v.${PV} ../${PN}
 
 	if use gimp || use gui || use krita; then
 		sed -i \
 			-e '/CMAKE_CXX_FLAGS_RELEASE/d' \
 			../${GMIC_QT_DIR}/CMakeLists.txt || die "sed failed"
 		local S="${WORKDIR}/${GMIC_QT_DIR}"
-		local PATCHES=(
-			"${FILESDIR}"/${PN}-2.1.9-dynamic-linking-qt.patch
-		)
 		cmake-utils_src_prepare
 	fi
 }
@@ -196,7 +189,7 @@ src_install() {
 	# using the installed gmic.h.
 	sed -i -e '/^#define cimg_plugin/d' "${ED}/usr/include/gmic.h" || die "sed failed"
 
-	use cli && use bash-completion && newbashcomp "resources/${PN}_bashcompletion.sh" ${PN}
+	use cli && use bash-completion && newbashcomp "${WORKDIR}/${P}_build/resources/${PN}_bashcompletion.sh" ${PN}
 
 	# gmic-qt
 	if use gimp; then
