@@ -7,7 +7,7 @@ inherit autotools flag-o-matic git-r3 gnome2-utils qmake-utils systemd user xdg-
 DESCRIPTION="A Fast, Easy and Free BitTorrent client"
 HOMEPAGE="http://www.transmissionbt.com/"
 EGIT_REPO_URI="https://github.com/transmission/transmission"
-EGIT_COMMIT="896de2b5931329da7a5733a176cdb9f9e1f159a3"
+EGIT_COMMIT="c11f2870fd18ff781ca06ce84b6d43541f3293dd"
 EGIT_SUBMODULES=(
 	'*'
 	'-third-party/libb64'
@@ -60,7 +60,7 @@ REQUIRED_USE="ayatana? ( gtk )"
 DOCS=( AUTHORS NEWS qt/README.txt )
 
 PATCHES=(
-	"${FILESDIR}/default_trackers.patch"
+	"${FILESDIR}/default_trackers-r1.patch"
 )
 
 src_prepare() {

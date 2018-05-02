@@ -277,7 +277,7 @@ index 4ccf7fe46..63ee36fc2 100644
  
  static inline tr_port tr_sessionGetPublicPeerPort(tr_session const* session)
 diff --git a/libtransmission/torrent.c b/libtransmission/torrent.c
-index b0f43f773..acd26ea88 100644
+index 23a0e9b22..a212c3d6b 100644
 --- a/libtransmission/torrent.c
 +++ b/libtransmission/torrent.c
 @@ -34,6 +34,7 @@
