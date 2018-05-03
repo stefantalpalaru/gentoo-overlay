@@ -3,7 +3,7 @@
 
 EAPI=6
 
-WX_GTK_VER="3.0"
+WX_GTK_VER="3.1-gtk3"
 
 inherit cmake-utils wxwidgets
 
@@ -21,7 +21,7 @@ DEPEND="media-libs/rtaudio
 	>=net-wireless/soapysdr-0.4.0
 	rtlsdr? ( net-wireless/soapy-rtlsdr )
 	virtual/opengl
-	x11-libs/wxGTK:3.0[opengl]
+	x11-libs/wxGTK:3.1-gtk3[opengl]
 "
 RDEPEND="${DEPEND}"
 S="${WORKDIR}/CubicSDR-${PV}"
@@ -34,6 +34,7 @@ src_prepare() {
 }
 
 src_configure() {
+	setup-wxwidgets
 	local mycmakeargs=(
 	-DUSE_SYSTEM_RTAUDIO=ON
 	)
