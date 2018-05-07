@@ -19,8 +19,8 @@ SRC_URI="
 	https://download3.vmware.com/software/wkst/file/${MY_P}.x86_64.bundle
 	macos-guests? (
 		https://github.com/DrDonk/unlocker/archive/b036c40ab1922d9abf4f7d68e34f1eca3b4dc2ad.zip -> unlocker-2.1.1_p1.zip
-		vmware-tools-darwinPre15? ( https://softwareupdate.vmware.com/cds/vmw-desktop/fusion/${VMWARE_FUSION_VER/_//}/packages/com.vmware.fusion.tools.darwinPre15.zip.tar )
-		vmware-tools-darwin? ( https://softwareupdate.vmware.com/cds/vmw-desktop/fusion/${VMWARE_FUSION_VER/_//}/packages/com.vmware.fusion.tools.darwin.zip.tar )
+		vmware-tools-darwinPre15? ( https://softwareupdate.vmware.com/cds/vmw-desktop/fusion/${VMWARE_FUSION_VER/_//}/packages/com.vmware.fusion.tools.darwinPre15.zip.tar -> com.vmware.fusion.tools.darwinPre15-${PV}.zip.tar )
+		vmware-tools-darwin? ( https://softwareupdate.vmware.com/cds/vmw-desktop/fusion/${VMWARE_FUSION_VER/_//}/packages/com.vmware.fusion.tools.darwin.zip.tar -> com.vmware.fusion.tools.darwin-${PV}.zip.tar )
 	)
 	systemd? ( https://github.com/akhuettel/systemd-vmware/archive/${SYSTEMD_UNITS_TAG}.tar.gz -> vmware-systemd-${SYSTEMD_UNITS_TAG}.tgz )
 	"
