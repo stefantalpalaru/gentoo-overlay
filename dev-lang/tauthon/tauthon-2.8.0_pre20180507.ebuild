@@ -9,7 +9,7 @@ inherit autotools eutils flag-o-matic git-r3 multilib pax-utils python-utils-r1 
 DESCRIPTION="Python 2.7 fork with new syntax, builtins, and libraries backported from Python3"
 HOMEPAGE="https://github.com/naftaliharris/tauthon"
 EGIT_REPO_URI="https://github.com/naftaliharris/tauthon.git"
-EGIT_COMMIT="1d2580021179f8dc7084453fed08c3d569d87d27"
+EGIT_COMMIT="d49b951bbc6cc409259a77238970bf7fb88b2930"
 
 LICENSE="PSF-2"
 SLOT="2.8"
@@ -88,14 +88,22 @@ src_prepare() {
 		local EPATCH_EXCLUDE="*_regenerate_platform-specific_modules.patch"
 	fi
 
-	EPATCH_SUFFIX="patch" epatch "${FILESDIR}/gentoo-patches"
-
+	epatch "${FILESDIR}/01_all_static_library_location.patch"
+	epatch "${FILESDIR}/02_all_disable_modules_and_ssl.patch"
+	epatch "${FILESDIR}/03_all_libdir.patch"
+	epatch "${FILESDIR}/04_all_non-zero_exit_status_on_failure.patch"
+	epatch "${FILESDIR}/05_all_loadable_sqlite_extensions.patch"
+	epatch "${FILESDIR}/06_all_regenerate_platform-specific_modules-r1.patch"
+	epatch "${FILESDIR}/21_all_distutils_c++.patch"
+	epatch "${FILESDIR}/22_all_turkish_locale.patch"
+	epatch "${FILESDIR}/23_all_arm_OABI.patch"
+	epatch "${FILESDIR}/24_all_tests_environment.patch"
+	epatch "${FILESDIR}/62_all_xml.use_pyxml.patch"
 	# Fix for cross-compiling.
 	epatch "${FILESDIR}/python-2.7.5-nonfatal-compileall.patch"
 	epatch "${FILESDIR}/python-2.7.9-ncurses-pkg-config.patch"
 	epatch "${FILESDIR}/python-2.7.10-cross-compile-warn-test.patch"
 	epatch "${FILESDIR}/python-2.7.10-system-libffi.patch"
-	epatch "${FILESDIR}/2.7-disable-nis.patch"
 	epatch "${FILESDIR}/tauthon-rename.patch"
 
 	eapply_user
@@ -193,6 +201,7 @@ src_configure() {
 		$(use_with threads) \
 		$(use wide-unicode && echo "--enable-unicode=ucs4" || echo "--enable-unicode=ucs2") \
 		$(use_enable optimizations) \
+		$(use_with optimizations lto) \
 		--infodir='${prefix}/share/info' \
 		--mandir='${prefix}/share/man' \
 		--with-computed-gotos \
@@ -306,7 +315,7 @@ src_install() {
 	use threads || rm -r "${libdir}/multiprocessing" || die
 	use wininst || rm -r "${libdir}/distutils/command/"wininst-*.exe || die
 
-	dodoc "${S}"/Misc/{ACKS,HISTORY,NEWS}
+	dodoc "${S}"/Misc/{ACKS,HISTORY}
 
 	if use examples; then
 		insinto /usr/share/doc/${PF}/examples
