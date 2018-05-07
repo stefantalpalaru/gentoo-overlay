@@ -202,6 +202,7 @@ src_configure() {
 		$(use_with threads) \
 		$(use wide-unicode && echo "--enable-unicode=ucs4" || echo "--enable-unicode=ucs2") \
 		$(use_enable optimizations) \
+		$(use_with optimizations lto) \
 		--infodir='${prefix}/share/info' \
 		--mandir='${prefix}/share/man' \
 		--with-computed-gotos \
