@@ -198,6 +198,7 @@ RDEPEND="
 	x11-libs/startup-notification
 	x11-libs/xcb-util
 	x11-themes/hicolor-icon-theme
+	bundled-libs? ( media-libs/tiff:3 )
 	!bundled-libs? ( ${BUNDLED_LIB_DEPENDS} )
 	!app-emulation/vmware-player
 	!app-emulation/vmware-tools
