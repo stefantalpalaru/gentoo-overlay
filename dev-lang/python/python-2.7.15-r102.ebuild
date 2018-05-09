@@ -15,7 +15,7 @@ SRC_URI="https://www.python.org/ftp/python/${PV}/${MY_P}.tar.xz"
 LICENSE="PSF-2"
 SLOT="2.7"
 KEYWORDS="alpha amd64 arm arm64 hppa ia64 m68k ~mips ppc ppc64 s390 sh sparc x86 ~amd64-fbsd ~x86-fbsd"
-IUSE="-berkdb build doc elibc_uclibc examples gdbm hardened ipv6 libressl +ncurses +optimizations +readline sqlite +ssl +threads tk +wide-unicode wininst +xml"
+IUSE="-berkdb build doc elibc_uclibc examples gdbm hardened ipv6 libressl +lto +ncurses +pgo +readline sqlite +ssl +threads tk +wide-unicode wininst +xml"
 
 # Do not add a dependency on dev-lang/python to this ebuild.
 # If you need to apply a patch which requires python for bootstrapping, please
@@ -178,7 +178,7 @@ src_configure() {
 	append-ldflags "-L."
 
 	# LTO needs this
-	if use optimizations; then
+	if use lto; then
 		append-ldflags "${CFLAGS}"
 	fi
 
@@ -201,8 +201,8 @@ src_configure() {
 		$(use_enable ipv6) \
 		$(use_with threads) \
 		$(use wide-unicode && echo "--enable-unicode=ucs4" || echo "--enable-unicode=ucs2") \
-		$(use_enable optimizations) \
-		$(use_with optimizations lto) \
+		$(use_enable pgo optimizations) \
+		$(use_with lto) \
 		--infodir='${prefix}/share/info' \
 		--mandir='${prefix}/share/man' \
 		--with-computed-gotos \
