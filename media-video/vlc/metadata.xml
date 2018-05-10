@@ -40,6 +40,7 @@
 		<flag name="macosx-notifications">Enables Mac OS X notifications module (formerly growl).</flag>
 		<flag name="macosx-qtkit">Enables Mac OS X qtkit module: qtcapture (video) and qtsound (audio) module.</flag>
 		<flag name="matroska">Enables matroska support using reference libraries (fallback on other existing matroska support if disabled, i.e., matroska enabled FFmpeg)</flag>
+		<flag name="microdns">Enable Chromecast auto-detection using <pkg>net-libs/libmicrodns</pkg></flag>
 		<flag name="mpeg">Add libmpeg2 support for mpeg-1 and mpeg-2 video streams</flag>
 		<flag name="nfs">Support NFS protocol via <pkg>net-fs/libnfs</pkg></flag>
 		<flag name="omxil">Enables OpenMAX Integration Layer codec module.</flag>

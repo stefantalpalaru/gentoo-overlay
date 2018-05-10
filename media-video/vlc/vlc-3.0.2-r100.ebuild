@@ -30,15 +30,15 @@ LICENSE="LGPL-2.1 GPL-2"
 SLOT="0/5-9" # vlc - vlccore
 
 IUSE="a52 alsa altivec aom archive bidi bluray cddb chromaprint chromecast dbus dc1394
-	debug directx dts dvb +dvbpsi dvd +encode faad fdk +ffmpeg flac fluidsynth fontconfig
-	+gcrypt gme gstreamer harfbuzz ieee1394 jack jpeg kate kde libass libav libcaca
-	libnotify +libsamplerate libsecret libtiger linsys libtar lirc live lua
-	macosx-notifications macosx-qtkit matroska modplug mp3 mpeg mtp musepack ncurses neon
-	nfs ogg omxil opencv optimisememory opus png postproc projectm pulseaudio +qt5 rdp
-	rtsp run-as-root samba schroedinger sdl-image sftp shout sid skins soxr spatialaudio
-	speex srt ssl svg taglib theora tremor truetype twolame udev upnp vaapi v4l vcd vdpau
-	vnc vorbis vpx wma-fixed +X x264 x265 xml zeroconf zvbi wayland cpu_flags_x86_mmx
-	cpu_flags_x86_sse
+	debug directx dts dvb +dvbpsi dvd +encode faad fdk +ffmpeg flac fluidsynth
+	fontconfig +gcrypt gme gstreamer harfbuzz ieee1394 jack jpeg kate kde libass
+	libav libcaca libnotify +libsamplerate libsecret libtiger linsys libtar lirc
+	live lua macosx-notifications macosx-qtkit matroska microdns modplug mp3 mpeg
+	mtp musepack ncurses neon nfs ogg omxil opencv optimisememory opus png postproc
+	projectm pulseaudio +qt5 rdp rtsp run-as-root samba schroedinger sdl-image sftp
+	shout sid skins soxr spatialaudio speex srt ssl svg taglib theora tremor
+	truetype twolame udev upnp vaapi v4l vcd vdpau vnc vorbis vpx wma-fixed +X x264
+	x265 xml zeroconf zvbi wayland cpu_flags_x86_mmx cpu_flags_x86_sse
 "
 
 REQUIRED_USE="
@@ -131,6 +131,7 @@ RDEPEND="
 		>=dev-libs/libebml-1:0=
 		>=media-libs/libmatroska-1:0=
 	)
+	microdns? ( >=net-libs/libmicrodns-0.0.9:= )
 	modplug? ( media-libs/libmodplug:0 )
 	mp3? ( media-libs/libmad:0 )
 	mpeg? ( >=media-libs/libmpeg2-0.3.2:0 )
@@ -224,18 +225,29 @@ DEPEND="${RDEPEND}
 	!qt5? ( kde? ( kde-frameworks/kdelibs:4 ) )
 	amd64? ( dev-lang/yasm:* )
 	x86? ( dev-lang/yasm:* )
-	X? ( x11-proto/xproto )
+	X? ( x11-base/xorg-proto )
 "
 
 PATCHES=(
 	"${FILESDIR}"/${PN}-2.1.0-fix-libtremor-libs.patch # build system
 	"${FILESDIR}"/${PN}-2.2.4-libav-11.7.patch # bug #593460
 	"${FILESDIR}"/${PN}-2.2.8-freerdp-2.patch # bug 590164
+	"${FILESDIR}"/${PN}-3.0.1-qt-5.11.patch # TODO upstream
 )
+if [[ ${PV} != *9999 ]] ; then
+	PATCHES+=( "${FILESDIR}"/${PN}-3.0.2-libaom.patch )
+fi
 
 DOCS=( AUTHORS THANKS NEWS README doc/fortunes.txt )
 
 S="${WORKDIR}/${MY_P}"
+
+pkg_pretend() {
+	# https://bugs.gentoo.org/647668
+	if use chromecast && ! use microdns; then
+		einfo "USE=microdns is required for Chromecast autodetection support"
+	fi
+}
 
 src_prepare() {
 	default
@@ -341,6 +353,7 @@ src_configure() {
 		$(use_enable macosx-notifications osx-notifications)
 		$(use_enable macosx-qtkit)
 		$(use_enable matroska)
+		$(use_enable microdns)
 		$(use_enable modplug mod)
 		$(use_enable mp3 mad)
 		$(use_enable mpeg libmpeg2)
@@ -418,7 +431,6 @@ src_configure() {
 		--disable-maintainer-mode
 		--disable-merge-ffmpeg
 		--disable-mfx
-		--disable-microdns
 		--disable-mmal
 		--disable-mpg123
 		--disable-opensles
@@ -455,7 +467,7 @@ src_configure() {
 
 	xdg_environment_reset # bug 608256
 
-	if use truetype || use projectm ; then
+	if use truetype || use projectm; then
 		local dejavu="/usr/share/fonts/dejavu/"
 		myeconfargs+=(
 			--with-default-font=${dejavu}/DejaVuSans.ttf
