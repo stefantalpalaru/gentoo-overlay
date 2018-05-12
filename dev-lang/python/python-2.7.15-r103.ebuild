@@ -87,7 +87,7 @@ src_prepare() {
 	rm -r Modules/zlib || die
 
 	if tc-is-cross-compiler; then
-		local EPATCH_EXCLUDE="*_regenerate_platform-specific_modules.patch"
+		local EPATCH_EXCLUDE="*_regenerate_platform-specific_modules*.patch"
 	fi
 
 	epatch "${FILESDIR}/01_all_static_library_location.patch"
