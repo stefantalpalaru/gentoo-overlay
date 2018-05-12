@@ -85,26 +85,26 @@ src_prepare() {
 	rm -r Modules/zlib || die
 
 	if tc-is-cross-compiler; then
-		local EPATCH_EXCLUDE="*_regenerate_platform-specific_modules.patch"
+		local EPATCH_EXCLUDE="*_regenerate_platform-specific_modules*.patch"
 	fi
 
+	epatch "${FILESDIR}/tauthon-rename-r1.patch"
 	epatch "${FILESDIR}/01_all_static_library_location.patch"
 	epatch "${FILESDIR}/02_all_disable_modules_and_ssl.patch"
-	epatch "${FILESDIR}/03_all_libdir.patch"
+	epatch "${FILESDIR}/03_all_libdir-r1.patch"
 	epatch "${FILESDIR}/04_all_non-zero_exit_status_on_failure.patch"
 	epatch "${FILESDIR}/05_all_loadable_sqlite_extensions.patch"
-	epatch "${FILESDIR}/06_all_regenerate_platform-specific_modules-r1.patch"
+	epatch "${FILESDIR}/06_all_regenerate_platform-specific_modules-r2.patch"
 	epatch "${FILESDIR}/21_all_distutils_c++.patch"
 	epatch "${FILESDIR}/22_all_turkish_locale.patch"
 	epatch "${FILESDIR}/23_all_arm_OABI.patch"
-	epatch "${FILESDIR}/24_all_tests_environment.patch"
+	epatch "${FILESDIR}/24_all_tests_environment-r1.patch"
 	epatch "${FILESDIR}/62_all_xml.use_pyxml.patch"
 	# Fix for cross-compiling.
 	epatch "${FILESDIR}/python-2.7.5-nonfatal-compileall.patch"
 	epatch "${FILESDIR}/python-2.7.9-ncurses-pkg-config.patch"
 	epatch "${FILESDIR}/python-2.7.10-cross-compile-warn-test.patch"
 	epatch "${FILESDIR}/python-2.7.10-system-libffi.patch"
-	epatch "${FILESDIR}/tauthon-rename.patch"
 
 	eapply_user
 

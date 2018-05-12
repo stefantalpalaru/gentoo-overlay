@@ -1,7 +1,6 @@
-https://bugs.python.org/issue1674555
-
---- Lib/site.py
-+++ Lib/site.py
+diff -ur tauthon-2.8.0_pre20180507.orig/Lib/site.py tauthon-2.8.0_pre20180507/Lib/site.py
+--- tauthon-2.8.0_pre20180507.orig/Lib/site.py	2018-05-12 15:02:52.430743246 +0200
++++ tauthon-2.8.0_pre20180507/Lib/site.py	2018-05-12 15:03:57.451608513 +0200
 @@ -518,8 +518,12 @@
      known_paths = removeduppaths()
      if ENABLE_USER_SITE is None:
@@ -17,8 +16,9 @@ https://bugs.python.org/issue1674555
      if sys.platform == 'os2emx':
          setBEGINLIBPATH()
      setquit()
---- Lib/test/regrtest.py
-+++ Lib/test/regrtest.py
+diff -ur tauthon-2.8.0_pre20180507.orig/Lib/test/regrtest.py tauthon-2.8.0_pre20180507/Lib/test/regrtest.py
+--- tauthon-2.8.0_pre20180507.orig/Lib/test/regrtest.py	2018-05-12 15:02:51.679767901 +0200
++++ tauthon-2.8.0_pre20180507/Lib/test/regrtest.py	2018-05-12 15:08:53.363893270 +0200
 @@ -188,6 +188,7 @@
  import imp
  import platform
@@ -155,30 +155,27 @@ https://bugs.python.org/issue1674555
                  accumulate_result(test, result)
                  return result
  
-@@ -851,8 +905,8 @@
+@@ -851,7 +905,7 @@
                      if verbose3 and result[0] == FAILED:
                          if not pgo:
                              print "Re-running test %r in verbose mode" % test
 -                        runtest(test, True, quiet, huntrleaks, None, pgo,
--                                testdir=testdir)
 +                        _runtest(test, True, quiet, huntrleaks, None, pgo,
-+                                 testdir=testdir)
+                                 testdir=testdir)
                  except KeyboardInterrupt:
                      interrupted = True
-                     break
-@@ -928,8 +982,8 @@
+@@ -928,7 +982,7 @@
              sys.stdout.flush()
              try:
                  test_support.verbose = True
 -                ok = runtest(test, True, quiet, huntrleaks, None, pgo,
--                             testdir=testdir)
 +                ok = _runtest(test, True, quiet, huntrleaks, None, pgo,
-+                              testdir=testdir)
+                              testdir=testdir)
              except KeyboardInterrupt:
                  # print a newline separate from the ^C
-                 print
---- Lib/test/test_site.py
-+++ Lib/test/test_site.py
+diff -ur tauthon-2.8.0_pre20180507.orig/Lib/test/test_site.py tauthon-2.8.0_pre20180507/Lib/test/test_site.py
+--- tauthon-2.8.0_pre20180507.orig/Lib/test/test_site.py	2018-05-12 15:02:52.430743246 +0200
++++ tauthon-2.8.0_pre20180507/Lib/test/test_site.py	2018-05-12 15:10:27.052817322 +0200
 @@ -9,6 +9,7 @@
  from test.test_support import captured_output
  import __builtin__
@@ -216,14 +213,15 @@ https://bugs.python.org/issue1674555
  
  
  class HelperFunctionsTests(unittest.TestCase):
---- Makefile.pre.in
-+++ Makefile.pre.in
-@@ -871,7 +871,7 @@
+diff -ur tauthon-2.8.0_pre20180507.orig/Makefile.pre.in tauthon-2.8.0_pre20180507/Makefile.pre.in
+--- tauthon-2.8.0_pre20180507.orig/Makefile.pre.in	2018-05-12 15:02:52.600737665 +0200
++++ tauthon-2.8.0_pre20180507/Makefile.pre.in	2018-05-12 15:11:29.709757425 +0200
+@@ -880,7 +880,7 @@
  
  TESTOPTS=	-l $(EXTRATESTOPTS)
  TESTPROG=	$(srcdir)/Lib/test/regrtest.py
--TESTPYTHON=	$(RUNSHARED) ./$(BUILDPYTHON) -Wd -3 -E -tt $(TESTPYTHONOPTS)
-+TESTPYTHON=	_PYTHONNOSITEPACKAGES=1 $(RUNSHARED) ./$(BUILDPYTHON) -Wd -3 -E -tt $(TESTPYTHONOPTS)
+-TESTPYTHON=	$(RUNSHARED) ./$(BUILDTAUTHON) -Wd -3 -E -tt $(TESTPYTHONOPTS)
++TESTPYTHON=	_PYTHONNOSITEPACKAGES=1 $(RUNSHARED) ./$(BUILDTAUTHON) -Wd -3 -E -tt $(TESTPYTHONOPTS)
  test:		@DEF_MAKE_RULE@ platform
  		-find $(srcdir)/Lib -name '*.py[co]' -print | xargs rm -f
  		-$(TESTPYTHON) $(TESTPROG) $(TESTOPTS)
