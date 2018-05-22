@@ -16,15 +16,12 @@ IUSE=""
 
 DEPEND="
 	media-gfx/sane-backends
+	media-libs/glew:0
 	media-libs/tiff:0
 	virtual/glu
 	x11-libs/fltk
 "
 RDEPEND="${DEPEND}"
-
-PATCHES=(
-	"${FILESDIR}"/${PN}-2.4.0-config-file.patch
-)
 
 src_prepare() {
 	default
