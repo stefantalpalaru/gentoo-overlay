@@ -1,16 +1,11 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <!DOCTYPE pkgmetadata SYSTEM "http://www.gentoo.org/dtd/metadata.dtd">
 <pkgmetadata>
-	<maintainer type="project">
-		<email>vmware@gentoo.org</email>
-		<name>Gentoo VMware Project</name>
+	<maintainer type="person">
+		<email>stefantalpalaru@yahoo.com</email>
+		<name>Ștefan Talpalaru</name>
 	</maintainer>
 	<longdescription>
 		VMware kernel modules.
 	</longdescription>
-	<use>
-		<flag name="vmblock">Build the WMware Blocking File System module; does not seem to be needed by recent Workstation versions</flag>
-		<flag name="vmci">Build the Virtual Machine Communication Interface module; disable this if you want to use the module from the mainline kernel</flag>
-		<flag name="vsock">Build the VMware VMCI transport for Virtual Sockets; disable this if you want to use the module from the mainline kernel</flag>
-	</use>
 </pkgmetadata>

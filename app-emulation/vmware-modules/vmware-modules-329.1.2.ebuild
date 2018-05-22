@@ -16,8 +16,7 @@ SRC_URI=""
 LICENSE="GPL-2"
 SLOT="0"
 KEYWORDS="~amd64"
-IUSE="vmblock vmci vsock"
-REQUIRED_USE="!vsock? ( !vmci )"
+IUSE=""
 
 RDEPEND=""
 DEPEND="
@@ -31,28 +30,14 @@ pkg_setup() {
 	if kernel_is ge 2 6 37 && kernel_is lt 2 6 39; then
 		CONFIG_CHECK="${CONFIG_CHECK} BKL"
 	fi
-	if use vmci ; then
-		CONFIG_CHECK="${CONFIG_CHECK} !VMWARE_VMCI"
-	else
-		CONFIG_CHECK="${CONFIG_CHECK} VMWARE_VMCI"
-	fi
-	if use vsock ; then
-		CONFIG_CHECK="${CONFIG_CHECK} !VMWARE_VMCI_VSOCKETS"
-	else
-		CONFIG_CHECK="${CONFIG_CHECK} VMWARE_VMCI_VSOCKETS"
-	fi
+	CONFIG_CHECK="${CONFIG_CHECK} VMWARE_VMCI VMWARE_VMCI_VSOCKETS"
 
 	linux-info_pkg_setup
-
 	linux-mod_pkg_setup
 
 	VMWARE_GROUP=${VMWARE_GROUP:-vmware}
 
-	VMWARE_MODULE_LIST_ALL="vmblock vmmon vmnet vmci vsock"
 	VMWARE_MODULE_LIST="vmmon vmnet"
-	use vmci && VMWARE_MODULE_LIST="${VMWARE_MODULE_LIST} vmci"
-	use vsock && VMWARE_MODULE_LIST="${VMWARE_MODULE_LIST} vsock"
-	use vmblock && VMWARE_MODULE_LIST="${VMWARE_MODULE_LIST} vmblock"
 
 	VMWARE_MOD_DIR="${PN}-${PVR}"
 
@@ -70,29 +55,21 @@ pkg_setup() {
 
 src_unpack() {
 	cd "${S}"
-	for mod in ${VMWARE_MODULE_LIST_ALL}; do
+	for mod in ${VMWARE_MODULE_LIST}; do
 		tar -xf /opt/vmware/lib/vmware/modules/source/${mod}.tar
 	done
 }
 
 src_prepare() {
-	# from Arch Linux: https://aur.archlinux.org/packages/vmware-workstation/
-	if use vmblock; then
-		epatch "${FILESDIR}/${PV_MAJOR}-vmblock.patch"
-	fi
-	if use vmci; then
-		epatch "${FILESDIR}/${PV_MAJOR}-vmci.patch"
-	fi
-	if use vsock; then
-		epatch "${FILESDIR}/${PV_MAJOR}-vsock.patch"
-		epatch "${FILESDIR}/${PV_MAJOR}-4.14-00-vsock-gcc-plugins-randstruct.patch"
-	fi
-	# from https://github.com/mkubecek/vmware-host-modules/tree/workstation-14.0.0
-	epatch "${FILESDIR}/${PV_MAJOR}-00-vmmon-quick-workaround-for-objtool-warnings.patch"
+	# from https://github.com/mkubecek/vmware-host-modules/tree/workstation-14.1.1
 	kernel_is ge 4 9 0 && epatch "${FILESDIR}/${PV_MAJOR}-4.09-00-vmnet-use-standard-definition-of-PCI_VENDOR_ID_VMWAR.patch"
 	kernel_is ge 4 10 0 && epatch "${FILESDIR}/${PV_MAJOR}-4.10-00-vmnet-use-standard-definition-of-PCI_VENDOR_ID_VMWAR.patch"
 	kernel_is ge 4 12 0 && epatch "${FILESDIR}/${PV_MAJOR}-4.12-00-vmmon-use-standard-definition-of-MSR_MISC_FEATURES_E.patch"
 	kernel_is ge 4 13 0 && epatch "${FILESDIR}/${PV_MAJOR}-4.13-00-vmmon-use-standard-definition-of-CR3_PCID_MASK-if-av.patch"
+	epatch "${FILESDIR}/${PV_MAJOR}-00-vmmon-quick-workaround-for-objtool-warnings.patch"
+	kernel_is ge 4 16 0 && epatch "${FILESDIR}/${PV_MAJOR}-4.16-00-vmmon-use-standard-definition-of-MSR_K7_HWCR_SMMLOCK.patch"
+	epatch "${FILESDIR}/${PV_MAJOR}-01-vmmon-fix-always_inline-attribute-usage.patch"
+	epatch "${FILESDIR}/${PV_MAJOR}-02-vmmon-fix-indirect-call-with-retpoline-build.patch"
 
 	# decouple the kernel include dir from the running kernel version: https://github.com/stefantalpalaru/gentoo-overlay/issues/17
 	sed -i -e "s%HEADER_DIR = /lib/modules/\$(VM_UNAME)/build/include%HEADER_DIR = ${KERNEL_DIR}/include%" */Makefile || die "sed failed"
@@ -112,25 +89,21 @@ src_install() {
 	EOF
 	udev_dorules "${udevrules}"
 
-	if ! use vmci ; then
-		dodir /etc/modprobe.d/
+	dodir /etc/modprobe.d/
 
-		cat > "${D}"/etc/modprobe.d/vmware.conf <<-EOF
-			# Support for vmware vmci in kernel module
-			alias vmci	vmw_vmci
-		EOF
+	cat > "${D}"/etc/modprobe.d/vmware.conf <<-EOF
+		# Support for vmware vmci in kernel module
+		alias vmci	vmw_vmci
+	EOF
 
-		export installed_modprobe_conf=1
-	fi
-	if ! use vsock ; then
-		dodir /etc/modprobe.d/
-		cat >> "${D}"/etc/modprobe.d/vmware.conf <<-EOF
-			# Support for vmware vsock in kernel module
-			alias vsock	vmw_vsock_vmci_transport
-		EOF
+	export installed_modprobe_conf=1
+	dodir /etc/modprobe.d/
+	cat >> "${D}"/etc/modprobe.d/vmware.conf <<-EOF
+		# Support for vmware vsock in kernel module
+		alias vsock	vmw_vsock_vmci_transport
+	EOF
 
-		export installed_modprobe_conf=1
-	fi
+	export installed_modprobe_conf=1
 }
 
 pkg_postinst() {
