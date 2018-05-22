@@ -10,7 +10,7 @@ MY_PV=$(get_version_component_range 1-3)
 PV_MODULES="329.$(get_version_component_range 2-3)"
 PV_BUILD=$(get_version_component_range 4)
 MY_P="${MY_PN}-${MY_PV}-${PV_BUILD}"
-VMWARE_FUSION_VER="10.1.1_7520154"
+VMWARE_FUSION_VER="${MY_PV}_${PV_BUILD}"
 SYSTEMD_UNITS_TAG="gentoo-02"
 
 DESCRIPTION="Emulate a complete PC without the performance overhead of most emulators"
@@ -500,6 +500,7 @@ src_install() {
 	EOF
 
 	cat > "${D}"/etc/vmware/config <<-EOF
+		.encoding = "UTF-8"
 		bindir = "${VM_INSTALL_DIR}/bin"
 		libdir = "${VM_INSTALL_DIR}/lib/vmware"
 		initscriptdir = "/etc/init.d"
@@ -514,11 +515,17 @@ src_install() {
 		product.version = "${MY_PV}"
 		product.name = "VMware Workstation"
 		workstation.product.version = "${MY_PV}"
+		vmware.fullpath = "${VM_INSTALL_DIR}/bin/vmware"
+		installerDefaults.componentDownloadEnabled = "no"
+		installerDefaults.autoSoftwareUpdateEnabled.epoch = "4641104763"
+		installerDefaults.dataCollectionEnabled.epoch = "7910652514"
+		installerDefaults.dataCollectionEnabled = "no"
+		installerDefaults.transferVersion = "1"
+		installerDefaults.autoSoftwareUpdateEnabled = "no"
 	EOF
 
 	if use vix; then
 		cat >> "${D}"/etc/vmware/config <<-EOF
-			vmware.fullpath = "${VM_INSTALL_DIR}/bin/vmware"
 			vix.libdir = "${VM_INSTALL_DIR}/lib/vmware-vix"
 			vix.config.version = "1"
 		EOF
