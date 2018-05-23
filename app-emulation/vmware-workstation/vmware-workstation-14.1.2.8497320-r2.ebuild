@@ -186,6 +186,7 @@ RDEPEND="
 	media-libs/libart_lgpl
 	media-libs/libvorbis
 	media-libs/mesa
+	media-plugins/alsa-plugins[speex]
 	net-dns/libidn
 	net-libs/gnutls
 	cups? ( net-print/cups )
