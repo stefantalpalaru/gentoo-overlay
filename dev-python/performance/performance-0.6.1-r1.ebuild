@@ -16,6 +16,7 @@ KEYWORDS="~amd64 ~x86"
 IUSE=""
 
 RDEPEND="
+	dev-python/setuptools[${PYTHON_USEDEP}]
 	$(python_gen_cond_dep 'dev-python/virtualenv[${PYTHON_USEDEP}]' python2_7 )
 "
 DEPEND="${RDEPEND}"
