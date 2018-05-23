@@ -11,8 +11,8 @@ QA_PREBUILT="*"
 DESCRIPTION="Project collaboration and tracking software for upwork.com"
 HOMEPAGE="https://www.upwork.com/"
 SRC_URI="
-	amd64? ( https://updates-desktopapp.upwork.com/binaries/v5_0_1_442_9advaddbconscszu/upwork-5.0.1.442-1fc24.x86_64.rpm -> ${P}_x86_64.rpm )
-	x86? ( https://updates-desktopapp.upwork.com/binaries/v5_0_1_442_9advaddbconscszu/upwork-5.0.1.442-1fc24.i386.rpm -> ${P}_i386.rpm )
+	amd64? ( https://updates-desktopapp.upwork.com/binaries/v5_1_0_509_87zq7fllb6sf8y49/upwork-5.1.0.509-1fc24.x86_64.rpm -> ${P}_x86_64.rpm )
+	x86? ( https://updates-desktopapp.upwork.com/binaries/v5_1_0_509_87zq7fllb6sf8y49/upwork-5.1.0.509-1fc24.i386.rpm -> ${P}_i386.rpm )
 "
 LICENSE="ODESK"
 SLOT="0"
@@ -23,12 +23,15 @@ PATCHES=( "${FILESDIR}/${PN}-desktop.patch" )
 
 DEPEND="dev-util/patchelf"
 RDEPEND="
+	dev-libs/expat
+	dev-libs/nspr
+	dev-libs/nss
 	gnome-base/gconf
 	media-libs/alsa-lib
 	media-libs/freetype
-	net-print/cups
+	sys-apps/dbus
 	sys-libs/libcap
-	x11-libs/gtk+:2
+	x11-libs/gtk+:2[cups]
 	x11-libs/gtkglext
 "
 
