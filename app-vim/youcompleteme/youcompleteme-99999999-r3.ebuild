@@ -60,7 +60,6 @@ DEPEND="
 	test? (
 		>=dev-python/mock-1.0.1[${PYTHON_USEDEP}]
 		>=dev-python/nose-1.3.0[${PYTHON_USEDEP}]
-		dev-cpp/gmock
 		dev-cpp/gtest
 	)
 "
