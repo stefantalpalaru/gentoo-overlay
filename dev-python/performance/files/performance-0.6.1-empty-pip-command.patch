@@ -1,0 +1,36 @@
+From 6c2412c20cf7cc20f82136e9097a23e998d67b47 Mon Sep 17 00:00:00 2001
+From: Ethan Smith <ethan@ethanhs.me>
+Date: Sun, 29 Apr 2018 18:59:01 -0700
+Subject: [PATCH] Guard against empty pip install
+
+---
+ performance/venv.py | 14 ++++++++------
+ 1 file changed, 8 insertions(+), 6 deletions(-)
+
+diff --git a/performance/venv.py b/performance/venv.py
+index 0744e7b..a1daf60 100644
+--- a/performance/venv.py
++++ b/performance/venv.py
+@@ -495,14 +495,16 @@ def _install_req(self):
+         self.run_cmd(cmd)
+ 
+         # install indirect requirements
+-        cmd = pip_program + ['install']
+-        cmd.extend(requirements.indirect_req)
+-        self.run_cmd(cmd)
++        if requirements.indirect_req:
++            cmd = pip_program + ['install']
++            cmd.extend(requirements.indirect_req)
++            self.run_cmd(cmd)
+ 
+         # install requirements
+-        cmd = pip_program + ['install']
+-        cmd.extend(requirements.req)
+-        self.run_cmd(cmd)
++        if requirements.req:
++            cmd = pip_program + ['install']
++            cmd.extend(requirements.req)
++            self.run_cmd(cmd)
+ 
+         # install optional requirements
+         for req in requirements.optional:

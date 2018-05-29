@@ -21,6 +21,10 @@ RDEPEND="
 "
 DEPEND="${RDEPEND}"
 
+PATCHES=(
+	"${FILESDIR}"/performance-0.6.1-empty-pip-command.patch
+)
+
 src_prepare() {
 	default
 	sed -i -e '/install_requires/d' setup.py
