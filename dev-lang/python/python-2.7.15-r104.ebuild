@@ -236,7 +236,6 @@ src_compile() {
 	export par_arg
 
 	emake EXTRATESTOPTS="${par_arg} -uall,-audio -x test_asyncore test_gdb test_multiprocessing test_subprocess test_epoll test_selectors test_distutils test_xpickle"
-	#emake PROFILE_TASK="-m test.regrtest --pgo -j9 -vv test_epoll"
 
 	# Work around bug 329499. See also bug 413751 and 457194.
 	if has_version dev-libs/libffi[pax_kernel]; then
