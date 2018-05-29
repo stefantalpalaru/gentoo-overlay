@@ -101,11 +101,11 @@ src_prepare() {
 	epatch "${FILESDIR}/23_all_arm_OABI.patch"
 	epatch "${FILESDIR}/24_all_tests_environment.patch"
 	epatch "${FILESDIR}/62_all_xml.use_pyxml.patch"
-	# Fix for cross-compiling.
 	epatch "${FILESDIR}/python-2.7.5-nonfatal-compileall.patch"
 	epatch "${FILESDIR}/python-2.7.9-ncurses-pkg-config.patch"
 	epatch "${FILESDIR}/python-2.7.10-cross-compile-warn-test.patch"
 	epatch "${FILESDIR}/python-2.7.10-system-libffi.patch"
+	epatch "${FILESDIR}/python-2.7.15-PGO.patch"
 
 	eapply_user
 
@@ -235,7 +235,8 @@ src_compile() {
 	fi
 	export par_arg
 
-	emake LLVM_PROF_FILE="_PYTHONNOSITEPACKAGES=1 \$(RUNSHARED)" PROFILE_TASK="-E \$(TESTPROG) ${par_arg} --pgo -uall,-audio -x test_asyncore test_gdb test_multiprocessing test_subprocess test_distutils test_xpickle"
+	emake EXTRATESTOPTS="${par_arg} -uall,-audio -x test_asyncore test_gdb test_multiprocessing test_subprocess test_epoll test_selectors test_distutils test_xpickle"
+	#emake PROFILE_TASK="-m test.regrtest --pgo -j9 -vv test_epoll"
 
 	# Work around bug 329499. See also bug 413751 and 457194.
 	if has_version dev-libs/libffi[pax_kernel]; then
