@@ -9,7 +9,7 @@ inherit autotools eutils flag-o-matic git-r3 multilib pax-utils python-utils-r1 
 DESCRIPTION="Python 2.7 fork with new syntax, builtins, and libraries backported from Python3"
 HOMEPAGE="https://github.com/naftaliharris/tauthon"
 EGIT_REPO_URI="https://github.com/naftaliharris/tauthon.git"
-EGIT_COMMIT="d49b951bbc6cc409259a77238970bf7fb88b2930"
+EGIT_COMMIT="e92057accb2d0b70620c7b9b2ec885247788d67b"
 
 LICENSE="PSF-2"
 SLOT="2.8"
@@ -88,7 +88,6 @@ src_prepare() {
 		local EPATCH_EXCLUDE="*_regenerate_platform-specific_modules*.patch"
 	fi
 
-	epatch "${FILESDIR}/tauthon-rename-r1.patch"
 	epatch "${FILESDIR}/01_all_static_library_location.patch"
 	epatch "${FILESDIR}/02_all_disable_modules_and_ssl.patch"
 	epatch "${FILESDIR}/03_all_libdir-r1.patch"
@@ -100,7 +99,6 @@ src_prepare() {
 	epatch "${FILESDIR}/23_all_arm_OABI.patch"
 	epatch "${FILESDIR}/24_all_tests_environment-r1.patch"
 	epatch "${FILESDIR}/62_all_xml.use_pyxml.patch"
-	# Fix for cross-compiling.
 	epatch "${FILESDIR}/python-2.7.5-nonfatal-compileall.patch"
 	epatch "${FILESDIR}/python-2.7.9-ncurses-pkg-config.patch"
 	epatch "${FILESDIR}/python-2.7.10-cross-compile-warn-test.patch"
@@ -234,7 +232,7 @@ src_compile() {
 	fi
 	export par_arg
 
-	emake LLVM_PROF_FILE="_PYTHONNOSITEPACKAGES=1 \$(RUNSHARED)" PROFILE_TASK="-E \$(TESTPROG) ${par_arg} --pgo -uall,-audio -x test_asyncore test_gdb test_multiprocessing test_subprocess test_distutils test_xpickle"
+	emake EXTRATESTOPTS="${par_arg} -uall,-audio -x test_asyncore test_gdb test_multiprocessing test_subprocess test_epoll test_selectors test_distutils test_xpickle"
 
 	# Work around bug 329499. See also bug 413751 and 457194.
 	if has_version dev-libs/libffi[pax_kernel]; then
