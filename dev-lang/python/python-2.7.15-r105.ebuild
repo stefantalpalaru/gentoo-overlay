@@ -106,6 +106,7 @@ src_prepare() {
 	epatch "${FILESDIR}/python-2.7.10-cross-compile-warn-test.patch"
 	epatch "${FILESDIR}/python-2.7.10-system-libffi.patch"
 	epatch "${FILESDIR}/python-2.7.15-PGO.patch"
+	epatch "${FILESDIR}/python-2.7.15-test_ssl-non-ASCII-path.patch"
 
 	eapply_user
 
