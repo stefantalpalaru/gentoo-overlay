@@ -117,6 +117,7 @@ BUNDLED_LIB_DEPENDS="
 	app-accessibility/at-spi2-core
 	app-crypt/gcr[gtk]
 	app-crypt/p11-kit
+	dev-cpp/gtkmm:3.0
 	dev-libs/atk
 	dev-libs/expat
 	dev-libs/glib:2
