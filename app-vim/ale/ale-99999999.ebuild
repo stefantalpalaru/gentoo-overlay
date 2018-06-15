@@ -1,4 +1,4 @@
-# Copyright 1999-2017 Gentoo Foundation
+# Copyright 1999-2018 Gentoo Foundation
 # Distributed under the terms of the GNU General Public License v2
 
 EAPI=6
@@ -14,7 +14,7 @@ VIM_PLUGIN_HELPFILES="${PN}"
 
 src_prepare() {
 	default
-	rm -r test img CONTRIBUTING.md custom-checks run-tests Dockerfile LICENSE README.md ISSUE_TEMPLATE.md PULL_REQUEST_TEMPLATE.md || die
+	rm -r test img CONTRIBUTING.md run-tests* Dockerfile LICENSE README.md ISSUE_TEMPLATE.md PULL_REQUEST_TEMPLATE.md CODE_OF_CONDUCT.md || die
 }
 
 pkg_postinst() {
