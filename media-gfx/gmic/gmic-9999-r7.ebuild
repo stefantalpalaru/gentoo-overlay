@@ -17,10 +17,9 @@ KEYWORDS=""
 
 LICENSE="CeCILL-2 GPL-3"
 SLOT="0"
-IUSE="bash-completion +cli ffmpeg fftw gimp gimp-gtk graphicsmagick gui jpeg krita opencv openexr openmp png static-libs tiff X"
+IUSE="bash-completion +cli ffmpeg fftw gimp graphicsmagick gui jpeg krita opencv openexr openmp png static-libs tiff X"
 REQUIRED_USE="
 	gimp? ( png fftw X )
-	gimp-gtk? ( png fftw X )
 	gui? ( png fftw X )
 	krita? ( png fftw X )
 "
@@ -36,9 +35,6 @@ COMMON_DEPEND="
 	gimp? (
 		${QT_DEPS}
 		>=media-gfx/gimp-2.8.0
-	)
-	gimp-gtk? (
-		>=media-gfx/gimp-2.4.0
 	)
 	graphicsmagick? ( media-gfx/graphicsmagick )
 	gui? ( ${QT_DEPS} )
@@ -113,7 +109,6 @@ src_configure() {
 		-DBUILD_CLI=$(usex cli ON OFF)
 		-DBUILD_MAN=$(usex cli ON OFF)
 		-DBUILD_BASH_COMPLETION=$(usex cli $(usex bash-completion ON OFF) OFF)
-		-DBUILD_PLUGIN=$(usex gimp-gtk ON OFF)
 		-DENABLE_X=$(usex X ON OFF)
 		-DENABLE_FFMPEG=$(usex ffmpeg ON OFF)
 		-DENABLE_FFTW=$(usex fftw ON OFF)
