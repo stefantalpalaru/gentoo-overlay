@@ -7,7 +7,7 @@ inherit flag-o-matic qmake-utils
 
 DESCRIPTION="G'MIC GUI for video streams"
 HOMEPAGE="https://github.com/c-koi/zart"
-ZART_COMMIT="34f7e483a819dd2af4f772d0f748928119f22f6d"
+ZART_COMMIT="00edf034c6ccbe8d48fe540c03b0282b39a80a6c"
 SRC_URI="https://github.com/c-koi/zart/archive/${ZART_COMMIT}.zip -> ${P}.zip"
 
 LICENSE="CeCILL-2"
