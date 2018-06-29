@@ -23,7 +23,7 @@ RDEPEND="
 	x11-libs/libX11"
 # osc? ( >=media-libs/liblo-0.22 )
 DEPEND="${RDEPEND}
-	x11-proto/xproto
+	x11-base/xorg-proto
 	virtual/pkgconfig"
 
 DOCS=( AUTHORS ChangeLog HOWTO NEWS README )
