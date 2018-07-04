@@ -8,7 +8,7 @@ inherit eutils git-r3 qmake-utils
 DESCRIPTION="SDR-J SW receiver for RTL2832-based USB sticks"
 HOMEPAGE="http://www.sdr-j.tk/"
 EGIT_REPO_URI="https://github.com/JvanKatwijk/sdr-j-sw"
-EGIT_COMMIT="f0d01cce7bcb5634cf3955f6bbf4e4768ce3e0ff"
+EGIT_COMMIT="e00f2922f3301a78d6fa6a82bf40104b2a992680"
 
 LICENSE="GPL-2"
 SLOT="0"
@@ -25,13 +25,10 @@ DEPEND="dev-qt/qtcore:5
 	sci-libs/fftw:3.0
 	virtual/ffmpeg
 	virtual/libusb:1
-	x11-libs/qwt:6[qt5]"
+	x11-libs/qwt:6"
 
 RDEPEND="${DEPEND}"
 
-PATCHES=(
-	"${FILESDIR}/const_cast.patch"
-)
 S="${WORKDIR}/${P}/swreceiver"
 INPUT_DIRS="cardreader dabstick filereader pmsdr"
 
