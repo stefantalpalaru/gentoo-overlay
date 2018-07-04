@@ -26,7 +26,7 @@ DEPEND="!media-radio/dabstick-radio
 	sys-libs/zlib
 	virtual/ffmpeg
 	virtual/libusb:1
-	x11-libs/qwt:6[qt5]"
+	x11-libs/qwt:6"
 
 RDEPEND="${DEPEND}"
 
@@ -50,5 +50,5 @@ src_configure() {
 src_install() {
 	cd "${BUILD_DIR}"
 	exeinto "/usr/bin"
-	newexe "linux-bin/${P}-s" "${PN}"
+	newexe "linux-bin/${P}" "${PN}"
 }
