@@ -3,12 +3,11 @@
 
 EAPI=6
 
-inherit git-r3 qmake-utils
+inherit qmake-utils
 
 DESCRIPTION="SDR-J FM receiver for RTL2832-based USB sticks"
-HOMEPAGE="http://www.sdr-j.tk/"
-EGIT_REPO_URI="https://github.com/JvanKatwijk/sdr-j-fm"
-EGIT_COMMIT="fd7990f14958e26e99d5170596b64ac50a54f990"
+HOMEPAGE="http://www.sdr-j.tk/ https://github.com/JvanKatwijk/sdr-j-fm"
+SRC_URI="https://github.com/JvanKatwijk/sdr-j-fm/archive/sdr-j-fm-${PV}.tar.gz"
 
 LICENSE="GPL-2"
 SLOT="0"
@@ -25,8 +24,10 @@ DEPEND="
 	net-wireless/rtl-sdr
 	sci-libs/fftw:3.0
 	virtual/libusb:1
-	x11-libs/qwt:6[qt5]"
+	x11-libs/qwt:6"
 RDEPEND="${DEPEND}"
+
+S="${WORKDIR}/sdr-j-fm-sdr-j-fm-${PV}"
 
 src_prepare() {
 	default
