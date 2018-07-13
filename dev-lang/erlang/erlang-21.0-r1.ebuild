@@ -142,12 +142,7 @@ src_configure() {
 		$(use_enable ssl dynamic-ssl-lib) \
 		$(use_enable systemd) \
 		$(use_enable pgo) \
-		$(use_with wxwidgets wx) \
-		$(use_with wxwidgets debugger) \
-		$(use_with wxwidgets dialyzer) \
-		$(use_with wxwidgets et) \
-		$(use_with wxwidgets observer) \
-		$(use_with wxwidgets reltool) \
+		$(if ! use wxwidgets; then echo "--with-wxdir=/dev/null"; fi) \
 		--enable-threads
 }
 
