@@ -16,8 +16,6 @@ if [[ ${CATEGORY} != cross-* ]] ; then
 	PDEPEND="${PDEPEND} elibc_glibc? ( >=sys-libs/glibc-2.13 )"
 fi
 
-echo ${D}/${LIBPATH}
-
 src_prepare() {
 	toolchain_src_prepare
 }
