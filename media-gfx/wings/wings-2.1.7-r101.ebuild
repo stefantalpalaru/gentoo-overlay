@@ -16,7 +16,7 @@ RDEPEND="
 	>=dev-lang/erlang-18.1[wxwidgets]
 	dev-libs/cl
 	media-libs/glu
-	media-libs/libsdl[opengl]
+	media-libs/libsdl[smp(+),opengl]
 	virtual/opengl
 "
 DEPEND="${RDEPEND}"
