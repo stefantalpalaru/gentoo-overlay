@@ -2,7 +2,7 @@
 # Distributed under the terms of the GNU General Public License v2
 
 EAPI=6
-WX_GTK_VER="3.1-gtk3"
+WX_GTK_VER="3.0-gtk3"
 
 inherit autotools elisp-common java-pkg-opt-2 systemd versionator wxwidgets
 
@@ -128,7 +128,7 @@ src_prepare() {
 }
 
 src_configure() {
-	use wxwidgets && need-wxwidgets unicode
+	use wxwidgets && setup-wxwidgets
 
 	econf \
 		--disable-builtin-zlib \
