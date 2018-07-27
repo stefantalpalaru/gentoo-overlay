@@ -1,20 +1,20 @@
 # Copyright 1999-2018 Gentoo Foundation
 # Distributed under the terms of the GNU General Public License v2
 
-# @ECLASS: rebar.eclass
+# @ECLASS: rebar3.eclass
 # @MAINTAINER:
-# Amadeusz Żołnowski <aidecoe@gentoo.org>
+# Ștefan Talpalaru <stefantalpalaru@yahoo.com>
 # @AUTHOR:
 # Amadeusz Żołnowski <aidecoe@gentoo.org>
-# @BLURB: Build Erlang/OTP projects using dev-util/rebar.
+# @BLURB: Build Erlang/OTP projects using dev-util/rebar3.
 # @DESCRIPTION:
 # An eclass providing functions to build Erlang/OTP projects using
-# dev-util/rebar.
+# dev-util/rebar3.
 #
-# rebar is a tool which tries to resolve dependencies itself which is by
+# rebar3 is a tool which tries to resolve dependencies itself which is by
 # cloning remote git repositories. Dependant projects are usually expected to
 # be in sub-directory 'deps' rather than looking at system Erlang lib
-# directory. Projects relying on rebar usually don't have 'install' make
+# directory. Projects relying on rebar3 usually don't have 'install' make
 # targets. The eclass workarounds some of these problems. It handles
 # installation in a generic way for Erlang/OTP structured projects.
 
