@@ -13,10 +13,10 @@ SLOT="0"
 KEYWORDS="~amd64 ~x86"
 
 RDEPEND="
-	>=dev-lang/erlang-18.1[wxwidgets]
+	>=dev-lang/erlang-18.1[smp(+),wxwidgets]
 	dev-libs/cl
 	media-libs/glu
-	media-libs/libsdl[smp(+),opengl]
+	media-libs/libsdl[opengl]
 	virtual/opengl
 "
 DEPEND="${RDEPEND}"
