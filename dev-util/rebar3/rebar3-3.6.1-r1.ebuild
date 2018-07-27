@@ -24,7 +24,7 @@ src_compile() {
 }
 
 src_test() {
-	./rebar3 ct
+	./rebar3 ct || die "tests failed"
 }
 
 src_install() {
