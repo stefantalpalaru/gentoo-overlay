@@ -24,16 +24,16 @@ KEYWORDS="~alpha ~amd64 ~arm ~arm64 ~hppa ~ia64 ~ppc ~ppc64 ~sparc ~x86 ~x86-fbs
 IUSE="doc emacs +hipe java +kpoll libressl odbc +pgo sctp ssl systemd tk +wxwidgets"
 
 RDEPEND="
+	sys-libs/ncurses:0
+	sys-libs/zlib
 	emacs? ( virtual/emacs )
-	java? ( >=virtual/jdk-1.2:* )
+	java? ( virtual/jdk:* )
 	odbc? ( dev-db/unixODBC )
 	sctp? ( net-misc/lksctp-tools )
 	ssl? (
 		!libressl? ( >=dev-libs/openssl-0.9.7d:0= )
 		libressl? ( dev-libs/libressl:0= )
 	)
-	sys-libs/ncurses:*
-	sys-libs/zlib
 	systemd? ( sys-apps/systemd )
 	tk? ( dev-lang/tk:0 )
 	wxwidgets? ( x11-libs/wxGTK:${WX_GTK_VER}[X,opengl] )
@@ -142,7 +142,7 @@ src_configure() {
 		$(use_enable ssl dynamic-ssl-lib) \
 		$(use_enable systemd) \
 		$(use_enable pgo) \
-		$(if ! use wxwidgets; then echo "--with-wxdir=/dev/null"; fi) \
+		$(usex wxwidgets "" "--with-wxdir=/dev/null") \
 		--enable-threads
 }
 
@@ -162,6 +162,7 @@ extract_version() {
 
 src_install() {
 	local ERL_LIBDIR="/usr/$(get_libdir)/erlang"
+	local ERL_LIBDIR_REL="$(get_libdir)/erlang"
 	local ERL_INTERFACE_VER="$(extract_version lib/erl_interface EI_VSN)"
 	local ERL_ERTS_VER="$(extract_version erts VSN)"
 	local MY_MANPATH="/usr/share/${PN}/man"
@@ -178,13 +179,11 @@ src_install() {
 
 	einstalldocs
 
-	dosym "${ERL_LIBDIR}/bin/erl" /usr/bin/erl
-	dosym "${ERL_LIBDIR}/bin/erlc" /usr/bin/erlc
-	dosym "${ERL_LIBDIR}/bin/escript" /usr/bin/escript
-	dosym \
-		"${ERL_LIBDIR}/lib/erl_interface-${ERL_INTERFACE_VER}/bin/erl_call" \
-		/usr/bin/erl_call
-	dosym "${ERL_LIBDIR}/erts-${ERL_ERTS_VER}/bin/beam.smp" /usr/bin/beam.smp
+	dosym "../${ERL_LIBDIR_REL}/bin/erl" /usr/bin/erl
+	dosym "../${ERL_LIBDIR_REL}/bin/erlc" /usr/bin/erlc
+	dosym "../${ERL_LIBDIR_REL}/bin/escript" /usr/bin/escript
+	dosym "../${ERL_LIBDIR_REL}/lib/erl_interface-${ERL_INTERFACE_VER}/bin/erl_call" /usr/bin/erl_call
+	dosym "../${ERL_LIBDIR_REL}/erts-${ERL_ERTS_VER}/bin/beam.smp" /usr/bin/beam.smp
 
 	## Clean up the no longer needed files
 	rm "${ED}/${ERL_LIBDIR}/Install" || die
