@@ -70,6 +70,7 @@ src_prepare() {
 	kernel_is ge 4 16 0 && epatch "${FILESDIR}/${PV_MAJOR}-4.16-00-vmmon-use-standard-definition-of-MSR_K7_HWCR_SMMLOCK.patch"
 	epatch "${FILESDIR}/${PV_MAJOR}-01-vmmon-fix-always_inline-attribute-usage.patch"
 	epatch "${FILESDIR}/${PV_MAJOR}-02-vmmon-fix-indirect-call-with-retpoline-build.patch"
+	epatch "${FILESDIR}/${PV_MAJOR}-03-vmmon-compatibility-with-eventpoll-switch-to-poll_ma.patch"
 
 	# decouple the kernel include dir from the running kernel version: https://github.com/stefantalpalaru/gentoo-overlay/issues/17
 	sed -i -e "s%HEADER_DIR = /lib/modules/\$(VM_UNAME)/build/include%HEADER_DIR = ${KERNEL_DIR}/include%" */Makefile || die "sed failed"
