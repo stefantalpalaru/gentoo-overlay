@@ -10,7 +10,7 @@ MY_PV=$(get_version_component_range 1-3)
 PV_MODULES="329.$(get_version_component_range 2-3)"
 PV_BUILD=$(get_version_component_range 4)
 MY_P="${MY_PN}-${MY_PV}-${PV_BUILD}"
-VMWARE_FUSION_VER="10.1.2_8502123"
+VMWARE_FUSION_VER="10.1.3_9472307"
 SYSTEMD_UNITS_TAG="gentoo-02"
 
 DESCRIPTION="Emulate a complete PC without the performance overhead of most emulators"
