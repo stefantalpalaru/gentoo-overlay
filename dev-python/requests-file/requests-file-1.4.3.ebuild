@@ -9,7 +9,7 @@ inherit distutils-r1
 
 DESCRIPTION="Transport adapter for fetching file:// URLs with the requests python library "
 HOMEPAGE="https://github.com/dashea/requests-file"
-SRC_URI="https://github.com/dashea/requests-file/archive/${PV}.tar.gz"
+SRC_URI="https://github.com/dashea/requests-file/archive/${PV}.tar.gz -> ${P}.tar.gz"
 
 SLOT="0"
 LICENSE="Apache-2.0"
@@ -18,4 +18,5 @@ IUSE=""
 
 RDEPEND="
 	>=dev-python/requests-1.0.0[${PYTHON_USEDEP}]
-	dev-python/six[${PYTHON_USEDEP}]"
+	dev-python/six[${PYTHON_USEDEP}]
+"
