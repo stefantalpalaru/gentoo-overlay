@@ -9,7 +9,7 @@ inherit git-r3 distutils-r1
 DESCRIPTION="S3/CloudFront plugin for Let's Encrypt client"
 HOMEPAGE="https://github.com/dlapiduz/letsencrypt-s3front"
 EGIT_REPO_URI="https://github.com/dlapiduz/certbot-s3front"
-EGIT_COMMIT="f212a134ad45c91c3ad8631be121672d3c501fed"
+EGIT_COMMIT="98e73e3debdc82e87cfd5961175bc52fefc3379c"
 
 LICENSE="MIT"
 SLOT="0"
