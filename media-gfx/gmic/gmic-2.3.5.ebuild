@@ -42,7 +42,7 @@ COMMON_DEPEND="
 	gui? ( ${QT_DEPS} )
 	jpeg? ( virtual/jpeg:0 )
 	krita? ( ${QT_DEPS} )
-	=media-libs/cimg-${PV}
+	~media-libs/cimg-${PV}
 	net-misc/curl
 	opencv? ( >=media-libs/opencv-2.3.1a-r1 )
 	openexr? (
