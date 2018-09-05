@@ -16,14 +16,12 @@ EGIT_SUBMODULES=(
 	'-third_party/argparse'
 	'-third_party/bottle'
 	'-third_party/waitress'
-	'-third_party/requests'
 	'-third_party/gocode'
 	'-third_party/godef'
+	'-third_party/jedi'
+	'-third_party/parso'
 	'-third_party/python-future'
-	'-vendor/waitress'
-	'-vendor/jedi'
-	'-vendor/bottle'
-	'-vendor/argparse'
+	'-third_party/requests'
 	)
 
 LICENSE="GPL-3"
@@ -46,6 +44,7 @@ RDEPEND="
 	dev-python/bottle[${PYTHON_USEDEP}]
 	dev-python/future[${PYTHON_USEDEP}]
 	dev-python/jedi[${PYTHON_USEDEP}]
+	dev-python/parso[${PYTHON_USEDEP}]
 	dev-python/requests[${PYTHON_USEDEP}]
 	dev-python/sh[${PYTHON_USEDEP}]
 	dev-python/waitress[${PYTHON_USEDEP}]
@@ -83,11 +82,6 @@ src_prepare() {
 	for third_party_module in pythonfutures; do
 		rm -r "${S}"/third_party/${third_party_module} || die "Failed to remove third party module ${third_party_module}"
 	done
-	# Argparse is included in python 2.7
-	for third_party_module in argparse bottle python-future requests waitress; do
-		rm -r "${S}"/third_party/ycmd/third_party/${third_party_module} || die "Failed to remove third party module ${third_party_module}"
-	done
-	rm -r "${S}"/third_party/ycmd/third_party/JediHTTP/vendor || die "Failed to remove third_party/ycmd/third_party/JediHTTP/vendor"
 	rm -r "${S}"/third_party/ycmd/cpp/BoostParts || die "Failed to remove bundled boost"
 }
 
@@ -96,7 +90,6 @@ src_configure() {
 		-DUSE_CLANG_COMPLETER="$(usex clang ON OFF)"
 		-DEXTERNAL_LIBCLANG_PATH="$(usex clang $(clang --print-file-name=libclang.so) '')"
 		-DUSE_SYSTEM_BOOST=ON
-		-DUSE_SYSTEM_GMOCK=ON
 	)
 	cmake-utils_src_configure
 }
@@ -126,7 +119,7 @@ src_test() {
 src_install() {
 	use doc && dodoc *.md third_party/ycmd/*.md
 	rm -r *.md *.sh *.py* *.ini *.yml COPYING.txt ci third_party/ycmd/cpp third_party/ycmd/ci third_party/ycmd/ycmd/tests third_party/ycmd/examples/samples || die
-	rm -r third_party/ycmd/{*.md,*.sh,*.yml,.coveragerc,.gitignore,.gitmodules,.travis.yml,build.*,*.txt,run_tests.*,*.ini,update*,Vagrantfile} || die
+	rm -r third_party/ycmd/{*.md,*.sh,*.yml,.coveragerc,.gitignore,.gitmodules,.travis.yml,build.*,*.txt,run_tests.*,*.ini,update*} || die
 	find python -name *test* -exec rm -rf {} + || die
 	egit_clean
 	use clang && (rm third_party/ycmd/libclang.so* || die)
