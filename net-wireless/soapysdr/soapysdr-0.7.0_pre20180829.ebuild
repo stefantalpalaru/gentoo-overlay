@@ -6,11 +6,14 @@ EAPI=6
 PYTHON_COMPAT=( python2_7 python3_{4,5} )
 CMAKE_IN_SOURCE_BUILD="1"
 
-inherit cmake-utils python-r1
+inherit cmake-utils git-r3 python-r1
 
 DESCRIPTION="vendor and platform neutral SDR support library"
 HOMEPAGE="https://github.com/pothosware/SoapySDR"
-SRC_URI="https://github.com/pothosware/SoapySDR/tarball/soapy-sdr-${PV} -> ${P}.tar.gz"
+#SRC_URI="https://github.com/pothosware/SoapySDR/tarball/soapy-sdr-${PV} -> ${P}.tar.gz"
+SRC_URI=""
+EGIT_REPO_URI="https://github.com/pothosware/SoapySDR.git"
+EGIT_COMMIT="5f5a4d8cb52e3bee41b1c7e3773e3c7491aae90a"
 
 LICENSE="Boost-1.0"
 SLOT="0/${PV}"
@@ -24,10 +27,10 @@ DEPEND="${RDEPEND}
 	python? ( dev-lang/swig:0 )
 "
 
-src_unpack() {
-	unpack ${A}
-	mv *-SoapySDR-* "${S}"
-}
+#src_unpack() {
+	#unpack ${A}
+	#mv *-SoapySDR-* "${S}"
+#}
 
 src_prepare() {
 	default
