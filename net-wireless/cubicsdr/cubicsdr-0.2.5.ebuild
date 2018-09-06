@@ -36,7 +36,7 @@ src_prepare() {
 src_configure() {
 	setup-wxwidgets
 	local mycmakeargs=(
-	-DUSE_SYSTEM_RTAUDIO=ON
+		-DUSE_SYSTEM_RTAUDIO=ON
 	)
 	cmake-utils_src_configure
 }
