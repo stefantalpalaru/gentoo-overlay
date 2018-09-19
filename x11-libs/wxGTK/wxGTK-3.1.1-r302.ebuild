@@ -20,7 +20,7 @@ WXRELEASE=${WXVERSION%.*}-gtk3			# 3.0-gtk3
 WXRELEASE_NODOT=${WXRELEASE//./}		# 30-gtk3
 WXRELEASE_NODOTSLASH=${WXRELEASE//-/}	# 30gtk3
 
-SLOT="${WXRELEASE}"
+SLOT="${WXRELEASE}/${WXVERSION}"
 
 RDEPEND="
 	dev-libs/expat[${MULTILIB_USEDEP}]
@@ -63,7 +63,7 @@ LICENSE="wxWinLL-3 GPL-2 doc? ( wxWinFDL-3 )"
 S="${WORKDIR}/wxWidgets-${PV}"
 
 PATCHES=(
-	"${FILESDIR}"/wxGTK-${SLOT}-translation-domain.patch
+	"${FILESDIR}"/wxGTK-${WXRELEASE}-translation-domain.patch
 )
 
 src_prepare() {
