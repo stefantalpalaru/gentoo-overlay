@@ -21,7 +21,7 @@ DEPEND="media-libs/rtaudio
 	>=net-wireless/soapysdr-0.4.0
 	rtlsdr? ( net-wireless/soapy-rtlsdr )
 	virtual/opengl
-	x11-libs/wxGTK:3.1-gtk3[opengl]
+	x11-libs/wxGTK:3.1-gtk3=[opengl]
 "
 RDEPEND="${DEPEND}"
 S="${WORKDIR}/CubicSDR-${PV}"
