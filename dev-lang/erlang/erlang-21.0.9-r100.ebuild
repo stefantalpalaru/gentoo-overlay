@@ -14,8 +14,8 @@ UPSTREAM_V="$(ver_cut 1-2)"
 DESCRIPTION="Erlang programming language, runtime environment and libraries (OTP)"
 HOMEPAGE="https://www.erlang.org/"
 SRC_URI="https://github.com/erlang/otp/archive/OTP-${PV}.tar.gz -> ${P}.tar.gz
-	https://erlang.org/download/otp_doc_man_${UPSTREAM_V}.tar.gz -> ${PN}_doc_man_${UPSTREAM_V}.tar.gz
-	doc? ( https://erlang.org/download/otp_doc_html_${UPSTREAM_V}.tar.gz -> ${PN}_doc_html_${UPSTREAM_V}.tar.gz )"
+	http://erlang.org/download/otp_doc_man_${UPSTREAM_V}.tar.gz -> ${PN}_doc_man_${UPSTREAM_V}.tar.gz
+	doc? ( http://erlang.org/download/otp_doc_html_${UPSTREAM_V}.tar.gz -> ${PN}_doc_html_${UPSTREAM_V}.tar.gz )"
 
 LICENSE="Apache-2.0"
 SLOT="0"
