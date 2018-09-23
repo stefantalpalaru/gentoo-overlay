@@ -2,7 +2,7 @@
 # Distributed under the terms of the GNU General Public License v2
 
 EAPI=6
-WX_GTK_VER="3.0-gtk3"
+WX_GTK_VER="3.0"
 
 inherit autotools eapi7-ver elisp-common java-pkg-opt-2 systemd wxwidgets
 
@@ -75,7 +75,7 @@ src_configure() {
 		$(use_enable ssl dynamic-ssl-lib)
 		$(use_enable systemd)
 		$(use_enable pgo)
-		$(usex wxwidgets "" "--with-wxdir=/dev/null")
+		$(usex wxwidgets "--with-wx-config=${WX_CONFIG}" "--with-wxdir=/dev/null")
 		--enable-threads
 	)
 	econf "${myconf[@]}"
