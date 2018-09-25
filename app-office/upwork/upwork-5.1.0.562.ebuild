@@ -11,15 +11,15 @@ QA_PREBUILT="*"
 DESCRIPTION="Project collaboration and tracking software for upwork.com"
 HOMEPAGE="https://www.upwork.com/"
 SRC_URI="
-	amd64? ( https://updates-desktopapp.upwork.com/binaries/v5_1_0_509_87zq7fllb6sf8y49/upwork-5.1.0.509-1fc24.x86_64.rpm -> ${P}_x86_64.rpm )
-	x86? ( https://updates-desktopapp.upwork.com/binaries/v5_1_0_509_87zq7fllb6sf8y49/upwork-5.1.0.509-1fc24.i386.rpm -> ${P}_i386.rpm )
+	amd64? ( https://updates-desktopapp.upwork.com/binaries/v5_1_0_562_f3wgs5ljinabm69t/upwork-5.1.0.562-1fc24.x86_64.rpm -> ${P}_x86_64.rpm )
+	x86? ( https://updates-desktopapp.upwork.com/binaries/v5_1_0_562_f3wgs5ljinabm69t/upwork-5.1.0.562-1fc24.i386.rpm -> ${P}_i386.rpm )
 "
 LICENSE="ODESK"
 SLOT="0"
 KEYWORDS="~amd64 ~x86"
 
 S=${WORKDIR}
-PATCHES=( "${FILESDIR}/${PN}-desktop.patch" )
+PATCHES=( "${FILESDIR}/${PN}-desktop-r1.patch" )
 
 DEPEND="dev-util/patchelf"
 RDEPEND="
