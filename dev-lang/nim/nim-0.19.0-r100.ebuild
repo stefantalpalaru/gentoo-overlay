@@ -3,13 +3,12 @@
 
 EAPI=6
 
-inherit bash-completion-r1 git-r3
+inherit bash-completion-r1
 
 DESCRIPTION="Nim is a compiled, garbage-collected systems programming language"
 HOMEPAGE="http://nim-lang.org/"
-SRC_URI="http://nim-lang.org/download/${P}.tar.xz"
-EGIT_REPO_URI="https://github.com/Araq/Nim"
-EGIT_COMMIT="refs/tags/v${PV}"
+SRC_URI="https://github.com/nim-lang/Nim/archive/v${PV}.tar.gz -> ${P}.tar.gz
+		https://github.com/nim-lang/csources/archive/v${PV}.tar.gz -> ${PN}-csources-${PV}.tar.gz"
 
 LICENSE="MIT"
 SLOT="0"
@@ -25,11 +24,11 @@ RDEPEND="
 	boehm-gc? ( dev-libs/boehm-gc )
 "
 
+S="${WORKDIR}/Nim-${PV}"
+
 src_unpack() {
-	default_src_unpack
-	mv ${P} ${PN}-csources-${PV}
-	git-r3_src_unpack
-	mv ${PN}-csources-${PV} ${P}/csources
+	default
+	mv "csources-${PV}" "Nim-${PV}/csources"
 }
 
 nim_use_enable() {
@@ -56,14 +55,16 @@ src_compile() {
 path="\$lib/compiler"
 path="\$lib/packages"
 EOF
-	./bin/nim c -d:release koch || die "csources nim failed"
-	./koch boot -d:release $(nim_use_enable readline useGnuReadline) || die "koch boot failed"
-	PATH="./bin:${PATH}" nim c -d:release tools/nimgrep.nim || die "nimgrep.nim compilation failed"
-	echo -e "\npath:\"\$projectPath/../..\"" >> compiler/nimfix/nimfix.nim.cfg
-	PATH="./bin:${PATH}" nim c -d:release compiler/nimfix/nimfix.nim || die "nimfix.nim compilation failed"
+	./bin/nim c -d:release --verbosity:2 koch || die "csources nim failed"
+	./koch boot -d:release --verbosity:2 $(nim_use_enable readline useGnuReadline) || die "koch boot failed"
+	#echo -e "\npath:\"\$projectPath/../..\"" >> compiler/nimfix/nimfix.nim.cfg
+	#PATH="./bin:${PATH}" nim c -d:release compiler/nimfix/nimfix.nim || die "nimfix.nim compilation failed"
+	PATH="./bin:${PATH}" nim c --noNimblePath -p:compiler -d:release --verbosity:2 -o:bin/nimsuggest nimsuggest/nimsuggest.nim || die "nimsuggest compilation failed"
+	PATH="./bin:${PATH}" nim c -d:release --verbosity:2 -o:bin/nimgrep tools/nimgrep.nim || die "nimgrep compilation failed"
+	PATH="./bin:${PATH}" nim c -d:release --verbosity:2 -o:bin/nimpretty nimpretty/nimpretty.nim || die "nimpretty compilation failed"
 
 	if use doc; then
-		PATH="./bin:${PATH}" ./koch web || die "koch web failed"
+		PATH="./bin:${PATH}" ./koch docs || die "koch docs failed"
 	fi
 }
 
@@ -75,18 +76,21 @@ src_install() {
 	./koch install "${D}/usr/share" || die "koch install failed"
 	rm -r "${D}/usr/share/nim/doc"
 	dodir /usr/bin
-	dosym /usr/share/nim/bin/nim /usr/bin/nim
+	dosym ../share/nim/bin/nim /usr/bin/nim
 	exeinto /usr/bin
 	doexe tools/niminst/niminst
-	doexe tools/nimgrep
-	doexe compiler/nimfix/nimfix
+	#doexe compiler/nimfix/nimfix
+	doexe bin/nimsuggest
+	doexe bin/nimgrep
+	doexe bin/nimpretty
 	insinto /usr/share/nim/lib
 	doins -r compiler
 	rm -rf doc/nimcache
 	doins -r doc
 	insinto /usr/share/nim/lib/wrappers
 	doins -r lib/wrappers/linenoise
-	rm -r "${D}"/usr/share/nim/lib/compiler/{nimfix/nimcache,nimfix/nimfix,nim,nim0,nim1}
+	#rm -r "${D}"/usr/share/nim/lib/compiler/{nimfix/nimcache,nimfix/nimfix,nim,nim0,nim1}
+	rm -r "${D}"/usr/share/nim/lib/compiler/{nim,nim0,nim1}
 
 	if use doc; then
 		HTML_DOCS=doc/html/*.html
