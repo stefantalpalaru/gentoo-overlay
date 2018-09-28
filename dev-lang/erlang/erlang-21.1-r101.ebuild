@@ -48,6 +48,7 @@ PATCHES=(
 	"${FILESDIR}/${PN}-20.3.2-dont-ignore-LDFLAGS.patch"
 	"${FILESDIR}/${PN}-add-epmd-pid-file-creation-for-openrc.patch"
 	"${FILESDIR}/${PN}-custom-autoconf.patch"
+	"${FILESDIR}/${PN}-distcc.patch"
 )
 
 SITEFILE=50"${PN}"-gentoo.el
@@ -82,12 +83,6 @@ src_configure() {
 }
 
 src_compile() {
-	if use pgo; then
-		# disable distcc and ccache
-		export DISTCC_HOSTS=""
-		export CCACHE_DISABLE=1
-	fi
-
 	emake
 
 	if use emacs ; then

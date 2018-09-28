@@ -1,0 +1,12 @@
+diff -ur otp-OTP-21.1.orig/erts/emulator/Makefile.in otp-OTP-21.1/erts/emulator/Makefile.in
+--- otp-OTP-21.1.orig/erts/emulator/Makefile.in	2018-09-24 11:32:43.000000000 +0200
++++ otp-OTP-21.1/erts/emulator/Makefile.in	2018-09-28 23:19:36.431315015 +0200
+@@ -76,7 +76,7 @@
+ ifeq ($(PROFILE_COMPILER), gcc)
+ PROFILE_GENERATE=-fprofile-generate
+ PROFILE_USE=-fprofile-use -fprofile-correction
+-PROFILE_USE_DEPS=$(OBJDIR)/%_pu.gcda
++PROFILE_USE_DEPS=$(OBJDIR)/PROFILE
+ endif
+ ifeq ($(PROFILE_COMPILER), clang)
+ PROFILE_GENERATE=-fprofile-instr-generate
