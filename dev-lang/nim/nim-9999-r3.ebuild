@@ -7,7 +7,7 @@ inherit bash-completion-r1 git-r3
 
 DESCRIPTION="Nim is a compiled, garbage-collected systems programming language"
 HOMEPAGE="http://nim-lang.org/"
-EGIT_REPO_URI="https://github.com/Araq/Nim"
+EGIT_REPO_URI="https://github.com/nim-lang/Nim"
 
 LICENSE="MIT"
 SLOT="0"
@@ -64,7 +64,7 @@ EOF
 	PATH="./bin:${PATH}" nim c -d:release --verbosity:2 -o:bin/nimpretty nimpretty/nimpretty.nim || die "nimpretty compilation failed"
 
 	if use doc; then
-		PATH="./bin:${PATH}" ./koch web || die "koch web failed"
+		PATH="./bin:${PATH}" ./koch docs || die "koch docs failed"
 	fi
 }
 
@@ -76,7 +76,7 @@ src_install() {
 	./koch install "${D}/usr/share" || die "koch install failed"
 	rm -r "${D}/usr/share/nim/doc"
 	dodir /usr/bin
-	dosym /usr/share/nim/bin/nim /usr/bin/nim
+	dosym ../share/nim/bin/nim /usr/bin/nim
 	exeinto /usr/bin
 	doexe tools/niminst/niminst
 	doexe bin/nimsuggest
