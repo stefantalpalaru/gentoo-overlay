@@ -82,6 +82,12 @@ src_configure() {
 }
 
 src_compile() {
+	if use pgo; then
+		# disable distcc and ccache
+		export DISTCC_HOSTS=""
+		export CCACHE_DISABLE=1
+	fi
+
 	emake
 
 	if use emacs ; then
