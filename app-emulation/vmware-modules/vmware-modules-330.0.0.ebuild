@@ -3,10 +3,7 @@
 
 EAPI=6
 
-inherit eutils flag-o-matic linux-info linux-mod user versionator udev
-
-PV_MAJOR=$(get_major_version)
-PV_MINOR=$(get_version_component_range 2-3)
+inherit eapi7-ver eutils flag-o-matic linux-info linux-mod user udev
 
 DESCRIPTION="VMware kernel modules"
 HOMEPAGE="http://www.vmware.com/"
@@ -20,7 +17,7 @@ IUSE=""
 
 RDEPEND=""
 DEPEND="
-	=app-emulation/vmware-workstation-14.${PV_MINOR}*
+	=app-emulation/vmware-workstation-15.$(ver_cut 2-3)*
 "
 
 S=${WORKDIR}
@@ -62,15 +59,15 @@ src_unpack() {
 
 src_prepare() {
 	# from https://github.com/mkubecek/vmware-host-modules/tree/workstation-14.1.1
-	kernel_is ge 4 9 0 && epatch "${FILESDIR}/${PV_MAJOR}-4.09-00-vmnet-use-standard-definition-of-PCI_VENDOR_ID_VMWAR.patch"
-	kernel_is ge 4 10 0 && epatch "${FILESDIR}/${PV_MAJOR}-4.10-00-vmnet-use-standard-definition-of-PCI_VENDOR_ID_VMWAR.patch"
-	kernel_is ge 4 12 0 && epatch "${FILESDIR}/${PV_MAJOR}-4.12-00-vmmon-use-standard-definition-of-MSR_MISC_FEATURES_E.patch"
-	kernel_is ge 4 13 0 && epatch "${FILESDIR}/${PV_MAJOR}-4.13-00-vmmon-use-standard-definition-of-CR3_PCID_MASK-if-av.patch"
-	epatch "${FILESDIR}/${PV_MAJOR}-00-vmmon-quick-workaround-for-objtool-warnings.patch"
-	kernel_is ge 4 16 0 && epatch "${FILESDIR}/${PV_MAJOR}-4.16-00-vmmon-use-standard-definition-of-MSR_K7_HWCR_SMMLOCK.patch"
-	epatch "${FILESDIR}/${PV_MAJOR}-01-vmmon-fix-always_inline-attribute-usage.patch"
-	epatch "${FILESDIR}/${PV_MAJOR}-02-vmmon-fix-indirect-call-with-retpoline-build.patch"
-	epatch "${FILESDIR}/${PV_MAJOR}-03-vmmon-compatibility-with-eventpoll-switch-to-poll_ma.patch"
+	kernel_is ge 4 9 0 && epatch "${FILESDIR}/329-4.09-00-vmnet-use-standard-definition-of-PCI_VENDOR_ID_VMWAR.patch"
+	kernel_is ge 4 10 0 && epatch "${FILESDIR}/329-4.10-00-vmnet-use-standard-definition-of-PCI_VENDOR_ID_VMWAR.patch"
+	kernel_is ge 4 12 0 && epatch "${FILESDIR}/329-4.12-00-vmmon-use-standard-definition-of-MSR_MISC_FEATURES_E.patch"
+	kernel_is ge 4 13 0 && epatch "${FILESDIR}/329-4.13-00-vmmon-use-standard-definition-of-CR3_PCID_MASK-if-av.patch"
+	epatch "${FILESDIR}/329-00-vmmon-quick-workaround-for-objtool-warnings.patch"
+	kernel_is ge 4 16 0 && epatch "${FILESDIR}/329-4.16-00-vmmon-use-standard-definition-of-MSR_K7_HWCR_SMMLOCK.patch"
+	epatch "${FILESDIR}/329-01-vmmon-fix-always_inline-attribute-usage.patch"
+	epatch "${FILESDIR}/329-02-vmmon-fix-indirect-call-with-retpoline-build.patch"
+	epatch "${FILESDIR}/329-03-vmmon-check-presence-of-file_operations-poll.patch"
 
 	# decouple the kernel include dir from the running kernel version: https://github.com/stefantalpalaru/gentoo-overlay/issues/17
 	sed -i -e "s%HEADER_DIR = /lib/modules/\$(VM_UNAME)/build/include%HEADER_DIR = ${KERNEL_DIR}/include%" */Makefile || die "sed failed"

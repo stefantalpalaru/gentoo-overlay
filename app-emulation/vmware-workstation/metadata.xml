@@ -21,7 +21,6 @@
 		</flag>
 		<flag name="vmware-tools-darwin">Install VMware Tools for OS X (El Capitan and later) guests.</flag>
 		<flag name="vmware-tools-darwinPre15">Install VMware Tools for OS X (up to Yosemite) guests.</flag>
-		<flag name="vmware-tools-freebsd">Install VMware Tools for FreeBSD guests.</flag>
 		<flag name="vmware-tools-linux">Install VMware Tools for Linux guests.</flag>
 		<flag name="vmware-tools-linuxPreGlibc25">Install VMware Tools for Linux (glibc older than 2.5) guests.</flag>
 		<flag name="vmware-tools-netware">Install VMware Tools for Netware guests.</flag>

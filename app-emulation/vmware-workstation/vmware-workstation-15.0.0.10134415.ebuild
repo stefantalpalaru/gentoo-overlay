@@ -3,14 +3,14 @@
 
 EAPI=6
 
-inherit eutils versionator readme.gentoo-r1 gnome2-utils pam systemd xdg-utils
+inherit eapi7-ver eutils readme.gentoo-r1 gnome2-utils pam systemd xdg-utils
 
 MY_PN="VMware-Workstation-Full"
-MY_PV=$(get_version_component_range 1-3)
-PV_MODULES="329.$(get_version_component_range 2-3)"
-PV_BUILD=$(get_version_component_range 4)
+MY_PV=$(ver_cut 1-3)
+PV_MODULES="330.$(ver_cut 2-3)"
+PV_BUILD=$(ver_cut 4)
 MY_P="${MY_PN}-${MY_PV}-${PV_BUILD}"
-VMWARE_FUSION_VER="10.1.3_9472307"
+VMWARE_FUSION_VER="11.0.0/10120384"
 SYSTEMD_UNITS_TAG="gentoo-02"
 
 DESCRIPTION="Emulate a complete PC without the performance overhead of most emulators"
@@ -18,7 +18,7 @@ HOMEPAGE="http://www.vmware.com/products/workstation/"
 SRC_URI="
 	https://download3.vmware.com/software/wkst/file/${MY_P}.x86_64.bundle
 	macos-guests? (
-		https://github.com/DrDonk/unlocker/archive/b036c40ab1922d9abf4f7d68e34f1eca3b4dc2ad.zip -> unlocker-2.1.1_p1.zip
+		https://github.com/DrDonk/unlocker/archive/3.0.1.tar.gz -> unlocker-3.0.1.tar.gz
 		vmware-tools-darwinPre15? ( https://softwareupdate.vmware.com/cds/vmw-desktop/fusion/${VMWARE_FUSION_VER/_//}/packages/com.vmware.fusion.tools.darwinPre15.zip.tar -> com.vmware.fusion.tools.darwinPre15-${PV}.zip.tar )
 		vmware-tools-darwin? ( https://softwareupdate.vmware.com/cds/vmw-desktop/fusion/${VMWARE_FUSION_VER/_//}/packages/com.vmware.fusion.tools.darwin.zip.tar -> com.vmware.fusion.tools.darwin-${PV}.zip.tar )
 	)
@@ -30,7 +30,7 @@ SLOT="0"
 KEYWORDS="~amd64"
 IUSE="bundled-libs cups doc macos-guests +modules ovftool server systemd vix"
 DARWIN_GUESTS="darwin darwinPre15"
-IUSE_VMWARE_GUESTS="${DARWIN_GUESTS} freebsd linux linuxPreGlibc25 netware solaris windows winPre2k winPreVista"
+IUSE_VMWARE_GUESTS="${DARWIN_GUESTS} linux linuxPreGlibc25 netware solaris windows winPre2k winPreVista"
 for guest in ${IUSE_VMWARE_GUESTS}; do
 	IUSE+=" vmware-tools-${guest}"
 done
@@ -211,7 +211,6 @@ PDEPEND="
 DEPEND="
 	dev-lang/python:2.7
 	>=dev-util/patchelf-0.9
-	macos-guests? ( dev-python/six )
 	ovftool? ( app-admin/chrpath )
 	sys-libs/ncurses:5
 	sys-libs/readline:0
@@ -323,7 +322,7 @@ To be able to run ${PN} your user must be in the vmware group.\n
 }
 
 src_install() {
-	local major_minor=$(get_version_component_range 1-2 "${PV}")
+	local major_minor=$(ver_cut 1-2 "${PV}")
 	local vmware_installer_version=$(cat "${S}/vmware-installer/manifest.xml" | grep -oPm1 "(?<=<version>)[^<]+")
 
 	# revdep-rebuild entry
@@ -349,12 +348,12 @@ src_install() {
 
 	# workaround for hardcoded search paths needed during shared objects loading
 	if ! use bundled-libs ; then
-		dosym /usr/$(get_libdir)/libglib-2.0.so.0 \
+		dosym ../../../../../../usr/$(get_libdir)/libglib-2.0.so.0 \
 			"${VM_INSTALL_DIR}"/lib/vmware/lib/libglib-2.0.so.0/libglib-2.0.so.0
 		# Bug 432918
-		dosym /usr/$(get_libdir)/libcrypto.so.1.0.0 \
+		dosym ../../../../../../usr/$(get_libdir)/libcrypto.so.1.0.0 \
 			"${VM_INSTALL_DIR}"/lib/vmware/lib/libcrypto.so.1.0.2/libcrypto.so.1.0.2
-		dosym /usr/$(get_libdir)/libssl.so.1.0.0 \
+		dosym ../../../../../../usr/$(get_libdir)/libssl.so.1.0.0 \
 			"${VM_INSTALL_DIR}"/lib/vmware/lib/libssl.so.1.0.2/libssl.so.1.0.2
 	fi
 
