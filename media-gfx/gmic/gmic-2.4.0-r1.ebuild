@@ -3,17 +3,20 @@
 
 EAPI=6
 CMAKE_MAKEFILE_GENERATOR="emake"
+CMAKE_MIN_VERSION="3.12.1"
 
-inherit bash-completion-r1 cmake-utils git-r3
-
-MY_PV=${PV//./}
+inherit bash-completion-r1 cmake-utils
 
 DESCRIPTION="GREYC's Magic Image Converter"
 HOMEPAGE="http://gmic.eu/ https://github.com/dtschump/gmic"
-EGIT_REPO_URI="https://github.com/dtschump/gmic.git"
-EGIT_REPO_URI_2="https://github.com/c-koi/gmic-qt.git"
+GMIC_QT_URI="https://github.com/c-koi/gmic-qt/archive/v.${PV}.tar.gz -> gmic-qt-${PV}.tar.gz"
+SRC_URI="https://github.com/dtschump/gmic/archive/v.${PV}.tar.gz -> ${P}.tar.gz
+	gimp? ( ${GMIC_QT_URI} )
+	gui? ( ${GMIC_QT_URI} )
+	krita? ( ${GMIC_QT_URI} )
+"
 
-KEYWORDS=""
+KEYWORDS="~amd64 ~x86"
 
 LICENSE="CeCILL-2 GPL-3"
 SLOT="0"
@@ -40,6 +43,7 @@ COMMON_DEPEND="
 	gui? ( ${QT_DEPS} )
 	jpeg? ( virtual/jpeg:0 )
 	krita? ( ${QT_DEPS} )
+	~media-libs/cimg-${PV}
 	net-misc/curl
 	opencv? ( >=media-libs/opencv-2.3.1a-r1 )
 	openexr? (
@@ -64,8 +68,8 @@ DEPEND="${COMMON_DEPEND}
 	virtual/pkgconfig
 "
 
-GMIC_QT_DIR="gmic-qt"
-S="${WORKDIR}/${PN}"
+GMIC_QT_DIR="gmic-qt-v.${PV}"
+S="${WORKDIR}/${PN}-v.${PV}"
 
 pkg_pretend() {
 	if use openmp ; then
@@ -77,19 +81,11 @@ pkg_pretend() {
 	fi
 }
 
-src_unpack() {
-	EGIT_CHECKOUT_DIR="${S}"
-	git-r3_src_unpack
-
-	if use gimp || use gui || use krita; then
-		EGIT_REPO_URI="${EGIT_REPO_URI_2}"
-		EGIT_CHECKOUT_DIR="${WORKDIR}/${GMIC_QT_DIR}"
-		git-r3_src_unpack
-	fi
-}
-
 src_prepare() {
+	ln -s "${EPREFIX}"/usr/include/CImg.h ./src/
 	cmake-utils_src_prepare
+
+	ln -sr ../${PN}-v.${PV} ../${PN}
 
 	if use gimp || use gui || use krita; then
 		sed -i \
@@ -108,7 +104,6 @@ src_configure() {
 		-DBUILD_LIB_STATIC=$(usex static-libs ON OFF)
 		-DBUILD_CLI=$(usex cli ON OFF)
 		-DBUILD_MAN=$(usex cli ON OFF)
-		-DBUILD_BASH_COMPLETION=$(usex cli $(usex bash-completion ON OFF) OFF)
 		-DENABLE_X=$(usex X ON OFF)
 		-DENABLE_FFMPEG=$(usex ffmpeg ON OFF)
 		-DENABLE_FFTW=$(usex fftw ON OFF)
