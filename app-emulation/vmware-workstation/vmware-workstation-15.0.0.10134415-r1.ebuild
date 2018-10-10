@@ -237,7 +237,7 @@ src_unpack() {
 
 	local bundle=${MY_P}.x86_64.bundle
 	chmod 755 ${bundle}
-	./${bundle} --console --extract extracted || die "unable to extract bundle"
+	./${bundle} --console --required --eulas-agreed --extract=extracted || die "unable to extract bundle"
 
 	if ! use ovftool; then
 		rm -r extracted/vmware-ovftool || die "unable to remove dir"
