@@ -5,12 +5,13 @@ EAPI=6
 CMAKE_MAKEFILE_GENERATOR="emake"
 CMAKE_MIN_VERSION="3.12.1"
 
-inherit bash-completion-r1 cmake-utils
+inherit bash-completion-r1 cmake-utils eapi7-ver
 
 DESCRIPTION="GREYC's Magic Image Converter"
 HOMEPAGE="http://gmic.eu/ https://github.com/dtschump/gmic"
 GMIC_QT_URI="https://github.com/c-koi/gmic-qt/archive/v.${PV}.tar.gz -> gmic-qt-${PV}.tar.gz"
 SRC_URI="https://github.com/dtschump/gmic/archive/v.${PV}.tar.gz -> ${P}.tar.gz
+	https://gmic.eu/gmic_stdlib$(ver_rs 1- '').h
 	gimp? ( ${GMIC_QT_URI} )
 	gui? ( ${GMIC_QT_URI} )
 	krita? ( ${GMIC_QT_URI} )
@@ -82,7 +83,8 @@ pkg_pretend() {
 }
 
 src_prepare() {
-	ln -s "${EPREFIX}"/usr/include/CImg.h ./src/
+	ln -s "${EPREFIX}"/usr/include/CImg.h ./src/ || die
+	cp -a "${DISTDIR}/gmic_stdlib$(ver_rs 1- '').h" src/gmic_stdlib.h || die
 	cmake-utils_src_prepare
 
 	ln -sr ../${PN}-v.${PV} ../${PN}
