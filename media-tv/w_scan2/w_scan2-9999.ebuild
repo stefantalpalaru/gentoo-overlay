@@ -1,11 +1,11 @@
-# Copyright 1999-2017 Gentoo Foundation
+# Copyright 1999-2018 Gentoo Foundation
 # Distributed under the terms of the GNU General Public License v2
 
 EAPI=6
 
 inherit autotools git-r3
 
-DESCRIPTION="Scan for DVB-C/DVB-T/DVB-S channels without prior knowledge of frequencies and modulations (w_scan fork)"
+DESCRIPTION="Scan for DVB-C/DVB-T/DVB-S channels (w_scan fork)"
 HOMEPAGE="https://github.com/stefantalpalaru/w_scan2"
 EGIT_REPO_URI="https://github.com/stefantalpalaru/w_scan2"
 

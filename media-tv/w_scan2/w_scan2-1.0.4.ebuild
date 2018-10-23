@@ -5,7 +5,7 @@ EAPI=6
 
 inherit autotools
 
-DESCRIPTION="Scan for DVB-C/DVB-T/DVB-S channels without prior knowledge of frequencies and modulations (w_scan fork)"
+DESCRIPTION="Scan for DVB-C/DVB-T/DVB-S channels (w_scan fork)"
 HOMEPAGE="https://github.com/stefantalpalaru/w_scan2"
 SRC_URI="https://github.com/stefantalpalaru/${PN}/archive/${PV}.tar.gz -> ${P}.tar.gz"
 
