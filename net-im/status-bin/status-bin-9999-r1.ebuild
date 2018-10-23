@@ -16,6 +16,7 @@ DEPEND=""
 RDEPEND="
 	sys-fs/fuse
 	sys-libs/zlib
+	|| ( gnome-base/libgnome-keyring kde-frameworks/kwallet )
 "
 BDEPEND="net-misc/curl"
 
