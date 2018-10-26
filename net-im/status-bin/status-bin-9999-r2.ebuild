@@ -40,4 +40,5 @@ src_unpack() {
 src_install() {
 	exeinto "/opt/${PN}/bin"
 	newexe "${archive_file}" "status-bin"
+	dosym ../../opt/${PN}/bin/status-bin /usr/bin/status-bin
 }
