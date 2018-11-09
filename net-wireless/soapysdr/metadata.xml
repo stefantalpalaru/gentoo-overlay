@@ -5,4 +5,14 @@
 		<email>stefantalpalaru@yahoo.com</email>
 		<name>Ștefan Talpalaru</name>
 	</maintainer>
+	<use>
+		<flag name="bladerf">Add support for bladerf hardware</flag>
+		<flag name="hackrf">Add support for hackrf hardware</flag>
+		<flag name="rtlsdr">Add support for rtlsdr hardware</flag>
+		<flag name="plutosdr">Add support for Analog Devices ADALM-PLUTO hardware</flag>
+		<flag name="uhd">Add support for Ettus USRP hardware</flag>
+	</use>
+	<upstream>
+		<remote-id type="github">pothosware/SoapySDR</remote-id>
+	</upstream>
 </pkgmetadata>
