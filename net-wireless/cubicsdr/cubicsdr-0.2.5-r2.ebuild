@@ -14,12 +14,11 @@ SRC_URI="https://github.com/cjcliffe/CubicSDR/archive/${PV}.tar.gz -> ${P}.tar.g
 LICENSE="GPL-2"
 SLOT="0"
 KEYWORDS="~amd64 ~x86"
-IUSE="+rtlsdr"
+IUSE="bladerf hackrf plutosdr +rtlsdr uhd"
 
 DEPEND="media-libs/rtaudio
 	>net-libs/liquid-dsp-1.2.0
-	>=net-wireless/soapysdr-0.4.0
-	rtlsdr? ( net-wireless/soapy-rtlsdr )
+	>=net-wireless/soapysdr-0.4.0[bladerf?,hackrf?,plutosdr?,rtlsdr?,uhd?]
 	virtual/opengl
 	x11-libs/wxGTK:3.1-gtk3=[opengl]
 "
