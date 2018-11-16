@@ -10,7 +10,7 @@ MY_PV=$(ver_cut 1-3)
 PV_MODULES="330.$(ver_cut 2-3)"
 PV_BUILD=$(ver_cut 4)
 MY_P="${MY_PN}-${MY_PV}-${PV_BUILD}"
-VMWARE_FUSION_VER="11.0.0/10120384"
+VMWARE_FUSION_VER="11.0.1/10738065" # https://softwareupdate.vmware.com/cds/vmw-desktop/fusion/
 SYSTEMD_UNITS_TAG="gentoo-02"
 
 DESCRIPTION="Emulate a complete PC without the performance overhead of most emulators"
@@ -18,9 +18,9 @@ HOMEPAGE="http://www.vmware.com/products/workstation/"
 SRC_URI="
 	https://download3.vmware.com/software/wkst/file/${MY_P}.x86_64.bundle
 	macos-guests? (
-		https://github.com/DrDonk/unlocker/archive/3.0.1.tar.gz -> unlocker-3.0.1.tar.gz
-		vmware-tools-darwinPre15? ( https://softwareupdate.vmware.com/cds/vmw-desktop/fusion/${VMWARE_FUSION_VER/_//}/packages/com.vmware.fusion.tools.darwinPre15.zip.tar -> com.vmware.fusion.tools.darwinPre15-${PV}.zip.tar )
-		vmware-tools-darwin? ( https://softwareupdate.vmware.com/cds/vmw-desktop/fusion/${VMWARE_FUSION_VER/_//}/packages/com.vmware.fusion.tools.darwin.zip.tar -> com.vmware.fusion.tools.darwin-${PV}.zip.tar )
+		https://github.com/DrDonk/unlocker/archive/3.0.2.tar.gz -> unlocker-3.0.2.tar.gz
+		vmware-tools-darwinPre15? ( https://softwareupdate.vmware.com/cds/vmw-desktop/fusion/${VMWARE_FUSION_VER}/packages/com.vmware.fusion.tools.darwinPre15.zip.tar -> com.vmware.fusion.tools.darwinPre15-${PV}.zip.tar )
+		vmware-tools-darwin? ( https://softwareupdate.vmware.com/cds/vmw-desktop/fusion/${VMWARE_FUSION_VER}/packages/com.vmware.fusion.tools.darwin.zip.tar -> com.vmware.fusion.tools.darwin-${PV}.zip.tar )
 	)
 	systemd? ( https://github.com/akhuettel/systemd-vmware/archive/${SYSTEMD_UNITS_TAG}.tar.gz -> vmware-systemd-${SYSTEMD_UNITS_TAG}.tgz )
 	"
@@ -193,7 +193,6 @@ RDEPEND="
 	cups? ( net-print/cups )
 	sys-apps/tcp-wrappers
 	sys-apps/util-linux
-	x11-libs/gksu
 	x11-libs/libXxf86vm
 	x11-libs/libdrm
 	x11-libs/libxshmfence
@@ -235,8 +234,9 @@ src_unpack() {
 		fi
 	done
 
-	local bundle=${MY_P}.x86_64.bundle
-	chmod 755 ${bundle}
+	local bundle="${MY_P}.x86_64.bundle"
+	chmod 755 "${bundle}"
+	# this needs a /tmp mounted without "noexec" because it extracts and executes scripts in there
 	./${bundle} --console --required --eulas-agreed --extract=extracted || die "unable to extract bundle"
 
 	if ! use ovftool; then
@@ -676,7 +676,7 @@ src_install() {
 				local version="$(grep -oPm1 '(?<=<version>)[^<]+' ${manifest})"
 				sqlite3 "${dbfile}" "INSERT INTO components(name,version,buildNumber,component_core_id,longName,description,type) VALUES(\"vmware-tools-$guest\",\"$version\",\"${PV_BUILD}\",1,\"$guest\",\"$guest\",1);"
 			else
-				sqlite3 "${dbfile}" "INSERT INTO components(name,version,buildNumber,component_core_id,longName,description,type) VALUES(\"vmware-tools-$guest\",\"${VMWARE_FUSION_VER%_*}\",\"${VMWARE_FUSION_VER#*_}\",1,\"$guest\",\"$guest\",1);"
+				sqlite3 "${dbfile}" "INSERT INTO components(name,version,buildNumber,component_core_id,longName,description,type) VALUES(\"vmware-tools-$guest\",\"${VMWARE_FUSION_VER%/*}\",\"${VMWARE_FUSION_VER#*/}\",1,\"$guest\",\"$guest\",1);"
 			fi
 			insinto "${VM_INSTALL_DIR}/lib/vmware/isoimages"
 			doins vmware-tools-${guest}/${guest}.iso

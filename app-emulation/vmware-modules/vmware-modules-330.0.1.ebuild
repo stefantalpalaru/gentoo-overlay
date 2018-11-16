@@ -106,11 +106,4 @@ src_install() {
 
 pkg_postinst() {
 	linux-mod_pkg_postinst
-	if [ "${installed_modprobe_conf}"x == "x"  ] ; then
-		if [ -f "${ROOT}/etc/modprobe.d/vmware.conf" ] ; then
-			ewarn "Please check the /etc/modprobe.d/vmware.conf file and"
-			ewarn "possible conflicts when using vmci and/or vsock modules built"
-			ewarn "out of kernel"
-		fi
-	fi
 }
