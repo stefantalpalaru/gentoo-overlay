@@ -25,7 +25,7 @@ archive_file=""
 
 src_unpack() {
 	# Portage makes it really hard to have an unpredictable SRC_URI
-	archive_url="$(curl -s "https://status-im.github.io/nightly/" | grep 'href=.*\.AppImage' | tail -n 1 | sed 's/^.*"\([^"]\+\.AppImage\).*$/\1/')"
+	archive_url="$(curl -s "https://status.im/nightly/" | grep 'href=.*\.AppImage' | tail -n 1 | sed 's/^.*"\([^"]\+\.AppImage\).*$/\1/')"
 	if [ -z "${archive_url}" ]; then
 		die "empty archive URL"
 	fi
