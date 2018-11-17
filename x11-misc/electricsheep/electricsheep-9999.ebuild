@@ -1,7 +1,8 @@
-# Copyright 1999-2017 Gentoo Foundation
+# Copyright 1999-2018 Gentoo Foundation
 # Distributed under the terms of the GNU General Public License v2
 
 EAPI=6
+WX_GTK_VER="3.0"
 
 inherit autotools git-r3 wxwidgets
 
@@ -19,7 +20,7 @@ DEPEND="dev-lang/lua:0
 	dev-libs/expat
 	dev-libs/tinyxml
 	gnome-base/libgtop
-	=media-gfx/flam3-9999
+	~media-gfx/flam3-9999
 	media-libs/freeglut
 	media-libs/glee
 	media-libs/libpng:*
@@ -28,7 +29,7 @@ DEPEND="dev-lang/lua:0
 	sys-libs/zlib
 	x11-libs/libX11
 	x11-libs/libXrender
-	x11-libs/wxGTK:3.0
+	x11-libs/wxGTK:${WX_GTK_VER}
 	virtual/opengl"
 RDEPEND="${DEPEND}"
 

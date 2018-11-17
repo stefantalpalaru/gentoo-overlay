@@ -1,14 +1,15 @@
-# Copyright 1999-2017 Gentoo Foundation
+# Copyright 1999-2013 Gentoo Foundation
 # Distributed under the terms of the GNU General Public License v2
 
 EAPI=6
+WX_GTK_VER="3.0"
 
-inherit autotools git-r3 wxwidgets
+inherit autotools wxwidgets
 
 DESCRIPTION="realize the collective dream of sleeping computers from all over the internet"
 HOMEPAGE="http://electricsheep.org/"
-EGIT_REPO_URI="https://github.com/scottdraves/electricsheep"
-EGIT_COMMIT="12420cd40dfad8c32fb70b88f3d680d84f795c63"
+MY_COMMIT="4949c31cfdb0d4363cfa726aa3aa8325e540773f"
+SRC_URI="https://github.com/scottdraves/electricsheep/archive/${MY_COMMIT}.zip -> ${P}.zip"
 
 IUSE=""
 LICENSE="GPL-2"
@@ -29,12 +30,11 @@ DEPEND="dev-lang/lua:0
 	sys-libs/zlib
 	x11-libs/libX11
 	x11-libs/libXrender
-	x11-libs/wxGTK:3.0
+	x11-libs/wxGTK:${WX_GTK_VER}
 	virtual/opengl"
 RDEPEND="${DEPEND}"
 
-S="${WORKDIR}/${P}/client_generic"
-WX_GTK_VER=3.0
+S="${WORKDIR}/${PN}-${MY_COMMIT}/client_generic"
 
 src_prepare() {
 	default
