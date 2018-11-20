@@ -1,0 +1,15 @@
+diff -ur zart-ba31d614088c11910168b22aac2ec7e14a89f1c5.orig/zart.pro zart-ba31d614088c11910168b22aac2ec7e14a89f1c5/zart.pro
+--- zart-ba31d614088c11910168b22aac2ec7e14a89f1c5.orig/zart.pro	2018-11-11 11:43:15.000000000 +0100
++++ zart-ba31d614088c11910168b22aac2ec7e14a89f1c5/zart.pro	2018-11-20 21:47:13.634144697 +0100
+@@ -85,7 +85,10 @@
+ 
+ equals(GMIC_DYNAMIC_LINKING, "on" ) {
+   message(Dynamic linking with libgmic)
+-  LIBS += $$GMIC_LIB_PATH/libgmic.so
++  isEmpty(GMIC_LIB_PATH) {
++    GMIC_LIB_PATH = $$GMIC_PATH/..
++  }
++  LIBS += -L$$GMIC_LIB_PATH -lgmic
+ }
+ 
+ equals(GMIC_DYNAMIC_LINKING, "off" ) {

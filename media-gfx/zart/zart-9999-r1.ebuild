@@ -29,7 +29,7 @@ DEPEND="${RDEPEND}
 "
 
 PATCHES=(
-	"${FILESDIR}"/${PN}-3.2.1-dynamic-linking-r1.patch
+	"${FILESDIR}"/${PN}-3.2.2-dynamic-linking.patch
 )
 
 pkg_pretend() {
