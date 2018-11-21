@@ -1,0 +1,11 @@
+diff -u ntags-0.5.0.orig/ntags.nim ntags-0.5.0/ntags.nim
+--- ntags-0.5.0.orig/ntags.nim	2016-12-03 14:12:01.000000000 +0100
++++ ntags-0.5.0/ntags.nim	2018-11-21 23:34:02.880289106 +0100
+@@ -122,7 +122,6 @@
+ proc genTagEntry(path, line: string, name: string, scope: Scope, tokType: Token,
+                  options: TagOptions): string =
+   result = ""
+-  shallow result
+   add(result, name)
+   add(result, '\t')
+   add(result, path)
