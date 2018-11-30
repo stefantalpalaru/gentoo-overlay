@@ -1,0 +1,15 @@
+diff -ur hiredis-py-0.3.0.orig/setup.py hiredis-py-0.3.0/setup.py
+--- hiredis-py-0.3.0.orig/setup.py	2018-11-16 18:06:22.000000000 +0100
++++ hiredis-py-0.3.0/setup.py	2018-11-30 04:27:12.136987954 +0100
+@@ -11,9 +11,8 @@
+   return module.__version__
+ 
+ ext = Extension("hiredis.hiredis",
+-  sources=sorted(glob.glob("src/*.c") +
+-                 ["vendor/hiredis/%s.c" % src for src in ("read", "sds")]),
+-  include_dirs=["vendor"])
++  sources=sorted(glob.glob("src/*.c")),
++  libraries=["hiredis"])
+ 
+ setup(
+   name="hiredis",
