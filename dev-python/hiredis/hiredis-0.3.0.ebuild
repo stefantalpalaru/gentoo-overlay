@@ -21,7 +21,6 @@ RDEPEND="${DEPEND}"
 
 S="${WORKDIR}/hiredis-py-${PV}"
 
-#PATCHES=( "${FILESDIR}"/${PN}-0.2.0-r1-system-libs.patch )
 PATCHES=(
 	"${FILESDIR}"/hiredis-0.14.0.patch
 	"${FILESDIR}"/hiredis-0.3.0-system-libs.patch
