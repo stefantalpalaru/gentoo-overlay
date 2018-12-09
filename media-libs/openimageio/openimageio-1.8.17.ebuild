@@ -67,10 +67,6 @@ DEPEND="${RDEPEND}
 
 DOCS=( CHANGES.md CREDITS.md README.md src/doc/${PN}.pdf )
 
-PATCHES=(
-	"${FILESDIR}/${PN}-1.8.13-OpenEXR_header_file_relocation.patch"
-)
-
 pkg_setup() {
 	use python && python-single-r1_pkg_setup
 }
