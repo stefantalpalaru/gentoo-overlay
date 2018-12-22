@@ -15,7 +15,7 @@ KEYWORDS=""
 IUSE="doc test"
 
 DEPEND="
-	>=dev-lang/nim-0.16.0
+	>=dev-lang/nim-0.18.0
 "
 RDEPEND="${DEPEND}"
 
