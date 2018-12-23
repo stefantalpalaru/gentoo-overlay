@@ -31,3 +31,7 @@ RDEPEND="
 	dev-python/setuptools[${PYTHON_USEDEP}]
 	dev-python/zope-interface[${PYTHON_USEDEP}]
 "
+
+PATCHES=(
+	"${FILESDIR}/LinodeV4.patch"
+)
