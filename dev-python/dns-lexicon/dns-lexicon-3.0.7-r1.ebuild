@@ -19,6 +19,7 @@ IUSE=""
 RDEPEND="
 	dev-python/cryptography[${PYTHON_USEDEP}]
 	dev-python/future[${PYTHON_USEDEP}]
+	dev-python/pyyaml[${PYTHON_USEDEP}]
 	dev-python/requests[${PYTHON_USEDEP}]
 	dev-python/tldextract[${PYTHON_USEDEP}]
 "
