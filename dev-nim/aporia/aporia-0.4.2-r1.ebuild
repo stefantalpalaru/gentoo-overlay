@@ -3,25 +3,25 @@
 
 EAPI=6
 
-inherit git-r3
-
 DESCRIPTION="IDE for the Nim programming language"
 HOMEPAGE="https://github.com/nim-lang/Aporia"
-EGIT_REPO_URI="https://github.com/nim-lang/Aporia"
+SRC_URI="https://github.com/nim-lang/Aporia/archive/v${PV}.tar.gz -> ${P}.tar.gz"
 
 LICENSE="MIT"
 SLOT="0"
-KEYWORDS=""
+KEYWORDS="~amd64 ~x86"
 IUSE=""
 
 DEPEND="
 	>=dev-lang/nim-0.11.0
-	x11-libs/gtksourceview
+	x11-libs/gtksourceview:2.0
 	dev-libs/libpcre
 	>=dev-nim/dialogs-1.1.1
 	>=dev-nim/gtk2-nim-1.3
 "
 RDEPEND=""
+
+S="${WORKDIR}/Aporia-${PV}"
 
 src_compile() {
 	nim c -d:release --verbosity:2 --nilseqs:on -p:"\$lib/packages/gtk2" -p:"\$lib/packages/cairo" -p:"\$lib/packages/dialogs" ${PN}.nim || die "compile failed"
