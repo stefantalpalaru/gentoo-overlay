@@ -73,9 +73,14 @@ src_test() {
 
 src_install() {
 	./koch install "${D}/usr/share" || die "koch install failed"
-	rm -r "${D}/usr/share/nim/doc"
+	# config files
+	mkdir -p "${D}/etc/nim"
+	mv "${D}"/usr/share/nim/config/* "${D}/etc/nim/"
+	rm -r "${D}/usr/share/nim/config"
+	# "compiler" package
 	mkdir -p "${D}"/usr/share/nim/lib/packages/compiler
 	mv "${D}"/usr/share/nim/{compiler,compiler.nimble} "${D}"/usr/share/nim/lib/packages/compiler/
+	# binaries
 	dodir /usr/bin
 	dosym ../share/nim/bin/nim /usr/bin/nim
 	exeinto /usr/bin
@@ -83,6 +88,7 @@ src_install() {
 	doexe bin/nimsuggest
 	doexe bin/nimgrep
 	doexe bin/nimpretty
+	# modules ignored by `koch install`
 	rm -rf doc/nimcache
 	insinto /usr/share/nim/lib
 	doins -r doc
