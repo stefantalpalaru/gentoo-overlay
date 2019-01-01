@@ -1,14 +1,11 @@
-# Copyright 1999-2017 Gentoo Foundation
+# Copyright 1999-2019 Gentoo Authors
 # Distributed under the terms of the GNU General Public License v2
 
 EAPI=6
 
-inherit git-r3
-
 DESCRIPTION="portable dialogs for Nim"
 HOMEPAGE="https://github.com/nim-lang/dialogs"
-EGIT_REPO_URI="https://github.com/nim-lang/dialogs"
-EGIT_COMMIT="49cdefeb16ff0f1469c5a35800031ac61da173be"
+SRC_URI="https://github.com/nim-lang/dialogs/archive/v${PV}.tar.gz"
 
 LICENSE="MIT"
 SLOT="0"

@@ -8,10 +8,11 @@ inherit git-r3
 DESCRIPTION="a tool to translate ANSI C code to Nim"
 HOMEPAGE="https://github.com/nim-lang/c2nim"
 EGIT_REPO_URI="https://github.com/nim-lang/c2nim"
+EGIT_COMMIT="a791d3516d9d6408779a2c562fce41b95a78590b"
 
 LICENSE="MIT"
 SLOT="0"
-KEYWORDS=""
+KEYWORDS="~amd64 ~x86"
 IUSE="doc test"
 
 DEPEND="
@@ -20,11 +21,11 @@ DEPEND="
 RDEPEND="${DEPEND}"
 
 src_compile() {
-	nim c -d:release ${PN}.nim || die "compile failed"
+	nim c -d:release -p:"\$lib/packages/compiler" --verbosity:2 ${PN}.nim || die "compile failed"
 }
 
 src_test() {
-	nim c -d:release testsuite/tester.nim || die "tester.nim compile failed"
+	nim c -d:release -p:"\$lib/packages/compiler" --verbosity:2 testsuite/tester.nim || die "tester.nim compile failed"
 	PATH=".:${PATH}" ./testsuite/tester
 }
 

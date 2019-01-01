@@ -1,0 +1,22 @@
+From 7a66616d741106d4c18ce2e8f843a8b5d31f6025 Mon Sep 17 00:00:00 2001
+From: Araq <rumpf_a@web.de>
+Date: Sat, 8 Dec 2018 23:48:10 +0100
+Subject: [PATCH] fixes #9889, fixes #9886
+
+---
+ compiler/pragmas.nim | 2 +-
+ 1 file changed, 1 insertion(+), 1 deletion(-)
+
+diff --git a/compiler/pragmas.nim b/compiler/pragmas.nim
+index 3d8e5645b6..247f6ad54e 100644
+--- a/compiler/pragmas.nim
++++ b/compiler/pragmas.nim
+@@ -1138,7 +1138,7 @@ proc implicitPragmas*(c: PContext, sym: PSym, n: PNode,
+             internalError(c.config, n.info, "implicitPragmas")
+           inc i
+         popInfoContext(c.config)
+-        if sym.kind in routineKinds: mergePragmas(sym.ast, o)
++        if sym.kind in routineKinds and sym.ast != nil: mergePragmas(sym.ast, o)
+ 
+     if lfExportLib in sym.loc.flags and sfExportc notin sym.flags:
+       localError(c.config, n.info, ".dynlib requires .exportc")

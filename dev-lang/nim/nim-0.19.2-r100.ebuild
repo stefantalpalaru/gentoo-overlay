@@ -1,4 +1,4 @@
-# Copyright 1999-2018 Gentoo Foundation
+# Copyright 1999-2019 Gentoo Authors
 # Distributed under the terms of the GNU General Public License v2
 
 EAPI=6
@@ -7,9 +7,7 @@ inherit bash-completion-r1 multiprocessing
 
 DESCRIPTION="Nim is a compiled, garbage-collected systems programming language"
 HOMEPAGE="http://nim-lang.org/"
-SRC_URI="https://github.com/nim-lang/Nim/archive/v${PV}.tar.gz -> ${P}.tar.gz
-		https://github.com/nim-lang/csources/archive/v${PV}.tar.gz -> ${PN}-csources-${PV}.tar.gz"
-
+SRC_URI="https://nim-lang.org/download/${P}.tar.xz"
 LICENSE="MIT"
 SLOT="0"
 KEYWORDS="~amd64 ~x86"
@@ -24,12 +22,9 @@ RDEPEND="
 	boehm-gc? ( dev-libs/boehm-gc )
 "
 
-S="${WORKDIR}/Nim-${PV}"
-
-src_unpack() {
-	default
-	mv "csources-${PV}" "Nim-${PV}/csources"
-}
+PATCHES=(
+	"$FILESDIR/nim-0.19.2-pragmas.patch"
+)
 
 nim_use_enable() {
 	[[ -z $2 ]] && die "usage: nim_use_enable <USE flag> <compiler flag>"
@@ -37,13 +32,11 @@ nim_use_enable() {
 }
 
 src_compile() {
-	cd csources
 	sed -i \
 		-e "s/^COMP_FLAGS =.*$/COMP_FLAGS = ${CFLAGS} -fno-strict-aliasing/" \
 		-e "s/^LINK_FLAGS =.*$/LINK_FLAGS = ${LDFLAGS}/" \
 		makefile
 	emake CC=gcc LD=gcc
-	cd ..
 	sed -i \
 		-e "s/^gcc\.options\.speed.*$/gcc.options.speed = \"${CFLAGS} -fno-strict-aliasing\"/" \
 		-e "s/^gcc\.cpp\.options\.speed.*$/gcc.cpp.options.speed = \"${CFLAGS} -fno-strict-aliasing\"/" \
@@ -52,7 +45,6 @@ src_compile() {
 	cat <<EOF >> config/nim.cfg
 
 # Gentoo additions
-path="\$lib/compiler"
 path="\$lib/packages"
 EOF
 	./bin/nim c -d:release --verbosity:2 --parallelBuild:$(makeopts_jobs) koch || die "csources nim failed"
@@ -69,13 +61,19 @@ EOF
 }
 
 src_test() {
-	PATH="./bin:${PATH}" ./koch test
+	PATH="./bin:${PATH}" ./koch tests
 }
 
 src_install() {
 	./koch install "${D}/usr/share" || die "koch install failed"
-	rm -r "${D}/usr/share/nim/doc"
-	mv "${D}"/usr/share/nim/{compiler,compiler.nimble} "${D}"/usr/share/nim/lib/packages/
+	# config files
+	mkdir -p "${D}/etc/nim"
+	mv "${D}"/usr/share/nim/config/* "${D}/etc/nim/"
+	rm -r "${D}/usr/share/nim/config"
+	# "compiler" package
+	mkdir -p "${D}"/usr/share/nim/lib/packages/compiler
+	mv "${D}"/usr/share/nim/{compiler,compiler.nimble} "${D}"/usr/share/nim/lib/packages/compiler/
+	# binaries
 	dodir /usr/bin
 	dosym ../share/nim/bin/nim /usr/bin/nim
 	exeinto /usr/bin
@@ -83,6 +81,7 @@ src_install() {
 	doexe bin/nimsuggest
 	doexe bin/nimgrep
 	doexe bin/nimpretty
+	# modules ignored by `koch install`
 	rm -rf doc/nimcache
 	insinto /usr/share/nim/lib
 	doins -r doc

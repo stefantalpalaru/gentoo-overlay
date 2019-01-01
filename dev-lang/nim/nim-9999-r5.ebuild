@@ -1,4 +1,4 @@
-# Copyright 1999-2018 Gentoo Foundation
+# Copyright 1999-2019 Gentoo Authors
 # Distributed under the terms of the GNU General Public License v2
 
 EAPI=6
@@ -68,13 +68,14 @@ EOF
 }
 
 src_test() {
-	PATH="./bin:${PATH}" ./koch test
+	PATH="./bin:${PATH}" ./koch tests
 }
 
 src_install() {
 	./koch install "${D}/usr/share" || die "koch install failed"
 	rm -r "${D}/usr/share/nim/doc"
-	mv "${D}"/usr/share/nim/{compiler,compiler.nimble} "${D}"/usr/share/nim/lib/packages/
+	mkdir -p "${D}"/usr/share/nim/lib/packages/compiler
+	mv "${D}"/usr/share/nim/{compiler,compiler.nimble} "${D}"/usr/share/nim/lib/packages/compiler/
 	dodir /usr/bin
 	dosym ../share/nim/bin/nim /usr/bin/nim
 	exeinto /usr/bin
