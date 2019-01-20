@@ -32,7 +32,7 @@ DEPEND="dev-lang/lua:0
 	media-libs/freeglut
 	media-libs/glee
 	media-libs/libpng:*
-	media-video/ffmpeg:0/55.57.57
+	media-video/ffmpeg:0
 	net-misc/curl
 	sys-libs/zlib
 	x11-libs/libX11
@@ -40,6 +40,11 @@ DEPEND="dev-lang/lua:0
 	x11-libs/wxGTK:${WX_GTK_VER}
 	virtual/opengl"
 RDEPEND="${DEPEND}"
+
+PATCHES=(
+	"$FILESDIR/electricsheep-glext-prototypes.patch"
+	"$FILESDIR/electricsheep-disable-vsync.patch"
+)
 
 src_prepare() {
 	default
@@ -56,8 +61,4 @@ src_configure() {
 	econf
 	# get rid of the RUNPATH that interferes with hardware accelerated OpenGL drivers
 	sed -i -e '/^hardcode_libdir_flag_spec/d' libtool
-}
-
-src_compile() {
-	emake CPPFLAGS="-DGL_GLEXT_PROTOTYPES"
 }
