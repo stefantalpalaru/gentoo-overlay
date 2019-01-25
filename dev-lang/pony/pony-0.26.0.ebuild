@@ -1,18 +1,18 @@
-# Copyright 1999-2018 Gentoo Foundation
+# Copyright 2014-2019 Gentoo Authors
 # Distributed under the terms of the GNU General Public License v2
 
 EAPI=6
 
-inherit git-r3 llvm
+inherit llvm
 LLVM_MAX_SLOT=6
 
 DESCRIPTION="Compiler for the Pony language"
 HOMEPAGE="http://www.ponylang.org/"
-EGIT_REPO_URI="https://github.com/ponylang/ponyc"
+SRC_URI="https://github.com/ponylang/ponyc/archive/${PV}.tar.gz -> ${P}.tar.gz"
 
 LICENSE="BSD-2"
 SLOT="0"
-KEYWORDS=""
+KEYWORDS="~amd64 ~x86"
 IUSE="test vim-syntax"
 RESTRICT="strip"
 
@@ -25,6 +25,8 @@ RDEPEND="dev-libs/libpcre2
 	vim-syntax? ( app-vim/pony-syntax )"
 DEPEND="${RDEPEND}
 	virtual/pkgconfig"
+
+S="${WORKDIR}/ponyc-${PV}"
 
 src_prepare() {
 	default
