@@ -1,7 +1,7 @@
-# Copyright 1999-2018 Gentoo Foundation
+# Copyright 1999-2019 Gentoo Authors
 # Distributed under the terms of the GNU General Public License v2
 
-EAPI="5"
+EAPI=5
 I_PROMISE_TO_SUPPLY_PATCHES_WITH_BUGS=1
 gcc_LIVE_BRANCH="master"
 
@@ -17,5 +17,8 @@ if [[ ${CATEGORY} != cross-* ]] ; then
 fi
 
 src_prepare() {
+	# non-bare checkouts are broken with git-2.eclass and recent Git versions not supporting the "-u" switch
+	git config core.bare false
+	git checkout -f
 	toolchain_src_prepare
 }
