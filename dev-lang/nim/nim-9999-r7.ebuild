@@ -1,12 +1,12 @@
 # Copyright 1999-2019 Gentoo Authors
 # Distributed under the terms of the GNU General Public License v2
 
-EAPI=6
+EAPI=7
 
 inherit bash-completion-r1 git-r3 multiprocessing
 
-DESCRIPTION="Nim is a compiled, garbage-collected systems programming language"
-HOMEPAGE="http://nim-lang.org/"
+DESCRIPTION="compiled, garbage-collected systems programming language"
+HOMEPAGE="https://nim-lang.org/"
 EGIT_REPO_URI="https://github.com/nim-lang/Nim"
 
 LICENSE="MIT"
@@ -21,6 +21,9 @@ DEPEND="
 RDEPEND="
 	${DEPEND}
 	boehm-gc? ( dev-libs/boehm-gc )
+"
+BDEPEND="
+	test? ( net-libs/nodejs )
 "
 
 src_unpack() {
@@ -88,6 +91,11 @@ src_install() {
 	doexe bin/nimsuggest
 	doexe bin/nimgrep
 	doexe bin/nimpretty
+	# nim-gdb
+	insinto /usr/share/nim/tools
+	doins tools/nim-gdb.py
+	sed -i -e "s%^NIM_SYSROOT.*$%NIM_SYSROOT=$EPREFIX/usr/share/nim%" bin/nim-gdb
+	doexe bin/nim-gdb
 	# modules ignored by `koch install`
 	rm -rf doc/nimcache
 	insinto /usr/share/nim/lib

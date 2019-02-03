@@ -1,16 +1,17 @@
 # Copyright 1999-2019 Gentoo Authors
 # Distributed under the terms of the GNU General Public License v2
 
-EAPI=6
+EAPI=7
 
 inherit bash-completion-r1 multiprocessing
 
-DESCRIPTION="Nim is a compiled, garbage-collected systems programming language"
-HOMEPAGE="http://nim-lang.org/"
+DESCRIPTION="compiled, garbage-collected systems programming language"
+HOMEPAGE="https://nim-lang.org/"
 SRC_URI="https://nim-lang.org/download/${P}.tar.xz"
+
 LICENSE="MIT"
 SLOT="0"
-KEYWORDS="~amd64 ~x86"
+KEYWORDS="~amd64 ~arm ~x86"
 IUSE="bash-completion boehm-gc doc +readline test"
 
 DEPEND="
@@ -20,6 +21,9 @@ DEPEND="
 RDEPEND="
 	${DEPEND}
 	boehm-gc? ( dev-libs/boehm-gc )
+"
+BDEPEND="
+	test? ( net-libs/nodejs )
 "
 
 PATCHES=(
