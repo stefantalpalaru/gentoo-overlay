@@ -26,10 +26,6 @@ BDEPEND="
 	test? ( net-libs/nodejs )
 "
 
-PATCHES=(
-	"$FILESDIR/nim-0.19.2-pragmas.patch"
-)
-
 nim_use_enable() {
 	[[ -z $2 ]] && die "usage: nim_use_enable <USE flag> <compiler flag>"
 	use $1 && echo "-d:$2"
