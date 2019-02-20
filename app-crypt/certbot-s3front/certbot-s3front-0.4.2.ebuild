@@ -1,4 +1,4 @@
-# Copyright 1999-2017 Gentoo Foundation
+# Copyright 1999-2018 Gentoo Authors
 # Distributed under the terms of the GNU General Public License v2
 
 EAPI=6
@@ -9,7 +9,7 @@ inherit git-r3 distutils-r1
 DESCRIPTION="S3/CloudFront plugin for Let's Encrypt client"
 HOMEPAGE="https://github.com/dlapiduz/letsencrypt-s3front"
 EGIT_REPO_URI="https://github.com/dlapiduz/certbot-s3front"
-EGIT_COMMIT="98e73e3debdc82e87cfd5961175bc52fefc3379c"
+EGIT_COMMIT="010eb1dc46508c3d166022c067d5094907a3c5c0"
 
 LICENSE="MIT"
 SLOT="0"
