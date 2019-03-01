@@ -4,7 +4,7 @@
 EAPI=6
 
 inherit llvm
-LLVM_MAX_SLOT=6
+LLVM_MAX_SLOT=7
 
 DESCRIPTION="Compiler for the Pony language"
 HOMEPAGE="http://www.ponylang.org/"
@@ -17,9 +17,9 @@ IUSE="test vim-syntax"
 RESTRICT="strip"
 
 RDEPEND="dev-libs/libpcre2
-	dev-libs/openssl:=
+	dev-libs/openssl:0/1.1
 	>=sys-devel/llvm-3.9.1:=
-	<sys-devel/llvm-7.0.0:=
+	<sys-devel/llvm-8.0.0:=
 	sys-libs/ncurses:=
 	sys-libs/zlib
 	vim-syntax? ( app-vim/pony-syntax )"
@@ -48,7 +48,7 @@ src_prepare() {
 		src/libponyc/codegen/genexe.c
 }
 
-common_make_args="config=release prefix=\"${D}usr\" verbose=yes default_pic=true"
+common_make_args="config=release prefix=\"${D}usr\" verbose=yes default_pic=true default_ssl=openssl_1.1.0"
 
 src_compile() {
 	emake ${common_make_args}
