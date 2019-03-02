@@ -1,16 +1,16 @@
-diff -ur hiredis-py-0.3.0.orig/src/reader.c hiredis-py-0.3.0/src/reader.c
---- hiredis-py-0.3.0.orig/src/reader.c	2018-11-16 18:06:22.000000000 +0100
-+++ hiredis-py-0.3.0/src/reader.c	2018-11-30 04:20:37.772569749 +0100
-@@ -173,7 +173,7 @@
- };
- 
+diff -ur hiredis-py-1.0.0.orig/src/reader.c hiredis-py-1.0.0/src/reader.c
+--- hiredis-py-1.0.0.orig/src/reader.c	2019-01-20 08:39:27.000000000 +0100
++++ hiredis-py-1.0.0/src/reader.c	2019-03-02 23:38:12.656866490 +0100
+@@ -167,7 +167,7 @@
  static void Reader_dealloc(hiredis_ReaderObject *self) {
+     // we don't need to free self->encoding as the buffer is managed by Python
+     // https://docs.python.org/3/c-api/arg.html#strings-and-buffers
 -    redisReplyReaderFree(self->reader);
 +    redisReaderFree(self->reader);
-     if (self->encoding)
-         free(self->encoding);
      Py_XDECREF(self->protocolErrorClass);
-@@ -284,7 +284,7 @@
+     Py_XDECREF(self->replyErrorClass);
+ 
+@@ -272,7 +272,7 @@
        goto error;
      }
  
@@ -19,7 +19,7 @@ diff -ur hiredis-py-0.3.0.orig/src/reader.c hiredis-py-0.3.0/src/reader.c
      PyBuffer_Release(&buf);
      Py_RETURN_NONE;
  
-@@ -303,8 +303,8 @@
+@@ -291,8 +291,8 @@
          return NULL;
      }
  
