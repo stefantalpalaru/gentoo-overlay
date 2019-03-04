@@ -1,35 +1,53 @@
-diff -ur Python-2.7.15.original/Lib/plat-aix4/regen Python-2.7.15/Lib/plat-aix4/regen
---- Python-2.7.15.original/Lib/plat-aix4/regen	2018-04-30 00:47:33.000000000 +0200
-+++ Python-2.7.15/Lib/plat-aix4/regen	2018-05-01 22:06:44.005966530 +0200
-@@ -5,4 +5,4 @@
+From 9559c91d41602779d52cc510b7ac3aaeaf445f50 Mon Sep 17 00:00:00 2001
+From: Mike Gilbert <floppym@gentoo.org>
+Date: Sun, 17 Jun 2018 11:14:43 -0400
+Subject: [PATCH 06/11] Regenerate platform-specific modules
+
+https://bugs.python.org/issue12619
+---
+ Lib/plat-aix4/regen      |  2 +-
+ Lib/plat-linux2/regen    |  2 +-
+ Lib/plat-sunos5/regen    |  3 +--
+ Lib/plat-unixware7/regen |  4 ++--
+ Makefile.pre.in          | 49 ++++++++++++++++++++++++----------------
+ 5 files changed, 34 insertions(+), 26 deletions(-)
+
+diff --git a/Lib/plat-aix4/regen b/Lib/plat-aix4/regen
+index 57a71c4ed4..f54940f9a6 100755
+--- a/Lib/plat-aix4/regen
++++ b/Lib/plat-aix4/regen
+@@ -5,4 +5,4 @@ case `uname -sv` in
          exit 1;;
  esac
  set -v
 -h2py.py -i '(u_long)' /usr/include/netinet/in.h
 +python$EXE ../../Tools/scripts/h2py.py -i '(u_long)' /usr/include/netinet/in.h
-diff -ur Python-2.7.15.original/Lib/plat-linux2/regen Python-2.7.15/Lib/plat-linux2/regen
---- Python-2.7.15.original/Lib/plat-linux2/regen	2018-04-30 00:47:33.000000000 +0200
-+++ Python-2.7.15/Lib/plat-linux2/regen	2018-05-01 22:06:44.005966530 +0200
-@@ -5,4 +5,4 @@
+diff --git a/Lib/plat-linux2/regen b/Lib/plat-linux2/regen
+index c76950e232..f595cc9468 100755
+--- a/Lib/plat-linux2/regen
++++ b/Lib/plat-linux2/regen
+@@ -5,4 +5,4 @@ Linux*)	;;
  	exit 1;;
  esac
  set -v
 -h2py -i '(u_long)' /usr/include/sys/types.h /usr/include/netinet/in.h /usr/include/dlfcn.h
 +python$EXE ../../Tools/scripts/h2py.py -i '(u_long)' /usr/include/sys/types.h /usr/include/netinet/in.h /usr/include/dlfcn.h /usr/include/linux/cdrom.h
-diff -ur Python-2.7.15.original/Lib/plat-sunos5/regen Python-2.7.15/Lib/plat-sunos5/regen
---- Python-2.7.15.original/Lib/plat-sunos5/regen	2018-04-30 00:47:33.000000000 +0200
-+++ Python-2.7.15/Lib/plat-sunos5/regen	2018-05-01 22:06:44.005966530 +0200
-@@ -5,5 +5,4 @@
+diff --git a/Lib/plat-sunos5/regen b/Lib/plat-sunos5/regen
+index 78cb7de148..7b6c73afe2 100755
+--- a/Lib/plat-sunos5/regen
++++ b/Lib/plat-sunos5/regen
+@@ -5,5 +5,4 @@ case `uname -sr` in
  	exit 1;;
  esac
  set -v
 -h2py -i '(u_long)' /usr/include/sys/types.h /usr/include/netinet/in.h /usr/include/sys/stropts.h /usr/include/dlfcn.h
 -
 +python$EXE ../../Tools/scripts/h2py.py -i '(u_long)' /usr/include/sys/types.h /usr/include/netinet/in.h /usr/include/sys/stropts.h /usr/include/dlfcn.h
-diff -ur Python-2.7.15.original/Lib/plat-unixware7/regen Python-2.7.15/Lib/plat-unixware7/regen
---- Python-2.7.15.original/Lib/plat-unixware7/regen	2018-04-30 00:47:33.000000000 +0200
-+++ Python-2.7.15/Lib/plat-unixware7/regen	2018-05-01 22:06:44.005966530 +0200
-@@ -5,5 +5,5 @@
+diff --git a/Lib/plat-unixware7/regen b/Lib/plat-unixware7/regen
+index 68998a7a5c..c1ffbbb18a 100755
+--- a/Lib/plat-unixware7/regen
++++ b/Lib/plat-unixware7/regen
+@@ -5,5 +5,5 @@ UnixWare*)	;;
  	exit 1;;
  esac
  set -v
@@ -37,10 +55,11 @@ diff -ur Python-2.7.15.original/Lib/plat-unixware7/regen Python-2.7.15/Lib/plat-
 -h2py /usr/include/sys/stropts.h
 +python$EXE ../../Tools/scripts/h2py.py -i '(u_long)' /usr/include/netinet/in.h
 +python$EXE ../../Tools/scripts/h2py.py /usr/include/sys/stropts.h
-diff -ur Python-2.7.15.original/Makefile.pre.in Python-2.7.15/Makefile.pre.in
---- Python-2.7.15.original/Makefile.pre.in	2018-05-01 22:05:33.918290346 +0200
-+++ Python-2.7.15/Makefile.pre.in	2018-05-01 22:09:09.616138703 +0200
-@@ -401,7 +401,7 @@
+diff --git a/Makefile.pre.in b/Makefile.pre.in
+index df4d33c1ad..2fe3a5be0f 100644
+--- a/Makefile.pre.in
++++ b/Makefile.pre.in
+@@ -401,7 +401,7 @@ LIBRARY_OBJS=	\
  
  # Default target
  all:		@DEF_MAKE_ALL_RULE@
@@ -49,7 +68,7 @@ diff -ur Python-2.7.15.original/Makefile.pre.in Python-2.7.15/Makefile.pre.in
  
  # Check that the source is clean when building out of source.
  check-clean-src:
-@@ -527,6 +527,32 @@
+@@ -527,6 +527,32 @@ sharedmods: $(BUILDPYTHON) pybuilddir.txt Modules/_math.o
  		_TCLTK_INCLUDES='$(TCLTK_INCLUDES)' _TCLTK_LIBS='$(TCLTK_LIBS)' \
  		$(PYTHON_FOR_BUILD) $(srcdir)/setup.py $$quiet build
  
@@ -82,7 +101,7 @@ diff -ur Python-2.7.15.original/Makefile.pre.in Python-2.7.15/Makefile.pre.in
  # Build static library
  # avoid long command lines, same as LIBRARY_OBJS
  $(LIBRARY): $(LIBRARY_OBJS)
-@@ -1084,7 +1110,7 @@
+@@ -1084,7 +1110,7 @@ LIBSUBDIRS=	lib-tk lib-tk/test lib-tk/test/test_tkinter \
  		unittest unittest/test \
  		lib-old \
  		curses pydoc_data $(MACHDEPS)
@@ -91,7 +110,7 @@ diff -ur Python-2.7.15.original/Makefile.pre.in Python-2.7.15/Makefile.pre.in
  	@for i in $(SCRIPTDIR) $(LIBDEST); \
  	do \
  		if test ! -d $(DESTDIR)$$i; then \
-@@ -1167,23 +1193,6 @@
+@@ -1167,23 +1193,6 @@ libinstall:	build_all $(srcdir)/Lib/$(PLATDIR) $(srcdir)/Modules/xxmodule.c
  	-PYTHONPATH=$(DESTDIR)$(LIBDEST) $(RUNSHARED) \
  		$(PYTHON_FOR_BUILD) -m lib2to3.pgen2.driver $(DESTDIR)$(LIBDEST)/lib2to3/PatternGrammar.txt
  
@@ -115,7 +134,7 @@ diff -ur Python-2.7.15.original/Makefile.pre.in Python-2.7.15/Makefile.pre.in
  python-config: $(srcdir)/Misc/python-config.in
  	# Substitution happens here, as the completely-expanded BINDIR
  	# is not available in configure
-@@ -1481,7 +1490,7 @@
+@@ -1481,7 +1490,7 @@ patchcheck:
  Python/thread.o: @THREADHEADERS@
  
  # Declare targets that aren't real files
@@ -124,3 +143,6 @@ diff -ur Python-2.7.15.original/Makefile.pre.in Python-2.7.15/Makefile.pre.in
  .PHONY: install altinstall oldsharedinstall bininstall altbininstall
  .PHONY: maninstall libinstall inclinstall libainstall sharedinstall
  .PHONY: frameworkinstall frameworkinstallframework frameworkinstallstructure
+-- 
+2.21.0
+

@@ -1,6 +1,17 @@
---- Objects/stringobject.c
-+++ Objects/stringobject.c
-@@ -1981,10 +1981,14 @@
+From cc73fec00a3b160785fb2e638c2ceed72495795d Mon Sep 17 00:00:00 2001
+From: Mike Gilbert <floppym@gentoo.org>
+Date: Sun, 17 Jun 2018 11:14:43 -0400
+Subject: [PATCH 08/11] Turkish locale
+
+---
+ Objects/stringobject.c | 39 ++++++++++++++++++++++++---------------
+ 1 file changed, 24 insertions(+), 15 deletions(-)
+
+diff --git a/Objects/stringobject.c b/Objects/stringobject.c
+index c47d32f406..7cd0d0e625 100644
+--- a/Objects/stringobject.c
++++ b/Objects/stringobject.c
+@@ -1987,10 +1987,14 @@ PyDoc_STRVAR(lower__doc__,
  \n\
  Return a copy of the string S converted to lowercase.");
  
@@ -19,7 +30,7 @@
  
  static PyObject *
  string_lower(PyStringObject *self)
-@@ -2004,7 +2008,7 @@
+@@ -2010,7 +2014,7 @@ string_lower(PyStringObject *self)
      for (i = 0; i < n; i++) {
          int c = Py_CHARMASK(s[i]);
          if (isupper(c))
@@ -28,7 +39,7 @@
      }
  
      return newobj;
-@@ -2015,9 +2019,14 @@
+@@ -2021,9 +2025,14 @@ PyDoc_STRVAR(upper__doc__,
  \n\
  Return a copy of the string S converted to uppercase.");
  
@@ -46,7 +57,7 @@
  
  static PyObject *
  string_upper(PyStringObject *self)
-@@ -2037,7 +2046,7 @@
+@@ -2043,7 +2052,7 @@ string_upper(PyStringObject *self)
      for (i = 0; i < n; i++) {
          int c = Py_CHARMASK(s[i]);
          if (islower(c))
@@ -55,7 +66,7 @@
      }
  
      return newobj;
-@@ -2065,11 +2074,11 @@
+@@ -2071,11 +2080,11 @@ string_title(PyStringObject *self)
          int c = Py_CHARMASK(*s++);
          if (islower(c)) {
              if (!previous_is_cased)
@@ -69,7 +80,7 @@
              previous_is_cased = 1;
          } else
              previous_is_cased = 0;
-@@ -2098,7 +2107,7 @@
+@@ -2104,7 +2113,7 @@ string_capitalize(PyStringObject *self)
      if (0 < n) {
          int c = Py_CHARMASK(*s++);
          if (islower(c))
@@ -78,7 +89,7 @@
          else
              *s_new = c;
          s_new++;
-@@ -2106,7 +2115,7 @@
+@@ -2112,7 +2121,7 @@ string_capitalize(PyStringObject *self)
      for (i = 1; i < n; i++) {
          int c = Py_CHARMASK(*s++);
          if (isupper(c))
@@ -87,7 +98,7 @@
          else
              *s_new = c;
          s_new++;
-@@ -2177,10 +2186,10 @@
+@@ -2183,10 +2192,10 @@ string_swapcase(PyStringObject *self)
      for (i = 0; i < n; i++) {
          int c = Py_CHARMASK(*s++);
          if (islower(c)) {
@@ -100,3 +111,6 @@
          }
          else
              *s_new = c;
+-- 
+2.21.0
+

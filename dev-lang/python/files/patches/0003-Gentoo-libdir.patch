@@ -1,6 +1,25 @@
---- Lib/distutils/command/install.py
-+++ Lib/distutils/command/install.py
-@@ -41,8 +41,8 @@
+From 1802db36899408904b1406bad9bd6ffcc7c65efb Mon Sep 17 00:00:00 2001
+From: Mike Gilbert <floppym@gentoo.org>
+Date: Sun, 17 Jun 2018 11:14:43 -0400
+Subject: [PATCH 03/11] Gentoo libdir
+
+---
+ Lib/distutils/command/install.py |  4 ++--
+ Lib/distutils/sysconfig.py       |  2 +-
+ Lib/site.py                      |  4 ++--
+ Lib/sysconfig.py                 | 16 ++++++++--------
+ Lib/test/test_site.py            |  4 ++--
+ Makefile.pre.in                  |  2 +-
+ Modules/Setup.dist               |  2 +-
+ Modules/getpath.c                |  6 +++---
+ setup.py                         | 25 ++++++++++---------------
+ 9 files changed, 30 insertions(+), 35 deletions(-)
+
+diff --git a/Lib/distutils/command/install.py b/Lib/distutils/command/install.py
+index b9f1c6c566..a2822e86e9 100644
+--- a/Lib/distutils/command/install.py
++++ b/Lib/distutils/command/install.py
+@@ -41,8 +41,8 @@ else:
  
  INSTALL_SCHEMES = {
      'unix_prefix': {
@@ -11,9 +30,11 @@
          'headers': '$base/include/python$py_version_short/$dist_name',
          'scripts': '$base/bin',
          'data'   : '$base',
---- Lib/distutils/sysconfig.py
-+++ Lib/distutils/sysconfig.py
-@@ -120,7 +120,7 @@
+diff --git a/Lib/distutils/sysconfig.py b/Lib/distutils/sysconfig.py
+index de7da1d413..78f19c63f1 100644
+--- a/Lib/distutils/sysconfig.py
++++ b/Lib/distutils/sysconfig.py
+@@ -120,7 +120,7 @@ def get_python_lib(plat_specific=0, standard_lib=0, prefix=None):
  
      if os.name == "posix":
          libpython = os.path.join(prefix,
@@ -22,9 +43,11 @@
          if standard_lib:
              return libpython
          else:
---- Lib/site.py
-+++ Lib/site.py
-@@ -288,10 +288,10 @@
+diff --git a/Lib/site.py b/Lib/site.py
+index 3b51e81d4a..9ce73b543b 100644
+--- a/Lib/site.py
++++ b/Lib/site.py
+@@ -288,10 +288,10 @@ def getsitepackages():
          if sys.platform in ('os2emx', 'riscos'):
              sitepackages.append(os.path.join(prefix, "Lib", "site-packages"))
          elif os.sep == '/':
@@ -37,9 +60,11 @@
          else:
              sitepackages.append(prefix)
              sitepackages.append(os.path.join(prefix, "lib", "site-packages"))
---- Lib/sysconfig.py
-+++ Lib/sysconfig.py
-@@ -7,10 +7,10 @@
+diff --git a/Lib/sysconfig.py b/Lib/sysconfig.py
+index 9c8350d953..972c03be44 100644
+--- a/Lib/sysconfig.py
++++ b/Lib/sysconfig.py
+@@ -7,10 +7,10 @@ from os.path import pardir, realpath
  
  _INSTALL_SCHEMES = {
      'posix_prefix': {
@@ -54,7 +79,7 @@
          'include': '{base}/include/python{py_version_short}',
          'platinclude': '{platbase}/include/python{py_version_short}',
          'scripts': '{base}/bin',
-@@ -65,10 +65,10 @@
+@@ -65,10 +65,10 @@ _INSTALL_SCHEMES = {
          'data'   : '{userbase}',
          },
      'posix_user': {
@@ -69,9 +94,11 @@
          'include': '{userbase}/include/python{py_version_short}',
          'scripts': '{userbase}/bin',
          'data'   : '{userbase}',
---- Lib/test/test_site.py
-+++ Lib/test/test_site.py
-@@ -253,10 +253,10 @@
+diff --git a/Lib/test/test_site.py b/Lib/test/test_site.py
+index b4384ee2cf..b1101409b8 100644
+--- a/Lib/test/test_site.py
++++ b/Lib/test/test_site.py
+@@ -255,10 +255,10 @@ class HelperFunctionsTests(unittest.TestCase):
          elif os.sep == '/':
              # OS X, Linux, FreeBSD, etc
              self.assertEqual(len(dirs), 2)
@@ -84,9 +111,11 @@
              self.assertEqual(dirs[1], wanted)
          else:
              # other platforms
---- Makefile.pre.in
-+++ Makefile.pre.in
-@@ -110,7 +110,7 @@
+diff --git a/Makefile.pre.in b/Makefile.pre.in
+index 73f90c0cc1..df4d33c1ad 100644
+--- a/Makefile.pre.in
++++ b/Makefile.pre.in
+@@ -110,7 +110,7 @@ LIBDIR=		@libdir@
  MANDIR=		@mandir@
  INCLUDEDIR=	@includedir@
  CONFINCLUDEDIR=	$(exec_prefix)/include
@@ -95,9 +124,11 @@
  
  # Detailed destination directories
  BINLIBDEST=	$(LIBDIR)/python$(VERSION)
---- Modules/Setup.dist
-+++ Modules/Setup.dist
-@@ -464,7 +464,7 @@
+diff --git a/Modules/Setup.dist b/Modules/Setup.dist
+index bbc9222129..da175ec75a 100644
+--- a/Modules/Setup.dist
++++ b/Modules/Setup.dist
+@@ -464,7 +464,7 @@ GLHACK=-Dclear=__GLclear
  # Andrew Kuchling's zlib module.
  # This require zlib 1.1.3 (or later).
  # See http://www.gzip.org/zlib/
@@ -105,10 +136,12 @@
 +#zlib zlibmodule.c -I$(prefix)/include -L$(exec_prefix)/@@GENTOO_LIBDIR@@ -lz
  
  # Interface to the Expat XML parser
- #
---- Modules/getpath.c
-+++ Modules/getpath.c
-@@ -108,7 +108,7 @@
+ # More information on Expat can be found at www.libexpat.org.
+diff --git a/Modules/getpath.c b/Modules/getpath.c
+index c42ce31178..bfaeb4b97c 100644
+--- a/Modules/getpath.c
++++ b/Modules/getpath.c
+@@ -108,7 +108,7 @@ static char prefix[MAXPATHLEN+1];
  static char exec_prefix[MAXPATHLEN+1];
  static char progpath[MAXPATHLEN+1];
  static char *module_search_path = NULL;
@@ -117,7 +150,7 @@
  
  static void
  reduce(char *dir)
-@@ -520,7 +520,7 @@
+@@ -520,7 +520,7 @@ calculate_path(void)
      }
      else
          strncpy(zip_path, PREFIX, MAXPATHLEN);
@@ -126,7 +159,7 @@
      bufsz = strlen(zip_path);   /* Replace "00" with version */
      zip_path[bufsz - 6] = VERSION[0];
      zip_path[bufsz - 5] = VERSION[2];
-@@ -530,7 +530,7 @@
+@@ -530,7 +530,7 @@ calculate_path(void)
              fprintf(stderr,
                  "Could not find platform dependent libraries <exec_prefix>\n");
          strncpy(exec_prefix, EXEC_PREFIX, MAXPATHLEN);
@@ -135,9 +168,11 @@
      }
      /* If we found EXEC_PREFIX do *not* reduce it!  (Yet.) */
  
---- setup.py
-+++ setup.py
-@@ -468,7 +468,7 @@
+diff --git a/setup.py b/setup.py
+index 64f34a9cfc..ac2a3e80c4 100644
+--- a/setup.py
++++ b/setup.py
+@@ -468,7 +468,7 @@ class PyBuildExt(build_ext):
          global disable_ssl
          # Ensure that /usr/local is always used
          if not cross_compiling:
@@ -146,7 +181,7 @@
              add_dir_to_list(self.compiler.include_dirs, '/usr/local/include')
          if cross_compiling:
              self.add_gcc_paths()
-@@ -535,8 +535,7 @@
+@@ -535,8 +535,7 @@ class PyBuildExt(build_ext):
                  ):
                  add_dir_to_list(inc_dirs, d)
              for d in (
@@ -156,7 +191,7 @@
                  ):
                  add_dir_to_list(lib_dirs, d)
          exts = []
-@@ -794,11 +793,11 @@
+@@ -794,11 +793,11 @@ class PyBuildExt(build_ext):
              elif curses_library:
                  readline_libs.append(curses_library)
              elif self.compiler.find_library_file(lib_dirs +
@@ -170,7 +205,7 @@
                                     extra_link_args=readline_extra_link_args,
                                     libraries=readline_libs) )
          else:
-@@ -1064,8 +1063,7 @@
+@@ -1064,8 +1063,7 @@ class PyBuildExt(build_ext):
  
                  # check lib directories parallel to the location of the header
                  db_dirs_to_check = [
@@ -180,7 +215,7 @@
                  ]
  
                  if host_platform != 'darwin':
-@@ -1178,10 +1176,8 @@
+@@ -1178,10 +1176,8 @@ class PyBuildExt(build_ext):
  
          if sqlite_incdir:
              sqlite_dirs_to_check = [
@@ -193,7 +228,7 @@
              ]
              sqlite_libfile = self.compiler.find_library_file(
                                  sqlite_dirs_to_check + lib_dirs, 'sqlite3')
-@@ -1956,15 +1952,14 @@
+@@ -1948,15 +1944,14 @@ class PyBuildExt(build_ext):
              added_lib_dirs.append('/usr/openwin/lib')
          elif os.path.exists('/usr/X11R6/include'):
              include_dirs.append('/usr/X11R6/include')
@@ -212,3 +247,6 @@
  
          # If Cygwin, then verify that X is installed before proceeding
          if host_platform == 'cygwin':
+-- 
+2.21.0
+
