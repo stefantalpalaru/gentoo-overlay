@@ -96,7 +96,7 @@ src_prepare() {
 		"${FILESDIR}/python-2.7.9-ncurses-pkg-config.patch"
 		"${FILESDIR}/python-2.7.10-cross-compile-warn-test.patch"
 		"${FILESDIR}/python-2.7.10-system-libffi.patch"
-		"${FILESDIR}/python-2.7.15-PGO.patch"
+		"${FILESDIR}/python-2.7.15-PGO-r1.patch"
 	)
 
 	default
@@ -236,7 +236,7 @@ src_compile() {
 	fi
 	export par_arg
 
-	emake EXTRATESTOPTS="${par_arg} -uall,-audio -x test_asyncore test_gdb test_multiprocessing test_subprocess test_epoll test_selectors test_distutils test_xpickle test_locale test_argparse test_bdb test_runpy test_test_support"
+	emake EXTRATESTOPTS="${par_arg} -uall,-audio -x test_distutils"
 
 	# Work around bug 329499. See also bug 413751 and 457194.
 	if has_version dev-libs/libffi[pax_kernel]; then
