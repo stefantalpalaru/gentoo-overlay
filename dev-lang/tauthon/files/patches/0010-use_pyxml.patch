@@ -1,6 +1,17 @@
---- Lib/xml/__init__.py
-+++ Lib/xml/__init__.py
-@@ -22,20 +22,23 @@
+From 680fb42dc996c3b452f9f2bfa942eb78e09b547c Mon Sep 17 00:00:00 2001
+From: Mike Gilbert <floppym@gentoo.org>
+Date: Sun, 17 Jun 2018 11:14:43 -0400
+Subject: [PATCH 10/11] use_pyxml
+
+---
+ Lib/xml/__init__.py | 33 ++++++++++++++++++---------------
+ 1 file changed, 18 insertions(+), 15 deletions(-)
+
+diff --git a/Lib/xml/__init__.py b/Lib/xml/__init__.py
+index deed983d97..e6c332b8ab 100644
+--- a/Lib/xml/__init__.py
++++ b/Lib/xml/__init__.py
+@@ -22,20 +22,23 @@ __all__ = ["dom", "parsers", "sax", "etree"]
  _MINIMUM_XMLPLUS_VERSION = (0, 8, 4)
  
  
@@ -39,3 +50,6 @@
 -        else:
 -            del v
 +        raise ImportError("PyXML too old: %s" % ".".join(str(x) for x in v))
+-- 
+2.21.0
+

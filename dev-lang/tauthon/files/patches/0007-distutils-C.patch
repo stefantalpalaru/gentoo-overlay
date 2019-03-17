@@ -1,8 +1,23 @@
-https://bugs.python.org/issue1222585
+From f96c9343a3119477d2a62b6ec5824ee00af3de7c Mon Sep 17 00:00:00 2001
+From: Mike Gilbert <floppym@gentoo.org>
+Date: Sun, 17 Jun 2018 11:14:43 -0400
+Subject: [PATCH 07/11] distutils C++
 
---- Lib/_osx_support.py
-+++ Lib/_osx_support.py
-@@ -14,13 +14,13 @@
+https://bugs.python.org/issue1222585
+---
+ Lib/_osx_support.py              | 10 +++---
+ Lib/distutils/cygwinccompiler.py | 21 ++++++++++--
+ Lib/distutils/emxccompiler.py    | 14 ++++++--
+ Lib/distutils/sysconfig.py       | 26 +++++++++++----
+ Lib/distutils/unixccompiler.py   | 55 +++++++++++++++++---------------
+ Makefile.pre.in                  |  2 +-
+ 6 files changed, 84 insertions(+), 44 deletions(-)
+
+diff --git a/Lib/_osx_support.py b/Lib/_osx_support.py
+index d2aaae7986..8bcdb05396 100644
+--- a/Lib/_osx_support.py
++++ b/Lib/_osx_support.py
+@@ -14,13 +14,13 @@ __all__ = [
  # configuration variables that may contain universal build flags,
  # like "-arch" or "-isdkroot", that may need customization for
  # the user environment
@@ -21,9 +36,11 @@ https://bugs.python.org/issue1222585
  
  # prefix added to original configuration variable names
  _INITPRE = '_OSX_SUPPORT_INITIAL_'
---- Lib/distutils/cygwinccompiler.py
-+++ Lib/distutils/cygwinccompiler.py
-@@ -117,8 +117,10 @@
+diff --git a/Lib/distutils/cygwinccompiler.py b/Lib/distutils/cygwinccompiler.py
+index 258e138b04..13b7d0c03a 100644
+--- a/Lib/distutils/cygwinccompiler.py
++++ b/Lib/distutils/cygwinccompiler.py
+@@ -117,8 +117,10 @@ class CygwinCCompiler (UnixCCompiler):
          # dllwrap 2.10.90 is buggy
          if self.ld_version >= "2.10.90":
              self.linker_dll = "gcc"
@@ -34,7 +51,7 @@ https://bugs.python.org/issue1222585
  
          # ld_version >= "2.13" support -shared so use it instead of
          # -mdll -static
-@@ -132,9 +134,13 @@
+@@ -132,9 +134,13 @@ class CygwinCCompiler (UnixCCompiler):
          self.set_executables(compiler='gcc -mcygwin -O -Wall',
                               compiler_so='gcc -mcygwin -mdll -O -Wall',
                               compiler_cxx='g++ -mcygwin -O -Wall',
@@ -49,7 +66,7 @@ https://bugs.python.org/issue1222585
  
          # cygwin and mingw32 need different sets of libraries
          if self.gcc_version == "2.91.57":
-@@ -160,8 +166,12 @@
+@@ -160,8 +166,12 @@ class CygwinCCompiler (UnixCCompiler):
                  raise CompileError, msg
          else: # for other files use the C-compiler
              try:
@@ -64,7 +81,7 @@ https://bugs.python.org/issue1222585
              except DistutilsExecError, msg:
                  raise CompileError, msg
  
-@@ -327,9 +337,14 @@
+@@ -327,9 +337,14 @@ class Mingw32CCompiler (CygwinCCompiler):
          self.set_executables(compiler='gcc%s -O -Wall' % no_cygwin,
                               compiler_so='gcc%s -mdll -O -Wall' % no_cygwin,
                               compiler_cxx='g++%s -O -Wall' % no_cygwin,
@@ -79,9 +96,11 @@ https://bugs.python.org/issue1222585
                                         shared_option, entry_point))
          # Maybe we should also append -mthreads, but then the finished
          # dlls need another dll (mingwm10.dll see Mingw32 docs)
---- Lib/distutils/emxccompiler.py
-+++ Lib/distutils/emxccompiler.py
-@@ -65,8 +65,12 @@
+diff --git a/Lib/distutils/emxccompiler.py b/Lib/distutils/emxccompiler.py
+index a0172058a3..bdc532c0d3 100644
+--- a/Lib/distutils/emxccompiler.py
++++ b/Lib/distutils/emxccompiler.py
+@@ -65,8 +65,12 @@ class EMXCCompiler (UnixCCompiler):
          # XXX optimization, warnings etc. should be customizable.
          self.set_executables(compiler='gcc -Zomf -Zmt -O3 -fomit-frame-pointer -mprobe -Wall',
                               compiler_so='gcc -Zomf -Zmt -O3 -fomit-frame-pointer -mprobe -Wall',
@@ -95,7 +114,7 @@ https://bugs.python.org/issue1222585
  
          # want the gcc library statically linked (so that we don't have
          # to distribute a version dependent on the compiler we have)
-@@ -83,8 +87,12 @@
+@@ -83,8 +87,12 @@ class EMXCCompiler (UnixCCompiler):
                  raise CompileError, msg
          else: # for other files use the C-compiler
              try:
@@ -110,9 +129,11 @@ https://bugs.python.org/issue1222585
              except DistutilsExecError, msg:
                  raise CompileError, msg
  
---- Lib/distutils/sysconfig.py
-+++ Lib/distutils/sysconfig.py
-@@ -171,10 +171,12 @@
+diff --git a/Lib/distutils/sysconfig.py b/Lib/distutils/sysconfig.py
+index 78f19c63f1..2d8be6145f 100644
+--- a/Lib/distutils/sysconfig.py
++++ b/Lib/distutils/sysconfig.py
+@@ -171,10 +171,12 @@ def customize_compiler(compiler):
                  _osx_support.customize_compiler(_config_vars)
                  _config_vars['CUSTOMIZED_OSX_COMPILER'] = 'True'
  
@@ -129,7 +150,7 @@ https://bugs.python.org/issue1222585
  
          if 'CC' in os.environ:
              newcc = os.environ['CC']
-@@ -189,19 +191,27 @@
+@@ -189,19 +191,27 @@ def customize_compiler(compiler):
              cxx = os.environ['CXX']
          if 'LDSHARED' in os.environ:
              ldshared = os.environ['LDSHARED']
@@ -158,7 +179,7 @@ https://bugs.python.org/issue1222585
          if 'AR' in os.environ:
              ar = os.environ['AR']
          if 'ARFLAGS' in os.environ:
-@@ -210,13 +220,17 @@
+@@ -210,13 +220,17 @@ def customize_compiler(compiler):
              archiver = ar + ' ' + ar_flags
  
          cc_cmd = cc + ' ' + cflags
@@ -177,9 +198,11 @@ https://bugs.python.org/issue1222585
              archiver=archiver)
  
          compiler.shared_lib_extension = so_ext
---- Lib/distutils/unixccompiler.py
-+++ Lib/distutils/unixccompiler.py
-@@ -55,14 +55,17 @@
+diff --git a/Lib/distutils/unixccompiler.py b/Lib/distutils/unixccompiler.py
+index 3af540e581..f8f7efe2db 100644
+--- a/Lib/distutils/unixccompiler.py
++++ b/Lib/distutils/unixccompiler.py
+@@ -55,14 +55,17 @@ class UnixCCompiler(CCompiler):
      # are pretty generic; they will probably have to be set by an outsider
      # (eg. using information discovered by the sysconfig about building
      # Python extensions).
@@ -205,7 +228,7 @@ https://bugs.python.org/issue1222585
                    }
  
      if sys.platform[:6] == "darwin":
-@@ -114,12 +117,19 @@
+@@ -114,12 +117,19 @@ class UnixCCompiler(CCompiler):
  
      def _compile(self, obj, src, ext, cc_args, extra_postargs, pp_opts):
          compiler_so = self.compiler_so
@@ -227,7 +250,7 @@ https://bugs.python.org/issue1222585
          except DistutilsExecError, msg:
              raise CompileError, msg
  
-@@ -176,23 +186,16 @@
+@@ -176,23 +186,16 @@ class UnixCCompiler(CCompiler):
                  ld_args.extend(extra_postargs)
              self.mkpath(os.path.dirname(output_filename))
              try:
@@ -260,9 +283,11 @@ https://bugs.python.org/issue1222585
  
                  if sys.platform == 'darwin':
                      linker = _osx_support.compiler_fixup(linker, ld_args)
---- Makefile.pre.in
-+++ Makefile.pre.in
-@@ -514,7 +514,7 @@
+diff --git a/Makefile.pre.in b/Makefile.pre.in
+index 2fe3a5be0f..f4db5b5444 100644
+--- a/Makefile.pre.in
++++ b/Makefile.pre.in
+@@ -523,7 +523,7 @@ sharedmods: $(BUILDPYTHON) pybuilddir.txt Modules/_math.o
  	    *\ -s*|s*) quiet="-q";; \
  	    *) quiet="";; \
  	esac; \
@@ -271,3 +296,6 @@ https://bugs.python.org/issue1222585
  		_TCLTK_INCLUDES='$(TCLTK_INCLUDES)' _TCLTK_LIBS='$(TCLTK_LIBS)' \
  		$(PYTHON_FOR_BUILD) $(srcdir)/setup.py $$quiet build
  
+-- 
+2.21.0
+
