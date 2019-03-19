@@ -1,9 +1,19 @@
+From ad7fff746a35e9e05df06ff861a065451b418a9c Mon Sep 17 00:00:00 2001
+From: Mike Gilbert <floppym@gentoo.org>
+Date: Sun, 17 Jun 2018 11:14:43 -0400
+Subject: [PATCH 09/11] ARM OABI
+
 https://bugs.gentoo.org/show_bug.cgi?id=266703
 https://bugs.python.org/issue1762561
+---
+ Objects/floatobject.c | 107 ++++++++++++++++++++++++++++++------------
+ 1 file changed, 78 insertions(+), 29 deletions(-)
 
---- Objects/floatobject.c
-+++ Objects/floatobject.c
-@@ -1859,9 +1859,18 @@
+diff --git a/Objects/floatobject.c b/Objects/floatobject.c
+index 5954d39cdb..1f963058da 100644
+--- a/Objects/floatobject.c
++++ b/Objects/floatobject.c
+@@ -1858,9 +1858,18 @@ float_getnewargs(PyFloatObject *v)
  /* this is for the benefit of the pack/unpack routines below */
  
  typedef enum {
@@ -23,7 +33,7 @@ https://bugs.python.org/issue1762561
  static float_format_type double_format, float_format;
  static float_format_type detected_double_format, detected_float_format;
  
-@@ -1898,6 +1907,8 @@
+@@ -1897,6 +1906,8 @@ float_getformat(PyTypeObject *v, PyObject* arg)
          return PyString_FromString("IEEE, little-endian");
      case ieee_big_endian_format:
          return PyString_FromString("IEEE, big-endian");
@@ -32,7 +42,7 @@ https://bugs.python.org/issue1762561
      default:
          Py_FatalError("insane float_format or double_format");
          return NULL;
-@@ -1911,8 +1922,9 @@
+@@ -1910,8 +1921,9 @@ PyDoc_STRVAR(float_getformat_doc,
  "used in Python's test suite.\n"
  "\n"
  "typestr must be 'double' or 'float'.  This function returns whichever of\n"
@@ -44,7 +54,7 @@ https://bugs.python.org/issue1762561
  
  static PyObject *
  float_setformat(PyTypeObject *v, PyObject* args)
-@@ -1950,11 +1962,15 @@
+@@ -1949,11 +1961,15 @@ float_setformat(PyTypeObject *v, PyObject* args)
      else if (strcmp(format, "IEEE, big-endian") == 0) {
          f = ieee_big_endian_format;
      }
@@ -62,7 +72,7 @@ https://bugs.python.org/issue1762561
          return NULL;
  
      }
-@@ -1977,8 +1993,10 @@
+@@ -1976,8 +1992,10 @@ PyDoc_STRVAR(float_setformat_doc,
  "used in Python's test suite.\n"
  "\n"
  "typestr must be 'double' or 'float'.  fmt must be one of 'unknown',\n"
@@ -75,7 +85,7 @@ https://bugs.python.org/issue1762561
  "\n"
  "Override the automatic determination of C-level floating point type.\n"
  "This affects how floats are converted to and from binary strings.");
-@@ -2173,7 +2191,11 @@
+@@ -2172,7 +2190,11 @@ _PyFloat_Init(void)
         Note that if we're on some whacked-out platform which uses
         IEEE formats but isn't strictly little-endian or big-
         endian, we will fall back to the portable shifts & masks
@@ -88,7 +98,7 @@ https://bugs.python.org/issue1762561
  
  #if SIZEOF_DOUBLE == 8
      {
-@@ -2182,6 +2204,8 @@
+@@ -2181,6 +2203,8 @@ _PyFloat_Init(void)
              detected_double_format = ieee_big_endian_format;
          else if (memcmp(&x, "\x05\x04\x03\x02\x01\xff\x3f\x43", 8) == 0)
              detected_double_format = ieee_little_endian_format;
@@ -97,18 +107,19 @@ https://bugs.python.org/issue1762561
          else
              detected_double_format = unknown_format;
      }
-@@ -2527,17 +2551,31 @@
+@@ -2526,17 +2550,31 @@ _PyFloat_Pack8(double x, unsigned char *p, int le)
      }
      else {
          const char *s = (char*)&x;
 -        int i, incr = 1;
-+        int i;
-+        const unsigned char *byteorder;
- 
+-
 -        if ((double_format == ieee_little_endian_format && !le)
 -            || (double_format == ieee_big_endian_format && le)) {
 -            p += 7;
 -            incr = -1;
++        int i;
++        const unsigned char *byteorder;
++
 +        switch (double_format) {
 +        case ieee_little_endian_format:
 +            byteorder = LITTLE_ENDIAN_BYTEORDER;
@@ -137,7 +148,7 @@ https://bugs.python.org/issue1762561
          }
          return 0;
      }
-@@ -2696,22 +2734,33 @@
+@@ -2695,22 +2733,33 @@ _PyFloat_Unpack8(const unsigned char *p, int le)
      }
      else {
          double x;
@@ -183,3 +194,6 @@ https://bugs.python.org/issue1762561
          return x;
      }
  }
+-- 
+2.21.0
+

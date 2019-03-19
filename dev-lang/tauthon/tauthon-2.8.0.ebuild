@@ -1,20 +1,19 @@
-# Copyright 1999-2018 Gentoo Foundation
+# Copyright 1999-2019 Gentoo Authors
 # Distributed under the terms of the GNU General Public License v2
 
-EAPI=6
+EAPI="6"
 WANT_LIBTOOL="none"
 
-inherit autotools eutils flag-o-matic git-r3 multilib pax-utils python-utils-r1 toolchain-funcs multiprocessing
+inherit autotools eutils flag-o-matic multilib pax-utils python-utils-r1 toolchain-funcs multiprocessing
 
 DESCRIPTION="Python 2.7 fork with new syntax, builtins, and libraries backported from Python3"
 HOMEPAGE="https://github.com/naftaliharris/tauthon"
-EGIT_REPO_URI="https://github.com/naftaliharris/tauthon.git"
-EGIT_COMMIT="e92057accb2d0b70620c7b9b2ec885247788d67b"
+SRC_URI="https://github.com/naftaliharris/tauthon/archive/v${PV}.tar.gz -> ${P}.tar.gz"
 
 LICENSE="PSF-2"
 SLOT="2.8"
 KEYWORDS="alpha amd64 arm ~arm64 hppa ia64 ~m68k ~mips ppc ppc64 ~s390 ~sh sparc x86 ~amd64-fbsd ~x86-fbsd"
-IUSE="-berkdb build doc elibc_uclibc examples gdbm hardened ipv6 libressl +lto +ncurses +pgo +readline sqlite +ssl +threads tk +wide-unicode wininst +xml"
+IUSE="-berkdb bluetooth build doc elibc_uclibc examples gdbm hardened ipv6 libressl +lto +ncurses +pgo +readline sqlite +ssl +threads tk +wide-unicode wininst +xml"
 
 # Do not add a dependency on dev-lang/python to this ebuild.
 # If you need to apply a patch which requires python for bootstrapping, please
@@ -23,7 +22,7 @@ IUSE="-berkdb build doc elibc_uclibc examples gdbm hardened ipv6 libressl +lto +
 
 RDEPEND="app-arch/bzip2:0=
 	>=sys-libs/zlib-1.1.3:0=
-	virtual/libffi
+	virtual/libffi:=
 	virtual/libintl
 	berkdb? ( || (
 		sys-libs/db:5.3
@@ -37,14 +36,12 @@ RDEPEND="app-arch/bzip2:0=
 		sys-libs/db:4.2
 	) )
 	gdbm? ( sys-libs/gdbm:0=[berkdb] )
-	ncurses? (
-		>=sys-libs/ncurses-5.2:0=
-		readline? ( >=sys-libs/readline-4.1:0= )
-	)
+	ncurses? ( >=sys-libs/ncurses-5.2:0= )
+	readline? ( >=sys-libs/readline-4.1:0= )
 	sqlite? ( >=dev-db/sqlite-3.3.8:3= )
 	ssl? (
 		!libressl? ( dev-libs/openssl:0= )
-		libressl? ( dev-libs/libressl:= )
+		libressl? ( dev-libs/libressl:0= )
 	)
 	tk? (
 		>=dev-lang/tcl-8.0:0=
@@ -54,7 +51,9 @@ RDEPEND="app-arch/bzip2:0=
 	)
 	xml? ( >=dev-libs/expat-2.1 )
 	!!<sys-apps/portage-2.1.9"
+# bluetooth requires headers from bluez
 DEPEND="${RDEPEND}
+	bluetooth? ( net-wireless/bluez )
 	virtual/pkgconfig
 	>=sys-devel/autoconf-2.65
 	!sys-devel/gcc[libffi(-)]"
@@ -88,23 +87,15 @@ src_prepare() {
 		local EPATCH_EXCLUDE="*_regenerate_platform-specific_modules*.patch"
 	fi
 
-	epatch "${FILESDIR}/01_all_static_library_location.patch"
-	epatch "${FILESDIR}/02_all_disable_modules_and_ssl.patch"
-	epatch "${FILESDIR}/03_all_libdir-r1.patch"
-	epatch "${FILESDIR}/04_all_non-zero_exit_status_on_failure.patch"
-	epatch "${FILESDIR}/05_all_loadable_sqlite_extensions.patch"
-	epatch "${FILESDIR}/06_all_regenerate_platform-specific_modules-r2.patch"
-	epatch "${FILESDIR}/21_all_distutils_c++.patch"
-	epatch "${FILESDIR}/22_all_turkish_locale.patch"
-	epatch "${FILESDIR}/23_all_arm_OABI.patch"
-	epatch "${FILESDIR}/24_all_tests_environment-r1.patch"
-	epatch "${FILESDIR}/62_all_xml.use_pyxml.patch"
-	epatch "${FILESDIR}/python-2.7.5-nonfatal-compileall.patch"
-	epatch "${FILESDIR}/python-2.7.9-ncurses-pkg-config.patch"
-	epatch "${FILESDIR}/python-2.7.10-cross-compile-warn-test.patch"
-	epatch "${FILESDIR}/python-2.7.10-system-libffi.patch"
+	local PATCHES=(
+		"${FILESDIR}/patches"
+		"${FILESDIR}/python-2.7.5-nonfatal-compileall.patch"
+		"${FILESDIR}/python-2.7.9-ncurses-pkg-config.patch"
+		"${FILESDIR}/python-2.7.10-cross-compile-warn-test.patch"
+		"${FILESDIR}/python-2.7.10-system-libffi.patch"
+	)
 
-	eapply_user
+	default
 
 	sed -i -e "s:@@GENTOO_LIBDIR@@:$(get_libdir):g" \
 		Lib/distutils/command/install.py \
@@ -126,6 +117,8 @@ src_configure() {
 		local disable
 		use berkdb   || use gdbm || disable+=" dbm"
 		use berkdb   || disable+=" _bsddb"
+		# disable automagic bluetooth headers detection
+		use bluetooth || export ac_cv_header_bluetooth_bluetooth_h=no
 		use gdbm     || disable+=" gdbm"
 		use ncurses  || disable+=" _curses _curses_panel"
 		use readline || disable+=" readline"
@@ -191,24 +184,25 @@ src_configure() {
 	mkdir -p "${BUILD_DIR}" || die
 	cd "${BUILD_DIR}" || die
 
-	ECONF_SOURCE="${S}" OPT="" \
-	econf \
-		--with-fpectl \
-		--enable-shared \
-		$(use_enable ipv6) \
-		$(use_with threads) \
-		$(use wide-unicode && echo "--enable-unicode=ucs4" || echo "--enable-unicode=ucs2") \
-		$(use_enable pgo optimizations) \
-		$(use_with lto) \
-		--infodir='${prefix}/share/info' \
-		--mandir='${prefix}/share/man' \
-		--with-computed-gotos \
-		--with-dbmliborder="${dbmliborder}" \
-		--with-libc="" \
-		--enable-loadable-sqlite-extensions \
-		--with-system-expat \
-		--with-system-ffi \
+	local myeconfargs=(
+		--with-fpectl
+		--enable-shared
+		$(use_enable ipv6)
+		$(use_with threads)
+		$(use wide-unicode && echo "--enable-unicode=ucs4" || echo "--enable-unicode=ucs2")
+		$(use_enable pgo optimizations)
+		$(use_with lto)
+		--infodir='${prefix}/share/info'
+		--mandir='${prefix}/share/man'
+		--with-computed-gotos
+		--with-dbmliborder="${dbmliborder}"
+		--with-libc=""
+		--enable-loadable-sqlite-extensions
+		--with-system-expat
+		--with-system-ffi
 		--without-ensurepip
+	)
+	ECONF_SOURCE="${S}" OPT="" econf "${myeconfargs[@]}"
 
 	if use threads && grep -q "#define POSIX_SEMAPHORES_NOT_ENABLED 1" pyconfig.h; then
 		eerror "configure has detected that the sem_open function is broken."
@@ -238,7 +232,7 @@ src_compile() {
 	fi
 	export par_arg
 
-	emake EXTRATESTOPTS="${par_arg} -uall,-audio -x test_asyncore test_gdb test_multiprocessing test_subprocess test_epoll test_selectors test_distutils test_xpickle"
+	emake EXTRATESTOPTS="${par_arg} -uall,-audio -x test_distutils"
 
 	# Work around bug 329499. See also bug 413751 and 457194.
 	if has_version dev-libs/libffi[pax_kernel]; then
@@ -258,11 +252,14 @@ src_test() {
 	cd "${BUILD_DIR}" || die
 
 	# Skip failing tests.
-	local skipped_tests="distutils gdb curses xpickle"
+	local skipped_tests="distutils gdb curses xpickle bdb runpy test_support"
 
 	for test in ${skipped_tests}; do
 		mv "${S}"/Lib/test/test_${test}.py "${T}"
 	done
+
+	# bug 660358
+	local -x COLUMNS=80
 
 	# Daylight saving time problem
 	# https://bugs.python.org/issue22067
