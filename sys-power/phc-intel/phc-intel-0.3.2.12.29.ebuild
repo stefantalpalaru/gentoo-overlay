@@ -1,4 +1,4 @@
-# Copyright 1999-2018 Gentoo Foundation
+# Copyright 1999-2019 Gentoo Authors
 # Distributed under the terms of the GNU General Public License v2
 
 EAPI=6
@@ -9,7 +9,7 @@ DESCRIPTION="Processor Hardware Control for Intel CPUs"
 HOMEPAGE="http://www.linux-phc.org/
 	http://www.linux-phc.org/forum/viewtopic.php?f=7&t=267"
 #no automatic filenames here, sorry
-SRC_URI="http://www.linux-phc.org/forum/download/file.php?id=197 -> phc-intel-pack-rev27.tar.bz2"
+SRC_URI="http://www.linux-phc.org/forum/download/file.php?id=199 -> phc-intel-pack-rev29.tar.bz2"
 
 LICENSE="GPL-2"
 SLOT="0"
@@ -40,8 +40,8 @@ src_prepare() {
 
 	if kernel_is lt 3 0 ; then
 		epatch inc/${KV_MAJOR}.${KV_MINOR}.${KV_PATCH}/linux-phc-0.3.2.patch
-	elif kernel_is gt 4 17; then
-		epatch inc/4.17/linux-phc-0.3.2.patch
+	elif kernel_is gt 4 20; then
+		epatch inc/4.20/linux-phc-0.3.2.patch
 	else
 		epatch inc/${KV_MAJOR}.${KV_MINOR}/linux-phc-0.3.2.patch
 	fi
