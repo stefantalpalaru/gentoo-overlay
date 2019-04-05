@@ -1,4 +1,4 @@
-# Copyright 1999-2017 Gentoo Foundation
+# Copyright 1999-2019 Gentoo Authors
 # Distributed under the terms of the GNU General Public License v2
 
 EAPI=6
@@ -8,7 +8,7 @@ inherit git-r3
 DESCRIPTION="a tool to translate ANSI C code to Nim"
 HOMEPAGE="https://github.com/nim-lang/c2nim"
 EGIT_REPO_URI="https://github.com/nim-lang/c2nim"
-EGIT_COMMIT="a791d3516d9d6408779a2c562fce41b95a78590b"
+EGIT_COMMIT="a6345779d12868b17b7436e5eab3324ad9eb884d"
 
 LICENSE="MIT"
 SLOT="0"
