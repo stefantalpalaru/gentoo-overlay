@@ -1,0 +1,13 @@
+diff -ur gmic-qt-v.2.5.6.orig/CMakeLists.txt gmic-qt-v.2.5.6/CMakeLists.txt
+--- gmic-qt-v.2.5.6.orig/CMakeLists.txt	2019-04-08 15:03:51.000000000 +0200
++++ gmic-qt-v.2.5.6/CMakeLists.txt	2019-04-21 17:04:45.251298957 +0200
+@@ -143,8 +143,8 @@
+ #
+ find_package(FFTW3 REQUIRED)
+ add_definitions(-Dcimg_use_fftw3 )
+-add_definitions(-Dcimg_use_fftw3_singlethread )
+ include_directories(${FFTW3_INCLUDE_DIR})
++list(APPEND FFTW3_LIBRARIES "-lfftw3_threads")
+ 
+ #
+ # CURL

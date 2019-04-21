@@ -4,7 +4,7 @@
 EAPI=7
 CMAKE_MAKEFILE_GENERATOR="emake"
 CMAKE_BUILD_TYPE=Release
-CMAKE_MIN_VERSION="3.12.1"
+#CMAKE_MIN_VERSION="3.12.1"
 
 inherit bash-completion-r1 cmake-utils
 
@@ -122,6 +122,9 @@ src_prepare() {
 			-e '/CMAKE_CXX_FLAGS_RELEASE/d' \
 			../${GMIC_QT_DIR}/CMakeLists.txt || die "sed failed"
 		local S="${WORKDIR}/${GMIC_QT_DIR}"
+		PATCHES=(
+			"${FILESDIR}/gmic-2.5.6-fftw.patch"
+		)
 		cmake-utils_src_prepare
 	fi
 }
