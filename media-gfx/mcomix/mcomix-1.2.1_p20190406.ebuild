@@ -12,7 +12,8 @@ inherit distutils-r1 l10n xdg-utils
 
 DESCRIPTION="A fork of comix, a GTK image viewer for comic book archives"
 HOMEPAGE="https://sourceforge.net/p/mcomix/wiki/Home/"
-SRC_URI="mirror://sourceforge/${PN}/${P}.tar.bz2"
+MY_P="mcomix-git-486f02eef164df451a72598ce5989a1b37b49c60"
+SRC_URI="https://sourceforge.net/code-snapshots/git/m/mc/mcomix/git.git/${MY_P}.zip"
 
 LICENSE="GPL-2"
 SLOT="0"
@@ -29,8 +30,10 @@ RDEPEND="${DEPEND}
 
 DOCS=( ChangeLog README )
 PATCHES=(
-	"${FILESDIR}/mcomix-1.2.1-pixbuf.patch"
+	"${FILESDIR}/mcomix-1.2.1-pixbuf-r1.patch"
 )
+
+S="${WORKDIR}/${MY_P}"
 
 src_prepare() {
 	local checklocales
