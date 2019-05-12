@@ -8,12 +8,12 @@ PYTHON_REQ_USE="sqlite"
 
 PLOCALES="ca cs de el es fa fr gl he hr hu id it ja ko nl pl pt_BR ru sv uk zh_CN zh_TW"
 
-inherit distutils-r1 l10n xdg-utils
+inherit distutils-r1 git-r3 l10n xdg-utils
 
 DESCRIPTION="A fork of comix, a GTK image viewer for comic book archives"
 HOMEPAGE="https://sourceforge.net/p/mcomix/wiki/Home/"
-MY_P="mcomix-git-486f02eef164df451a72598ce5989a1b37b49c60"
-SRC_URI="https://sourceforge.net/code-snapshots/git/m/mc/mcomix/git.git/${MY_P}.zip"
+EGIT_REPO_URI="https://git.code.sf.net/p/mcomix/git mcomix-git"
+EGIT_COMMIT="486f02eef164df451a72598ce5989a1b37b49c60"
 
 LICENSE="GPL-2"
 SLOT="0"
@@ -32,8 +32,6 @@ DOCS=( ChangeLog README )
 PATCHES=(
 	"${FILESDIR}/mcomix-1.2.1-pixbuf-r1.patch"
 )
-
-S="${WORKDIR}/${MY_P}"
 
 src_prepare() {
 	local checklocales
