@@ -37,24 +37,16 @@ S="${WORKDIR}/DOtherSide-${my_commit}"
 
 PATCHES=(
 	"${FILESDIR}/dotherside-skip-tests.patch"
+	"${FILESDIR}/dotherside-cmake.patch"
 )
 
-src_prepare() {
-	sed -i "s/LIBRARY DESTINATION lib/LIBRARY DESTINATION $(get_libdir)/" lib/CMakeLists.txt
-
-	if ! use doc; then
-		sed -i '/(doc)/d' CMakeLists.txt
-	fi
-
-	if ! use test; then
-		sed -i '/(test)/d' CMakeLists.txt
-	fi
-
-	if ! use static-libs; then
-		sed -i '/Static/d' lib/CMakeLists.txt
-	fi
-
-	cmake-utils_src_prepare
+src_configure() {
+	local mycmakeargs=(
+		-DENABLE_DOCS=$(usex doc ON OFF)
+		-DENABLE_TESTS=$(usex test ON OFF)
+		-DENABLE_STATIC_LIBS=$(usex static-libs ON OFF)
+	)
+	cmake-utils_src_configure
 }
 
 src_compile() {
