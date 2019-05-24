@@ -7,10 +7,15 @@ inherit eapi7-ver eutils readme.gentoo-r1 gnome2-utils pam systemd xdg-utils
 
 MY_PN="VMware-Workstation-Full"
 MY_PV=$(ver_cut 1-3)
-PV_MODULES="360.$(ver_cut 2-3)"
+# Getting the major version number for kernel modules:
+## cd vmware-vmx/lib/modules/source
+## tar xf vmmon.tar
+## cd vmmon-only/include
+## grep VMMON_VERSION iocontrols.h
+PV_MODULES="361.$(ver_cut 2-3)"
 PV_BUILD=$(ver_cut 4)
 MY_P="${MY_PN}-${MY_PV}-${PV_BUILD}"
-VMWARE_FUSION_VER="11.0.3/12992109" # https://softwareupdate.vmware.com/cds/vmw-desktop/fusion/
+VMWARE_FUSION_VER="11.1.0/13668589" # https://softwareupdate.vmware.com/cds/vmw-desktop/fusion/
 SYSTEMD_UNITS_TAG="gentoo-02"
 
 DESCRIPTION="Emulate a complete PC without the performance overhead of most emulators"
