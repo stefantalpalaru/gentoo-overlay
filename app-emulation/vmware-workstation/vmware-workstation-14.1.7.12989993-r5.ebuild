@@ -27,7 +27,7 @@ SRC_URI="
 
 LICENSE="GPL-2 GPL-3 MIT-with-advertising vmware"
 SLOT="0"
-KEYWORDS="~amd64"
+KEYWORDS=""
 IUSE="+bundled-libs cups doc macos-guests +modules ovftool server systemd vix"
 DARWIN_GUESTS="darwin darwinPre15"
 IUSE_VMWARE_GUESTS="${DARWIN_GUESTS} linux linuxPreGlibc25 netware solaris windows winPre2k winPreVista"
@@ -226,11 +226,6 @@ QA_WX_LOAD="opt/vmware/lib/vmware/tools-upgraders/vmware-tools-upgrader-32 opt/v
 # adding "opt/vmware/lib/vmware/lib/libvmware-gksu.so/libvmware-gksu.so" to QA_WX_LOAD doesn't work
 
 src_unpack() {
-	if has usersandbox $FEATURES ; then
-		ewarn "You are emerging ${P} with 'usersandbox' enabled." \
-			"If unpacking fails, try emerging with 'FEATURES=-usersandbox'!"
-	fi
-
 	for a in ${A}; do
 		if [ ${a##*.} == 'bundle' ]; then
 			cp "${DISTDIR}/${a}" "${WORKDIR}"
@@ -704,6 +699,8 @@ pkg_postinst() {
 	xdg_desktop_database_update
 	xdg_mimeinfo_database_update
 	gnome2_icon_cache_update
+	ewarn "This version has reached its 'end of general support' from VMware: https://www.vmware.com/content/dam/digitalmarketing/vmware/en/pdf/support/product-lifecycle-matrix.pdf"
+	ewarn "If you choose to use this instead of the newer version and you're affected by some security issue, you have only yourself to blame."
 	readme.gentoo_print_elog
 }
 
