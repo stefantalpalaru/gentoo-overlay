@@ -185,7 +185,7 @@ RDEPEND="
 	dev-libs/icu
 	dev-libs/json-c
 	dev-libs/nettle:0/6.2
-	gnome-base/dconf
+	<gnome-base/dconf-0.30.1
 	gnome-base/gconf
 	gnome-base/libgnome-keyring
 	media-gfx/graphite2
@@ -231,11 +231,6 @@ QA_WX_LOAD="opt/vmware/lib/vmware/tools-upgraders/vmware-tools-upgrader-32 opt/v
 # adding "opt/vmware/lib/vmware/lib/libvmware-gksu.so/libvmware-gksu.so" to QA_WX_LOAD doesn't work
 
 src_unpack() {
-	if has usersandbox $FEATURES ; then
-		ewarn "You are emerging ${P} with 'usersandbox' enabled." \
-			"If unpacking fails, try emerging with 'FEATURES=-usersandbox'!"
-	fi
-
 	for a in ${A}; do
 		if [ ${a##*.} == 'bundle' ]; then
 			cp "${DISTDIR}/${a}" "${WORKDIR}"
@@ -475,6 +470,8 @@ src_install() {
 	done
 	dosym "${VM_INSTALL_DIR}"/lib/vmware/bin/vmplayer "${VM_INSTALL_DIR}"/bin/vmplayer
 	dosym "${VM_INSTALL_DIR}"/lib/vmware/bin/vmware "${VM_INSTALL_DIR}"/bin/vmware
+	dosym "${VM_INSTALL_DIR}"/lib/vmware/bin/vmware-fuseUI "${VM_INSTALL_DIR}"/bin/vmware-fuseUI
+	dosym "${VM_INSTALL_DIR}"/lib/vmware/bin/vmware-netcfg "${VM_INSTALL_DIR}"/bin/vmware-netcfg
 	dosym "${VM_INSTALL_DIR}"/lib/vmware/icu /etc/vmware/icu
 
 	# fix permissions
