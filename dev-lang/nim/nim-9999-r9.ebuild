@@ -42,8 +42,7 @@ src_compile() {
 	cd csources
 	#sh build.sh --extraBuildArgs "${CFLAGS}" || die "build.sh failed"
 	sed -i \
-		-e "s/^COMP_FLAGS =.*$/COMP_FLAGS = ${CFLAGS} -fno-strict-aliasing/" \
-		-e "s/^LINK_FLAGS =.*$/LINK_FLAGS = ${LDFLAGS}/" \
+		-e "s/-w -O3 //" \
 		makefile
 	emake CC=gcc LD=gcc
 	cd ..
@@ -58,7 +57,8 @@ src_compile() {
 path="\$lib/packages"
 EOF
 	./bin/nim c -d:release --verbosity:2 --parallelBuild:$(makeopts_jobs) koch || die "csources nim failed"
-	./koch boot -d:release --verbosity:2 --parallelBuild:$(makeopts_jobs) $(nim_use_enable readline useGnuReadline) || die "koch boot failed"
+	# go back to --verbosity:2 when this is fixed: https://github.com/nim-lang/Nim/issues/11436
+	./koch boot -d:release --verbosity:1 --parallelBuild:$(makeopts_jobs) $(nim_use_enable readline useGnuReadline) || die "koch boot failed"
 	# "./koch tools" downloads and builds nimble
 	#./koch tools -d:release --verbosity:2 || die "koch tools failed"
 	PATH="./bin:${PATH}" nim c --noNimblePath -p:compiler -d:release --verbosity:2 --parallelBuild:$(makeopts_jobs) -o:bin/nimsuggest nimsuggest/nimsuggest.nim || die "nimsuggest compilation failed"
