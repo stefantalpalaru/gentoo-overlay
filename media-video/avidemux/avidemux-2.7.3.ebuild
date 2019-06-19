@@ -1,4 +1,4 @@
-# Copyright 1999-2019 Gentoo Authors
+# Copyright 1999-2018 Gentoo Authors
 # Distributed under the terms of the GNU General Public License v2
 
 EAPI=6
@@ -56,24 +56,24 @@ src_prepare() {
 	done
 
 	# Fix icon name -> avidemux-2.7.png
-	sed -i -e "/^Icon/ s:${PN}:${PN}-${SLOT}:" ${PN}2.desktop || \
+	sed -i -e "/^Icon/ s:${PN}:${PN}-${SLOT}:" appImage/${PN}.desktop || \
 		die "Icon name fix failed."
 
 	# The desktop file is broken. It uses avidemux2 instead of avidemux3
 	# so it will actually launch avidemux-2.7 if it is installed.
-	sed -i -e "/^Exec/ s:${PN}2:${PN}3:" ${PN}2.desktop || \
+	sed -i -e "/^Exec/ s:${PN}2:${PN}3:" appImage/${PN}.desktop || \
 		die "Desktop file fix failed."
 	if use qt5; then
-		sed -i -re '/^Exec/ s:(avidemux3_)gtk:\1qt5:' ${PN}2.desktop || \
+		sed -i -re '/^Exec/ s:(avidemux3_)gtk:\1qt5:' appImage/${PN}.desktop || \
 			die "Desktop file fix failed."
 	fi
 
 	# QA warnings: missing trailing ';' and 'Application' is deprecated.
-	sed -i -e 's/Application;AudioVideo/AudioVideo;/g' ${PN}2.desktop || \
+	sed -i -e 's/Application;AudioVideo/AudioVideo;/g' appImage/${PN}.desktop || \
 		die "Desktop file fix failed."
 
 	# Now rename the desktop file to not collide with 2.6.
-	mv ${PN}2.desktop ${PN}-${SLOT}.desktop || die "Collision rename failed."
+	mv appImage/${PN}.desktop ${PN}-${SLOT}.desktop || die "Collision rename failed."
 
 	# Remove "Build Option" dialog because it doesn't reflect
 	# what the GUI can or has been built with. (Bug #463628)
