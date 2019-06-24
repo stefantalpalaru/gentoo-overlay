@@ -1,4 +1,4 @@
-# Copyright 1999-2018 Gentoo Foundation
+# Copyright 1999-2019 Gentoo Authors
 # Distributed under the terms of the GNU General Public License v2
 
 EAPI=6
@@ -7,7 +7,7 @@ inherit autotools flag-o-matic git-r3 gnome2-utils qmake-utils systemd user xdg-
 DESCRIPTION="A Fast, Easy and Free BitTorrent client"
 HOMEPAGE="http://www.transmissionbt.com/"
 EGIT_REPO_URI="https://github.com/transmission/transmission"
-EGIT_COMMIT="c11f2870fd18ff781ca06ce84b6d43541f3293dd"
+EGIT_COMMIT="bff188c2cfc66371eec17deca3a0529864f33663"
 EGIT_SUBMODULES=(
 	'*'
 	'-third-party/libb64'
@@ -60,7 +60,7 @@ REQUIRED_USE="ayatana? ( gtk )"
 DOCS=( AUTHORS NEWS qt/README.txt )
 
 PATCHES=(
-	"${FILESDIR}/default_trackers-r1.patch"
+	"${FILESDIR}/default_trackers-r2.patch"
 )
 
 src_prepare() {
