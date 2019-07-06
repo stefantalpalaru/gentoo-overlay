@@ -1,0 +1,12 @@
+diff -ur pgmagick-0.7.4.orig/setup.py pgmagick-0.7.4/setup.py
+--- pgmagick-0.7.4.orig/setup.py	2018-04-29 18:14:25.000000000 +0200
++++ pgmagick-0.7.4/setup.py	2019-07-06 17:19:05.510278409 +0200
+@@ -140,8 +140,6 @@
+     boost_lib_target_files.append("boost_python3")
+     boost_lib_target_files.append("boost_python3-mt")
+ boost_lib_target_files.append("boost_python-mt-py%s%s" % (_python_version[0], _python_version[1]))
+-# gentoo appends the python version numbers to the boost_python libraries
+-boost_lib_target_files.append("boost_python-%s.%s" % (_python_version[0], _python_version[1]))
+ boost_lib_target_files.append("boost_python-mt")
+ # Homebrew's boost_python
+ boost_lib_target_files.append("boost_python%s%s" % (_python_version[0], _python_version[1]))
