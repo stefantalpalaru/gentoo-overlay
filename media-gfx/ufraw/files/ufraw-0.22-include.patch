@@ -1,0 +1,25 @@
+# add missing IOstream include
+--- ufraw-0.22/ufraw_exiv2.cc	2019-06-25 20:02:08.339830285 +0200
++++ ufraw-0.22/ufraw_exiv2.cc.new	2019-06-25 23:41:29.816254492 +0200
+@@ -11,20 +11,21 @@
+  * the Free Software Foundation; either version 2 of the License, or
+  * (at your option) any later version.
+  */
+ 
+ #include "ufraw.h"
+ 
+ #ifdef HAVE_EXIV2
+ #include <exiv2/exiv2.hpp>
+ #include <sstream>
+ #include <cassert>
++#include <iostream>
+ 
+ /*
+  * Helper function to copy a string to a buffer, converting it from
+  * current locale (in which exiv2 often returns strings) to UTF-8.
+  */
+ static void uf_strlcpy_to_utf8(char *dest, size_t dest_max,
+                                Exiv2::ExifData::const_iterator pos, Exiv2::ExifData& exifData)
+ {
+     std::string str = pos->print(&exifData);
+ 
