@@ -58,6 +58,8 @@ src_configure() {
 	# "eselect opengl" doesn't seem to affect link-time paths, so we need to unfuck that here
 	use video_cards_nvidia && append-ldflags -L/usr/$(get_libdir)/opengl/nvidia/lib
 
+	append-ldflags -lpthread
+
 	econf
 	# get rid of the RUNPATH that interferes with hardware accelerated OpenGL drivers
 	sed -i -e '/^hardcode_libdir_flag_spec/d' libtool
