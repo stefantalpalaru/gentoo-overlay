@@ -31,13 +31,12 @@ src_install() {
 
 	dobin build/bin/geth
 	if use devtools; then
-		dobin build/bin/abigen
-		dobin build/bin/bootnode
-		dobin build/bin/evm
-		dobin build/bin/p2psim
-		dobin build/bin/puppeth
-		dobin build/bin/rlpdump
-		dobin build/bin/swarm
-		dobin build/bin/wnode
+		mv build/bin/ethkey build/bin/geth-ethkey # collision with net-p2p/parity::chaoslab
+		for F in build/bin/*; do
+			if [[ "${F}" == "build/bin/examples" ]]; then
+				continue
+			fi
+			dobin "${F}"
+		done
 	fi
 }
