@@ -11,8 +11,7 @@ SRC_URI="https://nim-lang.org/download/${P}.tar.xz"
 
 LICENSE="MIT"
 SLOT="0"
-# this one's too buggy to be keyworded
-KEYWORDS=""
+KEYWORDS="~amd64 ~arm ~x86"
 IUSE="bash-completion boehm-gc doc +readline test"
 
 DEPEND="
@@ -48,8 +47,7 @@ src_compile() {
 path="\$lib/packages"
 EOF
 	./bin/nim c -d:release --verbosity:2 --parallelBuild:$(makeopts_jobs) koch || die "csources nim failed"
-	# go back to --verbosity:2 when this is fixed: https://github.com/nim-lang/Nim/issues/11436
-	./koch boot -d:release --verbosity:1 --parallelBuild:$(makeopts_jobs) $(nim_use_enable readline useGnuReadline) || die "koch boot failed"
+	./koch boot -d:release --verbosity:2 --parallelBuild:$(makeopts_jobs) $(nim_use_enable readline useGnuReadline) || die "koch boot failed"
 	#echo -e "\npath:\"\$projectPath/../..\"" >> compiler/nimfix/nimfix.nim.cfg
 	#PATH="./bin:${PATH}" nim c -d:release compiler/nimfix/nimfix.nim || die "nimfix.nim compilation failed"
 	PATH="./bin:${PATH}" nim c --noNimblePath -p:compiler -d:release --verbosity:2 --parallelBuild:$(makeopts_jobs) -o:bin/nimsuggest nimsuggest/nimsuggest.nim || die "nimsuggest compilation failed"
