@@ -1,0 +1,12 @@
+diff -ur libtorrent-libtorrent-1_2_1.orig/configure.ac libtorrent-libtorrent-1_2_1/configure.ac
+--- libtorrent-libtorrent-1_2_1.orig/configure.ac	2019-04-30 21:55:17.000000000 +0200
++++ libtorrent-libtorrent-1_2_1/configure.ac	2019-07-25 19:50:52.626822099 +0200
+@@ -329,7 +329,7 @@
+       AC_MSG_RESULT([no])
+       AC_DEFINE([NDEBUG],[1],[Define to disable debug code.])
+       #COMPILETIME_OPTIONS="$COMPILETIME_OPTIONS -DNDEBUG "
+-      DEBUGFLAGS="-g0 -Os"
++      DEBUGFLAGS=""
+    ],
+   [AC_MSG_RESULT([$ARG_ENABLE_DEBUG])
+    AC_MSG_ERROR([Unknown option "$ARG_ENABLE_DEBUG". Use either "yes" or "no".])]
