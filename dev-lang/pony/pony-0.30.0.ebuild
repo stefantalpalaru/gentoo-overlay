@@ -3,24 +3,20 @@
 
 EAPI=6
 
-inherit git-r3 llvm
-EGIT_SUBMODULES=(
-	"-*"
-)
+inherit llvm
 LLVM_MAX_SLOT=7
 
 DESCRIPTION="Compiler for the Pony language"
 HOMEPAGE="http://www.ponylang.org/"
-EGIT_REPO_URI="https://github.com/ponylang/ponyc"
+SRC_URI="https://github.com/ponylang/ponyc/archive/${PV}.tar.gz -> ${P}.tar.gz"
 
 LICENSE="BSD-2"
 SLOT="0"
-KEYWORDS=""
+KEYWORDS="~amd64 ~x86"
 IUSE="test vim-syntax"
 RESTRICT="strip"
 
-RDEPEND="dev-libs/libpcre2
-	dev-libs/openssl:0/1.1
+RDEPEND="
 	>=sys-devel/llvm-3.9.1:=
 	<sys-devel/llvm-8.0.0:=
 	sys-libs/ncurses:=
@@ -28,6 +24,8 @@ RDEPEND="dev-libs/libpcre2
 	vim-syntax? ( app-vim/pony-syntax )"
 DEPEND="${RDEPEND}
 	virtual/pkgconfig"
+
+S="${WORKDIR}/ponyc-${PV}"
 
 src_prepare() {
 	default
