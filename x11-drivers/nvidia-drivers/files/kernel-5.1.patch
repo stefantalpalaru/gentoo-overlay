@@ -1,0 +1,239 @@
+--- a/kernel/common/inc/nv-linux.h
++++ b/kernel/common/inc/nv-linux.h
+@@ -1082,6 +1082,10 @@
+ 
+ #define NV_PAGE_MASK    (NvU64)(long)PAGE_MASK
+ 
++#ifndef NV_VMF_INSERT_PFN_PRESENT
++typedef int vm_fault_t;
++#endif
++
+ extern void *nvidia_stack_t_cache;
+ 
+ // Changed in 2.6.23 via commit 20c2df83d25c6a95affe6157a4c9cac4cf5ffaac
+--- a/kernel/common/inc/nv-list-helpers.h
++++ b/kernel/common/inc/nv-list-helpers.h
+@@ -91,10 +91,12 @@
+         list_entry((pos)->member.next, typeof(*(pos)), member)
+ #endif
+ 
+-static inline int list_is_first(const struct list_head *list,
+-                                const struct list_head *head)
+-{
+-    return list->prev == head;
+-}
++#if !defined(NV_LIST_IS_FIRST_PRESENT)
++    static inline int list_is_first(const struct list_head *list,
++                                    const struct list_head *head)
++    {
++        return list->prev == head;
++    }
++#endif
+ 
+ #endif // __NV_LIST_HELPERS_H__
+--- a/kernel/conftest.sh
++++ b/kernel/conftest.sh
+@@ -106,6 +106,7 @@
+     FILES="$FILES drm/drm_atomic_uapi.h"
+     FILES="$FILES drm/drm_drv.h"
+     FILES="$FILES drm/drm_framebuffer.h"
++    FILES="$FILES drm/drm_probe_helper.h"
+     FILES="$FILES generated/autoconf.h"
+     FILES="$FILES generated/compile.h"
+     FILES="$FILES generated/utsrelease.h"
+@@ -407,6 +408,22 @@
+             compile_check_conftest "$CODE" "NV_SET_MEMORY_ARRAY_UC_PRESENT" "" "functions"
+         ;;
+ 
++        list_is_first)
++            #
++            # Determine if the list_is_first() function is present.
++            #
++            # Added by commit 0d29c2d43753 ("mm, compaction: Use free lists to quickly
++            # locate a migration source -fix") in linux-next tree
++            #
++            CODE="
++            #include <linux/list.h> 
++            void conftest_list_is_first(void) {
++                list_is_first();
++            }"
++
++            compile_check_conftest "$CODE" "NV_LIST_IS_FIRST_PRESENT" "" "functions"
++        ;;
++
+         set_pages_uc)
+             #
+             # Determine if the set_pages_uc() function is present.
+--- a/kernel/nvidia/nvidia.Kbuild
++++ b/kernel/nvidia/nvidia.Kbuild
+@@ -102,6 +102,7 @@
+ NV_CONFTEST_FUNCTION_COMPILE_TESTS += follow_pfn
+ NV_CONFTEST_FUNCTION_COMPILE_TESTS += vmap
+ NV_CONFTEST_FUNCTION_COMPILE_TESTS += set_pages_uc
++NV_CONFTEST_FUNCTION_COMPILE_TESTS += list_is_first
+ NV_CONFTEST_FUNCTION_COMPILE_TESTS += set_memory_uc
+ NV_CONFTEST_FUNCTION_COMPILE_TESTS += set_memory_array_uc
+ NV_CONFTEST_FUNCTION_COMPILE_TESTS += change_page_attr
+--- a/kernel/nvidia-drm/nvidia-drm-connector.c
++++ b/kernel/nvidia-drm/nvidia-drm-connector.c
+@@ -30,6 +30,14 @@
+ #include "nvidia-drm-utils.h"
+ #include "nvidia-drm-encoder.h"
+ 
++/*
++ * Commit fcd70cd36b9b ("drm: Split out drm_probe_helper.h")
++ * moves a number of helper function definitions from
++ * drm/drm_crtc_helper.h to a new drm_probe_helper.h.
++ */
++#if defined(NV_DRM_DRM_PROBE_HELPER_H_PRESENT)
++#include <drm/drm_probe_helper.h>
++#endif
+ #include <drm/drm_crtc_helper.h>
+ 
+ #include <drm/drm_atomic.h>
+--- a/kernel/nvidia-drm/nvidia-drm-drv.c
++++ b/kernel/nvidia-drm/nvidia-drm-drv.c
+@@ -41,6 +41,14 @@
+ 
+ #include <drm/drmP.h>
+ 
++/*
++ * Commit fcd70cd36b9b ("drm: Split out drm_probe_helper.h")
++ * moves a number of helper function definitions from
++ * drm/drm_crtc_helper.h to a new drm_probe_helper.h.
++ */
++#if defined(NV_DRM_DRM_PROBE_HELPER_H_PRESENT)
++#include <drm/drm_probe_helper.h>
++#endif
+ #include <drm/drm_crtc_helper.h>
+ 
+ #if defined(NV_DRM_DRM_GEM_H_PRESENT)
+--- a/kernel/nvidia-drm/nvidia-drm-encoder.c
++++ b/kernel/nvidia-drm/nvidia-drm-encoder.c
+@@ -31,6 +31,14 @@
+ #include "nvidia-drm-crtc.h"
+ #include "nvidia-drm-helper.h"
+ 
++/*
++ * Commit fcd70cd36b9b ("drm: Split out drm_probe_helper.h")
++ * moves a number of helper function definitions from
++ * drm/drm_crtc_helper.h to a new drm_probe_helper.h.
++ */
++#if defined(NV_DRM_DRM_PROBE_HELPER_H_PRESENT)
++#include <drm/drm_probe_helper.h>
++#endif
+ #include <drm/drm_crtc_helper.h>
+ 
+ #include <drm/drm_atomic.h>
+--- a/kernel/nvidia-drm/nvidia-drm-gem-nvkms-memory.c
++++ b/kernel/nvidia-drm/nvidia-drm-gem-nvkms-memory.c
+@@ -24,6 +24,7 @@
+ 
+ #if defined(NV_DRM_ATOMIC_MODESET_AVAILABLE)
+ 
++#include "nv-linux.h"
+ #include "nvidia-drm-gem-nvkms-memory.h"
+ #include "nvidia-drm-ioctl.h"
+ 
+@@ -222,7 +223,7 @@
+ 
+ /* XXX Move these vma operations to os layer */
+ 
+-static int __nv_drm_vma_fault(struct vm_area_struct *vma,
++static vm_fault_t __nv_drm_vma_fault(struct vm_area_struct *vma,
+                               struct vm_fault *vmf)
+ {
+     unsigned long address = nv_page_fault_va(vmf);
+@@ -230,7 +231,7 @@
+     struct nv_drm_gem_nvkms_memory *nv_nvkms_memory = to_nv_nvkms_memory(
+         to_nv_gem_object(gem));
+     unsigned long page_offset, pfn;
+-    int ret = -EINVAL;
++    vm_fault_t ret;
+ 
+     pfn = (unsigned long)(uintptr_t)nv_nvkms_memory->pPhysicalAddress;
+     pfn >>= PAGE_SHIFT;
+@@ -238,8 +239,7 @@
+     page_offset = vmf->pgoff - drm_vma_node_start(&gem->vma_node);
+ 
+ #if defined(NV_VMF_INSERT_PFN_PRESENT)
+-    (void)ret;
+-    return vmf_insert_pfn(vma, address, pfn + page_offset);
++    ret = vmf_insert_pfn(vma, address, pfn + page_offset);
+ #else
+     ret = vm_insert_pfn(vma, address, pfn + page_offset);
+ 
+@@ -250,16 +250,18 @@
+              * EBUSY indicates that another thread already handled
+              * the faulted range.
+              */
+-            return VM_FAULT_NOPAGE;
++            ret = VM_FAULT_NOPAGE;
++            break;
+         case -ENOMEM:
+-            return VM_FAULT_OOM;
++            ret = VM_FAULT_OOM;
++            break;
+         default:
+             WARN_ONCE(1, "Unhandled error in %s: %d\n", __FUNCTION__, ret);
++            ret = VM_FAULT_SIGBUS;
+             break;
+     }
+-
+-    return VM_FAULT_SIGBUS;
+ #endif
++    return ret;
+ }
+ 
+ /*
+@@ -268,12 +270,12 @@
+  */
+ 
+ #if defined(NV_VM_OPS_FAULT_REMOVED_VMA_ARG)
+-static int nv_drm_vma_fault(struct vm_fault *vmf)
++static vm_fault_t nv_drm_vma_fault(struct vm_fault *vmf)
+ {
+     return __nv_drm_vma_fault(vmf->vma, vmf);
+ }
+ #else
+-static int nv_drm_vma_fault(struct vm_area_struct *vma,
++static vm_fault_t nv_drm_vma_fault(struct vm_area_struct *vma,
+                                 struct vm_fault *vmf)
+ {
+     return __nv_drm_vma_fault(vma, vmf);
+--- a/kernel/nvidia-uvm/uvm8.c
++++ b/kernel/nvidia-uvm/uvm8.c
+@@ -166,13 +166,13 @@
+ // If a fault handler is not set, paths like handle_pte_fault in older kernels
+ // assume the memory is anonymous. That would make debugging this failure harder
+ // so we force it to fail instead.
+-static int uvm_vm_fault_sigbus(struct vm_area_struct *vma, struct vm_fault *vmf)
++static vm_fault_t uvm_vm_fault_sigbus(struct vm_area_struct *vma, struct vm_fault *vmf)
+ {
+     UVM_DBG_PRINT_RL("Fault to address 0x%lx in disabled vma\n", nv_page_fault_va(vmf));
+     return VM_FAULT_SIGBUS;
+ }
+ 
+-static int uvm_vm_fault_sigbus_wrapper(struct vm_fault *vmf)
++static vm_fault_t uvm_vm_fault_sigbus_wrapper(struct vm_fault *vmf)
+ {
+ #if defined(NV_VM_OPS_FAULT_REMOVED_VMA_ARG)
+     return uvm_vm_fault_sigbus(vmf->vma, vmf);
+@@ -390,7 +390,7 @@
+         uvm_record_unlock_mmap_sem_write(&current->mm->mmap_sem);
+ }
+ 
+-static int uvm_vm_fault(struct vm_area_struct *vma, struct vm_fault *vmf)
++static vm_fault_t uvm_vm_fault(struct vm_area_struct *vma, struct vm_fault *vmf)
+ {
+     uvm_va_space_t *va_space = uvm_va_space_get(vma->vm_file);
+     uvm_va_block_t *va_block;
+@@ -507,7 +507,7 @@
+     }
+ }
+ 
+-static int uvm_vm_fault_wrapper(struct vm_fault *vmf)
++static vm_fault_t uvm_vm_fault_wrapper(struct vm_fault *vmf)
+ {
+ #if defined(NV_VM_OPS_FAULT_REMOVED_VMA_ARG)
+     return uvm_vm_fault(vmf->vma, vmf);

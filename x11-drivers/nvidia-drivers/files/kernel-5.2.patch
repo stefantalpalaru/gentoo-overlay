@@ -1,0 +1,37 @@
+--- a/kernel/nvidia-uvm/uvm8_tools.c	2019-07-13 15:40:05.865416293 +1000
++++ b/kernel/nvidia-uvm/uvm8_tools.c	2019-07-13 15:48:50.964000591 +1000
+@@ -204,18 +204,20 @@
+     return event_tracker != NULL && !event_tracker->is_queue;
+ }
+ 
+-static void put_user_pages(struct page **pages, NvU64 page_count)
++static void nv_put_user_pages(struct page **pages, NvU64 page_count)
+ {
+-    NvU64 i;
+-    for (i = 0; i < page_count; i++)
+-        put_page(pages[i]);
++#if ULONG_MAX == ULLONG_MAX
++    put_user_pages(pages, (unsigned long)page_count);
++#else
++#error "This patch works only for 64 bits machines!"
++#endif
+ }
+ 
+ static void unmap_user_pages(struct page **pages, void *addr, NvU64 size)
+ {
+     size = DIV_ROUND_UP(size, PAGE_SIZE);
+     vunmap((NvU8 *)addr);
+-    put_user_pages(pages, size);
++    nv_put_user_pages(pages, size);
+     uvm_kvfree(pages);
+ }
+ 
+@@ -279,7 +281,7 @@
+     uvm_kvfree(vmas);
+ 
+     if (ret > 0)
+-        put_user_pages(*pages, ret);
++        nv_put_user_pages(*pages, ret);
+     else if (ret < 0)
+         status = errno_to_nv_status(ret);
+ 
