@@ -51,6 +51,7 @@ RDEPEND="net-libs/libtorrent-rasterbar[python,${PYTHON_USEDEP}]
 
 PATCHES=(
 	"${FILESDIR}"/deluge-2.0.3-setup.py.patch
+	"${FILESDIR}"/deluge-2.0.3-UI-status.patch
 )
 
 python_prepare_all() {
