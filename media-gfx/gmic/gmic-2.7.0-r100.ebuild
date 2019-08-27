@@ -124,6 +124,7 @@ src_prepare() {
 		local S="${WORKDIR}/${GMIC_QT_DIR}"
 		PATCHES=(
 			"${FILESDIR}/gmic-2.5.6-fftw.patch"
+			"${FILESDIR}/gmic-2.7.0-filename.patch"
 		)
 		cmake-utils_src_prepare
 	fi
@@ -217,7 +218,7 @@ src_install() {
 	#
 	# Yes, upstream is bad and they should feel bad. Undo this madness so we can build media-gfx/zart
 	# using the installed "gmic.h".
-	sed -i -e '/^#define cimg_plugin/d' "${ED}/usr/include/gmic.h" || die "sed failed"
+	sed -i -e '/^#define cimg.*_plugin/d' "${ED}/usr/include/gmic.h" || die "sed failed"
 
 	use cli && use bash-completion && newbashcomp "${WORKDIR}/${P}_build/resources/${PN}_bashcompletion.sh" ${PN}
 

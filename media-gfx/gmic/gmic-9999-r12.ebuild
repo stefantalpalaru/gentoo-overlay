@@ -217,7 +217,7 @@ src_install() {
 	#
 	# Yes, upstream is bad and they should feel bad. Undo this madness so we can build media-gfx/zart
 	# using the installed "gmic.h".
-	sed -i -e '/^#define cimg_plugin/d' "${ED}/usr/include/gmic.h" || die "sed failed"
+	sed -i -e '/^#define cimg.*_plugin/d' "${ED}/usr/include/gmic.h" || die "sed failed"
 
 	use cli && use bash-completion && newbashcomp "${WORKDIR}/${P}_build/resources/${PN}_bashcompletion.sh" ${PN}
 

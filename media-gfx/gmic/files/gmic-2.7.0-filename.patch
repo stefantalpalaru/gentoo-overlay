@@ -1,0 +1,31 @@
+From d28db72ee90c40c0f2449779bfdf1476f0ed0e5e Mon Sep 17 00:00:00 2001
+From: Sebastien Fourey <Sebastien.Fourey@ensicaen.fr>
+Date: Thu, 6 Jun 2019 12:12:35 +0200
+Subject: [PATCH] Fix CMakeLists.txt
+
+---
+ CMakeLists.txt | 4 ++--
+ 1 file changed, 2 insertions(+), 2 deletions(-)
+
+diff --git a/CMakeLists.txt b/CMakeLists.txt
+index ba43404..d575c1b 100644
+--- a/CMakeLists.txt
++++ b/CMakeLists.txt
+@@ -278,7 +278,7 @@ set (gmic_qt_SRCS
+   src/FilterParameters/ChoiceParameter.h
+   src/FilterParameters/ColorParameter.h
+   src/FilterParameters/ConstParameter.h
+-  src/FilterParameters/CustomDoubleSpinbox.h
++  src/FilterParameters/CustomDoubleSpinBox.h
+   src/FilterParameters/FileParameter.h
+   src/FilterParameters/FilterParametersWidget.h
+   src/FilterParameters/FloatParameter.h
+@@ -350,7 +350,7 @@ set (gmic_qt_SRCS
+   src/FilterParameters/ChoiceParameter.cpp
+   src/FilterParameters/ColorParameter.cpp
+   src/FilterParameters/ConstParameter.cpp
+-  src/FilterParameters/CustomDoubleSpinbox.cpp
++  src/FilterParameters/CustomDoubleSpinBox.cpp
+   src/FilterParameters/FileParameter.cpp
+   src/FilterParameters/FilterParametersWidget.cpp
+   src/FilterParameters/FloatParameter.cpp
