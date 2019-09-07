@@ -29,7 +29,10 @@ S="${WORKDIR}/${MY_P}"
 
 DOCS=( HISTORY README.md doc/{FAQ,MySQLdb}.rst )
 
-PATCHES=( $FILESDIR/mariadb.patch )
+PATCHES=(
+	$FILESDIR/mariadb.patch
+	$FILESDIR/include.patch
+)
 
 python_configure_all() {
 	append-flags -fno-strict-aliasing
