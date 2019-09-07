@@ -124,7 +124,6 @@ src_prepare() {
 		local S="${WORKDIR}/${GMIC_QT_DIR}"
 		PATCHES=(
 			"${FILESDIR}/gmic-2.5.6-fftw.patch"
-			"${FILESDIR}/gmic-2.7.0-filename.patch"
 		)
 		cmake-utils_src_prepare
 	fi
@@ -149,6 +148,7 @@ src_configure() {
 		-DENABLE_TIFF=$(usex tiff ON OFF)
 		-DENABLE_ZLIB=ON
 		-DENABLE_DYNAMIC_LINKING=ON
+		-DCUSTOM_CFLAGS=ON
 	)
 
 	CMAKE_USE_DIR=${S}

@@ -148,6 +148,7 @@ src_configure() {
 		-DENABLE_TIFF=$(usex tiff ON OFF)
 		-DENABLE_ZLIB=ON
 		-DENABLE_DYNAMIC_LINKING=ON
+		-DCUSTOM_CFLAGS=ON
 	)
 
 	CMAKE_USE_DIR=${S}
