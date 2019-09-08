@@ -35,11 +35,15 @@ DEPEND="net-libs/libtorrent-rasterbar[python,${PYTHON_USEDEP}]
 	dev-python/wheel[${PYTHON_USEDEP}]"
 RDEPEND="net-libs/libtorrent-rasterbar[python,${PYTHON_USEDEP}]
 	dev-python/chardet[${PYTHON_USEDEP}]
+	dev-python/distro[${PYTHON_USEDEP}]
+	dev-python/pillow[${PYTHON_USEDEP}]
 	dev-python/pyopenssl[${PYTHON_USEDEP}]
 	dev-python/pyxdg[${PYTHON_USEDEP}]
 	dev-python/setproctitle[${PYTHON_USEDEP}]
+	dev-python/six[${PYTHON_USEDEP}]
 	dev-python/rencode[${PYTHON_USEDEP}]
-	>=dev-python/twisted-17.1.0[${PYTHON_USEDEP}]
+	>=dev-python/twisted-17.1.0[crypt,${PYTHON_USEDEP}]
+	>=dev-python/zope-interface-4.4.2[${PYTHON_USEDEP}]
 	geoip? ( dev-python/geoip-python[${PYTHON_USEDEP}] )
 	gtk? (
 		sound? ( dev-python/pygame[${PYTHON_USEDEP}] )
