@@ -1,4 +1,4 @@
-# Copyright 1999-2018 Gentoo Foundation
+# Copyright 1999-2019 Gentoo Authors
 # Distributed under the terms of the GNU General Public License v2
 
 EAPI=6
@@ -9,16 +9,15 @@ DESCRIPTION="simple Mode S decoder for RTLSDR devices"
 #Original repo
 #HOMEPAGE="https://github.com/antirez/dump1090"
 #Repo that has actually been touched recenly
-HOMEPAGE="https://github.com/mutability/dump1090"
+HOMEPAGE="https://github.com/flightaware/dump1090"
 
 if [[ ${PV} == "9999" ]] ; then
 	inherit git-r3
-	EGIT_REPO_URI="https://github.com/mutability/${PN}.git"
+	EGIT_REPO_URI="https://github.com/flightaware/${PN}.git"
 	KEYWORDS=""
 else
 	KEYWORDS="~amd64 ~x86"
-	SRC_URI="https://dev.gentoo.org/~zerochaos/distfiles/${P}.tar.xz"
-	S="${WORKDIR}/${PN}"
+	SRC_URI="https://github.com/flightaware/dump1090/archive/v${PV}.tar.gz -> ${P}.tar.gz"
 fi
 
 LICENSE="BSD"
@@ -31,15 +30,18 @@ DEPEND="${RDEPEND}"
 
 src_prepare() {
 	default
-	sed -i -e '/^CFLAGS+=-O2 -g/d' Makefile
+	sed -i -e '/^CFLAGS+=-O2 -g/d' \
+		-e 's/ -lncurses//' \
+		Makefile
 }
 
 src_compile() {
-	emake CC="$(tc-getCC)" \
-		UNAME="Linux"
+	emake BLADERF=no \
+		CC="$(tc-getCC)" \
+		UNAME="Linux" \
 		CFLAGS="$($(tc-getPKG_CONFIG) --cflags librtlsdr) ${CFLAGS}" \
 		EXTRACFLAGS="-DHTMLPATH='/usr/share/dump1090/html'" \
-		LIBS="${LDFLAGS} $($(tc-getPKG_CONFIG) --libs librtlsdr) -lm -lpthread"
+		LIBS="${LDFLAGS} $($(tc-getPKG_CONFIG) --libs librtlsdr) $($(tc-getPKG_CONFIG) --libs ncurses) -lm -lpthread"
 }
 
 src_install() {
