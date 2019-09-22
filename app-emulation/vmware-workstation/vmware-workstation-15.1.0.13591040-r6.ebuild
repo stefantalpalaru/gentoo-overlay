@@ -224,6 +224,11 @@ QA_WX_LOAD="opt/vmware/lib/vmware/tools-upgraders/vmware-tools-upgrader-32 opt/v
 # adding "opt/vmware/lib/vmware/lib/libvmware-gksu.so/libvmware-gksu.so" to QA_WX_LOAD doesn't work
 
 src_unpack() {
+	if has usersandbox ${FEATURES}; then
+		ewarn "You are emerging ${P} with 'usersandbox' enabled." \
+			"If unpacking fails, try emerging with 'FEATURES=-usersandbox'!"
+	fi
+
 	for a in ${A}; do
 		if [ ${a##*.} == 'bundle' ]; then
 			cp "${DISTDIR}/${a}" "${WORKDIR}"
