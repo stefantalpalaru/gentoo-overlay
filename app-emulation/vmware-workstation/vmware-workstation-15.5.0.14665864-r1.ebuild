@@ -27,17 +27,16 @@ SRC_URI="
 
 LICENSE="GPL-2 GPL-3 MIT-with-advertising vmware"
 SLOT="0"
-KEYWORDS=""
+KEYWORDS="~amd64"
 # the kernel modules are optional because they're not needed to connect to VMs
 # running on remote systems - https://bugs.gentoo.org/604426
-IUSE="cups doc macos-guests +modules ovftool server systemd vix"
+IUSE="cups doc macos-guests +modules ovftool systemd vix"
 DARWIN_GUESTS="darwin darwinPre15"
 IUSE_VMWARE_GUESTS="${DARWIN_GUESTS} linux linuxPreGlibc25 netware solaris windows winPre2k winPreVista"
 for guest in ${IUSE_VMWARE_GUESTS}; do
 	IUSE+=" vmware-tools-${guest}"
 done
 REQUIRED_USE="
-	server? ( modules )
 	vmware-tools-darwin? ( macos-guests )
 	vmware-tools-darwinPre15? ( macos-guests )
 "
@@ -117,10 +116,6 @@ src_unpack() {
 	# this needs a /tmp mounted without "noexec" because it extracts and executes scripts in there
 	./${bundle} --console --required --eulas-agreed --extract=extracted || die "unable to extract bundle"
 
-	if ! use server; then
-		rm -r extracted/vmware-workstation-server || die "unable to remove dir"
-	fi
-
 	if ! use vix; then
 		rm -r extracted/vmware-vix-core extracted/vmware-vix-lib-Workstation* || die "unable to remove dir"
 	fi
@@ -144,18 +139,16 @@ src_prepare() {
 	mkdir vmware-network-editor/lib/lib
 	mv vmware-network-editor/lib/libvmware-netcfg.so vmware-network-editor/lib/lib/
 
-	if use server; then
-		rm -f vmware-workstation-server/bin/{openssl,configure-hostd.sh}
-	fi
+	rm -f vmware-workstation-server/bin/{openssl,configure-hostd.sh}
 
 	if use ovftool; then
 		chrpath -d vmware-ovftool/libcurl.so.4
 	fi
 
 	if use macos-guests; then
-		sed -i -e "s#vmx_path = '/usr#vmx_path = '${D}${VM_INSTALL_DIR//\//\\/}#" \
-			-e "s#os\.path\.isfile('/usr#os.path.isfile('${D}${VM_INSTALL_DIR//\//\\/}#" \
-			-e "s#vmwarebase = '/usr#vmwarebase = '${D}${VM_INSTALL_DIR//\//\\/}#" \
+		sed -i -e "s#vmx_path = '/usr#vmx_path = '${ED}${VM_INSTALL_DIR//\//\\/}#" \
+			-e "s#os\.path\.isfile('/usr#os.path.isfile('${ED}${VM_INSTALL_DIR//\//\\/}#" \
+			-e "s#vmwarebase = '/usr#vmwarebase = '${ED}${VM_INSTALL_DIR//\//\\/}#" \
 			"${WORKDIR}"/unlocker-*/unlocker.py
 	fi
 
@@ -181,17 +174,24 @@ src_install() {
 	into "${VM_INSTALL_DIR}"
 	dobin */bin/*
 	dosbin */sbin/*
+	rm "${ED}${VM_INSTALL_DIR}"/bin/configure-initscript.sh
 
 	# install the libraries
 	insinto "${VM_INSTALL_DIR}"/lib/vmware
 	doins -r */lib/* vmware-vmx/roms
-	rm -rf "${D}${VM_INSTALL_DIR}"/lib/vmware/*.so
+	rm -rf "${ED}${VM_INSTALL_DIR}"/lib/vmware/*.so
 
 	# install the installer
-	insinto "${VM_INSTALL_DIR}"/lib/vmware-installer/$vmware_installer_version
-	doins vmware-installer/{vmis,vmis-launcher,vmware-installer,vmware-installer.py}
+	insinto "${VM_INSTALL_DIR}"/lib/vmware-installer/${vmware_installer_version}
+	doins -r vmware-installer/{cdsHelper,vmis,vmis-launcher,vmware-cds-helper,vmware-installer,vmware-installer.py}
+	fperms 0755 "${VM_INSTALL_DIR}"/lib/vmware-installer/${vmware_installer_version}/{vmis-launcher,cdsHelper,vmware-installer}
+	dosym "${VM_INSTALL_DIR}"/lib/vmware-installer/${vmware_installer_version}/vmware-installer "${VM_INSTALL_DIR}"/bin/vmware-installer
 	insinto /etc/vmware-installer
 	doins vmware-installer/bootstrap
+	sed -i \
+		-e "s/@@VERSION@@/${vmware_installer_version}/" \
+		-e "s,@@VMWARE_INSTALLER@@,${VM_INSTALL_DIR}/lib/vmware-installer/${vmware_installer_version}," \
+		"${ED}/etc/vmware-installer/bootstrap"
 
 	# install the ancillaries
 	insinto /usr
@@ -205,10 +205,10 @@ src_install() {
 		doins -r */etc/cups/*
 	fi
 
-	# Hardcoded EULA path. We need to disable the default compression through ugly hacks, because ecompress was designed by donkeys.
+	# Hardcoded EULA path. We need to disable the default compression.
 	insinto /usr/share/doc/vmware-workstation
-	newins vmware-workstation/doc/EULA EULA.png
-	dosym EULA.png /usr/share/doc/vmware-workstation/EULA
+	doins vmware-workstation/doc/EULA
+	docompress -x /usr/share/doc/vmware-workstation
 	# always needed
 	insinto /usr/lib/vmware-ovftool
 	doins vmware-ovftool/vmware.eula
@@ -228,45 +228,43 @@ src_install() {
 	newins vmware-vmx/etc/modprobe.d/modprobe-vmware-fuse.conf vmware-fuse.conf
 
 	# install vmware workstation server
-	if use server; then
-		cd "${S}"/vmware-workstation-server
+	cd "${S}"/vmware-workstation-server
 
-		# install binaries
-		into "${VM_INSTALL_DIR}"/lib/vmware
-		dobin "${FILESDIR}"/configure-hostd.sh
+	# install binaries
+	into "${VM_INSTALL_DIR}"/lib/vmware
+	dobin "${FILESDIR}"/configure-hostd.sh
 
-		# install the libraries
-		insinto "${VM_INSTALL_DIR}"/lib/vmware/lib
-		doins -r lib/*
+	# install the libraries
+	insinto "${VM_INSTALL_DIR}"/lib/vmware/lib
+	doins -r lib/*
 
-		into "${VM_INSTALL_DIR}"
-		for tool in vmware-hostd wssc-adminTool ; do
-			cat > "${T}/${tool}" <<-EOF
-				#!/usr/bin/env bash
-				set -e
+	into "${VM_INSTALL_DIR}"
+	for tool in vmware-hostd wssc-adminTool ; do
+		cat > "${T}/${tool}" <<-EOF
+			#!/usr/bin/env bash
+			set -e
 
-				. /etc/vmware/bootstrap
+			. /etc/vmware/bootstrap
 
-				exec "${VM_INSTALL_DIR}/lib/vmware/bin/${tool}" \\
-					"\$@"
-			EOF
-			dobin "${T}/${tool}"
-		done
+			exec "${VM_INSTALL_DIR}/lib/vmware/bin/${tool}" \\
+				"\$@"
+		EOF
+		dobin "${T}/${tool}"
+	done
 
-		insinto "${VM_INSTALL_DIR}"/lib/vmware
-		doins -r hostd
+	insinto "${VM_INSTALL_DIR}"/lib/vmware
+	doins -r hostd
 
-		# create the configuration
-		insinto /etc/vmware
-		doins -r config/etc/vmware/*
-		doins -r etc/vmware/*
+	# create the configuration
+	insinto /etc/vmware
+	doins -r config/etc/vmware/*
+	doins -r etc/vmware/*
 
-		# create directory for shared virtual machines.
-		keepdir "${VM_DATA_STORE_DIR}"
-		keepdir /var/log/vmware
+	# create directory for shared virtual machines.
+	keepdir "${VM_DATA_STORE_DIR}"
+	keepdir /var/log/vmware
 
-		cd - >/dev/null
-	fi
+	cd - >/dev/null
 
 	# install vmware-vix
 	if use vix; then
@@ -296,15 +294,16 @@ src_install() {
 		insinto "${VM_INSTALL_DIR}"/lib/vmware-ovftool
 		doins -r *
 
-		chmod 0755 "${D}${VM_INSTALL_DIR}"/lib/vmware-ovftool/{ovftool,ovftool.bin}
-		dosym "${D}${VM_INSTALL_DIR}"/lib/vmware-ovftool/ovftool "${VM_INSTALL_DIR}"/bin/ovftool
+		chmod 0755 "${ED}${VM_INSTALL_DIR}"/lib/vmware-ovftool/{ovftool,ovftool.bin}
+		dosym "${ED}${VM_INSTALL_DIR}"/lib/vmware-ovftool/ovftool "${VM_INSTALL_DIR}"/bin/ovftool
 
 		cd - >/dev/null
 	fi
 
 	# create symlinks for the various tools
-	local tool ; for tool in thnuclnt vmware vmplayer{,-daemon} licenseTool vmamqpd \
-			vmware-{app-control,enter-serial,gksu,fuseUI,hostd,modconfig{,-console},netcfg,setup-helper,tray,unity-helper,vim-cmd,vmblock-fuse,vprobe,wssc-adminTool,zenity} ; do
+	local tool;
+	for tool in thnuclnt vmware vmplayer{,-daemon} licenseTool vmamqpd \
+			vmware-{app-control,enter-serial,gksu,fuseUI,hostd,modconfig{,-console},netcfg,setup-helper,tray,unity-helper,vim-cmd,vmblock-fuse,vprobe,wssc-adminTool,zenity}; do
 		dosym appLoader "${VM_INSTALL_DIR}"/lib/vmware/bin/"${tool}"
 	done
 	dosym "${VM_INSTALL_DIR}"/lib/vmware/bin/vmplayer "${VM_INSTALL_DIR}"/bin/vmplayer
@@ -319,10 +318,8 @@ src_install() {
 	fperms 4711 "${VM_INSTALL_DIR}"/lib/vmware/bin/vmware-vmx{,-debug,-stats}
 	fperms 0755 "${VM_INSTALL_DIR}"/lib/vmware/lib/libvmware-gksu.so/gksu-run-helper
 	fperms 4711 "${VM_INSTALL_DIR}"/sbin/vmware-authd
-	if use server; then
-		fperms 0755 "${VM_INSTALL_DIR}"/bin/{vmware-hostd,wssc-adminTool}
-		fperms 1777 "${VM_DATA_STORE_DIR}"
-	fi
+	fperms 0755 "${VM_INSTALL_DIR}"/bin/{vmware-hostd,wssc-adminTool}
+	fperms 1777 "${VM_DATA_STORE_DIR}"
 	if use vix; then
 		fperms 0755 "${VM_INSTALL_DIR}"/lib/vmware-vix/setup/vmware-config
 	fi
@@ -341,12 +338,12 @@ src_install() {
 	# create the configuration
 	dodir /etc/vmware
 
-	cat > "${D}"/etc/vmware/bootstrap <<-EOF
+	cat > "${ED}"/etc/vmware/bootstrap <<-EOF
 		BINDIR='${VM_INSTALL_DIR}/bin'
 		LIBDIR='${VM_INSTALL_DIR}/lib'
 	EOF
 
-	cat > "${D}"/etc/vmware/config <<-EOF
+	cat > "${ED}"/etc/vmware/config <<-EOF
 		.encoding = "UTF-8"
 		bindir = "${VM_INSTALL_DIR}/bin"
 		libdir = "${VM_INSTALL_DIR}/lib/vmware"
@@ -374,19 +371,17 @@ src_install() {
 	EOF
 
 	if use vix; then
-		cat >> "${D}"/etc/vmware/config <<-EOF
+		cat >> "${ED}"/etc/vmware/config <<-EOF
 			vix.libdir = "${VM_INSTALL_DIR}/lib/vmware-vix"
 			vix.config.version = "1"
 		EOF
 	fi
 
-	if use server; then
-		cat >> "${D}"/etc/vmware/config <<-EOF
-			authd.client.port = "902"
-			authd.proxy.nfc = "vmware-hostd:ha-nfc"
-			authd.soapserver = "TRUE"
-		EOF
-	fi
+	cat >> "${ED}"/etc/vmware/config <<-EOF
+		authd.client.port = "902"
+		authd.proxy.nfc = "vmware-hostd:ha-nfc"
+		authd.soapserver = "TRUE"
+	EOF
 
 	if use modules; then
 		# install the init.d script
@@ -396,106 +391,102 @@ src_install() {
 		newinitd "${initscript}" vmware
 	fi
 
-	if use server; then
-		# install the init.d script
-		local initscript="${T}/vmware-workstation-server.rc"
-		sed -e "s:@@ETCDIR@@:/etc/vmware:g" \
-			-e "s:@@PREFIX@@:${VM_INSTALL_DIR}:g" \
-			-e "s:@@BINDIR@@:${VM_INSTALL_DIR}/bin:g" \
-			-e "s:@@LIBDIR@@:${VM_INSTALL_DIR}/lib/vmware:g" \
-			"${FILESDIR}/vmware-server-${major_minor}.rc" > ${initscript} || die
-		newinitd "${initscript}" vmware-workstation-server
-	fi
+	# install the init.d script
+	local initscript="${T}/vmware-workstation-server.rc"
+	sed -e "s:@@ETCDIR@@:/etc/vmware:g" \
+		-e "s:@@PREFIX@@:${VM_INSTALL_DIR}:g" \
+		-e "s:@@BINDIR@@:${VM_INSTALL_DIR}/bin:g" \
+		-e "s:@@LIBDIR@@:${VM_INSTALL_DIR}/lib/vmware:g" \
+		"${FILESDIR}/vmware-server-${major_minor}.rc" > ${initscript} || die
+	newinitd "${initscript}" vmware-workstation-server
 
 	# fill in variable placeholders
 	sed -e "s:@@LIBCONF_DIR@@:${VM_INSTALL_DIR}/lib/vmware/libconf:g" \
-		-i "${D}${VM_INSTALL_DIR}"/lib/vmware/libconf/etc/gtk-3.0/gdk-pixbuf.loaders || die
-	sed -e "s:@@BINARY@@:${VM_INSTALL_DIR}/bin/vmplayer:g" \
+		-i "${ED}${VM_INSTALL_DIR}"/lib/vmware/libconf/etc/gtk-3.0/gdk-pixbuf.loaders || die
+	sed -e "s:@@BINARY@@:${EPREFIX}/usr/bin/vmplayer:g" \
 		-e "/^Encoding/d" \
-		-i "${D}/usr/share/applications/vmware-player.desktop" || die
-	sed -e "s:@@BINARY@@:${VM_INSTALL_DIR}/bin/vmware:g" \
+		-i "${ED}/usr/share/applications/vmware-player.desktop" || die
+	sed -e "s:@@BINARY@@:${EPREFIX}/usr/bin/vmware:g" \
 		-e "/^Encoding/d" \
-		-i "${D}/usr/share/applications/vmware-workstation.desktop" || die
-	sed -e "s:@@BINARY@@:${VM_INSTALL_DIR}/bin/vmware-netcfg:g" \
+		-i "${ED}/usr/share/applications/vmware-workstation.desktop" || die
+	sed -e "s:@@BINARY@@:${EPREFIX}/usr/bin/vmware-netcfg:g" \
 		-e "/^Encoding/d" \
-		-i "${D}/usr/share/applications/vmware-netcfg.desktop" || die
+		-i "${ED}/usr/share/applications/vmware-netcfg.desktop" || die
 
-	if use server; then
 	# Configuration for vmware-workstation-server
-		local hostdUser="${VM_HOSTD_USER:-root}"
-		sed -e "/ACEDataUser/s:root:${hostdUser}:g" \
-			-i "${D}/etc/vmware/hostd/authorization.xml" || die
+	local hostdUser="${VM_HOSTD_USER:-root}"
+	sed -e "/ACEDataUser/s:root:${hostdUser}:g" \
+		-i "${ED}/etc/vmware/hostd/authorization.xml" || die
 
-		# Shared VMs Path: [standard].
-		sed -e "s:##{DS_NAME}##:standard:g" \
-			-e "s:##{DS_PATH}##:${VM_DATA_STORE_DIR}:g" \
-			-i "${D}/etc/vmware/hostd/datastores.xml" || die
+	# Shared VMs Path: [standard].
+	sed -e "s:##{DS_NAME}##:standard:g" \
+		-e "s:##{DS_PATH}##:${VM_DATA_STORE_DIR}:g" \
+		-i "${ED}/etc/vmware/hostd/datastores.xml" || die
 
-		sed -e "s:##{HTTP_PORT}##:-1:g" \
-			-e "s:##{HTTPS_PORT}##:443:g" \
-			-e "s:##{PIPE_PREFIX}##:/var/run/vmware/:g" \
-			-i "${D}/etc/vmware/hostd/proxy.xml" || die
+	sed -e "s:##{HTTP_PORT}##:-1:g" \
+		-e "s:##{HTTPS_PORT}##:443:g" \
+		-e "s:##{PIPE_PREFIX}##:/var/run/vmware/:g" \
+		-i "${ED}/etc/vmware/hostd/proxy.xml" || die
 
-		# See vmware-workstation-server.py for more details.
-		sed -e "s:##{BUILD_CFGDIR}##:/etc/vmware/hostd/:g" \
-			-e "s:##{CFGALTDIR}##:/etc/vmware/hostd/:g" \
-			-e "s:##{CFGDIR}##:/etc/vmware/:g" \
-			-e "s:##{ENABLE_AUTH}##:true:g" \
-			-e "s:##{HOSTDMODE}##:ws:g" \
-			-e "s:##{HOSTD_CFGDIR}##:/etc/vmware/hostd/:g" \
-			-e "s:##{HOSTD_MOCKUP}##:false:g" \
-			-e "s:##{LIBDIR}##:${VM_INSTALL_DIR}/lib/vmware:g" \
-			-e "s:##{LIBDIR_INSTALLED}##:${VM_INSTALL_DIR}/lib/vmware/:g" \
-			-e "s:##{LOGDIR}##:/var/log/vmware/:g" \
-			-e "s:##{LOGLEVEL}##:verbose:g" \
-			-e "s:##{MOCKUP}##:mockup-host-config.xml:g" \
-			-e "s:##{PLUGINDIR}##:./:g" \
-			-e "s:##{SHLIB_PREFIX}##:lib:g" \
-			-e "s:##{SHLIB_SUFFIX}##:.so:g" \
-			-e "s:##{USE_BLKLISTSVC}##:false:g" \
-			-e "s:##{USE_CBRCSVC}##:false:g" \
-			-e "s:##{USE_CIMSVC}##:false:g" \
-			-e "s:##{USE_DIRECTORYSVC}##:false:g" \
-			-e "s:##{USE_DIRECTORYSVC_MOCKUP}##:false:g" \
-			-e "s:##{USE_DYNAMIC_PLUGIN_LOADING}##:false:g" \
-			-e "s:##{USE_DYNAMO}##:false:g" \
-			-e "s:##{USE_DYNSVC}##:false:g" \
-			-e "s:##{USE_GUESTSVC}##:false:g" \
-			-e "s:##{USE_HBRSVC}##:false:g" \
-			-e "s:##{USE_HBRSVC_MOCKUP}##:false:g" \
-			-e "s:##{USE_HOSTSPECSVC}##:false:g" \
-			-e "s:##{USE_HOSTSVC_MOCKUP}##:false:g" \
-			-e "s:##{USE_HTTPNFCSVC}##:false:g" \
-			-e "s:##{USE_HTTPNFCSVC_MOCKUP}##:false:g" \
-			-e "s:##{USE_LICENSESVC_MOCKUP}##:false:g" \
-			-e "s:##{USE_NFCSVC}##:true:g" \
-			-e "s:##{USE_NFCSVC_MOCKUP}##:false:g" \
-			-e "s:##{USE_OVFMGRSVC}##:true:g" \
-			-e "s:##{USE_PARTITIONSVC}##:false:g" \
-			-e "s:##{USE_SECURESOAP}##:false:g" \
-			-e "s:##{USE_SNMPSVC}##:false:g" \
-			-e "s:##{USE_SOLO_MOCKUP}##:false:g" \
-			-e "s:##{USE_STATSSVC}##:false:g" \
-			-e "s:##{USE_STATSSVC_MOCKUP}##:false:g" \
-			-e "s:##{USE_VCSVC_MOCKUP}##:false:g" \
-			-e "s:##{USE_VSLMSVC}##:false:g" \
-			-e "s:##{USE_VSLMSVC_MOCKUP}##:false:g" \
-			-e "s:##{USE_VDISKSVC}##:false:g" \
-			-e "s:##{USE_VDISKSVC_MOCKUP}##:false:g" \
-			-e "s:##{USE_VMSVC_MOCKUP}##:false:g" \
-			-e "s:##{VM_INVENTORY}##:vmInventory.xml:g" \
-			-e "s:##{VM_RESOURCES}##:vmResources.xml:g" \
-			-e "s:##{WEBSERVER_PORT_ENTRY}##::g" \
-			-e "s:##{WORKINGDIR}##:./:g" \
-			-i "${D}/etc/vmware/hostd/config.xml" || die
+	# See vmware-workstation-server.py for more details.
+	sed -e "s:##{BUILD_CFGDIR}##:/etc/vmware/hostd/:g" \
+		-e "s:##{CFGALTDIR}##:/etc/vmware/hostd/:g" \
+		-e "s:##{CFGDIR}##:/etc/vmware/:g" \
+		-e "s:##{ENABLE_AUTH}##:true:g" \
+		-e "s:##{HOSTDMODE}##:ws:g" \
+		-e "s:##{HOSTD_CFGDIR}##:/etc/vmware/hostd/:g" \
+		-e "s:##{HOSTD_MOCKUP}##:false:g" \
+		-e "s:##{LIBDIR}##:${VM_INSTALL_DIR}/lib/vmware:g" \
+		-e "s:##{LIBDIR_INSTALLED}##:${VM_INSTALL_DIR}/lib/vmware/:g" \
+		-e "s:##{LOGDIR}##:/var/log/vmware/:g" \
+		-e "s:##{LOGLEVEL}##:verbose:g" \
+		-e "s:##{MOCKUP}##:mockup-host-config.xml:g" \
+		-e "s:##{PLUGINDIR}##:./:g" \
+		-e "s:##{SHLIB_PREFIX}##:lib:g" \
+		-e "s:##{SHLIB_SUFFIX}##:.so:g" \
+		-e "s:##{USE_BLKLISTSVC}##:false:g" \
+		-e "s:##{USE_CBRCSVC}##:false:g" \
+		-e "s:##{USE_CIMSVC}##:false:g" \
+		-e "s:##{USE_DIRECTORYSVC}##:false:g" \
+		-e "s:##{USE_DIRECTORYSVC_MOCKUP}##:false:g" \
+		-e "s:##{USE_DYNAMIC_PLUGIN_LOADING}##:false:g" \
+		-e "s:##{USE_DYNAMO}##:false:g" \
+		-e "s:##{USE_DYNSVC}##:false:g" \
+		-e "s:##{USE_GUESTSVC}##:false:g" \
+		-e "s:##{USE_HBRSVC}##:false:g" \
+		-e "s:##{USE_HBRSVC_MOCKUP}##:false:g" \
+		-e "s:##{USE_HOSTSPECSVC}##:false:g" \
+		-e "s:##{USE_HOSTSVC_MOCKUP}##:false:g" \
+		-e "s:##{USE_HTTPNFCSVC}##:false:g" \
+		-e "s:##{USE_HTTPNFCSVC_MOCKUP}##:false:g" \
+		-e "s:##{USE_LICENSESVC_MOCKUP}##:false:g" \
+		-e "s:##{USE_NFCSVC}##:true:g" \
+		-e "s:##{USE_NFCSVC_MOCKUP}##:false:g" \
+		-e "s:##{USE_OVFMGRSVC}##:true:g" \
+		-e "s:##{USE_PARTITIONSVC}##:false:g" \
+		-e "s:##{USE_SECURESOAP}##:false:g" \
+		-e "s:##{USE_SNMPSVC}##:false:g" \
+		-e "s:##{USE_SOLO_MOCKUP}##:false:g" \
+		-e "s:##{USE_STATSSVC}##:false:g" \
+		-e "s:##{USE_STATSSVC_MOCKUP}##:false:g" \
+		-e "s:##{USE_VCSVC_MOCKUP}##:false:g" \
+		-e "s:##{USE_VSLMSVC}##:false:g" \
+		-e "s:##{USE_VSLMSVC_MOCKUP}##:false:g" \
+		-e "s:##{USE_VDISKSVC}##:false:g" \
+		-e "s:##{USE_VDISKSVC_MOCKUP}##:false:g" \
+		-e "s:##{USE_VMSVC_MOCKUP}##:false:g" \
+		-e "s:##{VM_INVENTORY}##:vmInventory.xml:g" \
+		-e "s:##{VM_RESOURCES}##:vmResources.xml:g" \
+		-e "s:##{WEBSERVER_PORT_ENTRY}##::g" \
+		-e "s:##{WORKINGDIR}##:./:g" \
+		-i "${ED}/etc/vmware/hostd/config.xml" || die
 
-		sed -e "s:##{ENV_LOCATION}##:/etc/vmware/hostd/env/:g" \
-			-i "${D}/etc/vmware/hostd/environments.xml" || die
+	sed -e "s:##{ENV_LOCATION}##:/etc/vmware/hostd/env/:g" \
+		-i "${ED}/etc/vmware/hostd/environments.xml" || die
 
-		# @@VICLIENT_URL@@=XXX
-		sed -e "s:@@AUTHD_PORT@@:902:g" \
-			-i "${D}${VM_INSTALL_DIR}/lib/vmware/hostd/docroot/client/clients.xml" || die
-	fi
+	# @@VICLIENT_URL@@=XXX
+	sed -e "s:@@AUTHD_PORT@@:902:g" \
+		-i "${ED}${VM_INSTALL_DIR}/lib/vmware/hostd/docroot/client/clients.xml" || die
 
 	# install systemd unit files
 	if use systemd; then
@@ -510,7 +501,7 @@ src_install() {
 	# VMware tools
 	for guest in ${IUSE_VMWARE_GUESTS}; do
 		if use vmware-tools-${guest}; then
-			local dbfile="${D}/etc/vmware-installer/database"
+			local dbfile="${ED}/etc/vmware-installer/database"
 			if ! [ -e "${dbfile}" ]; then
 				> "${dbfile}"
 				sqlite3 "${dbfile}" "CREATE TABLE settings(key VARCHAR PRIMARY KEY, value VARCHAR NOT NULL, component_name VARCHAR NOT NULL);"

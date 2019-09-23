@@ -13,7 +13,7 @@ SRC_URI="https://github.com/mkubecek/vmware-host-modules/archive/w${PV}-k${MY_KE
 
 LICENSE="GPL-2"
 SLOT="0"
-KEYWORDS=""
+KEYWORDS="~amd64"
 IUSE=""
 
 RDEPEND=""
