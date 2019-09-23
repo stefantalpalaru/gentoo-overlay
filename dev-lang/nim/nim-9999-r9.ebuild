@@ -63,7 +63,7 @@ EOF
 	#./koch tools -d:release --verbosity:2 || die "koch tools failed"
 	PATH="./bin:${PATH}" nim c --noNimblePath -p:compiler -d:release --verbosity:2 --parallelBuild:$(makeopts_jobs) -o:bin/nimsuggest nimsuggest/nimsuggest.nim || die "nimsuggest compilation failed"
 	PATH="./bin:${PATH}" nim c -d:release --verbosity:2 --parallelBuild:$(makeopts_jobs) -o:bin/nimgrep tools/nimgrep.nim || die "nimgrep compilation failed"
-	PATH="./bin:${PATH}" nim c -d:release --verbosity:2 --parallelBuild:$(makeopts_jobs) -o:bin/nimpretty nimpretty/nimpretty.nim || die "nimpretty compilation failed"
+	PATH="./bin:${PATH}" nim c -d:release --verbosity:1 --parallelBuild:$(makeopts_jobs) -o:bin/nimpretty nimpretty/nimpretty.nim || die "nimpretty compilation failed"
 
 	if use doc; then
 		PATH="./bin:${PATH}" ./koch docs || die "koch docs failed"
