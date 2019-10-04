@@ -401,13 +401,13 @@ src_install() {
 	# fill in variable placeholders
 	sed -e "s:@@LIBCONF_DIR@@:${VM_INSTALL_DIR}/lib/vmware/libconf:g" \
 		-i "${ED}${VM_INSTALL_DIR}"/lib/vmware/libconf/etc/gtk-3.0/gdk-pixbuf.loaders || die
-	sed -e "s:@@BINARY@@:${EPREFIX}/usr/bin/vmplayer:g" \
+	sed -e "s:@@BINARY@@:${EPREFIX}${VM_INSTALL_DIR}/bin/vmplayer:g" \
 		-e "/^Encoding/d" \
 		-i "${ED}/usr/share/applications/vmware-player.desktop" || die
-	sed -e "s:@@BINARY@@:${EPREFIX}/usr/bin/vmware:g" \
+	sed -e "s:@@BINARY@@:${EPREFIX}${VM_INSTALL_DIR}/bin/vmware:g" \
 		-e "/^Encoding/d" \
 		-i "${ED}/usr/share/applications/vmware-workstation.desktop" || die
-	sed -e "s:@@BINARY@@:${EPREFIX}/usr/bin/vmware-netcfg:g" \
+	sed -e "s:@@BINARY@@:${EPREFIX}${VM_INSTALL_DIR}/bin/vmware-netcfg:g" \
 		-e "/^Encoding/d" \
 		-i "${ED}/usr/share/applications/vmware-netcfg.desktop" || die
 
