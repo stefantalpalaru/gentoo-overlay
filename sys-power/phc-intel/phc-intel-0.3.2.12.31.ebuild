@@ -9,7 +9,7 @@ DESCRIPTION="Processor Hardware Control for Intel CPUs"
 HOMEPAGE="http://www.linux-phc.org/
 	http://www.linux-phc.org/forum/viewtopic.php?f=7&t=267"
 #no automatic filenames here, sorry
-SRC_URI="http://www.linux-phc.org/forum/download/file.php?id=199 -> phc-intel-pack-rev29.tar.bz2"
+SRC_URI="http://www.linux-phc.org/forum/download/file.php?id=201 -> phc-intel-pack-rev31.tar.bz2"
 
 LICENSE="GPL-2"
 SLOT="0"
