@@ -56,14 +56,13 @@ src_compile() {
 # Gentoo additions
 path="\$lib/packages"
 EOF
-	./bin/nim c -d:release --verbosity:2 --parallelBuild:$(makeopts_jobs) koch || die "csources nim failed"
-	# go back to --verbosity:2 when this is fixed: https://github.com/nim-lang/Nim/issues/11436
-	./koch boot -d:release --verbosity:1 --parallelBuild:$(makeopts_jobs) $(nim_use_enable readline useGnuReadline) || die "koch boot failed"
+	./bin/nim c -d:release --listCmd --parallelBuild:$(makeopts_jobs) koch || die "csources nim failed"
+	./koch boot -d:release --listCmd --parallelBuild:$(makeopts_jobs) $(nim_use_enable readline useGnuReadline) || die "koch boot failed"
 	# "./koch tools" downloads and builds nimble
-	#./koch tools -d:release --verbosity:2 || die "koch tools failed"
-	PATH="./bin:${PATH}" nim c --noNimblePath -p:compiler -d:release --verbosity:2 --parallelBuild:$(makeopts_jobs) -o:bin/nimsuggest nimsuggest/nimsuggest.nim || die "nimsuggest compilation failed"
-	PATH="./bin:${PATH}" nim c -d:release --verbosity:2 --parallelBuild:$(makeopts_jobs) -o:bin/nimgrep tools/nimgrep.nim || die "nimgrep compilation failed"
-	PATH="./bin:${PATH}" nim c -d:release --verbosity:1 --parallelBuild:$(makeopts_jobs) -o:bin/nimpretty nimpretty/nimpretty.nim || die "nimpretty compilation failed"
+	#./koch tools -d:release --listCmd || die "koch tools failed"
+	PATH="./bin:${PATH}" nim c --noNimblePath -p:compiler -d:release --listCmd --parallelBuild:$(makeopts_jobs) -o:bin/nimsuggest nimsuggest/nimsuggest.nim || die "nimsuggest compilation failed"
+	PATH="./bin:${PATH}" nim c -d:release --listCmd --parallelBuild:$(makeopts_jobs) -o:bin/nimgrep tools/nimgrep.nim || die "nimgrep compilation failed"
+	PATH="./bin:${PATH}" nim c -d:release --listCmd --parallelBuild:$(makeopts_jobs) -o:bin/nimpretty nimpretty/nimpretty.nim || die "nimpretty compilation failed"
 
 	if use doc; then
 		PATH="./bin:${PATH}" ./koch docs || die "koch docs failed"
