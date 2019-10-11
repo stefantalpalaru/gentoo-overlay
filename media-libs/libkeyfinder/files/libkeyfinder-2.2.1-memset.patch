@@ -1,0 +1,11 @@
+diff -ur libKeyFinder-2.2.1.orig/fftadapter.cpp libKeyFinder-2.2.1/fftadapter.cpp
+--- libKeyFinder-2.2.1.orig/fftadapter.cpp	2017-03-25 20:11:18.000000000 +0100
++++ libKeyFinder-2.2.1/fftadapter.cpp	2019-10-11 14:58:51.569941070 +0200
+@@ -23,6 +23,7 @@
+ 
+ // Included here to allow substitution of a separate implementation .cpp
+ #include <cmath>
++#include <cstring>
+ #include <fftw3.h>
+ 
+ namespace KeyFinder {
