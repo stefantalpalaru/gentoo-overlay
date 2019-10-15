@@ -1,4 +1,4 @@
-# Copyright 1999-2018 Gentoo Foundation
+# Copyright 1999-2019 Gentoo Authors
 # Distributed under the terms of the GNU General Public License v2
 
 EAPI=6
@@ -42,8 +42,6 @@ PATCHES=(
 src_prepare() {
 	default
 
-	sed -i "s:m4local:m4extra:" Makefile.am || die
-
 	sed -e "s/AM_CONFIG_HEADER/AC_CONFIG_HEADERS/" \
 		-e "s/AM_PROG_CC_STDC/AC_PROG_CC/" \
 		-i configure.ac || die
@@ -86,8 +84,8 @@ src_install() {
 pkg_postinst() {
 	if [[ ${ROOT} == / ]] && [[ -x /usr/sbin/cups-genppdupdate ]]; then
 		elog "Updating installed printer ppd files"
-		elog $(/usr/sbin/cups-genppdupdate)
+		elog $(/usr/sbin/cups-genppdupdate -x)
 	else
-		elog "You need to update installed ppds manually using cups-genppdupdate"
+		elog "You need to update installed ppds manually using 'cups-genppdupdate -x'"
 	fi
 }
