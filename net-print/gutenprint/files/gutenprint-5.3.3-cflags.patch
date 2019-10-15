@@ -1,0 +1,12 @@
+diff -ur gutenprint-5.3.3.orig/configure.ac gutenprint-5.3.3/configure.ac
+--- gutenprint-5.3.3.orig/configure.ac	2019-10-15 23:38:42.116882212 +0200
++++ gutenprint-5.3.3/configure.ac	2019-10-15 23:39:53.328377977 +0200
+@@ -756,7 +756,7 @@
+   if test x$ENABLE_DEBUG = xyes ; then
+     STP_ADD_COMPILER_ARG([-g])
+   else
+-    STP_ADD_FIRST_COMPILER_ARG([-O3 -O2 -O1 -O])
++    :
+   fi
+ else
+   if test x$ENABLE_DEBUG = xyes ; then

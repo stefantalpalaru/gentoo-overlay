@@ -36,7 +36,8 @@ RESTRICT="test"
 DOCS=( AUTHORS ChangeLog NEWS README doc/gutenprint-users-manual.{pdf,odt} )
 
 PATCHES=(
-	"${FILESDIR}"/${PN}-5.3.1-genppd.patch # bug 382927
+	"${FILESDIR}"/gutenprint-5.3.1-genppd.patch # bug 382927
+	"${FILESDIR}"/gutenprint-5.3.3-cflags.patch
 )
 
 src_prepare() {
