@@ -14,11 +14,11 @@ MY_PV="${PV/_rc/-RC}"
 MY_P="jack2-${MY_PV}"
 S="${WORKDIR}/${MY_P}"
 SRC_URI="https://github.com/jackaudio/jack2/releases/download/v${MY_PV}/${MY_P}.tar.gz"
-KEYWORDS=""
+KEYWORDS="~amd64 ~ppc ~x86"
 
 LICENSE="GPL-2"
 SLOT="2"
-IUSE="alsa celt dbus doc opus pam +classic sndfile libsamplerate readline"
+IUSE="alsa dbus doc opus pam +classic sndfile libsamplerate readline"
 
 REQUIRED_USE="
 	${PYTHON_REQUIRED_USE}
@@ -29,7 +29,6 @@ CDEPEND="media-libs/libsamplerate
 	sys-libs/readline:0=
 	${PYTHON_DEPS}
 	alsa? ( media-libs/alsa-lib[${MULTILIB_USEDEP}] )
-	celt? ( media-libs/celt:0[${MULTILIB_USEDEP}] )
 	dbus? (
 		dev-libs/expat[${MULTILIB_USEDEP}]
 		sys-apps/dbus[${MULTILIB_USEDEP}]
@@ -43,7 +42,7 @@ RDEPEND="${CDEPEND}
 	pam? ( sys-auth/realtime-base )
 	!media-sound/jack-audio-connection-kit:0"
 
-DOCS=( ChangeLog README README_NETJACK2 TODO )
+DOCS=( ChangeLog.rst README.rst README_NETJACK2 )
 
 src_prepare() {
 	default
@@ -56,10 +55,9 @@ multilib_src_configure() {
 		$(usex dbus --dbus "")
 		$(usex classic --classic "")
 		--alsa=$(usex alsa yes no)
-		--celt=$(usex celt yes no)
+		--celt=no
 		--doxygen=$(multilib_native_usex doc yes no)
 		--firewire=no
-		--freebob=no
 		--iio=no
 		--opus=$(usex opus yes no)
 		--portaudio=no
