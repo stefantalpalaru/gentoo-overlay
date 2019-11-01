@@ -3,16 +3,19 @@
 
 EAPI=6
 
-inherit llvm
+inherit git-r3 llvm
+EGIT_SUBMODULES=(
+	"-*"
+)
 LLVM_MAX_SLOT=7
 
 DESCRIPTION="Compiler for the Pony language"
 HOMEPAGE="http://www.ponylang.org/"
-SRC_URI="https://github.com/ponylang/ponyc/archive/${PV}.tar.gz -> ${P}.tar.gz"
+EGIT_REPO_URI="https://github.com/ponylang/ponyc"
 
 LICENSE="BSD-2"
 SLOT="0"
-KEYWORDS="~amd64 ~x86"
+KEYWORDS=""
 IUSE="test vim-syntax"
 RESTRICT="strip"
 
@@ -24,8 +27,6 @@ RDEPEND="
 	vim-syntax? ( app-vim/pony-syntax )"
 DEPEND="${RDEPEND}
 	virtual/pkgconfig"
-
-S="${WORKDIR}/ponyc-${PV}"
 
 src_prepare() {
 	default
@@ -47,7 +48,7 @@ src_prepare() {
 		src/libponyc/codegen/genexe.c
 }
 
-common_make_args="config=release prefix=\"${D}usr\" verbose=yes default_pic=true default_ssl=openssl_1.1.0"
+common_make_args="config=release prefix=\"${D}usr\" verbose=yes default_pic=true link=llvm-dynamic"
 
 src_compile() {
 	emake ${common_make_args}
