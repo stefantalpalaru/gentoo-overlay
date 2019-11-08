@@ -1,23 +1,25 @@
-# Copyright 1999-2017 Gentoo Foundation
+# Copyright 1999-2019 Gentoo Authors
 # Distributed under the terms of the GNU General Public License v2
 
 EAPI=6
 
-inherit autotools flag-o-matic git-r3 multilib-minimal
+inherit autotools flag-o-matic multilib-minimal
 
 DESCRIPTION="digital signal processing library for software-defined radios"
 HOMEPAGE="http://liquidsdr.org/"
-EGIT_REPO_URI="https://github.com/jgaeddert/liquid-dsp.git"
+SRC_URI="https://github.com/jgaeddert/liquid-dsp/archive/v${PV}.tar.gz -> ${P}.tar.gz"
 
 LICENSE="MIT-with-advertising"
 SLOT="0"
-KEYWORDS=""
+KEYWORDS="~amd64 ~x86"
 IUSE="static-libs"
 
 DEPEND="sci-libs/fftw:3.0"
 RDEPEND="${DEPEND}"
 
-PATCHES=( "${FILESDIR}/${P}-libdir.patch" )
+PATCHES=(
+	"${FILESDIR}/${PN}-9999-libdir-r1.patch"
+)
 
 src_prepare() {
 	default
