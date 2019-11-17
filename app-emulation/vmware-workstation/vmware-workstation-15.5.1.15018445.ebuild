@@ -10,7 +10,7 @@ MY_PV=$(ver_cut 1-3)
 PV_MODULES="${MY_PV}"
 PV_BUILD=$(ver_cut 4)
 MY_P="${MY_PN}-${MY_PV}-${PV_BUILD}"
-VMWARE_FUSION_VER="11.1.0/13668589" # https://softwareupdate.vmware.com/cds/vmw-desktop/fusion/
+VMWARE_FUSION_VER="11.5.1/15018442" # https://softwareupdate.vmware.com/cds/vmw-desktop/fusion/
 SYSTEMD_UNITS_TAG="gentoo-02"
 
 DESCRIPTION="Emulate a complete PC without the performance overhead of most emulators"
@@ -19,8 +19,8 @@ SRC_URI="
 	https://download3.vmware.com/software/wkst/file/${MY_P}.x86_64.bundle
 	macos-guests? (
 		https://github.com/DrDonk/unlocker/archive/3.0.2.tar.gz -> unlocker-3.0.2.tar.gz
-		vmware-tools-darwinPre15? ( https://softwareupdate.vmware.com/cds/vmw-desktop/fusion/${VMWARE_FUSION_VER}/packages/com.vmware.fusion.tools.darwinPre15.zip.tar -> com.vmware.fusion.tools.darwinPre15-${PV}.zip.tar )
-		vmware-tools-darwin? ( https://softwareupdate.vmware.com/cds/vmw-desktop/fusion/${VMWARE_FUSION_VER}/packages/com.vmware.fusion.tools.darwin.zip.tar -> com.vmware.fusion.tools.darwin-${PV}.zip.tar )
+		vmware-tools-darwinPre15? ( https://softwareupdate.vmware.com/cds/vmw-desktop/fusion/${VMWARE_FUSION_VER}/core/com.vmware.fusion.zip.tar -> com.vmware.fusion-${PV}.zip.tar )
+		vmware-tools-darwin? ( https://softwareupdate.vmware.com/cds/vmw-desktop/fusion/${VMWARE_FUSION_VER}/core/com.vmware.fusion.zip.tar -> com.vmware.fusion-${PV}.zip.tar )
 	)
 	systemd? ( https://github.com/akhuettel/systemd-vmware/archive/${SYSTEMD_UNITS_TAG}.tar.gz -> vmware-systemd-${SYSTEMD_UNITS_TAG}.tgz )
 	"
@@ -118,14 +118,17 @@ src_unpack() {
 		rm -r extracted/vmware-vix-core extracted/vmware-vix-lib-Workstation* || die "unable to remove dir"
 	fi
 
-	for guest in ${DARWIN_GUESTS}; do
-		if use vmware-tools-${guest}; then
-			mkdir extracted/vmware-tools-${guest}
-			unzip -q com.vmware.fusion.tools.${guest}.zip payload/\*
-			mv payload/* extracted/vmware-tools-${guest}/
-			rm -r payload com.vmware.fusion.tools.${guest}.zip
-		fi
-	done
+	if use vmware-tools-darwinPre15 || use vmware-tools-darwin; then
+		unzip -q com.vmware.fusion.zip || die
+		for guest in ${DARWIN_GUESTS}; do
+			if use vmware-tools-${guest}; then
+				mkdir extracted/vmware-tools-${guest}
+				mv "payload/VMware Fusion.app/Contents/Library/isoimages/${guest}.iso" extracted/vmware-tools-${guest}/ || die
+				rm -rf __MACOSX payload manifest.plist preflight postflight
+			fi
+		done
+		rm com.vmware.fusion.zip
+	fi
 }
 
 src_prepare() {
