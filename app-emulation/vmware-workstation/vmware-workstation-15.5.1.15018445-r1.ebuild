@@ -124,10 +124,9 @@ src_unpack() {
 			if use vmware-tools-${guest}; then
 				mkdir extracted/vmware-tools-${guest}
 				mv "payload/VMware Fusion.app/Contents/Library/isoimages/${guest}.iso" extracted/vmware-tools-${guest}/ || die
-				rm -rf __MACOSX payload manifest.plist preflight postflight
 			fi
 		done
-		rm com.vmware.fusion.zip
+		rm -rf __MACOSX payload manifest.plist preflight postflight com.vmware.fusion.zip
 	fi
 }
 
