@@ -1,0 +1,13 @@
+--- M2Crypto-0.31.0/setup.py
++++ M2Crypto-0.31.0/setup.py
+@@ -164,6 +164,10 @@
+             # For RedHat-based distros, the '-D__{arch}__' option for
+             # Swig needs to be normalized, particularly on i386.
+             mach = platform.machine().lower()
++            if 'CHOST' in os.environ:
++                chost = os.environ['CHOST'].split('-')
++                if len(chost) >= 3:
++                    mach = chost[0]
+             if mach in ('i386', 'i486', 'i586', 'i686'):
+                 arch = '__i386__'
+             elif mach in ('ppc64', 'powerpc64', 'ppc64le', 'ppc64el'):
