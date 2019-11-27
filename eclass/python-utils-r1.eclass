@@ -1,4 +1,4 @@
-# Copyright 1999-2018 Gentoo Foundation
+# Copyright 1999-2019 Gentoo Authors
 # Distributed under the terms of the GNU General Public License v2
 
 # @ECLASS: python-utils-r1.eclass
@@ -7,6 +7,7 @@
 # @AUTHOR:
 # Author: Michał Górny <mgorny@gentoo.org>
 # Based on work of: Krzysztof Pawlik <nelchael@gentoo.org>
+# @SUPPORTED_EAPIS: 0 1 2 3 4 5 6 7
 # @BLURB: Utility functions for packages with Python parts.
 # @DESCRIPTION:
 # A utility eclass providing functions to query Python implementations,
@@ -44,7 +45,7 @@ _PYTHON_ALL_IMPLS=(
 	pypy pypy3
 	python2_7
 	tauthon2_8
-	python3_4 python3_5 python3_6 python3_7
+	python3_5 python3_6 python3_7 python3_8
 )
 readonly _PYTHON_ALL_IMPLS
 
@@ -80,10 +81,10 @@ _python_impl_supported() {
 	# keep in sync with _PYTHON_ALL_IMPLS!
 	# (not using that list because inline patterns shall be faster)
 	case "${impl}" in
-		python2_7|tauthon2_8|python3_[4567]|jython2_7)
+		python2_7|tauthon2_8|python3_[5678]|jython2_7)
 			return 0
 			;;
-		pypy1_[89]|pypy2_0|python2_[56]|python3_[123])
+		pypy1_[89]|pypy2_0|python2_[56]|python3_[1234])
 			return 1
 			;;
 		pypy|pypy3)
@@ -183,10 +184,9 @@ _python_impl_matches() {
 
 	for pattern; do
 		if [[ ${pattern} == -2 ]]; then
-			! python_is_python3 "${impl}"
-			return
+			python_is_python3 "${impl}" || return 0
 		elif [[ ${pattern} == -3 ]]; then
-			python_is_python3 "${impl}"
+			python_is_python3 "${impl}" && return 0
 			return
 		# unify value style to allow lax matching
 		elif [[ ${impl/./_} == ${pattern/./_} ]]; then
@@ -694,7 +694,7 @@ python_optimize() {
 			if [[ ${f} == /* && -d ${D%/}${f} ]]; then
 				set -- "${D%/}${f}" "${@}"
 			fi
-		done < <("${PYTHON}" -c 'import sys; print("\0".join(sys.path))' || die)
+		done < <("${PYTHON}" -c 'import sys; print("".join(x + "\0" for x in sys.path))' || die)
 
 		debug-print "${FUNCNAME}: using sys.path: ${*/%/;}"
 	fi
@@ -792,6 +792,7 @@ python_newexe() {
 
 	(
 		dodir "${wrapd}"
+		exeopts -m 0755
 		exeinto "${d}"
 		newexe "${f}" "${newfn}" || return ${?}
 	)
@@ -923,6 +924,7 @@ python_domodule() {
 	fi
 
 	(
+		insopts -m 0644
 		insinto "${d}"
 		doins -r "${@}" || return ${?}
 	)
@@ -957,6 +959,7 @@ python_doheader() {
 	d=${PYTHON_INCLUDEDIR#${EPREFIX}}
 
 	(
+		insopts -m 0644
 		insinto "${d}"
 		doins -r "${@}" || return ${?}
 	)
@@ -1341,6 +1344,31 @@ python_export_utf8_locale() {
 	fi
 
 	return 0
+}
+
+# @FUNCTION: build_sphinx
+# @USAGE: <directory>
+# @DESCRIPTION:
+# Build HTML documentation using dev-python/sphinx in the specified
+# <directory>.  Takes care of disabling Intersphinx and appending
+# to HTML_DOCS.
+#
+# If <directory> is relative to the current directory, care needs
+# to be taken to run einstalldocs from the same directory
+# (usually ${S}).
+build_sphinx() {
+	debug-print-function ${FUNCNAME} "${@}"
+	[[ ${#} -eq 1 ]] || die "${FUNCNAME} takes 1 arg: <directory>"
+
+	local dir=${1}
+
+	sed -i -e 's:^intersphinx_mapping:disabled_&:' \
+		"${dir}"/conf.py || die
+	# not all packages include the Makefile in pypi tarball
+	sphinx-build -b html -d "${dir}"/_build/doctrees "${dir}" \
+		"${dir}"/_build/html || die
+
+	HTML_DOCS+=( "${dir}/_build/html/." )
 }
 
 # -- python.eclass functions --
