@@ -1,0 +1,13 @@
+prefix=@CMAKE_INSTALL_PREFIX@
+exec_prefix=@CMAKE_INSTALL_PREFIX@
+includedir=@CMAKE_INSTALL_FULL_INCLUDEDIR@
+libdir=@CMAKE_INSTALL_FULL_LIBDIR@
+
+Name: libqhull
+Description: library for convex hull, Delaunay triangulation, Voronoi diagram, and halfspace intersection about a point
+Version: @VERSION@
+URL: http://www.qhull.org
+Requires:
+Conflicts:
+Libs: -L${libdir} -lqhull -lm
+Cflags: -I${includedir}

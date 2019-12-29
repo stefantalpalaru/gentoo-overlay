@@ -1,0 +1,15 @@
+diff -ur qhull-2019.1.orig/CMakeLists.txt qhull-2019.1/CMakeLists.txt
+--- qhull-2019.1.orig/CMakeLists.txt	2019-06-29 02:30:15.000000000 +0200
++++ qhull-2019.1/CMakeLists.txt	2019-12-29 00:30:38.446465489 +0100
+@@ -669,3 +669,11 @@
+ install(FILES html/rbox.man          DESTINATION ${MAN_INSTALL_DIR} RENAME rbox.1)
+ install(FILES ${doc_FILES}           DESTINATION ${DOC_INSTALL_DIR})
+ install(DIRECTORY html/              DESTINATION ${DOC_INSTALL_DIR})
++
++configure_file(
++  ${PROJECT_SOURCE_DIR}/build/libqhull.pc.in
++  ${PROJECT_BINARY_DIR}/libqhull.pc
++  @ONLY
++)
++install(FILES ${CMAKE_BINARY_DIR}/libqhull.pc DESTINATION ${CMAKE_INSTALL_LIBDIR}/pkgconfig)
++
