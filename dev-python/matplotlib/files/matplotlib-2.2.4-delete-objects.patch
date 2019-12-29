@@ -1,0 +1,22 @@
+diff -ur matplotlib-2.2.4.orig/setup.py matplotlib-2.2.4/setup.py
+--- matplotlib-2.2.4.orig/setup.py	2019-02-26 01:18:32.000000000 +0100
++++ matplotlib-2.2.4/setup.py	2019-12-29 18:11:46.811029219 +0100
+@@ -140,6 +140,18 @@
+ 
+         return BuildExtCommand.run(self)
+ 
++    def build_extensions(self):
++        # First, sanity-check the 'extensions' list
++        self.check_extensions_list(self.extensions)
++
++        for ext in self.extensions:
++            self.build_extension(ext)
++            try:
++                for filename in self._built_objects:
++                    os.remove(filename)
++            except AttributeError:
++                print('unable to remove object files (ignored)')
++
+ 
+ cmdclass = versioneer.get_cmdclass()
+ cmdclass['test'] = NoopTestCommand
