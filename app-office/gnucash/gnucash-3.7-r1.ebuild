@@ -1,9 +1,9 @@
-# Copyright 1999-2019 Gentoo Authors
+# Copyright 1999-2020 Gentoo Authors
 # Distributed under the terms of the GNU General Public License v2
 
 EAPI=6
 
-PYTHON_COMPAT=( python3_{5,6} )
+PYTHON_COMPAT=( python3_{6,7,8} )
 
 inherit cmake-utils gnome2-utils python-single-r1 xdg-utils
 
@@ -29,11 +29,11 @@ REQUIRED_USE="
 RDEPEND="
 	>=dev-libs/glib-2.46.0:2
 	>=dev-libs/libxml2-2.7.0:2
-	>=sys-libs/zlib-1.1.4
-	>=dev-scheme/guile-2.2.0:12=[deprecated,regex]
 	dev-libs/boost:=[icu,nls]
 	dev-libs/icu:=
 	dev-libs/libxslt
+	>=dev-scheme/guile-2.2.0:12=[deprecated,regex]
+	>=sys-libs/zlib-1.1.4
 	aqbanking? (
 		>=net-libs/aqbanking-5[gtk,ofx?]
 		sys-libs/gwenhywfar[gtk]
@@ -67,12 +67,12 @@ RDEPEND="
 "
 
 DEPEND="${RDEPEND}
-	>=sys-devel/gettext-0.19.6
+	>=dev-cpp/gtest-1.8.0
 	dev-lang/perl
 	dev-perl/XML-Parser
+	>=sys-devel/gettext-0.19.6
 	sys-devel/libtool
 	virtual/pkgconfig
-	test? ( >=dev-cpp/gtest-1.8.0 )
 "
 
 PDEPEND="doc? (
