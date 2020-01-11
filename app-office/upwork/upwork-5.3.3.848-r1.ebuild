@@ -1,4 +1,4 @@
-# Copyright 1999-2019 Gentoo Authors
+# Copyright 1999-2020 Gentoo Authors
 # Distributed under the terms of the GNU General Public License v2
 
 EAPI=6
@@ -24,6 +24,8 @@ PATCHES=( "${FILESDIR}/${PN}-desktop-r1.patch" )
 DEPEND=""
 RDEPEND="
 	dev-libs/expat
+	net-libs/gnutls:0/30
+	dev-libs/nettle:0/7
 	dev-libs/nspr
 	dev-libs/nss
 	gnome-base/gconf
@@ -31,8 +33,7 @@ RDEPEND="
 	media-libs/freetype
 	sys-apps/dbus
 	sys-libs/libcap
-	x11-libs/gtk+:2[cups]
-	x11-libs/gtkglext
+	x11-libs/gtk+:3[cups]
 "
 
 src_install() {
