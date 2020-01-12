@@ -1,0 +1,24 @@
+diff -ur astrometry.net-0.78.orig/blind/Makefile astrometry.net-0.78/blind/Makefile
+--- astrometry.net-0.78.orig/blind/Makefile	2019-04-22 18:25:30.000000000 +0200
++++ astrometry.net-0.78/blind/Makefile	2020-01-02 15:05:21.281269081 +0100
+@@ -153,7 +153,8 @@
+ 	$(RANLIB) $@
+ 
+ $(ENGINE_SO): $(ENGINE_OBJS) $(SLIB)
+-	$(CC) $(LDFLAGS) $(SHAREDLIBFLAGS) -o $@ $^ $(LDLIBS)
++	$(CC) $(LDFLAGS) $(SHAREDLIBFLAGS) -Wl,-soname,$@.0 -o $@.0 $^ $(LDLIBS)
++	ln -s  $@.0 $@
+ 
+ # old and miscellaneous executables that aren't part of the pipeline.
+ OLDEXECS := plotquads rawstartree checkquads
+@@ -238,8 +239,8 @@
+ 	done
+ 	$(MKDIR) '$(LIB_INSTALL_DIR)'
+ 	@for x in $(INSTALL_LIB); do \
+-		echo $(CP) $$x '$(LIB_INSTALL_DIR)'; \
+-		$(CP) $$x '$(LIB_INSTALL_DIR)'; \
++		echo $(CP) -d $$x* '$(LIB_INSTALL_DIR)'; \
++		$(CP) -d $$x* '$(LIB_INSTALL_DIR)'; \
+ 	done
+ 	$(MKDIR) '$(PY_INSTALL_DIR)'
+ 	@for x in $(PYTHON_INSTALL); do \

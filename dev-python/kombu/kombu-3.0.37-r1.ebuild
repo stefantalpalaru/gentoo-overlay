@@ -1,9 +1,9 @@
-# Copyright 1999-2018 Gentoo Foundation
+# Copyright 1999-2020 Gentoo Authors
 # Distributed under the terms of the GNU General Public License v2
 
 EAPI=5
 
-PYTHON_COMPAT=( python{2_7,3_4,3_5} pypy )
+PYTHON_COMPAT=( python2_7 )
 
 inherit distutils-r1
 
@@ -19,7 +19,6 @@ IUSE="amqplib doc examples msgpack sqs test"
 # couchdb backend support possible via dev-python/couchdb-python
 # ditto dev-python/kazoo(>=1.3.1) and dev-python/beanstalkc
 PY27_GEN_USEDEP=$(python_gen_usedep python2_7)
-PYPY_GEN_USEDEP=$(python_gen_usedep python2_7 pypy)
 RDEPEND="
 	>=dev-python/anyjson-0.3.3[${PYTHON_USEDEP}]
 	>=dev-python/py-amqp-1.4.9[${PYTHON_USEDEP}]
@@ -37,7 +36,7 @@ DEPEND="${RDEPEND}
 		dev-python/nose[${PYTHON_USEDEP}]
 		dev-python/nose-cover3[${PYTHON_USEDEP}]
 		>=dev-python/coverage-3.0[${PYTHON_USEDEP}]
-		>=dev-python/mock-0.7.0[${PYPY_GEN_USEDEP}]
+		>=dev-python/mock-0.7.0[${PY27_GEN_USEDEP}]
 		dev-python/django[${PYTHON_USEDEP}]
 		>=dev-python/redis-py-2.10.3[${PYTHON_USEDEP}]
 		>=dev-python/pymongo-3.0.2[${PYTHON_USEDEP}]

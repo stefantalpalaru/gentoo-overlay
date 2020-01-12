@@ -2,7 +2,7 @@
 # Distributed under the terms of the GNU General Public License v2
 
 EAPI=7
-PYTHON_COMPAT=( python{2_7,3_6,3_7,3_8} pypy )
+PYTHON_COMPAT=( python{2_7,3_6,3_7,3_8} )
 
 inherit distutils-r1
 
@@ -30,12 +30,6 @@ python_compile_all() {
 }
 
 python_test() {
-	# https://github.com/joblib/joblib/issues/143
-	if [[ "${EPYTHON}" == pypy ]]; then
-		sed -e 's:test_func_inspect_errors:_&:' -i ${PN}/test/test_func_inspect.py || die
-		sed -e 's:test_parallel_pickling:_&:' -i ${PN}/test/test_parallel.py || die
-	fi
-
 	py.test -v
 }
 

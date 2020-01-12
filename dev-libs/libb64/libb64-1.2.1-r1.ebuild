@@ -1,4 +1,4 @@
-# Copyright 1999-2017 Gentoo Foundation
+# Copyright 1999-2020 Gentoo Authors
 # Distributed under the terms of the GNU General Public License v2
 
 EAPI=6
@@ -10,7 +10,7 @@ SRC_URI="mirror://sourceforge/${PN}/${P}.zip"
 LICENSE="CC-PD"
 # static library, so always rebuild
 SLOT="0/${PVR}"
-KEYWORDS="~amd64 ~arm ~mips ~ppc ~ppc64 ~x86 ~x86-fbsd ~amd64-linux"
+KEYWORDS="~amd64 ~arm ~mips ~ppc ~ppc64 ~x86 ~amd64-linux"
 IUSE=""
 
 DEPEND="app-arch/unzip"

@@ -1,0 +1,30 @@
+diff -ur sunpy-0.9.10.orig/setup.py sunpy-0.9.10/setup.py
+--- sunpy-0.9.10.orig/setup.py	2019-12-07 11:19:58.000000000 +0100
++++ sunpy-0.9.10/setup.py	2020-01-02 16:00:01.077710721 +0100
+@@ -12,9 +12,9 @@
+ import os
+ import sys
+ import glob
+-try:
++if sys.version_info[0] >= 3:
+     import builtins
+-except ImportError:
++else:
+     import __builtin__ as builtins
+ import itertools
+ 
+diff -ur sunpy-0.9.10.orig/sunpy/__init__.py sunpy-0.9.10/sunpy/__init__.py
+--- sunpy-0.9.10.orig/sunpy/__init__.py	2019-12-07 11:19:58.000000000 +0100
++++ sunpy-0.9.10/sunpy/__init__.py	2020-01-02 16:00:37.652428555 +0100
+@@ -27,9 +27,9 @@
+ try:
+     _SUNPY_SETUP_
+ except NameError:
+-    try:
++    if sys.version_info[0] >= 3:
+         import builtins
+-    except ImportError:
++    else:
+         import __builtin__ as builtins
+     builtins._SUNPY_SETUP_ = False
+ 

@@ -1,4 +1,4 @@
-# Copyright 1999-2019 Gentoo Authors
+# Copyright 1999-2020 Gentoo Authors
 # Distributed under the terms of the GNU General Public License v2
 
 EAPI=6
@@ -8,18 +8,14 @@ inherit eutils flag-o-matic linux-info linux-mod multilib-minimal nvidia-driver 
 DESCRIPTION="NVIDIA Accelerated Graphics Driver"
 HOMEPAGE="https://www.nvidia.com/"
 
-AMD64_FBSD_NV_PACKAGE="NVIDIA-FreeBSD-x86_64-${PV}"
 AMD64_NV_PACKAGE="NVIDIA-Linux-x86_64-${PV}"
 ARM_NV_PACKAGE="NVIDIA-Linux-armv7l-gnueabihf-${PV}"
-X86_FBSD_NV_PACKAGE="NVIDIA-FreeBSD-x86-${PV}"
 X86_NV_PACKAGE="NVIDIA-Linux-x86-${PV}"
 
 NV_URI="https://us.download.nvidia.com/XFree86/"
 SRC_URI="
-	amd64-fbsd? ( ${NV_URI}FreeBSD-x86_64/${PV}/${AMD64_FBSD_NV_PACKAGE}.tar.gz )
 	amd64? ( ${NV_URI}Linux-x86_64/${PV}/${AMD64_NV_PACKAGE}.run )
 	arm? ( ${NV_URI}Linux-x86-ARM/${PV}/${ARM_NV_PACKAGE}.run )
-	x86-fbsd? ( ${NV_URI}FreeBSD-x86/${PV}/${X86_FBSD_NV_PACKAGE}.tar.gz )
 	x86? ( ${NV_URI}Linux-x86/${PV}/${X86_NV_PACKAGE}.run )
 	tools? (
 		https://download.nvidia.com/XFree86/nvidia-settings/nvidia-settings-${PV}.tar.bz2
@@ -28,11 +24,11 @@ SRC_URI="
 
 LICENSE="GPL-2 NVIDIA-r2"
 SLOT="0/${PV%.*}"
-KEYWORDS="-* amd64 x86 ~amd64-fbsd ~x86-fbsd"
+KEYWORDS="-* amd64 x86"
 RESTRICT="bindist mirror"
 EMULTILIB_PKG="true"
 
-IUSE="acpi compat +driver gtk3 kernel_FreeBSD kernel_linux +kms multilib static-libs +tools uvm wayland +X"
+IUSE="acpi compat +driver gtk3 kernel_linux +kms multilib static-libs +tools uvm wayland +X"
 REQUIRED_USE="
 	tools? ( X )
 	static-libs? ( tools )
@@ -155,16 +151,7 @@ pkg_setup() {
 	fi
 
 	# set variables to where files are in the package structure
-	if use kernel_FreeBSD; then
-		use x86-fbsd   && S="${WORKDIR}/${X86_FBSD_NV_PACKAGE}"
-		use amd64-fbsd && S="${WORKDIR}/${AMD64_FBSD_NV_PACKAGE}"
-		NV_DOC="${S}/doc"
-		NV_OBJ="${S}/obj"
-		NV_SRC="${S}/src"
-		NV_MAN="${S}/x11/man"
-		NV_X11="${S}/obj"
-		NV_SOVER=1
-	elif use kernel_linux; then
+	if use kernel_linux; then
 		NV_DOC="${S}"
 		NV_OBJ="${S}"
 		NV_SRC="${S}/kernel"
@@ -309,11 +296,6 @@ src_install() {
 		newexe "${FILESDIR}"/nvidia-udev.sh-r1 nvidia-udev.sh
 		udev_newrules "${FILESDIR}"/nvidia.udev-rule 99-nvidia.rules
 	elif use kernel_FreeBSD; then
-		if use x86-fbsd; then
-			insinto /boot/modules
-			doins "${S}/src/nvidia.kld"
-		fi
-
 		exeinto /boot/modules
 		doexe "${S}/src/nvidia.ko"
 	fi

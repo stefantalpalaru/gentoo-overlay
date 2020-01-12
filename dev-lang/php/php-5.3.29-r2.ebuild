@@ -1,11 +1,11 @@
-# Copyright 1999-2017 Gentoo Foundation
+# Copyright 1999-2020 Gentoo Authors
 # Distributed under the terms of the GNU General Public License v2
 
 EAPI=6
 
 inherit apache-module autotools db-use depend.apache eutils flag-o-matic libtool systemd versionator
 
-KEYWORDS="~alpha ~amd64 ~arm ~hppa ~ia64 ~mips ~ppc ~ppc64 ~s390 ~sh ~sparc ~x86 ~amd64-fbsd"
+KEYWORDS="~alpha ~amd64 ~arm ~hppa ~ia64 ~mips ~ppc ~ppc64 ~s390 ~sh ~sparc ~x86"
 
 php_get_uri () {
 	case "${1}" in
@@ -102,7 +102,7 @@ DEPEND="
 	kerberos? ( virtual/krb5 )
 	ldap? ( >=net-nds/openldap-1.2.11 )
 	ldap-sasl? ( dev-libs/cyrus-sasl >=net-nds/openldap-1.2.11 )
-	libedit? ( || ( sys-freebsd/freebsd-lib dev-libs/libedit ) )
+	libedit? ( dev-libs/libedit )
 	mssql? ( dev-db/freetds[mssql] )
 	nls? ( sys-devel/gettext )
 	oci8-instant-client? ( dev-db/oracle-instantclient-basic )
