@@ -1,0 +1,33 @@
+diff -ur zart-099554f8bf26c6161cd8c0b7df3d1aedad27e8ec.orig/src/ImageConverter.cpp zart-099554f8bf26c6161cd8c0b7df3d1aedad27e8ec/src/ImageConverter.cpp
+--- zart-099554f8bf26c6161cd8c0b7df3d1aedad27e8ec.orig/src/ImageConverter.cpp	2019-11-26 15:25:14.000000000 +0100
++++ zart-099554f8bf26c6161cd8c0b7df3d1aedad27e8ec/src/ImageConverter.cpp	2020-01-04 02:51:14.302841834 +0100
+@@ -70,7 +70,7 @@
+ 
+   cv::Mat tmp(in->cols, in->rows, in->depth());
+ 
+-  cvtColor(*in, tmp, (in->channels() == 1) ? CV_GRAY2RGB : CV_BGR2RGB);
++  cvtColor(*in, tmp, (in->channels() == 1) ? cv::COLOR_GRAY2RGB : cv::COLOR_BGR2RGB);
+ 
+   const unsigned int w3 = 3 * tmp.cols;
+   unsigned char * src = reinterpret_cast<unsigned char *>(tmp.ptr());
+@@ -114,7 +114,7 @@
+       dst += step;
+     }
+   }
+-  cvtColor(**out, **out, CV_BGR2RGB);
++  cvtColor(**out, **out, cv::COLOR_BGR2RGB);
+ }
+ 
+ void ImageConverter::convert(const cimg_library::CImg<float> & in, QImage * out)
+diff -ur zart-099554f8bf26c6161cd8c0b7df3d1aedad27e8ec.orig/zart.pro zart-099554f8bf26c6161cd8c0b7df3d1aedad27e8ec/zart.pro
+--- zart-099554f8bf26c6161cd8c0b7df3d1aedad27e8ec.orig/zart.pro	2019-11-26 15:25:14.000000000 +0100
++++ zart-099554f8bf26c6161cd8c0b7df3d1aedad27e8ec/zart.pro	2020-01-04 02:50:43.923904063 +0100
+@@ -29,7 +29,7 @@
+ CONFIG	+= warn_on
+ QT_CONFIG -= no-pkg-config
+ CONFIG += link_pkgconfig
+-PKGCONFIG += opencv fftw3 zlib
++PKGCONFIG += opencv4 fftw3 zlib
+ DEFINES += cimg_use_fftw3 cimg_use_zlib
+ 
+ DEFINES += QT_DEPRECATED_WARNINGS

@@ -1,17 +1,18 @@
-# Copyright 1999-2018 Gentoo Foundation
+# Copyright 1999-2020 Gentoo Authors
 # Distributed under the terms of the GNU General Public License v2
 
 EAPI=6
 
-inherit flag-o-matic git-r3 qmake-utils
+inherit flag-o-matic qmake-utils
 
 DESCRIPTION="G'MIC GUI for video streams"
 HOMEPAGE="https://github.com/c-koi/zart"
-EGIT_REPO_URI="https://github.com/c-koi/zart.git"
+ZART_COMMIT="099554f8bf26c6161cd8c0b7df3d1aedad27e8ec"
+SRC_URI="https://github.com/c-koi/zart/archive/${ZART_COMMIT}.zip -> ${P}.zip"
 
 LICENSE="CeCILL-2"
 SLOT="0"
-KEYWORDS=""
+KEYWORDS="~amd64 ~x86"
 IUSE=""
 
 RDEPEND="
@@ -20,17 +21,20 @@ RDEPEND="
 	dev-qt/qtnetwork:5
 	dev-qt/qtxml:5
 	media-gfx/gmic[fftw,opencv,openmp]
-	media-libs/opencv
+	>=media-libs/opencv-4
 	sci-libs/fftw:3.0[threads]
 	sys-libs/zlib
 "
 DEPEND="${RDEPEND}
-	=media-libs/cimg-9999*
+	media-libs/cimg
 "
 
 PATCHES=(
-	"${FILESDIR}"/${PN}-3.2.2-dynamic-linking.patch
+	"${FILESDIR}"/${PN}-3.2.2-dynamic-linking-r1.patch
+	"${FILESDIR}"/${PN}-3.2.2-opencv4.patch
 )
+
+S="${WORKDIR}/${PN}-${ZART_COMMIT}"
 
 pkg_pretend() {
 	tc-has-openmp || die "Please switch to an openmp compatible compiler"
