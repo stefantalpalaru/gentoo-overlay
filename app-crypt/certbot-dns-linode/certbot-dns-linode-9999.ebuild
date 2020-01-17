@@ -2,7 +2,7 @@
 # Distributed under the terms of the GNU General Public License v2
 
 EAPI=6
-PYTHON_COMPAT=(python{2_7,3_6})
+PYTHON_COMPAT=(python{2_7,3_6,3_7})
 
 if [[ ${PV} == 9999* ]]; then
 	EGIT_REPO_URI="https://github.com/certbot/certbot.git"
@@ -31,7 +31,3 @@ RDEPEND="
 	dev-python/setuptools[${PYTHON_USEDEP}]
 	dev-python/zope-interface[${PYTHON_USEDEP}]
 "
-
-PATCHES=(
-	"${FILESDIR}/LinodeV4.patch"
-)
