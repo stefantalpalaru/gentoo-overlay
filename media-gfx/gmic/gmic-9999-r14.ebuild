@@ -122,9 +122,6 @@ src_prepare() {
 			-e '/CMAKE_CXX_FLAGS_RELEASE/d' \
 			../${GMIC_QT_DIR}/CMakeLists.txt || die "sed failed"
 		local S="${WORKDIR}/${GMIC_QT_DIR}"
-		PATCHES=(
-			"${FILESDIR}/gmic-2.5.6-fftw.patch"
-		)
 		cmake-utils_src_prepare
 	fi
 }
