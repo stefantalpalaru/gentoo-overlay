@@ -4,7 +4,7 @@
 EAPI=6
 
 inherit llvm
-LLVM_MAX_SLOT=7
+LLVM_MAX_SLOT=9
 
 DESCRIPTION="Compiler for the Pony language"
 HOMEPAGE="http://www.ponylang.org/"
@@ -18,7 +18,7 @@ RESTRICT="strip"
 
 RDEPEND="
 	>=sys-devel/llvm-3.9.1:=
-	<sys-devel/llvm-8.0.0:=
+	<sys-devel/llvm-10.0.0:=
 	sys-libs/ncurses:=
 	sys-libs/zlib
 	vim-syntax? ( app-vim/pony-syntax )"
