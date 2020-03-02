@@ -3,7 +3,7 @@
 
 EAPI=7
 
-PYTHON_COMPAT=( python2_7 python3_{6,7} pypy3 )
+PYTHON_COMPAT=( python2_7 python3_{6,7} )
 
 inherit distutils-r1
 
@@ -27,7 +27,7 @@ RDEPEND="
 	>=dev-python/attrs-17.4.0[${PYTHON_USEDEP}]
 	$(python_gen_cond_dep '>=dev-python/more-itertools-4.0.0[${PYTHON_USEDEP}]' python2_7 )
 	$(python_gen_cond_dep '<dev-python/more-itertools-6.0.0[${PYTHON_USEDEP}]' python2_7 )
-	$(python_gen_cond_dep '>=dev-python/more-itertools-4.0.0[${PYTHON_USEDEP}]' python3_{6,7} pypy3 )
+	$(python_gen_cond_dep '>=dev-python/more-itertools-4.0.0[${PYTHON_USEDEP}]' python3_{6,7} )
 	$(python_gen_cond_dep 'dev-python/pathlib2[${PYTHON_USEDEP}]' python2_7 )
 	>=dev-python/pluggy-0.7[${PYTHON_USEDEP}]
 	>=dev-python/py-${PY_VER}[${PYTHON_USEDEP}]

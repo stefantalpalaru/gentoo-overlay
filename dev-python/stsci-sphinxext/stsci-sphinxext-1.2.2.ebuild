@@ -3,7 +3,7 @@
 
 EAPI=5
 
-PYTHON_COMPAT=( python2_7 python3_6 )
+PYTHON_COMPAT=( python2_7 )
 
 MY_PN=${PN/-/.}
 MY_P=${MY_PN}-${PV}
@@ -20,7 +20,7 @@ KEYWORDS="amd64 x86 ~amd64-linux ~x86-linux"
 IUSE=""
 
 RDEPEND="
-	dev-python/matplotlib[${PYTHON_USEDEP}]
+	dev-python/matplotlib-python2[${PYTHON_USEDEP}]
 	$(python_gen_cond_dep 'dev-python/numpydoc[${PYTHON_USEDEP}]' python2_7)"
 DEPEND="${RDEPEND}
 	>=dev-python/d2to1-0.2.9[${PYTHON_USEDEP}]

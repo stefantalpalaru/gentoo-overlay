@@ -1,0 +1,27 @@
+#!/sbin/openrc-run
+# Copyright 1999-2019 Gentoo Foundation
+# Distributed under the terms of the GNU General Public License v2
+
+command="/usr/bin/twistd"
+command_args="transitrelay"
+make_pidfile=/var/run/magic-wormhole-transit-relay.pid
+name="Magic Wormhole Transit Relay"
+
+description="Transit Relay server for Magic Wormhole"
+
+depend() {
+        need net
+}
+
+start() {
+        ebegin "Starting Magic Wormhole Transit Relay"
+        start-stop-daemon --start --quiet --pidfile \
+        /var/run/magic-wormhole-transit-relay.pid --exec /usr/bin/twistd -- \
+        --pidfile=/var/run/magic-wormhole-transit-relay.pid transitrelay
+        eend $? "Failed to start Magic Wormhole Transit Relay"
+}
+
+stop() {
+        start-stop-daemon --stop --quiet --pidfile \
+        /var/run/magic-wormhole-transit-relay.pid
+}

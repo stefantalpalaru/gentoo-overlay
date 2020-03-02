@@ -16,6 +16,8 @@ SLOT="0"
 IUSE=""
 
 RDEPEND="
-	dev-python/setuptools[${PYTHON_USEDEP}]
+	$(python_gen_cond_dep '
+	dev-python/setuptools[${PYTHON_MULTI_USEDEP}]
+	')
 "
 DEPEND="$RDEPEND"

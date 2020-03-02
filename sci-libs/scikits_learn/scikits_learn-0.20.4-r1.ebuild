@@ -1,4 +1,4 @@
-# Copyright 1999-2019 Gentoo Authors
+# Copyright 1999-2020 Gentoo Authors
 # Distributed under the terms of the GNU General Public License v2
 
 EAPI=7
@@ -21,11 +21,14 @@ IUSE="examples test"
 
 RDEPEND="
 	dev-python/joblib[${PYTHON_USEDEP}]
-	dev-python/matplotlib[${PYTHON_USEDEP}]
+	$(python_gen_cond_dep 'dev-python/matplotlib-python2[${PYTHON_USEDEP}]' python2_7)
+	$(python_gen_cond_dep 'dev-python/matplotlib[${PYTHON_USEDEP}]' python3_{6,7})
 	dev-python/nose[${PYTHON_USEDEP}]
-	>=dev-python/numpy-1.11.0[lapack,${PYTHON_USEDEP}]
+	$(python_gen_cond_dep '>=dev-python/numpy-python2-1.11.0[${PYTHON_USEDEP}]' python2_7)
+	$(python_gen_cond_dep '>=dev-python/numpy-1.11.0[${PYTHON_USEDEP}]' python3_{6,7})
 	sci-libs/scikits[${PYTHON_USEDEP}]
-	>=sci-libs/scipy-0.17.0[${PYTHON_USEDEP}]
+	$(python_gen_cond_dep '>=sci-libs/scipy-python2-0.17.0[${PYTHON_USEDEP}]' python2_7)
+	$(python_gen_cond_dep '>=sci-libs/scipy-0.17.0[${PYTHON_USEDEP}]' python3_{6,7})
 	virtual/blas:=
 	virtual/cblas:=
 	virtual/python-funcsigs[${PYTHON_USEDEP}]

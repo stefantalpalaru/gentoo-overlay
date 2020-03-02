@@ -2,7 +2,7 @@
 # Distributed under the terms of the GNU General Public License v2
 
 EAPI=6
-PYTHON_COMPAT=( python{2_7,3_6} )
+PYTHON_COMPAT=( python2_7 )
 
 inherit distutils-r1 xdg-utils virtualx
 
@@ -24,7 +24,7 @@ DEPEND="${RDEPEND}
 	dev-python/setuptools[${PYTHON_USEDEP}]
 	doc? ( dev-python/sphinx[${PYTHON_USEDEP}] )
 	test? (
-	   dev-python/matplotlib[${PYTHON_USEDEP}]
+	   dev-python/matplotlib-python2[${PYTHON_USEDEP}]
 	   dev-python/mock[${PYTHON_USEDEP}]
 	   dev-python/pytest[${PYTHON_USEDEP}]
 	)

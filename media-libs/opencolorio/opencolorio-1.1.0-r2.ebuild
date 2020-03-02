@@ -29,13 +29,15 @@ RDEPEND="
 		media-libs/freeglut
 		virtual/opengl
 	)
-	python? ( ${PYTHON_DEPS} )
 	>=dev-cpp/yaml-cpp-0.5
 	dev-libs/tinyxml"
 
 DEPEND="${RDEPEND}
 	virtual/pkgconfig
-	doc? ( dev-python/sphinx[${PYTHON_USEDEP}] )"
+	$(python_gen_cond_dep '
+	doc? ( dev-python/sphinx[${PYTHON_MULTI_USEDEP}] )
+	')
+"
 
 # Restricting tests, bugs #439790 and #447908
 RESTRICT="test"

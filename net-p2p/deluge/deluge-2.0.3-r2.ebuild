@@ -29,29 +29,37 @@ REQUIRED_USE="
 	libnotify? ( gtk )
 "
 
-DEPEND="net-libs/libtorrent-rasterbar[python,${PYTHON_USEDEP}]
-	dev-python/setuptools[${PYTHON_USEDEP}]
+DEPEND="
+	$(python_gen_cond_dep '
+	net-libs/libtorrent-rasterbar[python,${PYTHON_MULTI_USEDEP}]
+	dev-python/setuptools[${PYTHON_MULTI_USEDEP}]
 	dev-util/intltool
-	dev-python/wheel[${PYTHON_USEDEP}]"
-RDEPEND="net-libs/libtorrent-rasterbar[python,${PYTHON_USEDEP}]
-	dev-python/chardet[${PYTHON_USEDEP}]
-	dev-python/distro[${PYTHON_USEDEP}]
-	dev-python/pillow[${PYTHON_USEDEP}]
-	dev-python/pyopenssl[${PYTHON_USEDEP}]
-	dev-python/pyxdg[${PYTHON_USEDEP}]
-	dev-python/setproctitle[${PYTHON_USEDEP}]
-	dev-python/six[${PYTHON_USEDEP}]
-	dev-python/rencode[${PYTHON_USEDEP}]
-	>=dev-python/twisted-17.1.0[crypt,${PYTHON_USEDEP}]
-	>=dev-python/zope-interface-4.4.2[${PYTHON_USEDEP}]
-	geoip? ( dev-python/geoip-python[${PYTHON_USEDEP}] )
+	dev-python/wheel[${PYTHON_MULTI_USEDEP}]
+	')
+"
+RDEPEND="
+	$(python_gen_cond_dep '
+	net-libs/libtorrent-rasterbar[python,${PYTHON_MULTI_USEDEP}]
+	dev-python/chardet[${PYTHON_MULTI_USEDEP}]
+	dev-python/distro[${PYTHON_MULTI_USEDEP}]
+	dev-python/pillow[${PYTHON_MULTI_USEDEP}]
+	dev-python/pyopenssl[${PYTHON_MULTI_USEDEP}]
+	dev-python/pyxdg[${PYTHON_MULTI_USEDEP}]
+	dev-python/setproctitle[${PYTHON_MULTI_USEDEP}]
+	dev-python/six[${PYTHON_MULTI_USEDEP}]
+	dev-python/rencode[${PYTHON_MULTI_USEDEP}]
+	>=dev-python/twisted-17.1.0[crypt,${PYTHON_MULTI_USEDEP}]
+	>=dev-python/zope-interface-4.4.2[${PYTHON_MULTI_USEDEP}]
+	geoip? ( dev-python/geoip-python[${PYTHON_MULTI_USEDEP}] )
 	gtk? (
-		sound? ( dev-python/pygame[${PYTHON_USEDEP}] )
-		dev-python/pygobject:3[${PYTHON_USEDEP}]
+		sound? ( dev-python/pygame[${PYTHON_MULTI_USEDEP}] )
+		dev-python/pygobject:3[${PYTHON_MULTI_USEDEP}]
 		gnome-base/librsvg
 		libnotify? ( x11-libs/libnotify )
 	)
-	webinterface? ( dev-python/mako[${PYTHON_USEDEP}] )"
+	webinterface? ( dev-python/mako[${PYTHON_MULTI_USEDEP}] )
+	')
+"
 
 PATCHES=(
 	"${FILESDIR}"/deluge-2.0.3-setup.py.patch

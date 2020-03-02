@@ -1,0 +1,28 @@
+#!/sbin/openrc-run
+# Copyright 1999-2019 Gentoo Foundation
+# Distributed under the terms of the GNU General Public License v2
+
+command="/usr/bin/twistd"
+command_args="wormhole-mailbox --usage-db=usage.sqlite"
+make_pidfile=/var/run/magic-wormhole-mailbox-server.pid
+name="Magic Wormhole Mailbox Server"
+
+description="Rendezvous / mailbox erver for Magic Wormhole"
+
+depend() {
+        need net
+}
+
+start() {
+        ebegin "Starting Magic Wormhole Mailbox Server"
+        start-stop-daemon --start --quiet --pidfile \
+        /var/run/magic-wormhole-mailbox-server.pid --exec /usr/bin/twistd -- \
+	--pidfile=/var/run/magic-wormhole-mailbox-server.pid wormhole-mailbox \
+	--usage-db=usage.sqlite
+        eend $? "Failed to start Magic Wormhole Mailbox Server"
+}
+
+stop() {
+        start-stop-daemon --stop --quiet --pidfile \
+        /var/run/magic-wormhole-mailbox-server.pid
+}
