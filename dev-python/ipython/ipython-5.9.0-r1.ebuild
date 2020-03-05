@@ -24,6 +24,7 @@ CDEPEND="
 	dev-python/pexpect[${PYTHON_USEDEP}]
 	dev-python/pickleshare[${PYTHON_USEDEP}]
 	>=dev-python/prompt_toolkit-1.0.4[${PYTHON_USEDEP}]
+	<dev-python/prompt_toolkit-2.0.0[${PYTHON_USEDEP}]
 	dev-python/pyparsing[${PYTHON_USEDEP}]
 	dev-python/simplegeneric[${PYTHON_USEDEP}]
 	>=dev-python/traitlets-4.2.1[${PYTHON_USEDEP}]
