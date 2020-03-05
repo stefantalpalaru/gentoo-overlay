@@ -1,10 +1,10 @@
-# Copyright 1999-2018 Gentoo Foundation
+# Copyright 1999-2020 Gentoo Authors
 # Distributed under the terms of the GNU General Public License v2
 
 EAPI=6
 
 PHP_EXT_NAME="redis"
-USE_PHP="php5-6 php7-0 php7-1 php7-2 php7-3"
+USE_PHP="php7-2 php7-3"
 DOCS=( arrays.markdown cluster.markdown README.markdown CREDITS )
 MY_P="${PN/pecl-/}-${PV/_rc/RC}"
 PHP_EXT_PECL_FILENAME="${MY_P}.tgz -> ${P}.tgz"
@@ -19,9 +19,6 @@ KEYWORDS="~amd64 ~arm ~x86"
 IUSE="igbinary +session"
 
 DEPEND="
-	php_targets_php5-6? ( dev-lang/php:5.6[session?] igbinary? ( dev-php/igbinary[php_targets_php5-6] ) )
-	php_targets_php7-0? ( dev-lang/php:7.0[session?] igbinary? ( dev-php/igbinary[php_targets_php7-0] ) )
-	php_targets_php7-1? ( dev-lang/php:7.1[session?] igbinary? ( dev-php/igbinary[php_targets_php7-1] ) )
 	php_targets_php7-2? ( dev-lang/php:7.2[session?] igbinary? ( dev-php/igbinary[php_targets_php7-2] ) )
 	php_targets_php7-3? ( dev-lang/php:7.3[session?] igbinary? ( dev-php/igbinary[php_targets_php7-3] ) )
 "
