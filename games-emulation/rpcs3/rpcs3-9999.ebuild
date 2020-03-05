@@ -1,4 +1,4 @@
-# Copyright 1999-2017 Gentoo Foundation
+# Copyright 1999-2020 Gentoo Authors
 # Distributed under the terms of the GNU General Public License v2
 
 EAPI=6
@@ -22,7 +22,7 @@ RDEPEND="
 	alsa? ( media-libs/alsa-lib )
 	gdb? ( sys-devel/gdb )
 	joystick? ( dev-libs/libevdev )
-	llvm? ( sys-devel/llvm:4 )
+	llvm? ( sys-devel/llvm:9 )
 	media-libs/glew:0
 	media-libs/libpng:*
 	media-libs/openal

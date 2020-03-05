@@ -1,4 +1,4 @@
-# Copyright 1999-2017 Gentoo Foundation
+# Copyright 1999-2020 Gentoo Authors
 # Distributed under the terms of the GNU General Public License v2
 
 EAPI=5
@@ -24,9 +24,11 @@ DEPEND="${PYTHON_DEPS}
 	x11-libs/libXrandr"
 
 RDEPEND="${DEPEND}
-	dev-python/pygobject:2[${PYTHON_USEDEP}]
-	dev-python/pygtk:2[${PYTHON_USEDEP}]
-	dev-python/py-notify[${PYTHON_USEDEP}]
+	$(python_gen_cond_dep '
+	dev-python/pygobject:2[${PYTHON_MULTI_USEDEP}]
+	dev-python/pygtk:2[${PYTHON_MULTI_USEDEP}]
+	dev-python/py-notify[${PYTHON_MULTI_USEDEP}]
+	')
 	x11-apps/xinput"
 
 # there are no tests in package, default 'make check' does wrong things, bug #453672

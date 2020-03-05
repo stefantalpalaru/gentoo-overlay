@@ -1,8 +1,8 @@
-# Copyright 1999-2018 Gentoo Foundation
+# Copyright 1999-2020 Gentoo Authors
 # Distributed under the terms of the GNU General Public License v2
 
 EAPI=6
-PYTHON_COMPAT=(python2_7)
+PYTHON_COMPAT=( python2_7 )
 
 inherit eutils git-r3 linux-info python-single-r1 toolchain-funcs
 
@@ -20,7 +20,9 @@ RDEPEND="python? ( ${PYTHON_DEPS} )
 	udis86? ( dev-libs/udis86 )
 	gtk? (
 		${PYTHON_DEPS}
-		dev-python/pygtk:2[${PYTHON_USEDEP}]
+		$(python_gen_cond_dep '
+		dev-python/pygtk:2[${PYTHON_MULTI_USEDEP}]
+		')
 	)"
 DEPEND="${RDEPEND}
 	sys-kernel/linux-headers

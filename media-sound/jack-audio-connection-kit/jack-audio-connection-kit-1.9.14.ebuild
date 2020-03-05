@@ -42,7 +42,9 @@ DEPEND="${CDEPEND}
 	virtual/pkgconfig
 	doc? ( app-doc/doxygen )"
 RDEPEND="${CDEPEND}
-	dbus? ( dev-python/dbus-python[${PYTHON_USEDEP}] )
+	$(python_gen_cond_dep '
+	dbus? ( dev-python/dbus-python[${PYTHON_MULTI_USEDEP}] )
+	')
 	pam? ( sys-auth/realtime-base )
 	!media-sound/jack-audio-connection-kit:0"
 

@@ -1,9 +1,10 @@
-# Copyright 1999-2017 Gentoo Foundation
+# Copyright 1999-2020 Gentoo Authors
 # Distributed under the terms of the GNU General Public License v2
 
 EAPI=6
 
 PYTHON_COMPAT=( python2_7 )
+DISTUTILS_SINGLE_IMPL=1
 
 inherit gnome2-utils distutils-r1 vcs-snapshot
 
@@ -16,23 +17,34 @@ SLOT="0"
 KEYWORDS="~amd64 ~x86"
 IUSE="caja cli diff gedit git nautilus spell thunar"
 
-RDEPEND="dev-python/configobj[${PYTHON_USEDEP}]
-	dev-python/pygobject:2[${PYTHON_USEDEP}]
-	dev-python/pygtk[${PYTHON_USEDEP}]
-	dev-python/pysvn[${PYTHON_USEDEP}]
-	dev-python/simplejson[${PYTHON_USEDEP}]
-	caja? ( dev-python/python-caja[${PYTHON_USEDEP}]
-		dev-python/dbus-python[${PYTHON_USEDEP}]
-		dev-python/gnome-vfs-python[${PYTHON_USEDEP}] )
+RDEPEND="
+	$(python_gen_cond_dep '
+	dev-python/configobj[${PYTHON_MULTI_USEDEP}]
+	dev-python/pygobject:2[${PYTHON_MULTI_USEDEP}]
+	dev-python/pygtk[${PYTHON_MULTI_USEDEP}]
+	dev-python/pysvn[${PYTHON_MULTI_USEDEP}]
+	dev-python/simplejson[${PYTHON_MULTI_USEDEP}]
+	caja? ( dev-python/python-caja[${PYTHON_MULTI_USEDEP}]
+		dev-python/dbus-python[${PYTHON_MULTI_USEDEP}]
+		dev-python/gnome-vfs-python[${PYTHON_MULTI_USEDEP}] )
 	diff? ( dev-util/meld )
-	gedit? ( app-editors/gedit[${PYTHON_USEDEP}] )
-	git? ( dev-python/dulwich[${PYTHON_USEDEP}] )
-	nautilus? ( >=dev-python/nautilus-python-0.7.0[${PYTHON_USEDEP}]
-		dev-python/dbus-python[${PYTHON_USEDEP}]
-		dev-python/gnome-vfs-python[${PYTHON_USEDEP}] )
-	spell? ( dev-python/gtkspell-python[${PYTHON_USEDEP}] )
-	thunar? ( dev-python/thunarx-python[${PYTHON_USEDEP}]
-		dev-python/dbus-python[${PYTHON_USEDEP}] )"
+	')
+	gedit? ( app-editors/gedit[${PYTHON_SINGLE_USEDEP}] )
+	$(python_gen_cond_dep '
+	git? ( dev-python/dulwich[${PYTHON_MULTI_USEDEP}] )
+	')
+	nautilus? ( >=dev-python/nautilus-python-0.7.0[${PYTHON_SINGLE_USEDEP}]
+		$(python_gen_cond_dep '
+		dev-python/dbus-python[${PYTHON_MULTI_USEDEP}]
+		dev-python/gnome-vfs-python[${PYTHON_MULTI_USEDEP}]
+		')
+	)
+	$(python_gen_cond_dep '
+	spell? ( dev-python/gtkspell-python[${PYTHON_MULTI_USEDEP}] )
+	thunar? ( dev-python/thunarx-python[${PYTHON_MULTI_USEDEP}]
+		dev-python/dbus-python[${PYTHON_MULTI_USEDEP}] )
+	')
+"
 
 python_prepare_all() {
 #	python_convert_shebangs -r 2 .
