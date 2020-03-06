@@ -1,0 +1,34 @@
+--- farstream-0.2.8/gst/fsrtpconference/Makefile.in	2016-03-10 20:34:51.000000000 +0300
++++ farstream-0.2.8/gst/fsrtpconference/Makefile.in	2020-02-28 06:03:34.753329872 +0300
+@@ -565,11 +565,13 @@
+ 
+ @ENABLE_GTK_DOC_TRUE@libfsrtpconference_doc_la_LIBADD = $(libfsrtpconference_la_LIBADD)
+ 
++H := \#
++
+ # Build the build sources
+ glib_enum_define = FS_RTP
+ glib_gen_prefix = _fs_rtp
+ glib_gen_basename = fs-rtp
+-enum_headers = $(foreach h,$(glib_enum_headers),\n\#include \"$(h)\")
++enum_headers = $(foreach h,$(glib_enum_headers),\n$(H)include \"$(h)\")
+ all: all-am
+ 
+ .SUFFIXES:
+--- farstream-0.2.8/farstream/Makefile.in	2016-03-10 20:34:51.000000000 +0300
++++ farstream-0.2.8/farstream/Makefile.in	2020-02-28 06:20:16.269995112 +0300
+@@ -545,11 +545,13 @@
+ 		fs-conference.h \
+ 		fs-utils.h
+ 
++H := \#
++
+ glib_enum_headers = $(public_headers)
+ glib_enum_define = FS
+ glib_gen_prefix = _fs
+ glib_gen_basename = fs
+-enum_headers = $(foreach h,$(glib_enum_headers),\n\#include \"$(h)\")
++enum_headers = $(foreach h,$(glib_enum_headers),\n$(H)include \"$(h)\")
+ @HAVE_INTROSPECTION_TRUE@introspection_sources = \
+ @HAVE_INTROSPECTION_TRUE@	$(libfarstream_@FS_APIVERSION@_la_SOURCES) \
+ @HAVE_INTROSPECTION_TRUE@	$(nodist_libfarstreaminclude_HEADERS) \
