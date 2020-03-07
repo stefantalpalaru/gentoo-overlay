@@ -9,7 +9,7 @@ inherit cmake-utils gnome2-utils python-single-r1 xdg-utils
 
 DESCRIPTION="A personal finance manager"
 HOMEPAGE="http://www.gnucash.org/"
-SRC_URI="https://github.com/Gnucash/${PN}/releases/download/${PV}/${P}.tar.bz2"
+SRC_URI="https://downloads.sourceforge.net/sourceforge/gnucash/${P}.tar.bz2"
 
 SLOT="0"
 LICENSE="GPL-2"
@@ -85,6 +85,8 @@ PATCHES=(
 	"${FILESDIR}"/${PN}-3.7-include-checksymbolexists.patch
 )
 
+S="${WORKDIR}/${P%[a-z]}"
+
 pkg_setup() {
 	use python && python-single-r1_pkg_setup
 	xdg_environment_reset
@@ -93,13 +95,11 @@ pkg_setup() {
 src_unpack() {
 	default
 	cp "${FILESDIR}"/gnucash-3.4-test-stress-options.scm \
-	   ${PN}-${PV}/${PN}/report/standard-reports/test/test-stress-options.scm \
+	   "${S}"/${PN}/report/standard-reports/test/test-stress-options.scm \
 		|| die "Failed copying scm"
 }
 
 src_prepare() {
-	default
-
 	# Fix tests writing to /tmp
 	FIXTESTFILES=(
 		"${S}"/gnucash/report/report-system/test/test-commodity-utils.scm
@@ -112,6 +112,8 @@ src_prepare() {
 	for x in "${FIXTESTFILES[@]}"; do
 		sed -i -e "s|\"/tmp/|\"${T}/|g" "${x}" || die "sed of "${x}" failed"
 	done
+
+	cmake-utils_src_prepare
 }
 
 src_configure() {
@@ -185,6 +187,7 @@ src_install() {
 
 	use aqbanking && dodoc doc/README.HBCI
 	use ofx && dodoc doc/README.OFX
+	use python && python_optimize
 }
 
 pkg_postinst() {
