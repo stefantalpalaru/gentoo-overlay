@@ -1,7 +1,7 @@
-# Copyright 1999-2018 Gentoo Foundation
+# Copyright 1999-2020 Gentoo Authors
 # Distributed under the terms of the GNU General Public License v2
 
-EAPI=4
+EAPI=6
 
 inherit flag-o-matic
 
@@ -21,6 +21,10 @@ DEPEND="${RDEPEND}
 	test? ( dev-lang/perl )"
 
 DOCS="AUTHORS ChangeLog-2012 NEWS README THANKS TODO" # ChangeLog-1998 PACKAGING README-alpha README-release
+
+PATCHES=(
+	"${FILESDIR}"/bison-2.7.1-glibc.patch
+)
 
 src_configure() {
 	use static && append-ldflags -static
