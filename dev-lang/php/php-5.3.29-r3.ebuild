@@ -288,8 +288,7 @@ src_prepare() {
 	epatch "${FILESDIR}"/bison_any_version.patch
 	rm Zend/zend_{language,ini}_parser.[ch]
 
-	# Fix for freetype-2.5.1 bug #494272
-	epatch "${FILESDIR}"/freetype-2.5.1-linking-fix.patch
+	epatch "${FILESDIR}"/freetype.patch
 
 	# Patch PHP to show Gentoo as the server platform
 	sed -e 's/PHP_UNAME=`uname -a | xargs`/PHP_UNAME=`uname -s -n -r -v | xargs`/g' \
@@ -300,7 +299,7 @@ src_prepare() {
 	sed -i \
 		-e "s,-i -a -n php${PHP_MV},-i -n php${PHP_MV},g" \
 		-e "s,-i -A -n php${PHP_MV},-i -n php${PHP_MV},g" \
-		configure sapi/apache2filter/config.m4 sapi/apache2handler/config.m4
+		sapi/apache2filter/config.m4 sapi/apache2handler/config.m4
 
 	# Patch PHP to support heimdal instead of mit-krb5
 	if has_version "app-crypt/heimdal" ; then
@@ -315,6 +314,9 @@ src_prepare() {
 	# mariadb puts my_global.h in /usr/include/mysql/server
 	epatch "${FILESDIR}"/mysql-include.patch
 
+	# support >=oniguruma-6.8.1
+	epatch "${FILESDIR}"/oniguruma.patch
+
 	#force rebuilding aclocal.m4
 	rm aclocal.m4
 
@@ -324,6 +326,7 @@ src_prepare() {
 			-e 's:^((m4_)?divert)[(]([0-9]*)[)]:\1(600\3):' \
 			$(grep -l divert $(find . -name '*.m4') configure.in) || die
 	fi
+	mv configure.in configure.ac
 	eautoreconf --force -W no-cross
 }
 
