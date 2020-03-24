@@ -9,18 +9,19 @@ inherit cmake-utils gnome2-utils python-single-r1 xdg-utils
 
 DESCRIPTION="A personal finance manager"
 HOMEPAGE="http://www.gnucash.org/"
-SRC_URI="https://downloads.sourceforge.net/sourceforge/gnucash/${P}.tar.bz2"
+SRC_URI="https://github.com/Gnucash/${PN}/releases/download/${PV}/${P}.tar.bz2"
 
 SLOT="0"
 LICENSE="GPL-2"
 KEYWORDS="~amd64 ~ppc ~ppc64 ~x86"
 
-IUSE="aqbanking chipcard debug doc examples gnome-keyring +gui mysql nls ofx
-	  postgres python quotes -register2 sqlite test"
+IUSE="aqbanking debug doc examples gnome-keyring +gui mysql nls ofx postgres
+	  python quotes -register2 smartcard sqlite test"
 
+RESTRICT="!test? ( test )"
 REQUIRED_USE="
-	chipcard? ( aqbanking )
-	python? ( ${PYTHON_REQUIRED_USE} )"
+	python? ( ${PYTHON_REQUIRED_USE} )
+	smartcard? ( aqbanking )"
 
 # libdbi version requirement for sqlite taken from bug #455134
 #
@@ -37,7 +38,7 @@ RDEPEND="
 	aqbanking? (
 		>=net-libs/aqbanking-5[gtk,ofx?]
 		sys-libs/gwenhywfar[gtk]
-		chipcard? ( sys-libs/libchipcard )
+		smartcard? ( sys-libs/libchipcard )
 	)
 	gnome-keyring? ( >=app-crypt/libsecret-0.18 )
 	gui? (
@@ -68,9 +69,9 @@ RDEPEND="
 
 DEPEND="${RDEPEND}
 	>=dev-cpp/gtest-1.8.0
+	>=sys-devel/gettext-0.19.6
 	dev-lang/perl
 	dev-perl/XML-Parser
-	>=sys-devel/gettext-0.19.6
 	sys-devel/libtool
 	virtual/pkgconfig
 "
@@ -101,7 +102,7 @@ src_unpack() {
 
 src_prepare() {
 	# Fix tests writing to /tmp
-	FIXTESTFILES=(
+	local fixtestfiles=(
 		"${S}"/gnucash/report/report-system/test/test-commodity-utils.scm
 		"${S}"/gnucash/report/report-system/test/test-extras.scm
 		"${S}"/gnucash/report/report-system/test/test-report-html.scm
@@ -109,7 +110,7 @@ src_prepare() {
 		"${S}"/libgnucash/backend/xml/test/test-xml-pricedb.cpp
 		"${S}"/libgnucash/backend/dbi/test/test-backend-dbi-basic.cpp
 	)
-	for x in "${FIXTESTFILES[@]}"; do
+	for x in "${fixtestfiles[@]}"; do
 		sed -i -e "s|\"/tmp/|\"${T}/|g" "${x}" || die "sed of "${x}" failed"
 	done
 
