@@ -1,4 +1,4 @@
-# Copyright 1999-2019 Gentoo Authors
+# Copyright 1999-2020 Gentoo Authors
 # Distributed under the terms of the GNU General Public License v2
 
 EAPI=7
@@ -33,8 +33,7 @@ nim_use_enable() {
 
 src_compile() {
 	sed -i \
-		-e "s/^COMP_FLAGS =.*$/COMP_FLAGS = ${CFLAGS} -fno-strict-aliasing/" \
-		-e "s/^LINK_FLAGS =.*$/LINK_FLAGS = ${LDFLAGS}/" \
+		-e "s/-w -O3 //" \
 		makefile
 	emake CC=gcc LD=gcc
 	sed -i \
@@ -47,13 +46,13 @@ src_compile() {
 # Gentoo additions
 path="\$lib/packages"
 EOF
-	./bin/nim c -d:release --verbosity:2 --parallelBuild:$(makeopts_jobs) koch || die "csources nim failed"
-	./koch boot -d:release --verbosity:2 --parallelBuild:$(makeopts_jobs) $(nim_use_enable readline useGnuReadline) || die "koch boot failed"
+	./bin/nim c -d:release --listCmd --parallelBuild:$(makeopts_jobs) koch || die "csources nim failed"
+	./koch boot -d:release --listCmd --parallelBuild:$(makeopts_jobs) $(nim_use_enable readline useGnuReadline) || die "koch boot failed"
 	#echo -e "\npath:\"\$projectPath/../..\"" >> compiler/nimfix/nimfix.nim.cfg
 	#PATH="./bin:${PATH}" nim c -d:release compiler/nimfix/nimfix.nim || die "nimfix.nim compilation failed"
-	PATH="./bin:${PATH}" nim c --noNimblePath -p:compiler -d:release --verbosity:2 --parallelBuild:$(makeopts_jobs) -o:bin/nimsuggest nimsuggest/nimsuggest.nim || die "nimsuggest compilation failed"
-	PATH="./bin:${PATH}" nim c -d:release --verbosity:2 --parallelBuild:$(makeopts_jobs) -o:bin/nimgrep tools/nimgrep.nim || die "nimgrep compilation failed"
-	PATH="./bin:${PATH}" nim c -d:release --verbosity:2 --parallelBuild:$(makeopts_jobs) -o:bin/nimpretty nimpretty/nimpretty.nim || die "nimpretty compilation failed"
+	PATH="./bin:${PATH}" nim c --noNimblePath -p:compiler -d:release --listCmd --parallelBuild:$(makeopts_jobs) -o:bin/nimsuggest nimsuggest/nimsuggest.nim || die "nimsuggest compilation failed"
+	PATH="./bin:${PATH}" nim c -d:release --listCmd --parallelBuild:$(makeopts_jobs) -o:bin/nimgrep tools/nimgrep.nim || die "nimgrep compilation failed"
+	PATH="./bin:${PATH}" nim c -d:release --listCmd --parallelBuild:$(makeopts_jobs) -o:bin/nimpretty nimpretty/nimpretty.nim || die "nimpretty compilation failed"
 
 	if use doc; then
 		PATH="./bin:${PATH}" ./koch docs || die "koch docs failed"
