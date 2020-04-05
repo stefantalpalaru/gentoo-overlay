@@ -55,9 +55,5 @@ python_prepare(){
 	# we made sure pyOpenSSL, service_identity and idna are built anyway.
 	sed -i -e '/twisted\[tls\]/d' setup.py || die "Sed failed!"
 
-	# Replaced Warner's personal relays with my own. Same deal - if it gets out of
-	# hand, I'll shut it down.
-	sed -i -e 's|ws://relay.magic-wormhole.io:4000/v1|ws://maelstrom.ninja:4000/v1|' src/wormhole/cli/public_relay.py || die "Sed failed!"
-	sed -i -e 's|tcp:transit.magic-wormhole.io:4001|tcp:maelstrom.ninja:4001|' src/wormhole/cli/public_relay.py || die "Sed failed!"
 	eapply_user
 }
