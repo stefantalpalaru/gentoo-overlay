@@ -65,6 +65,7 @@ src_configure() {
 	econf \
 		--localstatedir=/var \
 		--without-rgmanager \
+		--with-prebuiltman \
 		$(use_with udev) \
 		$(use_with xen) \
 		$(use_with pacemaker) \
