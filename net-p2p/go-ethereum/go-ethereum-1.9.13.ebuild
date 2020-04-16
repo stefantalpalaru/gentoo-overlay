@@ -15,7 +15,7 @@ KEYWORDS="~amd64 ~x86"
 IUSE="devtools"
 
 DEPEND="
-	dev-lang/go:=
+	>=dev-lang/go-1.13:=
 "
 RDEPEND="${DEPEND}"
 
