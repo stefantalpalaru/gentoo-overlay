@@ -12,7 +12,7 @@ SRC_URI="https://github.com/naftaliharris/tauthon/archive/v${PV}.tar.gz -> ${P}.
 
 LICENSE="PSF-2"
 SLOT="2.8"
-KEYWORDS="alpha amd64 arm ~arm64 hppa ia64 ~m68k ~mips ppc ppc64 ~s390 ~sh sparc x86"
+KEYWORDS="alpha amd64 arm ~arm64 hppa ia64 ~m68k ~mips ppc ppc64 ~s390 sparc x86"
 IUSE="-berkdb bluetooth build doc elibc_uclibc examples gdbm hardened ipv6 libressl +lto +ncurses +pgo +readline sqlite +ssl +threads tk +wide-unicode wininst +xml"
 
 # Do not add a dependency on dev-lang/python to this ebuild.
@@ -22,7 +22,7 @@ IUSE="-berkdb bluetooth build doc elibc_uclibc examples gdbm hardened ipv6 libre
 
 RDEPEND="app-arch/bzip2:0=
 	>=sys-libs/zlib-1.1.3:0=
-	virtual/libffi:=
+	dev-libs/libffi:=
 	virtual/libintl
 	berkdb? ( || (
 		sys-libs/db:5.3
