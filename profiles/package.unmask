@@ -1,3 +1,4 @@
+app-admin/conky
 app-misc/hachoir-metadata
 app-misc/hachoir-subfile
 app-misc/hachoir-urwid
@@ -5,6 +6,8 @@ app-misc/yworklog
 app-text/pdfshuffler
 dev-python/PyZilla
 dev-python/RecSQL
+dev-python/amqplib
+dev-python/anyjson
 dev-python/anyvc
 dev-python/arrayterator
 dev-python/asciitree
@@ -17,12 +20,16 @@ dev-python/cement
 dev-python/cfgparse
 dev-python/cherrytemplate
 dev-python/clientcookie
+dev-python/d2to1
 dev-python/dbutils
+dev-python/dexml
 dev-python/dib-utils
 dev-python/dingus
 dev-python/dirq
 dev-python/disqus-python
 dev-python/ed25519ll
+dev-python/egenix-mx-base
+dev-python/fabric
 dev-python/figleaf
 dev-python/flask-dashed
 dev-python/flask-evolution
@@ -31,7 +38,11 @@ dev-python/fpconst
 dev-python/functest
 dev-python/gdata
 dev-python/gdmodule
+dev-python/gnome-python-extras-base
+dev-python/gnome-vfs-python
 dev-python/graphy
+dev-python/gtkspell-python
+dev-python/guessit
 dev-python/guppy
 dev-python/hachoir-core
 dev-python/hachoir-parser
@@ -42,6 +53,8 @@ dev-python/hcs-utils
 dev-python/hp3parclient
 dev-python/htmlgen
 dev-python/inotifyx
+dev-python/invoke
+dev-python/ip-associations-python-novaclient-ext
 dev-python/irman-python
 dev-python/jonpy
 dev-python/keyczar
@@ -57,10 +70,15 @@ dev-python/lupy
 dev-python/m2secret
 dev-python/mocker
 dev-python/mwlib-ext
+dev-python/nevow
 dev-python/newt_syrup
+dev-python/nose-testconfig
 dev-python/numdisplay
 dev-python/optcomplete
+dev-python/os-networksv2-python-novaclient-ext
+dev-python/os-virtual-interfacesv2-python-novaclient-ext
 dev-python/piddle
+dev-python/pkipplib
 dev-python/pp
 dev-python/py-notify
 dev-python/py-smbpasswd
@@ -74,6 +92,7 @@ dev-python/pychart
 dev-python/pychecker
 dev-python/pychef
 dev-python/pyclamav
+dev-python/pycrypto
 dev-python/pycryptopp
 dev-python/pydvdread
 dev-python/pyelemental
@@ -88,7 +107,9 @@ dev-python/pyosd
 dev-python/pyptlib
 dev-python/pyrax
 dev-python/pysctp
+dev-python/pystache
 dev-python/pystatgrab
+dev-python/pytest-mpl
 dev-python/python-biggles
 dev-python/python-caja
 dev-python/python-catcher
@@ -110,6 +131,8 @@ dev-python/pyxenstore
 dev-python/qserve
 dev-python/quixote
 dev-python/rackspace-monitoring-cli
+dev-python/rackspace-novaclient
+dev-python/rebulk
 dev-python/reconfigure
 dev-python/rlcompleter2
 dev-python/ropeide
@@ -122,6 +145,7 @@ dev-python/simples3
 dev-python/simplesettings
 dev-python/slowaes
 dev-python/snakefood
+dev-python/soappy
 dev-python/sphinxcontrib-ditaa
 dev-python/sqlitecachec
 dev-python/stripogram
@@ -147,18 +171,20 @@ dev-python/yolk-portage
 dev-python/zbase32
 dev-python/zfec
 dev-util/Orange
+dev-vcs/bzr
 dev-vcs/hg-fast-export
 dev-vcs/rabbitvcs
+media-video/subliminal
 net-analyzer/namebench
 net-fs/tahoe-lafs
 net-misc/irrtree
 net-misc/pycnb
+net-misc/ssvnc
 net-p2p/pybitmessage
 net-print/pykota
 sci-astronomy/casacore
 sci-mathematics/xmds
 www-apps/blohg-tumblelog
 x11-misc/magick-rotation
-dev-python/egenix-mx-base
-dev-python/pkipplib
+x11-misc/obmenu
 

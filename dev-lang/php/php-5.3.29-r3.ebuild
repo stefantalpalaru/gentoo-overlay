@@ -5,7 +5,7 @@ EAPI=6
 
 inherit apache-module autotools db-use depend.apache eutils flag-o-matic libtool systemd versionator
 
-KEYWORDS="~alpha ~amd64 ~arm ~hppa ~ia64 ~mips ~ppc ~ppc64 ~s390 ~sh ~sparc ~x86"
+KEYWORDS="~alpha ~amd64 ~arm ~hppa ~ia64 ~mips ~ppc ~ppc64 ~s390 ~sparc ~x86"
 
 php_get_uri () {
 	case "${1}" in

@@ -5,7 +5,4 @@
 		<email>stefantalpalaru@yahoo.com</email>
 		<name>Ștefan Talpalaru</name>
 	</maintainer>
-	<use>
-		<flag name="convolution">enable experimental built-in convolution reverb used for leslie cabinet simulation</flag>
-	</use>
 </pkgmetadata>
