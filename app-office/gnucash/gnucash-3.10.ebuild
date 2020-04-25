@@ -71,6 +71,7 @@ DEPEND="${RDEPEND}
 	>=dev-cpp/gtest-1.8.0
 	>=sys-devel/gettext-0.19.6
 	dev-lang/perl
+	dev-lang/swig
 	dev-perl/XML-Parser
 	sys-devel/libtool
 	virtual/pkgconfig
@@ -114,6 +115,8 @@ src_prepare() {
 		sed -i -e "s|\"/tmp/|\"${T}/|g" "${x}" || die "sed of "${x}" failed"
 	done
 
+	sed -i -e 's/-Werror //' CMakeLists.txt
+
 	cmake-utils_src_prepare
 }
 
@@ -127,6 +130,7 @@ src_configure() {
 
 	local mycmakeargs=(
 		-DCOMPILE_GSCHEMAS=OFF
+		-DGENERATE_SWIG_WRAPPERS=ON
 		-DDISABLE_NLS=$(usex !nls)
 		-DENABLE_REGISTER2=$(usex register2)
 		-DWITH_AQBANKING=$(usex aqbanking)
