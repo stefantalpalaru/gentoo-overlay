@@ -11,15 +11,14 @@ QA_PREBUILT="*"
 DESCRIPTION="Project collaboration and tracking software for upwork.com"
 HOMEPAGE="https://www.upwork.com/"
 SRC_URI="
-	amd64? ( https://updates-desktopapp.upwork.com/binaries/v5_3_3_860_wub7hae1mtgzk09u/upwork-5.3.3.860-1fc24.x86_64.rpm -> ${P}_x86_64.rpm )
-	x86? ( https://updates-desktopapp.upwork.com/binaries/v5_3_3_860_wub7hae1mtgzk09u/upwork-5.3.3.860-1fc24.i386.rpm -> ${P}_i386.rpm )
+	amd64? ( https://updates-desktopapp.upwork.com/binaries/v5_3_3_883_1f817bc1fefd44e7/upwork-5.3.3.883-1fc24.x86_64.rpm -> ${P}_x86_64.rpm )
+	x86? ( https://updates-desktopapp.upwork.com/binaries/v5_3_3_883_1f817bc1fefd44e7/upwork-5.3.3.883-1fc24.i386.rpm -> ${P}_i386.rpm )
 "
 LICENSE="ODESK"
 SLOT="0"
 KEYWORDS="~amd64 ~x86"
 
 S=${WORKDIR}
-PATCHES=( "${FILESDIR}/${PN}-desktop-r1.patch" )
 
 DEPEND=""
 RDEPEND="
@@ -36,15 +35,25 @@ RDEPEND="
 	x11-libs/gtk+:3[cups]
 "
 
+src_prepare() {
+	default
+
+	# Generate an executable
+	mkdir -p usr/bin
+	cat <<-EOF > usr/bin/upwork || die
+	#!/bin/sh
+	"${EPREFIX}/opt/Upwork/upwork" \$@
+	EOF
+}
+
 src_install() {
 	pax-mark m usr/share/upwork/upwork
 
 	dobin usr/bin/upwork
-
-	insinto /usr/share
-	doins -r usr/share/upwork
-	fperms 0755 /usr/share/upwork/{cmon,upwork}
-
+	insinto /usr
+	doins -r usr/share
+	insinto /opt
+	doins -r opt/Upwork
+	fperms 0755 /opt/Upwork/{app.node,cmon,upwork}
 	domenu usr/share/applications/upwork.desktop
-	doicon usr/share/pixmaps/upwork.png
 }
