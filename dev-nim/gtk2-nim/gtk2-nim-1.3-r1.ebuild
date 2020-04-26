@@ -1,9 +1,7 @@
-# Copyright 1999-2017 Gentoo Foundation
+# Copyright 1999-2020 Gentoo Authors
 # Distributed under the terms of the GNU General Public License v2
 
 EAPI=6
-
-inherit git-r3
 
 DESCRIPTION="Nim bindings for GTK+ 2"
 HOMEPAGE="https://github.com/nim-lang/gtk2"
@@ -20,6 +18,7 @@ DEPEND="
 	x11-libs/gtk+:2
 "
 RDEPEND=""
+S="${WORKDIR}/gtk2-${PV}"
 
 src_install() {
 	dodir /usr/share/nim/lib/packages/gtk2
