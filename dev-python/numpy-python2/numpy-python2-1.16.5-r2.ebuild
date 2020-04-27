@@ -50,6 +50,7 @@ S="${WORKDIR}/${MY_PN}-${PV}"
 
 PATCHES=(
 	"${FILESDIR}"/${MY_PN}-1.15.4-no-hardcode-blas.patch
+	"${FILESDIR}"/numpy-1.16.5-build_clib.patch
 )
 
 src_unpack() {

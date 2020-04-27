@@ -1,0 +1,11 @@
+diff -ur numpy-1.16.5.orig/numpy/distutils/command/install_clib.py numpy-1.16.5/numpy/distutils/command/install_clib.py
+--- numpy-1.16.5.orig/numpy/distutils/command/install_clib.py	2019-08-27 15:01:36.000000000 +0200
++++ numpy-1.16.5/numpy/distutils/command/install_clib.py	2020-04-27 02:05:31.577680238 +0200
+@@ -19,6 +19,7 @@
+ 
+     def run (self):
+         build_clib_cmd = get_cmd("build_clib")
++        build_clib_cmd.ensure_finalized()
+         build_dir = build_clib_cmd.build_clib
+ 
+         # We need the compiler to get the library name -> filename association
