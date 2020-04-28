@@ -87,8 +87,13 @@ RDEPEND="
 "
 QA_PREBUILT="opt/* usr/lib*"
 S=${WORKDIR}/
-NV_KV_MAX_PLUS="5.5"
+NV_KV_MAX_PLUS="5.7"
 CONFIG_CHECK="!DEBUG_MUTEXES ~!LOCKDEP ~MTRR ~SYSVIPC ~ZONE_DMA"
+
+PATCHES=(
+	"${FILESDIR}"/nvidia-drivers-390.132-kernel-5.5.patch
+	"${FILESDIR}"/nvidia-drivers-390.132-kernel-5.6.patch
+)
 
 pkg_pretend() {
 	use x86 && CONFIG_CHECK+=" ~HIGHMEM"
