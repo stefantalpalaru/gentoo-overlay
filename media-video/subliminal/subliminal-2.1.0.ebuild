@@ -6,17 +6,19 @@ EAPI=7
 PYTHON_COMPAT=( python3_6 )
 PYTHON_REQ_USE='xml(+)'
 
-inherit distutils-r1 git-r3
+inherit distutils-r1
 
 DESCRIPTION="Python library to search and download subtitles"
-HOMEPAGE="https://github.com/Diaoul/subliminal https://pypi.org/project/subliminal/"
-EGIT_REPO_URI="https://github.com/Diaoul/${PN}.git"
-EGIT_BRANCH="develop"
-SRC_URI="test? ( mirror://sourceforge/matroska/test_files/matroska_test_w1_1.zip )"
+HOMEPAGE="https://github.com/Diaoul/subliminal
+	https://pypi.org/project/subliminal/"
+SRC_URI="
+	https://github.com/Diaoul/subliminal/archive/${PV}.tar.gz -> ${P}.tar.gz
+	test? ( mirror://sourceforge/matroska/test_files/matroska_test_w1_1.zip )
+"
 
 LICENSE="MIT"
 SLOT="0"
-KEYWORDS=""
+KEYWORDS="~amd64 ~x86"
 
 RDEPEND="
 	>=dev-python/appdirs-1.3[${PYTHON_USEDEP}]
@@ -24,32 +26,35 @@ RDEPEND="
 	>=dev-python/beautifulsoup-4.4.0:4[${PYTHON_USEDEP}]
 	>=dev-python/chardet-2.3.0[${PYTHON_USEDEP}]
 	>=dev-python/click-4.0[${PYTHON_USEDEP}]
-	dev-python/decorator[${PYTHON_USEDEP}]
 	>=dev-python/dogpile-cache-0.6.0[${PYTHON_USEDEP}]
 	>=dev-python/enzyme-0.4.1[${PYTHON_USEDEP}]
-	>=dev-python/guessit-2.0.1[${PYTHON_USEDEP}]
+	>=dev-python/guessit-3.0.0[${PYTHON_USEDEP}]
 	>=dev-python/pysrt-1.0.1[${PYTHON_USEDEP}]
 	>=dev-python/pytz-2012c[${PYTHON_USEDEP}]
 	>=dev-python/rarfile-2.7[compressed,${PYTHON_USEDEP}]
 	>=dev-python/requests-2.0[${PYTHON_USEDEP}]
 	dev-python/setuptools[${PYTHON_USEDEP}]
 	>=dev-python/six-1.9.0[${PYTHON_USEDEP}]
-	>=dev-python/stevedore-1.0.0[${PYTHON_USEDEP}]
+	dev-python/soupsieve[${PYTHON_USEDEP}]
+	>=dev-python/stevedore-1.20.0[${PYTHON_USEDEP}]
 "
 DEPEND="
+	dev-python/setuptools[${PYTHON_USEDEP}]
 	test? (
 		app-arch/unzip
+		dev-python/pytest[${PYTHON_USEDEP}]
+		dev-python/pytest-cov[${PYTHON_USEDEP}]
+		dev-python/pytest-flakes[${PYTHON_USEDEP}]
+		dev-python/pytest-pep8[${PYTHON_USEDEP}]
 		dev-python/sympy[${PYTHON_USEDEP}]
 		>=dev-python/vcrpy-1.6.1[${PYTHON_USEDEP}]
 	)
 "
 
-distutils_enable_tests pytest
+# Tests don't work in 2.0.5. Recheck in later versions. See Gentoo bug 630114.
+RESTRICT=test
 
-src_unpack() {
-	default_src_unpack
-	git-r3_src_unpack
-}
+distutils_enable_tests pytest
 
 python_prepare_all() {
 	# Disable code checkers as they require unavailable dependencies.
