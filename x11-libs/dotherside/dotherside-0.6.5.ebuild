@@ -1,15 +1,13 @@
-# Copyright 2019 Gentoo Authors
+# Copyright 2019-2020 Gentoo Authors
 # Distributed under the terms of the GNU General Public License v2
 
 EAPI=7
 
 inherit cmake-utils virtualx
 
-my_commit="483c1848e20f056649afa3e155c84a6d0cbcf907"
-
 DESCRIPTION="C language library for creating bindings for the Qt QML language"
 HOMEPAGE="https://github.com/filcuc/DOtherSide"
-SRC_URI="https://github.com/filcuc/DOtherSide/archive/${my_commit}.zip -> ${P}.zip"
+SRC_URI="https://github.com/filcuc/dotherside/archive/v${PV}.tar.gz -> ${P}.tar.gz"
 
 LICENSE="LGPL-3-with-linking-exception"
 SLOT="0"
@@ -32,8 +30,6 @@ BDEPEND="
 REQUIRED_USE="
 	test? ( static-libs )
 "
-
-S="${WORKDIR}/DOtherSide-${my_commit}"
 
 PATCHES=(
 	"${FILESDIR}/dotherside-skip-tests.patch"

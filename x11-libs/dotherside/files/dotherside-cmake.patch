@@ -1,8 +1,54 @@
-diff --git a/.gitignore b/.gitignore
-index e65a753..cb9d9ee 100644
---- a/.gitignore
-+++ b/.gitignore
-@@ -10,3 +10,29 @@ nimcache
+diff -urN dotherside-0.6.5.orig/CMakeLists.txt dotherside-0.6.5/CMakeLists.txt
+--- dotherside-0.6.5.orig/CMakeLists.txt	2019-11-27 09:20:43.000000000 +0100
++++ dotherside-0.6.5/CMakeLists.txt	2020-05-19 21:27:38.281755940 +0200
+@@ -1,5 +1,9 @@
+ cmake_minimum_required(VERSION 3.0)
+ 
++option(ENABLE_DOCS "Enable docs" ON)
++option(ENABLE_TESTS "Enable tests" ON)
++option(ENABLE_STATIC_LIBS "Enable static libraries" ON)
++
+ # Add additional source path for cmake
+ list(APPEND CMAKE_MODULE_PATH ${PROJECT_SOURCE_DIR}/cmake/)
+ 
+@@ -18,6 +22,13 @@
+     endif()
+ endif()
+ 
+-add_subdirectory(doc)
+ add_subdirectory(lib)
+-add_subdirectory(test)
++
++if(ENABLE_DOCS)
++  add_subdirectory(doc)
++endif()
++
++if(ENABLE_TESTS)
++  add_subdirectory(test)
++endif()
++
+diff -urN dotherside-0.6.5.orig/DOtherSide.pc.cmake dotherside-0.6.5/DOtherSide.pc.cmake
+--- dotherside-0.6.5.orig/DOtherSide.pc.cmake	1970-01-01 01:00:00.000000000 +0100
++++ dotherside-0.6.5/DOtherSide.pc.cmake	2020-05-19 21:27:38.282755904 +0200
+@@ -0,0 +1,14 @@
++prefix=@CMAKE_INSTALL_PREFIX@
++exec_prefix=@CMAKE_INSTALL_PREFIX@
++libdir=@CMAKE_INSTALL_FULL_LIBDIR@
++sharedlibdir=@CMAKE_INSTALL_FULL_LIBDIR@
++includedir=@CMAKE_INSTALL_FULL_INCLUDEDIR@
++
++Name: @PROJECT_NAME@
++Description: C language library for creating bindings for the Qt QML language
++Version: @DOTHERSIDE_VERSION@
++
++Requires: @PC_REQUIRES@
++Libs: -L${libdir} -lDOtherSide
++Cflags: -I${includedir}
++
+diff -urN dotherside-0.6.5.orig/.gitignore dotherside-0.6.5/.gitignore
+--- dotherside-0.6.5.orig/.gitignore	2019-11-27 09:20:43.000000000 +0100
++++ dotherside-0.6.5/.gitignore	2020-05-19 21:27:38.282755904 +0200
+@@ -10,3 +10,29 @@
  .idea
  *.orig
  doc
@@ -32,181 +78,65 @@ index e65a753..cb9d9ee 100644
 +# binaries
 +test/TestDynamicQObject
 +
-diff --git a/CHANGELOG.md b/CHANGELOG.md
-index 71bacbc..1da5ee1 100644
---- a/CHANGELOG.md
-+++ b/CHANGELOG.md
-@@ -1,3 +1,7 @@
-+# Version 0.6.4
-+* CMake: install the static library
-+* CMake: install a DOtherSide.pc file for pkg-config
-+* CMake: make docs, tests and the static library optional
- 
- # Version 0.6.3
- * Added soversion and version to CMake
-diff --git a/CMakeLists.txt b/CMakeLists.txt
-index 9234318..f0b22f2 100644
---- a/CMakeLists.txt
-+++ b/CMakeLists.txt
-@@ -1,17 +1,20 @@
- cmake_minimum_required(VERSION 3.0)
- 
--# Add Coverage option
-+# Options
- option(ENABLE_COVERAGE "Enable coverage" OFF)
-+option(ENABLE_DOCS "Enable docs" ON)
-+option(ENABLE_TESTS "Enable tests" ON)
-+option(ENABLE_STATIC_LIBS "Enable static libraries" ON)
- 
- # Add additional source path for cmake
- set(CMAKE_MODULE_PATH ${CMAKE_MODULE_PATH} ${PROJECT_SOURCE_DIR}/cmake/)
- 
- # Add strict warning checking for C++
--if (CMAKE_COMPILER_IS_GNUCC OR CMAKE_COMPILER_IS_GNUCXX)
-+if(CMAKE_COMPILER_IS_GNUCC OR CMAKE_COMPILER_IS_GNUCXX)
-   set(CMAKE_CXX_FLAGS "${CMAKE_CXX_FLAGS} -Wall -Wno-long-long -pedantic")
- endif()
- 
--if (ENABLE_COVERAGE)
-+if(ENABLE_COVERAGE)
-   message(STATUS "Enabling coverage")
-   set(CMAKE_BUILD_TYPE Debug)
-   set(CMAKE_CXX_FLAGS "${CMAKE_CXX_FLAGS} -g -O0")
-@@ -21,6 +24,14 @@ endif()
- # Add additional source path for cmake
- set(CMAKE_MODULE_PATH ${CMAKE_MODULE_PATH} ${PROJECT_SOURCE_DIR}/cmake/)
- 
--add_subdirectory(doc)
-+# Subdirectories
- add_subdirectory(lib)
--add_subdirectory(test)
-+
-+if(ENABLE_DOCS)
-+  add_subdirectory(doc)
-+endif()
-+
-+if(ENABLE_TESTS)
-+  add_subdirectory(test)
-+endif()
-+
-diff --git a/DOtherSide.pc.cmake b/DOtherSide.pc.cmake
-new file mode 100644
-index 0000000..eb54172
---- /dev/null
-+++ b/DOtherSide.pc.cmake
-@@ -0,0 +1,14 @@
-+prefix=@CMAKE_INSTALL_PREFIX@
-+exec_prefix=@CMAKE_INSTALL_PREFIX@
-+libdir=@CMAKE_INSTALL_FULL_LIBDIR@
-+sharedlibdir=@CMAKE_INSTALL_FULL_LIBDIR@
-+includedir=@CMAKE_INSTALL_FULL_INCLUDEDIR@
-+
-+Name: @PROJECT_NAME@
-+Description: C language library for creating bindings for the Qt QML language
-+Version: @DOTHERSIDE_VERSION@
-+
-+Requires: @PC_REQUIRES@
-+Libs: -L${libdir} -lDOtherSide
-+Cflags: -I${includedir}
-+
-diff --git a/doc/Doxyfile.in b/doc/Doxyfile.in
-index e9eff77..35fa213 100644
---- a/doc/Doxyfile.in
-+++ b/doc/Doxyfile.in
-@@ -38,7 +38,7 @@ PROJECT_NAME           = "DOtherSide"
- # could be handy for archiving the generated documentation or if some version
- # control system is used.
- 
--PROJECT_NUMBER         = 0.6.3
-+PROJECT_NUMBER         = 0.6.4
- 
- # Using the PROJECT_BRIEF tag one can provide an optional one line description
- # for a project that appears at the top of each page and should give viewer a
-diff --git a/lib/CMakeLists.txt b/lib/CMakeLists.txt
-index 76aa89d..a1699bc 100644
---- a/lib/CMakeLists.txt
-+++ b/lib/CMakeLists.txt
-@@ -3,6 +3,8 @@ project(DOtherSide)
- set(CMAKE_INCLUDE_CURRENT_DIR ON)
- set(CMAKE_AUTOMOC ON)
+diff -urN dotherside-0.6.5.orig/lib/CMakeLists.txt dotherside-0.6.5/lib/CMakeLists.txt
+--- dotherside-0.6.5.orig/lib/CMakeLists.txt	2019-11-27 09:20:43.000000000 +0100
++++ dotherside-0.6.5/lib/CMakeLists.txt	2020-05-19 21:36:25.738085774 +0200
+@@ -1,5 +1,7 @@
+ project(DOtherSide)
  
 +include(GNUInstallDirs)
 +
- if (WIN32)
-   add_definitions(-DWIN32)
- endif()
-@@ -45,27 +47,42 @@ include_directories(include include/Qt)
+ # Macro for merging common code between static and shared
+ macro(add_target name type)
+     find_package(Qt5 COMPONENTS Core Qml Gui Quick QuickControls2 Widgets)
+@@ -38,8 +40,11 @@
  
+     target_link_libraries(${name} PRIVATE Qt5::Core Qt5::Gui Qt5::Widgets Qt5::Qml Qt5::Quick)
+ 
++    # for DOtherSide.pc
++    set(PC_REQUIRES "Qt5Core, Qt5Gui, Qt5Widgets, Qt5Qml, Qt5Quick")
+     if (${Qt5QuickControls2_FOUND})
+         target_link_libraries(${name} PRIVATE Qt5::QuickControls2)
++        set(PC_REQUIRES "${PC_REQUIRES}, Qt5QuickControls2")
+     endif()
+ endmacro()
+ 
+@@ -48,14 +53,24 @@
  set(major 0)
  set(minor 6)
--set(patch 3)
-+set(patch 4)
+ set(patch 4)
 +set(DOTHERSIDE_VERSION "${major}.${minor}.${patch}")
- 
--# Shared version for distributing
-+# Shared version
- add_library(${PROJECT_NAME} SHARED ${SRC_LIST} ${HEADERS_LIST})
- set_property(TARGET ${PROJECT_NAME} PROPERTY CXX_STANDARD 11)
- set_property(TARGET ${PROJECT_NAME} PROPERTY SOVERSION "${major}.${minor}")
- set_property(TARGET ${PROJECT_NAME} PROPERTY VERSION "${major}.${minor}.${patch}")
- target_link_libraries(${PROJECT_NAME} PRIVATE Qt5::Core Qt5::Gui Qt5::Widgets Qt5::Qml Qt5::Quick)
- 
-+# for DOtherSide.pc
-+set(PC_REQUIRES "Qt5Core, Qt5Gui, Qt5Widgets, Qt5Qml, Qt5Quick")
- if(${Qt5QuickControls2_FOUND})
-     target_link_libraries(${PROJECT_NAME} PRIVATE Qt5::QuickControls2)
-+	set(PC_REQUIRES "${PC_REQUIRES}, Qt5QuickControls2")
- endif()
- 
--# Static version for testing
--add_library("${PROJECT_NAME}Static" STATIC ${SRC_LIST} ${HEADERS_LIST})
--set_property(TARGET "${PROJECT_NAME}Static" PROPERTY CXX_STANDARD 11)
--target_link_libraries("${PROJECT_NAME}Static" PRIVATE Qt5::Core Qt5::Gui Qt5::Widgets Qt5::Qml Qt5::Quick)
++
+ set_target_properties(${PROJECT_NAME}
+ PROPERTIES
+     SOVERSION "${major}.${minor}"
+     VERSION "${major}.${minor}.${patch}"
+ )
 +install(TARGETS ${PROJECT_NAME}
-+  LIBRARY DESTINATION ${CMAKE_INSTALL_LIBDIR}
++	LIBRARY DESTINATION ${CMAKE_INSTALL_LIBDIR}
 +)
  
--if(${Qt5QuickControls2_FOUND})
--    target_link_libraries("${PROJECT_NAME}Static" PRIVATE Qt5::QuickControls2)
--endif()
-+# Static version
+ # Add static version
+-add_target(${PROJECT_NAME}Static STATIC)
 +if(ENABLE_STATIC_LIBS)
-+  add_library("${PROJECT_NAME}Static" STATIC ${SRC_LIST} ${HEADERS_LIST})
-+  set_property(TARGET "${PROJECT_NAME}Static" PROPERTY CXX_STANDARD 11)
-+  set_property(TARGET "${PROJECT_NAME}Static" PROPERTY OUTPUT_NAME ${PROJECT_NAME})
-+  target_link_libraries("${PROJECT_NAME}Static" PRIVATE Qt5::Core Qt5::Gui Qt5::Widgets Qt5::Qml Qt5::Quick)
-+
-+  if(${Qt5QuickControls2_FOUND})
-+	target_link_libraries("${PROJECT_NAME}Static" PRIVATE Qt5::QuickControls2)
-+  endif()
-+
-+  install(TARGETS ${PROJECT_NAME}Static
-+	ARCHIVE DESTINATION ${CMAKE_INSTALL_LIBDIR}
-+  )
++	add_target(${PROJECT_NAME}Static STATIC)
++	install(TARGETS ${PROJECT_NAME}Static
++		ARCHIVE DESTINATION ${CMAKE_INSTALL_LIBDIR}
++	)
 +endif(ENABLE_STATIC_LIBS)
  
  # Install directive for header files
  install(FILES
-@@ -73,8 +90,7 @@ install(FILES
-   include/DOtherSide/DOtherSideTypes.h
-   DESTINATION include/DOtherSide)
+@@ -64,8 +79,7 @@
+   DESTINATION include/DOtherSide
+ )
  
 -# Install directive for binaries
 -install(TARGETS ${PROJECT_NAME}
 -  RUNTIME DESTINATION bin
 -  LIBRARY DESTINATION lib
--  )
+-)
 +# pkg-config file
 +configure_file(${CMAKE_SOURCE_DIR}/DOtherSide.pc.cmake ${CMAKE_BINARY_DIR}/DOtherSide.pc @ONLY)
 +install(FILES ${CMAKE_BINARY_DIR}/DOtherSide.pc DESTINATION ${CMAKE_INSTALL_LIBDIR}/pkgconfig)
 +
-diff --git a/lib/meson.build b/lib/meson.build
-index 3ca7eb5..fc6dea3 100644
---- a/lib/meson.build
-+++ b/lib/meson.build
-@@ -1,4 +1,4 @@
--lib_version = '0.6.3'
-+lib_version = '0.6.4'
- lib_dependencies = dependency('qt5', modules : ['Core', 'Gui', 'Widgets', 'Quick', 'Qml'])
- lib_sources = [
-   'src/DOtherSide.cpp',
