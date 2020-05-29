@@ -38,6 +38,7 @@ dev-python/fpconst
 dev-python/functest
 dev-python/gdata
 dev-python/gdmodule
+dev-python/gnome-python-base
 dev-python/gnome-python-extras-base
 dev-python/gnome-vfs-python
 dev-python/graphy

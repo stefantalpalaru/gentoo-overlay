@@ -36,7 +36,7 @@ RDEPEND="
 	>=dev-scheme/guile-2.2.0:12=[deprecated,regex]
 	>=sys-libs/zlib-1.1.4
 	aqbanking? (
-		>=net-libs/aqbanking-5[gtk,ofx?]
+		>=net-libs/aqbanking-5[ofx?]
 		sys-libs/gwenhywfar[gtk]
 		smartcard? ( sys-libs/libchipcard )
 	)
