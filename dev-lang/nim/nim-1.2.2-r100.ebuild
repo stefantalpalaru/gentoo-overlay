@@ -86,6 +86,9 @@ src_install() {
 	doins -r doc
 	insinto /usr/share/nim/lib/wrappers
 	doins -r lib/wrappers/linenoise
+	# GDB helper
+	insinto /usr/share/nim
+	doins tools/nim-gdb.py
 
 	if use doc; then
 		HTML_DOCS=doc/html/*.html
