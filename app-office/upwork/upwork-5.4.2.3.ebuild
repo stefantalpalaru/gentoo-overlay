@@ -11,8 +11,8 @@ QA_PREBUILT="*"
 DESCRIPTION="Project collaboration and tracking software for upwork.com"
 HOMEPAGE="https://www.upwork.com/"
 SRC_URI="
-	amd64? ( https://updates-desktopapp.upwork.com/binaries/v5_4_2_2_18294613b3a84769/upwork-5.4.2.2-1fc24.x86_64.rpm -> ${P}_x86_64.rpm )
-	x86? ( https://updates-desktopapp.upwork.com/binaries/v5_4_2_2_18294613b3a84769/upwork-5.4.2.2-1fc24.i386.rpm -> ${P}_i386.rpm )
+	amd64? ( https://updates-desktopapp.upwork.com/binaries/v5_4_2_3_6b1022fbf8794731/upwork-5.4.2.3-1fc24.x86_64.rpm -> ${P}_x86_64.rpm )
+	x86? ( https://updates-desktopapp.upwork.com/binaries/v5_4_2_3_6b1022fbf8794731/upwork-5.4.2.3-1fc24.i386.rpm -> ${P}_i386.rpm )
 "
 LICENSE="ODESK"
 SLOT="0"
