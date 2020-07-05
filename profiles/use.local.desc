@@ -1,0 +1,214 @@
+# This file is deprecated as per GLEP 56 in favor of metadata.xml.
+# Please add your descriptions to your package's metadata.xml ONLY.
+# * generated automatically using pmaint *
+
+app-admin/conky:apcupsd - Enable support for sys-power/apcupsd
+app-admin/conky:cmus - Enable monitoring of music played by media-sound/cmus
+app-admin/conky:ical - Enable support for events from iCalendar (RFC 5545) files using dev-libs/libical
+app-admin/conky:iostats - Enable support for per-task I/O statistics
+app-admin/conky:irc - Enable support for displaying everything from an irc channel using net-libs/libircclient
+app-admin/conky:lua-cairo - Enable if you want Lua Cairo bindings
+app-admin/conky:lua-imlib - Enable if you want Lua Imlib2 bindings
+app-admin/conky:lua-rsvg - Enable if you want Lua RSVG bindings
+app-admin/conky:math - Enable support for glibc's libm math library
+app-admin/conky:moc - Enable monitoring of music played by media-sound/moc
+app-admin/conky:mpd - Enable monitoring of music controlled by media-sound/mpd
+app-admin/conky:nano-syntax - Enable syntax highlighting for app-editors/nano
+app-admin/conky:nvidia - Enable reading of nvidia card temperature sensors via x11-drivers/nvidia-drivers
+app-admin/conky:portmon - Enable support for tcp (ip4) port monitoring
+app-admin/conky:thinkpad - Enable support for IBM/Lenovo notebooks
+app-admin/conky:weather-metar - Enable support for metar weather service
+app-admin/conky:webserver - Enable support to act as a webserver serving conkys output using net-libs/libmicrohttpd
+app-admin/conky:xmms2 - Enable monitoring of music played by media-sound/xmms2
+app-crypt/seahorse:ldap - Enable seahorse to manipulate GPG keys on a LDAP server.
+app-emulation/vmware-workstation:macos-guests - Support macOS guests.
+app-emulation/vmware-workstation:modules - Install app-emulation/vmware-modules in order to run VMs locally.
+app-emulation/vmware-workstation:ovftool - Install OVF tool.
+app-emulation/vmware-workstation:vix - Install VIX. The VIX API allows you to write programs and scripts that automate virtual machine operations, and run programs or manipulate files within guest operating systems.
+app-emulation/vmware-workstation:vmware-tools-darwin - Install VMware Tools for OS X (El Capitan and later) guests.
+app-emulation/vmware-workstation:vmware-tools-darwinPre15 - Install VMware Tools for OS X (up to Yosemite) guests.
+app-emulation/vmware-workstation:vmware-tools-linux - Install VMware Tools for Linux guests.
+app-emulation/vmware-workstation:vmware-tools-linuxPreGlibc25 - Install VMware Tools for Linux (glibc older than 2.5) guests.
+app-emulation/vmware-workstation:vmware-tools-netware - Install VMware Tools for Netware guests.
+app-emulation/vmware-workstation:vmware-tools-solaris - Install VMware Tools for Solaris guests.
+app-emulation/vmware-workstation:vmware-tools-winPre2k - Install VMware Tools for Windows (before 2000) guests.
+app-emulation/vmware-workstation:vmware-tools-winPreVista - Install VMware Tools for Windows (after 2000, before Vista) guests.
+app-emulation/vmware-workstation:vmware-tools-windows - Install VMware Tools for Windows (Vista and later) guests.
+app-office/gnucash:aqbanking - Connect to some internet banks via AqBanking
+app-office/gnucash:gui - Enable graphic interface (needs net-libs/webkit-gtk:4 and x11-libs/gtk+:3)
+app-office/gnucash:quotes - Enable Online Stock Quote retrieval
+app-office/gnucash:register2 - Use the new register (Experimental)
+dev-lang/nim:boehm-gc - Enable Hans Boehm's garbage collector (dev-libs/boehm-gc).
+dev-lang/php:bcmath - Add support for libbcmath
+dev-lang/php:cli - Enable CLI SAPI
+dev-lang/php:ctype - Enable ctype functions
+dev-lang/php:curlwrappers - Enable curl wrappers
+dev-lang/php:embed - Enable embed SAPI
+dev-lang/php:enchant - Add supports Enchant spelling library.
+dev-lang/php:fileinfo - Add fileinfo extension support
+dev-lang/php:filter - Add filter extension support
+dev-lang/php:flatfile - Add dbm support for flat files
+dev-lang/php:fpm - Enable the FastCGI Process Manager SAPI
+dev-lang/php:gd - Adds support for gd (bundled with PHP)
+dev-lang/php:hash - Enable the hash extension
+dev-lang/php:inifile - Add dbm support for .ini files
+dev-lang/php:intl - Enables the intl extension for extended internalization support
+dev-lang/php:json - Enable JSON support
+dev-lang/php:ldap-sasl - Add SASL support for the PHP LDAP extension
+dev-lang/php:pcntl - Add support for process creation functions
+dev-lang/php:pdo - Enable the bundled PDO extensions
+dev-lang/php:phar - Enables the phar extension to provide phar archive support
+dev-lang/php:sharedmem - Add support for shared memory use
+dev-lang/php:simplexml - Support for SimpleXML
+dev-lang/php:sybase-ct - Add support for Sybase-CT
+dev-lang/php:sysvipc - Support for System V-compatible inter-process communication
+dev-lang/php:tokenizer - Add support for the PHP file parser
+dev-lang/php:wddx - Add support for Web Distributed Data eXchange
+dev-lang/php:xmlreader - Enable XMLReader support
+dev-lang/php:xmlwriter - Enable XMLWriter support
+dev-lang/php:xslt - Enable the XSL extension
+dev-lang/php:zip - Enable ZIP file support
+dev-lang/python:lto - Build with link-time optimizations (LTO)
+dev-lang/python:pgo - Build with profile guided optimizations (PGO)
+dev-lang/python:threads - Enable threading support. (DON'T DISABLE THIS UNLESS YOU KNOW WHAT YOU'RE DOING)
+dev-lang/python:wide-unicode - Enable wide Unicode implementation which uses 4-byte Unicode characters. Switching of this USE flag changes ABI of Python and requires reinstallation of many Python modules. (DON'T DISABLE THIS UNLESS YOU KNOW WHAT YOU'RE DOING)
+dev-lang/python:wininst - Install Windows executables required to create an executable installer for MS Windows.
+dev-lang/tauthon:lto - Build with link-time optimizations (LTO)
+dev-lang/tauthon:pgo - Build with profile guided optimizations (PGO)
+dev-lang/tauthon:threads - Enable threading support. (DON'T DISABLE THIS UNLESS YOU KNOW WHAT YOU'RE DOING)
+dev-lang/tauthon:wide-unicode - Enable wide Unicode implementation which uses 4-byte Unicode characters. Switching of this USE flag changes ABI of Python and requires reinstallation of many Python modules. (DON'T DISABLE THIS UNLESS YOU KNOW WHAT YOU'RE DOING)
+dev-lang/tauthon:wininst - Install Windows executables required to create an executable installer for MS Windows.
+dev-libs/libpeas:glade - Install the glade catalog
+dev-libs/libpeas:python - Build support for loading dev-lang/python plugins
+dev-php/pecl-redis:igbinary - Enables igbinary serialisation support
+dev-python/QtPy:designer - Build bindings for the QtDesigner module and enable the designer plugin
+dev-python/QtPy:gui - Build bindings for the QtGui module
+dev-python/QtPy:svg - Build bindings for the QtSvg module
+dev-python/QtPy:testlib - Build bindings for the QtTest module
+dev-python/QtPy:webkit - Build bindings for the QtWebKit module
+dev-python/amqplib:extras - Install extra tools to generate initial Python mod from an AMQP XML file
+dev-python/anyvc:bazaar - Add support for Bazaar
+dev-python/anyvc:mercurial - Add support for Mercurial
+dev-python/celery:redis - Enables redis support
+dev-python/celery:sqs - Enables Amazon SQS transport module for celery
+dev-python/celery:yaml - Enable support of yaml as a configuration file format
+dev-python/celery:zeromq - Enable logging and deployment via ZeroMQ
+dev-python/dask:distributed - Add support for distributed computing with dev-python/distributed
+dev-python/fabric:fab2 - Install as "fab2", allowing side-by-side install with fabric 1.x
+dev-python/ipython:matplotlib - Add support for dev-python/matplotlib
+dev-python/ipython:nbconvert - Enable support for converting notebooks to various formats using app-text/pandoc
+dev-python/ipython:notebook - Install requirements for the web notebook based on www-servers/tornado
+dev-python/kombu:amqplib - Enable amqplib support
+dev-python/kombu:msgpack - Enables MessagePack (de)serializer for Python
+dev-python/kombu:sqs - Enables Amazon SQS transport module for Kombu
+dev-python/matplotlib:excel - Pull dev-python/xlwt for the exceltools toolkit
+dev-python/matplotlib:gtk2 - Enable x11-libs/gtk+:2 support
+dev-python/matplotlib:gtk3 - Enable x11-libs/gtk+:3 support
+dev-python/matplotlib-python2:excel - Pull dev-python/xlwt for the exceltools toolkit
+dev-python/matplotlib-python2:gtk2 - Enable x11-libs/gtk+:2 support
+dev-python/matplotlib-python2:gtk3 - Enable x11-libs/gtk+:3 support
+dev-python/mpmath:matplotlib - Add support for dev-python/matplotlib
+dev-python/msgpack:native-extensions - Compiles native "C" extensions (speedups, instead of using python fallback code).
+dev-python/netaddr:cli - Enable netaddr shell with dev-python/ipython
+dev-python/networkx:extras - Provide graph drawing and graph layout algorithms along with shapefile format reading and writing
+dev-python/networkx:pandas - Provides a DataFrame, which is a tabular data structure with labeled axes
+dev-python/networkx:scipy - Enables scipy backend
+dev-python/networkx:yaml - Provides YAML format reading and writing
+dev-python/numexpr:mkl - Enable support for Intel Vector Math Library, part of sci-libs/mkl.
+dev-python/pandas:full-support - Pull all packages to give pandas full support
+dev-python/pillow:imagequant - Build with Image Quantization Library support
+dev-python/py-amqp:extras - Install extra tools to generate initial Python mod from an AMQP XML file
+dev-python/pybitmessage:opencl - Enable dev-python/pyopencl for GPU acceleration
+dev-python/pybitmessage:qrcode - Enable dev-python/qrcode for QR code support
+dev-python/pygame:midi - Enable midi support using media-libs/portmidi
+dev-python/pyglet:image - Enable support for image formats other than PNG and BMP
+dev-python/sphinx:net - enable internet capabilities
+dev-python/sympy:imaging - Add support for dev-python/pillow
+dev-python/sympy:ipython - Add support for dev-python/ipython
+dev-python/sympy:mathml - Add support for mathml
+dev-python/sympy:pyglet - Use dev-python/pyglet for plots and print preview
+dev-python/sympy:symengine - Add support for a dev-python/symengine backend
+dev-python/sympy:texmacs - Add app-office/texmacs interface
+dev-python/sympy:theano - Add support for dev-python/theano
+dev-python/twisted-core:serial - include serial port support
+dev-python/vatnumber:vies - Enable VIES
+dev-vcs/bzr:sftp - Enable sftp support
+dev-vcs/rabbitvcs:caja - Enable extension for mate-base/caja
+dev-vcs/rabbitvcs:cli - Eanble console based frontend
+dev-vcs/rabbitvcs:diff - Use for diff command dev-util/meld
+dev-vcs/rabbitvcs:gedit - Enable plugin for app-editors/gedit
+dev-vcs/rabbitvcs:nautilus - Enable extension for gnome-base/nautilus
+dev-vcs/rabbitvcs:thunar - Enable extension for xfce-base/thunar
+games-emulation/rpcs3:gdb - GDB debugging support
+games-emulation/rpcs3:llvm - LLVM recompiler support
+games-emulation/rpcs3:vulkan - Vulkan video output support
+media-gfx/fbcat:fbgrab - Install a 'fbgrab' wrapper script around fbcat that mimics media-gfx/fbgrab
+media-gfx/gmic:cli - Build the CLI interface
+media-gfx/gmic:gimp - Build the Qt5 GIMP plugin
+media-gfx/gmic:gui - Build the standalone Qt5 GUI
+media-gfx/gmic:krita - Build the Krita plugin
+media-gfx/gmic:opencv - Enable support for webcams using the OpenCV library
+media-libs/opencv:contrib - Install user contributed scripts from opencv_contrib (Experimental!)
+media-libs/opencv:contrib_cvv - CVV module requires Qt5
+media-libs/opencv:contrib_dnn - DNN module contrib requires tiny dnn
+media-libs/opencv:contrib_hdf - HDF module requires sci-libs/hdf5
+media-libs/opencv:contrib_sfm - SFM module requires eigen, gflags, and glog
+media-libs/opencv:contrib_xfeatures2d - Enables xfeatures2d and autodownload of samples in contrib
+media-libs/opencv:cuda - Enable NVIDIA Cuda computations support (Experimental!)
+media-libs/opencv:dnn_samples - Download dnn caffeemodel samples
+media-libs/opencv:eigen - Enable usage of dev-cpp/eigen for computations
+media-libs/opencv:gdal - Enable support for sci-libs/gdal library
+media-libs/opencv:gflags - Use Google's C++ argument parsing library
+media-libs/opencv:glog - Use Google's C++ loggin library
+media-libs/opencv:opencl - Add support for OpenCL
+media-libs/opencv:tesseract - Use Google's OCR Engine
+media-libs/opencv:testprograms - Build and install programs for testing OpenCV (performance)
+media-libs/opencv:vtk - Build new 3D visualization module viz based on sci-libs/vtk
+media-sound/jack-audio-connection-kit:classic - Enable building of jackd"
+media-sound/jack-audio-connection-kit:metadata - Enable metadata API
+media-sound/jack-audio-connection-kit:pam - Add basic realtime configuration via sys-auth/realtime-base
+net-p2p/amule:daemon - Enable amule daemon
+net-p2p/amule:remote - Enable remote controlling of the client
+net-p2p/amule:stats - Enable statistic reporting
+net-p2p/go-ethereum:devtools - Build Ethereum development tools (evm, abigen, puppeth, ...)
+net-p2p/pybitmessage:opencl - Enable dev-python/pyopencl for GPU acceleration
+net-p2p/pybitmessage:qrcode - Enable dev-python/qrcode for QR code support
+net-p2p/transmission:lightweight - Optimize transmission for low-resource systems (smaller cache size, prefer unencrypted peer connections, etc.)
+net-p2p/transmission:xfs - Enable XFS filesystem capabilities by using sys-fs/xfsprogs headers (in building of fdlimit(.c))
+net-wireless/cubicsdr:bladerf - Add support for bladerf hardware
+net-wireless/cubicsdr:hackrf - Add support for hackrf hardware
+net-wireless/cubicsdr:plutosdr - Add support for Analog Devices ADALM-PLUTO hardware
+net-wireless/cubicsdr:rtlsdr - Add support for rtlsdr hardware
+net-wireless/cubicsdr:uhd - Add support for Ettus USRP hardware
+net-wireless/soapysdr:bladerf - Add support for bladerf hardware
+net-wireless/soapysdr:hackrf - Add support for hackrf hardware
+net-wireless/soapysdr:plutosdr - Add support for Analog Devices ADALM-PLUTO hardware
+net-wireless/soapysdr:rtlsdr - Add support for rtlsdr hardware
+net-wireless/soapysdr:uhd - Add support for Ettus USRP hardware
+sci-astronomy/casacore:c++11 - Build casacore using the C++11 standard
+sci-astronomy/casacore:data - Installs measures and data (pulls sci-astronomy/casa-data)
+sci-libs/gdal:armadillo - Use sci-libs/armadillo for faster TPS transform computation
+sci-libs/gdal:aux-xml - Enable Portable Auxilliary Metadata generation
+sci-libs/gdal:fits - Enable support for NASA's sci-libs/cfitsio library
+sci-libs/gdal:geos - Add support for geometry engine (sci-libs/geos)
+sci-libs/gdal:gml - Enable support for dev-libs/xerces-c C++ API
+sci-libs/gdal:mdb - Enable support for Microsoft Access database
+sci-libs/gdal:ogdi - Enable support for the open geographic datastore interface (sci-libs/ogdi)
+sci-libs/gdal:opencl - Enable OpenCL support
+sci-libs/gdal:spatialite - Enable Spatial DBMS over sqlite dev-db/spatialite
+sci-libs/gdal:xls - Add the dev-libs/freexl library for xls import support
+sci-libs/scikits_image:freeimage - Enable support for image i/o via media-libs/freeimage
+sci-libs/scikits_image:pyamg - Enable support for algebraic solvers via dev-python/pyamg
+sys-cluster/drbd-utils:heartbeat - Enable Heartbeat integration
+sys-cluster/drbd-utils:pacemaker - Enable Pacemaker integration
+sys-cluster/drbd-utils:xen - Enable Xen integration
+x11-drivers/nvidia-drivers:X - Install the X.org driver, OpenGL libraries, XvMC libraries, and VDPAU libraries
+x11-drivers/nvidia-drivers:compat - Install non-GLVND libGL for backwards compatibility
+x11-drivers/nvidia-drivers:driver - Install the kernel driver module
+x11-drivers/nvidia-drivers:gtk3 - Install nvidia-settings with support for GTK+ 3
+x11-drivers/nvidia-drivers:kms - Enable support for kernel mode setting (KMS)
+x11-drivers/nvidia-drivers:libglvnd - Use media-libs/libglvnd for dispatch
+x11-drivers/nvidia-drivers:tools - Install additional tools such as nvidia-settings
+x11-drivers/nvidia-drivers:uvm - Install the Unified Memory kernel module (nvidia-uvm) for sharing memory between CPU and GPU in CUDA programs
+x11-libs/wxGTK:gstreamer - Enable the wxMediaCtrl class for playing audio and video through gstreamer.
+x11-libs/wxGTK:sdl - Use Simple Directmedia Layer (media-libs/libsdl) for audio.

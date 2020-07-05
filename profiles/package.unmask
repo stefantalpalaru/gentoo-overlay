@@ -1,9 +1,11 @@
 app-admin/conky
+app-emulation/playonlinux
 app-misc/hachoir-metadata
 app-misc/hachoir-subfile
 app-misc/hachoir-urwid
 app-misc/yworklog
 app-text/pdfshuffler
+dev-db/metakit
 dev-python/PyZilla
 dev-python/RecSQL
 dev-python/amqplib
@@ -11,6 +13,8 @@ dev-python/anyjson
 dev-python/anyvc
 dev-python/arrayterator
 dev-python/asciitree
+dev-python/backports-shutil_get_terminal_size
+dev-python/backports-ssl-match-hostname
 dev-python/beanstalkc
 dev-python/bicyclerepair
 dev-python/bjoern
@@ -111,6 +115,7 @@ dev-python/pysctp
 dev-python/pystache
 dev-python/pystatgrab
 dev-python/pytest-mpl
+dev-python/pytest-runner
 dev-python/python-biggles
 dev-python/python-caja
 dev-python/python-catcher
@@ -175,6 +180,7 @@ dev-util/Orange
 dev-vcs/bzr
 dev-vcs/hg-fast-export
 dev-vcs/rabbitvcs
+media-sound/tunapie
 media-video/subliminal
 net-analyzer/namebench
 net-fs/tahoe-lafs
