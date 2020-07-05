@@ -93,6 +93,7 @@ CONFIG_CHECK="!DEBUG_MUTEXES ~!LOCKDEP ~MTRR ~SYSVIPC ~ZONE_DMA"
 PATCHES=(
 	"${FILESDIR}"/nvidia-drivers-390.132-kernel-5.5.patch
 	"${FILESDIR}"/nvidia-drivers-390.132-kernel-5.6.patch
+	"${FILESDIR}"/nvidia-drivers-390.132-kernel-5.7.patch
 )
 
 pkg_pretend() {
