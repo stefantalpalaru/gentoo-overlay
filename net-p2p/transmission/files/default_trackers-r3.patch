@@ -1,15 +1,44 @@
+From f01d88f7c8a1ad42ffe914f53bf954e055cdaeea Mon Sep 17 00:00:00 2001
+From: Stefan Talpalaru <stefantalpalaru@yahoo.com>
+Date: Sat, 25 Mar 2017 12:54:52 +0100
+Subject: [PATCH 1/1] default trackers
+
+---
+ daemon/daemon.c                    |  5 +++
+ extras/rpc-spec.txt                |  1 +
+ gtk/main.c                         |  4 ++
+ gtk/tr-prefs.c                     | 44 +++++++++++++++++++
+ libtransmission/quark.c            |  1 +
+ libtransmission/quark.h            |  1 +
+ libtransmission/rpcimpl.c          |  9 ++++
+ libtransmission/session.c          | 58 +++++++++++++++++++++++++
+ libtransmission/session.h          |  3 ++
+ libtransmission/torrent.c          | 68 ++++++++++++++++++++++++++++++
+ libtransmission/transmission.h     |  2 +
+ qt/Prefs.cc                        |  1 +
+ qt/Prefs.h                         |  1 +
+ qt/PrefsDialog.cc                  | 29 +++++++++++++
+ qt/PrefsDialog.h                   |  1 +
+ qt/PrefsDialog.ui                  | 20 +++++++++
+ qt/Session.cc                      |  1 +
+ web/index.html                     |  6 +++
+ web/javascript/prefs-dialog.js     |  4 ++
+ web/style/transmission/common.css  |  4 ++
+ web/style/transmission/common.scss |  6 +++
+ 21 files changed, 269 insertions(+)
+
 diff --git a/daemon/daemon.c b/daemon/daemon.c
-index 8790b19b2..d2a4e571c 100644
+index 361b9ee19..56f4b3d6d 100644
 --- a/daemon/daemon.c
 +++ b/daemon/daemon.c
 @@ -105,6 +105,7 @@ static struct tr_option const options[] =
-     { 'C', "no-watch-dir", "Disable the watch-dir", "C", 0, NULL },
-     { 941, "incomplete-dir", "Where to store new torrents until they're complete", NULL, 1, "<directory>" },
-     { 942, "no-incomplete-dir", "Don't store incomplete torrents in a different location", NULL, 0, NULL },
-+    { 943, "default-trackers", "Default trackers to be automatically added to public torrents", NULL, 1, "<list>" },
-     { 'd', "dump-settings", "Dump the settings and exit", "d", 0, NULL },
-     { 'e', "logfile", "Dump the log messages to this filename", "e", 1, "<filename>" },
-     { 'f', "foreground", "Run in the foreground instead of daemonizing", "f", 0, NULL },
+     { 'C', "no-watch-dir", "Disable the watch-dir", "C", false, NULL },
+     { 941, "incomplete-dir", "Where to store new torrents until they're complete", NULL, true, "<directory>" },
+     { 942, "no-incomplete-dir", "Don't store incomplete torrents in a different location", NULL, false, NULL },
++    { 943, "default-trackers", "Default trackers to be automatically added to public torrents", NULL, true, "<list>" },
+     { 'd', "dump-settings", "Dump the settings and exit", "d", false, NULL },
+     { 'e', "logfile", "Dump the log messages to this filename", "e", true, "<filename>" },
+     { 'f', "foreground", "Run in the foreground instead of daemonizing", "f", false, NULL },
 @@ -408,6 +409,10 @@ static bool parse_args(int argc, char const** argv, tr_variant* settings, bool*
              tr_variantDictAddBool(settings, TR_KEY_incomplete_dir_enabled, false);
              break;
@@ -22,10 +51,10 @@ index 8790b19b2..d2a4e571c 100644
              *dump_settings = true;
              break;
 diff --git a/extras/rpc-spec.txt b/extras/rpc-spec.txt
-index 7f291b2e2..933163c63 100644
+index cc732f05b..222021e7c 100644
 --- a/extras/rpc-spec.txt
 +++ b/extras/rpc-spec.txt
-@@ -480,6 +480,7 @@
+@@ -495,6 +495,7 @@
     "blocklist-size"                 | number     | number of rules in the blocklist
     "cache-size-mb"                  | number     | maximum size of the disk cache (MB)
     "config-dir"                     | string     | location of transmission's configuration directory
@@ -34,10 +63,10 @@ index 7f291b2e2..933163c63 100644
     "download-queue-size"            | number     | max number of torrents to download at once (see download-queue-enabled)
     "download-queue-enabled"         | boolean    | if true, limit how many torrents can be downloaded at once
 diff --git a/gtk/main.c b/gtk/main.c
-index 8b9043a01..64d7b5fda 100644
+index 8bc526204..34a116319 100644
 --- a/gtk/main.c
 +++ b/gtk/main.c
-@@ -1110,6 +1110,10 @@ static void on_prefs_changed(TrCore* core UNUSED, tr_quark const key, gpointer d
+@@ -1106,6 +1106,10 @@ static void on_prefs_changed(TrCore* core UNUSED, tr_quark const key, gpointer d
          tr_sessionSetEncryption(tr, gtr_pref_int_get(key));
          break;
  
@@ -49,7 +78,7 @@ index 8b9043a01..64d7b5fda 100644
          tr_sessionSetDownloadDir(tr, gtr_pref_string_get(key));
          break;
 diff --git a/gtk/tr-prefs.c b/gtk/tr-prefs.c
-index 67cd4045d..8d2134d89 100644
+index 78f858449..5c72206e8 100644
 --- a/gtk/tr-prefs.c
 +++ b/gtk/tr-prefs.c
 @@ -197,6 +197,44 @@ static GtkWidget* new_entry(tr_quark const key, gpointer core)
@@ -58,7 +87,7 @@ index 67cd4045d..8d2134d89 100644
  
 +static void text_buffer_changed_cb(GtkTextBuffer* buffer, gpointer core)
 +{
-+    const tr_quark key = GPOINTER_TO_INT(g_object_get_data(G_OBJECT(buffer), PREF_KEY));
++    tr_quark const key = GPOINTER_TO_INT(g_object_get_data(G_OBJECT(buffer), PREF_KEY));
 +    GtkTextIter start, end;
 +    gtk_text_buffer_get_bounds(buffer, &start, &end);
 +    char const* value = gtk_text_buffer_get_text(buffer, &start, &end, FALSE);
@@ -80,10 +109,10 @@ index 67cd4045d..8d2134d89 100644
 +
 +    /* set up the scrolled window and put the text view in it */
 +    gtk_scrolled_window_set_policy(GTK_SCROLLED_WINDOW(scroll),
-+            GTK_POLICY_AUTOMATIC,
-+            GTK_POLICY_AUTOMATIC);
++        GTK_POLICY_AUTOMATIC,
++        GTK_POLICY_AUTOMATIC);
 +    gtk_scrolled_window_set_shadow_type(GTK_SCROLLED_WINDOW(scroll),
-+            GTK_SHADOW_IN);
++        GTK_SHADOW_IN);
 +    gtk_container_add(GTK_CONTAINER(scroll), w);
 +    gtk_widget_set_size_request(scroll, -1, 200);
 +
@@ -97,7 +126,7 @@ index 67cd4045d..8d2134d89 100644
  static void chosen_cb(GtkFileChooser* w, gpointer core)
  {
      tr_quark const key = GPOINTER_TO_INT(g_object_get_data(G_OBJECT(w), PREF_KEY));
-@@ -1191,6 +1229,12 @@ static GtkWidget* networkPage(GObject* core)
+@@ -1189,6 +1227,12 @@ static GtkWidget* networkPage(GObject* core)
      gtk_widget_set_tooltip_text(w, s);
      hig_workarea_add_wide_control(t, &row, w);
  
@@ -111,7 +140,7 @@ index 67cd4045d..8d2134d89 100644
  }
  
 diff --git a/libtransmission/quark.c b/libtransmission/quark.c
-index 53a000b44..0446bd519 100644
+index 547a3e8e2..da40c4d90 100644
 --- a/libtransmission/quark.c
 +++ b/libtransmission/quark.c
 @@ -79,6 +79,7 @@ static struct tr_key_struct const my_static[] =
@@ -123,7 +152,7 @@ index 53a000b44..0446bd519 100644
      Q("desiredAvailable"),
      Q("destination"),
 diff --git a/libtransmission/quark.h b/libtransmission/quark.h
-index 6c44835d0..606f993b9 100644
+index f00c32858..e036eab5f 100644
 --- a/libtransmission/quark.h
 +++ b/libtransmission/quark.h
 @@ -79,6 +79,7 @@ enum
@@ -135,10 +164,10 @@ index 6c44835d0..606f993b9 100644
      TR_KEY_desiredAvailable,
      TR_KEY_destination,
 diff --git a/libtransmission/rpcimpl.c b/libtransmission/rpcimpl.c
-index b510bb747..201ca3832 100644
+index 272a1c469..295c5400b 100644
 --- a/libtransmission/rpcimpl.c
 +++ b/libtransmission/rpcimpl.c
-@@ -2014,6 +2014,11 @@ static char const* sessionSet(tr_session* session, tr_variant* args_in, tr_varia
+@@ -2065,6 +2065,11 @@ static char const* sessionSet(tr_session* session, tr_variant* args_in, tr_varia
          tr_sessionSetQueueStalledEnabled(session, boolVal);
      }
  
@@ -150,7 +179,7 @@ index b510bb747..201ca3832 100644
      if (tr_variantDictFindInt(args_in, TR_KEY_download_queue_size, &i))
      {
          tr_sessionSetQueueSize(session, TR_DOWN, i);
-@@ -2275,6 +2280,10 @@ static void addSessionField(tr_session* s, tr_variant* d, tr_quark key)
+@@ -2326,6 +2331,10 @@ static void addSessionField(tr_session* s, tr_variant* d, tr_quark key)
          tr_variantDictAddStr(d, key, tr_sessionGetConfigDir(s));
          break;
  
@@ -162,7 +191,7 @@ index b510bb747..201ca3832 100644
          tr_variantDictAddStr(d, key, tr_sessionGetDownloadDir(s));
          break;
 diff --git a/libtransmission/session.c b/libtransmission/session.c
-index 7623fcc1b..f5770e16f 100644
+index 398ce7d76..565a1d769 100644
 --- a/libtransmission/session.c
 +++ b/libtransmission/session.c
 @@ -336,6 +336,7 @@ void tr_sessionGetDefaultSettings(tr_variant* d)
@@ -193,7 +222,7 @@ index 7623fcc1b..f5770e16f 100644
      if (tr_variantDictFindInt(settings, TR_KEY_peer_limit_per_torrent, &i))
      {
          tr_sessionSetPeerLimitPerTorrent(session, i);
-@@ -2104,6 +2111,8 @@ void tr_sessionClose(tr_session* session)
+@@ -2099,6 +2106,8 @@ void tr_sessionClose(tr_session* session)
      tr_free(session->incompleteDir);
      tr_free(session->blocklist_url);
      tr_free(session->peer_congestion_algorithm);
@@ -202,7 +231,7 @@ index 7623fcc1b..f5770e16f 100644
      tr_free(session);
  }
  
-@@ -2360,6 +2369,53 @@ int tr_sessionGetCacheLimit_MB(tr_session const* session)
+@@ -2355,6 +2364,55 @@ int tr_sessionGetCacheLimit_MB(tr_session const* session)
  ****
  ***/
  
@@ -235,8 +264,10 @@ index 7623fcc1b..f5770e16f 100644
 +            tr_list_append(&session->defaultTrackers, token);
 +        }
 +
-+        if (walk[len]=='\0')
++        if (walk[len] == '\0')
++        {
 +            break;
++        }
 +
 +        walk += len + 1;
 +    }
@@ -257,7 +288,7 @@ index 7623fcc1b..f5770e16f 100644
  {
      bool enabled;
 diff --git a/libtransmission/session.h b/libtransmission/session.h
-index 4ccf7fe46..430ab3e3c 100644
+index 4ccf7fe46..63ee36fc2 100644
 --- a/libtransmission/session.h
 +++ b/libtransmission/session.h
 @@ -222,6 +222,9 @@ struct tr_session
@@ -270,13 +301,8 @@ index 4ccf7fe46..430ab3e3c 100644
  };
  
  static inline tr_port tr_sessionGetPublicPeerPort(tr_session const* session)
-@@ -320,3 +323,4 @@ bool tr_sessionGetActiveSpeedLimit_Bps(tr_session const* session, tr_direction d
- void tr_sessionGetNextQueuedTorrents(tr_session* session, tr_direction dir, size_t numwanted, tr_ptrArray* setme);
- 
- int tr_sessionCountQueueFreeSlots(tr_session* session, tr_direction);
-+
 diff --git a/libtransmission/torrent.c b/libtransmission/torrent.c
-index 4b629169c..12b01380c 100644
+index 7ecaf3f51..7dc8f93b5 100644
 --- a/libtransmission/torrent.c
 +++ b/libtransmission/torrent.c
 @@ -34,6 +34,7 @@
@@ -287,7 +313,7 @@ index 4b629169c..12b01380c 100644
  #include "log.h"
  #include "magnet.h"
  #include "metainfo.h"
-@@ -1132,6 +1133,70 @@ static tr_parse_result torrentParseImpl(tr_ctor const* ctor, tr_info* setmeInfo,
+@@ -1133,6 +1134,72 @@ static tr_parse_result torrentParseImpl(tr_ctor const* ctor, tr_info* setmeInfo,
      return result;
  }
  
@@ -331,10 +357,12 @@ index 4b629169c..12b01380c 100644
 +                    break;
 +                }
 +            }
++
 +            if (duplicate)
 +            {
 +                continue;
 +            }
++
 +            trackers[numExistingTrackers].tier = ++tier; /* add a new tier */
 +            trackers[numExistingTrackers].announce = tr_strdup(url);
 +            ++numExistingTrackers;
@@ -358,7 +386,7 @@ index 4b629169c..12b01380c 100644
  tr_parse_result tr_torrentParse(tr_ctor const* ctor, tr_info* setmeInfo)
  {
      return torrentParseImpl(ctor, setmeInfo, NULL, NULL, NULL);
-@@ -1161,6 +1226,7 @@ tr_torrent* tr_torrentNew(tr_ctor const* ctor, int* setme_error, int* setme_dupl
+@@ -1162,6 +1229,7 @@ tr_torrent* tr_torrentNew(tr_ctor const* ctor, int* setme_error, int* setme_dupl
          }
  
          torrentInit(tor, ctor);
@@ -367,7 +395,7 @@ index 4b629169c..12b01380c 100644
      else
      {
 diff --git a/libtransmission/transmission.h b/libtransmission/transmission.h
-index e1ca32a7f..11b95b11d 100644
+index c34e1d6df..1917630ca 100644
 --- a/libtransmission/transmission.h
 +++ b/libtransmission/transmission.h
 @@ -473,6 +473,8 @@ int tr_sessionGetCacheLimit_MB(tr_session const* session);
@@ -404,7 +432,7 @@ index 1b553c441..013e41fc4 100644
          DSPEED_ENABLED,
          DOWNLOAD_DIR,
 diff --git a/qt/PrefsDialog.cc b/qt/PrefsDialog.cc
-index fe538d2a8..1ddb9b24e 100644
+index 4094965dd..69b93894a 100644
 --- a/qt/PrefsDialog.cc
 +++ b/qt/PrefsDialog.cc
 @@ -193,6 +193,10 @@ bool PrefsDialog::updateWidgetValue(QWidget* widget, int prefKey)
@@ -460,26 +488,28 @@ index fe538d2a8..1ddb9b24e 100644
  
      ColumnResizer* cr(new ColumnResizer(this));
      cr->addLayout(ui.incomingPeersSectionLayout);
-@@ -741,6 +766,7 @@ void PrefsDialog::refreshPref(int key)
+@@ -741,6 +766,8 @@ void PrefsDialog::refreshPref(int key)
      {
          QWidget* w(it.value());
  
 +        w->blockSignals(true);
++
          if (!updateWidgetValue(w, key))
          {
              if (key == Prefs::ENCRYPTION)
-@@ -750,5 +776,6 @@ void PrefsDialog::refreshPref(int key)
+@@ -750,5 +777,7 @@ void PrefsDialog::refreshPref(int key)
                  comboBox->setCurrentIndex(index);
              }
          }
++
 +        w->blockSignals(false);
      }
  }
 diff --git a/qt/PrefsDialog.h b/qt/PrefsDialog.h
-index 30dde12bf..785f56064 100644
+index 9d1095983..d482f3114 100644
 --- a/qt/PrefsDialog.h
 +++ b/qt/PrefsDialog.h
-@@ -56,6 +56,7 @@ private slots:
+@@ -55,6 +55,7 @@ private slots:
      void timeEditingFinished();
      void lineEditingFinished();
      void pathChanged(QString const& path);
@@ -519,10 +549,10 @@ index 65f16a30c..4a0af8caa 100644
         </item>
         <item>
 diff --git a/qt/Session.cc b/qt/Session.cc
-index c422ef63d..5957df0a7 100644
+index 59a18e6c4..a84d5ee50 100644
 --- a/qt/Session.cc
 +++ b/qt/Session.cc
-@@ -181,6 +181,7 @@ void Session::updatePref(int key)
+@@ -166,6 +166,7 @@ void Session::updatePref(int key)
          case Prefs::BLOCKLIST_DATE:
          case Prefs::BLOCKLIST_ENABLED:
          case Prefs::BLOCKLIST_URL:
@@ -548,7 +578,7 @@ index 6c9518a29..20323cf2a 100755
  				</div>
  			</div>
 diff --git a/web/javascript/prefs-dialog.js b/web/javascript/prefs-dialog.js
-index 1db6566b1..535a07450 100644
+index 3e52c5351..f21e9256a 100644
 --- a/web/javascript/prefs-dialog.js
 +++ b/web/javascript/prefs-dialog.js
 @@ -23,6 +23,7 @@ function PrefsDialog(remote) {
@@ -615,3 +645,6 @@ index eed5b2d88..71653a605 100644
  }
  
  /***
+-- 
+2.27.0
+
