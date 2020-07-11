@@ -1,11 +1,14 @@
 # Copyright 1999-2020 Gentoo Authors
 # Distributed under the terms of the GNU General Public License v2
 
-EAPI=6
+EAPI=7
 
 PYTHON_COMPAT=( python3_{6,7,8} )
 
-inherit cmake-utils gnome2-utils python-single-r1 xdg-utils
+# The generated .go files from guile can't be stripped.
+RESTRICT="strip"
+
+inherit cmake gnome2-utils python-single-r1 xdg-utils
 
 DESCRIPTION="A personal finance manager"
 HOMEPAGE="http://www.gnucash.org/"
@@ -18,39 +21,41 @@ KEYWORDS="~amd64 ~ppc ~ppc64 ~x86"
 IUSE="aqbanking debug doc examples gnome-keyring +gui mysql nls ofx postgres
 	  python quotes -register2 smartcard sqlite test"
 
-RESTRICT="!test? ( test )"
+# Examples doesn't build unless GUI is also built
 REQUIRED_USE="
+	examples? ( gui )
 	python? ( ${PYTHON_REQUIRED_USE} )
 	smartcard? ( aqbanking )"
 
 # libdbi version requirement for sqlite taken from bug #455134
 #
 # dev-libs/boost must always be built with nls enabled.
-# guile[deprecated] because of SCM_LIST*() use
+# net-libs/aqbanking dropped gtk with v6, so to simplify the dependency,
+# we just rely on that.
 RDEPEND="
-	>=dev-libs/glib-2.46.0:2
-	>=dev-libs/libxml2-2.7.0:2
+	>=dev-libs/glib-2.56.1:2
+	>=dev-libs/libxml2-2.9.4:2
 	dev-libs/boost:=[icu,nls]
 	dev-libs/icu:=
 	dev-libs/libxslt
-	>=dev-scheme/guile-2.2.0:12=[deprecated,regex]
+	>=dev-scheme/guile-2.2.0:12=[regex]
 	>=sys-libs/zlib-1.1.4
 	aqbanking? (
-		>=net-libs/aqbanking-5[ofx?]
-		sys-libs/gwenhywfar[gtk]
+		>=net-libs/aqbanking-6[ofx?]
+		sys-libs/gwenhywfar
 		smartcard? ( sys-libs/libchipcard )
 	)
 	gnome-keyring? ( >=app-crypt/libsecret-0.18 )
 	gui? (
 		gnome-base/dconf
-		net-libs/webkit-gtk:4=
-		>=x11-libs/gtk+-3.14.0:3
+		>=net-libs/webkit-gtk-2.14.1:4=
+		>=x11-libs/gtk+-3.22.30:3
 	)
 	mysql? (
 		dev-db/libdbi
 		dev-db/libdbi-drivers[mysql]
 	)
-	ofx? ( >=dev-libs/libofx-0.9.1 )
+	ofx? ( >=dev-libs/libofx-0.9.1:= )
 	postgres? (
 		dev-db/libdbi
 		dev-db/libdbi-drivers[postgres]
@@ -69,13 +74,14 @@ RDEPEND="
 
 DEPEND="${RDEPEND}
 	>=dev-cpp/gtest-1.8.0
-	>=sys-devel/gettext-0.19.6
+	>=sys-devel/gettext-0.20
 	dev-lang/perl
-	dev-lang/swig
 	dev-perl/XML-Parser
 	sys-devel/libtool
 	virtual/pkgconfig
 "
+
+BDEPEND=">=dev-lang/swig-3.0.12"
 
 PDEPEND="doc? (
 	~app-doc/gnucash-docs-${PV}
@@ -84,40 +90,52 @@ PDEPEND="doc? (
 
 PATCHES=(
 	"${FILESDIR}"/${PN}-3.2-no-gui.patch
-	"${FILESDIR}"/${PN}-3.7-include-checksymbolexists.patch
+	"${FILESDIR}"/${PN}-3.8-examples-subdir.patch
+	"${FILESDIR}"/${PN}-3.8-exclude-license.patch
 )
 
 S="${WORKDIR}/${P%[a-z]}"
+
+pkg_pretend() {
+	if tc-is-gcc; then
+		if [[ $(gcc-major-version) -lt 8 ]]; then
+			die "Gnucash needs at least GCC version 8."
+		fi
+	elif tc-is-clang; then
+		if [[ $(clang-major-version) -lt 6 ]]; then
+			die "Gnucash needs at least clang version 6."
+		fi
+	fi
+}
 
 pkg_setup() {
 	use python && python-single-r1_pkg_setup
 	xdg_environment_reset
 }
 
-src_unpack() {
-	default
-	cp "${FILESDIR}"/gnucash-3.4-test-stress-options.scm \
-	   "${S}"/${PN}/report/standard-reports/test/test-stress-options.scm \
-		|| die "Failed copying scm"
-}
-
 src_prepare() {
 	# Fix tests writing to /tmp
 	local fixtestfiles=(
-		"${S}"/gnucash/report/report-system/test/test-commodity-utils.scm
-		"${S}"/gnucash/report/report-system/test/test-extras.scm
-		"${S}"/gnucash/report/report-system/test/test-report-html.scm
-		"${S}"/gnucash/report/report-system/test/test-report-system.scm
-		"${S}"/libgnucash/backend/xml/test/test-xml-pricedb.cpp
-		"${S}"/libgnucash/backend/dbi/test/test-backend-dbi-basic.cpp
+		gnucash/report/test/test-report-html.scm
+		gnucash/report/reports/standard/test/test-invoice.scm
+		gnucash/report/reports/standard/test/test-new-owner-report.scm
+		gnucash/report/reports/standard/test/test-owner-report.scm
+		gnucash/report/reports/standard/test/test-transaction.scm
+		gnucash/report/reports/standard/test/test-portfolios.scm
+		gnucash/report/reports/standard/test/test-charts.scm
+		gnucash/report/test/test-report.scm
+		gnucash/report/test/test-commodity-utils.scm
+		gnucash/report/test/test-report-extras.scm
+		libgnucash/backend/dbi/test/test-backend-dbi-basic.cpp
+		libgnucash/backend/xml/test/test-xml-pricedb.cpp
 	)
 	for x in "${fixtestfiles[@]}"; do
-		sed -i -e "s|\"/tmp/|\"${T}/|g" "${x}" || die "sed of "${x}" failed"
+		sed -i -e "s|\"/tmp/|\"${T}/|g" "${S}/${x}" || die "sed of "${S}/${x}" failed"
 	done
 
 	sed -i -e 's/-Werror //' CMakeLists.txt
 
-	cmake-utils_src_prepare
+	cmake_src_prepare
 }
 
 src_configure() {
@@ -130,7 +148,6 @@ src_configure() {
 
 	local mycmakeargs=(
 		-DCOMPILE_GSCHEMAS=OFF
-		-DGENERATE_SWIG_WRAPPERS=ON
 		-DDISABLE_NLS=$(usex !nls)
 		-DENABLE_REGISTER2=$(usex register2)
 		-DWITH_AQBANKING=$(usex aqbanking)
@@ -140,7 +157,7 @@ src_configure() {
 		-DWITH_GNUCASH=$(usex gui)
 	)
 
-	cmake-utils_src_configure
+	cmake_src_configure
 }
 
 src_test() {
@@ -170,34 +187,29 @@ src_test() {
 	fi
 
 	cd "${BUILD_DIR}" || die
-	XDG_DATA_HOME="${T}/$(whoami)" emake check
+	XDG_DATA_HOME="${T}/$(whoami)" eninja check
 }
 
 src_install() {
-	cmake-utils_src_install
+	cmake_src_install
 
 	rm "${ED%/}"/usr/share/doc/${PF}/README.dependencies || die
 
 	if use examples ; then
-		mv "${ED%/}"/usr/share/doc/gnucash \
-		   "${ED%/}"/usr/share/doc/${PF}/examples || die
-		pushd "${ED%/}"/usr/share/doc/${PF}/examples/ > /dev/null || die
-		rm AUTHORS DOCUMENTERS LICENSE NEWS projects.html ChangeLog* \
-		   *win32-bin.txt || die
-		popd > /dev/null || die
-		docompress -x /usr/share/doc/${PF}/examples/
+		docompress -x /usr/share/doc/${PF}/examples
 	else
-		rm -r "${ED%/}"/usr/share/doc/gnucash || die
+		rm -r "${ED}"/usr/share/doc/${PF}/examples
 	fi
 
-	use aqbanking && dodoc doc/README.HBCI
-	use ofx && dodoc doc/README.OFX
-	use python && python_optimize
+	if use python; then
+		python_optimize
+		python_optimize "${ED}"/usr/share/gnucash/python
+	fi
 }
 
 pkg_postinst() {
 	if use gui ; then
-		gnome2_icon_cache_update
+		xdg_icon_cache_update
 		gnome2_schemas_update
 	fi
 	xdg_desktop_database_update
@@ -211,7 +223,7 @@ pkg_postinst() {
 
 pkg_postrm() {
 	if use gui ; then
-		gnome2_icon_cache_update
+		xdg_icon_cache_update
 		gnome2_schemas_update
 	fi
 	xdg_desktop_database_update
