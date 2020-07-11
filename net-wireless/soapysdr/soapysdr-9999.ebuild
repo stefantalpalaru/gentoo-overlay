@@ -3,7 +3,7 @@
 
 EAPI=6
 
-PYTHON_COMPAT=( python2_7 python3_6 )
+PYTHON_COMPAT=( python2_7 python3_{6,7,8} )
 CMAKE_IN_SOURCE_BUILD="1"
 
 inherit cmake-utils python-r1
