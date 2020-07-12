@@ -342,9 +342,13 @@ _python_export() {
 				local val
 
 				case "${impl}" in
-					python*|tauthon*)
-						# python-2.7, python-3.2, etc.
+					python2*|tauthon*|python3.6|python3.7*)
+						# python* up to 3.7
 						val=$($(tc-getPKG_CONFIG) --libs ${impl/n/n-}) || die
+						;;
+					python*)
+						# python3.8+
+						val=$($(tc-getPKG_CONFIG) --libs ${impl/n/n-}-embed) || die
 						;;
 					*)
 						die "${impl}: obtaining ${var} not supported"
@@ -376,16 +380,12 @@ _python_export() {
 				case ${impl} in
 					python2.7)
 						PYTHON_PKG_DEP='>=dev-lang/python-2.7.5-r2:2.7';;
-					python3.3)
-						PYTHON_PKG_DEP='>=dev-lang/python-3.3.2-r2:3.3';;
 					python*)
 						PYTHON_PKG_DEP="dev-lang/python:${impl#python}";;
 					pypy)
-						PYTHON_PKG_DEP='>=dev-python/pypy-5:0=';;
+						PYTHON_PKG_DEP='>=dev-python/pypy-7.3.0:0=';;
 					pypy3)
-						PYTHON_PKG_DEP='>=dev-python/pypy3-5:0=';;
-					jython2.7)
-						PYTHON_PKG_DEP='dev-java/jython:2.7';;
+						PYTHON_PKG_DEP='>=dev-python/pypy3-7.3.0:0=';;
 					tauthon2.8)
 						PYTHON_PKG_DEP='dev-lang/tauthon:2.8';;
 					*)
@@ -1167,8 +1167,8 @@ python_fix_shebang() {
 
 # @FUNCTION: _python_check_locale_sanity
 # @USAGE: <locale>
-# @INTERNAL
 # @RETURN: 0 if sane, 1 otherwise
+# @INTERNAL
 # @DESCRIPTION:
 # Check whether the specified locale sanely maps between lowercase
 # and uppercase ASCII characters.
