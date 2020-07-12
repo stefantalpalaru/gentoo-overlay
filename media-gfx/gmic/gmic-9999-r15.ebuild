@@ -1,4 +1,4 @@
-# Copyright 1999-2019 Gentoo Authors
+# Copyright 1999-2020 Gentoo Authors
 # Distributed under the terms of the GNU General Public License v2
 
 EAPI=7
@@ -6,7 +6,7 @@ CMAKE_MAKEFILE_GENERATOR="emake"
 CMAKE_BUILD_TYPE=Release
 #CMAKE_MIN_VERSION="3.12.1"
 
-inherit bash-completion-r1 cmake-utils
+inherit bash-completion-r1 cmake
 
 DESCRIPTION="GREYC's Magic Image Converter"
 HOMEPAGE="http://gmic.eu/ https://github.com/dtschump/gmic https://framagit.org/dtschump/gmic"
@@ -111,7 +111,7 @@ src_prepare() {
 		ln -s "${EPREFIX}"/usr/include/CImg.h ./src/ || die
 		cp -a "${DISTDIR}/gmic_stdlib$(ver_rs 1- '').h" src/gmic_stdlib.h || die
 	fi
-	cmake-utils_src_prepare
+	cmake_src_prepare
 
 	if [[ ${PV} != "9999" ]]; then
 		ln -sr ../${PN}-v.${PV} ../${PN}
@@ -122,7 +122,7 @@ src_prepare() {
 			-e '/CMAKE_CXX_FLAGS_RELEASE/d' \
 			../${GMIC_QT_DIR}/CMakeLists.txt || die "sed failed"
 		local S="${WORKDIR}/${GMIC_QT_DIR}"
-		cmake-utils_src_prepare
+		cmake_src_prepare
 	fi
 }
 
@@ -149,7 +149,7 @@ src_configure() {
 	)
 
 	CMAKE_USE_DIR=${S}
-	cmake-utils_src_configure
+	cmake_src_configure
 
 	# gmic-qt
 	local CMAKE_USE_DIR="${WORKDIR}/${GMIC_QT_DIR}"
@@ -161,37 +161,37 @@ src_configure() {
 	if use gimp; then
 		BUILD_DIR=${WORKDIR}/gimp_build
 		mycmakeargs+=( -DGMIC_QT_HOST=gimp )
-		cmake-utils_src_configure
+		cmake_src_configure
 	fi
 	if use gui; then
 		BUILD_DIR=${WORKDIR}/gui_build
 		mycmakeargs+=( -DGMIC_QT_HOST=none )
-		cmake-utils_src_configure
+		cmake_src_configure
 	fi
 	if use krita; then
 		BUILD_DIR=${WORKDIR}/krita_build
 		mycmakeargs+=( -DGMIC_QT_HOST=krita )
-		cmake-utils_src_configure
+		cmake_src_configure
 	fi
 }
 
 src_compile() {
-	cmake-utils_src_compile
+	cmake_src_compile
 
 	# gmic-qt
 	local S="${WORKDIR}/${GMIC_QT_DIR}"
 	local BUILD_DIR
 	if use gimp; then
 		BUILD_DIR="${WORKDIR}/gimp_build"
-		cmake-utils_src_compile
+		cmake_src_compile
 	fi
 	if use gui; then
 		BUILD_DIR="${WORKDIR}/gui_build"
-		cmake-utils_src_compile
+		cmake_src_compile
 	fi
 	if use krita; then
 		BUILD_DIR="${WORKDIR}/krita_build"
-		cmake-utils_src_compile
+		cmake_src_compile
 	fi
 }
 
@@ -208,7 +208,7 @@ src_install() {
 	insinto "${PLUGIN_DIR}"
 	doins "resources/gmic_cluts.gmz"
 
-	cmake-utils_src_install
+	cmake_src_install
 
 	# By default, "gmic.cpp" includes "gmic.h" which defines "cimg_plugin" to "gmic.cpp" and then
 	# includes "CImg.h" which includes "cimg_plugin" which is "gmic.cpp", of course.
