@@ -65,6 +65,7 @@ OPTIONAL_DEPEND="
 COMMON_DEPEND="
 	$(python_gen_cond_dep '>dev-python/numpy-python2-1.7[${PYTHON_USEDEP}]' python2_7)
 	$(python_gen_cond_dep '>dev-python/numpy-1.7[${PYTHON_USEDEP}]' python3)
+	$(python_gen_cond_dep '<dev-python/numpy-1.19.0[${PYTHON_USEDEP}]' python3)
 	>=dev-python/python-dateutil-2.0[${PYTHON_USEDEP}]
 	dev-python/pytz[${PYTHON_USEDEP}]
 "
