@@ -23,7 +23,6 @@ RDEPEND="
 	alsa? ( media-libs/alsa-lib )
 	sys-devel/gdb
 	joystick? ( dev-libs/libevdev )
-	llvm? ( sys-devel/llvm:11 )
 	media-libs/glew:0
 	media-libs/libpng:*
 	media-libs/openal
