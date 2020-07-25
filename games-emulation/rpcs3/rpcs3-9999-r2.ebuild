@@ -80,6 +80,10 @@ src_configure() {
 		-DCMAKE_CXX_FLAGS_GENTOO="${CXXFLAGS}"
 		-DBUILD_SHARED_LIBS=OFF
 	)
+	# https://github.com/RPCS3/rpcs3/pull/8609
+	if use vulkan; then
+		mycmakeargs+=( -DCMAKE_DISABLE_FIND_PACKAGE_Wayland=TRUE )
+	fi
 
 	cmake_src_configure
 }
