@@ -190,6 +190,7 @@ net-misc/ssvnc
 net-p2p/pybitmessage
 net-print/pykota
 sci-astronomy/casacore
+sci-libs/scipy-python2
 sci-mathematics/xmds
 www-apps/blohg-tumblelog
 x11-misc/magick-rotation
