@@ -1,12 +1,11 @@
 # Copyright 2014-2020 Gentoo Authors
 # Distributed under the terms of the GNU General Public License v2
 
-EAPI=6
+EAPI=7
 
-CMAKE_MIN_VERSION=3.11
 CMAKE_IN_SOURCE_BUILD=1
 
-inherit cmake-utils git-r3
+inherit cmake git-r3
 
 DESCRIPTION="Compiler for the Pony language"
 HOMEPAGE="http://www.ponylang.org/"
@@ -60,5 +59,5 @@ src_test() {
 }
 
 src_install() {
-	emake ${common_make_args} build_flags="${MAKEOPTS}" prefix="${ED}usr" install
+	emake ${common_make_args} build_flags="${MAKEOPTS}" prefix="${ED}/usr" install
 }
