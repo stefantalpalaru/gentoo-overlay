@@ -1,9 +1,9 @@
-# Copyright 1999-2019 Gentoo Authors
+# Copyright 1999-2020 Gentoo Authors
 # Distributed under the terms of the GNU General Public License v2
 
-EAPI=6
+EAPI=7
 
-inherit eapi7-ver eutils flag-o-matic linux-info linux-mod user udev
+inherit eutils flag-o-matic linux-info linux-mod user udev
 
 DESCRIPTION="VMware kernel modules"
 HOMEPAGE="https://github.com/mkubecek/vmware-host-modules"
@@ -23,10 +23,14 @@ S="${WORKDIR}/vmware-host-modules-w${PV}-k${MY_KERNEL_VERSION}"
 
 pkg_setup() {
 	CONFIG_CHECK="~HIGH_RES_TIMERS"
-	if kernel_is ge 2 6 37 && kernel_is lt 2 6 39; then
+	if kernel_is -ge 2 6 37 && kernel_is -lt 2 6 39; then
 		CONFIG_CHECK="${CONFIG_CHECK} BKL"
 	fi
 	CONFIG_CHECK="${CONFIG_CHECK} VMWARE_VMCI VMWARE_VMCI_VSOCKETS"
+
+	if kernel_is -ge 5 8 0; then
+		die "${PN} doesn't work yet with kernels >=5.8.0: https://github.com/mkubecek/vmware-host-modules/issues/70"
+	fi
 
 	linux-info_pkg_setup
 	linux-mod_pkg_setup
