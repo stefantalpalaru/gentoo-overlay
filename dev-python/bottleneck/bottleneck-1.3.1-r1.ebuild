@@ -18,9 +18,9 @@ IUSE="test"
 
 RDEPEND="
 	$(python_gen_cond_dep '>=dev-python/numpy-python2-1.9.1[${PYTHON_USEDEP}]' python2_7)
-	$(python_gen_cond_dep '>=dev-python/numpy-1.9.1[${PYTHON_USEDEP}]' python3)
+	$(python_gen_cond_dep '>=dev-python/numpy-1.9.1[${PYTHON_USEDEP}]' 'python3*')
 	$(python_gen_cond_dep 'sci-libs/scipy-python2[${PYTHON_USEDEP}]' python2_7)
-	$(python_gen_cond_dep 'sci-libs/scipy[${PYTHON_USEDEP}]' python3)
+	$(python_gen_cond_dep 'sci-libs/scipy[${PYTHON_USEDEP}]' 'python3*')
 "
 DEPEND="${RDEPEND}
 	dev-python/setuptools[${PYTHON_USEDEP}]

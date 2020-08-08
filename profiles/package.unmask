@@ -153,6 +153,7 @@ dev-python/slowaes
 dev-python/snakefood
 dev-python/soappy
 dev-python/sphinxcontrib-ditaa
+dev-python/sphinxtogithub
 dev-python/sqlitecachec
 dev-python/stripogram
 dev-python/sudsds
