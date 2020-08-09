@@ -20,6 +20,7 @@ dev-python/bicyclerepair
 dev-python/bjoern
 dev-python/buzhug
 dev-python/carrot
+dev-python/cddb-py
 dev-python/cement
 dev-python/cfgparse
 dev-python/cherrytemplate
@@ -37,6 +38,7 @@ dev-python/fabric
 dev-python/figleaf
 dev-python/flask-dashed
 dev-python/flask-evolution
+dev-python/flup
 dev-python/foolscap
 dev-python/fpconst
 dev-python/functest
@@ -127,6 +129,7 @@ dev-python/python-exconsole
 dev-python/python-fastcgi
 dev-python/python-mhash
 dev-python/python-oembed
+dev-python/python-openid
 dev-python/python-pam
 dev-python/python-pluginloader
 dev-python/python-poppler
