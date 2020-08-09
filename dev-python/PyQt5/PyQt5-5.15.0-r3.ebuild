@@ -58,6 +58,7 @@ RDEPEND="${PYTHON_DEPS}
 	>=dev-python/PyQt5-sip-4.19.23:=[${PYTHON_USEDEP}]
 	>=dev-qt/qtcore-${QT_PV}
 	>=dev-qt/qtxml-${QT_PV}
+	$(python_gen_cond_dep 'dev-python/enum34[${PYTHON_USEDEP}]' -2)
 	bluetooth? ( >=dev-qt/qtbluetooth-${QT_PV} )
 	dbus? (
 		dev-python/dbus-python[${PYTHON_USEDEP}]
@@ -151,10 +152,6 @@ src_configure() {
 		echo "${myconf[@]}"
 		"${myconf[@]}" || die
 
-		# Fix parallel install failure
-		sed -i -e '/INSTALLS += distinfo/i distinfo.depends = install_subtargets install_pep484_stubs install_qscintilla_api' \
-			${PN}.pro || die
-
 		# Run eqmake to respect toolchain and build flags
 		eqmake5 -recursive ${PN}.pro
 	}
@@ -168,7 +165,7 @@ src_compile() {
 src_install() {
 	installation() {
 		local tmp_root=${D}/${PN}_tmp_root
-		emake INSTALL_ROOT="${tmp_root}" install
+		emake INSTALL_ROOT="${tmp_root}" -j1 install
 
 		local bin_dir=${tmp_root}${EPREFIX}/usr/bin
 		local exe
@@ -178,7 +175,11 @@ src_install() {
 		done
 
 		local uic_dir=${tmp_root}$(python_get_sitedir)/${PN}/uic
-		rm -r "${uic_dir}"/port_v2 || die
+		if python_is_python3; then
+			rm -r "${uic_dir}"/port_v2 || die
+		else
+			rm -r "${uic_dir}"/port_v3 || die
+		fi
 
 		multibuild_merge_root "${tmp_root}" "${D}"
 		python_optimize
