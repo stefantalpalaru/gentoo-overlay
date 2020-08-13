@@ -337,6 +337,7 @@ src_install() {
 	# for python-exec
 	local vars=( EPYTHON PYTHON_SITEDIR PYTHON_SCRIPTDIR )
 
+	local -x EPYTHON=tauthon${SLOT}
 	# if not using a cross-compiler, use the fresh binary
 	if ! tc-is-cross-compiler; then
 		local -x PYTHON=./tauthon
@@ -345,7 +346,6 @@ src_install() {
 		vars=( PYTHON "${vars[@]}" )
 	fi
 
-	python_export "tauthon${SLOT}" "${vars[@]}"
 	echo "EPYTHON='${EPYTHON}'" > epython.py || die
 	python_domodule epython.py
 
