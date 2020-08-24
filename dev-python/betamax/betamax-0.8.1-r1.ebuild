@@ -3,7 +3,7 @@
 
 EAPI=7
 DISTUTILS_USE_SETUPTOOLS=rdepend
-PYTHON_COMPAT=( python2_7 python3_{6,7,8,9} )
+PYTHON_COMPAT=( python2_7 python3_{6..9} )
 
 inherit distutils-r1
 
@@ -20,7 +20,7 @@ RDEPEND="dev-python/requests[${PYTHON_USEDEP}]"
 DEPEND="
 	test? (
 		${RDEPEND}
-		$(python_gen_cond_dep 'dev-python/mock[${PYTHON_USEDEP}]' python2_7 pypy)
+		$(python_gen_cond_dep 'dev-python/mock[${PYTHON_USEDEP}]' python2_7)
 	)"
 
 PATCHES=(

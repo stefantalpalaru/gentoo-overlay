@@ -17,20 +17,22 @@ SLOT="0"
 KEYWORDS="~alpha amd64 arm arm64 hppa ~ia64 ppc ppc64 ~s390 sparc x86 ~amd64-linux ~x86-linux"
 IUSE="test"
 
-BDEPEND="
+CDEPEND="
 	dev-python/attrs[${PYTHON_USEDEP}]
 	dev-python/pyrsistent[${PYTHON_USEDEP}]
 	dev-python/setuptools[${PYTHON_USEDEP}]
 	dev-python/six[${PYTHON_USEDEP}]
 	$(python_gen_cond_dep '
 		dev-python/importlib_metadata[${PYTHON_USEDEP}]
-		' python{2_7,3_{5,6,7}} pypy{,3})
+		' python{2_7,3_{5,6,7}})
 	$(python_gen_cond_dep \
 		'dev-python/functools32[${PYTHON_USEDEP}]' -2)
+"
+BDEPEND="${CDEPEND}
 	test? ( dev-python/twisted[${PYTHON_USEDEP}] )
 "
 
-RDEPEND="${BDEPEND}
+RDEPEND="${CDEPEND}
 	dev-python/idna[${PYTHON_USEDEP}]
 	>=dev-python/jsonpointer-1.13[${PYTHON_USEDEP}]
 	dev-python/rfc3987[${PYTHON_USEDEP}]
