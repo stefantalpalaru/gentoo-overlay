@@ -11,8 +11,8 @@ QA_PREBUILT="*"
 DESCRIPTION="Project collaboration and tracking software for upwork.com"
 HOMEPAGE="https://www.upwork.com/"
 SRC_URI="
-	amd64? ( https://updates-desktopapp.upwork.com/binaries/v5_4_2_8_17caa201e7ae4660/upwork-5.4.2.8-1fc24.x86_64.rpm -> ${P}_x86_64.rpm )
-	x86? ( https://updates-desktopapp.upwork.com/binaries/v5_4_2_8_17caa201e7ae4660/upwork-5.4.2.8-1fc24.i386.rpm -> ${P}_i386.rpm )
+	amd64? ( https://updates-desktopapp.upwork.com/binaries/v5_4_5_1_941af939eff74e21/upwork-5.4.5.1-1fc24.x86_64.rpm -> ${P}_x86_64.rpm )
+	x86? ( https://updates-desktopapp.upwork.com/binaries/v5_4_5_1_941af939eff74e21/upwork-5.4.5.1-1fc24.i386.rpm -> ${P}_i386.rpm )
 "
 LICENSE="ODESK"
 SLOT="0"
@@ -33,6 +33,8 @@ RDEPEND="
 	sys-apps/dbus
 	sys-libs/libcap
 	x11-libs/gtk+:3[cups]
+	x11-libs/libXinerama
+	x11-libs/libXScrnSaver
 "
 
 src_prepare() {
@@ -56,4 +58,13 @@ src_install() {
 	doins -r opt/Upwork
 	fperms 0755 /opt/Upwork/{app.node,cmon,upwork}
 	domenu usr/share/applications/upwork.desktop
+	doicon usr/share/icons/hicolor/128x128/apps/upwork.png
+}
+
+pkg_postinst() {
+	xdg_icon_cache_update
+}
+
+pkg_postrm() {
+	xdg_icon_cache_update
 }
