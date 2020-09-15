@@ -25,6 +25,7 @@ dev-python/cement
 dev-python/cfgparse
 dev-python/cherrytemplate
 dev-python/clientcookie
+dev-python/corner
 dev-python/d2to1
 dev-python/dbutils
 dev-python/dexml
@@ -35,6 +36,7 @@ dev-python/disqus-python
 dev-python/ed25519ll
 dev-python/egenix-mx-base
 dev-python/fabric
+dev-python/faulthandler
 dev-python/figleaf
 dev-python/flask-dashed
 dev-python/flask-evolution
@@ -64,6 +66,7 @@ dev-python/invoke
 dev-python/ip-associations-python-novaclient-ext
 dev-python/irman-python
 dev-python/jonpy
+dev-python/jplephem
 dev-python/keyczar
 dev-python/keyrings_alt
 dev-python/libextractor-python
@@ -103,6 +106,7 @@ dev-python/pycrypto
 dev-python/pycryptopp
 dev-python/pydvdread
 dev-python/pyelemental
+dev-python/pygtk
 dev-python/pyifp
 dev-python/pykota
 dev-python/pylibpcap
@@ -184,6 +188,7 @@ dev-util/Orange
 dev-vcs/bzr
 dev-vcs/hg-fast-export
 dev-vcs/rabbitvcs
+media-gfx/displaycal
 media-sound/tunapie
 media-video/subliminal
 net-analyzer/namebench
