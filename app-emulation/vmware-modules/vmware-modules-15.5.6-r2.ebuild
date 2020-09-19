@@ -8,7 +8,7 @@ inherit eutils flag-o-matic linux-info linux-mod user udev
 DESCRIPTION="VMware kernel modules"
 HOMEPAGE="https://github.com/mkubecek/vmware-host-modules"
 
-MY_KERNEL_VERSION="5.7"
+MY_KERNEL_VERSION="5.8"
 SRC_URI="https://github.com/mkubecek/vmware-host-modules/archive/w${PV}-k${MY_KERNEL_VERSION}.zip -> ${P}-${MY_KERNEL_VERSION}.zip"
 
 LICENSE="GPL-2"
@@ -27,10 +27,6 @@ pkg_setup() {
 		CONFIG_CHECK="${CONFIG_CHECK} BKL"
 	fi
 	CONFIG_CHECK="${CONFIG_CHECK} VMWARE_VMCI VMWARE_VMCI_VSOCKETS"
-
-	if kernel_is -ge 5 8 0; then
-		die "${PN} doesn't work yet with kernels >=5.8.0: https://github.com/mkubecek/vmware-host-modules/issues/70"
-	fi
 
 	linux-info_pkg_setup
 	linux-mod_pkg_setup
