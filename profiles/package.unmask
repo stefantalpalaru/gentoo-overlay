@@ -188,6 +188,7 @@ dev-util/Orange
 dev-vcs/bzr
 dev-vcs/hg-fast-export
 dev-vcs/rabbitvcs
+gnome-base/libgnome-keyring
 media-gfx/displaycal
 media-sound/tunapie
 media-video/subliminal
