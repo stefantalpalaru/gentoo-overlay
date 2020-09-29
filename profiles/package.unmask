@@ -35,6 +35,7 @@ dev-python/dirq
 dev-python/disqus-python
 dev-python/ed25519ll
 dev-python/egenix-mx-base
+dev-python/enum34
 dev-python/fabric
 dev-python/faulthandler
 dev-python/figleaf
@@ -44,6 +45,7 @@ dev-python/flup
 dev-python/foolscap
 dev-python/fpconst
 dev-python/functest
+dev-python/futures
 dev-python/gdata
 dev-python/gdmodule
 dev-python/gnome-python-base
@@ -64,6 +66,7 @@ dev-python/htmlgen
 dev-python/inotifyx
 dev-python/invoke
 dev-python/ip-associations-python-novaclient-ext
+dev-python/ipaddress
 dev-python/irman-python
 dev-python/jonpy
 dev-python/jplephem
@@ -80,6 +83,7 @@ dev-python/lupy
 dev-python/m2secret
 dev-python/mocker
 dev-python/mwlib-ext
+dev-python/mysql-python
 dev-python/nevow
 dev-python/newt_syrup
 dev-python/nose-testconfig
@@ -156,6 +160,7 @@ dev-python/sclapp
 dev-python/shm
 dev-python/simples3
 dev-python/simplesettings
+dev-python/singledispatch
 dev-python/slowaes
 dev-python/snakefood
 dev-python/soappy
