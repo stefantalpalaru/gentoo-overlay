@@ -13,6 +13,7 @@ dev-python/anyjson
 dev-python/anyvc
 dev-python/arrayterator
 dev-python/asciitree
+dev-python/backports-functools-lru-cache
 dev-python/backports-shutil_get_terminal_size
 dev-python/backports-ssl-match-hostname
 dev-python/beanstalkc
@@ -25,6 +26,7 @@ dev-python/cement
 dev-python/cfgparse
 dev-python/cherrytemplate
 dev-python/clientcookie
+dev-python/configparser
 dev-python/corner
 dev-python/d2to1
 dev-python/dbutils
@@ -45,6 +47,7 @@ dev-python/flup
 dev-python/foolscap
 dev-python/fpconst
 dev-python/functest
+dev-python/functools32
 dev-python/futures
 dev-python/gdata
 dev-python/gdmodule
@@ -81,6 +84,7 @@ dev-python/louie
 dev-python/lp_solve
 dev-python/lupy
 dev-python/m2secret
+dev-python/matplotlib-python2
 dev-python/mocker
 dev-python/mwlib-ext
 dev-python/mysql-python
@@ -168,6 +172,7 @@ dev-python/sphinxcontrib-ditaa
 dev-python/sphinxtogithub
 dev-python/sqlitecachec
 dev-python/stripogram
+dev-python/subprocess32
 dev-python/sudsds
 dev-python/superlance
 dev-python/supervisor-quick
@@ -205,7 +210,7 @@ net-misc/ssvnc
 net-p2p/pybitmessage
 net-print/pykota
 sci-astronomy/casacore
-sci-libs/scipy-python2
+dev-python/scipy-python2
 sci-mathematics/xmds
 www-apps/blohg-tumblelog
 x11-misc/magick-rotation
