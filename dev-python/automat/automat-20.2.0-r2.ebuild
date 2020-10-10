@@ -35,14 +35,7 @@ PATCHES=(
 	"${FILESDIR}/test_visualize-twisted-import-errors.patch"
 )
 
-distutils_enable_tests pytest
-
 python_prepare_all() {
-	if use test ; then
-		# Remove since this is upstream benchmarking tests
-		rm -r benchmark || die "FAILED to remove benchmark tests"
-	fi
-
 	# avoid a setuptools_scm dependency
 	sed -r -i "s:use_scm_version=True:version='${PV}': ;
 		s:[\"']setuptools[_-]scm[\"'](,|)::" setup.py || die
