@@ -95,6 +95,7 @@ dev-python/numdisplay
 dev-python/optcomplete
 dev-python/os-networksv2-python-novaclient-ext
 dev-python/os-virtual-interfacesv2-python-novaclient-ext
+dev-python/pathlib
 dev-python/piddle
 dev-python/pkipplib
 dev-python/pp
@@ -160,6 +161,7 @@ dev-python/ropeide
 dev-python/ropemacs
 dev-python/sampy
 dev-python/sancho
+dev-python/scipy-python2
 dev-python/sclapp
 dev-python/shm
 dev-python/simples3
@@ -210,9 +212,9 @@ net-misc/ssvnc
 net-p2p/pybitmessage
 net-print/pykota
 sci-astronomy/casacore
-dev-python/scipy-python2
 sci-mathematics/xmds
 www-apps/blohg-tumblelog
+x11-libs/pangox-compat
 x11-misc/magick-rotation
 x11-misc/obmenu
 
