@@ -3,13 +3,14 @@
 
 EAPI=6
 
-PYTHON_COMPAT=( python2_7 )
+PYTHON_COMPAT=( python2_7 python3_{6..9} )
 
-inherit python-r1 vcs-snapshot
+inherit python-r1
 
 DESCRIPTION="mercurial to git converter using git-fast-import"
 HOMEPAGE="https://github.com/frej/fast-export"
-SRC_URI="${HOMEPAGE}/archive/v${PV}.tar.gz -> ${P}.tar.gz"
+COMMIT="ead75895b058d16ffc7330dab78054c94a189377"
+SRC_URI="https://github.com/frej/fast-export/archive/${COMMIT}.zip -> ${P}.zip"
 
 LICENSE="MIT"
 SLOT="0"
@@ -23,11 +24,11 @@ RDEPEND="${DEPEND}
 	dev-vcs/mercurial
 	dev-python/python-pluginloader[${PYTHON_USEDEP}]"
 
+S="${WORKDIR}/fast-export-${COMMIT}"
+
 src_prepare() {
 	default
-	sed -e '/^PYTHON/s/python2\?/python2.7/' \
-		-e '/^PYTHON/s/PYTHON:/E&/g' \
-		-e "/^ROOT/s:=.*:='${EPREFIX}/usr/bin':" \
+	sed -e "/^ROOT/s:=.*:='${EPREFIX}/usr/bin':" \
 		-i "${PN}".sh hg-reset.sh || die
 }
 
