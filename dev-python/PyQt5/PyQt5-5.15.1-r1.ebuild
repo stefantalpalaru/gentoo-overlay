@@ -52,7 +52,7 @@ REQUIRED_USE="
 "
 
 # Minimal supported version of Qt.
-QT_PV="5.12:5"
+QT_PV="5.14:5"
 
 RDEPEND="${PYTHON_DEPS}
 	>=dev-python/PyQt5-sip-4.19.23:=[${PYTHON_USEDEP}]
@@ -165,7 +165,8 @@ src_compile() {
 src_install() {
 	installation() {
 		local tmp_root=${D}/${PN}_tmp_root
-		emake INSTALL_ROOT="${tmp_root}" -j1 install
+		# parallel install fails because mk_distinfo.py runs too early
+		emake -j1 INSTALL_ROOT="${tmp_root}" install
 
 		local bin_dir=${tmp_root}${EPREFIX}/usr/bin
 		local exe
