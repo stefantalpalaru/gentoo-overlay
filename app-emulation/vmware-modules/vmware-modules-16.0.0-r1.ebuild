@@ -51,7 +51,10 @@ pkg_setup() {
 
 src_prepare() {
 	# decouple the kernel include dir from the running kernel version: https://github.com/stefantalpalaru/gentoo-overlay/issues/17
-	sed -i -e "s%HEADER_DIR = /lib/modules/\$(VM_UNAME)/build/include%HEADER_DIR = ${KERNEL_DIR}/include%" */Makefile || die "sed failed"
+	sed -i \
+		-e "s%HEADER_DIR = /lib/modules/\$(VM_UNAME)/build/include%HEADER_DIR = ${KERNEL_DIR}/include%" \
+		-e "s%VM_UNAME = .*\$%VM_UNAME = ${KV_FULL}%" \
+		*/Makefile || die "sed failed"
 
 	# Allow user patches so they can support RC kernels and whatever else
 	default
