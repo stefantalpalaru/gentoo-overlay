@@ -7,7 +7,7 @@ WX_GTK_VER="3.0-gtk3"
 inherit autotools wxwidgets user
 
 MY_P="${PN/m/M}-${PV}"
-MY_COMMIT="c0c28234a40b1b575ce51cdfe5ffa5dac3a7494c"
+MY_COMMIT="9fd038f8208f085dc7e0b52b73b2e18b6536437b"
 
 DESCRIPTION="aMule, the all-platform eMule p2p client"
 HOMEPAGE="http://www.amule.org/"
