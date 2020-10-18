@@ -3,17 +3,18 @@
 
 EAPI=6
 
-PYTHON_COMPAT=( python3_{6,7} )
+PYTHON_COMPAT=( python3_{6..8} )
 PYTHON_REQ_USE="threads(+)"
 inherit python-single-r1 waf-utils multilib-minimal
 
 DESCRIPTION="Jackdmp jack implemention for multi-processor machine"
-HOMEPAGE="http://jackaudio.org/"
+HOMEPAGE="http://jackaudio.org/
+		https://github.com/jackaudio/jack2"
 
 MY_PV="${PV/_rc/-RC}"
 MY_P="jack2-${MY_PV}"
 S="${WORKDIR}/${MY_P}"
-SRC_URI="https://github.com/jackaudio/jack2/releases/download/v${MY_PV}/v${MY_PV}.tar.gz -> ${P}.tar.gz"
+SRC_URI="https://github.com/jackaudio/jack2/archive/v${MY_PV}.tar.gz -> ${P}.tar.gz"
 KEYWORDS="~amd64 ~ppc ~x86"
 
 LICENSE="GPL-2"
@@ -46,7 +47,9 @@ RDEPEND="${CDEPEND}
 	dbus? ( dev-python/dbus-python[${PYTHON_MULTI_USEDEP}] )
 	')
 	pam? ( sys-auth/realtime-base )
-	!media-sound/jack-audio-connection-kit:0"
+	!!media-sound/jack-audio-connection-kit:0
+	!!media-sound/jack2
+"
 
 DOCS=( ChangeLog.rst README.rst README_NETJACK2 )
 
