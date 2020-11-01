@@ -26,9 +26,9 @@ RDEPEND="
 	media-libs/glew:0
 	media-libs/libpng:*
 	media-libs/openal
+	media-video/ffmpeg
 	pulseaudio? ( media-sound/pulseaudio )
 	sys-libs/zlib
-	virtual/ffmpeg
 	virtual/opengl
 	vulkan? ( media-libs/vulkan-loader )
 	x11-libs/libX11
