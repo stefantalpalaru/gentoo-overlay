@@ -21,7 +21,7 @@ RDEPEND="${DEPEND}"
 BDEPEND=""
 
 src_compile() {
-	NIMFLAGS="-d:insecure -d:disableMarchNative --passC:'${CFLAGS}' --passL:'${LDFLAGS}'"
+	NIMFLAGS="-d:insecure -d:disableMarchNative --passC:'${CFLAGS}' --passL:'${LDFLAGS}' --parallelBuild:1"
 	if ! use lto; then
 		NIMFLAGS="$NIMFLAGS -d:disableLTO"
 	fi
@@ -38,6 +38,7 @@ src_install() {
 
 	newconfd "${FILESDIR}/${PN}.conf" ${PN}
 	newinitd "${FILESDIR}/${PN}.init" ${PN}
+	keepdir /var/log/${PN}
 
 	insinto /etc/logrotate.d
 	newins "${FILESDIR}"/${PN}.logrotate ${PN}
