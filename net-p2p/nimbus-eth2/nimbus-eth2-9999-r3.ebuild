@@ -21,7 +21,7 @@ RDEPEND="${DEPEND}"
 BDEPEND=""
 
 src_compile() {
-	NIMFLAGS="-d:insecure -d:disableMarchNative --passC:'${CFLAGS}' --passL:'${LDFLAGS}' --parallelBuild:1"
+	NIMFLAGS="-d:insecure -d:disableMarchNative --passC:'${CFLAGS}' --passL:'${LDFLAGS}' --parallelBuild:1 -d:chronicles_sinks=textlines"
 	if ! use lto; then
 		NIMFLAGS="$NIMFLAGS -d:disableLTO"
 	fi

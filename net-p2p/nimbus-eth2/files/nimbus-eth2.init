@@ -15,5 +15,10 @@ output_log=/var/log/${RC_SVCNAME}/${RC_SVCNAME}.log
 supervisor="supervise-daemon"
 
 depend() {
-        after net
+	after net
 }
+
+start_pre() {
+	checkpath -d -o "${command_user}" -m 0700 --quiet /var/log/${RC_SVCNAME}
+}
+
