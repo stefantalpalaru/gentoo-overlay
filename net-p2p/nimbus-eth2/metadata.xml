@@ -5,4 +5,7 @@
 		<email>stefantalpalaru@yahoo.com</email>
 		<name>Ștefan Talpalaru</name>
 	</maintainer>
+	<use>
+		<flag name="lto">Enable Link Time Optimization (LTO)</flag>
+	</use>
 </pkgmetadata>

@@ -14,20 +14,27 @@ RESTRICT="strip"
 LICENSE="MIT-with-advertising Apache-2.0"
 SLOT="0"
 KEYWORDS=""
+IUSE="lto"
 
 DEPEND=""
 RDEPEND="${DEPEND}"
 BDEPEND=""
 
 src_compile() {
-	emake LOG_LEVEL="TRACE" NIMFLAGS="-d:insecure -d:disableMarchNative --passC:'${CFLAGS}' --passL:'${LDFLAGS}'" \
-		beacon_node beacon_node_spec_0_12_3 #signing_process
+	NIMFLAGS="-d:insecure -d:disableMarchNative --passC:'${CFLAGS}' --passL:'${LDFLAGS}'"
+	if ! use lto; then
+		NIMFLAGS="$NIMFLAGS -d:disableLTO"
+	fi
+	emake LOG_LEVEL="TRACE" NIMFLAGS="${NIMFLAGS}" \
+		nimbus_beacon_node \
+		nimbus_beacon_node_spec_0_12_3 \
+		nimbus_signing_process
 }
 
 src_install() {
-	newbin build/beacon_node nimbus_beacon_node
-	newbin build/beacon_node_spec_0_12_3 nimbus_beacon_node_medalla
-	#newbin build/signing_process nimbus_signing_process
+	dobin build/nimbus_beacon_node
+	newbin build/nimbus_beacon_node_spec_0_12_3 nimbus_beacon_node_medalla
+	dobin build/nimbus_signing_process
 
 	newconfd "${FILESDIR}/${PN}.conf" ${PN}
 	newinitd "${FILESDIR}/${PN}.init" ${PN}
