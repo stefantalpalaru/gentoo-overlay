@@ -1,0 +1,19 @@
+#!/sbin/openrc-run
+# Copyright 2020 Gentoo Authors
+# Distributed under the terms of the GNU General Public License v2
+
+name="nimbus-eth2 daemon"
+description="Nim implementation of the Ethereum 2.0 blockchain"
+pidfile=/var/run/${RC_SVCNAME}.pid
+command_user=${user}:${group}
+binary=${binary:-nimbus_beacon_node}
+
+command=/usr/bin/${binary}
+error_log=/var/log/${RC_SVCNAME}/${RC_SVCNAME}.log
+output_log=/var/log/${RC_SVCNAME}/${RC_SVCNAME}.log
+
+supervisor="supervise-daemon"
+
+depend() {
+        after net
+}
