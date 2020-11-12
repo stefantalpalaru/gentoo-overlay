@@ -12,7 +12,9 @@ error_log=/var/log/${RC_SVCNAME}/${RC_SVCNAME}.log
 output_log=/var/log/${RC_SVCNAME}/${RC_SVCNAME}.log
 supervisor="supervise-daemon"
 stopsig=INT
-retry="INT/120/KILL/10"
+retry="SIGINT/120"
+respawn_max=0
+respawn_delay=10
 
 depend() {
 	after net

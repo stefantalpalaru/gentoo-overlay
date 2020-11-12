@@ -1,4 +1,6 @@
 /var/log/nimbus-eth2/*.log {
 	compress
 	missingok
+	copytruncate
 }
+
