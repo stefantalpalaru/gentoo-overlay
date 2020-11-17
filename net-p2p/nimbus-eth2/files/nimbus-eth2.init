@@ -12,7 +12,7 @@ error_log=/var/log/${RC_SVCNAME}/${RC_SVCNAME}.log
 output_log=/var/log/${RC_SVCNAME}/${RC_SVCNAME}.log
 supervisor="supervise-daemon"
 stopsig=INT
-retry="SIGINT/120"
+retry="SIGINT/120/SIGKILL/10"
 respawn_max=0
 respawn_delay=10
 
