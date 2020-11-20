@@ -27,13 +27,11 @@ src_compile() {
 	fi
 	emake LOG_LEVEL="TRACE" NIMFLAGS="${NIMFLAGS}" \
 		nimbus_beacon_node \
-		nimbus_beacon_node_spec_0_12_3 \
 		nimbus_signing_process
 }
 
 src_install() {
 	dobin build/nimbus_beacon_node
-	newbin build/nimbus_beacon_node_spec_0_12_3 nimbus_beacon_node_medalla
 	dobin build/nimbus_signing_process
 
 	newconfd "${FILESDIR}/${PN}.conf" ${PN}
