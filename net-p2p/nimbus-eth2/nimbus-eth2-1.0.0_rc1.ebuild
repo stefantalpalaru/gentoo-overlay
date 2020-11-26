@@ -8,12 +8,12 @@ inherit git-r3
 DESCRIPTION="Nim implementation of the Ethereum 2.0 blockchain"
 HOMEPAGE="https://github.com/status-im/nimbus-eth2"
 EGIT_REPO_URI="https://github.com/status-im/nimbus-eth2.git"
-EGIT_BRANCH="devel"
+EGIT_COMMIT="v${PV/_/-}"
 RESTRICT="strip"
 
 LICENSE="MIT-with-advertising Apache-2.0"
 SLOT="0"
-KEYWORDS=""
+KEYWORDS="~amd64 ~x86"
 IUSE="lto"
 
 DEPEND=""
@@ -21,7 +21,7 @@ RDEPEND="${DEPEND}"
 BDEPEND=""
 
 src_compile() {
-	NIMFLAGS="-d:insecure -d:disableMarchNative --passC:'${CFLAGS}' --passL:'${LDFLAGS}' --parallelBuild:1 -d:chronicles_sinks=textlines"
+	NIMFLAGS="-d:insecure -d:disableMarchNative --passC:'${CFLAGS}' --passL:'${LDFLAGS}' --parallelBuild:1 -d:chronicles_sinks=textlines -d:chronicles_colors=none"
 	if ! use lto; then
 		NIMFLAGS="$NIMFLAGS -d:disableLTO"
 	fi
