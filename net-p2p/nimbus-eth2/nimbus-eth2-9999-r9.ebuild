@@ -8,7 +8,7 @@ inherit git-r3
 DESCRIPTION="Nim implementation of the Ethereum 2.0 blockchain"
 HOMEPAGE="https://github.com/status-im/nimbus-eth2"
 EGIT_REPO_URI="https://github.com/status-im/nimbus-eth2.git"
-EGIT_BRANCH="devel"
+EGIT_BRANCH="unstable"
 RESTRICT="strip"
 
 LICENSE="MIT-with-advertising Apache-2.0"
