@@ -5,7 +5,7 @@ EAPI=6
 
 PYTHON_COMPAT=( python2_7 )
 
-inherit distutils-r1 eutils virtualx fdo-mime
+inherit distutils-r1 eutils virtualx xdg-utils
 
 DESCRIPTION="Python library to explore relationships within and among related datasets"
 HOMEPAGE="http://www.glueviz.org/"
@@ -65,5 +65,5 @@ pkg_postinst() {
 	optfeature "Support astronomy dendograms" dev-python/astrodendro
 
 	# Update mimedb for the new .desktop file
-	fdo-mime_desktop_database_update
+	xdg_mimeinfo_database_update
 }
