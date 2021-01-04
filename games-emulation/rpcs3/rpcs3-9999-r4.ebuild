@@ -1,8 +1,8 @@
-# Copyright 1999-2020 Gentoo Authors
+# Copyright 1999-2021 Gentoo Authors
 # Distributed under the terms of the GNU General Public License v2
 
 EAPI=7
-PYTHON_COMPAT=( python3_{6,7,8} )
+PYTHON_COMPAT=( python3_{6..9} )
 
 inherit cmake git-r3 python-single-r1
 
@@ -16,10 +16,10 @@ SLOT="0"
 IUSE="alsa joystick +llvm pulseaudio vulkan"
 
 RDEPEND="
-	>=dev-qt/qtcore-5.7
-	>=dev-qt/qtdbus-5.7
-	>=dev-qt/qtgui-5.7
-	>=dev-qt/qtwidgets-5.7
+	>=dev-qt/qtcore-5.15.2
+	>=dev-qt/qtdbus-5.15.2
+	>=dev-qt/qtgui-5.15.2
+	>=dev-qt/qtwidgets-5.15.2
 	alsa? ( media-libs/alsa-lib )
 	sys-devel/gdb
 	joystick? ( dev-libs/libevdev )
@@ -35,7 +35,7 @@ RDEPEND="
 "
 
 DEPEND="${RDEPEND}
-	>=sys-devel/gcc-5.1
+	>=sys-devel/gcc-9
 "
 
 EGIT_SUBMODULES=(
