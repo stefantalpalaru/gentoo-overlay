@@ -28,7 +28,6 @@ src_compile() {
 	emake \
 		LOG_LEVEL="TRACE" \
 		NIMFLAGS="${NIMFLAGS}" \
-		QUICK_AND_DIRTY_COMPILER=1 \
 		nimbus_beacon_node \
 		nimbus_signing_process
 }
