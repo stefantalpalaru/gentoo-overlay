@@ -1,5 +1,5 @@
 #!/sbin/openrc-run
-# Copyright 2020 Gentoo Authors
+# Copyright 2020-2021 Gentoo Authors
 # Distributed under the terms of the GNU General Public License v2
 
 name="nimbus-eth2 daemon"
@@ -17,7 +17,8 @@ respawn_max=0
 respawn_delay=10
 
 depend() {
-	after net
+	need net
+	need logger
 }
 
 start_pre() {
