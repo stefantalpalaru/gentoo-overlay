@@ -1,4 +1,4 @@
-# Copyright 1999-2019 Gentoo Authors
+# Copyright 1999-2021 Gentoo Authors
 # Distributed under the terms of the GNU General Public License v2
 
 EAPI=6
@@ -23,7 +23,7 @@ IUSE="video_cards_nvidia"
 LICENSE="GPL-2"
 SLOT="0"
 
-DEPEND="dev-lang/lua:0
+DEPEND="dev-lang/lua:5.1
 	dev-libs/boost[threads]
 	dev-libs/expat
 	dev-libs/tinyxml
