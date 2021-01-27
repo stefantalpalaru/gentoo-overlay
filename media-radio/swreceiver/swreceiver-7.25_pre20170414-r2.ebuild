@@ -1,12 +1,13 @@
-# Copyright 1999-2017 Gentoo Foundation
+# Copyright 1999-2021 Gentoo Authors
 # Distributed under the terms of the GNU General Public License v2
 
-EAPI=6
+EAPI=7
 
 inherit eutils git-r3 qmake-utils
 
 DESCRIPTION="SDR-J SW receiver for RTL2832-based USB sticks"
-HOMEPAGE="http://www.sdr-j.tk/"
+HOMEPAGE="http://www.sdr-j.tk/
+	https://github.com/JvanKatwijk/sdr-j-sw"
 EGIT_REPO_URI="https://github.com/JvanKatwijk/sdr-j-sw"
 EGIT_COMMIT="e00f2922f3301a78d6fa6a82bf40104b2a992680"
 
@@ -23,7 +24,7 @@ DEPEND="dev-qt/qtcore:5
 	media-libs/portaudio
 	net-wireless/rtl-sdr
 	sci-libs/fftw:3.0
-	virtual/ffmpeg
+	media-video/ffmpeg
 	virtual/libusb:1
 	x11-libs/qwt:6"
 
