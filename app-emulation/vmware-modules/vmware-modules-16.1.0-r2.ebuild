@@ -1,4 +1,4 @@
-# Copyright 1999-2020 Gentoo Authors
+# Copyright 1999-2021 Gentoo Authors
 # Distributed under the terms of the GNU General Public License v2
 
 EAPI=7
@@ -22,7 +22,7 @@ DEPEND=""
 S="${WORKDIR}/vmware-host-modules-w${PV}-k${MY_KERNEL_VERSION}"
 
 pkg_setup() {
-	CONFIG_CHECK="~HIGH_RES_TIMERS"
+	CONFIG_CHECK="~HIGH_RES_TIMERS X86_IOPL_IOPERM"
 	if kernel_is -ge 2 6 37 && kernel_is -lt 2 6 39; then
 		CONFIG_CHECK="${CONFIG_CHECK} BKL"
 	fi
