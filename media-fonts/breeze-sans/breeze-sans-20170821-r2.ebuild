@@ -16,5 +16,8 @@ KEYWORDS="~amd64 ~arm ~x86"
 IUSE=""
 
 S="${WORKDIR}/default-fonts-sdk-${commit:0:7}"
-FONT_S="${S}/common/fonts ${S}/common/fallback_fonts"
+FONT_S=(
+	"${S}/common/fonts"
+	"${S}/common/fallback_fonts"
+)
 FONT_SUFFIX="ttf"
