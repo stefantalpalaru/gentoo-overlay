@@ -22,7 +22,10 @@ DEPEND=""
 S="${WORKDIR}/vmware-host-modules-w${PV}-k${MY_KERNEL_VERSION}"
 
 pkg_setup() {
-	CONFIG_CHECK="~HIGH_RES_TIMERS X86_IOPL_IOPERM"
+	CONFIG_CHECK="~HIGH_RES_TIMERS"
+	if kernel_is -ge 5 5; then
+		CONFIG_CHECK="${CONFIG_CHECK} X86_IOPL_IOPERM"
+	fi
 	if kernel_is -ge 2 6 37 && kernel_is -lt 2 6 39; then
 		CONFIG_CHECK="${CONFIG_CHECK} BKL"
 	fi
