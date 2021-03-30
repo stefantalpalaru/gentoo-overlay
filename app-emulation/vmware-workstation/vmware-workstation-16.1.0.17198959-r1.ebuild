@@ -1,9 +1,9 @@
-# Copyright 1999-2020 Gentoo Authors
+# Copyright 1999-2021 Gentoo Authors
 # Distributed under the terms of the GNU General Public License v2
 
 EAPI=7
 
-PYTHON_COMPAT=( python3_{6,7,8,9} )
+PYTHON_COMPAT=( python3_{6..9} )
 inherit eutils readme.gentoo-r1 gnome2-utils pam python-any-r1 systemd xdg-utils
 
 MY_PN="VMware-Workstation-Full"
@@ -154,8 +154,7 @@ src_prepare() {
 'env-update && source /etc/profile'\n
 Before you can use ${PN}, you must configure a default network setup.
 You can do this by running 'emerge --config ${PN}'.\n
-To be able to run ${PN} your user must be in the vmware group.\n
-"
+To be able to run ${PN} your user must be in the 'vmware' group."
 }
 
 src_install() {
@@ -172,6 +171,13 @@ src_install() {
 	dobin */bin/*
 	dosbin */sbin/*
 	rm "${ED}${VM_INSTALL_DIR}"/bin/configure-initscript.sh || die
+	mv "${ED}${VM_INSTALL_DIR}"/sbin/vmware-authdlauncher "${ED}${VM_INSTALL_DIR}"/sbin/vmware-authdlauncher.bin
+	cat > "${ED}${VM_INSTALL_DIR}"/sbin/vmware-authdlauncher <<-EOF
+		#!/usr/bin/env bash
+		export LD_LIBRARY_PATH="/opt/vmware/lib/vmware/lib/libssl.so.1.0.2:/opt/vmware/lib/vmware/lib/libcrypto.so.1.0.2"
+		"${VM_INSTALL_DIR}"/sbin/vmware-authdlauncher.bin "\$@"
+	EOF
+	chmod 755 "${ED}${VM_INSTALL_DIR}"/sbin/vmware-authdlauncher
 
 	# install the libraries
 	insinto "${VM_INSTALL_DIR}"/lib/vmware
@@ -253,7 +259,8 @@ src_install() {
 		doins -r *
 
 		chmod 0755 "${ED}${VM_INSTALL_DIR}"/lib/vmware-ovftool/{ovftool,ovftool.bin}
-		dosym ../../lib/vmware-ovftool/ovftool "${VM_INSTALL_DIR}"/bin/ovftool
+		sed -i 's/readlink/readlink -f/' "${ED}${VM_INSTALL_DIR}"/lib/vmware-ovftool/ovftool
+		dosym ../lib/vmware-ovftool/ovftool "${VM_INSTALL_DIR}"/bin/ovftool
 
 		cd - >/dev/null
 	fi
@@ -283,11 +290,11 @@ src_install() {
 	# create the environment
 	local envd="${T}/90vmware"
 	cat > "${envd}" <<-EOF
-		PATH='${VM_INSTALL_DIR}/bin'
+		PATH='${VM_INSTALL_DIR}/bin:${VM_INSTALL_DIR}/sbin'
 		ROOTPATH='${VM_INSTALL_DIR}/bin'
 		CONFIG_PROTECT_MASK='/etc/vmware-installer'
+		VMWARE_USE_SHIPPED_LIBS=1
 	EOF
-	echo 'VMWARE_USE_SHIPPED_LIBS=1' >> "${envd}"
 
 	doenvd "${envd}"
 
@@ -401,7 +408,7 @@ pkg_postinst() {
 	xdg_desktop_database_update
 	xdg_mimeinfo_database_update
 	gnome2_icon_cache_update
-	readme.gentoo_print_elog
+	elog "${DOC_CONTENTS}"
 }
 
 pkg_postrm() {
