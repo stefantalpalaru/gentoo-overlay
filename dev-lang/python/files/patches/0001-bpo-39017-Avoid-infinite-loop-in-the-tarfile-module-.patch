@@ -1,0 +1,39 @@
+From 893e6e3aee483d262df70656a68f63f601720fcd Mon Sep 17 00:00:00 2001
+From: Rishi <rishi_devan@mail.com>
+Date: Wed, 15 Jul 2020 13:51:00 +0200
+Subject: [PATCH 01/24] bpo-39017: Avoid infinite loop in the tarfile module
+ (GH-21454)
+
+Avoid infinite loop when reading specially crafted TAR files using the tarfile module
+(CVE-2019-20907).
+
+[stripped test to avoid binary patch]
+---
+ Lib/tarfile.py                                                  | 2 ++
+ .../next/Library/2020-07-12-22-16-58.bpo-39017.x3Cg-9.rst       | 1 +
+ 2 files changed, 3 insertions(+)
+ create mode 100644 Misc/NEWS.d/next/Library/2020-07-12-22-16-58.bpo-39017.x3Cg-9.rst
+
+diff --git a/Lib/tarfile.py b/Lib/tarfile.py
+index adf91d5382..574a6bb279 100644
+--- a/Lib/tarfile.py
++++ b/Lib/tarfile.py
+@@ -1400,6 +1400,8 @@ class TarInfo(object):
+ 
+             length, keyword = match.groups()
+             length = int(length)
++            if length == 0:
++                raise InvalidHeaderError("invalid header")
+             value = buf[match.end(2) + 1:match.start(1) + length - 1]
+ 
+             keyword = keyword.decode("utf8")
+diff --git a/Misc/NEWS.d/next/Library/2020-07-12-22-16-58.bpo-39017.x3Cg-9.rst b/Misc/NEWS.d/next/Library/2020-07-12-22-16-58.bpo-39017.x3Cg-9.rst
+new file mode 100644
+index 0000000000..ad26676f8b
+--- /dev/null
++++ b/Misc/NEWS.d/next/Library/2020-07-12-22-16-58.bpo-39017.x3Cg-9.rst
+@@ -0,0 +1 @@
++Avoid infinite loop when reading specially crafted TAR files using the tarfile module (CVE-2019-20907).
+-- 
+2.30.1
+

@@ -1,7 +1,7 @@
-From 09b5286c1055bbb4b7c4d639ef5ced52d3b426f4 Mon Sep 17 00:00:00 2001
+From 78ceb8f8641f95fdf7d527fc2cf31200051a9534 Mon Sep 17 00:00:00 2001
 From: Mike Gilbert <floppym@gentoo.org>
 Date: Sun, 17 Jun 2018 11:14:43 -0400
-Subject: [PATCH 05/11] sqlite loadable extensions
+Subject: [PATCH 12/24] sqlite loadable extensions
 
 https://bugs.gentoo.org/show_bug.cgi?id=335505
 https://bugs.python.org/issue10268
@@ -11,10 +11,10 @@ https://bugs.python.org/issue10268
  2 files changed, 13 insertions(+), 2 deletions(-)
 
 diff --git a/configure.ac b/configure.ac
-index aecf6066e8..5e6080d382 100644
+index efe6922b5d..7561fe7f54 100644
 --- a/configure.ac
 +++ b/configure.ac
-@@ -2533,6 +2533,15 @@ else
+@@ -2536,6 +2536,15 @@ else
    TCLTK_LIBS="$with_tcltk_libs"
  fi
  
@@ -31,10 +31,10 @@ index aecf6066e8..5e6080d382 100644
  AC_MSG_CHECKING(for --with-dbmliborder)
  AC_ARG_WITH(dbmliborder,
 diff --git a/setup.py b/setup.py
-index a2fb6b3679..21e3c8b06b 100644
+index 469fa3c455..89946bcd55 100644
 --- a/setup.py
 +++ b/setup.py
-@@ -1206,8 +1206,10 @@ class PyBuildExt(build_ext):
+@@ -1252,8 +1252,10 @@ class PyBuildExt(build_ext):
              else:
                  sqlite_defines.append(('MODULE_NAME', '\\"sqlite3\\"'))
  
@@ -48,5 +48,5 @@ index a2fb6b3679..21e3c8b06b 100644
              if host_platform == 'darwin':
                  # In every directory on the search path search for a dynamic
 -- 
-2.21.0
+2.30.1
 

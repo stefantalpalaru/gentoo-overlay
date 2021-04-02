@@ -1,7 +1,7 @@
-From ad7fff746a35e9e05df06ff861a065451b418a9c Mon Sep 17 00:00:00 2001
+From 510cb6a6de837a31d0ee4a30564b6c0f0ac3c34b Mon Sep 17 00:00:00 2001
 From: Mike Gilbert <floppym@gentoo.org>
 Date: Sun, 17 Jun 2018 11:14:43 -0400
-Subject: [PATCH 09/11] ARM OABI
+Subject: [PATCH 16/24] ARM OABI
 
 https://bugs.gentoo.org/show_bug.cgi?id=266703
 https://bugs.python.org/issue1762561
@@ -195,5 +195,5 @@ index 5954d39cdb..1f963058da 100644
      }
  }
 -- 
-2.21.0
+2.30.1
 

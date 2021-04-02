@@ -1,7 +1,7 @@
-From 851085a9cfda2e52766cb8245c21a15b2b2fc4d7 Mon Sep 17 00:00:00 2001
+From 747265f2aec975ef7afdba624472fad0e5f339c2 Mon Sep 17 00:00:00 2001
 From: Mike Gilbert <floppym@gentoo.org>
 Date: Sun, 17 Jun 2018 11:14:43 -0400
-Subject: [PATCH 04/11] Non-zero exit status on failure
+Subject: [PATCH 11/24] Non-zero exit status on failure
 
 https://bugs.gentoo.org/show_bug.cgi?id=281968
 https://bugs.python.org/issue6731
@@ -10,7 +10,7 @@ https://bugs.python.org/issue6731
  1 file changed, 6 insertions(+)
 
 diff --git a/setup.py b/setup.py
-index ac2a3e80c4..a2fb6b3679 100644
+index fad7c39f25..469fa3c455 100644
 --- a/setup.py
 +++ b/setup.py
 @@ -46,6 +46,8 @@ else:
@@ -22,7 +22,7 @@ index ac2a3e80c4..a2fb6b3679 100644
  def add_dir_to_list(dirlist, dir):
      """Add the directory 'dir' to the list 'dirlist' (at the front) if
      1) 'dir' is not already in 'dirlist'
-@@ -301,7 +303,10 @@ class PyBuildExt(build_ext):
+@@ -347,7 +349,10 @@ class PyBuildExt(build_ext):
                     " detect_modules() for the module's name.")
              print
  
@@ -33,7 +33,7 @@ index ac2a3e80c4..a2fb6b3679 100644
              failed = self.failed[:]
              print
              print "Failed to build these modules:"
-@@ -2307,6 +2312,7 @@ def main():
+@@ -2353,6 +2358,7 @@ def main():
                       'Tools/scripts/2to3',
                       'Lib/smtpd.py']
          )
@@ -42,5 +42,5 @@ index ac2a3e80c4..a2fb6b3679 100644
  # --install-platlib
  if __name__ == '__main__':
 -- 
-2.21.0
+2.30.1
 

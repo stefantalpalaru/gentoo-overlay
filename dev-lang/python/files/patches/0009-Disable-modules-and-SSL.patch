@@ -1,14 +1,14 @@
-From df7543bec2400b7270bcd9ae7df1c2aa088aa2d2 Mon Sep 17 00:00:00 2001
+From dde9083f0a38262943bb1306dedc5976bff5694b Mon Sep 17 00:00:00 2001
 From: Mike Gilbert <floppym@gentoo.org>
 Date: Sun, 17 Jun 2018 11:14:43 -0400
-Subject: [PATCH 02/11] Disable modules and SSL
+Subject: [PATCH 09/24] Disable modules and SSL
 
 ---
  setup.py | 50 +++++++++++++++++++++++++++++++-------------------
  1 file changed, 31 insertions(+), 19 deletions(-)
 
 diff --git a/setup.py b/setup.py
-index 33cecc6875..64f34a9cfc 100644
+index f764223d06..cc423edcb2 100644
 --- a/setup.py
 +++ b/setup.py
 @@ -33,7 +33,18 @@ host_platform = get_platform()
@@ -31,7 +31,7 @@ index 33cecc6875..64f34a9cfc 100644
  
  def add_dir_to_list(dirlist, dir):
      """Add the directory 'dir' to the list 'dirlist' (at the front) if
-@@ -454,6 +465,7 @@ class PyBuildExt(build_ext):
+@@ -500,6 +511,7 @@ class PyBuildExt(build_ext):
              os.unlink(tmpfile)
  
      def detect_modules(self):
@@ -39,7 +39,7 @@ index 33cecc6875..64f34a9cfc 100644
          # Ensure that /usr/local is always used
          if not cross_compiling:
              add_dir_to_list(self.compiler.library_dirs, '/usr/local/lib')
-@@ -815,7 +827,7 @@ class PyBuildExt(build_ext):
+@@ -861,7 +873,7 @@ class PyBuildExt(build_ext):
          ssl_incs = find_file('openssl/ssl.h', inc_dirs,
                               search_for_ssl_incs_in
                               )
@@ -48,7 +48,7 @@ index 33cecc6875..64f34a9cfc 100644
              krb5_h = find_file('krb5.h', inc_dirs,
                                 ['/usr/kerberos/include'])
              if krb5_h:
-@@ -826,7 +838,8 @@ class PyBuildExt(build_ext):
+@@ -872,7 +884,8 @@ class PyBuildExt(build_ext):
                                       ] )
  
          if (ssl_incs is not None and
@@ -58,7 +58,7 @@ index 33cecc6875..64f34a9cfc 100644
              exts.append( Extension('_ssl', ['_ssl.c'],
                                     include_dirs = ssl_incs,
                                     library_dirs = ssl_libs,
-@@ -858,7 +871,7 @@ class PyBuildExt(build_ext):
+@@ -904,7 +917,7 @@ class PyBuildExt(build_ext):
                  pass
  
          min_openssl_ver = 0x00907000
@@ -67,7 +67,7 @@ index 33cecc6875..64f34a9cfc 100644
          have_usable_openssl = (have_any_openssl and
                                 openssl_ver >= min_openssl_ver)
  
-@@ -874,21 +887,20 @@ class PyBuildExt(build_ext):
+@@ -920,21 +933,20 @@ class PyBuildExt(build_ext):
                  print ("warning: openssl 0x%08x is too old for _hashlib" %
                         openssl_ver)
                  missing.append('_hashlib')
@@ -104,5 +104,5 @@ index 33cecc6875..64f34a9cfc 100644
          # Modules that provide persistent dictionary-like semantics.  You will
          # probably want to arrange for at least one of them to be available on
 -- 
-2.21.0
+2.30.1
 

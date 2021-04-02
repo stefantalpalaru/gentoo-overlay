@@ -1,12 +1,12 @@
-# Copyright 1999-2019 Gentoo Authors
+# Copyright 1999-2021 Gentoo Authors
 # Distributed under the terms of the GNU General Public License v2
 
-EAPI="6"
+EAPI="7"
 WANT_LIBTOOL="none"
 
 inherit autotools eutils flag-o-matic multilib pax-utils python-utils-r1 toolchain-funcs multiprocessing
 
-MY_P="Python-${PV}"
+MY_P="Python-${PV%_p*}"
 
 DESCRIPTION="An interpreted, interactive, object-oriented programming language"
 HOMEPAGE="https://www.python.org/"
@@ -15,7 +15,7 @@ SRC_URI="https://www.python.org/ftp/python/${PV}/${MY_P}.tar.xz"
 LICENSE="PSF-2"
 SLOT="2.7"
 KEYWORDS="alpha amd64 arm arm64 hppa ia64 m68k ~mips ppc ppc64 s390 sparc x86"
-IUSE="-berkdb bluetooth build doc elibc_uclibc examples gdbm hardened ipv6 libressl +lto +ncurses +pgo +readline sqlite +ssl +threads tk +wide-unicode wininst +xml"
+IUSE="-berkdb bluetooth build doc elibc_uclibc examples gdbm hardened ipv6 libressl +lto +ncurses +pgo +readline +sqlite +ssl +threads tk +wide-unicode wininst +xml"
 
 # Do not add a dependency on dev-lang/python to this ebuild.
 # If you need to apply a patch which requires python for bootstrapping, please
@@ -92,10 +92,6 @@ src_prepare() {
 
 	local PATCHES=(
 		"${FILESDIR}/patches"
-		"${FILESDIR}/python-2.7.5-nonfatal-compileall.patch"
-		"${FILESDIR}/python-2.7.9-ncurses-pkg-config.patch"
-		"${FILESDIR}/python-2.7.10-cross-compile-warn-test.patch"
-		"${FILESDIR}/python-2.7.10-system-libffi.patch"
 		"${FILESDIR}/python-2.7.15-PGO-r1.patch"
 	)
 
@@ -116,27 +112,27 @@ src_prepare() {
 }
 
 src_configure() {
-		# dbm module can be linked against berkdb or gdbm.
-		# Defaults to gdbm when both are enabled, #204343.
-		local disable
-		use berkdb   || use gdbm || disable+=" dbm"
-		use berkdb   || disable+=" _bsddb"
-		# disable automagic bluetooth headers detection
-		use bluetooth || export ac_cv_header_bluetooth_bluetooth_h=no
-		use gdbm     || disable+=" gdbm"
-		use ncurses  || disable+=" _curses _curses_panel"
-		use readline || disable+=" readline"
-		use sqlite   || disable+=" _sqlite3"
-		use ssl      || export PYTHON_DISABLE_SSL="1"
-		use tk       || disable+=" _tkinter"
-		use xml      || disable+=" _elementtree pyexpat" # _elementtree uses pyexpat.
-		export PYTHON_DISABLE_MODULES="${disable}"
+	# dbm module can be linked against berkdb or gdbm.
+	# Defaults to gdbm when both are enabled, #204343.
+	local disable
+	use berkdb    || use gdbm || disable+=" dbm"
+	use berkdb    || disable+=" _bsddb"
+	# disable automagic bluetooth headers detection
+	use bluetooth || export ac_cv_header_bluetooth_bluetooth_h=no
+	use gdbm      || disable+=" gdbm"
+	use ncurses   || disable+=" _curses _curses_panel"
+	use readline  || disable+=" readline"
+	use sqlite    || disable+=" _sqlite3"
+	use ssl       || export PYTHON_DISABLE_SSL="1"
+	use tk        || disable+=" _tkinter"
+	use xml       || disable+=" _elementtree pyexpat" # _elementtree uses pyexpat.
+	export PYTHON_DISABLE_MODULES="${disable}"
 
-		if ! use xml; then
-			ewarn "You have configured Python without XML support."
-			ewarn "This is NOT a recommended configuration as you"
-			ewarn "may face problems parsing any XML documents."
-		fi
+	if ! use xml; then
+		ewarn "You have configured Python without XML support."
+		ewarn "This is NOT a recommended configuration as you"
+		ewarn "may face problems parsing any XML documents."
+	fi
 
 	if [[ -n "${PYTHON_DISABLE_MODULES}" ]]; then
 		einfo "Disabled modules: ${PYTHON_DISABLE_MODULES}"
@@ -189,6 +185,15 @@ src_configure() {
 	cd "${BUILD_DIR}" || die
 
 	local myeconfargs=(
+		# The check is broken on clang, and gives false positive:
+		# https://bugs.gentoo.org/596798
+		# (upstream dropped this flag in 3.2a4 anyway)
+		ac_cv_opt_olimit_ok=no
+		# glibc-2.30 removes it; since we can't cleanly force-rebuild
+		# Python on glibc upgrade, remove it proactively to give
+		# a chance for users rebuilding python before glibc
+		ac_cv_header_stropts_h=no
+
 		--with-fpectl
 		--enable-shared
 		$(use_enable ipv6)
@@ -216,6 +221,10 @@ src_configure() {
 }
 
 src_compile() {
+	# Ensure sed works as expected
+	# https://bugs.gentoo.org/594768
+	local -x LC_ALL=C
+
 	if use pgo; then
 		# disable distcc and ccache
 		export DISTCC_HOSTS=""
@@ -301,14 +310,14 @@ src_install() {
 	sed -e "s/\(LDFLAGS=\).*/\1/" -i "${libdir}/config/Makefile" || die "sed failed"
 
 	# Fix collisions between different slots of Python.
-	mv "${ED}usr/bin/2to3" "${ED}usr/bin/2to3-${SLOT}"
-	mv "${ED}usr/bin/pydoc" "${ED}usr/bin/pydoc${SLOT}"
-	mv "${ED}usr/bin/idle" "${ED}usr/bin/idle${SLOT}"
-	rm -f "${ED}usr/bin/smtpd.py"
+	mv "${ED}/usr/bin/2to3" "${ED}/usr/bin/2to3-${SLOT}"
+	mv "${ED}/usr/bin/pydoc" "${ED}/usr/bin/pydoc${SLOT}"
+	mv "${ED}/usr/bin/idle" "${ED}/usr/bin/idle${SLOT}"
+	rm -f "${ED}/usr/bin/smtpd.py"
 
 	use berkdb || rm -r "${libdir}/"{bsddb,dbhash.py*,test/test_bsddb*} || die
 	use sqlite || rm -r "${libdir}/"{sqlite3,test/test_sqlite*} || die
-	use tk || rm -r "${ED}usr/bin/idle${SLOT}" "${libdir}/"{idlelib,lib-tk} || die
+	use tk || rm -r "${ED}/usr/bin/idle${SLOT}" "${libdir}/"{idlelib,lib-tk} || die
 	use elibc_uclibc && rm -fr "${libdir}/"{bsddb/test,test}
 
 	use threads || rm -r "${libdir}/multiprocessing" || die
@@ -330,7 +339,7 @@ src_install() {
 	sed \
 		-e "s:@PYDOC_PORT_VARIABLE@:PYDOC${SLOT/./_}_PORT:" \
 		-e "s:@PYDOC@:pydoc${SLOT}:" \
-		-i "${ED}etc/conf.d/pydoc-${SLOT}" "${ED}etc/init.d/pydoc-${SLOT}" || die "sed failed"
+		-i "${ED}/etc/conf.d/pydoc-${SLOT}" "${ED}/etc/init.d/pydoc-${SLOT}" || die "sed failed"
 
 	# for python-exec
 	local vars=( EPYTHON PYTHON_SITEDIR PYTHON_SCRIPTDIR )

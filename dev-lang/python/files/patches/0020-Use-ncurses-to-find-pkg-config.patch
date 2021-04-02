@@ -1,0 +1,25 @@
+From a8c9f867cc7edb182fdb703711b3aabfd69f3e67 Mon Sep 17 00:00:00 2001
+From: =?UTF-8?q?Micha=C5=82=20G=C3=B3rny?= <mgorny@gentoo.org>
+Date: Sun, 29 Dec 2019 10:56:58 +0100
+Subject: [PATCH 20/24] Use ncurses to find pkg-config
+
+---
+ configure.ac | 2 +-
+ 1 file changed, 1 insertion(+), 1 deletion(-)
+
+diff --git a/configure.ac b/configure.ac
+index 7561fe7f54..dd26e8326b 100644
+--- a/configure.ac
++++ b/configure.ac
+@@ -4541,7 +4541,7 @@ fi
+ 
+ # first curses configure check
+ ac_save_cppflags="$CPPFLAGS"
+-CPPFLAGS="$CPPFLAGS -I/usr/include/ncursesw"
++CPPFLAGS="$CPPFLAGS `$PKG_CONFIG --cflags ncursesw`"
+ 
+ AC_CHECK_HEADERS(curses.h ncurses.h)
+ 
+-- 
+2.30.1
+

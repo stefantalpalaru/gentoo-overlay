@@ -1,7 +1,7 @@
-From 1802db36899408904b1406bad9bd6ffcc7c65efb Mon Sep 17 00:00:00 2001
+From 910d1db47bbada4dd191cc024156071aa1a92ab8 Mon Sep 17 00:00:00 2001
 From: Mike Gilbert <floppym@gentoo.org>
 Date: Sun, 17 Jun 2018 11:14:43 -0400
-Subject: [PATCH 03/11] Gentoo libdir
+Subject: [PATCH 10/24] Gentoo libdir
 
 ---
  Lib/distutils/command/install.py |  4 ++--
@@ -31,10 +31,10 @@ index b9f1c6c566..a2822e86e9 100644
          'scripts': '$base/bin',
          'data'   : '$base',
 diff --git a/Lib/distutils/sysconfig.py b/Lib/distutils/sysconfig.py
-index de7da1d413..78f19c63f1 100644
+index 1a4b792644..a749178ce9 100644
 --- a/Lib/distutils/sysconfig.py
 +++ b/Lib/distutils/sysconfig.py
-@@ -120,7 +120,7 @@ def get_python_lib(plat_specific=0, standard_lib=0, prefix=None):
+@@ -130,7 +130,7 @@ def get_python_lib(plat_specific=0, standard_lib=0, prefix=None):
  
      if os.name == "posix":
          libpython = os.path.join(prefix,
@@ -112,7 +112,7 @@ index b4384ee2cf..b1101409b8 100644
          else:
              # other platforms
 diff --git a/Makefile.pre.in b/Makefile.pre.in
-index 73f90c0cc1..df4d33c1ad 100644
+index cec0c3c489..c8779f302c 100644
 --- a/Makefile.pre.in
 +++ b/Makefile.pre.in
 @@ -110,7 +110,7 @@ LIBDIR=		@libdir@
@@ -138,7 +138,7 @@ index bbc9222129..da175ec75a 100644
  # Interface to the Expat XML parser
  # More information on Expat can be found at www.libexpat.org.
 diff --git a/Modules/getpath.c b/Modules/getpath.c
-index c42ce31178..bfaeb4b97c 100644
+index 092ccc712f..eee75c45c5 100644
 --- a/Modules/getpath.c
 +++ b/Modules/getpath.c
 @@ -108,7 +108,7 @@ static char prefix[MAXPATHLEN+1];
@@ -169,10 +169,10 @@ index c42ce31178..bfaeb4b97c 100644
      /* If we found EXEC_PREFIX do *not* reduce it!  (Yet.) */
  
 diff --git a/setup.py b/setup.py
-index 64f34a9cfc..ac2a3e80c4 100644
+index cc423edcb2..fad7c39f25 100644
 --- a/setup.py
 +++ b/setup.py
-@@ -468,7 +468,7 @@ class PyBuildExt(build_ext):
+@@ -514,7 +514,7 @@ class PyBuildExt(build_ext):
          global disable_ssl
          # Ensure that /usr/local is always used
          if not cross_compiling:
@@ -181,7 +181,7 @@ index 64f34a9cfc..ac2a3e80c4 100644
              add_dir_to_list(self.compiler.include_dirs, '/usr/local/include')
          if cross_compiling:
              self.add_gcc_paths()
-@@ -535,8 +535,7 @@ class PyBuildExt(build_ext):
+@@ -581,8 +581,7 @@ class PyBuildExt(build_ext):
                  ):
                  add_dir_to_list(inc_dirs, d)
              for d in (
@@ -191,7 +191,7 @@ index 64f34a9cfc..ac2a3e80c4 100644
                  ):
                  add_dir_to_list(lib_dirs, d)
          exts = []
-@@ -794,11 +793,11 @@ class PyBuildExt(build_ext):
+@@ -840,11 +839,11 @@ class PyBuildExt(build_ext):
              elif curses_library:
                  readline_libs.append(curses_library)
              elif self.compiler.find_library_file(lib_dirs +
@@ -205,7 +205,7 @@ index 64f34a9cfc..ac2a3e80c4 100644
                                     extra_link_args=readline_extra_link_args,
                                     libraries=readline_libs) )
          else:
-@@ -1064,8 +1063,7 @@ class PyBuildExt(build_ext):
+@@ -1110,8 +1109,7 @@ class PyBuildExt(build_ext):
  
                  # check lib directories parallel to the location of the header
                  db_dirs_to_check = [
@@ -215,7 +215,7 @@ index 64f34a9cfc..ac2a3e80c4 100644
                  ]
  
                  if host_platform != 'darwin':
-@@ -1178,10 +1176,8 @@ class PyBuildExt(build_ext):
+@@ -1224,10 +1222,8 @@ class PyBuildExt(build_ext):
  
          if sqlite_incdir:
              sqlite_dirs_to_check = [
@@ -228,7 +228,7 @@ index 64f34a9cfc..ac2a3e80c4 100644
              ]
              sqlite_libfile = self.compiler.find_library_file(
                                  sqlite_dirs_to_check + lib_dirs, 'sqlite3')
-@@ -1948,15 +1944,14 @@ class PyBuildExt(build_ext):
+@@ -1994,15 +1990,14 @@ class PyBuildExt(build_ext):
              added_lib_dirs.append('/usr/openwin/lib')
          elif os.path.exists('/usr/X11R6/include'):
              include_dirs.append('/usr/X11R6/include')
@@ -248,5 +248,5 @@ index 64f34a9cfc..ac2a3e80c4 100644
          # If Cygwin, then verify that X is installed before proceeding
          if host_platform == 'cygwin':
 -- 
-2.21.0
+2.30.1
 

@@ -1,7 +1,7 @@
-From 9559c91d41602779d52cc510b7ac3aaeaf445f50 Mon Sep 17 00:00:00 2001
+From 14a011d466a47d874909e15516dacec4298d1584 Mon Sep 17 00:00:00 2001
 From: Mike Gilbert <floppym@gentoo.org>
 Date: Sun, 17 Jun 2018 11:14:43 -0400
-Subject: [PATCH 06/11] Regenerate platform-specific modules
+Subject: [PATCH 13/24] Regenerate platform-specific modules
 
 https://bugs.python.org/issue12619
 ---
@@ -56,7 +56,7 @@ index 68998a7a5c..c1ffbbb18a 100755
 +python$EXE ../../Tools/scripts/h2py.py -i '(u_long)' /usr/include/netinet/in.h
 +python$EXE ../../Tools/scripts/h2py.py /usr/include/sys/stropts.h
 diff --git a/Makefile.pre.in b/Makefile.pre.in
-index df4d33c1ad..2fe3a5be0f 100644
+index c8779f302c..6a8bb2976d 100644
 --- a/Makefile.pre.in
 +++ b/Makefile.pre.in
 @@ -401,7 +401,7 @@ LIBRARY_OBJS=	\
@@ -101,7 +101,7 @@ index df4d33c1ad..2fe3a5be0f 100644
  # Build static library
  # avoid long command lines, same as LIBRARY_OBJS
  $(LIBRARY): $(LIBRARY_OBJS)
-@@ -1084,7 +1110,7 @@ LIBSUBDIRS=	lib-tk lib-tk/test lib-tk/test/test_tkinter \
+@@ -1090,7 +1116,7 @@ LIBSUBDIRS=	lib-tk lib-tk/test lib-tk/test/test_tkinter \
  		unittest unittest/test \
  		lib-old \
  		curses pydoc_data $(MACHDEPS)
@@ -110,7 +110,7 @@ index df4d33c1ad..2fe3a5be0f 100644
  	@for i in $(SCRIPTDIR) $(LIBDEST); \
  	do \
  		if test ! -d $(DESTDIR)$$i; then \
-@@ -1167,23 +1193,6 @@ libinstall:	build_all $(srcdir)/Lib/$(PLATDIR) $(srcdir)/Modules/xxmodule.c
+@@ -1173,23 +1199,6 @@ libinstall:	build_all $(srcdir)/Lib/$(PLATDIR) $(srcdir)/Modules/xxmodule.c
  	-PYTHONPATH=$(DESTDIR)$(LIBDEST) $(RUNSHARED) \
  		$(PYTHON_FOR_BUILD) -m lib2to3.pgen2.driver $(DESTDIR)$(LIBDEST)/lib2to3/PatternGrammar.txt
  
@@ -134,7 +134,7 @@ index df4d33c1ad..2fe3a5be0f 100644
  python-config: $(srcdir)/Misc/python-config.in
  	# Substitution happens here, as the completely-expanded BINDIR
  	# is not available in configure
-@@ -1481,7 +1490,7 @@ patchcheck:
+@@ -1487,7 +1496,7 @@ patchcheck:
  Python/thread.o: @THREADHEADERS@
  
  # Declare targets that aren't real files
@@ -144,5 +144,5 @@ index df4d33c1ad..2fe3a5be0f 100644
  .PHONY: maninstall libinstall inclinstall libainstall sharedinstall
  .PHONY: frameworkinstall frameworkinstallframework frameworkinstallstructure
 -- 
-2.21.0
+2.30.1
 

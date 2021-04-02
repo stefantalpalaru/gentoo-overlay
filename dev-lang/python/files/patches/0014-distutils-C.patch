@@ -1,7 +1,46 @@
-diff -ur Python-2.7.17.orig/Lib/distutils/cygwinccompiler.py Python-2.7.17/Lib/distutils/cygwinccompiler.py
---- Python-2.7.17.orig/Lib/distutils/cygwinccompiler.py	2019-10-19 20:38:44.000000000 +0200
-+++ Python-2.7.17/Lib/distutils/cygwinccompiler.py	2019-10-30 17:49:21.739783627 +0100
-@@ -117,8 +117,10 @@
+From d8c32ee107f37468c9e92e452619b66aa8a0978e Mon Sep 17 00:00:00 2001
+From: Mike Gilbert <floppym@gentoo.org>
+Date: Sun, 17 Jun 2018 11:14:43 -0400
+Subject: [PATCH 14/24] distutils C++
+
+https://bugs.python.org/issue1222585
+---
+ Lib/_osx_support.py              | 10 +++---
+ Lib/distutils/cygwinccompiler.py | 21 ++++++++++--
+ Lib/distutils/emxccompiler.py    | 14 ++++++--
+ Lib/distutils/sysconfig.py       | 22 ++++++++++---
+ Lib/distutils/unixccompiler.py   | 55 +++++++++++++++++---------------
+ Makefile.pre.in                  |  2 +-
+ 6 files changed, 82 insertions(+), 42 deletions(-)
+
+diff --git a/Lib/_osx_support.py b/Lib/_osx_support.py
+index d2aaae7986..8bcdb05396 100644
+--- a/Lib/_osx_support.py
++++ b/Lib/_osx_support.py
+@@ -14,13 +14,13 @@ __all__ = [
+ # configuration variables that may contain universal build flags,
+ # like "-arch" or "-isdkroot", that may need customization for
+ # the user environment
+-_UNIVERSAL_CONFIG_VARS = ('CFLAGS', 'LDFLAGS', 'CPPFLAGS', 'BASECFLAGS',
+-                            'BLDSHARED', 'LDSHARED', 'CC', 'CXX',
+-                            'PY_CFLAGS', 'PY_LDFLAGS', 'PY_CPPFLAGS',
+-                            'PY_CORE_CFLAGS')
++_UNIVERSAL_CONFIG_VARS = ('CFLAGS', 'CXXFLAGS', 'LDFLAGS', 'CPPFLAGS',
++                          'BASECFLAGS', 'BLDSHARED', 'LDSHARED', 'LDCXXSHARED',
++                          'CC', 'CXX', 'PY_CFLAGS', 'PY_LDFLAGS',
++                          'PY_CPPFLAGS', 'PY_CORE_CFLAGS')
+ 
+ # configuration variables that may contain compiler calls
+-_COMPILER_CONFIG_VARS = ('BLDSHARED', 'LDSHARED', 'CC', 'CXX')
++_COMPILER_CONFIG_VARS = ('BLDSHARED', 'LDSHARED', 'LDCXXSHARED', 'CC', 'CXX')
+ 
+ # prefix added to original configuration variable names
+ _INITPRE = '_OSX_SUPPORT_INITIAL_'
+diff --git a/Lib/distutils/cygwinccompiler.py b/Lib/distutils/cygwinccompiler.py
+index 258e138b04..13b7d0c03a 100644
+--- a/Lib/distutils/cygwinccompiler.py
++++ b/Lib/distutils/cygwinccompiler.py
+@@ -117,8 +117,10 @@ class CygwinCCompiler (UnixCCompiler):
          # dllwrap 2.10.90 is buggy
          if self.ld_version >= "2.10.90":
              self.linker_dll = "gcc"
@@ -12,7 +51,7 @@ diff -ur Python-2.7.17.orig/Lib/distutils/cygwinccompiler.py Python-2.7.17/Lib/d
  
          # ld_version >= "2.13" support -shared so use it instead of
          # -mdll -static
-@@ -132,9 +134,13 @@
+@@ -132,9 +134,13 @@ class CygwinCCompiler (UnixCCompiler):
          self.set_executables(compiler='gcc -mcygwin -O -Wall',
                               compiler_so='gcc -mcygwin -mdll -O -Wall',
                               compiler_cxx='g++ -mcygwin -O -Wall',
@@ -27,7 +66,7 @@ diff -ur Python-2.7.17.orig/Lib/distutils/cygwinccompiler.py Python-2.7.17/Lib/d
  
          # cygwin and mingw32 need different sets of libraries
          if self.gcc_version == "2.91.57":
-@@ -160,8 +166,12 @@
+@@ -160,8 +166,12 @@ class CygwinCCompiler (UnixCCompiler):
                  raise CompileError, msg
          else: # for other files use the C-compiler
              try:
@@ -42,7 +81,7 @@ diff -ur Python-2.7.17.orig/Lib/distutils/cygwinccompiler.py Python-2.7.17/Lib/d
              except DistutilsExecError, msg:
                  raise CompileError, msg
  
-@@ -327,9 +337,14 @@
+@@ -327,9 +337,14 @@ class Mingw32CCompiler (CygwinCCompiler):
          self.set_executables(compiler='gcc%s -O -Wall' % no_cygwin,
                               compiler_so='gcc%s -mdll -O -Wall' % no_cygwin,
                               compiler_cxx='g++%s -O -Wall' % no_cygwin,
@@ -57,10 +96,11 @@ diff -ur Python-2.7.17.orig/Lib/distutils/cygwinccompiler.py Python-2.7.17/Lib/d
                                         shared_option, entry_point))
          # Maybe we should also append -mthreads, but then the finished
          # dlls need another dll (mingwm10.dll see Mingw32 docs)
-diff -ur Python-2.7.17.orig/Lib/distutils/emxccompiler.py Python-2.7.17/Lib/distutils/emxccompiler.py
---- Python-2.7.17.orig/Lib/distutils/emxccompiler.py	2019-10-19 20:38:44.000000000 +0200
-+++ Python-2.7.17/Lib/distutils/emxccompiler.py	2019-10-30 17:51:50.118588427 +0100
-@@ -65,8 +65,12 @@
+diff --git a/Lib/distutils/emxccompiler.py b/Lib/distutils/emxccompiler.py
+index a0172058a3..bdc532c0d3 100644
+--- a/Lib/distutils/emxccompiler.py
++++ b/Lib/distutils/emxccompiler.py
+@@ -65,8 +65,12 @@ class EMXCCompiler (UnixCCompiler):
          # XXX optimization, warnings etc. should be customizable.
          self.set_executables(compiler='gcc -Zomf -Zmt -O3 -fomit-frame-pointer -mprobe -Wall',
                               compiler_so='gcc -Zomf -Zmt -O3 -fomit-frame-pointer -mprobe -Wall',
@@ -74,7 +114,7 @@ diff -ur Python-2.7.17.orig/Lib/distutils/emxccompiler.py Python-2.7.17/Lib/dist
  
          # want the gcc library statically linked (so that we don't have
          # to distribute a version dependent on the compiler we have)
-@@ -83,8 +87,12 @@
+@@ -83,8 +87,12 @@ class EMXCCompiler (UnixCCompiler):
                  raise CompileError, msg
          else: # for other files use the C-compiler
              try:
@@ -89,27 +129,27 @@ diff -ur Python-2.7.17.orig/Lib/distutils/emxccompiler.py Python-2.7.17/Lib/dist
              except DistutilsExecError, msg:
                  raise CompileError, msg
  
-diff -ur Python-2.7.17.orig/Lib/distutils/sysconfig.py Python-2.7.17/Lib/distutils/sysconfig.py
---- Python-2.7.17.orig/Lib/distutils/sysconfig.py	2019-10-30 17:41:03.565226621 +0100
-+++ Python-2.7.17/Lib/distutils/sysconfig.py	2019-10-30 17:56:52.777991362 +0100
-@@ -181,10 +181,12 @@
+diff --git a/Lib/distutils/sysconfig.py b/Lib/distutils/sysconfig.py
+index a749178ce9..59c90c0bab 100644
+--- a/Lib/distutils/sysconfig.py
++++ b/Lib/distutils/sysconfig.py
+@@ -181,10 +181,12 @@ def customize_compiler(compiler):
                  _osx_support.customize_compiler(_config_vars)
                  _config_vars['CUSTOMIZED_OSX_COMPILER'] = 'True'
  
 -        (cc, cxx, cflags, ccshared, ldshared, so_ext, ar, ar_flags) = \
--            get_config_vars('CC', 'CXX', 'CFLAGS',
++        (cc, cxx, cflags, ccshared, ldshared, ldcxxshared, so_ext, ar, ar_flags) = \
+             get_config_vars('CC', 'CXX', 'CFLAGS',
 -                            'CCSHARED', 'LDSHARED', 'SO', 'AR',
 -                            'ARFLAGS')
-+        (cc, cxx, ccshared, ldshared, ldcxxshared, so_ext, ar, ar_flags) = \
-+            get_config_vars('CC', 'CXX', 'CCSHARED', 'LDSHARED', 'LDCXXSHARED',
++                            'CCSHARED', 'LDSHARED', 'LDCXXSHARED',
 +                            'SO', 'AR', 'ARFLAGS')
 +
-+        cflags = ''
 +        cxxflags = ''
  
          if 'CC' in os.environ:
              newcc = os.environ['CC']
-@@ -199,19 +201,27 @@
+@@ -199,19 +201,27 @@ def customize_compiler(compiler):
              cxx = os.environ['CXX']
          if 'LDSHARED' in os.environ:
              ldshared = os.environ['LDSHARED']
@@ -123,8 +163,7 @@ diff -ur Python-2.7.17.orig/Lib/distutils/sysconfig.py Python-2.7.17/Lib/distuti
              ldshared = ldshared + ' ' + os.environ['LDFLAGS']
 +            ldcxxshared = ldcxxshared + ' ' + os.environ['LDFLAGS']
          if 'CFLAGS' in os.environ:
--            cflags = cflags + ' ' + os.environ['CFLAGS']
-+            cflags = os.environ['CFLAGS']
+             cflags = cflags + ' ' + os.environ['CFLAGS']
              ldshared = ldshared + ' ' + os.environ['CFLAGS']
 +        if 'CXXFLAGS' in os.environ:
 +            cxxflags = os.environ['CXXFLAGS']
@@ -138,7 +177,7 @@ diff -ur Python-2.7.17.orig/Lib/distutils/sysconfig.py Python-2.7.17/Lib/distuti
          if 'AR' in os.environ:
              ar = os.environ['AR']
          if 'ARFLAGS' in os.environ:
-@@ -220,13 +230,17 @@
+@@ -220,13 +230,17 @@ def customize_compiler(compiler):
              archiver = ar + ' ' + ar_flags
  
          cc_cmd = cc + ' ' + cflags
@@ -157,10 +196,11 @@ diff -ur Python-2.7.17.orig/Lib/distutils/sysconfig.py Python-2.7.17/Lib/distuti
              archiver=archiver)
  
          compiler.shared_lib_extension = so_ext
-diff -ur Python-2.7.17.orig/Lib/distutils/unixccompiler.py Python-2.7.17/Lib/distutils/unixccompiler.py
---- Python-2.7.17.orig/Lib/distutils/unixccompiler.py	2019-10-19 20:38:44.000000000 +0200
-+++ Python-2.7.17/Lib/distutils/unixccompiler.py	2019-10-30 18:01:18.179697212 +0100
-@@ -55,14 +55,17 @@
+diff --git a/Lib/distutils/unixccompiler.py b/Lib/distutils/unixccompiler.py
+index 3af540e581..f8f7efe2db 100644
+--- a/Lib/distutils/unixccompiler.py
++++ b/Lib/distutils/unixccompiler.py
+@@ -55,14 +55,17 @@ class UnixCCompiler(CCompiler):
      # are pretty generic; they will probably have to be set by an outsider
      # (eg. using information discovered by the sysconfig about building
      # Python extensions).
@@ -186,7 +226,7 @@ diff -ur Python-2.7.17.orig/Lib/distutils/unixccompiler.py Python-2.7.17/Lib/dis
                    }
  
      if sys.platform[:6] == "darwin":
-@@ -114,12 +117,19 @@
+@@ -114,12 +117,19 @@ class UnixCCompiler(CCompiler):
  
      def _compile(self, obj, src, ext, cc_args, extra_postargs, pp_opts):
          compiler_so = self.compiler_so
@@ -208,7 +248,7 @@ diff -ur Python-2.7.17.orig/Lib/distutils/unixccompiler.py Python-2.7.17/Lib/dis
          except DistutilsExecError, msg:
              raise CompileError, msg
  
-@@ -176,23 +186,16 @@
+@@ -176,23 +186,16 @@ class UnixCCompiler(CCompiler):
                  ld_args.extend(extra_postargs)
              self.mkpath(os.path.dirname(output_filename))
              try:
@@ -241,32 +281,11 @@ diff -ur Python-2.7.17.orig/Lib/distutils/unixccompiler.py Python-2.7.17/Lib/dis
  
                  if sys.platform == 'darwin':
                      linker = _osx_support.compiler_fixup(linker, ld_args)
-diff -ur Python-2.7.17.orig/Lib/_osx_support.py Python-2.7.17/Lib/_osx_support.py
---- Python-2.7.17.orig/Lib/_osx_support.py	2019-10-19 20:38:44.000000000 +0200
-+++ Python-2.7.17/Lib/_osx_support.py	2019-10-30 17:43:36.039887718 +0100
-@@ -14,13 +14,13 @@
- # configuration variables that may contain universal build flags,
- # like "-arch" or "-isdkroot", that may need customization for
- # the user environment
--_UNIVERSAL_CONFIG_VARS = ('CFLAGS', 'LDFLAGS', 'CPPFLAGS', 'BASECFLAGS',
--                            'BLDSHARED', 'LDSHARED', 'CC', 'CXX',
--                            'PY_CFLAGS', 'PY_LDFLAGS', 'PY_CPPFLAGS',
--                            'PY_CORE_CFLAGS')
-+_UNIVERSAL_CONFIG_VARS = ('CFLAGS', 'CXXFLAGS', 'LDFLAGS', 'CPPFLAGS',
-+                          'BASECFLAGS', 'BLDSHARED', 'LDSHARED', 'LDCXXSHARED',
-+                          'CC', 'CXX', 'PY_CFLAGS', 'PY_LDFLAGS',
-+                          'PY_CPPFLAGS', 'PY_CORE_CFLAGS')
- 
- # configuration variables that may contain compiler calls
--_COMPILER_CONFIG_VARS = ('BLDSHARED', 'LDSHARED', 'CC', 'CXX')
-+_COMPILER_CONFIG_VARS = ('BLDSHARED', 'LDSHARED', 'LDCXXSHARED', 'CC', 'CXX')
- 
- # prefix added to original configuration variable names
- _INITPRE = '_OSX_SUPPORT_INITIAL_'
-diff -ur Python-2.7.17.orig/Makefile.pre.in Python-2.7.17/Makefile.pre.in
---- Python-2.7.17.orig/Makefile.pre.in	2019-10-30 17:41:03.588225816 +0100
-+++ Python-2.7.17/Makefile.pre.in	2019-10-30 18:01:59.466250980 +0100
-@@ -523,7 +523,7 @@
+diff --git a/Makefile.pre.in b/Makefile.pre.in
+index 6a8bb2976d..9f1a429cf9 100644
+--- a/Makefile.pre.in
++++ b/Makefile.pre.in
+@@ -523,7 +523,7 @@ sharedmods: $(BUILDPYTHON) pybuilddir.txt Modules/_math.o
  	    *\ -s*|s*) quiet="-q";; \
  	    *) quiet="";; \
  	esac; \
@@ -275,3 +294,6 @@ diff -ur Python-2.7.17.orig/Makefile.pre.in Python-2.7.17/Makefile.pre.in
  		_TCLTK_INCLUDES='$(TCLTK_INCLUDES)' _TCLTK_LIBS='$(TCLTK_LIBS)' \
  		$(PYTHON_FOR_BUILD) $(srcdir)/setup.py $$quiet build
  
+-- 
+2.30.1
+
