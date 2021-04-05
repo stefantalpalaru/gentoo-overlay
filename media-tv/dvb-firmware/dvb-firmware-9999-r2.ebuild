@@ -1,12 +1,12 @@
-# Copyright 1999-2019 Gentoo Authors
+# Copyright 1999-2021 Gentoo Authors
 # Distributed under the terms of the GNU General Public License v2
 
-EAPI=6
+EAPI=7
 
 DESCRIPTION="DVB firmware from the OpenELEC project"
 HOMEPAGE="https://github.com/OpenELEC/dvb-firmware"
 if [[ ${PV} = *9999 ]] ; then
-	SCM="git-r3"
+	inherit git-r3
 	EGIT_REPO_URI="https://github.com/OpenELEC/dvb-firmware.git"
 else
 	KEYWORDS="~amd64 ~x86"
@@ -15,7 +15,6 @@ else
 	SRC_URI="https://github.com/OpenELEC/dvb-firmware/archive/${snapshot_commit}.zip -> ${P}.zip"
 	S="${WORKDIR}/${PN}-${snapshot_commit}"
 fi
-inherit ${SCM}
 
 LICENSE="all-rights-reserved freedist ISC"
 SLOT="0"
