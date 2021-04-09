@@ -21,9 +21,9 @@ RDEPEND="${DEPEND}"
 BDEPEND=""
 
 src_compile() {
-	NIMFLAGS="-d:insecure -d:disableMarchNative --passC:'${CFLAGS}' --passL:'${LDFLAGS}' --parallelBuild:1 -d:chronicles_sinks=textlines -d:chronicles_colors=none"
+	NIMFLAGS="-d:disableMarchNative --passC:'${CFLAGS}' --passL:'${LDFLAGS}' -d:chronicles_sinks=textlines -d:chronicles_colors=none"
 	if ! use lto; then
-		NIMFLAGS="$NIMFLAGS -d:disableLTO"
+		NIMFLAGS="${NIMFLAGS} -d:disableLTO"
 	fi
 	emake \
 		LOG_LEVEL="TRACE" \
