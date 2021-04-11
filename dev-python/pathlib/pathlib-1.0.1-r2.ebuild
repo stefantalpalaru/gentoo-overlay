@@ -1,7 +1,7 @@
 # Copyright 1999-2020 Gentoo Authors
 # Distributed under the terms of the GNU General Public License v2
 
-EAPI=5
+EAPI=6
 
 # In Python 3.4, pathlib is now part of the standard library.
 PYTHON_COMPAT=( python2_7 )

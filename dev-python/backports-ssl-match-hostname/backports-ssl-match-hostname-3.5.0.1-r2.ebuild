@@ -1,7 +1,7 @@
 # Copyright 1999-2020 Gentoo Authors
 # Distributed under the terms of the GNU General Public License v2
 
-EAPI=5
+EAPI=6
 # This is a backport from python3.5+
 # Do not add python3.5 or later support here, there's no need for it.
 PYTHON_COMPAT=( python2_7 )
