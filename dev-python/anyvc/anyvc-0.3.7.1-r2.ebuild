@@ -22,12 +22,11 @@ RDEPEND="dev-python/apipkg[${PYTHON_USEDEP}]
 	bazaar? ( dev-vcs/bzr )
 	git? ( dev-python/dulwich[${PYTHON_USEDEP}] )
 	mercurial? ( dev-vcs/mercurial )
-	subversion? ( dev-python/subvertpy )"
+	subversion? ( dev-python/subvertpy:python2 )"
 DEPEND="
 	dev-python/setuptools[${PYTHON_USEDEP}]
 	dev-python/hgdistver[${PYTHON_USEDEP}]
 	doc? ( dev-python/sphinx[${PYTHON_USEDEP}] )"
-#		dev-python/hgdistver )"
 
 python_prepare_all() {
 	# Do not use unsupported theme options.

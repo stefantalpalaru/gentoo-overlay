@@ -1,4 +1,4 @@
-# Copyright 1999-2020 Gentoo Authors
+# Copyright 1999-2021 Gentoo Authors
 # Distributed under the terms of the GNU General Public License v2
 
 # @ECLASS: python-utils-r1.eclass
@@ -7,7 +7,7 @@
 # @AUTHOR:
 # Author: Michał Górny <mgorny@gentoo.org>
 # Based on work of: Krzysztof Pawlik <nelchael@gentoo.org>
-# @SUPPORTED_EAPIS: 5 6 7
+# @SUPPORTED_EAPIS: 6 7 8
 # @BLURB: Utility functions for packages with Python parts.
 # @DESCRIPTION:
 # A utility eclass providing functions to query Python implementations,
@@ -19,9 +19,12 @@
 # For more information, please see the Python Guide:
 # https://dev.gentoo.org/~mgorny/python-guide/
 
+# NOTE: When dropping support for EAPIs here, we need to update
+# metadata/install-qa-check.d/60python-pyc
+# See bug #704286, bug #781878
 case "${EAPI:-0}" in
-	[0-4]) die "Unsupported EAPI=${EAPI:-0} (too old) for ${ECLASS}" ;;
-	[5-7]) ;;
+	[0-5]) die "Unsupported EAPI=${EAPI:-0} (too old) for ${ECLASS}" ;;
+	[6-8]) ;;
 	*)     die "Unsupported EAPI=${EAPI} (unknown) for ${ECLASS}" ;;
 esac
 
@@ -31,8 +34,8 @@ fi
 
 if [[ ! ${_PYTHON_UTILS_R1} ]]; then
 
-[[ ${EAPI} == 5 ]] && inherit eutils multilib
-inherit toolchain-funcs
+[[ ${EAPI} == [67] ]] && inherit eapi8-dosym
+inherit multiprocessing toolchain-funcs
 
 # @ECLASS-VARIABLE: _PYTHON_ALL_IMPLS
 # @INTERNAL
@@ -42,7 +45,7 @@ _PYTHON_ALL_IMPLS=(
 	pypy3
 	python2_7
 	tauthon2_8
-	python3_{6..10}
+	python3_{8..10}
 )
 readonly _PYTHON_ALL_IMPLS
 
@@ -54,7 +57,7 @@ _PYTHON_HISTORICAL_IMPLS=(
 	jython2_7
 	pypy pypy1_{8,9} pypy2_0
 	python2_{5,6}
-	python3_{1,2,3,4,5}
+	python3_{1..7}
 )
 readonly _PYTHON_HISTORICAL_IMPLS
 
@@ -69,38 +72,6 @@ readonly _PYTHON_HISTORICAL_IMPLS
 # is that the ebuilds are intended to be used within multiple contexts
 # which can involve revisions of this eclass that support a different
 # set of Python implementations.
-
-# @FUNCTION: _python_impl_supported
-# @USAGE: <impl>
-# @INTERNAL
-# @DESCRIPTION:
-# Check whether the implementation <impl> (PYTHON_COMPAT-form)
-# is still supported.
-#
-# Returns 0 if the implementation is valid and supported. If it is
-# unsupported, returns 1 -- and the caller should ignore the entry.
-# If it is invalid, dies with an appopriate error messages.
-_python_impl_supported() {
-	debug-print-function ${FUNCNAME} "${@}"
-
-	[[ ${#} -eq 1 ]] || die "${FUNCNAME}: takes exactly 1 argument (impl)."
-
-	local impl=${1}
-
-	# keep in sync with _PYTHON_ALL_IMPLS!
-	# (not using that list because inline patterns shall be faster)
-	case "${impl}" in
-		python2_7|tauthon2_8|python3_[6789]|python3_10|pypy3)
-			return 0
-			;;
-		jython2_7|pypy|pypy1_[89]|pypy2_0|python2_[56]|python3_[12345])
-			return 1
-			;;
-		*)
-			[[ ${PYTHON_COMPAT_NO_STRICT} ]] && return 1
-			die "Invalid implementation in PYTHON_COMPAT: ${impl}"
-	esac
-}
 
 # @FUNCTION: _python_verify_patterns
 # @USAGE: <pattern>...
@@ -150,10 +121,26 @@ _python_set_impls() {
 	if [[ $(declare -p PYTHON_COMPAT) != "declare -a"* ]]; then
 		die 'PYTHON_COMPAT must be an array.'
 	fi
-	for i in "${PYTHON_COMPAT[@]}"; do
-		# trigger validity checks
-		_python_impl_supported "${i}"
-	done
+	if [[ ! ${PYTHON_COMPAT_NO_STRICT} ]]; then
+		for i in "${PYTHON_COMPAT[@]}"; do
+			# check for incorrect implementations
+			# we're using pattern matching as an optimization
+			# please keep them in sync with _PYTHON_ALL_IMPLS
+			# and _PYTHON_HISTORICAL_IMPLS
+			case ${i} in
+				jython2_7|pypy|pypy1_[89]|pypy2_0|pypy3|tauthon2_8|python2_[5-7]|python3_[1-9]|python3_10)
+					;;
+				*)
+					if has "${i}" "${_PYTHON_ALL_IMPLS[@]}" \
+						"${_PYTHON_HISTORICAL_IMPLS[@]}"
+					then
+						die "Mis-synced patterns in _python_set_impls: missing ${i}"
+					else
+						die "Invalid implementation in PYTHON_COMPAT: ${i}"
+					fi
+			esac
+		done
+	fi
 
 	local supp=() unsupp=()
 
@@ -198,11 +185,8 @@ _python_set_impls() {
 # of the patterns following it. Return 0 if it does, 1 otherwise.
 # Matches if no patterns are provided.
 #
-# <impl> can be in PYTHON_COMPAT or EPYTHON form. The patterns can be
-# either:
-# a) fnmatch-style patterns, e.g. 'python2*', 'pypy'...
-# b) '-2' to indicate all Python 2 variants (= !python_is_python3)
-# c) '-3' to indicate all Python 3 variants (= python_is_python3)
+# <impl> can be in PYTHON_COMPAT or EPYTHON form. The patterns
+# are fnmatch-style.
 _python_impl_matches() {
 	[[ ${#} -ge 1 ]] || die "${FUNCNAME}: takes at least 1 parameter"
 	[[ ${#} -eq 1 ]] && return 0
@@ -275,6 +259,8 @@ python_export() {
 	eqawarn "python_export() is part of private eclass API."
 	eqawarn "Please call python_get*() instead."
 
+	[[ ${EAPI} == [67] ]] || die "${FUNCNAME} banned in EAPI ${EAPI}"
+
 	_python_export "${@}"
 }
 
@@ -328,16 +314,13 @@ _python_export() {
 				;;
 			PYTHON_SITEDIR)
 				[[ -n ${PYTHON} ]] || die "PYTHON needs to be set for ${var} to be exported, or requested before it"
-				# sysconfig can't be used because:
-				# 1) pypy doesn't give site-packages but stdlib
-				# 2) jython gives paths with wrong case
-				PYTHON_SITEDIR=$("${PYTHON}" -c 'import distutils.sysconfig; print(distutils.sysconfig.get_python_lib())') || die
+				PYTHON_SITEDIR=$("${PYTHON}" -c 'import sysconfig; print(sysconfig.get_path("purelib"))') || die
 				export PYTHON_SITEDIR
 				debug-print "${FUNCNAME}: PYTHON_SITEDIR = ${PYTHON_SITEDIR}"
 				;;
 			PYTHON_INCLUDEDIR)
 				[[ -n ${PYTHON} ]] || die "PYTHON needs to be set for ${var} to be exported, or requested before it"
-				PYTHON_INCLUDEDIR=$("${PYTHON}" -c 'import distutils.sysconfig; print(distutils.sysconfig.get_python_inc())') || die
+				PYTHON_INCLUDEDIR=$("${PYTHON}" -c 'import sysconfig; print(sysconfig.get_path("platinclude"))') || die
 				export PYTHON_INCLUDEDIR
 				debug-print "${FUNCNAME}: PYTHON_INCLUDEDIR = ${PYTHON_INCLUDEDIR}"
 
@@ -549,46 +532,6 @@ python_get_scriptdir() {
 	echo "${PYTHON_SCRIPTDIR}"
 }
 
-# @FUNCTION: _python_ln_rel
-# @USAGE: <from> <to>
-# @INTERNAL
-# @DESCRIPTION:
-# Create a relative symlink.
-_python_ln_rel() {
-	debug-print-function ${FUNCNAME} "${@}"
-
-	local target=${1}
-	local symname=${2}
-
-	local tgpath=${target%/*}/
-	local sympath=${symname%/*}/
-	local rel_target=
-
-	while [[ ${sympath} ]]; do
-		local tgseg= symseg=
-
-		while [[ ! ${tgseg} && ${tgpath} ]]; do
-			tgseg=${tgpath%%/*}
-			tgpath=${tgpath#${tgseg}/}
-		done
-
-		while [[ ! ${symseg} && ${sympath} ]]; do
-			symseg=${sympath%%/*}
-			sympath=${sympath#${symseg}/}
-		done
-
-		if [[ ${tgseg} != ${symseg} ]]; then
-			rel_target=../${rel_target}${tgseg:+${tgseg}/}
-		fi
-	done
-	rel_target+=${tgpath}${target##*/}
-
-	debug-print "${FUNCNAME}: ${symname} -> ${target}"
-	debug-print "${FUNCNAME}: rel_target = ${rel_target}"
-
-	ln -fs "${rel_target}" "${symname}"
-}
-
 # @FUNCTION: python_optimize
 # @USAGE: [<directory>...]
 # @DESCRIPTION:
@@ -611,6 +554,7 @@ python_optimize() {
 
 	local PYTHON=${PYTHON}
 	[[ ${PYTHON} ]] || _python_export PYTHON
+	[[ -x ${PYTHON} ]] || die "PYTHON (${PYTHON}) is not executable"
 
 	# default to sys.path
 	if [[ ${#} -eq 0 ]]; then
@@ -629,6 +573,9 @@ python_optimize() {
 		debug-print "${FUNCNAME}: using sys.path: ${*/%/;}"
 	fi
 
+	local jobs=$(makeopts_jobs "${MAKEOPTS}" INF)
+	[[ ${jobs} == INF ]] && jobs=$(get_nproc)
+
 	local d
 	for d; do
 		# make sure to get a nice path without //
@@ -640,11 +587,14 @@ python_optimize() {
 				"${PYTHON}" -m compileall -q -f -d "${instpath}" "${d}"
 				"${PYTHON}" -OO -m compileall -q -f -d "${instpath}" "${d}"
 				;;
-			python*|pypy3)
+			python3.[5678]|pypy3)
 				# both levels of optimization are separate since 3.5
-				"${PYTHON}" -m compileall -q -f -d "${instpath}" "${d}"
-				"${PYTHON}" -O -m compileall -q -f -d "${instpath}" "${d}"
-				"${PYTHON}" -OO -m compileall -q -f -d "${instpath}" "${d}"
+				"${PYTHON}" -m compileall -j "${jobs}" -q -f -d "${instpath}" "${d}"
+				"${PYTHON}" -O -m compileall -j "${jobs}" -q -f -d "${instpath}" "${d}"
+				"${PYTHON}" -OO -m compileall -j "${jobs}" -q -f -d "${instpath}" "${d}"
+				;;
+			python*)
+				"${PYTHON}" -m compileall -j "${jobs}" -o 0 -o 1 -o 2 --hardlink-dupes -q -f -d "${instpath}" "${d}"
 				;;
 			*)
 				"${PYTHON}" -m compileall -q -f -d "${instpath}" "${d}"
@@ -673,7 +623,7 @@ python_optimize() {
 python_scriptinto() {
 	debug-print-function ${FUNCNAME} "${@}"
 
-	python_scriptroot=${1}
+	_PYTHON_SCRIPTROOT=${1}
 }
 
 # @FUNCTION: python_doexe
@@ -708,7 +658,7 @@ python_newexe() {
 	[[ ${EPYTHON} ]] || die 'No Python implementation set (EPYTHON is null).'
 	[[ ${#} -eq 2 ]] || die "Usage: ${FUNCNAME} <path> <new-name>"
 
-	local wrapd=${python_scriptroot:-/usr/bin}
+	local wrapd=${_PYTHON_SCRIPTROOT:-/usr/bin}
 
 	local f=${1}
 	local newfn=${2}
@@ -724,8 +674,9 @@ python_newexe() {
 	)
 
 	# install the wrapper
-	_python_ln_rel "${ED%/}"/usr/lib/python-exec/python-exec2 \
-		"${ED%/}/${wrapd}/${newfn}" || die
+	local dosym=dosym
+	[[ ${EAPI} == [67] ]] && dosym=dosym8
+	"${dosym}" -r /usr/lib/python-exec/python-exec2 "${wrapd}/${newfn}"
 
 	# don't use this at home, just call python_doscript() instead
 	if [[ ${_PYTHON_REWRITE_SHEBANG} ]]; then
@@ -811,7 +762,7 @@ python_newscript() {
 python_moduleinto() {
 	debug-print-function ${FUNCNAME} "${@}"
 
-	python_moduleroot=${1}
+	_PYTHON_MODULEROOT=${1}
 }
 
 # @FUNCTION: python_domodule
@@ -835,13 +786,13 @@ python_domodule() {
 	[[ ${EPYTHON} ]] || die 'No Python implementation set (EPYTHON is null).'
 
 	local d
-	if [[ ${python_moduleroot} == /* ]]; then
+	if [[ ${_PYTHON_MODULEROOT} == /* ]]; then
 		# absolute path
-		d=${python_moduleroot}
+		d=${_PYTHON_MODULEROOT}
 	else
 		# relative to site-packages
 		local sitedir=$(python_get_sitedir)
-		d=${sitedir#${EPREFIX}}/${python_moduleroot//.//}
+		d=${sitedir#${EPREFIX}}/${_PYTHON_MODULEROOT//.//}
 	fi
 
 	(
@@ -892,6 +843,8 @@ python_wrapper_setup() {
 	eqawarn "python_wrapper_setup() is part of private eclass API."
 	eqawarn "Please call python_setup() instead."
 
+	[[ ${EAPI} == [67] ]] || die "${FUNCNAME} banned in EAPI ${EAPI}"
+
 	_python_wrapper_setup "${@}"
 }
 
@@ -920,8 +873,6 @@ _python_wrapper_setup() {
 	[[ ${impl} ]] || die "${FUNCNAME}: no impl nor EPYTHON specified."
 
 	if [[ ! -x ${workdir}/bin/python ]]; then
-		_python_check_dead_variables
-
 		mkdir -p "${workdir}"/{bin,pkgconfig} || die
 
 		# Clean up, in case we were supposed to do a cheap update.
@@ -1028,16 +979,8 @@ python_is_python3() {
 python_is_installed() {
 	local impl=${1:-${EPYTHON}}
 	[[ ${impl} ]] || die "${FUNCNAME}: no impl nor EPYTHON"
-	local hasv_args=()
-
-	case ${EAPI} in
-		5|6)
-			hasv_args+=( --host-root )
-			;;
-		*)
-			hasv_args+=( -b )
-			;;
-	esac
+	local hasv_args=( -b )
+	[[ ${EAPI} == 6 ]] && hasv_args=( --host-root )
 
 	local PYTHON_PKG_DEP
 	_python_export "${impl}" PYTHON_PKG_DEP
@@ -1130,20 +1073,22 @@ python_fix_shebang() {
 							fi
 							break
 							;;
-						*python[23].[0123456789]|*pypy|*pypy3|*jython[23].[0123456789])
+						*python[23].[0-9]|*python3.[1-9][0-9]|*pypy|*pypy3|*jython[23].[0-9])
 							# Explicit mismatch.
 							if [[ ! ${force} ]]; then
 								error=1
 							else
 								case "${i}" in
-									*python[23].[0123456789])
-										from="python[23].[0123456789]";;
+									*python[23].[0-9])
+										from="python[23].[0-9]";;
+									*python3.[1-9][0-9])
+										from="python3.[1-9][0-9]";;
 									*pypy)
 										from="pypy";;
 									*pypy3)
 										from="pypy3";;
-									*jython[23].[0123456789])
-										from="jython[23].[0123456789]";;
+									*jython[23].[0-9])
+										from="jython[23].[0-9]";;
 									*)
 										die "${FUNCNAME}: internal error in 2nd pattern match";;
 								esac
@@ -1184,17 +1129,14 @@ python_fix_shebang() {
 		done < <(find -H "${path}" -type f -print0 || die)
 
 		if [[ ! ${any_fixed} ]]; then
-			local cmd=eerror
-			[[ ${EAPI} == 5 ]] && cmd=eqawarn
-
-			"${cmd}" "QA warning: ${FUNCNAME}, ${path#${D%/}} did not match any fixable files."
+			eerror "QA error: ${FUNCNAME}, ${path#${D%/}} did not match any fixable files."
 			if [[ ${any_correct} ]]; then
-				"${cmd}" "All files have ${EPYTHON} shebang already."
+				eerror "All files have ${EPYTHON} shebang already."
 			else
-				"${cmd}" "There are no Python files in specified directory."
+				eerror "There are no Python files in specified directory."
 			fi
 
-			[[ ${cmd} == eerror ]] && die "${FUNCNAME} did not match any fixable files (QA warning fatal in EAPI ${EAPI})"
+			die "${FUNCNAME} did not match any fixable files"
 		fi
 	done
 }
@@ -1291,172 +1233,85 @@ build_sphinx() {
 	HTML_DOCS+=( "${dir}/_build/html/." )
 }
 
-# -- python.eclass functions --
+# @VARIABLE: EPYTEST_DESELECT
+# @DEFAULT_UNSET
+# @DESCRIPTION:
+# Specifies an array of tests to be deselected via pytest's --deselect
+# parameter, when calling epytest.  The list can include file paths,
+# specific test functions or parametrized test invocations.
+#
+# Note that the listed files will still be subject to collection,
+# i.e. modules imported in global scope will need to be available.
+# If this is undesirable, EPYTEST_IGNORE can be used instead.
 
-_python_check_dead_variables() {
-	local v
+# @VARIABLE: EPYTEST_IGNORE
+# @DEFAULT_UNSET
+# @DESCRIPTION:
+# Specifies an array of paths to be ignored via pytest's --ignore
+# parameter, when calling epytest.  The listed files will be entirely
+# skipped from test collection.
 
-	for v in PYTHON_DEPEND PYTHON_USE_WITH{,_OR,_OPT} {RESTRICT,SUPPORT}_PYTHON_ABIS
-	do
-		if [[ ${!v} ]]; then
-			die "${v} is invalid for python-r1 suite, please take a look @ https://wiki.gentoo.org/wiki/Project:Python/Python.eclass_conversion#Ebuild_head"
-		fi
+# @FUNCTION: epytest
+# @USAGE: [<args>...]
+# @DESCRIPTION:
+# Run pytest, passing the standard set of pytest options, then
+# --deselect and --ignore options based on EPYTEST_DESELECT
+# and EPYTEST_IGNORE, then user-specified options.
+#
+# This command dies on failure and respects nonfatal.
+epytest() {
+	debug-print-function ${FUNCNAME} "${@}"
+
+	[[ -n ${EPYTHON} ]] || die "EPYTHON unset, invalid call context"
+
+	local args=(
+		# verbose progress reporting and tracebacks
+		-vv
+		# list all non-passed tests in the summary for convenience
+		# (includes failures, skips, xfails...)
+		-ra
+		# print local variables in tracebacks, useful for debugging
+		-l
+		# override filterwarnings=error, we do not really want -Werror
+		# for end users, as it tends to fail on new warnings from deps
+		-Wdefault
+	)
+	local x
+	for x in "${EPYTEST_DESELECT[@]}"; do
+		args+=( --deselect "${x}" )
 	done
-
-	for v in PYTHON_{CPPFLAGS,CFLAGS,CXXFLAGS,LDFLAGS}
-	do
-		if [[ ${!v} ]]; then
-			die "${v} is invalid for python-r1 suite, please take a look @ https://wiki.gentoo.org/wiki/Project:Python/Python.eclass_conversion#PYTHON_CFLAGS"
-		fi
+	for x in "${EPYTEST_IGNORE[@]}"; do
+		args+=( --ignore "${x}" )
 	done
+	set -- "${EPYTHON}" -m pytest "${args[@]}" "${@}"
 
-	for v in PYTHON_TESTS_RESTRICTED_ABIS PYTHON_EXPORT_PHASE_FUNCTIONS \
-		PYTHON_VERSIONED_{SCRIPTS,EXECUTABLES} PYTHON_NONVERSIONED_EXECUTABLES
-	do
-		if [[ ${!v} ]]; then
-			die "${v} is invalid for python-r1 suite"
-		fi
-	done
+	echo "${@}" >&2
+	"${@}" || die -n "pytest failed with ${EPYTHON}"
+	local ret=${?}
 
-	for v in DISTUTILS_USE_SEPARATE_SOURCE_DIRECTORIES DISTUTILS_SETUP_FILES \
-		DISTUTILS_GLOBAL_OPTIONS DISTUTILS_SRC_TEST PYTHON_MODNAME
-	do
-		if [[ ${!v} ]]; then
-			die "${v} is invalid for distutils-r1, please take a look @ https://wiki.gentoo.org/wiki/Project:Python/Python.eclass_conversion#${v}"
-		fi
-	done
+	# remove common temporary directories left over by pytest plugins
+	rm -rf .hypothesis .pytest_cache || die
 
-	if [[ ${DISTUTILS_DISABLE_TEST_DEPENDENCY} ]]; then
-		die "${v} is invalid for distutils-r1, please take a look @ https://wiki.gentoo.org/wiki/Project:Python/Python.eclass_conversion#DISTUTILS_SRC_TEST"
-	fi
-
-	# python.eclass::progress
-	for v in PYTHON_BDEPEND PYTHON_MULTIPLE_ABIS PYTHON_ABI_TYPE \
-		PYTHON_RESTRICTED_ABIS PYTHON_TESTS_FAILURES_TOLERANT_ABIS \
-		PYTHON_CFFI_MODULES_GENERATION_COMMANDS
-	do
-		if [[ ${!v} ]]; then
-			die "${v} is invalid for python-r1 suite"
-		fi
-	done
+	return ${ret}
 }
 
-python_pkg_setup() {
-	die "${FUNCNAME}() is invalid for python-r1 suite, please take a look @ https://wiki.gentoo.org/wiki/Project:Python/Python.eclass_conversion#pkg_setup"
-}
+# @FUNCTION: eunittest
+# @USAGE: [<args>...]
+# @DESCRIPTION:
+# Run unit tests using dev-python/unittest-or-fail, passing the standard
+# set of options, followed by user-specified options.
+#
+# This command dies on failure and respects nonfatal.
+eunittest() {
+	debug-print-function ${FUNCNAME} "${@}"
 
-python_convert_shebangs() {
-	die "${FUNCNAME}() is invalid for python-r1 suite, please take a look @ https://wiki.gentoo.org/wiki/Project:Python/Python.eclass_conversion#python_convert_shebangs"
-}
+	[[ -n ${EPYTHON} ]] || die "EPYTHON unset, invalid call context"
 
-python_clean_py-compile_files() {
-	die "${FUNCNAME}() is invalid for python-r1 suite"
-}
+	set -- "${EPYTHON}" -m unittest_or_fail discover -v "${@}"
 
-python_clean_installation_image() {
-	die "${FUNCNAME}() is invalid for python-r1 suite"
-}
-
-python_execute_function() {
-	die "${FUNCNAME}() is invalid for python-r1 suite, please take a look @ https://wiki.gentoo.org/wiki/Project:Python/Python.eclass_conversion#python_execute_function"
-}
-
-python_generate_wrapper_scripts() {
-	die "${FUNCNAME}() is invalid for python-r1 suite"
-}
-
-python_merge_intermediate_installation_images() {
-	die "${FUNCNAME}() is invalid for python-r1 suite"
-}
-
-python_set_active_version() {
-	die "${FUNCNAME}() is invalid for python-r1 suite, please take a look @ https://wiki.gentoo.org/wiki/Project:Python/Python.eclass_conversion#pkg_setup"
-}
-
-python_need_rebuild() {
-	die "${FUNCNAME}() is invalid for python-r1 suite"
-}
-
-PYTHON() {
-	die "${FUNCNAME}() is invalid for python-r1 suite, please take a look @ https://wiki.gentoo.org/wiki/Project:Python/Python.eclass_conversion#.24.28PYTHON.29.2C_.24.7BEPYTHON.7D"
-}
-
-python_get_implementation() {
-	die "${FUNCNAME}() is invalid for python-r1 suite"
-}
-
-python_get_implementational_package() {
-	die "${FUNCNAME}() is invalid for python-r1 suite"
-}
-
-python_get_libdir() {
-	die "${FUNCNAME}() is invalid for python-r1 suite"
-}
-
-python_get_library() {
-	die "${FUNCNAME}() is invalid for python-r1 suite"
-}
-
-python_get_version() {
-	die "${FUNCNAME}() is invalid for python-r1 suite"
-}
-
-python_get_implementation_and_version() {
-	die "${FUNCNAME}() is invalid for python-r1 suite"
-}
-
-python_execute_nosetests() {
-	die "${FUNCNAME}() is invalid for python-r1 suite"
-}
-
-python_execute_py.test() {
-	die "${FUNCNAME}() is invalid for python-r1 suite"
-}
-
-python_execute_trial() {
-	die "${FUNCNAME}() is invalid for python-r1 suite"
-}
-
-python_enable_pyc() {
-	die "${FUNCNAME}() is invalid for python-r1 suite"
-}
-
-python_disable_pyc() {
-	die "${FUNCNAME}() is invalid for python-r1 suite"
-}
-
-python_mod_optimize() {
-	die "${FUNCNAME}() is invalid for python-r1 suite, please take a look @ https://wiki.gentoo.org/wiki/Project:Python/Python.eclass_conversion#Python_byte-code_compilation"
-}
-
-python_mod_cleanup() {
-	die "${FUNCNAME}() is invalid for python-r1 suite, please take a look @ https://wiki.gentoo.org/wiki/Project:Python/Python.eclass_conversion#Python_byte-code_compilation"
-}
-
-# python.eclass::progress
-
-python_abi_depend() {
-	die "${FUNCNAME}() is invalid for python-r1 suite"
-}
-
-python_install_executables() {
-	die "${FUNCNAME}() is invalid for python-r1 suite"
-}
-
-python_get_extension_module_suffix() {
-	die "${FUNCNAME}() is invalid for python-r1 suite"
-}
-
-python_byte-compile_modules() {
-	die "${FUNCNAME}() is invalid for python-r1 suite"
-}
-
-python_clean_byte-compiled_modules() {
-	die "${FUNCNAME}() is invalid for python-r1 suite"
-}
-
-python_generate_cffi_modules() {
-	die "${FUNCNAME}() is invalid for python-r1 suite"
+	echo "${@}" >&2
+	"${@}" || die -n "Tests failed with ${EPYTHON}"
+	return ${?}
 }
 
 _PYTHON_UTILS_R1=1

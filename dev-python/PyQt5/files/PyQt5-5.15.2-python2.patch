@@ -1,0 +1,12 @@
+diff -ur PyQt5-5.15.4.orig/configure.py PyQt5-5.15.4/configure.py
+--- PyQt5-5.15.4.orig/configure.py	2021-03-05 10:57:14.128478000 +0100
++++ PyQt5-5.15.4/configure.py	2021-07-20 03:47:31.532844544 +0200
+@@ -544,7 +544,7 @@
+         self.qsci_api_dir = ''
+         self.qt_shared = False
+         self.qt_version = 0
+-        self.sip = self._find_exe('sip5', 'sip')
++        self.sip = self._find_exe('sip', 'sip5')
+         self.sip_inc_dir = None
+         self.static = False
+         self.sysroot = ''

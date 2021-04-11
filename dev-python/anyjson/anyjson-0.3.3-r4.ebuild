@@ -3,7 +3,7 @@
 
 EAPI=7
 
-PYTHON_COMPAT=( python2_7 python3_{7..9} )
+PYTHON_COMPAT=( python2_7 python3_{8..10} )
 DISTUTILS_USE_SETUPTOOLS=manual
 
 inherit distutils-r1
@@ -20,9 +20,11 @@ IUSE="test"
 # please keep all supported implementations in 'test?'
 # to make sure the package is used in the widest way
 DEPEND="${RDEPEND}
-	dev-python/setuptools:0[${PYTHON_USEDEP}]
+	$(python_gen_cond_dep 'dev-python/setuptools:python2[${PYTHON_USEDEP}]' -2)
+	$(python_gen_cond_dep 'dev-python/setuptools:0[${PYTHON_USEDEP}]' -3)
 	test? (
-		dev-python/nose:0[${PYTHON_USEDEP}]
+		$(python_gen_cond_dep 'dev-python/nose:python2[${PYTHON_USEDEP}]' -2)
+		$(python_gen_cond_dep 'dev-python/nose:0[${PYTHON_USEDEP}]' -3)
 		$(python_gen_cond_dep 'dev-python/simplejson[${PYTHON_USEDEP}]' -2)
 	)"
 

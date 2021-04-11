@@ -35,10 +35,6 @@ app-emulation/vmware-workstation:vmware-tools-solaris - Install VMware Tools for
 app-emulation/vmware-workstation:vmware-tools-winPre2k - Install VMware Tools for Windows (before 2000) guests.
 app-emulation/vmware-workstation:vmware-tools-winPreVista - Install VMware Tools for Windows (after 2000, before Vista) guests.
 app-emulation/vmware-workstation:vmware-tools-windows - Install VMware Tools for Windows (Vista and later) guests.
-app-office/gnucash:aqbanking - Connect to some internet banks via AqBanking
-app-office/gnucash:gui - Enable graphic interface (needs net-libs/webkit-gtk:4 and x11-libs/gtk+:3)
-app-office/gnucash:quotes - Enable Online Stock Quote retrieval
-app-office/gnucash:register2 - Use the new register (Experimental)
 dev-lang/nim:boehm-gc - Enable Hans Boehm's garbage collector (dev-libs/boehm-gc).
 dev-lang/php:bcmath - Add support for libbcmath
 dev-lang/php:cli - Enable CLI SAPI
@@ -74,6 +70,7 @@ dev-lang/python:pgo - Build with profile guided optimizations (PGO)
 dev-lang/python:threads - Enable threading support. (DON'T DISABLE THIS UNLESS YOU KNOW WHAT YOU'RE DOING)
 dev-lang/python:wide-unicode - Enable wide Unicode implementation which uses 4-byte Unicode characters. Switching of this USE flag changes ABI of Python and requires reinstallation of many Python modules. (DON'T DISABLE THIS UNLESS YOU KNOW WHAT YOU'RE DOING)
 dev-lang/python:wininst - Install Windows executables required to create an executable installer for MS Windows.
+dev-lang/python-exec:native-symlinks - Install generic symlinks like python and python3. If this flag is disabled, only versioned python3.X executables will be available to end users and ebuilds not using python eclasses.
 dev-lang/tauthon:lto - Build with link-time optimizations (LTO)
 dev-lang/tauthon:pgo - Build with profile guided optimizations (PGO)
 dev-lang/tauthon:threads - Enable threading support. (DON'T DISABLE THIS UNLESS YOU KNOW WHAT YOU'RE DOING)
@@ -141,20 +138,19 @@ dev-python/matplotlib-python2:gtk2 - Enable x11-libs/gtk+:2 support
 dev-python/matplotlib-python2:gtk3 - Enable x11-libs/gtk+:3 support
 dev-python/mpmath:matplotlib - Add support for dev-python/matplotlib
 dev-python/msgpack:native-extensions - Compiles native "C" extensions (speedups, instead of using python fallback code).
-dev-python/netaddr:cli - Enable netaddr shell with dev-python/ipython
 dev-python/networkx:extras - Provide graph drawing and graph layout algorithms along with shapefile format reading and writing
 dev-python/networkx:pandas - Provides a DataFrame, which is a tabular data structure with labeled axes
 dev-python/networkx:scipy - Enables scipy backend
 dev-python/networkx:yaml - Provides YAML format reading and writing
+dev-python/nose:coverage - Pull in dev-python/coverage needed for nose-xcover plugin.
 dev-python/numexpr:mkl - Enable support for Intel Vector Math Library, part of sci-libs/mkl.
 dev-python/pandas:full-support - Pull all packages to give pandas full support
 dev-python/paramiko:server - Enable server feature
 dev-python/pillow:imagequant - Build with Image Quantization Library support
 dev-python/py-amqp:extras - Install extra tools to generate initial Python mod from an AMQP XML file
-dev-python/pybitmessage:opencl - Enable dev-python/pyopencl for GPU acceleration
-dev-python/pybitmessage:qrcode - Enable dev-python/qrcode for QR code support
 dev-python/pygame:midi - Enable midi support using media-libs/portmidi
 dev-python/pyglet:image - Enable support for image formats other than PNG and BMP
+dev-python/pyyaml:libyaml - enable support for C implementation using libyaml
 dev-python/rfc3986:idna - enable support for the IDNA specification (RFC 5891)
 dev-python/scipy-python2:sparse - Adds support for sparse solving with sci-libs/umfpack
 dev-python/sphinx:net - enable internet capabilities
@@ -163,7 +159,6 @@ dev-python/sympy:ipython - Add support for dev-python/ipython
 dev-python/sympy:mathml - Add support for mathml
 dev-python/sympy:pyglet - Use dev-python/pyglet for plots and print preview
 dev-python/sympy:symengine - Add support for a dev-python/symengine backend
-dev-python/sympy:texmacs - Add app-office/texmacs interface
 dev-python/sympy:theano - Add support for dev-python/theano
 dev-python/tappy:yaml - Pull dependencies needed to support YAML blocks associated with test results.
 dev-python/twisted:conch - include Twisted SSHv2 implementation
@@ -174,12 +169,6 @@ dev-python/urllib3:brotli - Enable support for brotli compression
 dev-python/vatnumber:vies - Enable VIES
 dev-util/valgrind:lto - Build with link time optimization (LTO)
 dev-vcs/bzr:sftp - Enable sftp support
-dev-vcs/rabbitvcs:caja - Enable extension for mate-base/caja
-dev-vcs/rabbitvcs:cli - Eanble console based frontend
-dev-vcs/rabbitvcs:diff - Use for diff command dev-util/meld
-dev-vcs/rabbitvcs:gedit - Enable plugin for app-editors/gedit
-dev-vcs/rabbitvcs:nautilus - Enable extension for gnome-base/nautilus
-dev-vcs/rabbitvcs:thunar - Enable extension for xfce-base/thunar
 games-emulation/rpcs3:llvm - LLVM recompiler support
 games-emulation/rpcs3:vulkan - Vulkan video output support
 media-gfx/fbcat:fbgrab - Install a 'fbgrab' wrapper script around fbcat that mimics media-gfx/fbgrab
@@ -188,31 +177,6 @@ media-gfx/gmic:gimp - Build the Qt5 GIMP plugin
 media-gfx/gmic:gui - Build the standalone Qt5 GUI
 media-gfx/gmic:krita - Build the Krita plugin
 media-gfx/gmic:opencv - Enable support for webcams using the OpenCV library
-media-libs/opencv:contrib - Install user contributed scripts from opencv_contrib (Experimental!)
-media-libs/opencv:contribcvv - CVV module requires Qt5
-media-libs/opencv:contribdnn - DNN module contrib requires tiny dnn
-media-libs/opencv:contribhdf - HDF module requires sci-libs/hdf5
-media-libs/opencv:contribsfm - SFM module requires eigen, gflags, and glog
-media-libs/opencv:contribxfeatures2d - Enables xfeatures2d and autodownload of samples in contrib
-media-libs/opencv:cuda - Enable NVIDIA Cuda computations support (Experimental!)
-media-libs/opencv:dnnsamples - Download dnn caffeemodel samples
-media-libs/opencv:download - Enable download during cmake configure
-media-libs/opencv:eigen - Enable usage of dev-cpp/eigen for computations
-media-libs/opencv:features2d - Enable features2d module
-media-libs/opencv:gdal - Enable support for sci-libs/gdal library
-media-libs/opencv:gflags - Use Google's C++ argument parsing library
-media-libs/opencv:glog - Use Google's C++ loggin library
-media-libs/opencv:gtk3 - Enable x11-libs/gtk+:3 support
-media-libs/opencv:opencl - Add support for OpenCL
-media-libs/opencv:opencvapps - Enable compilation with opencvapps
-media-libs/opencv:tesseract - Use Google's OCR Engine
-media-libs/opencv:testprograms - Build and install programs for testing OpenCV (performance)
-media-libs/opencv:vtk - Build new 3D visualization module viz based on sci-libs/vtk
-media-sound/aqualung:ifp - Enable support for iRiver iFP portable audio players
-media-sound/aqualung:lua - Enable support for programmable title formatting with dev-lang/lua
-media-sound/aqualung:mac - Enable support for decoding Monkey's Audio files
-media-sound/aqualung:podcast - Enable podcast support
-media-sound/aqualung:systray - Enable system tray support
 media-sound/jack-audio-connection-kit:classic - Enable building of jackd"
 media-sound/jack-audio-connection-kit:metadata - Enable metadata API
 media-sound/jack-audio-connection-kit:pam - Add basic realtime configuration via sys-auth/realtime-base
@@ -245,12 +209,6 @@ net-wireless/cubicsdr:rtlsdr - Add support for rtlsdr hardware
 net-wireless/cubicsdr:uhd - Add support for Ettus USRP hardware
 net-wireless/rtl_433:rtlsdr - Build with Realtek RTL2832U (rtlsdr) support
 net-wireless/rtl_433:soapysdr - Build with SoapySDR support
-net-wireless/soapysdr:bladerf - Add support for bladerf hardware
-net-wireless/soapysdr:hackrf - Add support for hackrf hardware
-net-wireless/soapysdr:plutosdr - Add support for Analog Devices ADALM-PLUTO hardware
-net-wireless/soapysdr:rtlsdr - Add support for rtlsdr hardware
-net-wireless/soapysdr:uhd - Add support for Ettus USRP hardware
-sci-astronomy/casacore:c++11 - Build casacore using the C++11 standard
 sci-astronomy/casacore:data - Installs measures and data (pulls sci-astronomy/casa-data)
 sci-libs/gdal:armadillo - Use sci-libs/armadillo for faster TPS transform computation
 sci-libs/gdal:aux-xml - Enable Portable Auxilliary Metadata generation

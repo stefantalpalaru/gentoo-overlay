@@ -1,10 +1,11 @@
-# Copyright 1999-2018 Gentoo Foundation
+# Copyright 1999-2021 Gentoo Authors
 # Distributed under the terms of the GNU General Public License v2
 
-EAPI=6
+EAPI=7
 
 PYTHON_COMPAT=( python2_7 )
-inherit python-r1
+LUA_COMPAT=( lua5-1 )
+inherit autotools lua-single python-r1
 
 DESCRIPTION="A library for registering global keyboard shortcuts"
 HOMEPAGE="https://github.com/engla/keybinder"
@@ -21,17 +22,13 @@ RDEPEND=">=x11-libs/gtk+-2.20:2
 	x11-libs/libXext
 	x11-libs/libXrender
 	introspection? ( dev-libs/gobject-introspection )
-	lua? ( >=dev-lang/lua-5.1:0 )
+	lua? ( ${LUA_DEPS} )
 	python? ( ${PYTHON_DEPS}
 		>=dev-python/pygobject-2.15.3:2[${PYTHON_USEDEP}]
 		>=dev-python/pygtk-2.12[${PYTHON_USEDEP}]
 	)"
 DEPEND="${RDEPEND}
 	virtual/pkgconfig"
-
-pkg_setup() {
-	use python && python-single-r1_pkg_setup
-}
 
 src_configure() {
 	local myconf=(
@@ -41,7 +38,11 @@ src_configure() {
 	# upstream failed at AC_ARG_ENABLE
 	use lua || myconf+=( --disable-lua )
 
-	econf "${myconf[@]}"
+	if use python; then
+		python_foreach_impl econf "${myconf[@]}"
+	else
+		econf "${myconf[@]}"
+	fi
 }
 
 src_install() {

@@ -1,0 +1,33 @@
+diff -ur gdal-3.0.4.orig/ogr/ogrsf_frmts/cad/libopencad/cadobjects.cpp gdal-3.0.4/ogr/ogrsf_frmts/cad/libopencad/cadobjects.cpp
+--- gdal-3.0.4.orig/ogr/ogrsf_frmts/cad/libopencad/cadobjects.cpp	2020-01-28 11:13:46.000000000 +0100
++++ gdal-3.0.4/ogr/ogrsf_frmts/cad/libopencad/cadobjects.cpp	2021-06-12 19:58:42.302617308 +0200
+@@ -31,6 +31,7 @@
+ 
+ #include "cadobjects.h"
+ 
++#include <limits>
+ #include <math.h>
+ #include <algorithm>
+ 
+diff -ur gdal-3.0.4.orig/ogr/ogrsf_frmts/cad/libopencad/dwg/r2000.cpp gdal-3.0.4/ogr/ogrsf_frmts/cad/libopencad/dwg/r2000.cpp
+--- gdal-3.0.4.orig/ogr/ogrsf_frmts/cad/libopencad/dwg/r2000.cpp	2020-01-28 11:13:43.000000000 +0100
++++ gdal-3.0.4/ogr/ogrsf_frmts/cad/libopencad/dwg/r2000.cpp	2021-06-12 19:59:08.184219114 +0200
+@@ -36,6 +36,7 @@
+ #include <cassert>
+ #include <cstring>
+ #include <iostream>
++#include <limits>
+ #include <memory>
+ #include <string>
+ 
+diff -ur gdal-3.0.4.orig/third_party/LercLib/Lerc2.h gdal-3.0.4/third_party/LercLib/Lerc2.h
+--- gdal-3.0.4.orig/third_party/LercLib/Lerc2.h	2020-01-28 11:18:22.000000000 +0100
++++ gdal-3.0.4/third_party/LercLib/Lerc2.h	2021-06-12 19:59:34.900840333 +0200
+@@ -27,6 +27,7 @@
+ #include <algorithm>
+ #include <cfloat>
+ #include <cmath>
++#include <limits>
+ #include <string>
+ #include <typeinfo>
+ #include "Defines.h"

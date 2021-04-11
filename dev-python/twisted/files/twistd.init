@@ -13,7 +13,7 @@ start() {
 	export PYTHONPATH
 	ebegin "Starting twistd"
 	start-stop-daemon --start --quiet --pidfile /var/run/twistd.pid \
-		--exec /usr/bin/twistd -- --pidfile /var/run/twistd.pid \
+		--exec /usr/bin/twistd_py2 -- --pidfile /var/run/twistd.pid \
 			${TWISTD_OPTS}
 	eend $? "Failed to start twistd"
 }

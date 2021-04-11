@@ -1,0 +1,34 @@
+diff -ur pygtk-2.24.0.orig/configure.ac pygtk-2.24.0/configure.ac
+--- pygtk-2.24.0.orig/configure.ac	2021-07-21 01:43:11.570954215 +0200
++++ pygtk-2.24.0/configure.ac	2021-07-21 01:48:21.328542357 +0200
+@@ -203,7 +203,7 @@
+ AC_SUBST([PYGTK_CODEGEN_DEFINES])
+ 
+ gtk_version=""
+-PKG_CHECK_MODULES(PYCAIRO, [pycairo >= pycairo_required_version],
++PKG_CHECK_MODULES(PYCAIRO, [pycairo_py2 >= pycairo_required_version],
+         have_pycairo=true, have_pycairo=false)
+ AC_SUBST(PYCAIRO_CFLAGS)
+ AC_SUBST(PYCAIRO_LIBS)
+@@ -211,17 +211,17 @@
+   PYGTK_CODEGEN_DEFINES="-DHAVE_PYCAIRO $PYGTK_CODEGEN_DEFINES";
+   AC_DEFINE([HAVE_PYCAIRO], [1], [Define to 1 if pycairo is available])
+ 
+-  AC_DEFINE_UNQUOTED(PYCAIRO_MAJOR_VERSION, [`pkg-config --modversion pycairo | cut -d '.' -f 1`], dnl
++  AC_DEFINE_UNQUOTED(PYCAIRO_MAJOR_VERSION, [`pkg-config --modversion pycairo_py2 | cut -d '.' -f 1`], dnl
+                      [pycairo major version])
+-  AC_DEFINE_UNQUOTED(PYCAIRO_MINOR_VERSION, [`pkg-config --modversion pycairo | cut -d '.' -f 2`], dnl
++  AC_DEFINE_UNQUOTED(PYCAIRO_MINOR_VERSION, [`pkg-config --modversion pycairo_py2 | cut -d '.' -f 2`], dnl
+                      [pycairo minor version])
+-  AC_DEFINE_UNQUOTED(PYCAIRO_MICRO_VERSION, [`pkg-config --modversion pycairo | cut -d '.' -f 3`], dnl
++  AC_DEFINE_UNQUOTED(PYCAIRO_MICRO_VERSION, [`pkg-config --modversion pycairo_py2 | cut -d '.' -f 3`], dnl
+                      [pycairo micro version])
+ 
+   dnl pangocairo
+   PKG_CHECK_MODULES(PANGOCAIRO,
+           [pangocairo >= pango_required_version,
+-           pycairo >= pycairo_required_version],
++           pycairo_py2 >= pycairo_required_version],
+ 	  have_pangocairo=true, have_pangocairo=false)
+   if test ! $have_pangocairo
+   then
