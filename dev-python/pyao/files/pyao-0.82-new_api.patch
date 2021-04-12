@@ -1,8 +1,8 @@
 http://bugs.gentoo.org/314627
 http://bugs.gentoo.org/257550
 
---- src/aomodule.c
-+++ src/aomodule.c
+--- a/src/aomodule.c
++++ b/src/aomodule.c
 @@ -4,7 +4,7 @@
  static ao_option *
  dict_to_options(PyObject *dict)
@@ -59,8 +59,8 @@ http://bugs.gentoo.org/257550
  
    } else {
  
---- src/aomodule.h
-+++ src/aomodule.h
+--- a/src/aomodule.h
++++ b/src/aomodule.h
 @@ -9,6 +9,7 @@
  typedef struct {
    PyObject_HEAD

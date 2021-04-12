@@ -1,8 +1,5 @@
 app-admin/conky
 app-emulation/playonlinux
-app-misc/hachoir-metadata
-app-misc/hachoir-subfile
-app-misc/hachoir-urwid
 app-misc/yworklog
 app-text/pdfshuffler
 dev-db/metakit
@@ -58,9 +55,6 @@ dev-python/graphy
 dev-python/gtkspell-python
 dev-python/guessit
 dev-python/guppy
-dev-python/hachoir-core
-dev-python/hachoir-parser
-dev-python/hachoir-regex
 dev-python/happydoc
 dev-python/hcluster
 dev-python/hcs-utils

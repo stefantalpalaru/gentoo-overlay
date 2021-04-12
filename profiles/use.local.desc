@@ -21,6 +21,7 @@ app-admin/conky:weather-metar - Enable support for metar weather service
 app-admin/conky:webserver - Enable support to act as a webserver serving conkys output using net-libs/libmicrohttpd
 app-admin/conky:xmms2 - Enable monitoring of music played by media-sound/xmms2
 app-crypt/seahorse:ldap - Enable seahorse to manipulate GPG keys on a LDAP server.
+app-emulation/playonlinux:winbind - Enables support for the winbind auth daemon
 app-emulation/vmware-workstation:macos-guests - Support macOS guests.
 app-emulation/vmware-workstation:modules - Install app-emulation/vmware-modules in order to run VMs locally.
 app-emulation/vmware-workstation:ovftool - Install OVF tool.
@@ -78,14 +79,46 @@ dev-lang/tauthon:pgo - Build with profile guided optimizations (PGO)
 dev-lang/tauthon:threads - Enable threading support. (DON'T DISABLE THIS UNLESS YOU KNOW WHAT YOU'RE DOING)
 dev-lang/tauthon:wide-unicode - Enable wide Unicode implementation which uses 4-byte Unicode characters. Switching of this USE flag changes ABI of Python and requires reinstallation of many Python modules. (DON'T DISABLE THIS UNLESS YOU KNOW WHAT YOU'RE DOING)
 dev-lang/tauthon:wininst - Install Windows executables required to create an executable installer for MS Windows.
+dev-libs/boost:context - Build and install the Boost.Context (and Boost.Fiber) library and all other Boost libraries that depend on it
+dev-libs/boost:debug - Build and install only the debug version of the Boost libraries. Only enable this flag if you're developing against boost.
+dev-libs/boost:doc - Install the full API documentation documentation. This takes over 200MB of extra disk space.
+dev-libs/boost:nls - Build libboost_locale. This library requires compatible C library interfaces, which might not be provided by uClibc or other embedded libraries.
+dev-libs/boost:numpy - Optionally build NumPy extensions when Boost.Python is enabled
+dev-libs/boost:threads - Build multi-thread-compatible libraries instead of single-threaded only.
+dev-libs/boost:tools - Build and install the boost tools (bcp, quickbook, inspect, wave)
 dev-libs/libpeas:glade - Install the glade catalog
 dev-libs/libpeas:python - Build support for loading dev-lang/python plugins
 dev-php/pecl-redis:igbinary - Enables igbinary serialisation support
+dev-python/PyQt5:bluetooth - Build bindings for the QtBluetooth module
+dev-python/PyQt5:dbus - Build bindings for the QtDBus module
+dev-python/PyQt5:declarative - Build bindings for the QtQml/QtQuick modules and enable the qmlscene plugin
+dev-python/PyQt5:designer - Build bindings for the QtDesigner module and enable the designer plugin
+dev-python/PyQt5:gui - Build bindings for the QtGui module
+dev-python/PyQt5:help - Build bindings for the QtHelp module
+dev-python/PyQt5:location - Build bindings for the QtLocation module
+dev-python/PyQt5:multimedia - Build bindings for the QtMultimedia module
+dev-python/PyQt5:network - Build bindings for the QtNetwork module
+dev-python/PyQt5:networkauth - Build bindings for the QtNetworkAuth module
+dev-python/PyQt5:opengl - Build bindings for the QtOpenGL module
+dev-python/PyQt5:positioning - Build bindings for the QtPositioning module
+dev-python/PyQt5:printsupport - Build bindings for the QtPrintSupport module
+dev-python/PyQt5:sensors - Build bindings for the QtSensors module
+dev-python/PyQt5:serialport - Build bindings for the QtSerialPort module
+dev-python/PyQt5:sql - Build bindings for the QtSql module
+dev-python/PyQt5:svg - Build bindings for the QtSvg module
+dev-python/PyQt5:testlib - Build bindings for the QtTest module
+dev-python/PyQt5:webchannel - Build bindings for the QtWebChannel module
+dev-python/PyQt5:webkit - Build bindings for the QtWebKit module
+dev-python/PyQt5:websockets - Build bindings for the QtWebSockets module
+dev-python/PyQt5:widgets - Build bindings for the QtWidgets module
+dev-python/PyQt5:x11extras - Build bindings for the QtX11Extras module
+dev-python/PyQt5:xmlpatterns - Build bindings for the QtXmlPatterns module
 dev-python/QtPy:designer - Build bindings for the QtDesigner module and enable the designer plugin
 dev-python/QtPy:gui - Build bindings for the QtGui module
+dev-python/QtPy:printsupport - Build bindings for the QtPrintSupport module
 dev-python/QtPy:svg - Build bindings for the QtSvg module
 dev-python/QtPy:testlib - Build bindings for the QtTest module
-dev-python/QtPy:webkit - Build bindings for the QtWebKit module
+dev-python/QtPy:webengine - Build bindings for the QtWebEngine module
 dev-python/amqplib:extras - Install extra tools to generate initial Python mod from an AMQP XML file
 dev-python/anyvc:bazaar - Add support for Bazaar
 dev-python/anyvc:mercurial - Add support for Mercurial
@@ -93,17 +126,16 @@ dev-python/celery:redis - Enables redis support
 dev-python/celery:sqs - Enables Amazon SQS transport module for celery
 dev-python/celery:yaml - Enable support of yaml as a configuration file format
 dev-python/celery:zeromq - Enable logging and deployment via ZeroMQ
+dev-python/cryptography:idna - enable support for the old, deprecated IDNA specification (RFC 3490)
 dev-python/dask:distributed - Add support for distributed computing with dev-python/distributed
 dev-python/fabric:fab2 - Install as "fab2", allowing side-by-side install with fabric 1.x
+dev-python/gmpy:mpir - Use sci-libs/mpir as gmp implementation
 dev-python/ipython:matplotlib - Add support for dev-python/matplotlib
 dev-python/ipython:nbconvert - Enable support for converting notebooks to various formats using app-text/pandoc
 dev-python/ipython:notebook - Install requirements for the web notebook based on www-servers/tornado
 dev-python/kombu:amqplib - Enable amqplib support
 dev-python/kombu:msgpack - Enables MessagePack (de)serializer for Python
 dev-python/kombu:sqs - Enables Amazon SQS transport module for Kombu
-dev-python/matplotlib:excel - Pull dev-python/xlwt for the exceltools toolkit
-dev-python/matplotlib:gtk2 - Enable x11-libs/gtk+:2 support
-dev-python/matplotlib:gtk3 - Enable x11-libs/gtk+:3 support
 dev-python/matplotlib-python2:excel - Pull dev-python/xlwt for the exceltools toolkit
 dev-python/matplotlib-python2:gtk2 - Enable x11-libs/gtk+:2 support
 dev-python/matplotlib-python2:gtk3 - Enable x11-libs/gtk+:3 support
@@ -116,12 +148,15 @@ dev-python/networkx:scipy - Enables scipy backend
 dev-python/networkx:yaml - Provides YAML format reading and writing
 dev-python/numexpr:mkl - Enable support for Intel Vector Math Library, part of sci-libs/mkl.
 dev-python/pandas:full-support - Pull all packages to give pandas full support
+dev-python/paramiko:server - Enable server feature
 dev-python/pillow:imagequant - Build with Image Quantization Library support
 dev-python/py-amqp:extras - Install extra tools to generate initial Python mod from an AMQP XML file
 dev-python/pybitmessage:opencl - Enable dev-python/pyopencl for GPU acceleration
 dev-python/pybitmessage:qrcode - Enable dev-python/qrcode for QR code support
 dev-python/pygame:midi - Enable midi support using media-libs/portmidi
 dev-python/pyglet:image - Enable support for image formats other than PNG and BMP
+dev-python/rfc3986:idna - enable support for the IDNA specification (RFC 5891)
+dev-python/scipy-python2:sparse - Adds support for sparse solving with sci-libs/umfpack
 dev-python/sphinx:net - enable internet capabilities
 dev-python/sympy:imaging - Add support for dev-python/pillow
 dev-python/sympy:ipython - Add support for dev-python/ipython
@@ -130,7 +165,12 @@ dev-python/sympy:pyglet - Use dev-python/pyglet for plots and print preview
 dev-python/sympy:symengine - Add support for a dev-python/symengine backend
 dev-python/sympy:texmacs - Add app-office/texmacs interface
 dev-python/sympy:theano - Add support for dev-python/theano
+dev-python/tappy:yaml - Pull dependencies needed to support YAML blocks associated with test results.
+dev-python/twisted:conch - include Twisted SSHv2 implementation
+dev-python/twisted:http2 - include http2 support
+dev-python/twisted:serial - include serial port support
 dev-python/twisted-core:serial - include serial port support
+dev-python/urllib3:brotli - Enable support for brotli compression
 dev-python/vatnumber:vies - Enable VIES
 dev-vcs/bzr:sftp - Enable sftp support
 dev-vcs/rabbitvcs:caja - Enable extension for mate-base/caja
@@ -139,7 +179,6 @@ dev-vcs/rabbitvcs:diff - Use for diff command dev-util/meld
 dev-vcs/rabbitvcs:gedit - Enable plugin for app-editors/gedit
 dev-vcs/rabbitvcs:nautilus - Enable extension for gnome-base/nautilus
 dev-vcs/rabbitvcs:thunar - Enable extension for xfce-base/thunar
-games-emulation/rpcs3:gdb - GDB debugging support
 games-emulation/rpcs3:llvm - LLVM recompiler support
 games-emulation/rpcs3:vulkan - Vulkan video output support
 media-gfx/fbcat:fbgrab - Install a 'fbgrab' wrapper script around fbcat that mimics media-gfx/fbgrab
@@ -149,34 +188,47 @@ media-gfx/gmic:gui - Build the standalone Qt5 GUI
 media-gfx/gmic:krita - Build the Krita plugin
 media-gfx/gmic:opencv - Enable support for webcams using the OpenCV library
 media-libs/opencv:contrib - Install user contributed scripts from opencv_contrib (Experimental!)
-media-libs/opencv:contrib_cvv - CVV module requires Qt5
-media-libs/opencv:contrib_dnn - DNN module contrib requires tiny dnn
-media-libs/opencv:contrib_hdf - HDF module requires sci-libs/hdf5
-media-libs/opencv:contrib_sfm - SFM module requires eigen, gflags, and glog
-media-libs/opencv:contrib_xfeatures2d - Enables xfeatures2d and autodownload of samples in contrib
+media-libs/opencv:contribcvv - CVV module requires Qt5
+media-libs/opencv:contribdnn - DNN module contrib requires tiny dnn
+media-libs/opencv:contribhdf - HDF module requires sci-libs/hdf5
+media-libs/opencv:contribsfm - SFM module requires eigen, gflags, and glog
+media-libs/opencv:contribxfeatures2d - Enables xfeatures2d and autodownload of samples in contrib
 media-libs/opencv:cuda - Enable NVIDIA Cuda computations support (Experimental!)
-media-libs/opencv:dnn_samples - Download dnn caffeemodel samples
+media-libs/opencv:dnnsamples - Download dnn caffeemodel samples
+media-libs/opencv:download - Enable download during cmake configure
 media-libs/opencv:eigen - Enable usage of dev-cpp/eigen for computations
+media-libs/opencv:features2d - Enable features2d module
 media-libs/opencv:gdal - Enable support for sci-libs/gdal library
 media-libs/opencv:gflags - Use Google's C++ argument parsing library
 media-libs/opencv:glog - Use Google's C++ loggin library
+media-libs/opencv:gtk3 - Enable x11-libs/gtk+:3 support
 media-libs/opencv:opencl - Add support for OpenCL
+media-libs/opencv:opencvapps - Enable compilation with opencvapps
 media-libs/opencv:tesseract - Use Google's OCR Engine
 media-libs/opencv:testprograms - Build and install programs for testing OpenCV (performance)
 media-libs/opencv:vtk - Build new 3D visualization module viz based on sci-libs/vtk
+media-sound/aqualung:ifp - Enable support for iRiver iFP portable audio players
+media-sound/aqualung:lua - Enable support for programmable title formatting with dev-lang/lua
+media-sound/aqualung:mac - Enable support for decoding Monkey's Audio files
+media-sound/aqualung:podcast - Enable podcast support
+media-sound/aqualung:systray - Enable system tray support
 media-sound/jack-audio-connection-kit:classic - Enable building of jackd"
 media-sound/jack-audio-connection-kit:metadata - Enable metadata API
 media-sound/jack-audio-connection-kit:pam - Add basic realtime configuration via sys-auth/realtime-base
+media-sound/yoshimi:lv2 - Add support for Ladspa V2
 net-p2p/amule:daemon - Enable amule daemon
 net-p2p/amule:remote - Enable remote controlling of the client
 net-p2p/amule:stats - Enable statistic reporting
 net-p2p/go-ethereum:devtools - Build Ethereum development tools (evm, abigen, puppeth, ...)
+net-p2p/nimbus-eth2:lto - Enable Link Time Optimization (LTO)
 net-p2p/pybitmessage:opencl - Enable dev-python/pyopencl for GPU acceleration
 net-p2p/pybitmessage:qrcode - Enable dev-python/qrcode for QR code support
+net-p2p/transmission:cli - Enables the CLI interface
 net-p2p/transmission:lightweight - Optimize transmission for low-resource systems (smaller cache size, prefer unencrypted peer connections, etc.)
-net-p2p/transmission:xfs - Enable XFS filesystem capabilities by using sys-fs/xfsprogs headers (in building of fdlimit(.c))
+net-p2p/transmission:mbedtls - Use mbed TLS instead of OpenSSL
 net-wireless/cubicsdr:bladerf - Add support for bladerf hardware
 net-wireless/cubicsdr:hackrf - Add support for hackrf hardware
+net-wireless/cubicsdr:hamlib - Add support for the Hamlib amateur radio rig control library
 net-wireless/cubicsdr:plutosdr - Add support for Analog Devices ADALM-PLUTO hardware
 net-wireless/cubicsdr:rtlsdr - Add support for rtlsdr hardware
 net-wireless/cubicsdr:uhd - Add support for Ettus USRP hardware

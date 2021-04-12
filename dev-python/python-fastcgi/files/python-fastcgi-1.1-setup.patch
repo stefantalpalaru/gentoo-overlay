@@ -1,5 +1,5 @@
---- setup.py
-+++ setup.py
+--- a/setup.py
++++ b/setup.py
 @@ -4,11 +4,7 @@
  from setuptools import setup, Extension
  

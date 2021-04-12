@@ -1,6 +1,6 @@
 === modified file 'NEWS'
---- NEWS	2009-01-14 11:11:28 +0000
-+++ NEWS	2009-12-21 14:12:02 +0000
+--- a/NEWS	2009-01-14 11:11:28 +0000
++++ b/NEWS	2009-12-21 14:12:02 +0000
 @@ -25,6 +25,9 @@
  
     (Forest Bond)
@@ -13,8 +13,8 @@
  =======================
 
 === modified file 'tests/output_protection.py'
---- tests/output_protection.py	2008-05-18 21:46:03 +0000
-+++ tests/output_protection.py	2009-12-21 14:12:02 +0000
+--- a/tests/output_protection.py	2008-05-18 21:46:03 +0000
++++ b/tests/output_protection.py	2009-12-21 14:12:02 +0000
 @@ -109,8 +109,10 @@
    exceptions = ()):
      def test_fn():

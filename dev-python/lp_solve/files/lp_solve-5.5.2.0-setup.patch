@@ -1,5 +1,5 @@
---- setup.py.orig	2012-01-07 20:27:45.072840503 +0000
-+++ setup.py	2012-01-07 20:24:22.127570128 +0000
+--- a/setup.py.orig	2012-01-07 20:27:45.072840503 +0000
++++ b/setup.py	2012-01-07 20:24:22.127570128 +0000
 @@ -1,26 +1,25 @@
  from distutils.core import setup, Extension
  from os import getenv
