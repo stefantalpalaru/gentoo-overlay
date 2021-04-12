@@ -1,6 +1,6 @@
 diff -ur pychecker-0.8.19.orig/pychecker/Config.py pychecker-0.8.19/pychecker/Config.py
---- pychecker/Config.py	2013-02-01 12:06:10.669695876 +0800
-+++ pychecker/Config.py	2013-02-01 12:06:26.238695001 +0800
+--- a/pychecker/Config.py	2013-02-01 12:06:10.669695876 +0800
++++ b/pychecker/Config.py	2013-02-01 12:06:26.238695001 +0800
 @@ -33,7 +33,7 @@
  
  _RC_FILE = ".pycheckrc"

@@ -1,5 +1,5 @@
---- setup.py
-+++ setup.py
+--- a/setup.py
++++ b/setup.py
 @@ -221,7 +221,9 @@
           script_str = "%s %s %%*\n" % (sys.executable, checker_path)
        else:

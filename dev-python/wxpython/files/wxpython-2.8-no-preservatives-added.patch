@@ -3,8 +3,8 @@ the soname (.so.4) and realname (.so.4.0) installed.  findLib searches for
 mywxlibname.* and returns true if anything is found.  Disaster ensues.
 
 
---- a/wxPython/config.py
-+++ b/wxPython/config.py
+--- wxPython/config.py
++++ wxPython/config.py
 @@ -612,7 +612,7 @@ def findLib(name, libdirs):
          dirs = libdirs[:]
      for d in dirs:

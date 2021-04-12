@@ -1,5 +1,5 @@
---- a/wxPython/setup.py
-+++ b/wxPython/setup.py
+--- wxPython/setup.py
++++ wxPython/setup.py
 @@ -887,13 +887,6 @@ WX_PKGLIST =      [ 'wx',
                      'wx.tools',
                      'wx.tools.XRCed',

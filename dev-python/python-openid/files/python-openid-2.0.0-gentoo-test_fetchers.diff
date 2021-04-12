@@ -1,5 +1,5 @@
---- openid/test/test_fetchers.py.orig	2007-06-07 15:53:38.000000000 -0700
-+++ openid/test/test_fetchers.py	2007-06-07 15:53:55.000000000 -0700
+--- a/openid/test/test_fetchers.py.orig	2007-06-07 15:53:38.000000000 -0700
++++ b/openid/test/test_fetchers.py	2007-06-07 15:53:55.000000000 -0700
 @@ -8,6 +8,8 @@
  # XXX: make these separate test cases
  

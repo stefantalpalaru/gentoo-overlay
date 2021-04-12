@@ -4,8 +4,8 @@ Re the 2nd patch;
 PyPy actually behaves as if __slots__ was added to the class
 see http://morepypy.blogspot.ch/2010/11/efficiently-implementing-python-objects.html
 diff -ur mocker-1.1.1.orig/test.py mocker-1.1.1/test.py
---- test.py	2012-05-19 19:27:02.000000000 +0800
-+++ test.py	2012-07-11 14:43:57.848953730 +0800
+--- a/test.py	2012-05-19 19:27:02.000000000 +0800
++++ b/test.py	2012-07-11 14:43:57.848953730 +0800
 @@ -3880,7 +3881,7 @@
          from zlib import adler32
          # If that fails, this test has to change because either adler32 has

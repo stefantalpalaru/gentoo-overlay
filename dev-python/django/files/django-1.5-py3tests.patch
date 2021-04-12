@@ -1,7 +1,7 @@
 https://code.djangoproject.com/ticket/20514
 diff -ur Django-1.5.orig/django/contrib/gis/tests/test_measure.py Django-1.5/django/contrib/gis/tests/test_measure.py
---- django/contrib/gis/tests/test_measure.py	2013-02-27 03:04:14.000000000 +0800
-+++ django/contrib/gis/tests/test_measure.py	2013-05-28 04:40:18.983011224 +0800
+--- a/django/contrib/gis/tests/test_measure.py	2013-02-27 03:04:14.000000000 +0800
++++ b/django/contrib/gis/tests/test_measure.py	2013-05-28 04:40:18.983011224 +0800
 @@ -40,7 +40,7 @@
          "Testing access in different units"
          d = D(m=100)

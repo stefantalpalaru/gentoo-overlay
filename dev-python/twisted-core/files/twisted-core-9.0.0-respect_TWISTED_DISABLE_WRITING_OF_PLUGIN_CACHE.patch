@@ -1,5 +1,5 @@
---- twisted/plugin.py
-+++ twisted/plugin.py
+--- a/twisted/plugin.py
++++ b/twisted/plugin.py
 @@ -174,7 +174,7 @@
              if pluginKey not in existingKeys:
                  del dropinDotCache[pluginKey]

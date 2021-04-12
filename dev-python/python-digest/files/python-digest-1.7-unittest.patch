@@ -1,5 +1,5 @@
---- python_digest/tests.py.orig	2012-04-25 11:48:30.212254059 +0200
-+++ python_digest/tests.py	2012-04-25 11:48:58.371585156 +0200
+--- a/python_digest/tests.py.orig	2012-04-25 11:48:30.212254059 +0200
++++ b/python_digest/tests.py	2012-04-25 11:48:58.371585156 +0200
 @@ -486,3 +486,6 @@
              for c in s:
                  self.assertFalse(fs.character(c))
