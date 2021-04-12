@@ -1,7 +1,7 @@
 Remove test that accesses network, bug 440964
 diff -ur vatnumber-1.0.orig/vatnumber/tests.py vatnumber-1.0/vatnumber/tests.py
---- vatnumber/tests.py	2011-09-28 18:32:09.000000000 +0800
-+++ vatnumber/tests.py	2012-11-26 12:32:46.177509425 +0800
+--- a/vatnumber/tests.py	2011-09-28 18:32:09.000000000 +0800
++++ b/vatnumber/tests.py	2012-11-26 12:32:46.177509425 +0800
 @@ -198,13 +198,6 @@
                  test = self.assertFalse
              test(vatnumber.check_vat(code + number), code + number)

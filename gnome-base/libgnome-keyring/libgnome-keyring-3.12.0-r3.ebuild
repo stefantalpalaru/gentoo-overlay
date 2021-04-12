@@ -1,8 +1,7 @@
-# Copyright 1999-2020 Gentoo Authors
+# Copyright 1999-2021 Gentoo Authors
 # Distributed under the terms of the GNU General Public License v2
 
-EAPI="5"
-GCONF_DEBUG="yes"
+EAPI=7
 GNOME2_LA_PUNT="yes"
 VALA_MIN_API_VERSION="0.16"
 VALA_USE_DEPEND="vapigen"
@@ -50,7 +49,7 @@ pkg_setup() {
 }
 
 src_prepare() {
-	epatch "${FILESDIR}"/${PV}-vala-0.42-compat.patch
+	patch -p1 -i "${FILESDIR}"/${PV}-vala-0.42-compat.patch
 	use vala && vala_src_prepare
 	gnome2_src_prepare
 

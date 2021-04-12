@@ -1,7 +1,7 @@
-# Copyright 1999-2020 Gentoo Authors
+# Copyright 1999-2021 Gentoo Authors
 # Distributed under the terms of the GNU General Public License v2
 
-EAPI="5"
+EAPI=7
 
 GNOME_ORG_MODULE="gnome-python-extras"
 PYTHON_COMPAT=( python2_7 )
@@ -25,7 +25,8 @@ DEPEND="${RDEPEND}
 EXAMPLES=( examples/gtkspell/. )
 
 src_prepare() {
-	epatch "${FILESDIR}/${P}-python-libs.patch" #344231
+	default
+	patch -p1 -i "${FILESDIR}/${P}-python-libs.patch" #344231
 	sed -e "s/AM_CONFIG_HEADER/AC_CONFIG_HEADERS/" -i configure.ac || die
 	eautoreconf
 	gnome-python-common-r1_src_prepare

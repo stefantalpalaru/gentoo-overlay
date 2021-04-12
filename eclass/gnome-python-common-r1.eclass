@@ -18,7 +18,6 @@
 : ${GNOME_ORG_MODULE:=gnome-python}
 : ${GNOME_TARBALL_SUFFIX:=bz2}
 : ${GNOME2_LA_PUNT:=yes}
-: ${GCONF_DEBUG:=no}
 
 # @ECLASS-VARIABLE: G_PY_BINDINGS
 # @DESCRIPTION:
@@ -36,7 +35,7 @@ case "${EAPI:-0}" in
 	0|1|2|3|4)
 		die "Unsupported EAPI=${EAPI:-0} (too old) for ${ECLASS}"
 		;;
-	5)
+	5|6|7)
 		;;
 	*)
 		die "Unsupported EAPI=${EAPI} (unknown) for ${ECLASS}"

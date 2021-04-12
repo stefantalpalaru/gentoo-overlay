@@ -1,7 +1,7 @@
-# Copyright 1999-2020 Gentoo Authors
+# Copyright 1999-2021 Gentoo Authors
 # Distributed under the terms of the GNU General Public License v2
 
-EAPI="5"
+EAPI=7
 PYTHON_COMPAT=( python2_7 )
 
 inherit distutils-r1
@@ -19,7 +19,8 @@ DEPEND="~net-libs/${P}"
 RDEPEND="${DEPEND}"
 
 python_prepare_all() {
-	epatch "${FILESDIR}"/link-against-system-lib.patch
+	default
+	patch -p1 -i "${FILESDIR}"/link-against-system-lib.patch
 
 	#These are installed by net-libs/libnatpmp
 	rm -f Changelog.txt README || die

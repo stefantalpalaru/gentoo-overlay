@@ -1,7 +1,7 @@
-# Copyright 1999-2020 Gentoo Authors
+# Copyright 1999-2021 Gentoo Authors
 # Distributed under the terms of the GNU General Public License v2
 
-EAPI="5"
+EAPI=7
 PYTHON_COMPAT=( python2_7 python3_{6,7,8} )
 
 inherit eutils distutils-r1
@@ -25,6 +25,7 @@ python_prepare_all() {
 	echo > Lib/__init__.py || die
 
 	distutils-r1_python_prepare_all
+	default
 }
 
 python_install_all() {

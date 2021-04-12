@@ -1,10 +1,10 @@
-# Copyright 1999-2020 Gentoo Authors
+# Copyright 1999-2021 Gentoo Authors
 # Distributed under the terms of the GNU General Public License v2
 
-EAPI="5"
+EAPI=7
 PYTHON_COMPAT=( python2_7 )
 
-inherit autotools eapi7-ver eutils gnome2 python-r1
+inherit autotools eutils gnome2 python-r1
 
 # This ebuild does nothing -- we just want to get the pkgconfig file installed
 MY_PN="gnome-python-extras"
@@ -37,7 +37,7 @@ S="${WORKDIR}/${MY_PN}-${PV}"
 DOCS="AUTHORS COPYING* ChangeLog INSTALL NEWS README"
 
 src_prepare() {
-	epatch "${FILESDIR}/${P}-python-libs.patch" #344231
+	patch -p1 -i "${FILESDIR}/${P}-python-libs.patch" #344231
 	sed -e "s/AM_CONFIG_HEADER/AC_CONFIG_HEADERS/" -i configure.ac || die
 	eautoreconf
 	python_setup

@@ -1,7 +1,7 @@
-# Copyright 1999-2015 Gentoo Foundation
+# Copyright 1999-2021 Gentoo Authors
 # Distributed under the terms of the GNU General Public License v2
 
-EAPI="5"
+EAPI=7
 PYTHON_COMPAT=( python2_7 )
 
 inherit eutils python-r1
@@ -24,8 +24,9 @@ REQUIRED_USE="${PYTHON_REQUIRED_USE}"
 S="${WORKDIR}/${MY_P}"
 
 src_prepare() {
-	epatch "${FILESDIR}/${P}-python-2.5.patch"
-	epatch "${FILESDIR}/${PN}-pillow.patch"
+	default
+	patch -p0 -i "${FILESDIR}/${P}-python-2.5.patch"
+	patch -p1 -i "${FILESDIR}/${PN}-pillow.patch"
 }
 
 src_compile() {

@@ -16,7 +16,10 @@ case "${EAPI:-0}" in
 	0|1|2|3)
 		die "Unsupported EAPI=${EAPI:-0} (too old) for ${ECLASS}"
 		;;
-	4|5|6|7)
+	4|5|6)
+		inherit eapi7-ver
+		;;
+	7)
 		;;
 	*)
 		die "Unsupported EAPI=${EAPI} (unknown) for ${ECLASS}"
@@ -25,7 +28,7 @@ esac
 
 if [[ ! ${_TWISTED_R1} ]]; then
 
-inherit distutils-r1 versionator
+inherit distutils-r1
 
 fi # ! ${_TWISTED_R1}
 
@@ -96,7 +99,7 @@ _twisted-r1_camelcase() {
 # in dependencies against other Twisted packages.
 #
 # Example: 1.2
-: ${TWISTED_RELEASE:=$(get_version_component_range 1-2 ${PV})}
+: ${TWISTED_RELEASE:=$(ver_cut 1-2 ${PV})}
 
 HOMEPAGE="https://www.twistedmatrix.com/trac/"
 SRC_URI="https://twistedmatrix.com/Releases/${TWISTED_PN#Twisted}"
