@@ -1,7 +1,7 @@
-# Copyright 1999-2020 Gentoo Authors
+# Copyright 1999-2021 Gentoo Authors
 # Distributed under the terms of the GNU General Public License v2
 
-EAPI=6
+EAPI=7
 
 inherit multilib-minimal
 
@@ -10,8 +10,8 @@ HOMEPAGE="https://wxwidgets.org/"
 SRC_URI="https://github.com/wxWidgets/wxWidgets/releases/download/v${PV}/wxWidgets-${PV}.tar.bz2
 	doc? ( https://github.com/wxWidgets/wxWidgets/releases/download/v${PV}/wxWidgets-${PV}-docs-html.tar.bz2 )"
 
-KEYWORDS="~alpha amd64 ~arm ~hppa ~ia64 ~mips ppc ppc64 sparc x86 ~amd64-linux ~x86-linux ~ppc-macos ~x86-macos"
-IUSE="+X aqua doc debug gstreamer libnotify opengl sdl tiff webkit"
+KEYWORDS="~alpha amd64 ~arm ~hppa ~ia64 ~mips ppc ppc64 sparc x86 ~amd64-linux ~x86-linux ~ppc-macos"
+IUSE="+X aqua doc debug egl gstreamer libnotify lzma opengl sdl tiff webkit"
 
 WXSUBVERSION=${PV}.0-gtk3			# 3.0.3.0-gtk3
 WXVERSION=${WXSUBVERSION%.*}			# 3.0.3
@@ -24,6 +24,7 @@ SLOT="${WXRELEASE}/${WXVERSION}"
 
 RDEPEND="
 	dev-libs/expat[${MULTILIB_USEDEP}]
+	lzma? ( app-arch/xz-utils )
 	sdl? ( media-libs/libsdl[${MULTILIB_USEDEP}] )
 	X? (
 		>=dev-libs/glib-2.22:2[${MULTILIB_USEDEP}]
@@ -123,7 +124,9 @@ multilib_src_configure() {
 			$(multilib_native_use_enable webkit webview)
 			$(use_with libnotify)
 			$(use_with opengl)
-			$(use_with tiff libtiff sys)"
+			$(use_enable egl glcanvasegl)
+			$(use_with tiff libtiff sys)
+			$(use_with lzma liblzma)"
 
 	use aqua && \
 		myconf="${myconf}
@@ -158,9 +161,9 @@ multilib_src_install_all() {
 	rm "${D}"/usr/bin/wx{-config,rc}
 
 	# version bakefile presets
-	pushd "${D}"usr/share/bakefile/presets/ > /dev/null
+	pushd "${D}"/usr/share/bakefile/presets/ > /dev/null
 	for f in wx*; do
-		mv "${f}" "${f/wx/wx${WXRELEASE_NODOTSLASH}}"
+		mv "${f}" "${f/wx/wx${WXRELEASE_NODOTSLASH}}" || die
 	done
 	popd > /dev/null
 }
