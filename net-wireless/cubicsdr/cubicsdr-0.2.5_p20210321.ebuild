@@ -6,11 +6,11 @@ EAPI=7
 WX_GTK_VER="3.1-gtk3"
 
 inherit cmake wxwidgets
-MY_COMMIT="0b2b90848de229b926703e18b53b3b9e5cd7c147"
+MY_COMMIT="19b1ecd7c26f2311dd883b62a8b9c2dfca9ec31b"
 DESCRIPTION="Cross-Platform Software-Defined Radio Application"
 HOMEPAGE="http://cubicsdr.com/"
 #SRC_URI="https://github.com/cjcliffe/CubicSDR/archive/${PV}.tar.gz -> ${P}.tar.gz"
-SRC_URI="https://github.com/cjcliffe/CubicSDR/archive/${MY_COMMIT}.zip -> ${P}.zip"
+SRC_URI="https://github.com/cjcliffe/CubicSDR/archive/${MY_COMMIT}.zip -> ${PF}.zip"
 
 LICENSE="GPL-2"
 SLOT="0"
@@ -21,7 +21,7 @@ DEPEND="media-libs/rtaudio
 	>net-libs/liquid-dsp-1.3.2
 	>=net-wireless/soapysdr-0.4.0[bladerf?,hackrf?,plutosdr?,rtlsdr?,uhd?]
 	virtual/opengl
-	x11-libs/wxGTK:3.1-gtk3=[opengl]
+	x11-libs/wxGTK:3.1-gtk3=[opengl,-egl]
 	hamlib? ( media-libs/hamlib )
 "
 RDEPEND="${DEPEND}"
