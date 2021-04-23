@@ -44,8 +44,6 @@ REQUIRED_USE="
 "
 RESTRICT="mirror preserve-libs strip"
 
-# vmware should not use virtual/libc as this is a
-# precompiled binary package thats linked to glibc.
 RDEPEND="
 	app-arch/bzip2
 	app-arch/unzip
@@ -69,6 +67,7 @@ RDEPEND="
 	cups? ( net-print/cups )
 	sys-apps/tcp-wrappers
 	sys-apps/util-linux
+	sys-auth/polkit
 	x11-libs/libXxf86vm
 	x11-libs/libdrm
 	x11-libs/libxshmfence
