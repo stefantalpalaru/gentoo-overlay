@@ -1,21 +1,22 @@
-# Copyright 1999-2020 Gentoo Authors
+# Copyright 1999-2021 Gentoo Authors
 # Distributed under the terms of the GNU General Public License v2
 
-EAPI=6
+EAPI=7
 inherit autotools flag-o-matic toolchain-funcs multilib pax-utils
 
 DESCRIPTION="An open-source memory debugger for GNU/Linux"
 HOMEPAGE="http://www.valgrind.org"
 LICENSE="GPL-2"
 SLOT="0"
-IUSE="mpi"
+IUSE="mpi lto"
+RESTRICT="strip"
 
 if [[ ${PV} == "9999" ]]; then
 	EGIT_REPO_URI="https://sourceware.org/git/${PN}.git"
 	inherit git-r3
 else
 	SRC_URI="ftp://sourceware.org/pub/valgrind/${P}.tar.bz2"
-	KEYWORDS="-* amd64 arm ~arm64 ppc ppc64 x86 ~amd64-linux ~x86-linux ~x64-macos ~x86-macos ~x64-solaris"
+	KEYWORDS="-* ~amd64 ~arm ~arm64 ~ppc ~ppc64 ~x86 ~amd64-linux ~x86-linux ~x64-macos ~x64-solaris"
 fi
 
 DEPEND="mpi? ( virtual/mpi )"
@@ -33,7 +34,7 @@ src_prepare() {
 
 	eapply "${FILESDIR}"/${PN}-3.15.0-Build-ldst_multiple-test-with-fno-pie.patch
 	eapply "${FILESDIR}"/valgrind-3.15.0-strlen.patch
-	eapply "${FILESDIR}"/valgrind-3.15.0-bextr.patch
+	eapply "${FILESDIR}"/valgrind-3.17.0-bextr.patch
 
 	if [[ ${CHOST} == *-solaris* ]] ; then
 		# upstream doesn't support this, but we don't build with
@@ -52,7 +53,9 @@ src_prepare() {
 }
 
 src_configure() {
-	local myconf=()
+	local myconf=(
+		$(use_enable lto)
+	)
 
 	# Respect ar, bug #468114
 	tc-export AR
@@ -78,7 +81,6 @@ src_configure() {
 	fi
 
 	# Force bitness on darwin, bug #306467
-	use x86-macos && myconf+=("--enable-only32bit")
 	use x64-macos && myconf+=("--enable-only64bit")
 
 	# Don't use mpicc unless the user asked for it (bug #258832)

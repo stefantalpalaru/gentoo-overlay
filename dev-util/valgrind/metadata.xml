@@ -21,4 +21,7 @@
 		- Mismatched use of malloc/new/new [] vs free/delete/delete []
 		- Some abuses of the POSIX Pthreads API
 	</longdescription>
+	<use>
+		<flag name="lto">Build with link time optimization (LTO)</flag>
+	</use>
 </pkgmetadata>

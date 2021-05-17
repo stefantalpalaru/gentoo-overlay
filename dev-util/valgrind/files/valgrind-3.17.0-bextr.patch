@@ -1,0 +1,221 @@
+diff -ur valgrind-3.17.0.orig/VEX/priv/guest_amd64_toIR.c valgrind-3.17.0/VEX/priv/guest_amd64_toIR.c
+--- valgrind-3.17.0.orig/VEX/priv/guest_amd64_toIR.c	2021-03-13 20:02:55.000000000 +0100
++++ valgrind-3.17.0/VEX/priv/guest_amd64_toIR.c	2021-05-17 19:19:23.565246014 +0200
+@@ -674,6 +674,8 @@
+ #define PFX_VEXnV1 (1<<19)   /* ~VEX vvvv[1], if VEX present, else 0 */
+ #define PFX_VEXnV2 (1<<20)   /* ~VEX vvvv[2], if VEX present, else 0 */
+ #define PFX_VEXnV3 (1<<21)   /* ~VEX vvvv[3], if VEX present, else 0 */
++#define PFX_VEXnvvvv (PFX_VEXnV0 | PFX_VEXnV1 | PFX_VEXnV2 | PFX_VEXnV3)
++#define PFX_XOP    (1<<22)   /* XOP prefix present (0x8F) */
+ 
+ 
+ #define PFX_EMPTY 0x55000000
+@@ -32105,6 +32107,97 @@
+    return delta;
+ }
+ 
++ /*------------------------------------------------------------*/
++ /*---                                                      ---*/
++ /*--- Top-level post-escape decoders: dis_ESC_0F3A__XOP    ---*/
++ /*---                                                      ---*/
++ /*------------------------------------------------------------*/
++__attribute__((noinline))
++static
++Long dis_ESC_0F3A__XOP(
++        /*MB_OUT*/DisResult* dres,
++        /*OUT*/   Bool*      uses_vvvv,
++        VexArchInfo* archinfo,
++        VexAbiInfo*  vbi,
++        Prefix pfx, Int sz, Long deltaIN 
++     )
++{
++   IRTemp addr  = IRTemp_INVALID;
++   Int    alen  = 0;
++   HChar  dis_buf[50];
++   Long   delta = deltaIN;
++   UChar  opc   = getUChar(delta);
++   delta++;
++   *uses_vvvv = False;
++
++   switch (opc) {
++      /* BEXTR r32b, r/m32, imm32 = XOP.0.vvvv.LZ.00 0x10 /r /id */
++      /* BEXTR r64b, r/m64, imm32 = VEX.W.vvvv.LZ.00 0x10 /r /id */
++      case 0x10:
++      if ((pfx & PFX_VEXnvvvv) == 0 && 0==getVexL(pfx)/*LZ*/) {
++         Int     size  = getRexW(pfx) ? 8 : 4, ctrl;
++         UChar   start, len, opsize;
++         IRType  ty    = szToITy(size);
++         IRTemp  dst   = newTemp(ty);
++         IRTemp  src1  = newTemp(ty);
++         UChar   rm    = getUChar(delta);
++
++         if (epartIsReg(rm)) {
++            delta++;
++            ctrl = getSDisp32(delta);
++            assign( src1, getIRegE(size,pfx,rm) );
++            DIP("bextr %x,%s,%s\n", ctrl,
++                nameIRegE(size,pfx,rm), nameIRegG(size,pfx,rm));
++         } else {
++            addr = disAMode ( &alen, vbi, pfx, delta, dis_buf, 0 );
++            delta += alen;
++            ctrl = getSDisp32(delta);
++            assign( src1, loadLE(ty, mkexpr(addr)) );
++            DIP("bextr %x,%s,%s\n", ctrl, dis_buf, nameIRegG(size,pfx,rm));
++         }
++
++         delta += 4; /* += control immediate */
++
++         start = ctrl & 0xff;
++         len = (ctrl >> 8) & 0xff;
++         opsize = 8*size;
++
++         if ((start + len) < opsize) {
++            if (len == 0) {
++               assign(dst, mkU(ty, 0));
++            } else {
++               assign (dst, 
++                       binop(mkSizedOp(ty,Iop_Shr8),
++                             binop(
++                                mkSizedOp(ty,Iop_Shl8),
++                                mkexpr(src1),
++                                mkU8(opsize-start-len)),
++                             mkU8(opsize - len)));
++            }
++         } else {
++            if (start < opsize) {
++               assign(dst, binop(
++	          mkSizedOp(ty,Iop_Shr8), mkexpr(src1), mkU8(start)));
++            } else {
++               assign(dst, mkU(ty, 0));
++            }
++         }
++
++         putIRegG( size, pfx, rm, mkexpr(dst) );
++         stmt( IRStmt_Put( OFFB_CC_OP, mkU64(size == 8
++                                          ? AMD64G_CC_OP_ANDN64
++                                          : AMD64G_CC_OP_ANDN32)) );
++         stmt( IRStmt_Put( OFFB_CC_DEP1, widenUto64(mkexpr(dst))) );
++         stmt( IRStmt_Put( OFFB_CC_DEP2, mkU64(0)) );
++         *uses_vvvv = True;
++         goto decode_success;
++      }
++   }
++   return deltaIN;
++decode_success:
++   return delta;
++}
++
+ 
+ /*------------------------------------------------------------*/
+ /*---                                                      ---*/
+@@ -32278,24 +32371,38 @@
+    if (archinfo->hwcaps & VEX_HWCAPS_AMD64_AVX) {
+       /* Used temporarily for holding VEX prefixes. */
+       UChar vex0 = getUChar(delta);
+-      if (vex0 == 0xC4) {
+-         /* 3-byte VEX */
++
++      if (vex0 == 0xC4 || vex0 == 0x8f) {
++         /* 3-byte VEX or XOP */
+          UChar vex1 = getUChar(delta+1);
+          UChar vex2 = getUChar(delta+2);
+          delta += 3;
+-         pfx |= PFX_VEX;
++
++         pfx |= (vex0 == 0xC4) ? PFX_VEX : PFX_XOP;
+          /* Snarf contents of byte 1 */
+          /* R */ pfx |= (vex1 & (1<<7)) ? 0 : PFX_REXR;
+          /* X */ pfx |= (vex1 & (1<<6)) ? 0 : PFX_REXX;
+          /* B */ pfx |= (vex1 & (1<<5)) ? 0 : PFX_REXB;
+          /* m-mmmm */
+-         switch (vex1 & 0x1F) {
+-            case 1: esc = ESC_0F;   break;
+-            case 2: esc = ESC_0F38; break;
+-            case 3: esc = ESC_0F3A; break;
+-            /* Any other m-mmmm field will #UD */
+-            default: goto decode_failure;
++         if (pfx & PFX_VEX) {
++            switch (vex1 & 0x1F) {
++               case 1: esc = ESC_0F;   break;
++               case 2: esc = ESC_0F38; break;
++               case 3: esc = ESC_0F3A; break;
++               /* Any other m-mmmm field will #UD */
++               default:
++               goto decode_failure;
++            }
++         } else if (pfx & PFX_XOP) {
++            switch (vex1 & 0x1F) {
++               case 8: esc = ESC_0F;   break;
++               case 9: esc = ESC_0F38; break;
++               case 10: esc = ESC_0F3A; break;
++               /* Any other m-mmmm field will #UD */
++               default: goto decode_failure;
++            }
+          }
++
+          /* Snarf contents of byte 2 */
+          /* W */    pfx |= (vex2 & (1<<7)) ? PFX_REXW : 0;
+          /* ~v3 */  pfx |= (vex2 & (1<<6)) ? 0 : PFX_VEXnV3;
+@@ -32336,7 +32443,7 @@
+          esc = ESC_0F;
+       }
+       /* Can't have both VEX and REX */
+-      if ((pfx & PFX_VEX) && (pfx & PFX_REX))
++      if ((pfx & (PFX_VEX | PFX_XOP)) && (pfx & PFX_REX))
+          goto decode_failure; /* can't have both */
+    }
+ 
+@@ -32385,7 +32492,7 @@
+ 
+    /* Eat up opcode escape bytes, until we're really looking at the
+       primary opcode byte.  But only if there's no VEX present. */
+-   if (!(pfx & PFX_VEX)) {
++   if (!(pfx & (PFX_VEX | PFX_XOP))) {
+       vassert(esc == ESC_NONE);
+       pre = getUChar(delta);
+       if (pre == 0x0F) {
+@@ -32403,7 +32510,7 @@
+       byte. */
+    Long delta_at_primary_opcode = delta;
+ 
+-   if (!(pfx & PFX_VEX)) {
++   if (!(pfx & (PFX_VEX | PFX_XOP))) {
+       /* Handle non-VEX prefixed instructions.  "Legacy" (non-VEX) SSE
+          instructions preserve the upper 128 bits of YMM registers;
+          iow we can simply ignore the presence of the upper halves of
+@@ -32428,7 +32535,7 @@
+          default:
+             vassert(0);
+       }
+-   } else {
++   } else if (pfx & PFX_VEX) {
+       /* VEX prefixed instruction */
+       /* Sloppy Intel wording: "An instruction encoded with a VEX.128
+          prefix that loads a YMM register operand ..." zeroes out bits
+@@ -32460,6 +32567,26 @@
+          if (getVexNvvvv(pfx) != 0)
+             goto decode_failure;
+       }
++   } else {
++      /* XOP */
++      Bool uses_vvvv = False;
++      switch (esc) {
++         case ESC_0F: goto decode_failure; /* XXX */
++         case ESC_0F38: goto decode_failure; /* XXX */
++         case ESC_0F3A:
++            delta = dis_ESC_0F3A__XOP ( &dres, &uses_vvvv,
++                                        archinfo, vbi, pfx, sz, delta );
++            break;
++         case ESC_NONE: goto decode_failure;
++         default:
++            vassert(0);
++      }
++      /* If the insn doesn't use VEX.vvvv then it must be all ones.  Check this. */
++      if (!uses_vvvv) {
++         if (getVexNvvvv(pfx) != 0)
++            goto decode_failure;
++
++      }
+    }
+ 
+    vassert(delta - delta_at_primary_opcode >= 0);
