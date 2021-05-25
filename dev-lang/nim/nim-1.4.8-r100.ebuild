@@ -33,7 +33,7 @@ nim_use_enable() {
 
 src_compile() {
 	sed -i \
-		-e "s/-w -O3 //" \
+		-e "s/-w -fmax-errors=3 -O3 //" \
 		makefile
 	emake CC=gcc LD=gcc
 	sed -i \

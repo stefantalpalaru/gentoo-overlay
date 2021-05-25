@@ -28,7 +28,7 @@ BDEPEND="
 
 src_unpack() {
 	git-r3_src_unpack
-	local csources_repo="https://github.com/nim-lang/csources"
+	local csources_repo="https://github.com/nim-lang/csources_v1"
 	git-r3_fetch "${csources_repo}"
 	git-r3_checkout "${csources_repo}" "${WORKDIR}/${P}/csources"
 }
