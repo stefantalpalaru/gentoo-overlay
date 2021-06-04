@@ -1,9 +1,9 @@
-# Copyright 1999-2020 Gentoo Authors
+# Copyright 1999-2021 Gentoo Authors
 # Distributed under the terms of the GNU General Public License v2
 
 EAPI=6
 
-inherit apache-module autotools db-use depend.apache eutils flag-o-matic libtool systemd versionator
+inherit apache-module autotools db-use depend.apache eapi7-ver eutils flag-o-matic libtool systemd
 
 KEYWORDS="~alpha ~amd64 ~arm ~hppa ~ia64 ~mips ~ppc ~ppc64 ~s390 ~sparc ~x86"
 
@@ -24,8 +24,8 @@ php_get_uri () {
 	esac
 }
 
-PHP_MV="$(get_major_version)"
-SLOT="$(get_version_component_range 1-2)"
+PHP_MV="$(ver_cut 1)"
+SLOT="$(ver_cut 1-2)"
 
 # alias, so we can handle different types of releases (finals, rcs, alphas,
 # betas, ...) w/o changing the whole ebuild
@@ -63,7 +63,7 @@ IUSE="${IUSE} bcmath berkdb bzip2 calendar cdb cjk
 	crypt +ctype curl curlwrappers debug
 	enchant exif +fileinfo +filter firebird
 	flatfile ftp gd gdbm gmp +hash +iconv imap inifile
-	intl iodbc ipv6 +json kerberos ldap ldap-sasl libedit libressl mhash
+	intl iodbc ipv6 +json kerberos ldap ldap-sasl libedit mhash
 	mssql mysql mysqli nls
 	oci8-instant-client odbc pcntl pdo +phar +posix postgres qdbm
 	readline recode selinux +session sharedmem
@@ -117,10 +117,7 @@ DEPEND="
 	soap? ( >=dev-libs/libxml2-2.6.8 )
 	spell? ( >=app-text/aspell-0.50 )
 	sqlite? ( >=dev-db/sqlite-3.7.7.1 )
-	ssl? (
-		!libressl? ( >=dev-libs/openssl-0.9.7:0 )
-		libressl? ( dev-libs/libressl:= )
-	)
+	ssl? ( >=dev-libs/openssl-1.0.2:0 )
 	sybase-ct? ( dev-db/freetds )
 	tidy? ( app-text/htmltidy )
 	truetype? (
@@ -218,7 +215,7 @@ php_install_ini() {
 	# Set the include path to point to where we want to find PEAR packages
 	sed -e 's|^;include_path = ".:/php/includes".*|include_path = ".:'"${EPREFIX}"'/usr/share/php'${PHP_MV}':'"${EPREFIX}"'/usr/share/php"|' -i "${phpinisrc}"
 
-	if use_if_iuse opcache; then
+	if in_iuse opcache && use opcache; then
 		elog "Adding opcache to ${phpinisrc}"
 		echo "zend_extension=${PHP_DESTDIR}/$(get_libdir)/opcache.so" >> ${phpinisrc}
 	fi
@@ -316,6 +313,9 @@ src_prepare() {
 
 	# support >=oniguruma-6.8.1
 	epatch "${FILESDIR}"/oniguruma.patch
+
+	# support OpenSSL-1.1
+	epatch "${FILESDIR}"/openssl-1.1.patch
 
 	#force rebuilding aclocal.m4
 	rm aclocal.m4
@@ -662,7 +662,7 @@ src_install() {
 	done
 
 	# Installing opcache module
-	if use_if_iuse opcache ; then
+	if in_iuse opcache && use opcache; then
 		dolib.so "modules/opcache$(get_libname)" || die "Unable to install opcache module"
 	fi
 
