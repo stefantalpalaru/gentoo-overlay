@@ -1,0 +1,12 @@
+diff -ur pony-0.41.2.orig/lib/CMakeLists.txt pony-0.41.2/lib/CMakeLists.txt
+--- pony-0.41.2.orig/lib/CMakeLists.txt	2021-07-03 19:33:11.200163427 +0200
++++ pony-0.41.2/lib/CMakeLists.txt	2021-07-03 19:35:41.301345258 +0200
+@@ -10,7 +10,7 @@
+ endif()
+ 
+ ExternalProject_Add(gbenchmark
+-    URL https://github.com/google/benchmark/archive/v1.5.2.tar.gz
++    URL https://github.com/google/benchmark/archive/v1.5.5.tar.gz
+     CMAKE_ARGS -DCMAKE_BUILD_TYPE=${PONYC_LIBS_BUILD_TYPE} -DCMAKE_INSTALL_PREFIX=${CMAKE_INSTALL_PREFIX} -DBENCHMARK_ENABLE_GTEST_TESTS=OFF -DCMAKE_CXX_FLAGS=-fpic --no-warn-unused-cli
+ )
+ 

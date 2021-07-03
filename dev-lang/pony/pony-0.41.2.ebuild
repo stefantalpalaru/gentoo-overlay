@@ -25,6 +25,10 @@ DEPEND="${RDEPEND}
 	sys-devel/clang
 	virtual/pkgconfig"
 
+PATCHES=(
+	"${FILESDIR}/pony-0.41.2-gbenchmark.patch"
+)
+
 src_prepare() {
 	default
 	sed -i \
