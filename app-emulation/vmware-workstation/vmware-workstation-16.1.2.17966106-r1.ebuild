@@ -3,7 +3,7 @@
 
 EAPI=7
 
-PYTHON_COMPAT=( python3_{7..9} )
+PYTHON_COMPAT=( python3_{8..10} )
 inherit eutils readme.gentoo-r1 gnome2-utils pam python-any-r1 systemd xdg-utils
 
 MY_PN="VMware-Workstation-Full"
@@ -68,6 +68,7 @@ RDEPEND="
 	sys-apps/tcp-wrappers
 	sys-apps/util-linux
 	sys-auth/polkit
+	virtual/libcrypt:*
 	x11-libs/libXxf86vm
 	x11-libs/libdrm
 	x11-libs/libxshmfence
@@ -185,7 +186,7 @@ src_install() {
 
 	# install the installer
 	insinto "${VM_INSTALL_DIR}"/lib/vmware-installer/${vmware_installer_version}
-	doins -r vmware-installer/{cdsHelper,vmis,vmis-launcher,vmware-cds-helper,vmware-installer,vmware-installer.py}
+	doins -r vmware-installer/{cdsHelper,vmis,vmis-launcher,vmware-cds-helper,vmware-installer,vmware-installer.py,python}
 	fperms 0755 "${VM_INSTALL_DIR}"/lib/vmware-installer/${vmware_installer_version}/{vmis-launcher,cdsHelper,vmware-installer}
 	dosym "${VM_INSTALL_DIR}"/lib/vmware-installer/${vmware_installer_version}/vmware-installer "${VM_INSTALL_DIR}"/bin/vmware-installer
 	insinto /etc/vmware-installer
