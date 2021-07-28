@@ -4,7 +4,7 @@
 EAPI=7
 
 PYTHON_COMPAT=( python3_{8..10} )
-inherit eutils readme.gentoo-r1 gnome2-utils pam python-any-r1 systemd xdg-utils
+inherit eutils readme.gentoo-r1 pam python-any-r1 systemd xdg-utils
 
 MY_PN="VMware-Workstation-Full"
 MY_PV=$(ver_cut 1-3)
@@ -396,6 +396,10 @@ src_install() {
 		fi
 	done
 
+	# metadata
+	mv "${ED}/usr/share/appdata" "${ED}/usr/share/metainfo"
+
+	# readme
 	readme.gentoo_create_doc
 }
 
@@ -403,19 +407,15 @@ pkg_config() {
 	"${VM_INSTALL_DIR}"/bin/vmware-networks --postinstall ${PN},old,new
 }
 
-pkg_preinst() {
-	gnome2_icon_savelist
-}
-
 pkg_postinst() {
 	xdg_desktop_database_update
 	xdg_mimeinfo_database_update
-	gnome2_icon_cache_update
+	xdg_icon_cache_update
 	elog "${DOC_CONTENTS}"
 }
 
 pkg_postrm() {
 	xdg_desktop_database_update
 	xdg_mimeinfo_database_update
-	gnome2_icon_cache_update
+	xdg_icon_cache_update
 }
