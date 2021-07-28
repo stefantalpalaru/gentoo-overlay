@@ -82,7 +82,9 @@ DEPEND="
 	${PYTHON_DEPS}
 	>=dev-util/patchelf-0.9
 	modules? ( ~app-emulation/vmware-modules-${PV_MODULES} )
-	ovftool? ( app-admin/chrpath )
+"
+BDEPEND="
+	app-admin/chrpath
 "
 
 S=${WORKDIR}/extracted
@@ -187,6 +189,7 @@ src_install() {
 	# install the installer
 	insinto "${VM_INSTALL_DIR}"/lib/vmware-installer/${vmware_installer_version}
 	doins -r vmware-installer/{cdsHelper,vmis,vmis-launcher,vmware-cds-helper,vmware-installer,vmware-installer.py,python}
+	chrpath -k -r '/../lib:$ORIGIN/../lib' "${ED}${VM_INSTALL_DIR}"/lib/vmware-installer/${vmware_installer_version}/python/lib/lib-dynload/*.so >/dev/null || die
 	fperms 0755 "${VM_INSTALL_DIR}"/lib/vmware-installer/${vmware_installer_version}/{vmis-launcher,cdsHelper,vmware-installer}
 	dosym "${VM_INSTALL_DIR}"/lib/vmware-installer/${vmware_installer_version}/vmware-installer "${VM_INSTALL_DIR}"/bin/vmware-installer
 	insinto /etc/vmware-installer
