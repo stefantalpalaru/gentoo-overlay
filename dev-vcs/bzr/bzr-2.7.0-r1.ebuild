@@ -1,31 +1,36 @@
-# Copyright 1999-2020 Gentoo Authors
+# Copyright 1999-2021 Gentoo Authors
 # Distributed under the terms of the GNU General Public License v2
 
 EAPI=6
 PYTHON_COMPAT=( python2_7 )
 PYTHON_REQ_USE="threads,ssl,xml"
 
+MY_P="${PN}-${PV}"
+
 DESCRIPTION="Bazaar is a next generation distributed version control system"
 HOMEPAGE="http://bazaar-vcs.org/"
 
 LICENSE="GPL-2"
 SLOT="0"
-KEYWORDS="~alpha ~amd64 ~arm ~arm64 ~hppa ~ia64 ~mips ~ppc ~ppc64 ~s390 ~sparc ~x86 ~amd64-linux ~x86-linux ~ppc-macos ~x64-macos ~x86-macos ~m68k-mint ~sparc-solaris"
+KEYWORDS="~alpha amd64 arm arm64 hppa ~ia64 ~mips ppc ppc64 ~s390 sparc x86 ~amd64-linux ~x86-linux ~ppc-macos ~x64-macos ~sparc-solaris"
 IUSE="curl doc +sftp test"
 PLOCALES="ar ast bs ca cs de el en_AU en_GB es fa fo fr gl he id it ja ko ms my nb nl oc pl pt_BR ro ru sco si sk sr sv tr ug uk vi zh_CN"
 
-inherit bash-completion-r1 distutils-r1 flag-o-matic l10n
-#SERIES=$(get_version_component_range 1-2)
-SRC_URI="https://dev.gentoo.org/~grozin/${P}.tar.gz"
+inherit bash-completion-r1 distutils-r1 eutils flag-o-matic versionator plocale
+SERIES=$(get_version_component_range 1-2)
+SRC_URI="https://launchpad.net/bzr/${SERIES}/${PV}/+download/${MY_P}.tar.gz"
 
 RDEPEND="curl? ( dev-python/pycurl[${PYTHON_USEDEP}] )
 	sftp? ( dev-python/paramiko[${PYTHON_USEDEP}] )"
 
-DEPEND="|| ( dev-python/cython[${PYTHON_USEDEP}] dev-python/pyrex[${PYTHON_USEDEP}] )
-	test? ( ${RDEPEND}
+DEPEND="test? (
+		${RDEPEND}
 		>=dev-python/pyftpdlib-0.7.0[${PYTHON_USEDEP}]
 		dev-python/subunit
-		>=dev-python/testtools-0.9.5[${PYTHON_USEDEP}] )"
+		>=dev-python/testtools-0.9.5[${PYTHON_USEDEP}]
+	)"
+
+S="${WORKDIR}/${MY_P}"
 
 # Fails tests bug#487216
 # Upstream is not exactly keen on fixing it
@@ -35,7 +40,7 @@ python_configure_all() {
 	rm_loc() {
 		rm "${S}"/po/$1.po || die
 	}
-	l10n_for_each_disabled_locale_do rm_loc
+	plocale_for_each_disabled_locale rm_loc
 	# Generate the locales first to avoid a race condition.
 	esetup.py build_mo
 }

@@ -10,13 +10,13 @@ app-editors/gedit 3.32.2-r1: A text editor for the GNOME desktop
 app-emacs/pymacs 0.26-r1: A tool that allows both-side communication beetween Python and Emacs Lisp
 app-emulation/playonlinux 4.4: Set of scripts to easily install and use Windows games and software
 app-emulation/vagrant-bin 2.0.3: Tool for building and distributing virtual machines
-app-emulation/vmware-modules 15.5.7-r4 16.1.1: VMware kernel modules
-app-emulation/vmware-workstation 15.5.7.17171714-r1 16.1.1.17801498-r1: Emulate a complete PC without the performance overhead of most emulators
+app-emulation/vmware-modules 16.1.2: VMware kernel modules
+app-emulation/vmware-workstation 16.1.2.17966106-r3: Emulate a complete PC without the performance overhead of most emulators
 app-misc/iccloader 0.5 9999: systray widget used to load ICC color profiles with different color temperatures
 app-misc/piper 0.5.1: GTK configuration application for libratbag
 app-misc/yworklog 0.0.7-r1: Stack based utility with CLI interface helping to monitor time spent on tasks
 app-office/gnucash 4.0: A personal finance manager
-app-office/upwork 5.4.5.1-r1: Project collaboration and tracking software for upwork.com
+app-office/upwork 5.5.0.11: Project collaboration and tracking software for upwork.com
 app-text/pdfshuffler 0.6.0-r1: GUI app that can merge or split pdfs and rotate, crop and rearrange their pages
 app-text/pinfo 0.6.13-r1: Hypertext info and man viewer based on (n)curses
 app-text/wiki2text 0.2.1: Extract a plain text corpus from MediaWiki XML dumps, such as Wikipedia.
@@ -29,10 +29,10 @@ app-vim/pony-syntax 0.1_pre20160123 9999: vim plugin: Pony language support
 app-vim/vim-linux-coding-style 0.4_p20161012: Vim plugin to respect the Linux kernel coding style
 dev-lang/go 1.15.5: A concurrent garbage collected and typesafe programming language
 dev-lang/nim 1.0.10-r100 1.2.12-r100 1.4.8-r100 9999-r12: compiled, garbage-collected systems programming language
-dev-lang/php 5.3.29-r3: The PHP language runtime engine: CLI, CGI, FPM/FastCGI, Apache2 and embed SAPIs
-dev-lang/pony 0.36.0 9999-r8: Compiler for the Pony language
-dev-lang/python 2.7.18_p100: An interpreted, interactive, object-oriented programming language
-dev-lang/tauthon 2.8.2: Python 2.7 fork with new syntax, builtins, and libraries backported from Python3
+dev-lang/php 5.3.29-r4: The PHP language runtime engine: CLI, CGI, FPM/FastCGI, Apache2 and embed SAPIs
+dev-lang/pony 0.43.1 9999-r8: Compiler for the Pony language
+dev-lang/python 2.7.18_p103: An interpreted, interactive, object-oriented programming language
+dev-lang/tauthon 2.8.3-r1: Python 2.7 fork with new syntax, builtins, and libraries backported from Python3
 dev-libs/boost 1.74.0-r2: Boost Libraries for C++
 dev-libs/chan 0.0.4 9999: pure C implementation of Go channels
 dev-libs/golib 0.0.1_pre20180515 9999: a library exposing Go's channels and goroutines to plain C
@@ -762,11 +762,12 @@ dev-python/zope-testing 4.7-r3: Zope testing helpers
 dev-util/gotags 1.4.1: ctags-compatible tag generator for Go
 dev-util/rebar3 3.6.1-r1: A sophisticated build-tool for Erlang projects that follows OTP principles
 dev-util/valgrind 3.17.0-r100: An open-source memory debugger for GNU/Linux
-dev-vcs/bzr 2.7.0 2.7.1_pre: Bazaar is a next generation distributed version control system
+dev-vcs/bzr 2.7.0-r1 2.7.1_pre-r1: Bazaar is a next generation distributed version control system
 dev-vcs/hg-fast-export 200213_p20201010: mercurial to git converter using git-fast-import
 dev-vcs/rabbitvcs 0.16-r1: Integrated version control support for your desktop
 games-emulation/dbgl-bin 0.81: DOSBox Game Launcher
 games-emulation/rpcs3 9999-r4: PlayStation 3 emulator
+games-misc/bsd-games 2.17_p28-r2: Collection of games from NetBSD
 gnome-base/libgnome-keyring 3.12.0-r3: Compatibility library for accessing secrets
 media-fonts/breeze-sans 20170821-r2: a humanist sans-serif typeface designed by Dalton Maag for Samsung
 media-gfx/GTS 2.5.0: scanning tool developed by Studio Ghibli
@@ -800,6 +801,7 @@ media-sound/yoshimi 1.7.1-r1: Software synthesizer based on ZynAddSubFX
 media-tv/dvb-firmware 9999-r2 20170329-r2: DVB firmware from the OpenELEC project
 media-tv/w_scan2 1.0.12 9999: Scan for DVB-C/DVB-T/DVB-S channels (w_scan fork)
 media-video/mkvtoolnix 51.0.0: Tools to create, alter, and inspect Matroska files
+media-video/obs-studio 27.0.1: Software for Recording and Streaming Live Video Content
 media-video/subliminal 2.1.0-r1 9999-r2: Python library to search and download subtitles
 media-video/vobsub2srt 1.0_pre20171219 9999-r1: Converts VobSub subtitles (.sub/.idx) to .srt text subtitles using tesseract
 net-analyzer/fail2ban 0.11.1-r103: scans log files and bans IPs that show malicious signs
@@ -819,14 +821,15 @@ net-misc/s3cmd 2.1.0: Command line client for Amazon S3
 net-misc/ssvnc 1.0.29-r3: VNC viewer that adds encryption security to VNC connections
 net-misc/streamtuner2 2.2.1-r1: internet radio browser
 net-p2p/amule 2.3.2_p20201016: aMule, the all-platform eMule p2p client
-net-p2p/go-ethereum 1.10.3: Official golang implementation of the Ethereum protocol
-net-p2p/nimbus-eth2 1.3.0 9999-r12: Nim implementation of the Ethereum 2.0 blockchain
+net-p2p/go-ethereum 1.10.7: Official golang implementation of the Ethereum protocol
+net-p2p/nimbus-eth2 1.4.2 9999-r12: Nim implementation of the Ethereum 2.0 blockchain
 net-p2p/pybitmessage 0.6.3.2_p20180521-r1: Reference client for Bitmessage: a P2P communications protocol
 net-p2p/transmission 3.00-r100: A fast, easy, and free BitTorrent client
 net-print/gutenprint 5.3.3-r1: Ghostscript and cups printer drivers
 net-print/pkpgcounter 3.50-r3: Generic PDL (Page Description Language) parser in Python
 net-print/pykota 1.26-r1: Flexible print quota and accounting package for use with CUPS and lpd
 net-wireless/cubicsdr 0.2.5_p20210321: Cross-Platform Software-Defined Radio Application
+net-wireless/rtl_433 21.05: Decode OOK modulated signals
 net-wireless/soapysdr 0.7.1-r101 9999: vendor and platform neutral SDR support library
 sci-astronomy/astrometry 0.78-r1: Automated astrometric calibration programs and service
 sci-astronomy/casacore 3.2.1-r1: Core libraries for the Common Astronomy Software Applications
@@ -847,6 +850,7 @@ sys-cluster/heartbeat 3.0.6-r1: Heartbeat high availability cluster manager
 sys-devel/bison 2.7.1-r1: A general-purpose (yacc-compatible) parser generator
 sys-devel/flamegraph 1.0: stack trace visualizer
 sys-devel/pyflame 1.6.6-r1: a ptracing profiler for Python
+sys-power/nut 2.7.4-r8: Network-UPS Tools
 sys-power/phc-intel 0.3.2.12.31: Processor Hardware Control for Intel CPUs
 virtual/python-cffi 1-r1: A virtual for the Python cffi package
 virtual/python-enum34 2-r1: A virtual for Python enum34 module
