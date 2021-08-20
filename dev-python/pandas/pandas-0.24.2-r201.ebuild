@@ -27,7 +27,7 @@ RECOMMENDED_DEPEND="
 OPTIONAL_DEPEND="
 	dev-python/beautifulsoup:4-python2[${PYTHON_USEDEP}]
 	dev-python/blosc:python2[${PYTHON_USEDEP}]
-	dev-python/boto[${PYTHON_USEDEP}]
+	dev-python/boto:python2[${PYTHON_USEDEP}]
 	>=dev-python/google-api-python-client-1.2.0:python2[${PYTHON_USEDEP}]
 	|| (
 		dev-python/html5lib:python2[${PYTHON_USEDEP}]

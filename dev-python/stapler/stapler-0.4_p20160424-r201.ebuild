@@ -19,7 +19,7 @@ SLOT="python2"
 KEYWORDS="~amd64 ~x86"
 
 RDEPEND="
-	dev-python/PyPDF2[${PYTHON_USEDEP}]
+	dev-python/PyPDF2:python2[${PYTHON_USEDEP}]
 	dev-python/more-itertools:python2[${PYTHON_USEDEP}]
 	!<dev-python/stapler-0.4_p20160424-r200[${PYTHON_USEDEP}]
 "

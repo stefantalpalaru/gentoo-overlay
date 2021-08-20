@@ -15,6 +15,7 @@ LICENSE="MIT"
 SLOT="python2"
 KEYWORDS="~amd64 ~x86 ~amd64-linux ~x86-linux"
 IUSE="designer gui opengl printsupport svg testlib webengine"
+RESTRICT="test"
 
 RDEPEND="
 	dev-python/PyQt5[${PYTHON_USEDEP},designer?,opengl?,printsupport?,svg?]

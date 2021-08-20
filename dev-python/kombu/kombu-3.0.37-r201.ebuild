@@ -25,7 +25,7 @@ RDEPEND="
 	dev-python/pyro:python2[${PYTHON_USEDEP}]
 	>=dev-python/pyzmq-13.1.0:python2[${PYTHON_USEDEP}]
 	amqplib? ( >=dev-python/amqplib-1.0.2[${PYTHON_USEDEP}] )
-	sqs? ( >=dev-python/boto-2.13.3[${PYTHON_USEDEP}] )
+	sqs? ( >=dev-python/boto-2.13.3:python2[${PYTHON_USEDEP}] )
 	msgpack? ( >=dev-python/msgpack-0.3.0:python2[${PYTHON_USEDEP}] )
 	!<dev-python/kombu-3.0.37-r2[${PYTHON_USEDEP}]
 "
