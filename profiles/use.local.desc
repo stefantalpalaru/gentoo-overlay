@@ -2,25 +2,6 @@
 # Please add your descriptions to your package's metadata.xml ONLY.
 # * generated automatically using pmaint *
 
-app-admin/conky:apcupsd - Enable support for sys-power/apcupsd
-app-admin/conky:cmus - Enable monitoring of music played by media-sound/cmus
-app-admin/conky:ical - Enable support for events from iCalendar (RFC 5545) files using dev-libs/libical
-app-admin/conky:iostats - Enable support for per-task I/O statistics
-app-admin/conky:irc - Enable support for displaying everything from an irc channel using net-libs/libircclient
-app-admin/conky:lua-cairo - Enable if you want Lua Cairo bindings
-app-admin/conky:lua-imlib - Enable if you want Lua Imlib2 bindings
-app-admin/conky:lua-rsvg - Enable if you want Lua RSVG bindings
-app-admin/conky:math - Enable support for glibc's libm math library
-app-admin/conky:moc - Enable monitoring of music played by media-sound/moc
-app-admin/conky:mpd - Enable monitoring of music controlled by media-sound/mpd
-app-admin/conky:nano-syntax - Enable syntax highlighting for app-editors/nano
-app-admin/conky:nvidia - Enable reading of nvidia card temperature sensors via x11-drivers/nvidia-drivers
-app-admin/conky:portmon - Enable support for tcp (ip4) port monitoring
-app-admin/conky:thinkpad - Enable support for IBM/Lenovo notebooks
-app-admin/conky:weather-metar - Enable support for metar weather service
-app-admin/conky:webserver - Enable support to act as a webserver serving conkys output using net-libs/libmicrohttpd
-app-admin/conky:xmms2 - Enable monitoring of music played by media-sound/xmms2
-app-crypt/seahorse:ldap - Enable seahorse to manipulate GPG keys on a LDAP server.
 app-emulation/playonlinux:winbind - Enables support for the winbind auth daemon
 app-emulation/vmware-workstation:macos-guests - Support macOS guests.
 app-emulation/vmware-workstation:modules - Install app-emulation/vmware-modules in order to run VMs locally.
@@ -85,7 +66,6 @@ dev-libs/boost:threads - Build multi-thread-compatible libraries instead of sing
 dev-libs/boost:tools - Build and install the boost tools (bcp, quickbook, inspect, wave)
 dev-libs/libpeas:glade - Install the glade catalog
 dev-libs/libpeas:python - Build support for loading dev-lang/python plugins
-dev-php/pecl-redis:igbinary - Enables igbinary serialisation support
 dev-python/PyQt5:bluetooth - Build bindings for the QtBluetooth module
 dev-python/PyQt5:dbus - Build bindings for the QtDBus module
 dev-python/PyQt5:declarative - Build bindings for the QtQml/QtQuick modules and enable the qmlscene plugin
@@ -151,6 +131,7 @@ dev-python/py-amqp:extras - Install extra tools to generate initial Python mod f
 dev-python/pygame:midi - Enable midi support using media-libs/portmidi
 dev-python/pyglet:image - Enable support for image formats other than PNG and BMP
 dev-python/pyyaml:libyaml - enable support for C implementation using libyaml
+dev-python/restkit:cli - Install the restcli command line interface/tool, based on dev-python/ipython
 dev-python/rfc3986:idna - enable support for the IDNA specification (RFC 5891)
 dev-python/scipy-python2:sparse - Adds support for sparse solving with sci-libs/umfpack
 dev-python/sphinx:net - enable internet capabilities
@@ -180,20 +161,6 @@ media-gfx/gmic:opencv - Enable support for webcams using the OpenCV library
 media-sound/jack-audio-connection-kit:classic - Enable building of jackd"
 media-sound/jack-audio-connection-kit:metadata - Enable metadata API
 media-sound/jack-audio-connection-kit:pam - Add basic realtime configuration via sys-auth/realtime-base
-media-sound/yoshimi:lv2 - Add support for Ladspa V2
-media-video/obs-studio:browser - Enable browser source support via (precompiled) CEF.
-media-video/obs-studio:decklink - Build the Decklink plugin.
-media-video/obs-studio:fdk - Build with LibFDK AAC support.
-media-video/obs-studio:imagemagick - Use ImageMagick for image loading instead of FFmpeg.
-media-video/obs-studio:nvenc - Build with NVENC encoding support for nVidia video cards.
-media-video/obs-studio:pipewire - Build with PipeWire support.
-media-video/obs-studio:python - Build with scripting support for Python 3.
-media-video/obs-studio:speex - Build with Speex noise suppression filter support.
-media-video/obs-studio:ssl - Build with TLS/SSL support for RTMPS connections.
-media-video/obs-studio:vlc - Build with VLC media source support.
-net-p2p/amule:daemon - Enable amule daemon
-net-p2p/amule:remote - Enable remote controlling of the client
-net-p2p/amule:stats - Enable statistic reporting
 net-p2p/go-ethereum:devtools - Build Ethereum development tools (evm, abigen, puppeth, ...)
 net-p2p/nimbus-eth2:lto - Enable Link Time Optimization (LTO)
 net-p2p/pybitmessage:opencl - Enable dev-python/pyopencl for GPU acceleration
@@ -207,8 +174,6 @@ net-wireless/cubicsdr:hamlib - Add support for the Hamlib amateur radio rig cont
 net-wireless/cubicsdr:plutosdr - Add support for Analog Devices ADALM-PLUTO hardware
 net-wireless/cubicsdr:rtlsdr - Add support for rtlsdr hardware
 net-wireless/cubicsdr:uhd - Add support for Ettus USRP hardware
-net-wireless/rtl_433:rtlsdr - Build with Realtek RTL2832U (rtlsdr) support
-net-wireless/rtl_433:soapysdr - Build with SoapySDR support
 sci-astronomy/casacore:data - Installs measures and data (pulls sci-astronomy/casa-data)
 sci-libs/gdal:armadillo - Use sci-libs/armadillo for faster TPS transform computation
 sci-libs/gdal:aux-xml - Enable Portable Auxilliary Metadata generation
@@ -222,9 +187,6 @@ sci-libs/gdal:spatialite - Enable Spatial DBMS over sqlite dev-db/spatialite
 sci-libs/gdal:xls - Add the dev-libs/freexl library for xls import support
 sci-libs/scikits_image:freeimage - Enable support for image i/o via media-libs/freeimage
 sci-libs/scikits_image:pyamg - Enable support for algebraic solvers via dev-python/pyamg
-sys-cluster/drbd-utils:heartbeat - Enable Heartbeat integration
-sys-cluster/drbd-utils:pacemaker - Enable Pacemaker integration
-sys-cluster/drbd-utils:xen - Enable Xen integration
 sys-power/nut:ipmi - Support IPMI-based UPSes.
 sys-power/nut:ups_drivers_al175 - Driver for Eltek UPS models with AL175 alarm module
 sys-power/nut:ups_drivers_apcsmart - Driver for American Power Conversion Smart Protocol UPS equipment
