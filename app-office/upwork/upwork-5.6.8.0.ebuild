@@ -11,8 +11,8 @@ QA_PREBUILT="*"
 DESCRIPTION="Project collaboration and tracking software for upwork.com"
 HOMEPAGE="https://www.upwork.com/"
 SRC_URI="
-	amd64? ( https://upwork-usw2-desktopapp.upwork.com/binaries/v5_5_0_11_61df9c99b6df4e7b/upwork-5.5.0.11-1fc24.x86_64.rpm -> ${P}_x86_64.rpm )
-	x86? ( https://upwork-usw2-desktopapp.upwork.com/binaries/v5_5_0_11_61df9c99b6df4e7b/upwork-5.5.0.11-1fc24.i386.rpm -> ${P}_i386.rpm )
+	amd64? ( https://upwork-usw2-desktopapp.upwork.com/binaries/v5_6_8_0_836f43f6f6be4149/upwork-5.6.8.0-1fc24.x86_64.rpm -> ${P}_x86_64.rpm )
+	x86? ( https://upwork-usw2-desktopapp.upwork.com/binaries/v5_6_8_0_836f43f6f6be4149/upwork-5.6.8.0-1fc24.i386.rpm -> ${P}_i386.rpm )
 "
 LICENSE="ODESK"
 SLOT="0"
@@ -23,7 +23,6 @@ S=${WORKDIR}
 DEPEND=""
 RDEPEND="
 	dev-libs/expat
-	net-libs/gnutls:0/30
 	dev-libs/nspr
 	dev-libs/nss
 	gnome-base/gconf
