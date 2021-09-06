@@ -28,7 +28,8 @@ REQUIRED_USE="
 RDEPEND="
 	${PYTHON_DEPS}
 	>=dev-python/PyQt5-5.14[gui,network,printsupport,ssl,webchannel,widgets,${PYTHON_USEDEP}]
-	>=dev-python/PyQt5-sip-4.19.22:=[${PYTHON_USEDEP}]
+	$(python_gen_cond_dep '>=dev-python/PyQt5-sip-4.19.22:python2=[${PYTHON_USEDEP}]' -2)
+	$(python_gen_cond_dep '>=dev-python/PyQt5-sip-4.19.22:0=[${PYTHON_USEDEP}]' -3)
 	dev-qt/qtcore:5
 	dev-qt/qtwebengine:5[widgets]
 "
@@ -37,6 +38,13 @@ DEPEND="${RDEPEND}
 "
 
 S=${WORKDIR}/${MY_P}
+
+src_prepare() {
+	sed -i \
+		-e 's/, exist_ok=True//' \
+		configure.py || die
+	default
+}
 
 src_configure() {
 	configuration() {
@@ -47,6 +55,11 @@ src_configure() {
 			$(usex debug '--debug --trace' '')
 			--verbose
 		)
+		if ! python_is_python3; then
+			myconf+=(
+				--sip=/usr/bin/sip
+			)
+		fi
 		echo "${myconf[@]}"
 		"${myconf[@]}" || die
 

@@ -3,7 +3,7 @@
 
 EAPI=7
 
-PYTHON_COMPAT=( python2_7 python3_{8..10} )
+PYTHON_COMPAT=( python2_7 )
 inherit python-r1 toolchain-funcs
 
 DESCRIPTION="Private sip module for PyQt5"
@@ -18,7 +18,7 @@ else
 fi
 
 # Sub-slot based on SIP_API_MAJOR_NR from siplib/sip.h
-SLOT="0/12"
+SLOT="python2/12"
 LICENSE="|| ( GPL-2 GPL-3 SIP )"
 KEYWORDS="~amd64 ~arm ~arm64 ~ppc ~ppc64 ~x86"
 IUSE=""
@@ -28,6 +28,7 @@ REQUIRED_USE="${PYTHON_REQUIRED_USE}"
 DEPEND="${PYTHON_DEPS}"
 RDEPEND="${DEPEND}
 	!<dev-python/PyQt5-5.12.2
+	!<dev-python/PyQt5-sip-4.19.24-r200[${PYTHON_USEDEP}]
 "
 
 S=${WORKDIR}/${MY_P}

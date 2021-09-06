@@ -55,7 +55,8 @@ REQUIRED_USE="
 QT_PV="5.15:5"
 
 RDEPEND="${PYTHON_DEPS}
-	>=dev-python/PyQt5-sip-4.19.23:=[${PYTHON_USEDEP}]
+	$(python_gen_cond_dep '>=dev-python/PyQt5-sip-4.19.23:python2=[${PYTHON_USEDEP}]' -2)
+	$(python_gen_cond_dep '>=dev-python/PyQt5-sip-4.19.23:0=[${PYTHON_USEDEP}]' -3)
 	>=dev-qt/qtcore-${QT_PV}
 	>=dev-qt/qtxml-${QT_PV}
 	$(python_gen_cond_dep 'dev-python/enum34[${PYTHON_USEDEP}]' -2)
@@ -187,10 +188,21 @@ src_install() {
 			rm -r "${uic_dir}"/port_v3 || die
 		fi
 
-		multibuild_merge_root "${tmp_root}" "${D}"
+		multibuild_merge_root "${tmp_root}" "${ED}"
+		ln -s "${EPREFIX}"/usr/share/sip/PyQt5 "${ED}/$(python_get_sitedir)/${PN}/bindings"
 		python_optimize
 	}
 	python_foreach_impl run_in_build_dir installation
+
+	# Needed because we're not using sip-build
+	for sip_dir in "${ED}/usr/share/sip/PyQt5"/*; do
+		cat <<EOF > "${sip_dir}/$(basename ${sip_dir}).toml"
+sip-version = "5.5.0"
+sip-abi-version = "12.8"
+module-tags = ["Qt_5_15_0", "WS_X11"]
+module-disabled-features = []
+EOF
+	done
 
 	einstalldocs
 

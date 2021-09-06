@@ -1,6 +1,7 @@
 app-admin/conky
 app-emulation/playonlinux
 app-misc/yworklog
+app-text/calibre
 app-text/pdfshuffler
 dev-db/metakit
 dev-python/PyZilla
@@ -207,6 +208,7 @@ dev-python/yolk-portage
 dev-python/zbase32
 dev-python/zfec
 dev-python/zict
+dev-qt/qtwebkit
 dev-util/Orange
 dev-vcs/bzr
 dev-vcs/hg-fast-export
