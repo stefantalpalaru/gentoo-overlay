@@ -1,13 +1,13 @@
 # Copyright 1999-2021 Gentoo Authors
 # Distributed under the terms of the GNU General Public License v2
 
-EAPI=6
+EAPI=7
 
 PYTHON_COMPAT=( python2_7 )
 PYTHON_REQ_USE="xml"
-inherit eutils python-single-r1 toolchain-funcs udev user versionator
+inherit desktop eutils python-single-r1 toolchain-funcs udev user
 
-MY_PV=$(get_version_component_range 1-2)
+MY_PV=$(ver_cut 1-2)
 
 DESCRIPTION="Application that rotates tablet pc's screen automatically, based on orientation"
 HOMEPAGE="https://launchpad.net/magick-rotation"

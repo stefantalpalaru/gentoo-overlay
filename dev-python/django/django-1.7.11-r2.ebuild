@@ -1,36 +1,26 @@
 # Copyright 1999-2021 Gentoo Authors
 # Distributed under the terms of the GNU General Public License v2
 
-EAPI=6
+EAPI=7
 
 PYTHON_COMPAT=( python2_7 )
 PYTHON_REQ_USE='sqlite?,threads(+)'
 WEBAPP_NO_AUTO_INSTALL="yes"
 
-inherit bash-completion-r1 distutils-r1 eutils versionator webapp
+inherit bash-completion-r1 distutils-r1 eutils optfeature webapp
 
-MY_PN="Django"
-MY_P="${MY_PN}-${PV}"
+MY_P="Django-${PV}"
 
 DESCRIPTION="High-level Python web framework"
 HOMEPAGE="https://www.djangoproject.com/ https://pypi.org/project/Django/"
-SRC_URI="
-	https://www.djangoproject.com/m/releases/$(get_version_component_range 1-2)/${MY_P}.tar.gz
-	mirror://pypi/${MY_PN:0:1}/${MY_PN}/${MY_P}.tar.gz
-	"
+SRC_URI="https://www.djangoproject.com/m/releases/$(ver_cut 1-2)/${MY_P}.tar.gz"
 
 LICENSE="BSD"
-# admin fonts: Roboto (media-fonts/roboto)
-LICENSE+=" Apache-2.0"
-# admin icons, jquery, xregexp.js
-LICENSE+=" MIT"
-SLOT="python2"
+SLOT="0"
 KEYWORDS="~amd64 ~x86"
 IUSE="doc sqlite test"
 
-RDEPEND="
-	!<dev-python/django-1.10.7-r1[${PYTHON_USEDEP}]
-"
+RDEPEND=""
 DEPEND="${RDEPEND}
 	dev-python/setuptools[${PYTHON_USEDEP}]
 	doc? ( >=dev-python/sphinx-1.0.7[${PYTHON_USEDEP}] )
@@ -40,15 +30,20 @@ DEPEND="${RDEPEND}
 		dev-python/numpy-python2[${PYTHON_USEDEP}]
 		dev-python/pillow[${PYTHON_USEDEP}]
 		dev-python/pytz[${PYTHON_USEDEP}]
-		dev-python/pyyaml:python2[${PYTHON_USEDEP}]
+		dev-python/pyyaml[${PYTHON_USEDEP}]
 		)"
+
+#		dev-python/python-sqlparse[${PYTHON_USEDEP}]
+#		dev-python/bcrypt[${PYTHON_USEDEP}]
+#		dev-python/selenium[${PYTHON_USEDEP}]
+#		sci-libs/gdal[geos,${PYTHON_USEDEP}]
 
 S="${WORKDIR}/${MY_P}"
 
 WEBAPP_MANUAL_SLOT="yes"
 
 PATCHES=(
-	"${FILESDIR}"/${PN}-1.9-bashcomp.patch
+	"${FILESDIR}"/${PN}-1.7.6-bashcomp.patch
 )
 
 pkg_setup() {
@@ -69,8 +64,22 @@ python_compile_all() {
 python_test() {
 	# Tests have non-standard assumptions about PYTHONPATH,
 	# and don't work with ${BUILD_DIR}/lib.
-	PYTHONPATH=. "${PYTHON}" tests/runtests.py --settings=test_sqlite -v2 --parallel 1 \
+	PYTHONPATH=. "${PYTHON}" tests/runtests.py --settings=test_sqlite -v2 \
 		|| die "Tests fail with ${EPYTHON}"
+}
+
+src_install() {
+	distutils-r1_src_install
+	webapp_src_install
+
+	elog "Additional Backend support can be enabled via"
+	optfeature "MySQL backend support in python 2.7 only" dev-python/mysql-python
+	optfeature "MySQL backend support in python 2.7 - 3.4" dev-python/mysqlclient
+	optfeature "PostgreSQL backend support" dev-python/psycopg:2
+	optfeature "GEO Django" sci-libs/gdal[geos]
+	optfeature "Memcached support" dev-python/pylibmc dev-python/python-memcached
+	optfeature "ImageField Support" dev-python/pillow
+	echo ""
 }
 
 python_install_all() {
@@ -87,24 +96,7 @@ python_install_all() {
 	distutils-r1_python_install_all
 }
 
-src_install() {
-	distutils-r1_src_install
-	webapp_src_install
-}
-
 pkg_postinst() {
-	elog "Additional Backend support can be enabled via"
-	optfeature "MySQL backend support in python 2.7 only" dev-python/mysql-python
-	optfeature "MySQL backend support in python 2.7 - 3.4" dev-python/mysqlclient
-	optfeature "PostgreSQL backend support" dev-python/psycopg:2
-	echo ""
-	elog "Other features can be enhanced by"
-	optfeature "GEO Django" sci-libs/gdal[geos]
-	optfeature "Memcached support" dev-python/pylibmc dev-python/python-memcached
-	optfeature "ImageField Support" dev-python/pillow
-	optfeature "Password encryption" dev-python/bcrypt
-	optfeature "High-level abstractions for Django forms" dev-python/django-formtools
-	echo ""
 	elog "A copy of the admin media is available to webapp-config for installation in a"
 	elog "webroot, as well as the traditional location in python's site-packages dir"
 	elog "for easy development."

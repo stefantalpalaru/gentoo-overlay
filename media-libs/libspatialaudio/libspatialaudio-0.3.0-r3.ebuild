@@ -1,9 +1,9 @@
-# Copyright 1999-2018 Gentoo Foundation
+# Copyright 1999-2021 Gentoo Authors
 # Distributed under the terms of the GNU General Public License v2
 
-EAPI=6
+EAPI=7
 
-inherit cmake-utils
+inherit cmake
 
 DESCRIPTION="Ambisonic encoding / decoding and binauralization library in C++"
 HOMEPAGE="https://github.com/videolabs/libspatialaudio"
@@ -30,12 +30,12 @@ src_prepare() {
 		CMakeLists.txt
 
 	PATCHES=()
-	cmake-utils_src_prepare
+	cmake_src_prepare
 }
 
 src_configure() {
 	local mycmakeargs=(
 		-DBUILD_STATIC_LIBS=$(usex static-libs ON OFF)
 	)
-	cmake-utils_src_configure
+	cmake_src_configure
 }

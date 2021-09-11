@@ -1,13 +1,13 @@
 # Copyright 1999-2021 Gentoo Authors
 # Distributed under the terms of the GNU General Public License v2
 
-EAPI=6
+EAPI=7
 
 PYTHON_COMPAT=( python2_7 )
 PYTHON_REQ_USE='sqlite?,threads(+)'
 WEBAPP_NO_AUTO_INSTALL="yes"
 
-inherit bash-completion-r1 distutils-r1 eutils versionator webapp
+inherit bash-completion-r1 distutils-r1 eutils optfeature webapp
 
 MY_PN="Django"
 MY_P="${MY_PN}-${PV}"
@@ -15,7 +15,7 @@ MY_P="${MY_PN}-${PV}"
 DESCRIPTION="High-level Python web framework"
 HOMEPAGE="https://www.djangoproject.com/ https://pypi.org/project/Django/"
 SRC_URI="
-	https://www.djangoproject.com/m/releases/$(get_version_component_range 1-2)/${MY_P}.tar.gz
+	https://www.djangoproject.com/m/releases/$(ver_cut 1-2)/${MY_P}.tar.gz
 	mirror://pypi/${MY_PN:0:1}/${MY_PN}/${MY_P}.tar.gz
 	"
 
@@ -29,7 +29,7 @@ KEYWORDS="~amd64 ~x86"
 IUSE="doc sqlite test"
 
 RDEPEND="
-	!<dev-python/django-1.9.13-r1[${PYTHON_USEDEP}]
+	!<dev-python/django-1.10.7-r1[${PYTHON_USEDEP}]
 "
 DEPEND="${RDEPEND}
 	dev-python/setuptools[${PYTHON_USEDEP}]

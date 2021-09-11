@@ -1,9 +1,9 @@
-# Copyright 2019-2020 Gentoo Authors
+# Copyright 2019-2021 Gentoo Authors
 # Distributed under the terms of the GNU General Public License v2
 
 EAPI=7
 
-inherit cmake-utils virtualx
+inherit cmake virtualx
 
 DESCRIPTION="C language library for creating bindings for the Qt QML language"
 HOMEPAGE="https://github.com/filcuc/DOtherSide"
@@ -42,14 +42,14 @@ src_configure() {
 		-DENABLE_TESTS=$(usex test ON OFF)
 		-DENABLE_STATIC_LIBS=$(usex static-libs ON OFF)
 	)
-	cmake-utils_src_configure
+	cmake_src_configure
 }
 
 src_compile() {
-	cmake-utils_src_make
+	cmake_src_compile
 
 	if use doc; then
-		cmake-utils_src_make doc
+		cmake_build doc
 	fi
 }
 
@@ -58,7 +58,7 @@ src_test() {
 }
 
 src_install() {
-	cmake-utils_src_install
+	cmake_src_install
 
 	if use static-libs; then
 		dolib.a "${BUILD_DIR}/lib/libDOtherSideStatic.a"

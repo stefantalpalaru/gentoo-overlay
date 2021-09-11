@@ -1,19 +1,20 @@
 # Copyright 1999-2021 Gentoo Authors
 # Distributed under the terms of the GNU General Public License v2
 
-EAPI=6
+EAPI=7
 
 PYTHON_COMPAT=( python2_7 )
+
 PYTHON_REQ_USE='sqlite?,threads(+)'
 WEBAPP_NO_AUTO_INSTALL="yes"
 
-inherit bash-completion-r1 distutils-r1 eutils versionator webapp
+inherit bash-completion-r1 distutils-r1 eutils optfeature webapp
 
 MY_P="Django-${PV}"
 
 DESCRIPTION="High-level Python web framework"
 HOMEPAGE="https://www.djangoproject.com/ https://pypi.org/project/Django/"
-SRC_URI="https://www.djangoproject.com/m/releases/$(get_version_component_range 1-2)/${MY_P}.tar.gz"
+SRC_URI="https://www.djangoproject.com/m/releases/$(ver_cut 1-2)/${MY_P}.tar.gz"
 
 LICENSE="BSD"
 SLOT="0"
@@ -29,21 +30,21 @@ DEPEND="${RDEPEND}
 		dev-python/docutils[${PYTHON_USEDEP}]
 		dev-python/numpy-python2[${PYTHON_USEDEP}]
 		dev-python/pillow[${PYTHON_USEDEP}]
-		dev-python/pytz[${PYTHON_USEDEP}]
 		dev-python/pyyaml[${PYTHON_USEDEP}]
+		dev-python/pytz[${PYTHON_USEDEP}]
 		)"
 
-#		dev-python/python-sqlparse[${PYTHON_USEDEP}]
 #		dev-python/bcrypt[${PYTHON_USEDEP}]
 #		dev-python/selenium[${PYTHON_USEDEP}]
-#		sci-libs/gdal[geos,${PYTHON_USEDEP}]
 
 S="${WORKDIR}/${MY_P}"
 
 WEBAPP_MANUAL_SLOT="yes"
 
 PATCHES=(
-	"${FILESDIR}"/${PN}-1.7.6-bashcomp.patch
+	"${FILESDIR}"/${PN}-1.5-py3tests.patch
+	"${FILESDIR}"/${PN}-1.6-objects.patch
+	"${FILESDIR}"/${PN}-1.6.10-bashcomp.patch
 )
 
 pkg_setup() {
@@ -51,12 +52,13 @@ pkg_setup() {
 }
 
 python_prepare_all() {
-	# Prevent d'loading in the doc build
-	sed -e '/^    "sphinx.ext.intersphinx",/d' -i docs/conf.py || die
+	# Disable tests requiring network connection.
+	sed \
+		-e "s:test_sensitive_cookie_not_cached:_&:g" \
+		-i tests/cache/tests.py || die
 
 	distutils-r1_python_prepare_all
 }
-
 python_compile_all() {
 	use doc && emake -C docs html
 }
@@ -74,9 +76,8 @@ src_install() {
 
 	elog "Additional Backend support can be enabled via"
 	optfeature "MySQL backend support in python 2.7 only" dev-python/mysql-python
-	optfeature "MySQL backend support in python 2.7 - 3.4" dev-python/mysqlclient
+	optfeature "MySQL backend support in python 2.7 - 3.4" dev-python/mysql-connector-python
 	optfeature "PostgreSQL backend support" dev-python/psycopg:2
-	optfeature "GEO Django" sci-libs/gdal[geos]
 	optfeature "Memcached support" dev-python/pylibmc dev-python/python-memcached
 	optfeature "ImageField Support" dev-python/pillow
 	echo ""

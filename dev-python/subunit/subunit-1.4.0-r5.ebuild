@@ -1,12 +1,12 @@
 # Copyright 1999-2021 Gentoo Authors
 # Distributed under the terms of the GNU General Public License v2
 
-EAPI=6
+EAPI=7
 
 PYTHON_COMPAT=( python2_7 python3_{8..10} )
 DISTUTILS_USE_SETUPTOOLS=manual
 
-inherit distutils-r1 eutils ltprune multilib-minimal versionator
+inherit distutils-r1 eutils multilib-minimal
 
 DESCRIPTION="A streaming protocol for test results"
 HOMEPAGE="https://launchpad.net/subunit
@@ -100,5 +100,4 @@ multilib_src_install() {
 
 multilib_src_install_all() {
 	einstalldocs
-	prune_libtool_files
 }

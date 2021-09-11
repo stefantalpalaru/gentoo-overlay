@@ -1,17 +1,17 @@
 # Copyright 1999-2021 Gentoo Authors
 # Distributed under the terms of the GNU General Public License v2
 
-EAPI=6
+EAPI=7
 PYTHON_COMPAT=( python2_7 )
 
-inherit versionator eutils gnome2 python-r1
+inherit eutils gnome2 python-r1
 
 # This ebuild does nothing -- we just want to get the pkgconfig file installed
 
 MY_PN="gnome-python"
 DESCRIPTION="Provides the base files for the gnome-python bindings"
 HOMEPAGE="http://pygtk.org/"
-PVP="$(get_version_component_range 1-2)"
+PVP="$(ver_cut 1-2)"
 SRC_URI="mirror://gnome/sources/${MY_PN}/${PVP}/${MY_PN}-${PV}.tar.bz2"
 
 IUSE=""

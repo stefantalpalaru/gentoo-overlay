@@ -1,14 +1,14 @@
 # Copyright 1999-2021 Gentoo Authors
 # Distributed under the terms of the GNU General Public License v2
 
-EAPI=6
+EAPI=7
 PYTHON_COMPAT=( python2_7 )
 
-inherit distutils-r1 versionator
+inherit distutils-r1
 
 MY_PN="HappyDoc"
-MY_PV=$(replace_all_version_separators "_" ${PV})
-MY_V=$(get_major_version ${PV})
+MY_PV=$(ver_rs 1- "_" ${PV})
+MY_V=$(ver_cut 1 ${PV})
 
 DESCRIPTION="Tool for extracting documentation from Python source code"
 HOMEPAGE="http://happydoc.sourceforge.net/"
@@ -29,7 +29,7 @@ S="${WORKDIR}/${MY_PN}${MY_V}-r${MY_PV}"
 
 python_prepare_all() {
 	cp "${FILESDIR}/${P}-setup.py" setup.py || die "Copying of setup.py failed"
-	epatch "${FILESDIR}/${P}-python-2.6.patch"
+	patch -p0 "${FILESDIR}/${P}-python-2.6.patch" || die
 	distutils-r1_python_prepare_all
 }
 

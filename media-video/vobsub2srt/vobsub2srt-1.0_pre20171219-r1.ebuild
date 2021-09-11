@@ -1,9 +1,9 @@
-# Copyright 1999-2019 Gentoo Authors
+# Copyright 1999-2021 Gentoo Authors
 # Distributed under the terms of the GNU General Public License v2
 
-EAPI=6
+EAPI=7
 
-inherit cmake-utils flag-o-matic git-r3
+inherit cmake flag-o-matic git-r3
 
 IUSE=""
 
@@ -32,10 +32,11 @@ src_prepare() {
 		src/CMakeLists.txt
 	sed -i -e '/find_library(Tiff_LIBRARY/,+3d' \
 		CMakeModules/FindTesseract.cmake
+	cmake_src_prepare
 }
 
 src_configure() {
 	append-cflags -ffast-math
 	append-cxxflags -ffast-math
-	cmake-utils_src_configure
+	cmake_src_configure
 }
