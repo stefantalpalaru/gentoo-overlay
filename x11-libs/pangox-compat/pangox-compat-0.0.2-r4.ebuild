@@ -21,6 +21,10 @@ DEPEND="${RDEPEND}
 	virtual/pkgconfig
 "
 
+PATCHES=(
+	"${FILESDIR}"/pangox-compat-0.0.2-disable-shaper.patch
+)
+
 multilib_src_configure() {
 	ECONF_SOURCE=${S} gnome2_src_configure --disable-static
 }
