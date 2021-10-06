@@ -1,0 +1,12 @@
+diff -ur setBfree-0.8.11.orig/common.mak setBfree-0.8.11/common.mak
+--- setBfree-0.8.11.orig/common.mak	2021-10-06 19:23:27.702457952 +0200
++++ setBfree-0.8.11/common.mak	2021-10-06 19:23:48.650036934 +0200
+@@ -169,7 +169,7 @@
+         UILIBS+=`pkg-config --variable=libdir ftgl`/libftgl.a `pkg-config --variable=libdir ftgl`/libfreetype.a
+         UILIBS+=`pkg-config --libs zlib`
+       else
+-        UILIBS+=`pkg-config --libs glu ftgl`
++        UILIBS+=`pkg-config --libs glu gl ftgl`
+       endif
+       UICFLAGS+=-DFONTFILE=\"$(FONTFILE)\"
+     endif
