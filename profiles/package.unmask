@@ -189,6 +189,7 @@ dev-python/superlance
 dev-python/supervisor-quick
 dev-python/telarchive
 dev-python/tgmochikit
+dev-python/theano
 dev-python/traceback2
 dev-python/ttfquery
 dev-python/turbolift

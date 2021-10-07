@@ -6,14 +6,16 @@ WANT_LIBTOOL="none"
 
 inherit autotools eutils flag-o-matic multilib pax-utils python-utils-r1 toolchain-funcs multiprocessing
 
-DESCRIPTION="Python 2.7 fork with new syntax, builtins, and libraries backported from Python3"
-HOMEPAGE="https://github.com/naftaliharris/tauthon"
-SRC_URI="https://github.com/naftaliharris/tauthon/archive/v${PV}.tar.gz -> ${P}.tar.gz"
+MY_P="Python-${PV%_p*}"
+
+DESCRIPTION="An interpreted, interactive, object-oriented programming language"
+HOMEPAGE="https://www.python.org/"
+SRC_URI="https://www.python.org/ftp/python/${PV}/${MY_P}.tar.xz"
 
 LICENSE="PSF-2"
-SLOT="2.8"
-KEYWORDS="alpha amd64 arm ~arm64 hppa ia64 ~m68k ~mips ppc ppc64 ~s390 sparc x86"
-IUSE="-berkdb bluetooth build doc elibc_uclibc examples gdbm hardened ipv6 +lto +ncurses +pgo +readline sqlite +ssl +threads tk +wide-unicode wininst +xml"
+SLOT="2.7"
+KEYWORDS="alpha amd64 arm arm64 hppa ia64 m68k ~mips ppc ppc64 s390 sparc x86"
+IUSE="-berkdb bluetooth build doc elibc_uclibc examples gdbm hardened ipv6 +lto +ncurses +pgo +readline +sqlite +ssl +threads tk +wide-unicode wininst +xml"
 
 # Do not add a dependency on dev-lang/python to this ebuild.
 # If you need to apply a patch which requires python for bootstrapping, please
@@ -26,15 +28,9 @@ RDEPEND="app-arch/bzip2:=
 	virtual/libcrypt:=
 	virtual/libintl
 	berkdb? ( || (
+		sys-libs/db:6.0
 		sys-libs/db:5.3
-		sys-libs/db:5.1
 		sys-libs/db:4.8
-		sys-libs/db:4.7
-		sys-libs/db:4.6
-		sys-libs/db:4.5
-		sys-libs/db:4.4
-		sys-libs/db:4.3
-		sys-libs/db:4.2
 	) )
 	gdbm? ( sys-libs/gdbm:=[berkdb] )
 	ncurses? ( >=sys-libs/ncurses-5.2:= )
@@ -56,14 +52,15 @@ DEPEND="${RDEPEND}
 	>=sys-devel/autoconf-2.65
 	!sys-devel/gcc[libffi(-)]"
 RDEPEND+=" !build? ( app-misc/mime-types )
-		"
-	#doc? ( dev-python/python-docs:${SLOT} )"
+	doc? ( dev-python/python-docs:${SLOT} )"
 PDEPEND=">=app-eselect/eselect-python-20140125-r1"
+
+S="${WORKDIR}/${MY_P}"
 
 pkg_setup() {
 	if use berkdb; then
 		ewarn "'bsddb' module is out-of-date and no longer maintained inside"
-		ewarn "dev-lang/tauthon. 'bsddb' and 'dbhash' modules have been additionally"
+		ewarn "dev-lang/python. 'bsddb' and 'dbhash' modules have been additionally"
 		ewarn "removed in Python 3. A maintained alternative of 'bsddb3' module"
 		ewarn "is provided by dev-python/bsddb3."
 	else
@@ -87,10 +84,7 @@ src_prepare() {
 
 	local PATCHES=(
 		"${FILESDIR}/patches"
-		"${FILESDIR}/python-2.7.5-nonfatal-compileall.patch"
-		"${FILESDIR}/python-2.7.9-ncurses-pkg-config.patch"
-		"${FILESDIR}/python-2.7.10-cross-compile-warn-test.patch"
-		"${FILESDIR}/python-2.7.10-system-libffi.patch"
+		"${FILESDIR}/python-2.7.15-PGO-r1.patch"
 	)
 
 	default
@@ -110,27 +104,27 @@ src_prepare() {
 }
 
 src_configure() {
-		# dbm module can be linked against berkdb or gdbm.
-		# Defaults to gdbm when both are enabled, #204343.
-		local disable
-		use berkdb   || use gdbm || disable+=" dbm"
-		use berkdb   || disable+=" _bsddb"
-		# disable automagic bluetooth headers detection
-		use bluetooth || export ac_cv_header_bluetooth_bluetooth_h=no
-		use gdbm     || disable+=" gdbm"
-		use ncurses  || disable+=" _curses _curses_panel"
-		use readline || disable+=" readline"
-		use sqlite   || disable+=" _sqlite3"
-		use ssl      || export PYTHON_DISABLE_SSL="1"
-		use tk       || disable+=" _tkinter"
-		use xml      || disable+=" _elementtree pyexpat" # _elementtree uses pyexpat.
-		export PYTHON_DISABLE_MODULES="${disable}"
+	# dbm module can be linked against berkdb or gdbm.
+	# Defaults to gdbm when both are enabled, #204343.
+	local disable
+	use berkdb    || use gdbm || disable+=" dbm"
+	use berkdb    || disable+=" _bsddb"
+	# disable automagic bluetooth headers detection
+	use bluetooth || export ac_cv_header_bluetooth_bluetooth_h=no
+	use gdbm      || disable+=" gdbm"
+	use ncurses   || disable+=" _curses _curses_panel"
+	use readline  || disable+=" readline"
+	use sqlite    || disable+=" _sqlite3"
+	use ssl       || export PYTHON_DISABLE_SSL="1"
+	use tk        || disable+=" _tkinter"
+	use xml       || disable+=" _elementtree pyexpat" # _elementtree uses pyexpat.
+	export PYTHON_DISABLE_MODULES="${disable}"
 
-		if ! use xml; then
-			ewarn "You have configured Tauthon without XML support."
-			ewarn "This is NOT a recommended configuration as you"
-			ewarn "may face problems parsing any XML documents."
-		fi
+	if ! use xml; then
+		ewarn "You have configured Python without XML support."
+		ewarn "This is NOT a recommended configuration as you"
+		ewarn "may face problems parsing any XML documents."
+	fi
 
 	if [[ -n "${PYTHON_DISABLE_MODULES}" ]]; then
 		einfo "Disabled modules: ${PYTHON_DISABLE_MODULES}"
@@ -168,8 +162,8 @@ src_configure() {
 	# http://bugs.python.org/issue15506
 	export ac_cv_path_PKG_CONFIG=$(tc-getPKG_CONFIG)
 
-	# Set LDFLAGS so we link modules with -ltauthon correctly.
-	# Needed on FreeBSD unless Tauthon is already installed.
+	# Set LDFLAGS so we link modules with -lpython2.7 correctly.
+	# Needed on FreeBSD unless Python 2.7 is already installed.
 	# Please query BSD team before removing this!
 	append-ldflags "-L."
 
@@ -191,6 +185,15 @@ src_configure() {
 	cd "${BUILD_DIR}" || die
 
 	local myeconfargs=(
+		# The check is broken on clang, and gives false positive:
+		# https://bugs.gentoo.org/596798
+		# (upstream dropped this flag in 3.2a4 anyway)
+		ac_cv_opt_olimit_ok=no
+		# glibc-2.30 removes it; since we can't cleanly force-rebuild
+		# Python on glibc upgrade, remove it proactively to give
+		# a chance for users rebuilding python before glibc
+		ac_cv_header_stropts_h=no
+
 		--with-fpectl
 		--enable-shared
 		$(use_enable ipv6)
@@ -218,6 +221,10 @@ src_configure() {
 }
 
 src_compile() {
+	# Ensure sed works as expected
+	# https://bugs.gentoo.org/594768
+	local -x LC_ALL=C
+
 	if use pgo; then
 		# disable distcc and ccache
 		export DISTCC_HOSTS=""
@@ -242,9 +249,9 @@ src_compile() {
 
 	# Work around bug 329499. See also bug 413751 and 457194.
 	if has_version dev-libs/libffi[pax-kernel]; then
-		pax-mark E tauthon
+		pax-mark E python
 	else
-		pax-mark m tauthon
+		pax-mark m python
 	fi
 }
 
@@ -286,7 +293,7 @@ src_test() {
 	done
 
 	elog "If you would like to run them, you may:"
-	elog "cd '${EPREFIX}/usr/$(get_libdir)/tauthon${SLOT}/test'"
+	elog "cd '${EPREFIX}/usr/$(get_libdir)/python${SLOT}/test'"
 	elog "and run the tests separately."
 
 	if [[ "${result}" -ne 0 ]]; then
@@ -295,16 +302,10 @@ src_test() {
 }
 
 src_install() {
-	local libdir=${ED}/usr/$(get_libdir)/tauthon${SLOT}
+	local libdir=${ED}/usr/$(get_libdir)/python${SLOT}
 
 	cd "${BUILD_DIR}" || die
 	emake DESTDIR="${D}" altinstall
-
-	# symlinks for autotools
-	ln -s tauthon${SLOT} "${ED}/usr/$(get_libdir)/python${SLOT}"
-	ln -s libtauthon${SLOT}.a "${ED}/usr/$(get_libdir)/libpython${SLOT}.a"
-	ln -s libtauthon${SLOT}.so "${ED}/usr/$(get_libdir)/libpython${SLOT}.so"
-	ln -s python${SLOT}-config "${ED}/usr/bin/tauthon${SLOT}-config"
 
 	sed -e "s/\(LDFLAGS=\).*/\1/" -i "${libdir}/config/Makefile" || die "sed failed"
 
@@ -322,7 +323,7 @@ src_install() {
 	use threads || rm -r "${libdir}/multiprocessing" || die
 	use wininst || rm -r "${libdir}/distutils/command/"wininst-*.exe || die
 
-	dodoc "${S}"/Misc/{ACKS,HISTORY}
+	dodoc "${S}"/Misc/{ACKS,HISTORY,NEWS}
 
 	if use examples; then
 		insinto /usr/share/doc/${PF}/examples
@@ -340,10 +341,10 @@ src_install() {
 		-e "s:@PYDOC@:pydoc${SLOT}:" \
 		-i "${ED}/etc/conf.d/pydoc-${SLOT}" "${ED}/etc/init.d/pydoc-${SLOT}" || die "sed failed"
 
-	local -x EPYTHON=tauthon${SLOT}
+	local -x EPYTHON=python${SLOT}
 	# if not using a cross-compiler, use the fresh binary
 	if ! tc-is-cross-compiler; then
-		local -x PYTHON=./tauthon
+		local -x PYTHON=./python
 		local -x LD_LIBRARY_PATH=${LD_LIBRARY_PATH+${LD_LIBRARY_PATH}:}${PWD}
 	else
 		local -x PYTHON=${EPREFIX}/usr/bin/${EPYTHON}
@@ -357,24 +358,17 @@ src_install() {
 	local scriptdir=${D}$(python_get_scriptdir)
 	mkdir -p "${scriptdir}" || die
 	# python and pythonX
-	ln -s "../../../bin/tauthon${SLOT}" \
-		"${scriptdir}/python${pymajor}" || die
-	ln -s "python${pymajor}" \
-		"${scriptdir}/python" || die
+	ln -s "../../../bin/python${SLOT}" "${scriptdir}/python${pymajor}" || die
+	ln -s "python${pymajor}" "${scriptdir}/python" || die
 	# python-config and pythonX-config
-	ln -s "../../../bin/python${SLOT}-config" \
-		"${scriptdir}/python${pymajor}-config" || die
-	ln -s "python${pymajor}-config" \
-		"${scriptdir}/python-config" || die
+	ln -s "../../../bin/python${SLOT}-config" "${scriptdir}/python${pymajor}-config" || die
+	ln -s "python${pymajor}-config" "${scriptdir}/python-config" || die
 	# 2to3, pydoc, pyvenv
-	ln -s "../../../bin/2to3-${SLOT}" \
-		"${scriptdir}/2to3" || die
-	ln -s "../../../bin/pydoc${SLOT}" \
-		"${scriptdir}/pydoc" || die
+	ln -s "../../../bin/2to3-${SLOT}" "${scriptdir}/2to3" || die
+	ln -s "../../../bin/pydoc${SLOT}" "${scriptdir}/pydoc" || die
 	# idle
 	if use tk; then
-		ln -s "../../../bin/idle${SLOT}" \
-			"${scriptdir}/idle" || die
+		ln -s "../../../bin/idle${SLOT}" "${scriptdir}/idle" || die
 	fi
 }
 
