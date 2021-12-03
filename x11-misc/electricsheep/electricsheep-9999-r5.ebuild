@@ -24,7 +24,7 @@ LICENSE="GPL-2"
 SLOT="0"
 
 DEPEND="dev-lang/lua:5.1
-	dev-libs/boost[threads]
+	dev-libs/boost
 	dev-libs/expat
 	dev-libs/tinyxml
 	gnome-base/libgtop
