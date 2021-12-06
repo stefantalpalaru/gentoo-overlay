@@ -281,7 +281,12 @@ src_install() {
 	dosym "${VM_INSTALL_DIR}"/lib/vmware/icu /etc/vmware/icu
 
 	# fix permissions
-	fperms 0755 "${VM_INSTALL_DIR}"/lib/vmware/bin/*
+
+	# (we can't use "fperms" here, because globbing is done before the "${ED}"
+	# prefix is added to the path and this will obviously fail the first time
+	# the package is installed)
+	chmod 0755 "${ED}${VM_INSTALL_DIR}"/lib/vmware/bin/*
+
 	fperms 0755 "${VM_INSTALL_DIR}"/lib/vmware/setup/vmware-config
 	fperms 4711 "${VM_INSTALL_DIR}"/lib/vmware/bin/vmware-vmx{,-debug,-stats}
 	fperms 0755 "${VM_INSTALL_DIR}"/lib/vmware/lib/libvmware-gksu.so/gksu-run-helper
