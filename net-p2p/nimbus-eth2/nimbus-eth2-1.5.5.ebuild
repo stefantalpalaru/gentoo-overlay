@@ -8,12 +8,12 @@ inherit git-r3
 DESCRIPTION="Nim implementation of the Ethereum 2.0 blockchain"
 HOMEPAGE="https://github.com/status-im/nimbus-eth2"
 EGIT_REPO_URI="https://github.com/status-im/nimbus-eth2.git"
-EGIT_BRANCH="unstable"
+EGIT_COMMIT="v${PV/_/-}"
 RESTRICT="strip"
 
 LICENSE="MIT-with-advertising Apache-2.0"
 SLOT="0"
-KEYWORDS=""
+KEYWORDS="~amd64 ~x86"
 IUSE="lto"
 
 DEPEND=""
@@ -29,12 +29,12 @@ src_compile() {
 		LOG_LEVEL="TRACE" \
 		NIMFLAGS="${NIMFLAGS}" \
 		nimbus_beacon_node \
-		nimbus_signing_process
+		nimbus_signing_node
 }
 
 src_install() {
 	dobin build/nimbus_beacon_node
-	dobin build/nimbus_signing_process
+	dobin build/nimbus_signing_node
 
 	newconfd "${FILESDIR}/${PN}.conf" ${PN}
 	newinitd "${FILESDIR}/${PN}.init" ${PN}
