@@ -1,0 +1,11 @@
+diff -ur vobsub2srt-1.0_pre20171219.orig/src/vobsub2srt.c++ vobsub2srt-1.0_pre20171219/src/vobsub2srt.c++
+--- vobsub2srt-1.0_pre20171219.orig/src/vobsub2srt.c++	2021-12-29 23:38:56.688542215 +0100
++++ vobsub2srt-1.0_pre20171219/src/vobsub2srt.c++	2021-12-29 23:40:17.808429491 +0100
+@@ -30,6 +30,7 @@
+ #include <string>
+ #include <cstdio>
+ #include <vector>
++#include <climits>
+ using namespace std;
+ 
+ #include "langcodes.h++"

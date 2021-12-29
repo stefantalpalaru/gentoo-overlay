@@ -10,15 +10,19 @@ IUSE=""
 DESCRIPTION="Converts VobSub subtitles (.sub/.idx) to .srt text subtitles using tesseract"
 HOMEPAGE="https://github.com/ruediger/VobSub2SRT"
 EGIT_REPO_URI="https://github.com/ruediger/VobSub2SRT"
+EGIT_COMMIT="0ba6e25e078a040195d7295e860cc9064bef7c2c"
 LICENSE="GPL-3"
 SLOT="0"
-KEYWORDS=""
+KEYWORDS="~amd64 ~x86"
 
 RDEPEND="app-text/tesseract"
 DEPEND="${RDEPEND}"
 
+PATCHES=(
+	"${FILESDIR}/vobsub2srt-1.0-climits.patch"
+)
+
 src_prepare() {
-	default
 	rm CMakeModules/FindLibavutil.cmake
 	sed -i -e '/^have /d' doc/completion.sh
 	sed -i -e '/DOC_DIR/d' \
