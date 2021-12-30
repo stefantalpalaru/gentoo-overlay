@@ -13,7 +13,6 @@ MAJOR_V="$(ver_cut 1-2)"
 DESCRIPTION="Boost Libraries for C++"
 HOMEPAGE="https://www.boost.org/"
 SRC_URI="https://boostorg.jfrog.io/artifactory/main/release/${PV}/source/boost_${MY_PV}.tar.bz2"
-SRC_URI+=" https://dev.gentoo.org/~sam/distfiles/${CATEGORY}/${PN}/${P}-patches-1.tar.xz"
 S="${WORKDIR}/${PN}_${MY_PV}"
 
 LICENSE="Boost-1.0"
@@ -47,19 +46,15 @@ RDEPEND="
 	zlib? ( sys-libs/zlib:=[${MULTILIB_USEDEP}] )
 	zstd? ( app-arch/zstd:=[${MULTILIB_USEDEP}] )"
 DEPEND="${RDEPEND}"
-BDEPEND=">=dev-util/boost-build-${MAJOR_V}-r2"
+BDEPEND=">=dev-util/boost-build-1.78.0-r1"
 
 PATCHES=(
-	"${WORKDIR}"/${PN}-1.71.0-disable_icu_rpath.patch
-	"${WORKDIR}"/${PN}-1.71.0-context-x32.patch
-	"${WORKDIR}"/${PN}-1.71.0-build-auto_index-tool.patch
+	"${FILESDIR}"/${PN}-1.71.0-disable_icu_rpath.patch
+	"${FILESDIR}"/${PN}-1.71.0-context-x32.patch
+	"${FILESDIR}"/${PN}-1.71.0-build-auto_index-tool.patch
 	# Boost.MPI's __init__.py doesn't work on Py3
-	"${WORKDIR}"/${PN}-1.73-boost-mpi-python-PEP-328.patch
-	"${WORKDIR}"/${PN}-1.74-CVE-2012-2677.patch
-	"${WORKDIR}"/${PN}-1.76-sparc-define.patch
-	"${WORKDIR}"/${PN}-1.77-math-deprecated-include.patch
-	"${WORKDIR}"/${PN}-1.77-geometry.patch
-	"${FILESDIR}"/${P}-python-3.10.patch
+	"${FILESDIR}"/${PN}-1.73-boost-mpi-python-PEP-328.patch
+	"${FILESDIR}"/${PN}-1.74-CVE-2012-2677.patch
 )
 
 python_bindings_needed() {
@@ -93,7 +88,7 @@ create_user-config.jam() {
 	fi
 
 	cat > "${user_config_jam}" <<- __EOF__ || die
-		using ${compiler} : ${compiler_version} : ${compiler_executable} : <cflags>"${CFLAGS}" <cxxflags>"${CXXFLAGS}" <linkflags>"${LDFLAGS}" ;
+		using ${compiler} : ${compiler_version} : ${compiler_executable} : <cflags>"${CFLAGS}" <cxxflags>"${CXXFLAGS}" <linkflags>"${LDFLAGS}" <archiver>"$(tc-getAR)" <ranlib>"$(tc-getRANLIB)" ;
 		${mpi_configuration}
 	__EOF__
 
