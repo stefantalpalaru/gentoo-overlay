@@ -1,7 +1,8 @@
-# Copyright 2020-2021 Gentoo Authors
+# Copyright 2020-2022 Gentoo Authors
 # Distributed under the terms of the GNU General Public License v2
 
 EAPI=7
+EGIT_SUBMODULES=('*' '-vendor/nim-json-rpc')
 
 inherit git-r3
 
@@ -28,16 +29,17 @@ src_compile() {
 		NIMFLAGS="${NIMFLAGS} --passL:'${CFLAGS}'"
 	fi
 	emake \
-		LOG_LEVEL="TRACE" \
+		OVERRIDE=1 \
 		QUICK_AND_DIRTY_COMPILER=1 \
+		update
+	emake \
+		LOG_LEVEL="TRACE" \
 		NIMFLAGS="${NIMFLAGS}" \
-		nimbus_beacon_node \
-		nimbus_signing_node
+		nimbus_beacon_node
 }
 
 src_install() {
 	dobin build/nimbus_beacon_node
-	dobin build/nimbus_signing_node
 
 	newconfd "${FILESDIR}/${PN}.conf" ${PN}
 	newinitd "${FILESDIR}/${PN}.init" ${PN}
