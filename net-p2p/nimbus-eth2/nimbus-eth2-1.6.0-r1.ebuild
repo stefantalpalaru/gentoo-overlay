@@ -10,7 +10,7 @@ DESCRIPTION="Nim implementation of the Ethereum 2.0 blockchain"
 HOMEPAGE="https://github.com/status-im/nimbus-eth2"
 EGIT_REPO_URI="https://github.com/status-im/nimbus-eth2.git"
 EGIT_COMMIT="v${PV/_/-}"
-RESTRICT="strip"
+RESTRICT="strip network-sandbox"
 
 LICENSE="MIT-with-advertising Apache-2.0"
 SLOT="0"
