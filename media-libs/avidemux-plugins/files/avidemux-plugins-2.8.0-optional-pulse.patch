@@ -1,0 +1,21 @@
+diff -ur avidemux2-2.8.0.orig/cmake/admCheckAudioDeviceLibs.cmake avidemux2-2.8.0/cmake/admCheckAudioDeviceLibs.cmake
+--- avidemux2-2.8.0.orig/cmake/admCheckAudioDeviceLibs.cmake	2021-12-24 09:16:23.000000000 +0100
++++ avidemux2-2.8.0/cmake/admCheckAudioDeviceLibs.cmake	2022-01-16 23:37:10.653810353 +0100
+@@ -194,6 +194,7 @@
+ 		APPEND_SUMMARY_LIST("Audio Device" "PulseAudioS" "${USE_PULSE_SIMPLE}")
+ ]]
+     OPTION(PULSEAUDIO "" ON)
++    IF (PULSEAUDIO)
+     MESSAGE(STATUS "Checking for PulseAudio")
+     include(FindPkgConfig)
+     pkg_check_modules(PULSEAUDIO libpulse)
+@@ -203,6 +204,9 @@
+     ELSE (PULSEAUDIO_FOUND)
+         MESSAGE(STATUS "Could not find PulseAudio")
+     ENDIF (PULSEAUDIO_FOUND)
++    ELSE (PULSEAUDIO)
++	MESSAGE("${MSG_DISABLE_OPTION}")
++    ENDIF (PULSEAUDIO)
+     APPEND_SUMMARY_LIST("Audio Device" "PulseAudio" "${USE_PULSE}")
+ ELSE (UNIX AND NOT APPLE)
+ 	SET(PULSEAUDIOSIMPLE_CAPABLE FALSE)
