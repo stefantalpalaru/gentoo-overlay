@@ -1,4 +1,4 @@
-# Copyright 1999-2019 Gentoo Authors
+# Copyright 1999-2022 Gentoo Authors
 # Distributed under the terms of the GNU General Public License v2
 
 EAPI=7
@@ -12,7 +12,7 @@ EGIT_REPO_URI="https://github.com/nim-lang/Nim"
 LICENSE="MIT"
 SLOT="0"
 KEYWORDS=""
-IUSE="bash-completion boehm-gc doc +readline test"
+IUSE="bash-completion boehm-gc +readline test" # "doc" is broken
 
 DEPEND="
 	readline? ( sys-libs/readline:= )
@@ -64,9 +64,9 @@ EOF
 	PATH="./bin:${PATH}" nim c -d:release --listCmd --parallelBuild:$(makeopts_jobs) -o:bin/nimgrep tools/nimgrep.nim || die "nimgrep compilation failed"
 	PATH="./bin:${PATH}" nim c -d:release --listCmd --parallelBuild:$(makeopts_jobs) -o:bin/nimpretty nimpretty/nimpretty.nim || die "nimpretty compilation failed"
 
-	if use doc; then
-		PATH="./bin:${PATH}" ./koch docs || die "koch docs failed"
-	fi
+	#if use doc; then
+		#PATH="./bin:${PATH}" ./koch docs || die "koch docs failed"
+	#fi
 }
 
 src_test() {
@@ -105,10 +105,10 @@ src_install() {
 	insinto /usr/share/nim
 	doins tools/nim-gdb.py
 
-	if use doc; then
-		HTML_DOCS=doc/html/*.html
-		einstalldocs
-	fi
+	#if use doc; then
+		#HTML_DOCS=doc/html/*.html
+		#einstalldocs
+	#fi
 
 	if use bash-completion; then
 		newbashcomp tools/nim.bash-completion ${PN}
