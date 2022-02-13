@@ -1,4 +1,4 @@
-# Copyright 1999-2021 Gentoo Authors
+# Copyright 1999-2022 Gentoo Authors
 # Distributed under the terms of the GNU General Public License v2
 
 EAPI=7
@@ -23,7 +23,7 @@ RDEPEND=">=sci-libs/fftw-3.3.4:3.0=
 	dev-qt/qtgui:5
 	dev-qt/qtwidgets:5
 	alsa? ( media-libs/alsa-lib )
-	jack? ( media-sound/jack-audio-connection-kit:* )
+	jack? ( virtual/jack )
 	portaudio? ( media-libs/portaudio )"
 
 DEPEND="${RDEPEND}
@@ -51,6 +51,6 @@ src_configure() {
 
 	"$(qt5_get_bindir)"/lrelease fmit.pro || die "Running lrelease failed"
 
-	eqmake5 CONFIG+="${config}" fmit.pro PREFIX="${D}"/usr \
-		PREFIXSHORTCUT="${D}"/usr DISTDIR=/usr
+	eqmake5 CONFIG+="${config}" fmit.pro PREFIX="${ED}"/usr \
+		PREFIXSHORTCUT="${ED}"/usr DISTDIR=/usr
 }
