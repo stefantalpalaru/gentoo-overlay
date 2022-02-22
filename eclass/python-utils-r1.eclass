@@ -172,16 +172,6 @@ _python_set_impls() {
 		fi
 	done
 
-	if [[ ! ${supp[@]} ]]; then
-		# special-case python2_7 for python-any-r1
-		if [[ ${_PYTHON_ALLOW_PY27} ]] && has python2_7 "${PYTHON_COMPAT[@]}"
-		then
-			supp+=( python2_7 )
-		else
-			die "No supported implementation in PYTHON_COMPAT."
-		fi
-	fi
-
 	if [[ ${_PYTHON_SUPPORTED_IMPLS[@]} ]]; then
 		# set once already, verify integrity
 		if [[ ${_PYTHON_SUPPORTED_IMPLS[@]} != ${supp[@]} ]]; then
@@ -224,23 +214,11 @@ _python_impl_matches() {
 
 	for pattern; do
 		case ${pattern} in
-			-2|python2*|pypy)
-				#if [[ ${EAPI} != [67] ]]; then
-					#eerror
-					#eerror "Python 2 is no longer supported in Gentoo, please remove Python 2"
-					#eerror "${FUNCNAME[1]} calls."
-					#die "Passing ${pattern} to ${FUNCNAME[1]} is banned in EAPI ${EAPI}"
-				#fi
+			-2|python2*)
+				[[ ${impl} =~ python2 ]] && return 0
 				;;
 			-3)
-				# NB: "python3*" is fine, as "not pypy3"
-				#if [[ ${EAPI} != [67] ]]; then
-					#eerror
-					#eerror "Python 2 is no longer supported in Gentoo, please remove Python 2"
-					#eerror "${FUNCNAME[1]} calls."
-					#die "Passing ${pattern} to ${FUNCNAME[1]} is banned in EAPI ${EAPI}"
-				#fi
-				#return 0
+				[[ ${impl} =~ python3 ]] && return 0
 				;;
 			3.8)
 				# the only unmasked pypy3 version is pypy3.8 atm

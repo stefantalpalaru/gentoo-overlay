@@ -62,7 +62,6 @@ dev-libs/boost:debug - Build and install only the debug version of the Boost lib
 dev-libs/boost:doc - Install the full API documentation documentation. This takes over 200MB of extra disk space.
 dev-libs/boost:nls - Build libboost_locale. This library requires compatible C library interfaces, which might not be provided by uClibc or other embedded libraries.
 dev-libs/boost:numpy - Optionally build NumPy extensions when Boost.Python is enabled
-dev-libs/boost:threads - Build multi-thread-compatible libraries instead of single-threaded only.
 dev-libs/boost:tools - Build and install the boost tools (bcp, quickbook, inspect, wave)
 dev-libs/libpeas:glade - Install the glade catalog
 dev-libs/libpeas:python - Build support for loading dev-lang/python plugins
@@ -148,19 +147,47 @@ dev-python/twisted:serial - include serial port support
 dev-python/twisted-core:serial - include serial port support
 dev-python/urllib3:brotli - Enable support for brotli compression
 dev-python/vatnumber:vies - Enable VIES
+dev-qt/qtwebkit:geolocation - Enable physical position determination via dev-qt/qtpositioning
+dev-qt/qtwebkit:gstreamer - Enable HTML5 audio/video support via media-libs/gstreamer using SLOT 1.0
+dev-qt/qtwebkit:hyphen - Enable hyphenation support via dev-libs/hyphen
+dev-qt/qtwebkit:multimedia - Enable HTML5 audio/video support via dev-qt/qtmultimedia
+dev-qt/qtwebkit:orientation - Enable device orientation detection via dev-qt/qtsensors
+dev-qt/qtwebkit:printsupport - Enable printing via dev-qt/qtprintsupport
+dev-qt/qtwebkit:qml - Build QML/QtQuick bindings
 dev-util/valgrind:lto - Build with link time optimization (LTO)
 dev-vcs/bzr:sftp - Enable sftp support
 games-emulation/rpcs3:llvm - LLVM recompiler support
 games-emulation/rpcs3:vulkan - Vulkan video output support
+media-gfx/darktable:avif - Support importing and exporting AVIF images
+media-gfx/darktable:flickr - Add support for uploading photos to flickr
+media-gfx/darktable:geolocation - Enable geotagging support
+media-gfx/darktable:gmic - Use the G'MIC image-processing framework (media-gfx/gmic), e.g. to support Colour LUTs compressed using their compression scheme
+media-gfx/darktable:kwallet - Enable encrypted storage of passwords with kde-frameworks/kwallet
+media-gfx/darktable:lto - Enable link-time optimisations in the RawSpeed library
+media-gfx/darktable:opencl - Enable opencl support
+media-gfx/darktable:tools - Install tools for generating base curves and noise profiles
 media-gfx/fbcat:fbgrab - Install a 'fbgrab' wrapper script around fbcat that mimics media-gfx/fbgrab
 media-gfx/gmic:cli - Build the CLI interface
 media-gfx/gmic:gimp - Build the Qt5 GIMP plugin
 media-gfx/gmic:gui - Build the standalone Qt5 GUI
 media-gfx/gmic:krita - Build the Krita plugin
 media-gfx/gmic:opencv - Enable support for webcams using the OpenCV library
+media-libs/avidemux-core:nvenc - Adds support for NVIDIA Encoder (NVENC) API for hardware accelerated encoding on NVIDIA cards.
+media-libs/avidemux-core:system-ffmpeg - Use the ffmpeg provided by the system.
+media-libs/avidemux-plugins:aften - Enable A/52 (AC-3) audio encoder support.
+media-libs/avidemux-plugins:amr - Enable Adaptive Multi-Rate format support via media-libs/opencore-amr.
+media-libs/avidemux-plugins:dcaenc - Enable DTS Coherent Acoustics audio encoder support via media-sound/dcaenc.
+media-libs/avidemux-plugins:fdk - Adds support for encoding AAC using media-libs/fdk-aac.
+media-libs/avidemux-plugins:fribidi - Enable unicode bidirectional algorithm support via dev-libs/fribidi.
+media-libs/avidemux-plugins:nvenc - Adds support for NVIDIA Encoder (NVENC) API for hardware accelerated encoding on NVIDIA cards.
+media-libs/avidemux-plugins:twolame - Enable TwoLAME support via media-sound/twolame, an optimised MPEG Audio Layer 2 (MP2) encoder.
+media-libs/avidemux-plugins:vpx - Enable WebM VP8 Codec SDK support via media-libs/libvpx.
+media-libs/avidemux-plugins:x265 - Enables HEVC support with media-libs/x265.
+media-libs/vigra:valgrind - Enable valgrind in make check
 media-sound/jack-audio-connection-kit:classic - Enable building of jackd"
 media-sound/jack-audio-connection-kit:metadata - Enable metadata API
 media-sound/jack-audio-connection-kit:pam - Add basic realtime configuration via sys-auth/realtime-base
+media-video/avidemux:nvenc - Adds support for NVIDIA Encoder (NVENC) API for hardware accelerated encoding on NVIDIA cards.
 net-p2p/go-ethereum:devtools - Build Ethereum development tools (evm, abigen, puppeth, ...)
 net-p2p/nimbus-eth2:lto - Enable Link Time Optimization (LTO)
 net-p2p/pybitmessage:opencl - Enable dev-python/pyopencl for GPU acceleration
@@ -239,6 +266,8 @@ sys-power/nut:ups_drivers_tripplitesu - Driver for Tripp-Lite SmartOnline (SU) U
 sys-power/nut:ups_drivers_upscode2 - Driver for UPScode II compatible UPS equipment
 sys-power/nut:ups_drivers_usbhid-ups - Driver for USB/HID UPS equipment
 sys-power/nut:ups_drivers_victronups - Driver for IMV/Victron UPS unit Match, Match Lite, NetUps
+x11-drivers/nvidia-drivers:driver - Install kernel driver modules
+x11-drivers/nvidia-drivers:tools - Install additional tools such as nvidia-settings
 x11-libs/wxGTK:egl - Enable EGL support.
 x11-libs/wxGTK:gstreamer - Enable the wxMediaCtrl class for playing audio and video through gstreamer.
 x11-libs/wxGTK:sdl - Use Simple Directmedia Layer (media-libs/libsdl) for audio.
