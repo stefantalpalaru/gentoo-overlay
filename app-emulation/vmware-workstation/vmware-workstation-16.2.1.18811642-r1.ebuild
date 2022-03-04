@@ -75,6 +75,7 @@ RDEPEND="
 	x11-libs/startup-notification
 	x11-libs/xcb-util
 	x11-themes/hicolor-icon-theme
+	x11-libs/libXinerama
 	!app-emulation/vmware-player
 	!app-emulation/vmware-tools
 "
