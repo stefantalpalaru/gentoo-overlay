@@ -69,13 +69,13 @@ RDEPEND="
 	sys-apps/util-linux
 	sys-auth/polkit
 	virtual/libcrypt:*
+	x11-libs/libXinerama
 	x11-libs/libXxf86vm
 	x11-libs/libdrm
 	x11-libs/libxshmfence
 	x11-libs/startup-notification
 	x11-libs/xcb-util
 	x11-themes/hicolor-icon-theme
-	x11-libs/libXinerama
 	!app-emulation/vmware-player
 	!app-emulation/vmware-tools
 "
