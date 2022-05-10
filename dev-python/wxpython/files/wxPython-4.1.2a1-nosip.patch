@@ -1,0 +1,19 @@
+diff -ur wxPython-4.1.2a1.dev5330+3e6be81d.orig/build.py wxPython-4.1.2a1.dev5330+3e6be81d/build.py
+--- wxPython-4.1.2a1.dev5330+3e6be81d.orig/build.py	2022-05-10 08:12:14.000000000 +0200
++++ wxPython-4.1.2a1.dev5330+3e6be81d/build.py	2022-05-10 19:48:51.849061860 +0200
+@@ -46,7 +46,6 @@
+                                getVcsRev, runcmd, textfile_open, getSipFiles, \
+                                getVisCVersion, getToolsPlatformName, updateLicenseFiles, \
+                                TemporaryDirectory
+-from buildtools.wxpysip import sip_runner
+ 
+ import buildtools.version as version
+ 
+@@ -1249,6 +1248,7 @@
+ 
+ 
+ def cmd_sip(options, args):
++    from buildtools.wxpysip import sip_runner
+     cmdTimer = CommandTimer('sip')
+     cfg = Config()
+     pwd = pushDir(cfg.ROOT_DIR)
