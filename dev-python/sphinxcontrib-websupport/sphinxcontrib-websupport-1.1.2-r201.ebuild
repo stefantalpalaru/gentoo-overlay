@@ -1,7 +1,7 @@
-# Copyright 1999-2021 Gentoo Authors
+# Copyright 1999-2022 Gentoo Authors
 # Distributed under the terms of the GNU General Public License v2
 
-EAPI=7
+EAPI=8
 PYTHON_COMPAT=( python2_7 )
 
 inherit distutils-r1
@@ -20,7 +20,6 @@ RDEPEND="
 	>=dev-python/sqlalchemy-0.9:python2[${PYTHON_USEDEP}]
 	>=dev-python/whoosh-2.0:python2[${PYTHON_USEDEP}]
 	>=dev-python/six-1.5:python2[${PYTHON_USEDEP}]
-	dev-python/namespace-sphinxcontrib:python2[${PYTHON_USEDEP}]
 	!<dev-python/sphinxcontrib-websupport-1.1.2-r200[${PYTHON_USEDEP}]
 "
 # avoid circular dependency with sphinx

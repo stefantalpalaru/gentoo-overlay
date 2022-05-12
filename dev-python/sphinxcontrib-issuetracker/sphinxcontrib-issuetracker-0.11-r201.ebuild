@@ -1,7 +1,7 @@
-# Copyright 1999-2021 Gentoo Authors
+# Copyright 1999-2022 Gentoo Authors
 # Distributed under the terms of the GNU General Public License v2
 
-EAPI=7
+EAPI=8
 
 PYTHON_COMPAT=( python2_7 )
 
@@ -18,7 +18,6 @@ IUSE="doc test"
 RESTRICT="!test? ( test )"
 
 RDEPEND="
-	dev-python/namespace-sphinxcontrib:python2[${PYTHON_USEDEP}]
 	dev-python/requests:python2[${PYTHON_USEDEP}]
 	dev-python/sphinx:python2[${PYTHON_USEDEP}]
 	!<dev-python/sphinxcontrib-issuetracker-0.11-r200[${PYTHON_USEDEP}]

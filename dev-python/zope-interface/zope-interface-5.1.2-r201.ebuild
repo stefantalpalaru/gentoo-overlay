@@ -1,7 +1,7 @@
-# Copyright 1999-2021 Gentoo Authors
+# Copyright 1999-2022 Gentoo Authors
 # Distributed under the terms of the GNU General Public License v2
 
-EAPI=7
+EAPI=8
 
 # pkg_resources namespace
 DISTUTILS_USE_SETUPTOOLS=rdepend
@@ -21,7 +21,7 @@ LICENSE="ZPL"
 SLOT="python2"
 KEYWORDS="~alpha ~amd64 ~arm ~arm64 ~hppa ~ia64 ~m68k ~mips ~ppc ~ppc64 ~riscv ~s390 ~sparc ~x86 ~amd64-linux ~x86-linux ~ppc-macos ~x64-macos ~sparc-solaris ~sparc64-solaris ~x64-solaris ~x86-solaris"
 
-RDEPEND="dev-python/namespace-zope[${PYTHON_USEDEP}]
+RDEPEND="
 	!<dev-python/zope-interface-5.1.2-r200[${PYTHON_USEDEP}]
 "
 BDEPEND="
@@ -49,6 +49,5 @@ python_compile() {
 python_install_all() {
 	distutils-r1_python_install_all
 
-	# remove .pth files since dev-python/namespace-zope handles the ns
 	find "${D}" -name '*.pth' -delete || die
 }

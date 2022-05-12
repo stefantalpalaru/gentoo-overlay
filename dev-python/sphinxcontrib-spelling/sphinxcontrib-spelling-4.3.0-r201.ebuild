@@ -1,7 +1,7 @@
-# Copyright 1999-2021 Gentoo Authors
+# Copyright 1999-2022 Gentoo Authors
 # Distributed under the terms of the GNU General Public License v2
 
-EAPI=7
+EAPI=8
 PYTHON_COMPAT=( python2_7 )
 
 inherit distutils-r1
@@ -32,7 +32,6 @@ DEPEND="
 	)
 "
 RDEPEND="${COMMON_DEPEND}
-	dev-python/namespace-sphinxcontrib[${PYTHON_USEDEP}]
 	!<dev-python/sphinxcontrib-spelling-4.3.0-r200[${PYTHON_USEDEP}]
 "
 
