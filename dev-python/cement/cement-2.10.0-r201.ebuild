@@ -1,4 +1,4 @@
-# Copyright 1999-2021 Gentoo Authors
+# Copyright 1999-2022 Gentoo Authors
 # Distributed under the terms of the GNU General Public License v2
 
 EAPI=7
@@ -17,7 +17,7 @@ KEYWORDS="~amd64 ~x86"
 IUSE="test doc examples"
 
 RDEPEND="
-	dev-python/pystache[${PYTHON_USEDEP}]
+	dev-python/pystache:python2[${PYTHON_USEDEP}]
 	dev-python/pyyaml:python2[${PYTHON_USEDEP}]
 	dev-python/configobj:python2[${PYTHON_USEDEP}]
 	dev-python/pylibmc:python2[${PYTHON_USEDEP}]

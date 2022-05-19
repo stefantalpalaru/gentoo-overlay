@@ -1,7 +1,7 @@
-# Copyright 1999-2020 Gentoo Authors
+# Copyright 1999-2022 Gentoo Authors
 # Distributed under the terms of the GNU General Public License v2
 
-EAPI=6
+EAPI=7
 
 # this could be a multiple python package
 # but the way it is packaged makes it very time consuming.
@@ -24,9 +24,9 @@ REQUIRED_USE="${PYTHON_REQUIRED_USE}"
 
 RDEPEND="
 	$(python_gen_cond_dep '
-	dev-python/astropy[${PYTHON_MULTI_USEDEP}]
-	dev-python/fitsio[${PYTHON_MULTI_USEDEP}]
-	dev-python/numpy-python2[${PYTHON_MULTI_USEDEP}]
+		dev-python/astropy[${PYTHON_USEDEP}]
+		dev-python/fitsio[${PYTHON_USEDEP}]
+		dev-python/numpy-python2[${PYTHON_USEDEP}]
 	')
 	media-libs/libpng:0
 	media-libs/netpbm

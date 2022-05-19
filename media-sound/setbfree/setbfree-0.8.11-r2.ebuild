@@ -1,16 +1,16 @@
-# Copyright 1999-2021 Gentoo Authors
+# Copyright 1999-2022 Gentoo Authors
 # Distributed under the terms of the GNU General Public License v2
 
 EAPI=7
-inherit desktop eutils toolchain-funcs multilib git-r3
+inherit desktop eutils toolchain-funcs multilib
 
 DESCRIPTION="MIDI controlled DSP tonewheel organ"
 HOMEPAGE="http://setbfree.org"
-EGIT_REPO_URI="https://github.com/pantherb/setBfree.git"
+SRC_URI="https://github.com/pantherb/setBfree/archive/v${PV}.tar.gz -> ${P}.tar.gz"
 
 LICENSE="GPL-2"
 SLOT="0"
-KEYWORDS=""
+KEYWORDS="~amd64 ~x86"
 IUSE=""
 
 RDEPEND="dev-lang/tcl:0
@@ -21,7 +21,7 @@ RDEPEND="dev-lang/tcl:0
 	media-libs/ftgl
 	media-libs/liblo
 	media-libs/lv2
-	media-libs/mesa
+	media-libs/mesa:0
 "
 DEPEND="${RDEPEND}
 	sys-apps/help2man
@@ -29,9 +29,11 @@ DEPEND="${RDEPEND}
 
 DOCS=(ChangeLog README.md)
 PATCHES=(
-	"${FILESDIR}/${PN}-multilib-strict-and-cflags-${PV}.patch"
+	"${FILESDIR}/${PN}-multilib-strict-and-cflags-99999999.patch"
 	"${FILESDIR}"/setbfree-0.8.11-gl.patch
 )
+
+S="${WORKDIR}/setBfree-${PV}"
 
 src_compile() {
 	tc-export CC CXX

@@ -65,7 +65,7 @@ IUSE="${IUSE} bcmath berkdb bzip2 calendar cdb cjk
 	flatfile ftp gd gdbm gmp +hash +iconv imap inifile
 	intl iodbc ipv6 +json kerberos ldap ldap-sasl libedit mhash
 	mssql mysql mysqli nls
-	oci8-instant-client odbc pcntl pdo +phar +posix postgres qdbm
+	odbc pcntl pdo +phar +posix postgres qdbm
 	readline recode selinux +session sharedmem
 	+simplexml snmp soap sockets spell sqlite ssl
 	sybase-ct sysvipc tidy +tokenizer truetype unicode wddx
@@ -105,7 +105,6 @@ DEPEND="
 	libedit? ( dev-libs/libedit )
 	mssql? ( dev-db/freetds[mssql] )
 	nls? ( sys-devel/gettext )
-	oci8-instant-client? ( dev-db/oracle-instantclient-basic )
 	odbc? ( >=dev-db/unixODBC-1.8.13 )
 	postgres? ( dev-db/postgresql:* )
 	qdbm? ( dev-db/qdbm )
@@ -476,12 +475,6 @@ src_configure() {
 		$(use_with iodbc iodbc /usr)"
 	fi
 
-	# Oracle support
-	if use oci8-instant-client ; then
-		my_conf+="
-		$(use_with oci8-instant-client oci8)"
-	fi
-
 	# PDO support
 	if use pdo ; then
 		my_conf+="
@@ -490,10 +483,6 @@ src_configure() {
 		$(use_with postgres pdo-pgsql )
 		$(use_with sqlite pdo-sqlite /usr)
 		$(use_with odbc pdo-odbc unixODBC,/usr)"
-		if use oci8-instant-client ; then
-			my_conf+="
-			$(use_with oci8-instant-client pdo-oci)"
-		fi
 	fi
 
 	# readline/libedit support
@@ -522,6 +511,8 @@ src_configure() {
 	# Fixes bug #14067.
 	# Changed order to run it in reverse for bug #32022 and #12021.
 	replace-cpu-flags "k6*" "i586"
+
+	append-flags "-DTRUE=1 -DFALSE=0"
 
 	# Support user-passed configuration parameters
 	my_conf="${my_conf} ${EXTRA_ECONF:-}"

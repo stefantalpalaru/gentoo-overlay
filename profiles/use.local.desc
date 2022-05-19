@@ -202,6 +202,7 @@ net-wireless/cubicsdr:plutosdr - Add support for Analog Devices ADALM-PLUTO hard
 net-wireless/cubicsdr:rtlsdr - Add support for rtlsdr hardware
 net-wireless/cubicsdr:uhd - Add support for Ettus USRP hardware
 sci-astronomy/casacore:data - Installs measures and data (pulls sci-astronomy/casa-data)
+sci-astronomy/healpix:idl - Install healpix IDL/GDL routines
 sci-libs/gdal:armadillo - Use sci-libs/armadillo for faster TPS transform computation
 sci-libs/gdal:aux-xml - Enable Portable Auxilliary Metadata generation
 sci-libs/gdal:fits - Enable support for NASA's sci-libs/cfitsio library

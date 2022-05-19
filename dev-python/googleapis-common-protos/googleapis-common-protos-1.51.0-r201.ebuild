@@ -1,4 +1,4 @@
-# Copyright 2020-2021 Gentoo Authors
+# Copyright 2020-2022 Gentoo Authors
 # Distributed under the terms of the GNU General Public License v2
 
 EAPI=7
@@ -15,7 +15,6 @@ SLOT="python2"
 KEYWORDS="~amd64 ~arm64 ~x86"
 
 RDEPEND="
-	dev-python/namespace-google[${PYTHON_USEDEP}]
 	dev-python/protobuf-python[${PYTHON_USEDEP}]
 	!<dev-python/googleapis-common-protos-1.51.0-r200[${PYTHON_USEDEP}]
 "

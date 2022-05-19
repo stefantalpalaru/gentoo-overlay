@@ -1,4 +1,4 @@
-# Copyright 1999-2021 Gentoo Authors
+# Copyright 1999-2022 Gentoo Authors
 # Distributed under the terms of the GNU General Public License v2
 
 EAPI=7
@@ -18,7 +18,6 @@ SLOT="python2"
 KEYWORDS="~amd64 ~arm64 ~x86"
 
 RDEPEND="
-	dev-python/namespace-repoze[${PYTHON_USEDEP}]
 	dev-python/sphinx:python2[${PYTHON_USEDEP}]
 	dev-python/zope-interface:python2[${PYTHON_USEDEP}]
 	!<dev-python/repoze-sphinx-autointerface-0.8-r2[${PYTHON_USEDEP}]

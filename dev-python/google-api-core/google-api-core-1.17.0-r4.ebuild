@@ -1,4 +1,4 @@
-# Copyright 2020-2021 Gentoo Authors
+# Copyright 2020-2022 Gentoo Authors
 # Distributed under the terms of the GNU General Public License v2
 
 EAPI=7
@@ -18,7 +18,6 @@ KEYWORDS="~amd64 ~arm64 ~x86"
 IUSE="test"
 
 RDEPEND="
-	dev-python/namespace-google[${PYTHON_USEDEP}]
 	dev-python/protobuf-python[${PYTHON_USEDEP}]
 	dev-python/googleapis-common-protos[${PYTHON_USEDEP}]
 	>=dev-python/google-auth-1.14.0[${PYTHON_USEDEP}]

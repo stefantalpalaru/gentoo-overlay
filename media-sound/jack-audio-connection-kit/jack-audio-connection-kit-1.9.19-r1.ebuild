@@ -1,7 +1,7 @@
-# Copyright 1999-2020 Gentoo Authors
+# Copyright 1999-2022 Gentoo Authors
 # Distributed under the terms of the GNU General Public License v2
 
-EAPI=6
+EAPI=7
 
 PYTHON_COMPAT=( python3_{8..10} )
 PYTHON_REQ_USE="threads(+)"
@@ -44,7 +44,7 @@ DEPEND="${CDEPEND}
 	doc? ( app-doc/doxygen )"
 RDEPEND="${CDEPEND}
 	$(python_gen_cond_dep '
-	dbus? ( dev-python/dbus-python[${PYTHON_MULTI_USEDEP}] )
+		dbus? ( dev-python/dbus-python[${PYTHON_USEDEP}] )
 	')
 	pam? ( sys-auth/realtime-base )
 	!!media-sound/jack-audio-connection-kit:0

@@ -1,4 +1,4 @@
-# Copyright 1999-2021 Gentoo Authors
+# Copyright 1999-2022 Gentoo Authors
 # Distributed under the terms of the GNU General Public License v2
 
 EAPI=7
@@ -25,9 +25,9 @@ DEPEND="${PYTHON_DEPS}
 
 RDEPEND="${DEPEND}
 	$(python_gen_cond_dep '
-	dev-python/pygobject:2[${PYTHON_MULTI_USEDEP}]
-	dev-python/pygtk:2[${PYTHON_MULTI_USEDEP}]
-	dev-python/py-notify[${PYTHON_MULTI_USEDEP}]
+		dev-python/pygobject:2[${PYTHON_USEDEP}]
+		dev-python/pygtk:2[${PYTHON_USEDEP}]
+		dev-python/py-notify[${PYTHON_USEDEP}]
 	')
 	x11-apps/xinput"
 

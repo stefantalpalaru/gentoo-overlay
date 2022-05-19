@@ -1,4 +1,4 @@
-# Copyright 2008-2021 Gentoo Authors
+# Copyright 2008-2022 Gentoo Authors
 # Distributed under the terms of the GNU General Public License v2
 
 EAPI=7
@@ -19,7 +19,6 @@ IUSE=""
 
 BDEPEND="${PYTHON_DEPS}
 	~dev-libs/protobuf-${PV}
-	dev-python/namespace-google[${PYTHON_USEDEP}]
 	dev-python/six[${PYTHON_USEDEP}]"
 DEPEND="${PYTHON_DEPS}
 	~dev-libs/protobuf-${PV}"
