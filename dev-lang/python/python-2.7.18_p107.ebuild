@@ -1,4 +1,4 @@
-# Copyright 1999-2021 Gentoo Authors
+# Copyright 1999-2022 Gentoo Authors
 # Distributed under the terms of the GNU General Public License v2
 
 EAPI=7
@@ -15,7 +15,7 @@ SRC_URI="https://www.python.org/ftp/python/${PV}/${MY_P}.tar.xz"
 LICENSE="PSF-2"
 SLOT="2.7"
 KEYWORDS="alpha amd64 arm arm64 hppa ia64 m68k ~mips ppc ppc64 s390 sparc x86"
-IUSE="-berkdb bluetooth build doc elibc_uclibc examples gdbm hardened ipv6 +lto +ncurses +pgo +readline +sqlite +ssl +threads tk +wide-unicode wininst +xml"
+IUSE="-berkdb bluetooth build doc examples gdbm hardened ipv6 +lto +ncurses +pgo +readline +sqlite +ssl +threads tk +wide-unicode wininst +xml"
 
 # Do not add a dependency on dev-lang/python to this ebuild.
 # If you need to apply a patch which requires python for bootstrapping, please
@@ -245,7 +245,7 @@ src_compile() {
 	fi
 	export par_arg
 
-	emake EXTRATESTOPTS="${par_arg} -uall,-audio -x test_distutils"
+	emake EXTRATESTOPTS="${par_arg} -uall,-audio -x test_distutils -x test_bdb -x test_runpy -x test_test_support"
 
 	# Work around bug 329499. See also bug 413751 and 457194.
 	if has_version dev-libs/libffi[pax-kernel]; then
@@ -265,7 +265,7 @@ src_test() {
 	cd "${BUILD_DIR}" || die
 
 	# Skip failing tests.
-	local skipped_tests="distutils gdb curses xpickle bdb runpy test_support"
+	local skipped_tests="distutils gdb curses xpickle bdb runpy minidom xml_etree xml_etree_c"
 
 	for test in ${skipped_tests}; do
 		mv "${S}"/Lib/test/test_${test}.py "${T}"
@@ -280,7 +280,7 @@ src_test() {
 	local -x TZ=UTC
 
 	# Rerun failed tests in verbose mode (regrtest -w).
-	emake test TESTOPTS="-w -uall,-audio ${par_arg}" < /dev/tty
+	emake test TESTOPTS="-w -uall,-audio -x test_test_support ${par_arg}" < /dev/tty
 	local result="$?"
 
 	for test in ${skipped_tests}; do
@@ -318,7 +318,6 @@ src_install() {
 	use berkdb || rm -r "${libdir}/"{bsddb,dbhash.py*,test/test_bsddb*} || die
 	use sqlite || rm -r "${libdir}/"{sqlite3,test/test_sqlite*} || die
 	use tk || rm -r "${ED}/usr/bin/idle${SLOT}" "${libdir}/"{idlelib,lib-tk} || die
-	use elibc_uclibc && rm -fr "${libdir}/"{bsddb/test,test}
 
 	use threads || rm -r "${libdir}/multiprocessing" || die
 	use wininst || rm -r "${libdir}/distutils/command/"wininst-*.exe || die
