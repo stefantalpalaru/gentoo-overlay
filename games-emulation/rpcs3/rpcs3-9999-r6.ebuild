@@ -10,10 +10,10 @@ DESCRIPTION="PlayStation 3 emulator"
 HOMEPAGE="https://rpcs3.net/"
 EGIT_REPO_URI="https://github.com/RPCS3/rpcs3"
 KEYWORDS=""
-
 LICENSE="GPL-2"
 SLOT="0"
 IUSE="alsa joystick +llvm pulseaudio vulkan"
+RESTRICT="network-sandbox"
 
 RDEPEND="
 	>=dev-libs/pugixml-1.11
