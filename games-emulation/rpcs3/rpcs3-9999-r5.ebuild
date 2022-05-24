@@ -1,4 +1,4 @@
-# Copyright 1999-2021 Gentoo Authors
+# Copyright 1999-2022 Gentoo Authors
 # Distributed under the terms of the GNU General Public License v2
 
 EAPI=7
@@ -16,9 +16,11 @@ SLOT="0"
 IUSE="alsa joystick +llvm pulseaudio vulkan"
 
 RDEPEND="
+	>=dev-libs/pugixml-1.11
 	>=dev-qt/qtcore-5.15.2
 	>=dev-qt/qtdbus-5.15.2
 	>=dev-qt/qtgui-5.15.2
+	>=dev-qt/qtsvg-5.15.2
 	>=dev-qt/qtwidgets-5.15.2
 	alsa? ( media-libs/alsa-lib )
 	sys-devel/gdb
@@ -44,6 +46,7 @@ EGIT_SUBMODULES=(
 	"-3rdparty/curl"
 	"-3rdparty/ffmpeg"
 	"-3rdparty/libpng"
+	"-3rdparty/pugixml"
 	"-3rdparty/zlib"
 )
 
@@ -56,6 +59,9 @@ src_prepare() {
 	sed -i \
 		-e 's/DEBUG|RELEASE|RELWITHDEBINFO|MINSIZEREL/DEBUG|RELEASE|RELWITHDEBINFO|MINSIZEREL|GENTOO/' \
 		llvm/CMakeLists.txt
+	sed -i \
+		-e '/-Werror/d' \
+		buildfiles/cmake/ConfigureCompiler.cmake
 
 	cmake_src_prepare
 }
@@ -66,6 +72,7 @@ src_configure() {
 		-DUSE_NATIVE_INSTRUCTIONS=OFF
 		-DWITH_LLVM=$(usex llvm ON OFF)
 		-DUSE_ALSA=$(usex alsa ON OFF)
+		-DUSE_DISCORD_RPC=OFF
 		-DUSE_PULSE=$(usex pulseaudio ON OFF)
 		-DUSE_FAUDIO=OFF
 		-DUSE_LIBEVDEV=$(usex joystick ON OFF)
@@ -74,6 +81,7 @@ src_configure() {
 		-DUSE_SYSTEM_LIBPNG=ON
 		-DUSE_SYSTEM_FFMPEG=ON
 		-DUSE_SYSTEM_CURL=ON
+		-DUSE_SYSTEM_PUGIXML=ON
 		-DCMAKE_C_FLAGS="${CFLAGS}"
 		-DCMAKE_C_FLAGS_GENTOO="${CFLAGS}"
 		-DCMAKE_CXX_FLAGS="${CXXFLAGS}"
