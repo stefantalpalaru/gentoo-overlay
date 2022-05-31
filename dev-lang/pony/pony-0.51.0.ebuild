@@ -1,4 +1,4 @@
-# Copyright 2014-2021 Gentoo Authors
+# Copyright 2014-2022 Gentoo Authors
 # Distributed under the terms of the GNU General Public License v2
 
 EAPI=7
@@ -16,7 +16,7 @@ LICENSE="BSD-2"
 SLOT="0"
 KEYWORDS="~amd64 ~x86"
 IUSE="test vim-syntax"
-RESTRICT="strip"
+RESTRICT="strip network-sandbox"
 
 RDEPEND="
 	sys-libs/zlib
