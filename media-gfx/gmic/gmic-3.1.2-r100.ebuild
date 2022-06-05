@@ -1,29 +1,22 @@
-# Copyright 1999-2020 Gentoo Authors
+# Copyright 1999-2022 Gentoo Authors
 # Distributed under the terms of the GNU General Public License v2
 
-EAPI=7
+EAPI=8
 CMAKE_MAKEFILE_GENERATOR="emake"
 CMAKE_BUILD_TYPE=Release
-#CMAKE_MIN_VERSION="3.12.1"
 
 inherit bash-completion-r1 cmake
 
 DESCRIPTION="GREYC's Magic Image Converter"
 HOMEPAGE="http://gmic.eu/ https://github.com/dtschump/gmic https://framagit.org/dtschump/gmic"
 GMIC_QT_URI="https://github.com/c-koi/gmic-qt/archive/v.${PV}.tar.gz -> gmic-qt-${PV}.tar.gz"
-if [[ ${PV} == "9999" ]]; then
-	EGIT_REPO_URI="https://github.com/dtschump/gmic.git"
-	EGIT_REPO_URI_2="https://github.com/c-koi/gmic-qt.git"
-	inherit git-r3
-else
-	SRC_URI="https://github.com/dtschump/gmic/archive/v.${PV}.tar.gz -> ${P}.tar.gz
-		https://gmic.eu/gmic_stdlib$(ver_rs 1- '').h
-		gimp? ( ${GMIC_QT_URI} )
-		gui? ( ${GMIC_QT_URI} )
-		krita? ( ${GMIC_QT_URI} )
-	"
-	KEYWORDS="~amd64 ~x86"
-fi
+SRC_URI="https://github.com/dtschump/gmic/archive/v.${PV}.tar.gz -> ${P}.tar.gz
+	https://gmic.eu/gmic_stdlib$(ver_rs 1- '').h
+	gimp? ( ${GMIC_QT_URI} )
+	gui? ( ${GMIC_QT_URI} )
+	krita? ( ${GMIC_QT_URI} )
+"
+KEYWORDS="~amd64 ~x86"
 LICENSE="CeCILL-2 GPL-3"
 SLOT="0"
 IUSE="bash-completion +cli ffmpeg fftw gimp graphicsmagick gui jpeg krita opencv openexr openmp png static-libs tiff X"
@@ -48,13 +41,13 @@ COMMON_DEPEND="
 	)
 	graphicsmagick? ( media-gfx/graphicsmagick:0= )
 	gui? ( ${QT_DEPS} )
-	jpeg? ( virtual/jpeg:0 )
+	jpeg? ( media-libs/libjpeg-turbo:0 )
 	krita? ( ${QT_DEPS} )
 	~media-libs/cimg-${PV}
 	net-misc/curl
 	opencv? ( >=media-libs/opencv-2.3.1a-r1:0= )
 	openexr? (
-		media-libs/ilmbase:0=
+		dev-libs/imath:=
 		media-libs/openexr:0=
 	)
 	png? ( media-libs/libpng:0= )
@@ -75,13 +68,8 @@ DEPEND="${COMMON_DEPEND}
 	virtual/pkgconfig
 "
 
-if [[ ${PV} == "9999" ]]; then
-	GMIC_QT_DIR="gmic-qt"
-	S="${WORKDIR}/${PN}"
-else
-	GMIC_QT_DIR="gmic-qt-v.${PV}"
-	S="${WORKDIR}/${PN}-v.${PV}"
-fi
+GMIC_QT_DIR="gmic-qt-v.${PV}"
+S="${WORKDIR}/${PN}-v.${PV}"
 
 pkg_pretend() {
 	if use openmp ; then
@@ -93,29 +81,13 @@ pkg_pretend() {
 	fi
 }
 
-if [[ ${PV} == "9999" ]]; then
-	src_unpack() {
-		EGIT_CHECKOUT_DIR="${S}"
-		git-r3_src_unpack
-
-		if use gimp || use gui || use krita; then
-			EGIT_REPO_URI="${EGIT_REPO_URI_2}"
-			EGIT_CHECKOUT_DIR="${WORKDIR}/${GMIC_QT_DIR}"
-			git-r3_src_unpack
-		fi
-	}
-fi
-
 src_prepare() {
-	if [[ ${PV} != "9999" ]]; then
-		ln -s "${EPREFIX}"/usr/include/CImg.h ./src/ || die
-		cp -a "${DISTDIR}/gmic_stdlib$(ver_rs 1- '').h" src/gmic_stdlib.h || die
-	fi
+	ln -s "${EPREFIX}"/usr/include/CImg.h ./src/ || die
+	cp -a "${DISTDIR}/gmic_stdlib$(ver_rs 1- '').h" src/gmic_stdlib.h || die
+	mv resources/{cmake,CMakeLists.txt} . || die "can't move CMake files"
 	cmake_src_prepare
 
-	if [[ ${PV} != "9999" ]]; then
-		ln -sr ../${PN}-v.${PV} ../${PN}
-	fi
+	ln -sr ../${PN}-v.${PV} ../${PN}
 
 	if use gimp || use gui || use krita; then
 		sed -i \
@@ -148,7 +120,6 @@ src_configure() {
 		-DCUSTOM_CFLAGS=ON
 	)
 
-	CMAKE_USE_DIR=${S}
 	cmake_src_configure
 
 	# gmic-qt
@@ -217,7 +188,9 @@ src_install() {
 	# using the installed "gmic.h".
 	sed -i -e '/^#define cimg.*_plugin/d' "${ED}/usr/include/gmic.h" || die "sed failed"
 
-	use cli && use bash-completion && newbashcomp "${WORKDIR}/${P}_build/resources/${PN}_bashcompletion.sh" ${PN}
+	rm "${ED}/usr/include/CImg.h" || die "can't delete CImg.h"
+
+	use cli && use bash-completion && newbashcomp "${WORKDIR}/${PN}-v.${PV}_build/resources/${PN}_bashcompletion.sh" ${PN}
 
 	# gmic-qt
 	if use gimp; then
