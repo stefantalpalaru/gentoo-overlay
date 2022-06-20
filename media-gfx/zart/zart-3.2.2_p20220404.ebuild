@@ -7,7 +7,7 @@ inherit flag-o-matic qmake-utils
 
 DESCRIPTION="G'MIC GUI for video streams"
 HOMEPAGE="https://github.com/c-koi/zart"
-ZART_COMMIT="939cf381c5871e506aabd066037acf2b55143c1d"
+ZART_COMMIT="ac29dcbcaba778060053480f3e5e7692e42a5338"
 SRC_URI="https://github.com/c-koi/zart/archive/${ZART_COMMIT}.zip -> ${P}.zip"
 
 LICENSE="CeCILL-2"
@@ -44,6 +44,8 @@ pkg_pretend() {
 }
 
 src_configure() {
+	# https://github.com/c-koi/zart/issues/21
+	append-cxxflags -Dgmic_core
 	eqmake5 GMIC_DYNAMIC_LINKING=on zart.pro
 }
 

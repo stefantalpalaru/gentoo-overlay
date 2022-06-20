@@ -1,0 +1,1906 @@
+ * Package:    media-gfx/zart-3.2.2_p20220404
+ * Repository: stefantalpalaru
+ * Maintainer: stefantalpalaru@yahoo.com
+ * USE:        abi_x86_64 amd64 elibc_glibc kernel_linux userland_GNU
+ * FEATURES:   network-sandbox preserve-libs sandbox userpriv usersandbox
+ * Package:    media-gfx/zart-3.2.2_p20220404
+ * Repository: stefantalpalaru
+ * Maintainer: stefantalpalaru@yahoo.com
+ * USE:        abi_x86_64 amd64 elibc_glibc kernel_linux userland_GNU
+ * FEATURES:   network-sandbox preserve-libs sandbox userpriv usersandbox
+>>> Unpacking source...
+>>> Unpacking zart-3.2.2_p20220404.zip to /var/tmp/portage/media-gfx/zart-3.2.2_p20220404/work
+>>> Source unpacked in /var/tmp/portage/media-gfx/zart-3.2.2_p20220404/work
+>>> Preparing source in /var/tmp/portage/media-gfx/zart-3.2.2_p20220404/work/zart-ac29dcbcaba778060053480f3e5e7692e42a5338 ...
+ * Applying zart-3.2.2-dynamic-linking-r2.patch ...
+ [ ok ]
+>>> Source prepared.
+>>> Configuring source in /var/tmp/portage/media-gfx/zart-3.2.2_p20220404/work/zart-ac29dcbcaba778060053480f3e5e7692e42a5338 ...
+ * Running qmake ...
+Info: creating stash file /var/tmp/portage/media-gfx/zart-3.2.2_p20220404/work/zart-ac29dcbcaba778060053480f3e5e7692e42a5338/.qmake.stash
+Project MESSAGE: G'MIC header was found (/gmic.h)
+Project MESSAGE: Dynamic linking with libgmic
+Project MESSAGE: v4l2 header file videodev2.h is available
+Project MESSAGE: Release build
+WARNING: Failure to find: /gmic.h
+WARNING: Failure to find: /CImg.h
+ [ ok ]
+>>> Source configured.
+>>> Compiling source in /var/tmp/portage/media-gfx/zart-3.2.2_p20220404/work/zart-ac29dcbcaba778060053480f3e5e7692e42a5338 ...
+make -j8 
+/usr/lib64/qt5/bin/uic ui/MainWindow.ui -o .ui/ui_MainWindow.h
+/usr/lib64/qt5/bin/uic ui/DialogAbout.ui -o .ui/ui_DialogAbout.h
+/usr/lib64/qt5/bin/uic ui/DialogLicense.ui -o .ui/ui_DialogLicense.h
+/usr/lib64/qt5/bin/uic ui/FullScreenWidget.ui -o .ui/ui_FullScreenWidget.h
+/usr/lib64/qt5/bin/uic ui/OutputWindow.ui -o .ui/ui_OutputWindow.h
+x86_64-pc-linux-gnu-g++ -c -O3 -march=native -mno-lwp -pipe -fopenmp -std=gnu++11 -Wall -Wextra -D_REENTRANT -fPIC -Dcimg_use_fftw3 -Dcimg_use_zlib -DQT_DEPRECATED_WARNINGS -Dcimg_use_openmp -DHAS_V4L2 -Dgmic_is_parallel -Dcimg_use_abort -DQT_NO_DEBUG_OUTPUT -D_IS_UNIX_ -Dcimg_display=0 -DQT_NO_DEBUG -DQT_WIDGETS_LIB -DQT_GUI_LIB -DQT_XML_LIB -DQT_NETWORK_LIB -DQT_CORE_LIB -I. -I. -Iinclude -I/usr/include/opencv4 -I/usr/include/qt5 -I/usr/include/qt5/QtWidgets -I/usr/include/qt5/QtGui -I/usr/include/qt5/QtXml -I/usr/include/qt5/QtNetwork -I/usr/include/qt5/QtCore -I.moc -I/usr/include/libdrm -I.ui -I/usr/lib64/qt5/mkspecs/linux-g++ -o .obj/ImageView.o src/ImageView.cpp
+x86_64-pc-linux-gnu-g++ -c -O3 -march=native -mno-lwp -pipe -fopenmp -std=gnu++11 -Wall -Wextra -D_REENTRANT -fPIC -Dcimg_use_fftw3 -Dcimg_use_zlib -DQT_DEPRECATED_WARNINGS -Dcimg_use_openmp -DHAS_V4L2 -Dgmic_is_parallel -Dcimg_use_abort -DQT_NO_DEBUG_OUTPUT -D_IS_UNIX_ -Dcimg_display=0 -DQT_NO_DEBUG -DQT_WIDGETS_LIB -DQT_GUI_LIB -DQT_XML_LIB -DQT_NETWORK_LIB -DQT_CORE_LIB -I. -I. -Iinclude -I/usr/include/opencv4 -I/usr/include/qt5 -I/usr/include/qt5/QtWidgets -I/usr/include/qt5/QtGui -I/usr/include/qt5/QtXml -I/usr/include/qt5/QtNetwork -I/usr/include/qt5/QtCore -I.moc -I/usr/include/libdrm -I.ui -I/usr/lib64/qt5/mkspecs/linux-g++ -o .obj/FilterThread.o src/FilterThread.cpp
+x86_64-pc-linux-gnu-g++ -c -O3 -march=native -mno-lwp -pipe -fopenmp -std=gnu++11 -Wall -Wextra -D_REENTRANT -fPIC -Dcimg_use_fftw3 -Dcimg_use_zlib -DQT_DEPRECATED_WARNINGS -Dcimg_use_openmp -DHAS_V4L2 -Dgmic_is_parallel -Dcimg_use_abort -DQT_NO_DEBUG_OUTPUT -D_IS_UNIX_ -Dcimg_display=0 -DQT_NO_DEBUG -DQT_WIDGETS_LIB -DQT_GUI_LIB -DQT_XML_LIB -DQT_NETWORK_LIB -DQT_CORE_LIB -I. -I. -Iinclude -I/usr/include/opencv4 -I/usr/include/qt5 -I/usr/include/qt5/QtWidgets -I/usr/include/qt5/QtGui -I/usr/include/qt5/QtXml -I/usr/include/qt5/QtNetwork -I/usr/include/qt5/QtCore -I.moc -I/usr/include/libdrm -I.ui -I/usr/lib64/qt5/mkspecs/linux-g++ -o .obj/CommandEditor.o src/CommandEditor.cpp
+x86_64-pc-linux-gnu-g++ -c -O3 -march=native -mno-lwp -pipe -fopenmp -std=gnu++11 -Wall -Wextra -D_REENTRANT -fPIC -Dcimg_use_fftw3 -Dcimg_use_zlib -DQT_DEPRECATED_WARNINGS -Dcimg_use_openmp -DHAS_V4L2 -Dgmic_is_parallel -Dcimg_use_abort -DQT_NO_DEBUG_OUTPUT -D_IS_UNIX_ -Dcimg_display=0 -DQT_NO_DEBUG -DQT_WIDGETS_LIB -DQT_GUI_LIB -DQT_XML_LIB -DQT_NETWORK_LIB -DQT_CORE_LIB -I. -I. -Iinclude -I/usr/include/opencv4 -I/usr/include/qt5 -I/usr/include/qt5/QtWidgets -I/usr/include/qt5/QtGui -I/usr/include/qt5/QtXml -I/usr/include/qt5/QtNetwork -I/usr/include/qt5/QtCore -I.moc -I/usr/include/libdrm -I.ui -I/usr/lib64/qt5/mkspecs/linux-g++ -o .obj/ImageConverter.o src/ImageConverter.cpp
+x86_64-pc-linux-gnu-g++ -c -O3 -march=native -mno-lwp -pipe -fopenmp -std=gnu++11 -Wall -Wextra -D_REENTRANT -fPIC -Dcimg_use_fftw3 -Dcimg_use_zlib -DQT_DEPRECATED_WARNINGS -Dcimg_use_openmp -DHAS_V4L2 -Dgmic_is_parallel -Dcimg_use_abort -DQT_NO_DEBUG_OUTPUT -D_IS_UNIX_ -Dcimg_display=0 -DQT_NO_DEBUG -DQT_WIDGETS_LIB -DQT_GUI_LIB -DQT_XML_LIB -DQT_NETWORK_LIB -DQT_CORE_LIB -I. -I. -Iinclude -I/usr/include/opencv4 -I/usr/include/qt5 -I/usr/include/qt5/QtWidgets -I/usr/include/qt5/QtGui -I/usr/include/qt5/QtXml -I/usr/include/qt5/QtNetwork -I/usr/include/qt5/QtCore -I.moc -I/usr/include/libdrm -I.ui -I/usr/lib64/qt5/mkspecs/linux-g++ -o .obj/DialogLicense.o src/DialogLicense.cpp
+x86_64-pc-linux-gnu-g++ -c -O3 -march=native -mno-lwp -pipe -fopenmp -std=gnu++11 -Wall -Wextra -D_REENTRANT -fPIC -Dcimg_use_fftw3 -Dcimg_use_zlib -DQT_DEPRECATED_WARNINGS -Dcimg_use_openmp -DHAS_V4L2 -Dgmic_is_parallel -Dcimg_use_abort -DQT_NO_DEBUG_OUTPUT -D_IS_UNIX_ -Dcimg_display=0 -DQT_NO_DEBUG -DQT_WIDGETS_LIB -DQT_GUI_LIB -DQT_XML_LIB -DQT_NETWORK_LIB -DQT_CORE_LIB -I. -I. -Iinclude -I/usr/include/opencv4 -I/usr/include/qt5 -I/usr/include/qt5/QtWidgets -I/usr/include/qt5/QtGui -I/usr/include/qt5/QtXml -I/usr/include/qt5/QtNetwork -I/usr/include/qt5/QtCore -I.moc -I/usr/include/libdrm -I.ui -I/usr/lib64/qt5/mkspecs/linux-g++ -o .obj/ImageSource.o src/ImageSource.cpp
+x86_64-pc-linux-gnu-g++ -c -O3 -march=native -mno-lwp -pipe -fopenmp -std=gnu++11 -Wall -Wextra -D_REENTRANT -fPIC -Dcimg_use_fftw3 -Dcimg_use_zlib -DQT_DEPRECATED_WARNINGS -Dcimg_use_openmp -DHAS_V4L2 -Dgmic_is_parallel -Dcimg_use_abort -DQT_NO_DEBUG_OUTPUT -D_IS_UNIX_ -Dcimg_display=0 -DQT_NO_DEBUG -DQT_WIDGETS_LIB -DQT_GUI_LIB -DQT_XML_LIB -DQT_NETWORK_LIB -DQT_CORE_LIB -I. -I. -Iinclude -I/usr/include/opencv4 -I/usr/include/qt5 -I/usr/include/qt5/QtWidgets -I/usr/include/qt5/QtGui -I/usr/include/qt5/QtXml -I/usr/include/qt5/QtNetwork -I/usr/include/qt5/QtCore -I.moc -I/usr/include/libdrm -I.ui -I/usr/lib64/qt5/mkspecs/linux-g++ -o .obj/WebcamSource.o src/WebcamSource.cpp
+x86_64-pc-linux-gnu-g++ -c -O3 -march=native -mno-lwp -pipe -fopenmp -std=gnu++11 -Wall -Wextra -D_REENTRANT -fPIC -Dcimg_use_fftw3 -Dcimg_use_zlib -DQT_DEPRECATED_WARNINGS -Dcimg_use_openmp -DHAS_V4L2 -Dgmic_is_parallel -Dcimg_use_abort -DQT_NO_DEBUG_OUTPUT -D_IS_UNIX_ -Dcimg_display=0 -DQT_NO_DEBUG -DQT_WIDGETS_LIB -DQT_GUI_LIB -DQT_XML_LIB -DQT_NETWORK_LIB -DQT_CORE_LIB -I. -I. -Iinclude -I/usr/include/opencv4 -I/usr/include/qt5 -I/usr/include/qt5/QtWidgets -I/usr/include/qt5/QtGui -I/usr/include/qt5/QtXml -I/usr/include/qt5/QtNetwork -I/usr/include/qt5/QtCore -I.moc -I/usr/include/libdrm -I.ui -I/usr/lib64/qt5/mkspecs/linux-g++ -o .obj/StillImageSource.o src/StillImageSource.cpp
+x86_64-pc-linux-gnu-g++ -c -O3 -march=native -mno-lwp -pipe -fopenmp -std=gnu++11 -Wall -Wextra -D_REENTRANT -fPIC -Dcimg_use_fftw3 -Dcimg_use_zlib -DQT_DEPRECATED_WARNINGS -Dcimg_use_openmp -DHAS_V4L2 -Dgmic_is_parallel -Dcimg_use_abort -DQT_NO_DEBUG_OUTPUT -D_IS_UNIX_ -Dcimg_display=0 -DQT_NO_DEBUG -DQT_WIDGETS_LIB -DQT_GUI_LIB -DQT_XML_LIB -DQT_NETWORK_LIB -DQT_CORE_LIB -I. -I. -Iinclude -I/usr/include/opencv4 -I/usr/include/qt5 -I/usr/include/qt5/QtWidgets -I/usr/include/qt5/QtGui -I/usr/include/qt5/QtXml -I/usr/include/qt5/QtNetwork -I/usr/include/qt5/QtCore -I.moc -I/usr/include/libdrm -I.ui -I/usr/lib64/qt5/mkspecs/linux-g++ -o .obj/VideoFileSource.o src/VideoFileSource.cpp
+x86_64-pc-linux-gnu-g++ -c -O3 -march=native -mno-lwp -pipe -fopenmp -std=gnu++11 -Wall -Wextra -D_REENTRANT -fPIC -Dcimg_use_fftw3 -Dcimg_use_zlib -DQT_DEPRECATED_WARNINGS -Dcimg_use_openmp -DHAS_V4L2 -Dgmic_is_parallel -Dcimg_use_abort -DQT_NO_DEBUG_OUTPUT -D_IS_UNIX_ -Dcimg_display=0 -DQT_NO_DEBUG -DQT_WIDGETS_LIB -DQT_GUI_LIB -DQT_XML_LIB -DQT_NETWORK_LIB -DQT_CORE_LIB -I. -I. -Iinclude -I/usr/include/opencv4 -I/usr/include/qt5 -I/usr/include/qt5/QtWidgets -I/usr/include/qt5/QtGui -I/usr/include/qt5/QtXml -I/usr/include/qt5/QtNetwork -I/usr/include/qt5/QtCore -I.moc -I/usr/include/libdrm -I.ui -I/usr/lib64/qt5/mkspecs/linux-g++ -o .obj/TreeWidgetPresetItem.o src/TreeWidgetPresetItem.cpp
+In file included from include/FilterThread.h:55,
+                 from src/FilterThread.cpp:46:
+/usr/include/CImg.h:11734:10: error: redefinition of ‘struct cimg_library::CImg<T>’
+11734 |   struct CImg {
+      |          ^~~~
+In file included from include/FilterThread.h:53,
+                 from src/FilterThread.cpp:46:
+/usr/include/gmic.h:93:31: note: previous definition of ‘struct cimg_library::CImg<T>’
+   93 |   template<typename T> struct gmic_image {
+      |                               ^~~~~~~~~~
+In file included from include/FilterThread.h:55,
+                 from src/FilterThread.cpp:46:
+/usr/include/CImg.h:59851:10: error: redefinition of ‘struct cimg_library::CImgList<T>’
+59851 |   struct CImgList {
+      |          ^~~~~~~~
+In file included from include/FilterThread.h:53,
+                 from src/FilterThread.cpp:46:
+/usr/include/gmic.h:141:31: note: previous definition of ‘struct cimg_library::CImgList<T>’
+  141 |   template<typename T> struct gmic_list {
+      |                               ^~~~~~~~~
+In file included from include/FilterThread.h:55,
+                 from src/FilterThread.cpp:46:
+/usr/include/CImg.h: In function ‘const char* cimg_library::cimg::curl_path(const char*, bool)’:
+/usr/include/CImg.h:65116:37: error: no matching function for call to ‘cimg_library::CImg<char>::assign()’
+65116 |       if (reinit_path) s_path.assign();
+      |                        ~~~~~~~~~~~~~^~
+In file included from include/FilterThread.h:53,
+                 from src/FilterThread.cpp:46:
+/usr/include/gmic.h:115:20: note: candidate: ‘template<class t> cimg_library::CImg<T>& cimg_library::CImg<T>::assign(const t*, unsigned int, unsigned int, unsigned int, unsigned int) [with t = t; T = char]’
+  115 |     gmic_image<T>& assign(const t *const values, const unsigned int size_x, const unsigned int size_y=1,
+      |                    ^~~~~~
+/usr/include/gmic.h:115:20: note:   template argument deduction/substitution failed:
+In file included from include/FilterThread.h:55,
+                 from src/FilterThread.cpp:46:
+/usr/include/CImg.h:65116:37: note:   candidate expects 5 arguments, 0 provided
+65116 |       if (reinit_path) s_path.assign();
+      |                        ~~~~~~~~~~~~~^~
+In file included from include/FilterThread.h:53,
+                 from src/FilterThread.cpp:46:
+/usr/include/gmic.h:110:20: note: candidate: ‘cimg_library::CImg<T>& cimg_library::CImg<T>::assign(unsigned int, unsigned int, unsigned int, unsigned int) [with T = char]’
+  110 |     gmic_image<T>& assign(const unsigned int size_x, const unsigned int size_y=1,
+      |                    ^~~~~~
+/usr/include/gmic.h:110:20: note:   candidate expects 4 arguments, 0 provided
+/usr/include/gmic.h:118:20: note: candidate: ‘cimg_library::CImg<T>& cimg_library::CImg<T>::assign(const T*, unsigned int, unsigned int, unsigned int, unsigned int, bool) [with T = char]’
+  118 |     gmic_image<T>& assign(const T *const values, const unsigned int size_x, const unsigned int size_y,
+      |                    ^~~~~~
+/usr/include/gmic.h:118:20: note:   candidate expects 6 arguments, 0 provided
+In file included from include/FilterThread.h:55,
+                 from src/FilterThread.cpp:46:
+/usr/include/CImg.h: In function ‘const char* cimg_library::cimg::dcraw_path(const char*, bool)’:
+/usr/include/CImg.h:65153:37: error: no matching function for call to ‘cimg_library::CImg<char>::assign()’
+65153 |       if (reinit_path) s_path.assign();
+      |                        ~~~~~~~~~~~~~^~
+In file included from include/FilterThread.h:53,
+                 from src/FilterThread.cpp:46:
+/usr/include/gmic.h:115:20: note: candidate: ‘template<class t> cimg_library::CImg<T>& cimg_library::CImg<T>::assign(const t*, unsigned int, unsigned int, unsigned int, unsigned int) [with t = t; T = char]’
+  115 |     gmic_image<T>& assign(const t *const values, const unsigned int size_x, const unsigned int size_y=1,
+      |                    ^~~~~~
+/usr/include/gmic.h:115:20: note:   template argument deduction/substitution failed:
+In file included from include/FilterThread.h:55,
+                 from src/FilterThread.cpp:46:
+/usr/include/CImg.h:65153:37: note:   candidate expects 5 arguments, 0 provided
+65153 |       if (reinit_path) s_path.assign();
+      |                        ~~~~~~~~~~~~~^~
+In file included from include/FilterThread.h:53,
+                 from src/FilterThread.cpp:46:
+/usr/include/gmic.h:110:20: note: candidate: ‘cimg_library::CImg<T>& cimg_library::CImg<T>::assign(unsigned int, unsigned int, unsigned int, unsigned int) [with T = char]’
+  110 |     gmic_image<T>& assign(const unsigned int size_x, const unsigned int size_y=1,
+      |                    ^~~~~~
+/usr/include/gmic.h:110:20: note:   candidate expects 4 arguments, 0 provided
+/usr/include/gmic.h:118:20: note: candidate: ‘cimg_library::CImg<T>& cimg_library::CImg<T>::assign(const T*, unsigned int, unsigned int, unsigned int, unsigned int, bool) [with T = char]’
+  118 |     gmic_image<T>& assign(const T *const values, const unsigned int size_x, const unsigned int size_y,
+      |                    ^~~~~~
+/usr/include/gmic.h:118:20: note:   candidate expects 6 arguments, 0 provided
+In file included from include/FilterThread.h:55,
+                 from src/FilterThread.cpp:46:
+/usr/include/CImg.h: In function ‘const char* cimg_library::cimg::ffmpeg_path(const char*, bool)’:
+/usr/include/CImg.h:65190:37: error: no matching function for call to ‘cimg_library::CImg<char>::assign()’
+65190 |       if (reinit_path) s_path.assign();
+      |                        ~~~~~~~~~~~~~^~
+In file included from include/FilterThread.h:53,
+                 from src/FilterThread.cpp:46:
+/usr/include/gmic.h:115:20: note: candidate: ‘template<class t> cimg_library::CImg<T>& cimg_library::CImg<T>::assign(const t*, unsigned int, unsigned int, unsigned int, unsigned int) [with t = t; T = char]’
+  115 |     gmic_image<T>& assign(const t *const values, const unsigned int size_x, const unsigned int size_y=1,
+      |                    ^~~~~~
+/usr/include/gmic.h:115:20: note:   template argument deduction/substitution failed:
+In file included from include/FilterThread.h:55,
+                 from src/FilterThread.cpp:46:
+/usr/include/CImg.h:65190:37: note:   candidate expects 5 arguments, 0 provided
+65190 |       if (reinit_path) s_path.assign();
+      |                        ~~~~~~~~~~~~~^~
+In file included from include/FilterThread.h:53,
+                 from src/FilterThread.cpp:46:
+/usr/include/gmic.h:110:20: note: candidate: ‘cimg_library::CImg<T>& cimg_library::CImg<T>::assign(unsigned int, unsigned int, unsigned int, unsigned int) [with T = char]’
+  110 |     gmic_image<T>& assign(const unsigned int size_x, const unsigned int size_y=1,
+      |                    ^~~~~~
+/usr/include/gmic.h:110:20: note:   candidate expects 4 arguments, 0 provided
+/usr/include/gmic.h:118:20: note: candidate: ‘cimg_library::CImg<T>& cimg_library::CImg<T>::assign(const T*, unsigned int, unsigned int, unsigned int, unsigned int, bool) [with T = char]’
+  118 |     gmic_image<T>& assign(const T *const values, const unsigned int size_x, const unsigned int size_y,
+      |                    ^~~~~~
+/usr/include/gmic.h:118:20: note:   candidate expects 6 arguments, 0 provided
+In file included from include/FilterThread.h:55,
+                 from src/FilterThread.cpp:46:
+/usr/include/CImg.h: In function ‘const char* cimg_library::cimg::graphicsmagick_path(const char*, bool)’:
+/usr/include/CImg.h:65227:37: error: no matching function for call to ‘cimg_library::CImg<char>::assign()’
+65227 |       if (reinit_path) s_path.assign();
+      |                        ~~~~~~~~~~~~~^~
+In file included from include/FilterThread.h:53,
+                 from src/FilterThread.cpp:46:
+/usr/include/gmic.h:115:20: note: candidate: ‘template<class t> cimg_library::CImg<T>& cimg_library::CImg<T>::assign(const t*, unsigned int, unsigned int, unsigned int, unsigned int) [with t = t; T = char]’
+  115 |     gmic_image<T>& assign(const t *const values, const unsigned int size_x, const unsigned int size_y=1,
+      |                    ^~~~~~
+/usr/include/gmic.h:115:20: note:   template argument deduction/substitution failed:
+In file included from include/FilterThread.h:55,
+                 from src/FilterThread.cpp:46:
+/usr/include/CImg.h:65227:37: note:   candidate expects 5 arguments, 0 provided
+65227 |       if (reinit_path) s_path.assign();
+      |                        ~~~~~~~~~~~~~^~
+In file included from include/FilterThread.h:53,
+                 from src/FilterThread.cpp:46:
+/usr/include/gmic.h:110:20: note: candidate: ‘cimg_library::CImg<T>& cimg_library::CImg<T>::assign(unsigned int, unsigned int, unsigned int, unsigned int) [with T = char]’
+  110 |     gmic_image<T>& assign(const unsigned int size_x, const unsigned int size_y=1,
+      |                    ^~~~~~
+/usr/include/gmic.h:110:20: note:   candidate expects 4 arguments, 0 provided
+/usr/include/gmic.h:118:20: note: candidate: ‘cimg_library::CImg<T>& cimg_library::CImg<T>::assign(const T*, unsigned int, unsigned int, unsigned int, unsigned int, bool) [with T = char]’
+  118 |     gmic_image<T>& assign(const T *const values, const unsigned int size_x, const unsigned int size_y,
+      |                    ^~~~~~
+/usr/include/gmic.h:118:20: note:   candidate expects 6 arguments, 0 provided
+In file included from include/FilterThread.h:55,
+                 from src/FilterThread.cpp:46:
+/usr/include/CImg.h: In function ‘const char* cimg_library::cimg::gunzip_path(const char*, bool)’:
+/usr/include/CImg.h:65337:37: error: no matching function for call to ‘cimg_library::CImg<char>::assign()’
+65337 |       if (reinit_path) s_path.assign();
+      |                        ~~~~~~~~~~~~~^~
+In file included from include/FilterThread.h:53,
+                 from src/FilterThread.cpp:46:
+/usr/include/gmic.h:115:20: note: candidate: ‘template<class t> cimg_library::CImg<T>& cimg_library::CImg<T>::assign(const t*, unsigned int, unsigned int, unsigned int, unsigned int) [with t = t; T = char]’
+  115 |     gmic_image<T>& assign(const t *const values, const unsigned int size_x, const unsigned int size_y=1,
+      |                    ^~~~~~
+/usr/include/gmic.h:115:20: note:   template argument deduction/substitution failed:
+In file included from include/FilterThread.h:55,
+                 from src/FilterThread.cpp:46:
+/usr/include/CImg.h:65337:37: note:   candidate expects 5 arguments, 0 provided
+65337 |       if (reinit_path) s_path.assign();
+      |                        ~~~~~~~~~~~~~^~
+In file included from include/FilterThread.h:53,
+                 from src/FilterThread.cpp:46:
+/usr/include/gmic.h:110:20: note: candidate: ‘cimg_library::CImg<T>& cimg_library::CImg<T>::assign(unsigned int, unsigned int, unsigned int, unsigned int) [with T = char]’
+  110 |     gmic_image<T>& assign(const unsigned int size_x, const unsigned int size_y=1,
+      |                    ^~~~~~
+/usr/include/gmic.h:110:20: note:   candidate expects 4 arguments, 0 provided
+/usr/include/gmic.h:118:20: note: candidate: ‘cimg_library::CImg<T>& cimg_library::CImg<T>::assign(const T*, unsigned int, unsigned int, unsigned int, unsigned int, bool) [with T = char]’
+  118 |     gmic_image<T>& assign(const T *const values, const unsigned int size_x, const unsigned int size_y,
+      |                    ^~~~~~
+/usr/include/gmic.h:118:20: note:   candidate expects 6 arguments, 0 provided
+In file included from include/FilterThread.h:55,
+                 from src/FilterThread.cpp:46:
+/usr/include/CImg.h: In function ‘const char* cimg_library::cimg::gzip_path(const char*, bool)’:
+/usr/include/CImg.h:65374:37: error: no matching function for call to ‘cimg_library::CImg<char>::assign()’
+65374 |       if (reinit_path) s_path.assign();
+      |                        ~~~~~~~~~~~~~^~
+In file included from include/FilterThread.h:53,
+                 from src/FilterThread.cpp:46:
+/usr/include/gmic.h:115:20: note: candidate: ‘template<class t> cimg_library::CImg<T>& cimg_library::CImg<T>::assign(const t*, unsigned int, unsigned int, unsigned int, unsigned int) [with t = t; T = char]’
+  115 |     gmic_image<T>& assign(const t *const values, const unsigned int size_x, const unsigned int size_y=1,
+      |                    ^~~~~~
+/usr/include/gmic.h:115:20: note:   template argument deduction/substitution failed:
+In file included from include/FilterThread.h:55,
+                 from src/FilterThread.cpp:46:
+/usr/include/CImg.h:65374:37: note:   candidate expects 5 arguments, 0 provided
+65374 |       if (reinit_path) s_path.assign();
+      |                        ~~~~~~~~~~~~~^~
+In file included from include/FilterThread.h:53,
+                 from src/FilterThread.cpp:46:
+/usr/include/gmic.h:110:20: note: candidate: ‘cimg_library::CImg<T>& cimg_library::CImg<T>::assign(unsigned int, unsigned int, unsigned int, unsigned int) [with T = char]’
+  110 |     gmic_image<T>& assign(const unsigned int size_x, const unsigned int size_y=1,
+      |                    ^~~~~~
+/usr/include/gmic.h:110:20: note:   candidate expects 4 arguments, 0 provided
+/usr/include/gmic.h:118:20: note: candidate: ‘cimg_library::CImg<T>& cimg_library::CImg<T>::assign(const T*, unsigned int, unsigned int, unsigned int, unsigned int, bool) [with T = char]’
+  118 |     gmic_image<T>& assign(const T *const values, const unsigned int size_x, const unsigned int size_y,
+      |                    ^~~~~~
+/usr/include/gmic.h:118:20: note:   candidate expects 6 arguments, 0 provided
+In file included from include/FilterThread.h:55,
+                 from src/FilterThread.cpp:46:
+/usr/include/CImg.h: In function ‘const char* cimg_library::cimg::imagemagick_path(const char*, bool)’:
+/usr/include/CImg.h:65411:37: error: no matching function for call to ‘cimg_library::CImg<char>::assign()’
+65411 |       if (reinit_path) s_path.assign();
+      |                        ~~~~~~~~~~~~~^~
+In file included from include/FilterThread.h:53,
+                 from src/FilterThread.cpp:46:
+/usr/include/gmic.h:115:20: note: candidate: ‘template<class t> cimg_library::CImg<T>& cimg_library::CImg<T>::assign(const t*, unsigned int, unsigned int, unsigned int, unsigned int) [with t = t; T = char]’
+  115 |     gmic_image<T>& assign(const t *const values, const unsigned int size_x, const unsigned int size_y=1,
+      |                    ^~~~~~
+/usr/include/gmic.h:115:20: note:   template argument deduction/substitution failed:
+In file included from include/FilterThread.h:55,
+                 from src/FilterThread.cpp:46:
+/usr/include/CImg.h:65411:37: note:   candidate expects 5 arguments, 0 provided
+65411 |       if (reinit_path) s_path.assign();
+      |                        ~~~~~~~~~~~~~^~
+In file included from include/FilterThread.h:53,
+                 from src/FilterThread.cpp:46:
+/usr/include/gmic.h:110:20: note: candidate: ‘cimg_library::CImg<T>& cimg_library::CImg<T>::assign(unsigned int, unsigned int, unsigned int, unsigned int) [with T = char]’
+  110 |     gmic_image<T>& assign(const unsigned int size_x, const unsigned int size_y=1,
+      |                    ^~~~~~
+/usr/include/gmic.h:110:20: note:   candidate expects 4 arguments, 0 provided
+/usr/include/gmic.h:118:20: note: candidate: ‘cimg_library::CImg<T>& cimg_library::CImg<T>::assign(const T*, unsigned int, unsigned int, unsigned int, unsigned int, bool) [with T = char]’
+  118 |     gmic_image<T>& assign(const T *const values, const unsigned int size_x, const unsigned int size_y,
+      |                    ^~~~~~
+/usr/include/gmic.h:118:20: note:   candidate expects 6 arguments, 0 provided
+In file included from include/FilterThread.h:55,
+                 from src/FilterThread.cpp:46:
+/usr/include/CImg.h: In function ‘const char* cimg_library::cimg::medcon_path(const char*, bool)’:
+/usr/include/CImg.h:65524:37: error: no matching function for call to ‘cimg_library::CImg<char>::assign()’
+65524 |       if (reinit_path) s_path.assign();
+      |                        ~~~~~~~~~~~~~^~
+In file included from include/FilterThread.h:53,
+                 from src/FilterThread.cpp:46:
+/usr/include/gmic.h:115:20: note: candidate: ‘template<class t> cimg_library::CImg<T>& cimg_library::CImg<T>::assign(const t*, unsigned int, unsigned int, unsigned int, unsigned int) [with t = t; T = char]’
+  115 |     gmic_image<T>& assign(const t *const values, const unsigned int size_x, const unsigned int size_y=1,
+      |                    ^~~~~~
+/usr/include/gmic.h:115:20: note:   template argument deduction/substitution failed:
+In file included from include/FilterThread.h:55,
+                 from src/FilterThread.cpp:46:
+/usr/include/CImg.h:65524:37: note:   candidate expects 5 arguments, 0 provided
+65524 |       if (reinit_path) s_path.assign();
+      |                        ~~~~~~~~~~~~~^~
+In file included from include/FilterThread.h:53,
+                 from src/FilterThread.cpp:46:
+/usr/include/gmic.h:110:20: note: candidate: ‘cimg_library::CImg<T>& cimg_library::CImg<T>::assign(unsigned int, unsigned int, unsigned int, unsigned int) [with T = char]’
+  110 |     gmic_image<T>& assign(const unsigned int size_x, const unsigned int size_y=1,
+      |                    ^~~~~~
+/usr/include/gmic.h:110:20: note:   candidate expects 4 arguments, 0 provided
+/usr/include/gmic.h:118:20: note: candidate: ‘cimg_library::CImg<T>& cimg_library::CImg<T>::assign(const T*, unsigned int, unsigned int, unsigned int, unsigned int, bool) [with T = char]’
+  118 |     gmic_image<T>& assign(const T *const values, const unsigned int size_x, const unsigned int size_y,
+      |                    ^~~~~~
+/usr/include/gmic.h:118:20: note:   candidate expects 6 arguments, 0 provided
+In file included from include/FilterThread.h:55,
+                 from src/FilterThread.cpp:46:
+/usr/include/CImg.h: In function ‘const char* cimg_library::cimg::temporary_path(const char*, bool)’:
+/usr/include/CImg.h:65580:37: error: no matching function for call to ‘cimg_library::CImg<char>::assign()’
+65580 |       if (reinit_path) s_path.assign();
+      |                        ~~~~~~~~~~~~~^~
+In file included from include/FilterThread.h:53,
+                 from src/FilterThread.cpp:46:
+/usr/include/gmic.h:115:20: note: candidate: ‘template<class t> cimg_library::CImg<T>& cimg_library::CImg<T>::assign(const t*, unsigned int, unsigned int, unsigned int, unsigned int) [with t = t; T = char]’
+  115 |     gmic_image<T>& assign(const t *const values, const unsigned int size_x, const unsigned int size_y=1,
+      |                    ^~~~~~
+/usr/include/gmic.h:115:20: note:   template argument deduction/substitution failed:
+In file included from include/FilterThread.h:55,
+                 from src/FilterThread.cpp:46:
+/usr/include/CImg.h:65580:37: note:   candidate expects 5 arguments, 0 provided
+65580 |       if (reinit_path) s_path.assign();
+      |                        ~~~~~~~~~~~~~^~
+In file included from include/FilterThread.h:53,
+                 from src/FilterThread.cpp:46:
+/usr/include/gmic.h:110:20: note: candidate: ‘cimg_library::CImg<T>& cimg_library::CImg<T>::assign(unsigned int, unsigned int, unsigned int, unsigned int) [with T = char]’
+  110 |     gmic_image<T>& assign(const unsigned int size_x, const unsigned int size_y=1,
+      |                    ^~~~~~
+/usr/include/gmic.h:110:20: note:   candidate expects 4 arguments, 0 provided
+/usr/include/gmic.h:118:20: note: candidate: ‘cimg_library::CImg<T>& cimg_library::CImg<T>::assign(const T*, unsigned int, unsigned int, unsigned int, unsigned int, bool) [with T = char]’
+  118 |     gmic_image<T>& assign(const T *const values, const unsigned int size_x, const unsigned int size_y,
+      |                    ^~~~~~
+/usr/include/gmic.h:118:20: note:   candidate expects 6 arguments, 0 provided
+In file included from include/FilterThread.h:55,
+                 from src/FilterThread.cpp:46:
+/usr/include/CImg.h:65587:28: error: no matching function for call to ‘cimg_library::CImg<char>::CImg(int)’
+65587 |         CImg<char> tmp(1024), filename_tmp(256);
+      |                            ^
+In file included from include/FilterThread.h:53,
+                 from src/FilterThread.cpp:46:
+/usr/include/gmic.h:107:5: note: candidate: ‘cimg_library::CImg<T>::CImg() [with T = char]’
+  107 |     gmic_image():_width(0),_height(0),_depth(0),_spectrum(0),_is_shared(false),_data(0) { }
+      |     ^~~~~~~~~~
+/usr/include/gmic.h:107:5: note:   candidate expects 0 arguments, 1 provided
+/usr/include/gmic.h:93:31: note: candidate: ‘constexpr cimg_library::CImg<char>::CImg(const cimg_library::CImg<char>&)’
+   93 |   template<typename T> struct gmic_image {
+      |                               ^~~~~~~~~~
+/usr/include/gmic.h:93:31: note:   no known conversion for argument 1 from ‘int’ to ‘const cimg_library::CImg<char>&’
+In file included from include/FilterThread.h:55,
+                 from src/FilterThread.cpp:46:
+/usr/include/CImg.h:65587:47: error: no matching function for call to ‘cimg_library::CImg<char>::CImg(int)’
+65587 |         CImg<char> tmp(1024), filename_tmp(256);
+      |                                               ^
+In file included from include/FilterThread.h:53,
+                 from src/FilterThread.cpp:46:
+/usr/include/gmic.h:107:5: note: candidate: ‘cimg_library::CImg<T>::CImg() [with T = char]’
+  107 |     gmic_image():_width(0),_height(0),_depth(0),_spectrum(0),_is_shared(false),_data(0) { }
+      |     ^~~~~~~~~~
+/usr/include/gmic.h:107:5: note:   candidate expects 0 arguments, 1 provided
+/usr/include/gmic.h:93:31: note: candidate: ‘constexpr cimg_library::CImg<char>::CImg(const cimg_library::CImg<char>&)’
+   93 |   template<typename T> struct gmic_image {
+      |                               ^~~~~~~~~~
+/usr/include/gmic.h:93:31: note:   no known conversion for argument 1 from ‘int’ to ‘const cimg_library::CImg<char>&’
+In file included from include/FilterThread.h:55,
+                 from src/FilterThread.cpp:46:
+/usr/include/CImg.h:65592:22: error: ‘struct cimg_library::CImg<char>’ has no member named ‘data’; did you mean ‘_data’?
+65592 |         if (tmpPath) _cimg_test_temporary_path(tmpPath);
+      |                      ^~~~~~~~~~~~~~~~~~~~~~~~~
+/usr/include/CImg.h:65603:9: error: ‘struct cimg_library::CImg<char>’ has no member named ‘data’; did you mean ‘_data’?
+65603 |         _cimg_test_temporary_path("/tmp");
+      |         ^~~~~~~~~~~~~~~~~~~~~~~~~
+/usr/include/CImg.h:65604:9: error: ‘struct cimg_library::CImg<char>’ has no member named ‘data’; did you mean ‘_data’?
+65604 |         _cimg_test_temporary_path("/var/tmp");
+      |         ^~~~~~~~~~~~~~~~~~~~~~~~~
+/usr/include/CImg.h: In function ‘const char* cimg_library::cimg::wget_path(const char*, bool)’:
+/usr/include/CImg.h:65629:37: error: no matching function for call to ‘cimg_library::CImg<char>::assign()’
+65629 |       if (reinit_path) s_path.assign();
+      |                        ~~~~~~~~~~~~~^~
+In file included from include/FilterThread.h:53,
+                 from src/FilterThread.cpp:46:
+/usr/include/gmic.h:115:20: note: candidate: ‘template<class t> cimg_library::CImg<T>& cimg_library::CImg<T>::assign(const t*, unsigned int, unsigned int, unsigned int, unsigned int) [with t = t; T = char]’
+  115 |     gmic_image<T>& assign(const t *const values, const unsigned int size_x, const unsigned int size_y=1,
+      |                    ^~~~~~
+/usr/include/gmic.h:115:20: note:   template argument deduction/substitution failed:
+In file included from include/FilterThread.h:55,
+                 from src/FilterThread.cpp:46:
+/usr/include/CImg.h:65629:37: note:   candidate expects 5 arguments, 0 provided
+65629 |       if (reinit_path) s_path.assign();
+      |                        ~~~~~~~~~~~~~^~
+In file included from include/FilterThread.h:53,
+                 from src/FilterThread.cpp:46:
+/usr/include/gmic.h:110:20: note: candidate: ‘cimg_library::CImg<T>& cimg_library::CImg<T>::assign(unsigned int, unsigned int, unsigned int, unsigned int) [with T = char]’
+  110 |     gmic_image<T>& assign(const unsigned int size_x, const unsigned int size_y=1,
+      |                    ^~~~~~
+/usr/include/gmic.h:110:20: note:   candidate expects 4 arguments, 0 provided
+/usr/include/gmic.h:118:20: note: candidate: ‘cimg_library::CImg<T>& cimg_library::CImg<T>::assign(const T*, unsigned int, unsigned int, unsigned int, unsigned int, bool) [with T = char]’
+  118 |     gmic_image<T>& assign(const T *const values, const unsigned int size_x, const unsigned int size_y,
+      |                    ^~~~~~
+/usr/include/gmic.h:118:20: note:   candidate expects 6 arguments, 0 provided
+In file included from include/FilterThread.h:55,
+                 from src/FilterThread.cpp:46:
+/usr/include/CImg.h: In function ‘char* cimg_library::cimg::number_filename(const char*, int, unsigned int, char*)’:
+/usr/include/CImg.h:65699:27: error: no matching function for call to ‘cimg_library::CImg<char>::CImg(int)’
+65699 |       CImg<char> format(16), body(siz + 32);
+      |                           ^
+In file included from include/FilterThread.h:53,
+                 from src/FilterThread.cpp:46:
+/usr/include/gmic.h:107:5: note: candidate: ‘cimg_library::CImg<T>::CImg() [with T = char]’
+  107 |     gmic_image():_width(0),_height(0),_depth(0),_spectrum(0),_is_shared(false),_data(0) { }
+      |     ^~~~~~~~~~
+/usr/include/gmic.h:107:5: note:   candidate expects 0 arguments, 1 provided
+/usr/include/gmic.h:93:31: note: candidate: ‘constexpr cimg_library::CImg<char>::CImg(const cimg_library::CImg<char>&)’
+   93 |   template<typename T> struct gmic_image {
+      |                               ^~~~~~~~~~
+/usr/include/gmic.h:93:31: note:   no known conversion for argument 1 from ‘int’ to ‘const cimg_library::CImg<char>&’
+In file included from include/FilterThread.h:55,
+                 from src/FilterThread.cpp:46:
+/usr/include/CImg.h:65699:43: error: no matching function for call to ‘cimg_library::CImg<char>::CImg(unsigned int)’
+65699 |       CImg<char> format(16), body(siz + 32);
+      |                                           ^
+In file included from include/FilterThread.h:53,
+                 from src/FilterThread.cpp:46:
+/usr/include/gmic.h:107:5: note: candidate: ‘cimg_library::CImg<T>::CImg() [with T = char]’
+  107 |     gmic_image():_width(0),_height(0),_depth(0),_spectrum(0),_is_shared(false),_data(0) { }
+      |     ^~~~~~~~~~
+/usr/include/gmic.h:107:5: note:   candidate expects 0 arguments, 1 provided
+/usr/include/gmic.h:93:31: note: candidate: ‘constexpr cimg_library::CImg<char>::CImg(const cimg_library::CImg<char>&)’
+   93 |   template<typename T> struct gmic_image {
+      |                               ^~~~~~~~~~
+/usr/include/gmic.h:93:31: note:   no known conversion for argument 1 from ‘unsigned int’ to ‘const cimg_library::CImg<char>&’
+In file included from include/FilterThread.h:55,
+                 from src/FilterThread.cpp:46:
+/usr/include/CImg.h: In function ‘cimg_library::CImgList<char> cimg_library::cimg::files(const char*, bool, unsigned int, bool)’:
+/usr/include/CImg.h:65726:47: error: ‘string’ is not a member of ‘cimg_library::CImg<char>’
+65726 |       CImg<char> pattern, _path = CImg<char>::string(path);
+      |                                               ^~~~~~
+/usr/include/CImg.h:65743:84: error: ‘struct cimg_library::CImg<char>’ has no member named ‘data’; did you mean ‘_data’?
+65743 |         const unsigned int bpos = (unsigned int)(cimg::basename(_path,'/') - _path.data());
+      |                                                                                    ^~~~
+      |                                                                                    _data
+/usr/include/CImg.h:65744:21: error: ‘string’ is not a member of ‘cimg_library::CImg<char>’
+65744 |         CImg<char>::string(_path).move_to(pattern);
+      |                     ^~~~~~
+/usr/include/CImg.h:65785:65: error: ‘struct cimg_library::CImg<char>’ has no member named ‘data’; did you mean ‘_data’?
+65785 |       DIR *const dir = opendir(is_root?"/":is_current?".":_path.data());
+      |                                                                 ^~~~
+      |                                                                 _data
+/usr/include/CImg.h:65786:40: error: ‘const_empty’ is not a member of ‘cimg_library::CImgList<char>’
+65786 |       if (!dir) return CImgList<char>::const_empty();
+      |                                        ^~~~~~~~~~~
+/usr/include/CImg.h:65792:47: error: no matching function for call to ‘cimg_library::CImg<char>::CImg(unsigned int)’
+65792 |           CImg<char> full_filename(lp + lf + 2);
+      |                                               ^
+In file included from include/FilterThread.h:53,
+                 from src/FilterThread.cpp:46:
+/usr/include/gmic.h:107:5: note: candidate: ‘cimg_library::CImg<T>::CImg() [with T = char]’
+  107 |     gmic_image():_width(0),_height(0),_depth(0),_spectrum(0),_is_shared(false),_data(0) { }
+      |     ^~~~~~~~~~
+/usr/include/gmic.h:107:5: note:   candidate expects 0 arguments, 1 provided
+/usr/include/gmic.h:93:31: note: candidate: ‘constexpr cimg_library::CImg<char>::CImg(const cimg_library::CImg<char>&)’
+   93 |   template<typename T> struct gmic_image {
+      |                               ^~~~~~~~~~
+/usr/include/gmic.h:93:31: note:   no known conversion for argument 1 from ‘unsigned int’ to ‘const cimg_library::CImg<char>&’
+In file included from include/FilterThread.h:55,
+                 from src/FilterThread.cpp:46:
+/usr/include/CImg.h:65807:31: error: ‘struct cimg_library::CImg<char>’ has no member named ‘move_to’
+65807 |                 full_filename.move_to(res);
+      |                               ^~~~~~~
+/usr/include/CImg.h:65810:43: error: no matching function for call to ‘cimg_library::CImg<char>::CImg(const char* const&, unsigned int)’
+65810 |                 CImg<char>(filename,lf + 1).move_to(res);
+      |                                           ^
+In file included from include/FilterThread.h:53,
+                 from src/FilterThread.cpp:46:
+/usr/include/gmic.h:107:5: note: candidate: ‘cimg_library::CImg<T>::CImg() [with T = char]’
+  107 |     gmic_image():_width(0),_height(0),_depth(0),_spectrum(0),_is_shared(false),_data(0) { }
+      |     ^~~~~~~~~~
+/usr/include/gmic.h:107:5: note:   candidate expects 0 arguments, 2 provided
+/usr/include/gmic.h:93:31: note: candidate: ‘constexpr cimg_library::CImg<char>::CImg(const cimg_library::CImg<char>&)’
+   93 |   template<typename T> struct gmic_image {
+      |                               ^~~~~~~~~~
+/usr/include/gmic.h:93:31: note:   candidate expects 1 argument, 2 provided
+In file included from include/FilterThread.h:55,
+                 from src/FilterThread.cpp:46:
+/usr/include/CImg.h: In function ‘const char* cimg_library::cimg::ftype(FILE*, const char*)’:
+/usr/include/CImg.h:65852:16: error: ‘struct cimg_library::CImg<char>’ has no member named ‘_load_raw’
+65852 |         header._load_raw(file,filename,512,1,1,1,false,false,0);
+      |                ^~~~~~~~~
+/usr/include/CImg.h:65859:39: error: ‘struct cimg_library::CImg<char>’ has no member named ‘data’; did you mean ‘_data’?
+65859 |         else if (!std::strncmp(header.data() + 128,"DICM",4)) // DICOM
+      |                                       ^~~~
+      |                                       _data
+/usr/include/CImg.h:65879:43: error: ‘struct cimg_library::CImg<char>’ has no member named ‘get_split’
+65879 |           CImgList<char> _header = header.get_split(CImg<char>::vector('\n'),0,false);
+      |                                           ^~~~~~~~~
+/usr/include/CImg.h:65879:65: error: ‘vector’ is not a member of ‘cimg_library::CImg<char>’
+65879 |           CImgList<char> _header = header.get_split(CImg<char>::vector('\n'),0,false);
+      |                                                                 ^~~~~~
+/usr/include/CImg.h:65881:24: error: no match for call to ‘(cimg_library::CImgList<char>) (int&, int)’
+65881 |             if (_header(l,0)=='#') continue;
+      |                 ~~~~~~~^~~~~
+In file included from include/FilterThread.h:53,
+                 from src/FilterThread.cpp:46:
+/usr/include/gmic.h:166:20: note: candidate: ‘cimg_library::CImg<T>& cimg_library::CImgList<T>::operator()(unsigned int) [with T = char]’
+  166 |     gmic_image<T>& operator()(const unsigned int l) {
+      |                    ^~~~~~~~
+/usr/include/gmic.h:166:20: note:   candidate expects 1 argument, 2 provided
+/usr/include/gmic.h:170:26: note: candidate: ‘const cimg_library::CImg<T>& cimg_library::CImgList<T>::operator()(unsigned int) const [with T = char]’
+  170 |     const gmic_image<T>& operator()(const unsigned int l) const {
+      |                          ^~~~~~~~
+/usr/include/gmic.h:170:26: note:   candidate expects 1 argument, 2 provided
+In file included from include/FilterThread.h:55,
+                 from src/FilterThread.cpp:46:
+/usr/include/CImg.h:65882:48: error: no match for call to ‘(cimg_library::CImgList<char>) (int&, int)’
+65882 |             if (_header[l]._width==2 && _header(l,0)=='P') {
+      |                                         ~~~~~~~^~~~~
+In file included from include/FilterThread.h:53,
+                 from src/FilterThread.cpp:46:
+/usr/include/gmic.h:166:20: note: candidate: ‘cimg_library::CImg<T>& cimg_library::CImgList<T>::operator()(unsigned int) [with T = char]’
+  166 |     gmic_image<T>& operator()(const unsigned int l) {
+      |                    ^~~~~~~~
+/usr/include/gmic.h:166:20: note:   candidate expects 1 argument, 2 provided
+/usr/include/gmic.h:170:26: note: candidate: ‘const cimg_library::CImg<T>& cimg_library::CImgList<T>::operator()(unsigned int) const [with T = char]’
+  170 |     const gmic_image<T>& operator()(const unsigned int l) const {
+      |                          ^~~~~~~~
+/usr/include/gmic.h:170:26: note:   candidate expects 1 argument, 2 provided
+In file included from include/FilterThread.h:55,
+                 from src/FilterThread.cpp:46:
+/usr/include/CImg.h:65883:37: error: no match for call to ‘(cimg_library::CImgList<char>) (int&, int)’
+65883 |               const char c = _header(l,1);
+      |                              ~~~~~~~^~~~~
+In file included from include/FilterThread.h:53,
+                 from src/FilterThread.cpp:46:
+/usr/include/gmic.h:166:20: note: candidate: ‘cimg_library::CImg<T>& cimg_library::CImgList<T>::operator()(unsigned int) [with T = char]’
+  166 |     gmic_image<T>& operator()(const unsigned int l) {
+      |                    ^~~~~~~~
+/usr/include/gmic.h:166:20: note:   candidate expects 1 argument, 2 provided
+/usr/include/gmic.h:170:26: note: candidate: ‘const cimg_library::CImg<T>& cimg_library::CImgList<T>::operator()(unsigned int) const [with T = char]’
+  170 |     const gmic_image<T>& operator()(const unsigned int l) const {
+      |                          ^~~~~~~~
+/usr/include/gmic.h:170:26: note:   candidate expects 1 argument, 2 provided
+In file included from include/FilterThread.h:55,
+                 from src/FilterThread.cpp:46:
+/usr/include/CImg.h: In function ‘char* cimg_library::cimg::load_network(const char*, char*, unsigned int, bool, const char*)’:
+/usr/include/CImg.h:65916:36: error: ‘string’ is not a member of ‘cimg_library::CImg<char>’
+65916 |       CImg<char> ext = CImg<char>::string(_ext);
+      |                                    ^~~~~~
+/usr/include/CImg.h:65960:62: error: no matching function for call to ‘cimg_library::CImg<char>::CImg(unsigned int)’
+65960 |       CImg<char> command((unsigned int)std::strlen(url) + 512);
+      |                                                              ^
+In file included from include/FilterThread.h:53,
+                 from src/FilterThread.cpp:46:
+/usr/include/gmic.h:107:5: note: candidate: ‘cimg_library::CImg<T>::CImg() [with T = char]’
+  107 |     gmic_image():_width(0),_height(0),_depth(0),_spectrum(0),_is_shared(false),_data(0) { }
+      |     ^~~~~~~~~~
+/usr/include/gmic.h:107:5: note:   candidate expects 0 arguments, 1 provided
+/usr/include/gmic.h:93:31: note: candidate: ‘constexpr cimg_library::CImg<char>::CImg(const cimg_library::CImg<char>&)’
+   93 |   template<typename T> struct gmic_image {
+      |                               ^~~~~~~~~~
+/usr/include/gmic.h:93:31: note:   no known conversion for argument 1 from ‘unsigned int’ to ‘const cimg_library::CImg<char>&’
+In file included from include/FilterThread.h:55,
+                 from src/FilterThread.cpp:46:
+/usr/include/CImg.h:65968:37: error: ‘string’ is not a member of ‘cimg_library::CImg<char>’
+65968 |                         CImg<char>::string(url)._system_strescape().data());
+      |                                     ^~~~~~
+/usr/include/CImg.h:65972:37: error: ‘string’ is not a member of ‘cimg_library::CImg<char>’
+65972 |                         CImg<char>::string(url)._system_strescape().data());
+      |                                     ^~~~~~
+/usr/include/CImg.h:65977:37: error: ‘string’ is not a member of ‘cimg_library::CImg<char>’
+65977 |                         CImg<char>::string(url)._system_strescape().data());
+      |                                     ^~~~~~
+/usr/include/CImg.h:65981:37: error: ‘string’ is not a member of ‘cimg_library::CImg<char>’
+65981 |                         CImg<char>::string(url)._system_strescape().data());
+      |                                     ^~~~~~
+/usr/include/CImg.h:66025:39: error: ‘string’ is not a member of ‘cimg_library::CImg<char>’
+66025 |                           CImg<char>::string(url)._system_strescape().data());
+      |                                       ^~~~~~
+/usr/include/CImg.h:66029:39: error: ‘string’ is not a member of ‘cimg_library::CImg<char>’
+66029 |                           CImg<char>::string(url)._system_strescape().data());
+      |                                       ^~~~~~
+/usr/include/CImg.h:66034:39: error: ‘string’ is not a member of ‘cimg_library::CImg<char>’
+66034 |                           CImg<char>::string(url)._system_strescape().data());
+      |                                       ^~~~~~
+/usr/include/CImg.h:66038:39: error: ‘string’ is not a member of ‘cimg_library::CImg<char>’
+66038 |                           CImg<char>::string(url)._system_strescape().data());
+      |                                       ^~~~~~
+/usr/include/CImg.h: In function ‘long unsigned int cimg_library::cimg::tictoc(bool)’:
+/usr/include/CImg.h:66075:40: error: no matching function for call to ‘cimg_library::CImg<long unsigned int>::CImg(int)’
+66075 |       static CImg<cimg_uint64> times(64);
+      |                                        ^
+In file included from include/FilterThread.h:53,
+                 from src/FilterThread.cpp:46:
+/usr/include/gmic.h:107:5: note: candidate: ‘cimg_library::CImg<T>::CImg() [with T = long unsigned int]’
+  107 |     gmic_image():_width(0),_height(0),_depth(0),_spectrum(0),_is_shared(false),_data(0) { }
+      |     ^~~~~~~~~~
+/usr/include/gmic.h:107:5: note:   candidate expects 0 arguments, 1 provided
+/usr/include/gmic.h:93:31: note: candidate: ‘constexpr cimg_library::CImg<long unsigned int>::CImg(const cimg_library::CImg<long unsigned int>&)’
+   93 |   template<typename T> struct gmic_image {
+      |                               ^~~~~~~~~~
+/usr/include/gmic.h:93:31: note:   no known conversion for argument 1 from ‘int’ to ‘const cimg_library::CImg<long unsigned int>&’
+In file included from include/FilterThread.h:55,
+                 from src/FilterThread.cpp:46:
+/usr/include/CImg.h: In function ‘const char* cimg_library::cimg::strbuffersize(long unsigned int)’:
+/usr/include/CImg.h:66127:32: error: no matching function for call to ‘cimg_library::CImg<char>::CImg(int)’
+66127 |       static CImg<char> res(256);
+      |                                ^
+In file included from include/FilterThread.h:53,
+                 from src/FilterThread.cpp:46:
+/usr/include/gmic.h:107:5: note: candidate: ‘cimg_library::CImg<T>::CImg() [with T = char]’
+  107 |     gmic_image():_width(0),_height(0),_depth(0),_spectrum(0),_is_shared(false),_data(0) { }
+      |     ^~~~~~~~~~
+/usr/include/gmic.h:107:5: note:   candidate expects 0 arguments, 1 provided
+/usr/include/gmic.h:93:31: note: candidate: ‘constexpr cimg_library::CImg<char>::CImg(const cimg_library::CImg<char>&)’
+   93 |   template<typename T> struct gmic_image {
+      |                               ^~~~~~~~~~
+/usr/include/gmic.h:93:31: note:   no known conversion for argument 1 from ‘int’ to ‘const cimg_library::CImg<char>&’
+In file included from include/FilterThread.h:55,
+                 from src/FilterThread.cpp:46:
+/usr/include/CImg.h: In function ‘int cimg_library::cimg::dialog(const char*, const char*, const char*, const char*, const char*, const char*, const char*, const char*, bool)’:
+/usr/include/CImg.h:66327:42: error: ‘_logo40x38’ is not a member of ‘cimg_library::CImg<unsigned char>’
+66327 |                     CImg<unsigned char>::_logo40x38(),is_centered);
+      |                                          ^~~~~~~~~~
+/usr/include/CImg.h: In function ‘double cimg_library::cimg::eval(const char*, double, double, double, double)’:
+/usr/include/CImg.h:66348:20: error: ‘const struct cimg_library::CImg<float>’ has no member named ‘eval’
+66348 |       return empty.eval(expression,x,y,z,c);
+      |                    ^~~~
+/usr/include/CImg.h: In function ‘cimg_library::CImg<typename cimg_library::cimg::superset<double, t>::type> cimg_library::cimg::eval(const char*, const cimg_library::CImg<T>&)’:
+/usr/include/CImg.h:66354:20: error: ‘const struct cimg_library::CImg<float>’ has no member named ‘eval’
+66354 |       return empty.eval(expression,xyzc);
+      |                    ^~~~
+x86_64-pc-linux-gnu-g++ -c -O3 -march=native -mno-lwp -pipe -fopenmp -std=gnu++11 -Wall -Wextra -D_REENTRANT -fPIC -Dcimg_use_fftw3 -Dcimg_use_zlib -DQT_DEPRECATED_WARNINGS -Dcimg_use_openmp -DHAS_V4L2 -Dgmic_is_parallel -Dcimg_use_abort -DQT_NO_DEBUG_OUTPUT -D_IS_UNIX_ -Dcimg_display=0 -DQT_NO_DEBUG -DQT_WIDGETS_LIB -DQT_GUI_LIB -DQT_XML_LIB -DQT_NETWORK_LIB -DQT_CORE_LIB -I. -I. -Iinclude -I/usr/include/opencv4 -I/usr/include/qt5 -I/usr/include/qt5/QtWidgets -I/usr/include/qt5/QtGui -I/usr/include/qt5/QtXml -I/usr/include/qt5/QtNetwork -I/usr/include/qt5/QtCore -I.moc -I/usr/include/libdrm -I.ui -I/usr/lib64/qt5/mkspecs/linux-g++ -o .obj/AbstractParameter.o src/AbstractParameter.cpp
+x86_64-pc-linux-gnu-g++ -c -O3 -march=native -mno-lwp -pipe -fopenmp -std=gnu++11 -Wall -Wextra -D_REENTRANT -fPIC -Dcimg_use_fftw3 -Dcimg_use_zlib -DQT_DEPRECATED_WARNINGS -Dcimg_use_openmp -DHAS_V4L2 -Dgmic_is_parallel -Dcimg_use_abort -DQT_NO_DEBUG_OUTPUT -D_IS_UNIX_ -Dcimg_display=0 -DQT_NO_DEBUG -DQT_WIDGETS_LIB -DQT_GUI_LIB -DQT_XML_LIB -DQT_NETWORK_LIB -DQT_CORE_LIB -I. -I. -Iinclude -I/usr/include/opencv4 -I/usr/include/qt5 -I/usr/include/qt5/QtWidgets -I/usr/include/qt5/QtGui -I/usr/include/qt5/QtXml -I/usr/include/qt5/QtNetwork -I/usr/include/qt5/QtCore -I.moc -I/usr/include/libdrm -I.ui -I/usr/lib64/qt5/mkspecs/linux-g++ -o .obj/IntParameter.o src/IntParameter.cpp
+In file included from include/ImageConverter.h:53,
+                 from src/ImageConverter.cpp:46:
+/usr/include/CImg.h:11734:10: error: redefinition of ‘struct cimg_library::CImg<T>’
+11734 |   struct CImg {
+      |          ^~~~
+In file included from include/ImageConverter.h:51,
+                 from src/ImageConverter.cpp:46:
+/usr/include/gmic.h:93:31: note: previous definition of ‘struct cimg_library::CImg<T>’
+   93 |   template<typename T> struct gmic_image {
+      |                               ^~~~~~~~~~
+In file included from include/ImageConverter.h:53,
+                 from src/ImageConverter.cpp:46:
+/usr/include/CImg.h:59851:10: error: redefinition of ‘struct cimg_library::CImgList<T>’
+59851 |   struct CImgList {
+      |          ^~~~~~~~
+In file included from include/ImageConverter.h:51,
+                 from src/ImageConverter.cpp:46:
+/usr/include/gmic.h:141:31: note: previous definition of ‘struct cimg_library::CImgList<T>’
+  141 |   template<typename T> struct gmic_list {
+      |                               ^~~~~~~~~
+In file included from include/ImageConverter.h:53,
+                 from src/ImageConverter.cpp:46:
+/usr/include/CImg.h: In function ‘const char* cimg_library::cimg::curl_path(const char*, bool)’:
+/usr/include/CImg.h:65116:37: error: no matching function for call to ‘cimg_library::CImg<char>::assign()’
+65116 |       if (reinit_path) s_path.assign();
+      |                        ~~~~~~~~~~~~~^~
+In file included from include/ImageConverter.h:51,
+                 from src/ImageConverter.cpp:46:
+/usr/include/gmic.h:115:20: note: candidate: ‘template<class t> cimg_library::CImg<T>& cimg_library::CImg<T>::assign(const t*, unsigned int, unsigned int, unsigned int, unsigned int) [with t = t; T = char]’
+  115 |     gmic_image<T>& assign(const t *const values, const unsigned int size_x, const unsigned int size_y=1,
+      |                    ^~~~~~
+/usr/include/gmic.h:115:20: note:   template argument deduction/substitution failed:
+In file included from include/ImageConverter.h:53,
+                 from src/ImageConverter.cpp:46:
+/usr/include/CImg.h:65116:37: note:   candidate expects 5 arguments, 0 provided
+65116 |       if (reinit_path) s_path.assign();
+      |                        ~~~~~~~~~~~~~^~
+In file included from include/ImageConverter.h:51,
+                 from src/ImageConverter.cpp:46:
+/usr/include/gmic.h:110:20: note: candidate: ‘cimg_library::CImg<T>& cimg_library::CImg<T>::assign(unsigned int, unsigned int, unsigned int, unsigned int) [with T = char]’
+  110 |     gmic_image<T>& assign(const unsigned int size_x, const unsigned int size_y=1,
+      |                    ^~~~~~
+/usr/include/gmic.h:110:20: note:   candidate expects 4 arguments, 0 provided
+/usr/include/gmic.h:118:20: note: candidate: ‘cimg_library::CImg<T>& cimg_library::CImg<T>::assign(const T*, unsigned int, unsigned int, unsigned int, unsigned int, bool) [with T = char]’
+  118 |     gmic_image<T>& assign(const T *const values, const unsigned int size_x, const unsigned int size_y,
+      |                    ^~~~~~
+/usr/include/gmic.h:118:20: note:   candidate expects 6 arguments, 0 provided
+In file included from include/ImageConverter.h:53,
+                 from src/ImageConverter.cpp:46:
+/usr/include/CImg.h: In function ‘const char* cimg_library::cimg::dcraw_path(const char*, bool)’:
+/usr/include/CImg.h:65153:37: error: no matching function for call to ‘cimg_library::CImg<char>::assign()’
+65153 |       if (reinit_path) s_path.assign();
+      |                        ~~~~~~~~~~~~~^~
+In file included from include/ImageConverter.h:51,
+                 from src/ImageConverter.cpp:46:
+/usr/include/gmic.h:115:20: note: candidate: ‘template<class t> cimg_library::CImg<T>& cimg_library::CImg<T>::assign(const t*, unsigned int, unsigned int, unsigned int, unsigned int) [with t = t; T = char]’
+  115 |     gmic_image<T>& assign(const t *const values, const unsigned int size_x, const unsigned int size_y=1,
+      |                    ^~~~~~
+/usr/include/gmic.h:115:20: note:   template argument deduction/substitution failed:
+In file included from include/ImageConverter.h:53,
+                 from src/ImageConverter.cpp:46:
+/usr/include/CImg.h:65153:37: note:   candidate expects 5 arguments, 0 provided
+65153 |       if (reinit_path) s_path.assign();
+      |                        ~~~~~~~~~~~~~^~
+In file included from include/ImageConverter.h:51,
+                 from src/ImageConverter.cpp:46:
+/usr/include/gmic.h:110:20: note: candidate: ‘cimg_library::CImg<T>& cimg_library::CImg<T>::assign(unsigned int, unsigned int, unsigned int, unsigned int) [with T = char]’
+  110 |     gmic_image<T>& assign(const unsigned int size_x, const unsigned int size_y=1,
+      |                    ^~~~~~
+/usr/include/gmic.h:110:20: note:   candidate expects 4 arguments, 0 provided
+/usr/include/gmic.h:118:20: note: candidate: ‘cimg_library::CImg<T>& cimg_library::CImg<T>::assign(const T*, unsigned int, unsigned int, unsigned int, unsigned int, bool) [with T = char]’
+  118 |     gmic_image<T>& assign(const T *const values, const unsigned int size_x, const unsigned int size_y,
+      |                    ^~~~~~
+/usr/include/gmic.h:118:20: note:   candidate expects 6 arguments, 0 provided
+In file included from include/ImageConverter.h:53,
+                 from src/ImageConverter.cpp:46:
+/usr/include/CImg.h: In function ‘const char* cimg_library::cimg::ffmpeg_path(const char*, bool)’:
+/usr/include/CImg.h:65190:37: error: no matching function for call to ‘cimg_library::CImg<char>::assign()’
+65190 |       if (reinit_path) s_path.assign();
+      |                        ~~~~~~~~~~~~~^~
+In file included from include/ImageConverter.h:51,
+                 from src/ImageConverter.cpp:46:
+/usr/include/gmic.h:115:20: note: candidate: ‘template<class t> cimg_library::CImg<T>& cimg_library::CImg<T>::assign(const t*, unsigned int, unsigned int, unsigned int, unsigned int) [with t = t; T = char]’
+  115 |     gmic_image<T>& assign(const t *const values, const unsigned int size_x, const unsigned int size_y=1,
+      |                    ^~~~~~
+/usr/include/gmic.h:115:20: note:   template argument deduction/substitution failed:
+In file included from include/ImageConverter.h:53,
+                 from src/ImageConverter.cpp:46:
+/usr/include/CImg.h:65190:37: note:   candidate expects 5 arguments, 0 provided
+65190 |       if (reinit_path) s_path.assign();
+      |                        ~~~~~~~~~~~~~^~
+In file included from include/ImageConverter.h:51,
+                 from src/ImageConverter.cpp:46:
+/usr/include/gmic.h:110:20: note: candidate: ‘cimg_library::CImg<T>& cimg_library::CImg<T>::assign(unsigned int, unsigned int, unsigned int, unsigned int) [with T = char]’
+  110 |     gmic_image<T>& assign(const unsigned int size_x, const unsigned int size_y=1,
+      |                    ^~~~~~
+/usr/include/gmic.h:110:20: note:   candidate expects 4 arguments, 0 provided
+/usr/include/gmic.h:118:20: note: candidate: ‘cimg_library::CImg<T>& cimg_library::CImg<T>::assign(const T*, unsigned int, unsigned int, unsigned int, unsigned int, bool) [with T = char]’
+  118 |     gmic_image<T>& assign(const T *const values, const unsigned int size_x, const unsigned int size_y,
+      |                    ^~~~~~
+/usr/include/gmic.h:118:20: note:   candidate expects 6 arguments, 0 provided
+In file included from include/ImageConverter.h:53,
+                 from src/ImageConverter.cpp:46:
+/usr/include/CImg.h: In function ‘const char* cimg_library::cimg::graphicsmagick_path(const char*, bool)’:
+/usr/include/CImg.h:65227:37: error: no matching function for call to ‘cimg_library::CImg<char>::assign()’
+65227 |       if (reinit_path) s_path.assign();
+      |                        ~~~~~~~~~~~~~^~
+In file included from include/ImageConverter.h:51,
+                 from src/ImageConverter.cpp:46:
+/usr/include/gmic.h:115:20: note: candidate: ‘template<class t> cimg_library::CImg<T>& cimg_library::CImg<T>::assign(const t*, unsigned int, unsigned int, unsigned int, unsigned int) [with t = t; T = char]’
+  115 |     gmic_image<T>& assign(const t *const values, const unsigned int size_x, const unsigned int size_y=1,
+      |                    ^~~~~~
+/usr/include/gmic.h:115:20: note:   template argument deduction/substitution failed:
+In file included from include/ImageConverter.h:53,
+                 from src/ImageConverter.cpp:46:
+/usr/include/CImg.h:65227:37: note:   candidate expects 5 arguments, 0 provided
+65227 |       if (reinit_path) s_path.assign();
+      |                        ~~~~~~~~~~~~~^~
+In file included from include/ImageConverter.h:51,
+                 from src/ImageConverter.cpp:46:
+/usr/include/gmic.h:110:20: note: candidate: ‘cimg_library::CImg<T>& cimg_library::CImg<T>::assign(unsigned int, unsigned int, unsigned int, unsigned int) [with T = char]’
+  110 |     gmic_image<T>& assign(const unsigned int size_x, const unsigned int size_y=1,
+      |                    ^~~~~~
+/usr/include/gmic.h:110:20: note:   candidate expects 4 arguments, 0 provided
+/usr/include/gmic.h:118:20: note: candidate: ‘cimg_library::CImg<T>& cimg_library::CImg<T>::assign(const T*, unsigned int, unsigned int, unsigned int, unsigned int, bool) [with T = char]’
+  118 |     gmic_image<T>& assign(const T *const values, const unsigned int size_x, const unsigned int size_y,
+      |                    ^~~~~~
+/usr/include/gmic.h:118:20: note:   candidate expects 6 arguments, 0 provided
+In file included from include/ImageConverter.h:53,
+                 from src/ImageConverter.cpp:46:
+/usr/include/CImg.h: In function ‘const char* cimg_library::cimg::gunzip_path(const char*, bool)’:
+/usr/include/CImg.h:65337:37: error: no matching function for call to ‘cimg_library::CImg<char>::assign()’
+65337 |       if (reinit_path) s_path.assign();
+      |                        ~~~~~~~~~~~~~^~
+In file included from include/ImageConverter.h:51,
+                 from src/ImageConverter.cpp:46:
+/usr/include/gmic.h:115:20: note: candidate: ‘template<class t> cimg_library::CImg<T>& cimg_library::CImg<T>::assign(const t*, unsigned int, unsigned int, unsigned int, unsigned int) [with t = t; T = char]’
+  115 |     gmic_image<T>& assign(const t *const values, const unsigned int size_x, const unsigned int size_y=1,
+      |                    ^~~~~~
+/usr/include/gmic.h:115:20: note:   template argument deduction/substitution failed:
+In file included from include/ImageConverter.h:53,
+                 from src/ImageConverter.cpp:46:
+/usr/include/CImg.h:65337:37: note:   candidate expects 5 arguments, 0 provided
+65337 |       if (reinit_path) s_path.assign();
+      |                        ~~~~~~~~~~~~~^~
+In file included from include/ImageConverter.h:51,
+                 from src/ImageConverter.cpp:46:
+/usr/include/gmic.h:110:20: note: candidate: ‘cimg_library::CImg<T>& cimg_library::CImg<T>::assign(unsigned int, unsigned int, unsigned int, unsigned int) [with T = char]’
+  110 |     gmic_image<T>& assign(const unsigned int size_x, const unsigned int size_y=1,
+      |                    ^~~~~~
+/usr/include/gmic.h:110:20: note:   candidate expects 4 arguments, 0 provided
+/usr/include/gmic.h:118:20: note: candidate: ‘cimg_library::CImg<T>& cimg_library::CImg<T>::assign(const T*, unsigned int, unsigned int, unsigned int, unsigned int, bool) [with T = char]’
+  118 |     gmic_image<T>& assign(const T *const values, const unsigned int size_x, const unsigned int size_y,
+      |                    ^~~~~~
+/usr/include/gmic.h:118:20: note:   candidate expects 6 arguments, 0 provided
+In file included from include/ImageConverter.h:53,
+                 from src/ImageConverter.cpp:46:
+/usr/include/CImg.h: In function ‘const char* cimg_library::cimg::gzip_path(const char*, bool)’:
+/usr/include/CImg.h:65374:37: error: no matching function for call to ‘cimg_library::CImg<char>::assign()’
+65374 |       if (reinit_path) s_path.assign();
+      |                        ~~~~~~~~~~~~~^~
+In file included from include/ImageConverter.h:51,
+                 from src/ImageConverter.cpp:46:
+/usr/include/gmic.h:115:20: note: candidate: ‘template<class t> cimg_library::CImg<T>& cimg_library::CImg<T>::assign(const t*, unsigned int, unsigned int, unsigned int, unsigned int) [with t = t; T = char]’
+  115 |     gmic_image<T>& assign(const t *const values, const unsigned int size_x, const unsigned int size_y=1,
+      |                    ^~~~~~
+/usr/include/gmic.h:115:20: note:   template argument deduction/substitution failed:
+In file included from include/ImageConverter.h:53,
+                 from src/ImageConverter.cpp:46:
+/usr/include/CImg.h:65374:37: note:   candidate expects 5 arguments, 0 provided
+65374 |       if (reinit_path) s_path.assign();
+      |                        ~~~~~~~~~~~~~^~
+In file included from include/ImageConverter.h:51,
+                 from src/ImageConverter.cpp:46:
+/usr/include/gmic.h:110:20: note: candidate: ‘cimg_library::CImg<T>& cimg_library::CImg<T>::assign(unsigned int, unsigned int, unsigned int, unsigned int) [with T = char]’
+  110 |     gmic_image<T>& assign(const unsigned int size_x, const unsigned int size_y=1,
+      |                    ^~~~~~
+/usr/include/gmic.h:110:20: note:   candidate expects 4 arguments, 0 provided
+/usr/include/gmic.h:118:20: note: candidate: ‘cimg_library::CImg<T>& cimg_library::CImg<T>::assign(const T*, unsigned int, unsigned int, unsigned int, unsigned int, bool) [with T = char]’
+  118 |     gmic_image<T>& assign(const T *const values, const unsigned int size_x, const unsigned int size_y,
+      |                    ^~~~~~
+/usr/include/gmic.h:118:20: note:   candidate expects 6 arguments, 0 provided
+In file included from include/ImageConverter.h:53,
+                 from src/ImageConverter.cpp:46:
+/usr/include/CImg.h: In function ‘const char* cimg_library::cimg::imagemagick_path(const char*, bool)’:
+/usr/include/CImg.h:65411:37: error: no matching function for call to ‘cimg_library::CImg<char>::assign()’
+65411 |       if (reinit_path) s_path.assign();
+      |                        ~~~~~~~~~~~~~^~
+In file included from include/ImageConverter.h:51,
+                 from src/ImageConverter.cpp:46:
+/usr/include/gmic.h:115:20: note: candidate: ‘template<class t> cimg_library::CImg<T>& cimg_library::CImg<T>::assign(const t*, unsigned int, unsigned int, unsigned int, unsigned int) [with t = t; T = char]’
+  115 |     gmic_image<T>& assign(const t *const values, const unsigned int size_x, const unsigned int size_y=1,
+      |                    ^~~~~~
+/usr/include/gmic.h:115:20: note:   template argument deduction/substitution failed:
+In file included from include/ImageConverter.h:53,
+                 from src/ImageConverter.cpp:46:
+/usr/include/CImg.h:65411:37: note:   candidate expects 5 arguments, 0 provided
+65411 |       if (reinit_path) s_path.assign();
+      |                        ~~~~~~~~~~~~~^~
+In file included from include/ImageConverter.h:51,
+                 from src/ImageConverter.cpp:46:
+/usr/include/gmic.h:110:20: note: candidate: ‘cimg_library::CImg<T>& cimg_library::CImg<T>::assign(unsigned int, unsigned int, unsigned int, unsigned int) [with T = char]’
+  110 |     gmic_image<T>& assign(const unsigned int size_x, const unsigned int size_y=1,
+      |                    ^~~~~~
+/usr/include/gmic.h:110:20: note:   candidate expects 4 arguments, 0 provided
+/usr/include/gmic.h:118:20: note: candidate: ‘cimg_library::CImg<T>& cimg_library::CImg<T>::assign(const T*, unsigned int, unsigned int, unsigned int, unsigned int, bool) [with T = char]’
+  118 |     gmic_image<T>& assign(const T *const values, const unsigned int size_x, const unsigned int size_y,
+      |                    ^~~~~~
+/usr/include/gmic.h:118:20: note:   candidate expects 6 arguments, 0 provided
+In file included from include/ImageConverter.h:53,
+                 from src/ImageConverter.cpp:46:
+/usr/include/CImg.h: In function ‘const char* cimg_library::cimg::medcon_path(const char*, bool)’:
+/usr/include/CImg.h:65524:37: error: no matching function for call to ‘cimg_library::CImg<char>::assign()’
+65524 |       if (reinit_path) s_path.assign();
+      |                        ~~~~~~~~~~~~~^~
+In file included from include/ImageConverter.h:51,
+                 from src/ImageConverter.cpp:46:
+/usr/include/gmic.h:115:20: note: candidate: ‘template<class t> cimg_library::CImg<T>& cimg_library::CImg<T>::assign(const t*, unsigned int, unsigned int, unsigned int, unsigned int) [with t = t; T = char]’
+  115 |     gmic_image<T>& assign(const t *const values, const unsigned int size_x, const unsigned int size_y=1,
+      |                    ^~~~~~
+/usr/include/gmic.h:115:20: note:   template argument deduction/substitution failed:
+In file included from include/ImageConverter.h:53,
+                 from src/ImageConverter.cpp:46:
+/usr/include/CImg.h:65524:37: note:   candidate expects 5 arguments, 0 provided
+65524 |       if (reinit_path) s_path.assign();
+      |                        ~~~~~~~~~~~~~^~
+In file included from include/ImageConverter.h:51,
+                 from src/ImageConverter.cpp:46:
+/usr/include/gmic.h:110:20: note: candidate: ‘cimg_library::CImg<T>& cimg_library::CImg<T>::assign(unsigned int, unsigned int, unsigned int, unsigned int) [with T = char]’
+  110 |     gmic_image<T>& assign(const unsigned int size_x, const unsigned int size_y=1,
+      |                    ^~~~~~
+/usr/include/gmic.h:110:20: note:   candidate expects 4 arguments, 0 provided
+/usr/include/gmic.h:118:20: note: candidate: ‘cimg_library::CImg<T>& cimg_library::CImg<T>::assign(const T*, unsigned int, unsigned int, unsigned int, unsigned int, bool) [with T = char]’
+  118 |     gmic_image<T>& assign(const T *const values, const unsigned int size_x, const unsigned int size_y,
+      |                    ^~~~~~
+/usr/include/gmic.h:118:20: note:   candidate expects 6 arguments, 0 provided
+In file included from include/ImageConverter.h:53,
+                 from src/ImageConverter.cpp:46:
+/usr/include/CImg.h: In function ‘const char* cimg_library::cimg::temporary_path(const char*, bool)’:
+/usr/include/CImg.h:65580:37: error: no matching function for call to ‘cimg_library::CImg<char>::assign()’
+65580 |       if (reinit_path) s_path.assign();
+      |                        ~~~~~~~~~~~~~^~
+In file included from include/ImageConverter.h:51,
+                 from src/ImageConverter.cpp:46:
+/usr/include/gmic.h:115:20: note: candidate: ‘template<class t> cimg_library::CImg<T>& cimg_library::CImg<T>::assign(const t*, unsigned int, unsigned int, unsigned int, unsigned int) [with t = t; T = char]’
+  115 |     gmic_image<T>& assign(const t *const values, const unsigned int size_x, const unsigned int size_y=1,
+      |                    ^~~~~~
+/usr/include/gmic.h:115:20: note:   template argument deduction/substitution failed:
+In file included from include/ImageConverter.h:53,
+                 from src/ImageConverter.cpp:46:
+/usr/include/CImg.h:65580:37: note:   candidate expects 5 arguments, 0 provided
+65580 |       if (reinit_path) s_path.assign();
+      |                        ~~~~~~~~~~~~~^~
+In file included from include/ImageConverter.h:51,
+                 from src/ImageConverter.cpp:46:
+/usr/include/gmic.h:110:20: note: candidate: ‘cimg_library::CImg<T>& cimg_library::CImg<T>::assign(unsigned int, unsigned int, unsigned int, unsigned int) [with T = char]’
+  110 |     gmic_image<T>& assign(const unsigned int size_x, const unsigned int size_y=1,
+      |                    ^~~~~~
+/usr/include/gmic.h:110:20: note:   candidate expects 4 arguments, 0 provided
+/usr/include/gmic.h:118:20: note: candidate: ‘cimg_library::CImg<T>& cimg_library::CImg<T>::assign(const T*, unsigned int, unsigned int, unsigned int, unsigned int, bool) [with T = char]’
+  118 |     gmic_image<T>& assign(const T *const values, const unsigned int size_x, const unsigned int size_y,
+      |                    ^~~~~~
+/usr/include/gmic.h:118:20: note:   candidate expects 6 arguments, 0 provided
+In file included from include/ImageConverter.h:53,
+                 from src/ImageConverter.cpp:46:
+/usr/include/CImg.h:65587:28: error: no matching function for call to ‘cimg_library::CImg<char>::CImg(int)’
+65587 |         CImg<char> tmp(1024), filename_tmp(256);
+      |                            ^
+In file included from include/ImageConverter.h:51,
+                 from src/ImageConverter.cpp:46:
+/usr/include/gmic.h:107:5: note: candidate: ‘cimg_library::CImg<T>::CImg() [with T = char]’
+  107 |     gmic_image():_width(0),_height(0),_depth(0),_spectrum(0),_is_shared(false),_data(0) { }
+      |     ^~~~~~~~~~
+/usr/include/gmic.h:107:5: note:   candidate expects 0 arguments, 1 provided
+/usr/include/gmic.h:93:31: note: candidate: ‘constexpr cimg_library::CImg<char>::CImg(const cimg_library::CImg<char>&)’
+   93 |   template<typename T> struct gmic_image {
+      |                               ^~~~~~~~~~
+/usr/include/gmic.h:93:31: note:   no known conversion for argument 1 from ‘int’ to ‘const cimg_library::CImg<char>&’
+In file included from include/ImageConverter.h:53,
+                 from src/ImageConverter.cpp:46:
+/usr/include/CImg.h:65587:47: error: no matching function for call to ‘cimg_library::CImg<char>::CImg(int)’
+65587 |         CImg<char> tmp(1024), filename_tmp(256);
+      |                                               ^
+In file included from include/ImageConverter.h:51,
+                 from src/ImageConverter.cpp:46:
+/usr/include/gmic.h:107:5: note: candidate: ‘cimg_library::CImg<T>::CImg() [with T = char]’
+  107 |     gmic_image():_width(0),_height(0),_depth(0),_spectrum(0),_is_shared(false),_data(0) { }
+      |     ^~~~~~~~~~
+/usr/include/gmic.h:107:5: note:   candidate expects 0 arguments, 1 provided
+/usr/include/gmic.h:93:31: note: candidate: ‘constexpr cimg_library::CImg<char>::CImg(const cimg_library::CImg<char>&)’
+   93 |   template<typename T> struct gmic_image {
+      |                               ^~~~~~~~~~
+/usr/include/gmic.h:93:31: note:   no known conversion for argument 1 from ‘int’ to ‘const cimg_library::CImg<char>&’
+In file included from include/ImageConverter.h:53,
+                 from src/ImageConverter.cpp:46:
+/usr/include/CImg.h:65592:22: error: ‘struct cimg_library::CImg<char>’ has no member named ‘data’; did you mean ‘_data’?
+65592 |         if (tmpPath) _cimg_test_temporary_path(tmpPath);
+      |                      ^~~~~~~~~~~~~~~~~~~~~~~~~
+/usr/include/CImg.h:65603:9: error: ‘struct cimg_library::CImg<char>’ has no member named ‘data’; did you mean ‘_data’?
+65603 |         _cimg_test_temporary_path("/tmp");
+      |         ^~~~~~~~~~~~~~~~~~~~~~~~~
+/usr/include/CImg.h:65604:9: error: ‘struct cimg_library::CImg<char>’ has no member named ‘data’; did you mean ‘_data’?
+65604 |         _cimg_test_temporary_path("/var/tmp");
+      |         ^~~~~~~~~~~~~~~~~~~~~~~~~
+/usr/include/CImg.h: In function ‘const char* cimg_library::cimg::wget_path(const char*, bool)’:
+/usr/include/CImg.h:65629:37: error: no matching function for call to ‘cimg_library::CImg<char>::assign()’
+65629 |       if (reinit_path) s_path.assign();
+      |                        ~~~~~~~~~~~~~^~
+In file included from include/ImageConverter.h:51,
+                 from src/ImageConverter.cpp:46:
+/usr/include/gmic.h:115:20: note: candidate: ‘template<class t> cimg_library::CImg<T>& cimg_library::CImg<T>::assign(const t*, unsigned int, unsigned int, unsigned int, unsigned int) [with t = t; T = char]’
+  115 |     gmic_image<T>& assign(const t *const values, const unsigned int size_x, const unsigned int size_y=1,
+      |                    ^~~~~~
+/usr/include/gmic.h:115:20: note:   template argument deduction/substitution failed:
+In file included from include/ImageConverter.h:53,
+                 from src/ImageConverter.cpp:46:
+/usr/include/CImg.h:65629:37: note:   candidate expects 5 arguments, 0 provided
+65629 |       if (reinit_path) s_path.assign();
+      |                        ~~~~~~~~~~~~~^~
+In file included from include/ImageConverter.h:51,
+                 from src/ImageConverter.cpp:46:
+/usr/include/gmic.h:110:20: note: candidate: ‘cimg_library::CImg<T>& cimg_library::CImg<T>::assign(unsigned int, unsigned int, unsigned int, unsigned int) [with T = char]’
+  110 |     gmic_image<T>& assign(const unsigned int size_x, const unsigned int size_y=1,
+      |                    ^~~~~~
+/usr/include/gmic.h:110:20: note:   candidate expects 4 arguments, 0 provided
+/usr/include/gmic.h:118:20: note: candidate: ‘cimg_library::CImg<T>& cimg_library::CImg<T>::assign(const T*, unsigned int, unsigned int, unsigned int, unsigned int, bool) [with T = char]’
+  118 |     gmic_image<T>& assign(const T *const values, const unsigned int size_x, const unsigned int size_y,
+      |                    ^~~~~~
+/usr/include/gmic.h:118:20: note:   candidate expects 6 arguments, 0 provided
+In file included from include/ImageConverter.h:53,
+                 from src/ImageConverter.cpp:46:
+/usr/include/CImg.h: In function ‘char* cimg_library::cimg::number_filename(const char*, int, unsigned int, char*)’:
+/usr/include/CImg.h:65699:27: error: no matching function for call to ‘cimg_library::CImg<char>::CImg(int)’
+65699 |       CImg<char> format(16), body(siz + 32);
+      |                           ^
+In file included from include/ImageConverter.h:51,
+                 from src/ImageConverter.cpp:46:
+/usr/include/gmic.h:107:5: note: candidate: ‘cimg_library::CImg<T>::CImg() [with T = char]’
+  107 |     gmic_image():_width(0),_height(0),_depth(0),_spectrum(0),_is_shared(false),_data(0) { }
+      |     ^~~~~~~~~~
+/usr/include/gmic.h:107:5: note:   candidate expects 0 arguments, 1 provided
+/usr/include/gmic.h:93:31: note: candidate: ‘constexpr cimg_library::CImg<char>::CImg(const cimg_library::CImg<char>&)’
+   93 |   template<typename T> struct gmic_image {
+      |                               ^~~~~~~~~~
+/usr/include/gmic.h:93:31: note:   no known conversion for argument 1 from ‘int’ to ‘const cimg_library::CImg<char>&’
+In file included from include/ImageConverter.h:53,
+                 from src/ImageConverter.cpp:46:
+/usr/include/CImg.h:65699:43: error: no matching function for call to ‘cimg_library::CImg<char>::CImg(unsigned int)’
+65699 |       CImg<char> format(16), body(siz + 32);
+      |                                           ^
+In file included from include/ImageConverter.h:51,
+                 from src/ImageConverter.cpp:46:
+/usr/include/gmic.h:107:5: note: candidate: ‘cimg_library::CImg<T>::CImg() [with T = char]’
+  107 |     gmic_image():_width(0),_height(0),_depth(0),_spectrum(0),_is_shared(false),_data(0) { }
+      |     ^~~~~~~~~~
+/usr/include/gmic.h:107:5: note:   candidate expects 0 arguments, 1 provided
+/usr/include/gmic.h:93:31: note: candidate: ‘constexpr cimg_library::CImg<char>::CImg(const cimg_library::CImg<char>&)’
+   93 |   template<typename T> struct gmic_image {
+      |                               ^~~~~~~~~~
+/usr/include/gmic.h:93:31: note:   no known conversion for argument 1 from ‘unsigned int’ to ‘const cimg_library::CImg<char>&’
+In file included from include/ImageConverter.h:53,
+                 from src/ImageConverter.cpp:46:
+/usr/include/CImg.h: In function ‘cimg_library::CImgList<char> cimg_library::cimg::files(const char*, bool, unsigned int, bool)’:
+/usr/include/CImg.h:65726:47: error: ‘string’ is not a member of ‘cimg_library::CImg<char>’
+65726 |       CImg<char> pattern, _path = CImg<char>::string(path);
+      |                                               ^~~~~~
+/usr/include/CImg.h:65743:84: error: ‘struct cimg_library::CImg<char>’ has no member named ‘data’; did you mean ‘_data’?
+65743 |         const unsigned int bpos = (unsigned int)(cimg::basename(_path,'/') - _path.data());
+      |                                                                                    ^~~~
+      |                                                                                    _data
+/usr/include/CImg.h:65744:21: error: ‘string’ is not a member of ‘cimg_library::CImg<char>’
+65744 |         CImg<char>::string(_path).move_to(pattern);
+      |                     ^~~~~~
+/usr/include/CImg.h:65785:65: error: ‘struct cimg_library::CImg<char>’ has no member named ‘data’; did you mean ‘_data’?
+65785 |       DIR *const dir = opendir(is_root?"/":is_current?".":_path.data());
+      |                                                                 ^~~~
+      |                                                                 _data
+/usr/include/CImg.h:65786:40: error: ‘const_empty’ is not a member of ‘cimg_library::CImgList<char>’
+65786 |       if (!dir) return CImgList<char>::const_empty();
+      |                                        ^~~~~~~~~~~
+/usr/include/CImg.h:65792:47: error: no matching function for call to ‘cimg_library::CImg<char>::CImg(unsigned int)’
+65792 |           CImg<char> full_filename(lp + lf + 2);
+      |                                               ^
+In file included from include/ImageConverter.h:51,
+                 from src/ImageConverter.cpp:46:
+/usr/include/gmic.h:107:5: note: candidate: ‘cimg_library::CImg<T>::CImg() [with T = char]’
+  107 |     gmic_image():_width(0),_height(0),_depth(0),_spectrum(0),_is_shared(false),_data(0) { }
+      |     ^~~~~~~~~~
+/usr/include/gmic.h:107:5: note:   candidate expects 0 arguments, 1 provided
+/usr/include/gmic.h:93:31: note: candidate: ‘constexpr cimg_library::CImg<char>::CImg(const cimg_library::CImg<char>&)’
+   93 |   template<typename T> struct gmic_image {
+      |                               ^~~~~~~~~~
+/usr/include/gmic.h:93:31: note:   no known conversion for argument 1 from ‘unsigned int’ to ‘const cimg_library::CImg<char>&’
+In file included from include/ImageConverter.h:53,
+                 from src/ImageConverter.cpp:46:
+/usr/include/CImg.h:65807:31: error: ‘struct cimg_library::CImg<char>’ has no member named ‘move_to’
+65807 |                 full_filename.move_to(res);
+      |                               ^~~~~~~
+/usr/include/CImg.h:65810:43: error: no matching function for call to ‘cimg_library::CImg<char>::CImg(const char* const&, unsigned int)’
+65810 |                 CImg<char>(filename,lf + 1).move_to(res);
+      |                                           ^
+In file included from include/ImageConverter.h:51,
+                 from src/ImageConverter.cpp:46:
+/usr/include/gmic.h:107:5: note: candidate: ‘cimg_library::CImg<T>::CImg() [with T = char]’
+  107 |     gmic_image():_width(0),_height(0),_depth(0),_spectrum(0),_is_shared(false),_data(0) { }
+      |     ^~~~~~~~~~
+/usr/include/gmic.h:107:5: note:   candidate expects 0 arguments, 2 provided
+/usr/include/gmic.h:93:31: note: candidate: ‘constexpr cimg_library::CImg<char>::CImg(const cimg_library::CImg<char>&)’
+   93 |   template<typename T> struct gmic_image {
+      |                               ^~~~~~~~~~
+/usr/include/gmic.h:93:31: note:   candidate expects 1 argument, 2 provided
+In file included from include/ImageConverter.h:53,
+                 from src/ImageConverter.cpp:46:
+/usr/include/CImg.h: In function ‘const char* cimg_library::cimg::ftype(FILE*, const char*)’:
+/usr/include/CImg.h:65852:16: error: ‘struct cimg_library::CImg<char>’ has no member named ‘_load_raw’
+65852 |         header._load_raw(file,filename,512,1,1,1,false,false,0);
+      |                ^~~~~~~~~
+/usr/include/CImg.h:65859:39: error: ‘struct cimg_library::CImg<char>’ has no member named ‘data’; did you mean ‘_data’?
+65859 |         else if (!std::strncmp(header.data() + 128,"DICM",4)) // DICOM
+      |                                       ^~~~
+      |                                       _data
+/usr/include/CImg.h:65879:43: error: ‘struct cimg_library::CImg<char>’ has no member named ‘get_split’
+65879 |           CImgList<char> _header = header.get_split(CImg<char>::vector('\n'),0,false);
+      |                                           ^~~~~~~~~
+/usr/include/CImg.h:65879:65: error: ‘vector’ is not a member of ‘cimg_library::CImg<char>’
+65879 |           CImgList<char> _header = header.get_split(CImg<char>::vector('\n'),0,false);
+      |                                                                 ^~~~~~
+/usr/include/CImg.h:65881:24: error: no match for call to ‘(cimg_library::CImgList<char>) (int&, int)’
+65881 |             if (_header(l,0)=='#') continue;
+      |                 ~~~~~~~^~~~~
+In file included from include/ImageConverter.h:51,
+                 from src/ImageConverter.cpp:46:
+/usr/include/gmic.h:166:20: note: candidate: ‘cimg_library::CImg<T>& cimg_library::CImgList<T>::operator()(unsigned int) [with T = char]’
+  166 |     gmic_image<T>& operator()(const unsigned int l) {
+      |                    ^~~~~~~~
+/usr/include/gmic.h:166:20: note:   candidate expects 1 argument, 2 provided
+/usr/include/gmic.h:170:26: note: candidate: ‘const cimg_library::CImg<T>& cimg_library::CImgList<T>::operator()(unsigned int) const [with T = char]’
+  170 |     const gmic_image<T>& operator()(const unsigned int l) const {
+      |                          ^~~~~~~~
+/usr/include/gmic.h:170:26: note:   candidate expects 1 argument, 2 provided
+In file included from include/ImageConverter.h:53,
+                 from src/ImageConverter.cpp:46:
+/usr/include/CImg.h:65882:48: error: no match for call to ‘(cimg_library::CImgList<char>) (int&, int)’
+65882 |             if (_header[l]._width==2 && _header(l,0)=='P') {
+      |                                         ~~~~~~~^~~~~
+In file included from include/ImageConverter.h:51,
+                 from src/ImageConverter.cpp:46:
+/usr/include/gmic.h:166:20: note: candidate: ‘cimg_library::CImg<T>& cimg_library::CImgList<T>::operator()(unsigned int) [with T = char]’
+  166 |     gmic_image<T>& operator()(const unsigned int l) {
+      |                    ^~~~~~~~
+/usr/include/gmic.h:166:20: note:   candidate expects 1 argument, 2 provided
+/usr/include/gmic.h:170:26: note: candidate: ‘const cimg_library::CImg<T>& cimg_library::CImgList<T>::operator()(unsigned int) const [with T = char]’
+  170 |     const gmic_image<T>& operator()(const unsigned int l) const {
+      |                          ^~~~~~~~
+/usr/include/gmic.h:170:26: note:   candidate expects 1 argument, 2 provided
+In file included from include/ImageConverter.h:53,
+                 from src/ImageConverter.cpp:46:
+/usr/include/CImg.h:65883:37: error: no match for call to ‘(cimg_library::CImgList<char>) (int&, int)’
+65883 |               const char c = _header(l,1);
+      |                              ~~~~~~~^~~~~
+In file included from include/ImageConverter.h:51,
+                 from src/ImageConverter.cpp:46:
+/usr/include/gmic.h:166:20: note: candidate: ‘cimg_library::CImg<T>& cimg_library::CImgList<T>::operator()(unsigned int) [with T = char]’
+  166 |     gmic_image<T>& operator()(const unsigned int l) {
+      |                    ^~~~~~~~
+/usr/include/gmic.h:166:20: note:   candidate expects 1 argument, 2 provided
+/usr/include/gmic.h:170:26: note: candidate: ‘const cimg_library::CImg<T>& cimg_library::CImgList<T>::operator()(unsigned int) const [with T = char]’
+  170 |     const gmic_image<T>& operator()(const unsigned int l) const {
+      |                          ^~~~~~~~
+/usr/include/gmic.h:170:26: note:   candidate expects 1 argument, 2 provided
+In file included from include/ImageConverter.h:53,
+                 from src/ImageConverter.cpp:46:
+/usr/include/CImg.h: In function ‘char* cimg_library::cimg::load_network(const char*, char*, unsigned int, bool, const char*)’:
+/usr/include/CImg.h:65916:36: error: ‘string’ is not a member of ‘cimg_library::CImg<char>’
+65916 |       CImg<char> ext = CImg<char>::string(_ext);
+      |                                    ^~~~~~
+/usr/include/CImg.h:65960:62: error: no matching function for call to ‘cimg_library::CImg<char>::CImg(unsigned int)’
+65960 |       CImg<char> command((unsigned int)std::strlen(url) + 512);
+      |                                                              ^
+In file included from include/ImageConverter.h:51,
+                 from src/ImageConverter.cpp:46:
+/usr/include/gmic.h:107:5: note: candidate: ‘cimg_library::CImg<T>::CImg() [with T = char]’
+  107 |     gmic_image():_width(0),_height(0),_depth(0),_spectrum(0),_is_shared(false),_data(0) { }
+      |     ^~~~~~~~~~
+/usr/include/gmic.h:107:5: note:   candidate expects 0 arguments, 1 provided
+/usr/include/gmic.h:93:31: note: candidate: ‘constexpr cimg_library::CImg<char>::CImg(const cimg_library::CImg<char>&)’
+   93 |   template<typename T> struct gmic_image {
+      |                               ^~~~~~~~~~
+/usr/include/gmic.h:93:31: note:   no known conversion for argument 1 from ‘unsigned int’ to ‘const cimg_library::CImg<char>&’
+In file included from include/ImageConverter.h:53,
+                 from src/ImageConverter.cpp:46:
+/usr/include/CImg.h:65968:37: error: ‘string’ is not a member of ‘cimg_library::CImg<char>’
+65968 |                         CImg<char>::string(url)._system_strescape().data());
+      |                                     ^~~~~~
+/usr/include/CImg.h:65972:37: error: ‘string’ is not a member of ‘cimg_library::CImg<char>’
+65972 |                         CImg<char>::string(url)._system_strescape().data());
+      |                                     ^~~~~~
+/usr/include/CImg.h:65977:37: error: ‘string’ is not a member of ‘cimg_library::CImg<char>’
+65977 |                         CImg<char>::string(url)._system_strescape().data());
+      |                                     ^~~~~~
+/usr/include/CImg.h:65981:37: error: ‘string’ is not a member of ‘cimg_library::CImg<char>’
+65981 |                         CImg<char>::string(url)._system_strescape().data());
+      |                                     ^~~~~~
+/usr/include/CImg.h:66025:39: error: ‘string’ is not a member of ‘cimg_library::CImg<char>’
+66025 |                           CImg<char>::string(url)._system_strescape().data());
+      |                                       ^~~~~~
+/usr/include/CImg.h:66029:39: error: ‘string’ is not a member of ‘cimg_library::CImg<char>’
+66029 |                           CImg<char>::string(url)._system_strescape().data());
+      |                                       ^~~~~~
+/usr/include/CImg.h:66034:39: error: ‘string’ is not a member of ‘cimg_library::CImg<char>’
+66034 |                           CImg<char>::string(url)._system_strescape().data());
+      |                                       ^~~~~~
+/usr/include/CImg.h:66038:39: error: ‘string’ is not a member of ‘cimg_library::CImg<char>’
+66038 |                           CImg<char>::string(url)._system_strescape().data());
+      |                                       ^~~~~~
+/usr/include/CImg.h: In function ‘long unsigned int cimg_library::cimg::tictoc(bool)’:
+/usr/include/CImg.h:66075:40: error: no matching function for call to ‘cimg_library::CImg<long unsigned int>::CImg(int)’
+66075 |       static CImg<cimg_uint64> times(64);
+      |                                        ^
+In file included from include/ImageConverter.h:51,
+                 from src/ImageConverter.cpp:46:
+/usr/include/gmic.h:107:5: note: candidate: ‘cimg_library::CImg<T>::CImg() [with T = long unsigned int]’
+  107 |     gmic_image():_width(0),_height(0),_depth(0),_spectrum(0),_is_shared(false),_data(0) { }
+      |     ^~~~~~~~~~
+/usr/include/gmic.h:107:5: note:   candidate expects 0 arguments, 1 provided
+/usr/include/gmic.h:93:31: note: candidate: ‘constexpr cimg_library::CImg<long unsigned int>::CImg(const cimg_library::CImg<long unsigned int>&)’
+   93 |   template<typename T> struct gmic_image {
+      |                               ^~~~~~~~~~
+/usr/include/gmic.h:93:31: note:   no known conversion for argument 1 from ‘int’ to ‘const cimg_library::CImg<long unsigned int>&’
+In file included from include/ImageConverter.h:53,
+                 from src/ImageConverter.cpp:46:
+/usr/include/CImg.h: In function ‘const char* cimg_library::cimg::strbuffersize(long unsigned int)’:
+/usr/include/CImg.h:66127:32: error: no matching function for call to ‘cimg_library::CImg<char>::CImg(int)’
+66127 |       static CImg<char> res(256);
+      |                                ^
+In file included from include/ImageConverter.h:51,
+                 from src/ImageConverter.cpp:46:
+/usr/include/gmic.h:107:5: note: candidate: ‘cimg_library::CImg<T>::CImg() [with T = char]’
+  107 |     gmic_image():_width(0),_height(0),_depth(0),_spectrum(0),_is_shared(false),_data(0) { }
+      |     ^~~~~~~~~~
+/usr/include/gmic.h:107:5: note:   candidate expects 0 arguments, 1 provided
+/usr/include/gmic.h:93:31: note: candidate: ‘constexpr cimg_library::CImg<char>::CImg(const cimg_library::CImg<char>&)’
+   93 |   template<typename T> struct gmic_image {
+      |                               ^~~~~~~~~~
+/usr/include/gmic.h:93:31: note:   no known conversion for argument 1 from ‘int’ to ‘const cimg_library::CImg<char>&’
+In file included from include/ImageConverter.h:53,
+                 from src/ImageConverter.cpp:46:
+/usr/include/CImg.h: In function ‘int cimg_library::cimg::dialog(const char*, const char*, const char*, const char*, const char*, const char*, const char*, const char*, bool)’:
+/usr/include/CImg.h:66327:42: error: ‘_logo40x38’ is not a member of ‘cimg_library::CImg<unsigned char>’
+66327 |                     CImg<unsigned char>::_logo40x38(),is_centered);
+      |                                          ^~~~~~~~~~
+/usr/include/CImg.h: In function ‘double cimg_library::cimg::eval(const char*, double, double, double, double)’:
+/usr/include/CImg.h:66348:20: error: ‘const struct cimg_library::CImg<float>’ has no member named ‘eval’
+66348 |       return empty.eval(expression,x,y,z,c);
+      |                    ^~~~
+/usr/include/CImg.h: In function ‘cimg_library::CImg<typename cimg_library::cimg::superset<double, t>::type> cimg_library::cimg::eval(const char*, const cimg_library::CImg<T>&)’:
+/usr/include/CImg.h:66354:20: error: ‘const struct cimg_library::CImg<float>’ has no member named ‘eval’
+66354 |       return empty.eval(expression,xyzc);
+      |                    ^~~~
+x86_64-pc-linux-gnu-g++ -c -O3 -march=native -mno-lwp -pipe -fopenmp -std=gnu++11 -Wall -Wextra -D_REENTRANT -fPIC -Dcimg_use_fftw3 -Dcimg_use_zlib -DQT_DEPRECATED_WARNINGS -Dcimg_use_openmp -DHAS_V4L2 -Dgmic_is_parallel -Dcimg_use_abort -DQT_NO_DEBUG_OUTPUT -D_IS_UNIX_ -Dcimg_display=0 -DQT_NO_DEBUG -DQT_WIDGETS_LIB -DQT_GUI_LIB -DQT_XML_LIB -DQT_NETWORK_LIB -DQT_CORE_LIB -I. -I. -Iinclude -I/usr/include/opencv4 -I/usr/include/qt5 -I/usr/include/qt5/QtWidgets -I/usr/include/qt5/QtGui -I/usr/include/qt5/QtXml -I/usr/include/qt5/QtNetwork -I/usr/include/qt5/QtCore -I.moc -I/usr/include/libdrm -I.ui -I/usr/lib64/qt5/mkspecs/linux-g++ -o .obj/CommandParamsWidget.o src/CommandParamsWidget.cpp
+In file included from include/ImageConverter.h:53,
+                 from src/StillImageSource.cpp:50:
+/usr/include/CImg.h:11734:10: error: redefinition of ‘struct cimg_library::CImg<T>’
+11734 |   struct CImg {
+      |          ^~~~
+In file included from include/ImageConverter.h:51,
+                 from src/StillImageSource.cpp:50:
+/usr/include/gmic.h:93:31: note: previous definition of ‘struct cimg_library::CImg<T>’
+   93 |   template<typename T> struct gmic_image {
+      |                               ^~~~~~~~~~
+In file included from include/ImageConverter.h:53,
+                 from src/StillImageSource.cpp:50:
+/usr/include/CImg.h:59851:10: error: redefinition of ‘struct cimg_library::CImgList<T>’
+59851 |   struct CImgList {
+      |          ^~~~~~~~
+In file included from include/ImageConverter.h:51,
+                 from src/StillImageSource.cpp:50:
+/usr/include/gmic.h:141:31: note: previous definition of ‘struct cimg_library::CImgList<T>’
+  141 |   template<typename T> struct gmic_list {
+      |                               ^~~~~~~~~
+In file included from include/ImageConverter.h:53,
+                 from src/StillImageSource.cpp:50:
+/usr/include/CImg.h: In function ‘const char* cimg_library::cimg::curl_path(const char*, bool)’:
+/usr/include/CImg.h:65116:37: error: no matching function for call to ‘cimg_library::CImg<char>::assign()’
+65116 |       if (reinit_path) s_path.assign();
+      |                        ~~~~~~~~~~~~~^~
+In file included from include/ImageConverter.h:51,
+                 from src/StillImageSource.cpp:50:
+/usr/include/gmic.h:115:20: note: candidate: ‘template<class t> cimg_library::CImg<T>& cimg_library::CImg<T>::assign(const t*, unsigned int, unsigned int, unsigned int, unsigned int) [with t = t; T = char]’
+  115 |     gmic_image<T>& assign(const t *const values, const unsigned int size_x, const unsigned int size_y=1,
+      |                    ^~~~~~
+/usr/include/gmic.h:115:20: note:   template argument deduction/substitution failed:
+In file included from include/ImageConverter.h:53,
+                 from src/StillImageSource.cpp:50:
+/usr/include/CImg.h:65116:37: note:   candidate expects 5 arguments, 0 provided
+65116 |       if (reinit_path) s_path.assign();
+      |                        ~~~~~~~~~~~~~^~
+In file included from include/ImageConverter.h:51,
+                 from src/StillImageSource.cpp:50:
+/usr/include/gmic.h:110:20: note: candidate: ‘cimg_library::CImg<T>& cimg_library::CImg<T>::assign(unsigned int, unsigned int, unsigned int, unsigned int) [with T = char]’
+  110 |     gmic_image<T>& assign(const unsigned int size_x, const unsigned int size_y=1,
+      |                    ^~~~~~
+/usr/include/gmic.h:110:20: note:   candidate expects 4 arguments, 0 provided
+/usr/include/gmic.h:118:20: note: candidate: ‘cimg_library::CImg<T>& cimg_library::CImg<T>::assign(const T*, unsigned int, unsigned int, unsigned int, unsigned int, bool) [with T = char]’
+  118 |     gmic_image<T>& assign(const T *const values, const unsigned int size_x, const unsigned int size_y,
+      |                    ^~~~~~
+/usr/include/gmic.h:118:20: note:   candidate expects 6 arguments, 0 provided
+In file included from include/ImageConverter.h:53,
+                 from src/StillImageSource.cpp:50:
+/usr/include/CImg.h: In function ‘const char* cimg_library::cimg::dcraw_path(const char*, bool)’:
+/usr/include/CImg.h:65153:37: error: no matching function for call to ‘cimg_library::CImg<char>::assign()’
+65153 |       if (reinit_path) s_path.assign();
+      |                        ~~~~~~~~~~~~~^~
+In file included from include/ImageConverter.h:51,
+                 from src/StillImageSource.cpp:50:
+/usr/include/gmic.h:115:20: note: candidate: ‘template<class t> cimg_library::CImg<T>& cimg_library::CImg<T>::assign(const t*, unsigned int, unsigned int, unsigned int, unsigned int) [with t = t; T = char]’
+  115 |     gmic_image<T>& assign(const t *const values, const unsigned int size_x, const unsigned int size_y=1,
+      |                    ^~~~~~
+/usr/include/gmic.h:115:20: note:   template argument deduction/substitution failed:
+In file included from include/ImageConverter.h:53,
+                 from src/StillImageSource.cpp:50:
+/usr/include/CImg.h:65153:37: note:   candidate expects 5 arguments, 0 provided
+65153 |       if (reinit_path) s_path.assign();
+      |                        ~~~~~~~~~~~~~^~
+In file included from include/ImageConverter.h:51,
+                 from src/StillImageSource.cpp:50:
+/usr/include/gmic.h:110:20: note: candidate: ‘cimg_library::CImg<T>& cimg_library::CImg<T>::assign(unsigned int, unsigned int, unsigned int, unsigned int) [with T = char]’
+  110 |     gmic_image<T>& assign(const unsigned int size_x, const unsigned int size_y=1,
+      |                    ^~~~~~
+/usr/include/gmic.h:110:20: note:   candidate expects 4 arguments, 0 provided
+/usr/include/gmic.h:118:20: note: candidate: ‘cimg_library::CImg<T>& cimg_library::CImg<T>::assign(const T*, unsigned int, unsigned int, unsigned int, unsigned int, bool) [with T = char]’
+  118 |     gmic_image<T>& assign(const T *const values, const unsigned int size_x, const unsigned int size_y,
+      |                    ^~~~~~
+/usr/include/gmic.h:118:20: note:   candidate expects 6 arguments, 0 provided
+In file included from include/ImageConverter.h:53,
+                 from src/StillImageSource.cpp:50:
+/usr/include/CImg.h: In function ‘const char* cimg_library::cimg::ffmpeg_path(const char*, bool)’:
+/usr/include/CImg.h:65190:37: error: no matching function for call to ‘cimg_library::CImg<char>::assign()’
+65190 |       if (reinit_path) s_path.assign();
+      |                        ~~~~~~~~~~~~~^~
+In file included from include/ImageConverter.h:51,
+                 from src/StillImageSource.cpp:50:
+/usr/include/gmic.h:115:20: note: candidate: ‘template<class t> cimg_library::CImg<T>& cimg_library::CImg<T>::assign(const t*, unsigned int, unsigned int, unsigned int, unsigned int) [with t = t; T = char]’
+  115 |     gmic_image<T>& assign(const t *const values, const unsigned int size_x, const unsigned int size_y=1,
+      |                    ^~~~~~
+/usr/include/gmic.h:115:20: note:   template argument deduction/substitution failed:
+In file included from include/ImageConverter.h:53,
+                 from src/StillImageSource.cpp:50:
+/usr/include/CImg.h:65190:37: note:   candidate expects 5 arguments, 0 provided
+65190 |       if (reinit_path) s_path.assign();
+      |                        ~~~~~~~~~~~~~^~
+In file included from include/ImageConverter.h:51,
+                 from src/StillImageSource.cpp:50:
+/usr/include/gmic.h:110:20: note: candidate: ‘cimg_library::CImg<T>& cimg_library::CImg<T>::assign(unsigned int, unsigned int, unsigned int, unsigned int) [with T = char]’
+  110 |     gmic_image<T>& assign(const unsigned int size_x, const unsigned int size_y=1,
+      |                    ^~~~~~
+/usr/include/gmic.h:110:20: note:   candidate expects 4 arguments, 0 provided
+/usr/include/gmic.h:118:20: note: candidate: ‘cimg_library::CImg<T>& cimg_library::CImg<T>::assign(const T*, unsigned int, unsigned int, unsigned int, unsigned int, bool) [with T = char]’
+  118 |     gmic_image<T>& assign(const T *const values, const unsigned int size_x, const unsigned int size_y,
+      |                    ^~~~~~
+/usr/include/gmic.h:118:20: note:   candidate expects 6 arguments, 0 provided
+In file included from include/ImageConverter.h:53,
+                 from src/StillImageSource.cpp:50:
+/usr/include/CImg.h: In function ‘const char* cimg_library::cimg::graphicsmagick_path(const char*, bool)’:
+/usr/include/CImg.h:65227:37: error: no matching function for call to ‘cimg_library::CImg<char>::assign()’
+65227 |       if (reinit_path) s_path.assign();
+      |                        ~~~~~~~~~~~~~^~
+In file included from include/ImageConverter.h:51,
+                 from src/StillImageSource.cpp:50:
+/usr/include/gmic.h:115:20: note: candidate: ‘template<class t> cimg_library::CImg<T>& cimg_library::CImg<T>::assign(const t*, unsigned int, unsigned int, unsigned int, unsigned int) [with t = t; T = char]’
+  115 |     gmic_image<T>& assign(const t *const values, const unsigned int size_x, const unsigned int size_y=1,
+      |                    ^~~~~~
+/usr/include/gmic.h:115:20: note:   template argument deduction/substitution failed:
+In file included from include/ImageConverter.h:53,
+                 from src/StillImageSource.cpp:50:
+/usr/include/CImg.h:65227:37: note:   candidate expects 5 arguments, 0 provided
+65227 |       if (reinit_path) s_path.assign();
+      |                        ~~~~~~~~~~~~~^~
+In file included from include/ImageConverter.h:51,
+                 from src/StillImageSource.cpp:50:
+/usr/include/gmic.h:110:20: note: candidate: ‘cimg_library::CImg<T>& cimg_library::CImg<T>::assign(unsigned int, unsigned int, unsigned int, unsigned int) [with T = char]’
+  110 |     gmic_image<T>& assign(const unsigned int size_x, const unsigned int size_y=1,
+      |                    ^~~~~~
+/usr/include/gmic.h:110:20: note:   candidate expects 4 arguments, 0 provided
+/usr/include/gmic.h:118:20: note: candidate: ‘cimg_library::CImg<T>& cimg_library::CImg<T>::assign(const T*, unsigned int, unsigned int, unsigned int, unsigned int, bool) [with T = char]’
+  118 |     gmic_image<T>& assign(const T *const values, const unsigned int size_x, const unsigned int size_y,
+      |                    ^~~~~~
+/usr/include/gmic.h:118:20: note:   candidate expects 6 arguments, 0 provided
+In file included from include/ImageConverter.h:53,
+                 from src/StillImageSource.cpp:50:
+/usr/include/CImg.h: In function ‘const char* cimg_library::cimg::gunzip_path(const char*, bool)’:
+/usr/include/CImg.h:65337:37: error: no matching function for call to ‘cimg_library::CImg<char>::assign()’
+65337 |       if (reinit_path) s_path.assign();
+      |                        ~~~~~~~~~~~~~^~
+In file included from include/ImageConverter.h:51,
+                 from src/StillImageSource.cpp:50:
+/usr/include/gmic.h:115:20: note: candidate: ‘template<class t> cimg_library::CImg<T>& cimg_library::CImg<T>::assign(const t*, unsigned int, unsigned int, unsigned int, unsigned int) [with t = t; T = char]’
+  115 |     gmic_image<T>& assign(const t *const values, const unsigned int size_x, const unsigned int size_y=1,
+      |                    ^~~~~~
+/usr/include/gmic.h:115:20: note:   template argument deduction/substitution failed:
+In file included from include/ImageConverter.h:53,
+                 from src/StillImageSource.cpp:50:
+/usr/include/CImg.h:65337:37: note:   candidate expects 5 arguments, 0 provided
+65337 |       if (reinit_path) s_path.assign();
+      |                        ~~~~~~~~~~~~~^~
+In file included from include/ImageConverter.h:51,
+                 from src/StillImageSource.cpp:50:
+/usr/include/gmic.h:110:20: note: candidate: ‘cimg_library::CImg<T>& cimg_library::CImg<T>::assign(unsigned int, unsigned int, unsigned int, unsigned int) [with T = char]’
+  110 |     gmic_image<T>& assign(const unsigned int size_x, const unsigned int size_y=1,
+      |                    ^~~~~~
+/usr/include/gmic.h:110:20: note:   candidate expects 4 arguments, 0 provided
+/usr/include/gmic.h:118:20: note: candidate: ‘cimg_library::CImg<T>& cimg_library::CImg<T>::assign(const T*, unsigned int, unsigned int, unsigned int, unsigned int, bool) [with T = char]’
+  118 |     gmic_image<T>& assign(const T *const values, const unsigned int size_x, const unsigned int size_y,
+      |                    ^~~~~~
+/usr/include/gmic.h:118:20: note:   candidate expects 6 arguments, 0 provided
+In file included from include/ImageConverter.h:53,
+                 from src/StillImageSource.cpp:50:
+/usr/include/CImg.h: In function ‘const char* cimg_library::cimg::gzip_path(const char*, bool)’:
+/usr/include/CImg.h:65374:37: error: no matching function for call to ‘cimg_library::CImg<char>::assign()’
+65374 |       if (reinit_path) s_path.assign();
+      |                        ~~~~~~~~~~~~~^~
+In file included from include/ImageConverter.h:51,
+                 from src/StillImageSource.cpp:50:
+/usr/include/gmic.h:115:20: note: candidate: ‘template<class t> cimg_library::CImg<T>& cimg_library::CImg<T>::assign(const t*, unsigned int, unsigned int, unsigned int, unsigned int) [with t = t; T = char]’
+  115 |     gmic_image<T>& assign(const t *const values, const unsigned int size_x, const unsigned int size_y=1,
+      |                    ^~~~~~
+/usr/include/gmic.h:115:20: note:   template argument deduction/substitution failed:
+In file included from include/ImageConverter.h:53,
+                 from src/StillImageSource.cpp:50:
+/usr/include/CImg.h:65374:37: note:   candidate expects 5 arguments, 0 provided
+65374 |       if (reinit_path) s_path.assign();
+      |                        ~~~~~~~~~~~~~^~
+In file included from include/ImageConverter.h:51,
+                 from src/StillImageSource.cpp:50:
+/usr/include/gmic.h:110:20: note: candidate: ‘cimg_library::CImg<T>& cimg_library::CImg<T>::assign(unsigned int, unsigned int, unsigned int, unsigned int) [with T = char]’
+  110 |     gmic_image<T>& assign(const unsigned int size_x, const unsigned int size_y=1,
+      |                    ^~~~~~
+/usr/include/gmic.h:110:20: note:   candidate expects 4 arguments, 0 provided
+/usr/include/gmic.h:118:20: note: candidate: ‘cimg_library::CImg<T>& cimg_library::CImg<T>::assign(const T*, unsigned int, unsigned int, unsigned int, unsigned int, bool) [with T = char]’
+  118 |     gmic_image<T>& assign(const T *const values, const unsigned int size_x, const unsigned int size_y,
+      |                    ^~~~~~
+/usr/include/gmic.h:118:20: note:   candidate expects 6 arguments, 0 provided
+In file included from include/ImageConverter.h:53,
+                 from src/StillImageSource.cpp:50:
+/usr/include/CImg.h: In function ‘const char* cimg_library::cimg::imagemagick_path(const char*, bool)’:
+/usr/include/CImg.h:65411:37: error: no matching function for call to ‘cimg_library::CImg<char>::assign()’
+65411 |       if (reinit_path) s_path.assign();
+      |                        ~~~~~~~~~~~~~^~
+In file included from include/ImageConverter.h:51,
+                 from src/StillImageSource.cpp:50:
+/usr/include/gmic.h:115:20: note: candidate: ‘template<class t> cimg_library::CImg<T>& cimg_library::CImg<T>::assign(const t*, unsigned int, unsigned int, unsigned int, unsigned int) [with t = t; T = char]’
+  115 |     gmic_image<T>& assign(const t *const values, const unsigned int size_x, const unsigned int size_y=1,
+      |                    ^~~~~~
+/usr/include/gmic.h:115:20: note:   template argument deduction/substitution failed:
+In file included from include/ImageConverter.h:53,
+                 from src/StillImageSource.cpp:50:
+/usr/include/CImg.h:65411:37: note:   candidate expects 5 arguments, 0 provided
+65411 |       if (reinit_path) s_path.assign();
+      |                        ~~~~~~~~~~~~~^~
+In file included from include/ImageConverter.h:51,
+                 from src/StillImageSource.cpp:50:
+/usr/include/gmic.h:110:20: note: candidate: ‘cimg_library::CImg<T>& cimg_library::CImg<T>::assign(unsigned int, unsigned int, unsigned int, unsigned int) [with T = char]’
+  110 |     gmic_image<T>& assign(const unsigned int size_x, const unsigned int size_y=1,
+      |                    ^~~~~~
+/usr/include/gmic.h:110:20: note:   candidate expects 4 arguments, 0 provided
+/usr/include/gmic.h:118:20: note: candidate: ‘cimg_library::CImg<T>& cimg_library::CImg<T>::assign(const T*, unsigned int, unsigned int, unsigned int, unsigned int, bool) [with T = char]’
+  118 |     gmic_image<T>& assign(const T *const values, const unsigned int size_x, const unsigned int size_y,
+      |                    ^~~~~~
+/usr/include/gmic.h:118:20: note:   candidate expects 6 arguments, 0 provided
+In file included from include/ImageConverter.h:53,
+                 from src/StillImageSource.cpp:50:
+/usr/include/CImg.h: In function ‘const char* cimg_library::cimg::medcon_path(const char*, bool)’:
+/usr/include/CImg.h:65524:37: error: no matching function for call to ‘cimg_library::CImg<char>::assign()’
+65524 |       if (reinit_path) s_path.assign();
+      |                        ~~~~~~~~~~~~~^~
+In file included from include/ImageConverter.h:51,
+                 from src/StillImageSource.cpp:50:
+/usr/include/gmic.h:115:20: note: candidate: ‘template<class t> cimg_library::CImg<T>& cimg_library::CImg<T>::assign(const t*, unsigned int, unsigned int, unsigned int, unsigned int) [with t = t; T = char]’
+  115 |     gmic_image<T>& assign(const t *const values, const unsigned int size_x, const unsigned int size_y=1,
+      |                    ^~~~~~
+/usr/include/gmic.h:115:20: note:   template argument deduction/substitution failed:
+In file included from include/ImageConverter.h:53,
+                 from src/StillImageSource.cpp:50:
+/usr/include/CImg.h:65524:37: note:   candidate expects 5 arguments, 0 provided
+65524 |       if (reinit_path) s_path.assign();
+      |                        ~~~~~~~~~~~~~^~
+In file included from include/ImageConverter.h:51,
+                 from src/StillImageSource.cpp:50:
+/usr/include/gmic.h:110:20: note: candidate: ‘cimg_library::CImg<T>& cimg_library::CImg<T>::assign(unsigned int, unsigned int, unsigned int, unsigned int) [with T = char]’
+  110 |     gmic_image<T>& assign(const unsigned int size_x, const unsigned int size_y=1,
+      |                    ^~~~~~
+/usr/include/gmic.h:110:20: note:   candidate expects 4 arguments, 0 provided
+/usr/include/gmic.h:118:20: note: candidate: ‘cimg_library::CImg<T>& cimg_library::CImg<T>::assign(const T*, unsigned int, unsigned int, unsigned int, unsigned int, bool) [with T = char]’
+  118 |     gmic_image<T>& assign(const T *const values, const unsigned int size_x, const unsigned int size_y,
+      |                    ^~~~~~
+/usr/include/gmic.h:118:20: note:   candidate expects 6 arguments, 0 provided
+In file included from include/ImageConverter.h:53,
+                 from src/StillImageSource.cpp:50:
+/usr/include/CImg.h: In function ‘const char* cimg_library::cimg::temporary_path(const char*, bool)’:
+/usr/include/CImg.h:65580:37: error: no matching function for call to ‘cimg_library::CImg<char>::assign()’
+65580 |       if (reinit_path) s_path.assign();
+      |                        ~~~~~~~~~~~~~^~
+In file included from include/ImageConverter.h:51,
+                 from src/StillImageSource.cpp:50:
+/usr/include/gmic.h:115:20: note: candidate: ‘template<class t> cimg_library::CImg<T>& cimg_library::CImg<T>::assign(const t*, unsigned int, unsigned int, unsigned int, unsigned int) [with t = t; T = char]’
+  115 |     gmic_image<T>& assign(const t *const values, const unsigned int size_x, const unsigned int size_y=1,
+      |                    ^~~~~~
+/usr/include/gmic.h:115:20: note:   template argument deduction/substitution failed:
+In file included from include/ImageConverter.h:53,
+                 from src/StillImageSource.cpp:50:
+/usr/include/CImg.h:65580:37: note:   candidate expects 5 arguments, 0 provided
+65580 |       if (reinit_path) s_path.assign();
+      |                        ~~~~~~~~~~~~~^~
+In file included from include/ImageConverter.h:51,
+                 from src/StillImageSource.cpp:50:
+/usr/include/gmic.h:110:20: note: candidate: ‘cimg_library::CImg<T>& cimg_library::CImg<T>::assign(unsigned int, unsigned int, unsigned int, unsigned int) [with T = char]’
+  110 |     gmic_image<T>& assign(const unsigned int size_x, const unsigned int size_y=1,
+      |                    ^~~~~~
+/usr/include/gmic.h:110:20: note:   candidate expects 4 arguments, 0 provided
+/usr/include/gmic.h:118:20: note: candidate: ‘cimg_library::CImg<T>& cimg_library::CImg<T>::assign(const T*, unsigned int, unsigned int, unsigned int, unsigned int, bool) [with T = char]’
+  118 |     gmic_image<T>& assign(const T *const values, const unsigned int size_x, const unsigned int size_y,
+      |                    ^~~~~~
+/usr/include/gmic.h:118:20: note:   candidate expects 6 arguments, 0 provided
+In file included from include/ImageConverter.h:53,
+                 from src/StillImageSource.cpp:50:
+/usr/include/CImg.h:65587:28: error: no matching function for call to ‘cimg_library::CImg<char>::CImg(int)’
+65587 |         CImg<char> tmp(1024), filename_tmp(256);
+      |                            ^
+In file included from include/ImageConverter.h:51,
+                 from src/StillImageSource.cpp:50:
+/usr/include/gmic.h:107:5: note: candidate: ‘cimg_library::CImg<T>::CImg() [with T = char]’
+  107 |     gmic_image():_width(0),_height(0),_depth(0),_spectrum(0),_is_shared(false),_data(0) { }
+      |     ^~~~~~~~~~
+/usr/include/gmic.h:107:5: note:   candidate expects 0 arguments, 1 provided
+/usr/include/gmic.h:93:31: note: candidate: ‘constexpr cimg_library::CImg<char>::CImg(const cimg_library::CImg<char>&)’
+   93 |   template<typename T> struct gmic_image {
+      |                               ^~~~~~~~~~
+/usr/include/gmic.h:93:31: note:   no known conversion for argument 1 from ‘int’ to ‘const cimg_library::CImg<char>&’
+In file included from include/ImageConverter.h:53,
+                 from src/StillImageSource.cpp:50:
+/usr/include/CImg.h:65587:47: error: no matching function for call to ‘cimg_library::CImg<char>::CImg(int)’
+65587 |         CImg<char> tmp(1024), filename_tmp(256);
+      |                                               ^
+In file included from include/ImageConverter.h:51,
+                 from src/StillImageSource.cpp:50:
+/usr/include/gmic.h:107:5: note: candidate: ‘cimg_library::CImg<T>::CImg() [with T = char]’
+  107 |     gmic_image():_width(0),_height(0),_depth(0),_spectrum(0),_is_shared(false),_data(0) { }
+      |     ^~~~~~~~~~
+/usr/include/gmic.h:107:5: note:   candidate expects 0 arguments, 1 provided
+/usr/include/gmic.h:93:31: note: candidate: ‘constexpr cimg_library::CImg<char>::CImg(const cimg_library::CImg<char>&)’
+   93 |   template<typename T> struct gmic_image {
+      |                               ^~~~~~~~~~
+/usr/include/gmic.h:93:31: note:   no known conversion for argument 1 from ‘int’ to ‘const cimg_library::CImg<char>&’
+In file included from include/ImageConverter.h:53,
+                 from src/StillImageSource.cpp:50:
+/usr/include/CImg.h:65592:22: error: ‘struct cimg_library::CImg<char>’ has no member named ‘data’; did you mean ‘_data’?
+65592 |         if (tmpPath) _cimg_test_temporary_path(tmpPath);
+      |                      ^~~~~~~~~~~~~~~~~~~~~~~~~
+/usr/include/CImg.h:65603:9: error: ‘struct cimg_library::CImg<char>’ has no member named ‘data’; did you mean ‘_data’?
+65603 |         _cimg_test_temporary_path("/tmp");
+      |         ^~~~~~~~~~~~~~~~~~~~~~~~~
+/usr/include/CImg.h:65604:9: error: ‘struct cimg_library::CImg<char>’ has no member named ‘data’; did you mean ‘_data’?
+65604 |         _cimg_test_temporary_path("/var/tmp");
+      |         ^~~~~~~~~~~~~~~~~~~~~~~~~
+/usr/include/CImg.h: In function ‘const char* cimg_library::cimg::wget_path(const char*, bool)’:
+/usr/include/CImg.h:65629:37: error: no matching function for call to ‘cimg_library::CImg<char>::assign()’
+65629 |       if (reinit_path) s_path.assign();
+      |                        ~~~~~~~~~~~~~^~
+In file included from include/ImageConverter.h:51,
+                 from src/StillImageSource.cpp:50:
+/usr/include/gmic.h:115:20: note: candidate: ‘template<class t> cimg_library::CImg<T>& cimg_library::CImg<T>::assign(const t*, unsigned int, unsigned int, unsigned int, unsigned int) [with t = t; T = char]’
+  115 |     gmic_image<T>& assign(const t *const values, const unsigned int size_x, const unsigned int size_y=1,
+      |                    ^~~~~~
+/usr/include/gmic.h:115:20: note:   template argument deduction/substitution failed:
+In file included from include/ImageConverter.h:53,
+                 from src/StillImageSource.cpp:50:
+/usr/include/CImg.h:65629:37: note:   candidate expects 5 arguments, 0 provided
+65629 |       if (reinit_path) s_path.assign();
+      |                        ~~~~~~~~~~~~~^~
+In file included from include/ImageConverter.h:51,
+                 from src/StillImageSource.cpp:50:
+/usr/include/gmic.h:110:20: note: candidate: ‘cimg_library::CImg<T>& cimg_library::CImg<T>::assign(unsigned int, unsigned int, unsigned int, unsigned int) [with T = char]’
+  110 |     gmic_image<T>& assign(const unsigned int size_x, const unsigned int size_y=1,
+      |                    ^~~~~~
+/usr/include/gmic.h:110:20: note:   candidate expects 4 arguments, 0 provided
+/usr/include/gmic.h:118:20: note: candidate: ‘cimg_library::CImg<T>& cimg_library::CImg<T>::assign(const T*, unsigned int, unsigned int, unsigned int, unsigned int, bool) [with T = char]’
+  118 |     gmic_image<T>& assign(const T *const values, const unsigned int size_x, const unsigned int size_y,
+      |                    ^~~~~~
+/usr/include/gmic.h:118:20: note:   candidate expects 6 arguments, 0 provided
+In file included from include/ImageConverter.h:53,
+                 from src/StillImageSource.cpp:50:
+/usr/include/CImg.h: In function ‘char* cimg_library::cimg::number_filename(const char*, int, unsigned int, char*)’:
+/usr/include/CImg.h:65699:27: error: no matching function for call to ‘cimg_library::CImg<char>::CImg(int)’
+65699 |       CImg<char> format(16), body(siz + 32);
+      |                           ^
+In file included from include/ImageConverter.h:51,
+                 from src/StillImageSource.cpp:50:
+/usr/include/gmic.h:107:5: note: candidate: ‘cimg_library::CImg<T>::CImg() [with T = char]’
+  107 |     gmic_image():_width(0),_height(0),_depth(0),_spectrum(0),_is_shared(false),_data(0) { }
+      |     ^~~~~~~~~~
+/usr/include/gmic.h:107:5: note:   candidate expects 0 arguments, 1 provided
+/usr/include/gmic.h:93:31: note: candidate: ‘constexpr cimg_library::CImg<char>::CImg(const cimg_library::CImg<char>&)’
+   93 |   template<typename T> struct gmic_image {
+      |                               ^~~~~~~~~~
+/usr/include/gmic.h:93:31: note:   no known conversion for argument 1 from ‘int’ to ‘const cimg_library::CImg<char>&’
+In file included from include/ImageConverter.h:53,
+                 from src/StillImageSource.cpp:50:
+/usr/include/CImg.h:65699:43: error: no matching function for call to ‘cimg_library::CImg<char>::CImg(unsigned int)’
+65699 |       CImg<char> format(16), body(siz + 32);
+      |                                           ^
+In file included from include/ImageConverter.h:51,
+                 from src/StillImageSource.cpp:50:
+/usr/include/gmic.h:107:5: note: candidate: ‘cimg_library::CImg<T>::CImg() [with T = char]’
+  107 |     gmic_image():_width(0),_height(0),_depth(0),_spectrum(0),_is_shared(false),_data(0) { }
+      |     ^~~~~~~~~~
+/usr/include/gmic.h:107:5: note:   candidate expects 0 arguments, 1 provided
+/usr/include/gmic.h:93:31: note: candidate: ‘constexpr cimg_library::CImg<char>::CImg(const cimg_library::CImg<char>&)’
+   93 |   template<typename T> struct gmic_image {
+      |                               ^~~~~~~~~~
+/usr/include/gmic.h:93:31: note:   no known conversion for argument 1 from ‘unsigned int’ to ‘const cimg_library::CImg<char>&’
+In file included from include/ImageConverter.h:53,
+                 from src/StillImageSource.cpp:50:
+/usr/include/CImg.h: In function ‘cimg_library::CImgList<char> cimg_library::cimg::files(const char*, bool, unsigned int, bool)’:
+/usr/include/CImg.h:65726:47: error: ‘string’ is not a member of ‘cimg_library::CImg<char>’
+65726 |       CImg<char> pattern, _path = CImg<char>::string(path);
+      |                                               ^~~~~~
+/usr/include/CImg.h:65743:84: error: ‘struct cimg_library::CImg<char>’ has no member named ‘data’; did you mean ‘_data’?
+65743 |         const unsigned int bpos = (unsigned int)(cimg::basename(_path,'/') - _path.data());
+      |                                                                                    ^~~~
+      |                                                                                    _data
+/usr/include/CImg.h:65744:21: error: ‘string’ is not a member of ‘cimg_library::CImg<char>’
+65744 |         CImg<char>::string(_path).move_to(pattern);
+      |                     ^~~~~~
+/usr/include/CImg.h:65785:65: error: ‘struct cimg_library::CImg<char>’ has no member named ‘data’; did you mean ‘_data’?
+65785 |       DIR *const dir = opendir(is_root?"/":is_current?".":_path.data());
+      |                                                                 ^~~~
+      |                                                                 _data
+/usr/include/CImg.h:65786:40: error: ‘const_empty’ is not a member of ‘cimg_library::CImgList<char>’
+65786 |       if (!dir) return CImgList<char>::const_empty();
+      |                                        ^~~~~~~~~~~
+/usr/include/CImg.h:65792:47: error: no matching function for call to ‘cimg_library::CImg<char>::CImg(unsigned int)’
+65792 |           CImg<char> full_filename(lp + lf + 2);
+      |                                               ^
+In file included from include/ImageConverter.h:51,
+                 from src/StillImageSource.cpp:50:
+/usr/include/gmic.h:107:5: note: candidate: ‘cimg_library::CImg<T>::CImg() [with T = char]’
+  107 |     gmic_image():_width(0),_height(0),_depth(0),_spectrum(0),_is_shared(false),_data(0) { }
+      |     ^~~~~~~~~~
+/usr/include/gmic.h:107:5: note:   candidate expects 0 arguments, 1 provided
+/usr/include/gmic.h:93:31: note: candidate: ‘constexpr cimg_library::CImg<char>::CImg(const cimg_library::CImg<char>&)’
+   93 |   template<typename T> struct gmic_image {
+      |                               ^~~~~~~~~~
+/usr/include/gmic.h:93:31: note:   no known conversion for argument 1 from ‘unsigned int’ to ‘const cimg_library::CImg<char>&’
+In file included from include/ImageConverter.h:53,
+                 from src/StillImageSource.cpp:50:
+/usr/include/CImg.h:65807:31: error: ‘struct cimg_library::CImg<char>’ has no member named ‘move_to’
+65807 |                 full_filename.move_to(res);
+      |                               ^~~~~~~
+/usr/include/CImg.h:65810:43: error: no matching function for call to ‘cimg_library::CImg<char>::CImg(const char* const&, unsigned int)’
+65810 |                 CImg<char>(filename,lf + 1).move_to(res);
+      |                                           ^
+In file included from include/ImageConverter.h:51,
+                 from src/StillImageSource.cpp:50:
+/usr/include/gmic.h:107:5: note: candidate: ‘cimg_library::CImg<T>::CImg() [with T = char]’
+  107 |     gmic_image():_width(0),_height(0),_depth(0),_spectrum(0),_is_shared(false),_data(0) { }
+      |     ^~~~~~~~~~
+/usr/include/gmic.h:107:5: note:   candidate expects 0 arguments, 2 provided
+/usr/include/gmic.h:93:31: note: candidate: ‘constexpr cimg_library::CImg<char>::CImg(const cimg_library::CImg<char>&)’
+   93 |   template<typename T> struct gmic_image {
+      |                               ^~~~~~~~~~
+/usr/include/gmic.h:93:31: note:   candidate expects 1 argument, 2 provided
+In file included from include/ImageConverter.h:53,
+                 from src/StillImageSource.cpp:50:
+/usr/include/CImg.h: In function ‘const char* cimg_library::cimg::ftype(FILE*, const char*)’:
+/usr/include/CImg.h:65852:16: error: ‘struct cimg_library::CImg<char>’ has no member named ‘_load_raw’
+65852 |         header._load_raw(file,filename,512,1,1,1,false,false,0);
+      |                ^~~~~~~~~
+/usr/include/CImg.h:65859:39: error: ‘struct cimg_library::CImg<char>’ has no member named ‘data’; did you mean ‘_data’?
+65859 |         else if (!std::strncmp(header.data() + 128,"DICM",4)) // DICOM
+      |                                       ^~~~
+      |                                       _data
+/usr/include/CImg.h:65879:43: error: ‘struct cimg_library::CImg<char>’ has no member named ‘get_split’
+65879 |           CImgList<char> _header = header.get_split(CImg<char>::vector('\n'),0,false);
+      |                                           ^~~~~~~~~
+/usr/include/CImg.h:65879:65: error: ‘vector’ is not a member of ‘cimg_library::CImg<char>’
+65879 |           CImgList<char> _header = header.get_split(CImg<char>::vector('\n'),0,false);
+      |                                                                 ^~~~~~
+/usr/include/CImg.h:65881:24: error: no match for call to ‘(cimg_library::CImgList<char>) (int&, int)’
+65881 |             if (_header(l,0)=='#') continue;
+      |                 ~~~~~~~^~~~~
+In file included from include/ImageConverter.h:51,
+                 from src/StillImageSource.cpp:50:
+/usr/include/gmic.h:166:20: note: candidate: ‘cimg_library::CImg<T>& cimg_library::CImgList<T>::operator()(unsigned int) [with T = char]’
+  166 |     gmic_image<T>& operator()(const unsigned int l) {
+      |                    ^~~~~~~~
+/usr/include/gmic.h:166:20: note:   candidate expects 1 argument, 2 provided
+/usr/include/gmic.h:170:26: note: candidate: ‘const cimg_library::CImg<T>& cimg_library::CImgList<T>::operator()(unsigned int) const [with T = char]’
+  170 |     const gmic_image<T>& operator()(const unsigned int l) const {
+      |                          ^~~~~~~~
+/usr/include/gmic.h:170:26: note:   candidate expects 1 argument, 2 provided
+In file included from include/ImageConverter.h:53,
+                 from src/StillImageSource.cpp:50:
+/usr/include/CImg.h:65882:48: error: no match for call to ‘(cimg_library::CImgList<char>) (int&, int)’
+65882 |             if (_header[l]._width==2 && _header(l,0)=='P') {
+      |                                         ~~~~~~~^~~~~
+In file included from include/ImageConverter.h:51,
+                 from src/StillImageSource.cpp:50:
+/usr/include/gmic.h:166:20: note: candidate: ‘cimg_library::CImg<T>& cimg_library::CImgList<T>::operator()(unsigned int) [with T = char]’
+  166 |     gmic_image<T>& operator()(const unsigned int l) {
+      |                    ^~~~~~~~
+/usr/include/gmic.h:166:20: note:   candidate expects 1 argument, 2 provided
+/usr/include/gmic.h:170:26: note: candidate: ‘const cimg_library::CImg<T>& cimg_library::CImgList<T>::operator()(unsigned int) const [with T = char]’
+  170 |     const gmic_image<T>& operator()(const unsigned int l) const {
+      |                          ^~~~~~~~
+/usr/include/gmic.h:170:26: note:   candidate expects 1 argument, 2 provided
+In file included from include/ImageConverter.h:53,
+                 from src/StillImageSource.cpp:50:
+/usr/include/CImg.h:65883:37: error: no match for call to ‘(cimg_library::CImgList<char>) (int&, int)’
+65883 |               const char c = _header(l,1);
+      |                              ~~~~~~~^~~~~
+In file included from include/ImageConverter.h:51,
+                 from src/StillImageSource.cpp:50:
+/usr/include/gmic.h:166:20: note: candidate: ‘cimg_library::CImg<T>& cimg_library::CImgList<T>::operator()(unsigned int) [with T = char]’
+  166 |     gmic_image<T>& operator()(const unsigned int l) {
+      |                    ^~~~~~~~
+/usr/include/gmic.h:166:20: note:   candidate expects 1 argument, 2 provided
+/usr/include/gmic.h:170:26: note: candidate: ‘const cimg_library::CImg<T>& cimg_library::CImgList<T>::operator()(unsigned int) const [with T = char]’
+  170 |     const gmic_image<T>& operator()(const unsigned int l) const {
+      |                          ^~~~~~~~
+/usr/include/gmic.h:170:26: note:   candidate expects 1 argument, 2 provided
+In file included from include/ImageConverter.h:53,
+                 from src/StillImageSource.cpp:50:
+/usr/include/CImg.h: In function ‘char* cimg_library::cimg::load_network(const char*, char*, unsigned int, bool, const char*)’:
+/usr/include/CImg.h:65916:36: error: ‘string’ is not a member of ‘cimg_library::CImg<char>’
+65916 |       CImg<char> ext = CImg<char>::string(_ext);
+      |                                    ^~~~~~
+/usr/include/CImg.h:65960:62: error: no matching function for call to ‘cimg_library::CImg<char>::CImg(unsigned int)’
+65960 |       CImg<char> command((unsigned int)std::strlen(url) + 512);
+      |                                                              ^
+In file included from include/ImageConverter.h:51,
+                 from src/StillImageSource.cpp:50:
+/usr/include/gmic.h:107:5: note: candidate: ‘cimg_library::CImg<T>::CImg() [with T = char]’
+  107 |     gmic_image():_width(0),_height(0),_depth(0),_spectrum(0),_is_shared(false),_data(0) { }
+      |     ^~~~~~~~~~
+/usr/include/gmic.h:107:5: note:   candidate expects 0 arguments, 1 provided
+/usr/include/gmic.h:93:31: note: candidate: ‘constexpr cimg_library::CImg<char>::CImg(const cimg_library::CImg<char>&)’
+   93 |   template<typename T> struct gmic_image {
+      |                               ^~~~~~~~~~
+/usr/include/gmic.h:93:31: note:   no known conversion for argument 1 from ‘unsigned int’ to ‘const cimg_library::CImg<char>&’
+In file included from include/ImageConverter.h:53,
+                 from src/StillImageSource.cpp:50:
+/usr/include/CImg.h:65968:37: error: ‘string’ is not a member of ‘cimg_library::CImg<char>’
+65968 |                         CImg<char>::string(url)._system_strescape().data());
+      |                                     ^~~~~~
+/usr/include/CImg.h:65972:37: error: ‘string’ is not a member of ‘cimg_library::CImg<char>’
+65972 |                         CImg<char>::string(url)._system_strescape().data());
+      |                                     ^~~~~~
+/usr/include/CImg.h:65977:37: error: ‘string’ is not a member of ‘cimg_library::CImg<char>’
+65977 |                         CImg<char>::string(url)._system_strescape().data());
+      |                                     ^~~~~~
+/usr/include/CImg.h:65981:37: error: ‘string’ is not a member of ‘cimg_library::CImg<char>’
+65981 |                         CImg<char>::string(url)._system_strescape().data());
+      |                                     ^~~~~~
+/usr/include/CImg.h:66025:39: error: ‘string’ is not a member of ‘cimg_library::CImg<char>’
+66025 |                           CImg<char>::string(url)._system_strescape().data());
+      |                                       ^~~~~~
+/usr/include/CImg.h:66029:39: error: ‘string’ is not a member of ‘cimg_library::CImg<char>’
+66029 |                           CImg<char>::string(url)._system_strescape().data());
+      |                                       ^~~~~~
+/usr/include/CImg.h:66034:39: error: ‘string’ is not a member of ‘cimg_library::CImg<char>’
+66034 |                           CImg<char>::string(url)._system_strescape().data());
+      |                                       ^~~~~~
+/usr/include/CImg.h:66038:39: error: ‘string’ is not a member of ‘cimg_library::CImg<char>’
+66038 |                           CImg<char>::string(url)._system_strescape().data());
+      |                                       ^~~~~~
+/usr/include/CImg.h: In function ‘long unsigned int cimg_library::cimg::tictoc(bool)’:
+/usr/include/CImg.h:66075:40: error: no matching function for call to ‘cimg_library::CImg<long unsigned int>::CImg(int)’
+66075 |       static CImg<cimg_uint64> times(64);
+      |                                        ^
+In file included from include/ImageConverter.h:51,
+                 from src/StillImageSource.cpp:50:
+/usr/include/gmic.h:107:5: note: candidate: ‘cimg_library::CImg<T>::CImg() [with T = long unsigned int]’
+  107 |     gmic_image():_width(0),_height(0),_depth(0),_spectrum(0),_is_shared(false),_data(0) { }
+      |     ^~~~~~~~~~
+/usr/include/gmic.h:107:5: note:   candidate expects 0 arguments, 1 provided
+/usr/include/gmic.h:93:31: note: candidate: ‘constexpr cimg_library::CImg<long unsigned int>::CImg(const cimg_library::CImg<long unsigned int>&)’
+   93 |   template<typename T> struct gmic_image {
+      |                               ^~~~~~~~~~
+/usr/include/gmic.h:93:31: note:   no known conversion for argument 1 from ‘int’ to ‘const cimg_library::CImg<long unsigned int>&’
+In file included from include/ImageConverter.h:53,
+                 from src/StillImageSource.cpp:50:
+/usr/include/CImg.h: In function ‘const char* cimg_library::cimg::strbuffersize(long unsigned int)’:
+/usr/include/CImg.h:66127:32: error: no matching function for call to ‘cimg_library::CImg<char>::CImg(int)’
+66127 |       static CImg<char> res(256);
+      |                                ^
+In file included from include/ImageConverter.h:51,
+                 from src/StillImageSource.cpp:50:
+/usr/include/gmic.h:107:5: note: candidate: ‘cimg_library::CImg<T>::CImg() [with T = char]’
+  107 |     gmic_image():_width(0),_height(0),_depth(0),_spectrum(0),_is_shared(false),_data(0) { }
+      |     ^~~~~~~~~~
+/usr/include/gmic.h:107:5: note:   candidate expects 0 arguments, 1 provided
+/usr/include/gmic.h:93:31: note: candidate: ‘constexpr cimg_library::CImg<char>::CImg(const cimg_library::CImg<char>&)’
+   93 |   template<typename T> struct gmic_image {
+      |                               ^~~~~~~~~~
+/usr/include/gmic.h:93:31: note:   no known conversion for argument 1 from ‘int’ to ‘const cimg_library::CImg<char>&’
+In file included from include/ImageConverter.h:53,
+                 from src/StillImageSource.cpp:50:
+/usr/include/CImg.h: In function ‘int cimg_library::cimg::dialog(const char*, const char*, const char*, const char*, const char*, const char*, const char*, const char*, bool)’:
+/usr/include/CImg.h:66327:42: error: ‘_logo40x38’ is not a member of ‘cimg_library::CImg<unsigned char>’
+66327 |                     CImg<unsigned char>::_logo40x38(),is_centered);
+      |                                          ^~~~~~~~~~
+/usr/include/CImg.h: In function ‘double cimg_library::cimg::eval(const char*, double, double, double, double)’:
+/usr/include/CImg.h:66348:20: error: ‘const struct cimg_library::CImg<float>’ has no member named ‘eval’
+66348 |       return empty.eval(expression,x,y,z,c);
+      |                    ^~~~
+/usr/include/CImg.h: In function ‘cimg_library::CImg<typename cimg_library::cimg::superset<double, t>::type> cimg_library::cimg::eval(const char*, const cimg_library::CImg<T>&)’:
+/usr/include/CImg.h:66354:20: error: ‘const struct cimg_library::CImg<float>’ has no member named ‘eval’
+66354 |       return empty.eval(expression,xyzc);
+      |                    ^~~~
+src/ImageConverter.cpp: In static member function ‘static void ImageConverter::convert(const cimg_library::CImg<float>&, QImage*)’:
+src/ImageConverter.cpp:123:27: error: ‘const struct cimg_library::CImg<float>’ has no member named ‘spectrum’; did you mean ‘_spectrum’?
+  123 |   const int spectrum = in.spectrum();
+      |                           ^~~~~~~~
+      |                           _spectrum
+src/ImageConverter.cpp:125:27: error: ‘const struct cimg_library::CImg<float>’ has no member named ‘data’; did you mean ‘_data’?
+  125 |   const float * srcR = in.data(0, 0, 0, 0);
+      |                           ^~~~
+      |                           _data
+src/ImageConverter.cpp:127:27: error: ‘const struct cimg_library::CImg<float>’ has no member named ‘data’; did you mean ‘_data’?
+  127 |   const float * srcG = in.data(0, 0, 0, (spectrum >= 2) ? 1 : 0);
+      |                           ^~~~
+      |                           _data
+src/ImageConverter.cpp:128:27: error: ‘const struct cimg_library::CImg<float>’ has no member named ‘data’; did you mean ‘_data’?
+  128 |   const float * srcB = in.data(0, 0, 0, (spectrum >= 3) ? 2 : 0);
+      |                           ^~~~
+      |                           _data
+src/ImageConverter.cpp: In static member function ‘static void ImageConverter::merge(cv::Mat*, const cimg_library::CImg<float>&, QImage*, QMutex*, ImageConverter::MergeDirection)’:
+src/ImageConverter.cpp:150:34: error: ‘const struct cimg_library::CImg<float>’ has no member named ‘width’; did you mean ‘_width’?
+  150 |   if (cvImage->cols != cimgImage.width() || cvImage->rows != cimgImage.height()) {
+      |                                  ^~~~~
+      |                                  _width
+src/ImageConverter.cpp:150:72: error: ‘const struct cimg_library::CImg<float>’ has no member named ‘height’; did you mean ‘_height’?
+  150 |   if (cvImage->cols != cimgImage.width() || cvImage->rows != cimgImage.height()) {
+      |                                                                        ^~~~~~
+      |                                                                        _height
+src/ImageConverter.cpp:155:36: error: ‘const struct cimg_library::CImg<float>’ has no member named ‘height’; did you mean ‘_height’?
+  155 |     _image = new cv::Mat(cimgImage.height(), cimgImage.width(), CV_8UC(3));
+      |                                    ^~~~~~
+      |                                    _height
+src/ImageConverter.cpp:155:56: error: ‘const struct cimg_library::CImg<float>’ has no member named ‘width’; did you mean ‘_width’?
+  155 |     _image = new cv::Mat(cimgImage.height(), cimgImage.width(), CV_8UC(3));
+      |                                                        ^~~~~
+      |                                                        _width
+src/ImageConverter.cpp:156:54: error: ‘const struct cimg_library::CImg<float>’ has no member named ‘width’; did you mean ‘_width’?
+  156 |     cv::resize(*cvImage, *_image, cv::Size(cimgImage.width(), cimgImage.height()), cv::INTER_LINEAR);
+      |                                                      ^~~~~
+      |                                                      _width
+src/ImageConverter.cpp:156:73: error: ‘const struct cimg_library::CImg<float>’ has no member named ‘height’; did you mean ‘_height’?
+  156 |     cv::resize(*cvImage, *_image, cv::Size(cimgImage.width(), cimgImage.height()), cv::INTER_LINEAR);
+      |                                                                         ^~~~~~
+      |                                                                         _height
+src/ImageConverter.cpp:159:24: error: ‘const struct cimg_library::CImg<float>’ has no member named ‘width’; did you mean ‘_width’?
+  159 |   QSize size(cimgImage.width(), cimgImage.height());
+      |                        ^~~~~
+      |                        _width
+src/ImageConverter.cpp:159:43: error: ‘const struct cimg_library::CImg<float>’ has no member named ‘height’; did you mean ‘_height’?
+  159 |   QSize size(cimgImage.width(), cimgImage.height());
+      |                                           ^~~~~~
+      |                                           _height
+src/ImageConverter.cpp: In static member function ‘static void ImageConverter::mergeTop(cv::Mat*, const cimg_library::CImg<float>&, QImage*)’:
+src/ImageConverter.cpp:191:34: error: ‘const struct cimg_library::CImg<float>’ has no member named ‘spectrum’; did you mean ‘_spectrum’?
+  191 |   const int spectrum = cimgImage.spectrum();
+      |                                  ^~~~~~~~
+      |                                  _spectrum
+src/ImageConverter.cpp:192:34: error: ‘const struct cimg_library::CImg<float>’ has no member named ‘data’; did you mean ‘_data’?
+  192 |   const float * srcR = cimgImage.data(0, 0, 0, 0);
+      |                                  ^~~~
+      |                                  _data
+src/ImageConverter.cpp:193:34: error: ‘const struct cimg_library::CImg<float>’ has no member named ‘data’; did you mean ‘_data’?
+  193 |   const float * srcG = cimgImage.data(0, 0, 0, (spectrum >= 2) ? 1 : 0);
+      |                                  ^~~~
+      |                                  _data
+src/ImageConverter.cpp:194:34: error: ‘const struct cimg_library::CImg<float>’ has no member named ‘data’; did you mean ‘_data’?
+  194 |   const float * srcB = cimgImage.data(0, 0, 0, (spectrum >= 3) ? 2 : 0);
+      |                                  ^~~~
+      |                                  _data
+src/ImageConverter.cpp: In static member function ‘static void ImageConverter::mergeLeft(cv::Mat*, const cimg_library::CImg<float>&, QImage*)’:
+src/ImageConverter.cpp:234:34: error: ‘const struct cimg_library::CImg<float>’ has no member named ‘spectrum’; did you mean ‘_spectrum’?
+  234 |   const int spectrum = cimgImage.spectrum();
+      |                                  ^~~~~~~~
+      |                                  _spectrum
+src/ImageConverter.cpp:235:34: error: ‘const struct cimg_library::CImg<float>’ has no member named ‘data’; did you mean ‘_data’?
+  235 |   const float * srcR = cimgImage.data(0, 0, 0, 0);
+      |                                  ^~~~
+      |                                  _data
+src/ImageConverter.cpp:236:34: error: ‘const struct cimg_library::CImg<float>’ has no member named ‘data’; did you mean ‘_data’?
+  236 |   const float * srcG = cimgImage.data(0, 0, 0, (spectrum >= 2) ? 1 : 0);
+      |                                  ^~~~
+      |                                  _data
+src/ImageConverter.cpp:237:34: error: ‘const struct cimg_library::CImg<float>’ has no member named ‘data’; did you mean ‘_data’?
+  237 |   const float * srcB = cimgImage.data(0, 0, 0, (spectrum >= 3) ? 2 : 0);
+      |                                  ^~~~
+      |                                  _data
+src/ImageConverter.cpp: In static member function ‘static void ImageConverter::mergeBottom(cv::Mat*, const cimg_library::CImg<float>&, QImage*, bool)’:
+src/ImageConverter.cpp:300:34: error: ‘const struct cimg_library::CImg<float>’ has no member named ‘spectrum’; did you mean ‘_spectrum’?
+  300 |   const int spectrum = cimgImage.spectrum();
+      |                                  ^~~~~~~~
+      |                                  _spectrum
+src/ImageConverter.cpp:301:34: error: ‘const struct cimg_library::CImg<float>’ has no member named ‘data’; did you mean ‘_data’?
+  301 |   const float * srcR = cimgImage.data(0, 0, 0, 0) + cimgOffset;
+      |                                  ^~~~
+      |                                  _data
+src/ImageConverter.cpp:302:34: error: ‘const struct cimg_library::CImg<float>’ has no member named ‘data’; did you mean ‘_data’?
+  302 |   const float * srcG = cimgImage.data(0, 0, 0, (spectrum >= 2) ? 1 : 0) + cimgOffset;
+      |                                  ^~~~
+      |                                  _data
+src/ImageConverter.cpp:303:34: error: ‘const struct cimg_library::CImg<float>’ has no member named ‘data’; did you mean ‘_data’?
+  303 |   const float * srcB = cimgImage.data(0, 0, 0, (spectrum >= 3) ? 2 : 0) + cimgOffset;
+      |                                  ^~~~
+      |                                  _data
+src/ImageConverter.cpp: In static member function ‘static void ImageConverter::mergeRight(cv::Mat*, const cimg_library::CImg<float>&, QImage*, bool)’:
+src/ImageConverter.cpp:323:34: error: ‘const struct cimg_library::CImg<float>’ has no member named ‘spectrum’; did you mean ‘_spectrum’?
+  323 |   const int spectrum = cimgImage.spectrum();
+      |                                  ^~~~~~~~
+      |                                  _spectrum
+src/ImageConverter.cpp:324:34: error: ‘const struct cimg_library::CImg<float>’ has no member named ‘data’; did you mean ‘_data’?
+  324 |   const float * srcR = cimgImage.data(0, 0, 0, 0) + (shift ? firstHalf : 0);
+      |                                  ^~~~
+      |                                  _data
+src/ImageConverter.cpp:325:34: error: ‘const struct cimg_library::CImg<float>’ has no member named ‘data’; did you mean ‘_data’?
+  325 |   const float * srcG = cimgImage.data(0, 0, 0, (spectrum >= 2) ? 1 : 0) + (shift ? firstHalf : 0);
+      |                                  ^~~~
+      |                                  _data
+src/ImageConverter.cpp:326:34: error: ‘const struct cimg_library::CImg<float>’ has no member named ‘data’; did you mean ‘_data’?
+  326 |   const float * srcB = cimgImage.data(0, 0, 0, (spectrum >= 3) ? 2 : 0) + (shift ? firstHalf : 0);
+      |                                  ^~~~
+      |                                  _data
+src/ImageConverter.cpp: In static member function ‘static void ImageConverter::convert(const cv::Mat*, cimg_library::CImg<float>&)’:
+src/ImageConverter.cpp:368:28: error: ‘struct cimg_library::CImg<float>’ has no member named ‘spectrum’; did you mean ‘_spectrum’?
+  368 |   const int spectrum = out.spectrum();
+      |                            ^~~~~~~~
+      |                            _spectrum
+src/ImageConverter.cpp:369:22: error: ‘struct cimg_library::CImg<float>’ has no member named ‘data’; did you mean ‘_data’?
+  369 |   float * dstR = out.data(0, 0, 0, 0);
+      |                      ^~~~
+      |                      _data
+src/ImageConverter.cpp:370:22: error: ‘struct cimg_library::CImg<float>’ has no member named ‘data’; did you mean ‘_data’?
+  370 |   float * dstG = out.data(0, 0, 0, (spectrum >= 2) ? 1 : 0);
+      |                      ^~~~
+      |                      _data
+src/ImageConverter.cpp:371:22: error: ‘struct cimg_library::CImg<float>’ has no member named ‘data’; did you mean ‘_data’?
+  371 |   float * dstB = out.data(0, 0, 0, (spectrum >= 3) ? 2 : 0);
+      |                      ^~~~
+      |                      _data
+src/FilterThread.cpp: In member function ‘virtual void FilterThread::run()’:
+src/FilterThread.cpp:149:26: error: ‘struct cimg_library::CImg<float>’ has no member named ‘is_sameXYZC’
+  149 |     if (!_gmic_images[0].is_sameXYZC(_imageSource.width(), _imageSource.height(), 1, 3))
+      |                          ^~~~~~~~~~~
+src/FilterThread.cpp:194:40: error: ‘struct cimg_library::CImg<float>’ has no member named ‘width’; did you mean ‘_width’?
+  194 |             QSize size(_gmic_images[0].width(), _gmic_images[0].height());
+      |                                        ^~~~~
+      |                                        _width
+src/FilterThread.cpp:194:65: error: ‘struct cimg_library::CImg<float>’ has no member named ‘height’; did you mean ‘_height’?
+  194 |             QSize size(_gmic_images[0].width(), _gmic_images[0].height());
+      |                                                                 ^~~~~~
+      |                                                                 _height
+src/FilterThread.cpp:260:152: error: no matching function for call to ‘cimg_library::CImg<unsigned char>::CImg(uchar*, int, int, int, int, bool)’
+  260 | g<unsigned char> src(reinterpret_cast<unsigned char *>(_imageSource.image()->ptr()), 3, _imageSource.width(), _imageSource.height(), 1, true);
+      |                                                                                                                                             ^
+
+In file included from include/FilterThread.h:53,
+                 from src/FilterThread.cpp:46:
+/usr/include/gmic.h:107:5: note: candidate: ‘cimg_library::CImg<T>::CImg() [with T = unsigned char]’
+  107 |     gmic_image():_width(0),_height(0),_depth(0),_spectrum(0),_is_shared(false),_data(0) { }
+      |     ^~~~~~~~~~
+/usr/include/gmic.h:107:5: note:   candidate expects 0 arguments, 6 provided
+/usr/include/gmic.h:93:31: note: candidate: ‘constexpr cimg_library::CImg<unsigned char>::CImg(const cimg_library::CImg<unsigned char>&)’
+   93 |   template<typename T> struct gmic_image {
+      |                               ^~~~~~~~~~
+/usr/include/gmic.h:93:31: note:   candidate expects 1 argument, 6 provided
+src/FilterThread.cpp:261:28: error: ‘struct cimg_library::CImg<unsigned char>’ has no member named ‘get_permute_axes’
+  261 |         _gmic_images = src.get_permute_axes("yzcx");
+      |                            ^~~~~~~~~~~~~~~~
+src/FilterThread.cpp:268:30: error: ‘struct cimg_library::CImg<unsigned char>’ has no member named ‘get_permute_axes’
+  268 |           _gmic_images = src.get_permute_axes("yzcx").channel(0).resize(-100, -100, 1, 3).draw_text(10, 10, "Syntax Error", color1, color2, 0.5, 57);
+      |                              ^~~~~~~~~~~~~~~~
+x86_64-pc-linux-gnu-g++ -c -O3 -march=native -mno-lwp -pipe -fopenmp -std=gnu++11 -Wall -Wextra -D_REENTRANT -fPIC -Dcimg_use_fftw3 -Dcimg_use_zlib -DQT_DEPRECATED_WARNINGS -Dcimg_use_openmp -DHAS_V4L2 -Dgmic_is_parallel -Dcimg_use_abort -DQT_NO_DEBUG_OUTPUT -D_IS_UNIX_ -Dcimg_display=0 -DQT_NO_DEBUG -DQT_WIDGETS_LIB -DQT_GUI_LIB -DQT_XML_LIB -DQT_NETWORK_LIB -DQT_CORE_LIB -I. -I. -Iinclude -I/usr/include/opencv4 -I/usr/include/qt5 -I/usr/include/qt5/QtWidgets -I/usr/include/qt5/QtGui -I/usr/include/qt5/QtXml -I/usr/include/qt5/QtNetwork -I/usr/include/qt5/QtCore -I.moc -I/usr/include/libdrm -I.ui -I/usr/lib64/qt5/mkspecs/linux-g++ -o .obj/SeparatorParameter.o src/SeparatorParameter.cpp
+make: *** [Makefile:1165: .obj/StillImageSource.o] Error 1
+make: *** Waiting for unfinished jobs....
+make: *** [Makefile:1147: .obj/ImageConverter.o] Error 1
+make: *** [Makefile:1135: .obj/FilterThread.o] Error 1
+ * ERROR: media-gfx/zart-3.2.2_p20220404::stefantalpalaru failed (compile phase):
+ *   emake failed
+ * 
+ * If you need support, post the output of `emerge --info '=media-gfx/zart-3.2.2_p20220404::stefantalpalaru'`,
+ * the complete build log and the output of `emerge -pqv '=media-gfx/zart-3.2.2_p20220404::stefantalpalaru'`.
+ * The complete build log is located at '/var/tmp/portage/media-gfx/zart-3.2.2_p20220404/temp/build.log'.
+ * The ebuild environment file is located at '/var/tmp/portage/media-gfx/zart-3.2.2_p20220404/temp/environment'.
+ * Working directory: '/var/tmp/portage/media-gfx/zart-3.2.2_p20220404/work/zart-ac29dcbcaba778060053480f3e5e7692e42a5338'
+ * S: '/var/tmp/portage/media-gfx/zart-3.2.2_p20220404/work/zart-ac29dcbcaba778060053480f3e5e7692e42a5338'
