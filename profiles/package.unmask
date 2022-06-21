@@ -84,6 +84,7 @@ dev-python/log4py
 dev-python/louie
 dev-python/lp_solve
 dev-python/lupy
+dev-python/m2r
 dev-python/m2secret
 dev-python/matplotlib-python2
 dev-python/mocker
