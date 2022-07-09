@@ -2,15 +2,14 @@
 # Distributed under the terms of the GNU General Public License v2
 
 EAPI=7
-PYTHON_COMPAT=( python3_{8..10} )
-WX_GTK_VER="3.1-gtk3"
+PYTHON_COMPAT=( python3_{8..11} )
+WX_GTK_VER="3.2-gtk3"
 DISTUTILS_IN_SOURCE_BUILD=1
-DISTUTILS_USE_SETUPTOOLS="manual"
 
 inherit distutils-r1 multiprocessing virtualx wxwidgets
 
 MY_PN="wxPython"
-MY_PV="4.1.2a1.dev5330+3e6be81d"
+MY_PV="$(ver_cut 1-3)a1.dev5439+9d4ed223"
 
 DESCRIPTION="A blending of the wxWindows C++ class library with Python"
 HOMEPAGE="https://www.wxpython.org/
@@ -28,35 +27,29 @@ RESTRICT="!test? ( test )"
 # optionally patched out because it's so huge, but other elements are not,
 # which makes us have to require all features from wxGTK
 RDEPEND="
-	>=x11-libs/wxGTK-3.1.4:${WX_GTK_VER}=[gstreamer,libnotify,opengl,sdl,tiff,webkit?,X]
+	x11-libs/wxGTK:${WX_GTK_VER}=[gstreamer,libnotify,opengl,sdl,tiff,webkit?,X]
 	media-libs/libpng:0=
 	media-libs/tiff:0
-	virtual/jpeg:0"
+	media-libs/libjpeg-turbo:0"
 
 DEPEND="${RDEPEND}
 	app-doc/doxygen
-	$(python_gen_cond_dep 'dev-python/setuptools:python2[${PYTHON_USEDEP}]' -2)
-	$(python_gen_cond_dep 'dev-python/setuptools:0[${PYTHON_USEDEP}]' -3)
-	$(python_gen_cond_dep 'dev-python/six:python2[${PYTHON_USEDEP}]' -2)
-	$(python_gen_cond_dep 'dev-python/six:0[${PYTHON_USEDEP}]' -3)
+	dev-python/setuptools:0[${PYTHON_USEDEP}]
+	dev-python/six:0[${PYTHON_USEDEP}]
+	dev-python/attrdict3:0[${PYTHON_USEDEP}]
 	test? (
 		${VIRTUALX_DEPEND}
-		$(python_gen_cond_dep 'dev-python/appdirs:python2[${PYTHON_USEDEP}]' -2)
-		$(python_gen_cond_dep 'dev-python/appdirs:0[${PYTHON_USEDEP}]' -3)
-		$(python_gen_cond_dep 'dev-python/numpy-python2[${PYTHON_USEDEP}]' -2)
-		$(python_gen_cond_dep 'dev-python/numpy[${PYTHON_USEDEP}]' -3)
-		$(python_gen_cond_dep 'dev-python/pillow:python2[${PYTHON_USEDEP}]' -2)
-		$(python_gen_cond_dep 'dev-python/pillow:0[${PYTHON_USEDEP}]' -3)
-		$(python_gen_cond_dep 'dev-python/pytest:python2[${PYTHON_USEDEP}]' -2)
-		$(python_gen_cond_dep 'dev-python/pytest:0[${PYTHON_USEDEP}]' -3)
+		dev-python/appdirs:0[${PYTHON_USEDEP}]
+		dev-python/numpy[${PYTHON_USEDEP}]
+		dev-python/pillow:0[${PYTHON_USEDEP}]
+		dev-python/pytest:0[${PYTHON_USEDEP}]
 	)"
 
 S="${WORKDIR}/${MY_PN}-${MY_PV}"
 
 PATCHES=(
-	"${FILESDIR}/${PN}-4.1.0-skip-broken-tests.patch"
-	"${FILESDIR}/wxPython-4.1.2a1-nosip.patch"
-	#"${FILESDIR}/${PN}-4.1.1-override.patch"
+	"${FILESDIR}/wxpython-4.1.0-skip-broken-tests.patch"
+	"${FILESDIR}/wxpython-4.2.0-no-sip.patch"
 )
 
 python_prepare_all() {

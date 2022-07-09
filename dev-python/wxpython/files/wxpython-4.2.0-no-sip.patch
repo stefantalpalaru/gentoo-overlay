@@ -1,0 +1,51 @@
+diff -ur wxPython-4.2.0a1.dev5439+9d4ed223.orig/build.py wxPython-4.2.0a1.dev5439+9d4ed223/build.py
+--- wxPython-4.2.0a1.dev5439+9d4ed223.orig/build.py	2022-06-29 18:28:46.000000000 +0200
++++ wxPython-4.2.0a1.dev5439+9d4ed223/build.py	2022-07-09 15:36:56.982689024 +0200
+@@ -46,7 +46,7 @@
+                                getVcsRev, runcmd, textfile_open, getSipFiles, \
+                                getVisCVersion, getToolsPlatformName, updateLicenseFiles, \
+                                TemporaryDirectory, getMSVCInfo
+-from buildtools.wxpysip import sip_runner
++#from buildtools.wxpysip import sip_runner
+ 
+ import buildtools.version as version
+ 
+@@ -1277,22 +1277,22 @@
+         # module's .py file
+         pycode = 'pycode'+base+':'+pycode
+ 
+-        sip_runner(src_name,
+-            abi_version = cfg.SIP_ABI,  # siplib abi version
+-            warnings = True,            # enable warning messages
+-            docstrings = True,          # enable the automatic generation of docstrings
+-            release_gil = True,         # always release and reacquire the GIL
+-            sip_module = 'wx.siplib',   # the fully qualified name of the sip module
+-            sbf_file=sbf,               # File to write the generated file lists to
+-            exceptions = False,         # enable support for exceptions
+-            tracing = cfg.SIP_TRACE,    # generate code with tracing enabled
+-            sources_dir = tmpdir,       # the name of the code directory
+-            extracts = [pycode],        # add <ID:FILE> to the list of extracts to generate
+-            pyi_extract=pyi_extract,    # the name of the .pyi stub file
+-            include_dirs = [
+-                os.path.join(phoenixDir(), 'src'),
+-                os.path.join(phoenixDir(), 'sip', 'gen'),
+-            ])
++        #sip_runner(src_name,
++            #abi_version = cfg.SIP_ABI,  # siplib abi version
++            #warnings = True,            # enable warning messages
++            #docstrings = True,          # enable the automatic generation of docstrings
++            #release_gil = True,         # always release and reacquire the GIL
++            #sip_module = 'wx.siplib',   # the fully qualified name of the sip module
++            #sbf_file=sbf,               # File to write the generated file lists to
++            #exceptions = False,         # enable support for exceptions
++            #tracing = cfg.SIP_TRACE,    # generate code with tracing enabled
++            #sources_dir = tmpdir,       # the name of the code directory
++            #extracts = [pycode],        # add <ID:FILE> to the list of extracts to generate
++            #pyi_extract=pyi_extract,    # the name of the .pyi stub file
++            #include_dirs = [
++                #os.path.join(phoenixDir(), 'src'),
++                #os.path.join(phoenixDir(), 'sip', 'gen'),
++            #])
+ 
+ 
+         classesNeedingClassInfo = { 'sip_corewxTreeCtrl.cpp' : 'wxTreeCtrl', }

@@ -1,8 +1,8 @@
-# Copyright 1999-2021 Gentoo Authors
+# Copyright 1999-2022 Gentoo Authors
 # Distributed under the terms of the GNU General Public License v2
 
 EAPI=7
-PYTHON_COMPAT=( python2_7 python3_{8..10} )
+PYTHON_COMPAT=( python2_7 python3_{8..11} )
 WX_GTK_VER="3.1-gtk3"
 DISTUTILS_IN_SOURCE_BUILD=1
 DISTUTILS_USE_SETUPTOOLS="manual"
@@ -30,7 +30,7 @@ RDEPEND="
 	>=x11-libs/wxGTK-3.1.4:${WX_GTK_VER}=[gstreamer,libnotify,opengl,sdl,tiff,webkit?,X]
 	media-libs/libpng:0=
 	media-libs/tiff:0
-	virtual/jpeg:0"
+	media-libs/libjpeg-turbo:0"
 
 DEPEND="${RDEPEND}
 	app-doc/doxygen

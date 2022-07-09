@@ -86,7 +86,7 @@ setup-wxwidgets() {
 		&& die "WX_GTK_VER must be set before calling $FUNCNAME."
 
 	case "${WX_GTK_VER}" in
-		3.0-gtk3|3.1-gtk3)
+		3.0-gtk3|3.1-gtk3|3.2-gtk3)
 			wxtoolkit=gtk3
 			if [[ -z ${WX_DISABLE_NDEBUG} ]]; then
 				( in_iuse debug && use debug ) || append-cppflags -DNDEBUG

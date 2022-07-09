@@ -3,7 +3,7 @@
 
 EAPI=7
 
-WX_GTK_VER="3.1-gtk3"
+WX_GTK_VER="3.2-gtk3"
 
 inherit cmake wxwidgets
 DESCRIPTION="Cross-Platform Software-Defined Radio Application"
@@ -19,7 +19,7 @@ DEPEND="media-libs/rtaudio
 	>=net-libs/liquid-dsp-1.4.0
 	>=net-wireless/soapysdr-0.4.0[bladerf?,hackrf?,plutosdr?,rtlsdr?,uhd?]
 	virtual/opengl
-	x11-libs/wxGTK:3.1-gtk3=[opengl,-egl]
+	x11-libs/wxGTK:${WX_GTK_VER}=[opengl,-egl]
 	hamlib? ( media-libs/hamlib )
 "
 RDEPEND="${DEPEND}"
