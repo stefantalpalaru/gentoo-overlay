@@ -1,23 +1,23 @@
-# Copyright 1999-2021 Gentoo Authors
+# Copyright 1999-2022 Gentoo Authors
 # Distributed under the terms of the GNU General Public License v2
 
 EAPI=7
 
-PYTHON_COMPAT=( python3_{8..9} )
+PYTHON_COMPAT=( python3_{8..11} )
 PYTHON_REQ_USE='xml(+)'
 
-inherit distutils-r1
+inherit distutils-r1 git-r3
 
 DESCRIPTION="Python library to search and download subtitles"
 HOMEPAGE="https://github.com/Diaoul/subliminal
 	https://pypi.org/project/subliminal/"
-SRC_URI="
-	https://github.com/Diaoul/subliminal/archive/${PV}.tar.gz -> ${P}.tar.gz
-"
+EGIT_REPO_URI="https://github.com/Diaoul/${PN}.git"
+EGIT_BRANCH="develop"
+SRC_URI=""
 
 LICENSE="MIT"
 SLOT="0"
-KEYWORDS="~amd64 ~x86"
+KEYWORDS=""
 
 RDEPEND="
 	>=dev-python/appdirs-1.3[${PYTHON_USEDEP}]
@@ -37,12 +37,15 @@ RDEPEND="
 	dev-python/soupsieve[${PYTHON_USEDEP}]
 	>=dev-python/stevedore-1.20.0[${PYTHON_USEDEP}]
 "
-DEPEND="
-	dev-python/setuptools[${PYTHON_USEDEP}]
-"
+DEPEND=""
 
 # Tests don't work in 2.0.5. Recheck in later versions. See Gentoo bug 630114.
 RESTRICT=test
+
+src_unpack() {
+	default_src_unpack
+	git-r3_src_unpack
+}
 
 python_prepare_all() {
 	# Disable code checkers as they require unavailable dependencies.
