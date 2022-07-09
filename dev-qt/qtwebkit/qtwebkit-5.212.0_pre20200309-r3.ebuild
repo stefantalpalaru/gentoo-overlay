@@ -13,7 +13,7 @@ else
 	KEYWORDS="amd64 arm arm64 ppc64 x86"
 	S="${WORKDIR}/${MY_P}"
 fi
-PYTHON_COMPAT=( python3_{7,8,9} )
+PYTHON_COMPAT=( python3_{7..11} )
 USE_RUBY="ruby25 ruby26 ruby27"
 inherit check-reqs cmake flag-o-matic python-any-r1 qmake-utils ruby-single toolchain-funcs
 
@@ -52,7 +52,7 @@ DEPEND="
 	>=dev-qt/qtwidgets-${QT_MIN_VER}=
 	media-libs/libpng:0=
 	media-libs/woff2
-	virtual/jpeg:0
+	media-libs/libjpeg-turbo:0
 	geolocation? ( >=dev-qt/qtpositioning-${QT_MIN_VER} )
 	gstreamer? (
 		dev-libs/glib:2
