@@ -225,10 +225,26 @@ src_compile() {
 	# https://bugs.gentoo.org/594768
 	local -x LC_ALL=C
 
+	# Prevent using distutils bundled by setuptools.
+	# https://bugs.gentoo.org/823728
+	export SETUPTOOLS_USE_DISTUTILS=stdlib
+	export PYTHONSTRICTEXTENSIONBUILD=1
+
+	# Save PYTHONDONTWRITEBYTECODE so that 'has_version' doesn't
+	# end up writing bytecode & violating sandbox.
+	# bug #831897
+	local -x _PYTHONDONTWRITEBYTECODE=${PYTHONDONTWRITEBYTECODE}
+
 	if use pgo; then
 		# disable distcc and ccache
 		export DISTCC_HOSTS=""
 		export CCACHE_DISABLE=1
+
+		# bug 660358
+		local -x COLUMNS=80
+		local -x PYTHONDONTWRITEBYTECODE=
+
+		addpredict /usr/lib/python2.7/site-packages
 	fi
 
 	# Avoid invoking pgen for cross-compiles.
@@ -246,6 +262,9 @@ src_compile() {
 	export par_arg
 
 	emake EXTRATESTOPTS="${par_arg} -uall,-audio -x test_distutils -x test_bdb -x test_runpy -x test_test_support"
+
+	# Restore saved value from above.
+	local -x PYTHONDONTWRITEBYTECODE=${_PYTHONDONTWRITEBYTECODE}
 
 	# Work around bug 329499. See also bug 413751 and 457194.
 	if has_version dev-libs/libffi[pax-kernel]; then
@@ -343,8 +362,13 @@ src_install() {
 	local -x EPYTHON=python${SLOT}
 	# if not using a cross-compiler, use the fresh binary
 	if ! tc-is-cross-compiler; then
-		local -x PYTHON=./python
-		local -x LD_LIBRARY_PATH=${LD_LIBRARY_PATH+${LD_LIBRARY_PATH}:}${PWD}
+		cat > python.wrap <<-EOF || die
+			#!/bin/sh
+			export LD_LIBRARY_PATH=\${PWD}\${LD_LIBRARY_PATH+:\${LD_LIBRARY_PATH}}
+			exec ./python "\${@}"
+		EOF
+		chmod +x python.wrap || die
+		local -x PYTHON=./python.wrap
 	else
 		local -x PYTHON=${EPREFIX}/usr/bin/${EPYTHON}
 	fi
