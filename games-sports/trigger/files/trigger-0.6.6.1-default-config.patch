@@ -1,0 +1,12 @@
+diff -ur src.orig/GNUmakefile src/GNUmakefile
+--- src.orig/GNUmakefile	2019-02-26 23:35:48.000000000 +0100
++++ src/GNUmakefile	2022-07-14 22:37:20.077713155 +0200
+@@ -79,7 +79,7 @@
+ install: installdirs build
+ 	@printf "\ninstall [%s] begin\n" "$(DISTNAME)"
+ 	@$(INSTALL_PROGRAM) "$(TR_EXEFILE)" "$(DESTDIR)$(bindir)"
+-	@$(INSTALL_DATA) "$(TR_CFGFILE)" "$(DESTDIR)$(bindir)"
++	@$(INSTALL_DATA) "$(TR_CFGFILE)" "$(DESTDIR)$(datadir)/$(DISTNAME)"
+ 	@for file in $(TR_DATAFILES); do \
+ 		$(INSTALL_DATA) -D "$(TR_DATADIR)/$$file" "$(DESTDIR)$(datadir)/$(DISTNAME)/$$file"; \
+ 		done
