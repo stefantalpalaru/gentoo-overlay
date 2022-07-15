@@ -170,7 +170,6 @@ media-gfx/fbcat:fbgrab - Install a 'fbgrab' wrapper script around fbcat that mim
 media-gfx/gmic:cli - Build the CLI interface
 media-gfx/gmic:gimp - Build the Qt5 GIMP plugin
 media-gfx/gmic:gui - Build the standalone Qt5 GUI
-media-gfx/gmic:krita - Build the Krita plugin
 media-gfx/gmic:opencv - Enable support for webcams using the OpenCV library
 media-libs/avidemux-core:nvenc - Adds support for NVIDIA Encoder (NVENC) API for hardware accelerated encoding on NVIDIA cards.
 media-libs/avidemux-core:system-ffmpeg - Use the ffmpeg provided by the system.
@@ -267,6 +266,15 @@ sys-power/nut:ups_drivers_tripplitesu - Driver for Tripp-Lite SmartOnline (SU) U
 sys-power/nut:ups_drivers_upscode2 - Driver for UPScode II compatible UPS equipment
 sys-power/nut:ups_drivers_usbhid-ups - Driver for USB/HID UPS equipment
 sys-power/nut:ups_drivers_victronups - Driver for IMV/Victron UPS unit Match, Match Lite, NetUps
+www-servers/uwsgi:embedded - Embed plugins instead of building them as real plugins. When disabling this USE flag make sure you specify all used plugins in your uWSGI configuration. Note: Language plugins will always be built as real plugins.
+www-servers/uwsgi:go - Build the gccgo plugin to run Go applications.
+www-servers/uwsgi:json - Support json as a configuration file format.
+www-servers/uwsgi:python-asyncio - Use the EXPERIMENTAL asyncio (tulip) for python3.4 async request dispatching and as LoopEngine (see http://uwsgi-docs.readthedocs.org/en/latest/asyncio.html).
+www-servers/uwsgi:python-gevent - Use dev-python/gevent for async request dispatching and as LoopEngine (see http://projects.unbit.it/uwsgi/wiki/Gevent).
+www-servers/uwsgi:routing - Enable routing support
+www-servers/uwsgi:yajl - Use dev-libs/yajl instead of dev-libs/jansson for parsing JSON configuration files (if USe=json is set)
+www-servers/uwsgi:yaml - Support yaml as a configuration file format.
+www-servers/uwsgi:zeromq - Enable logging and deployment via ZeroMQ.
 x11-drivers/nvidia-drivers:driver - Install kernel driver modules
 x11-drivers/nvidia-drivers:tools - Install additional tools such as nvidia-settings
 x11-libs/wxGTK:egl - Enable EGL support.
