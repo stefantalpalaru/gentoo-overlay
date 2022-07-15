@@ -216,6 +216,7 @@ dev-vcs/bzr
 dev-vcs/hg-fast-export
 gnome-base/libgnome-keyring
 media-gfx/displaycal
+media-gfx/gmic
 media-sound/tunapie
 media-video/subliminal
 net-analyzer/namebench
