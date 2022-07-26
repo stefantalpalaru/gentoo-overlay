@@ -3,7 +3,7 @@
 
 EAPI=7
 
-inherit eutils flag-o-matic linux-info linux-mod user udev
+inherit flag-o-matic linux-info linux-mod user udev
 
 DESCRIPTION="VMware kernel modules"
 HOMEPAGE="https://github.com/mkubecek/vmware-host-modules"
@@ -18,6 +18,9 @@ IUSE=""
 
 RDEPEND=""
 DEPEND=""
+BDEPEND="
+	app-arch/unzip
+"
 
 RESTRICT="mirror"
 
@@ -95,5 +98,11 @@ src_install() {
 
 pkg_postinst() {
 	linux-mod_pkg_postinst
+	udev_reload
 	ewarn "Don't forget to run '/etc/init.d/vmware restart' to use the new kernel modules."
+}
+
+pkg_postrm() {
+	linux-mod_pkg_postrm
+	udev_reload
 }
