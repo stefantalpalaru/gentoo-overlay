@@ -1,7 +1,7 @@
 # Copyright 1999-2021 Gentoo Authors
 # Distributed under the terms of the GNU General Public License v2
 
-EAPI=7
+EAPI=8
 MY_PV="${PV/./,}"
 
 inherit cmake desktop xdg
@@ -9,7 +9,7 @@ inherit cmake desktop xdg
 DESCRIPTION="software DAB decoder for use with a dabstick, airspy or sdrplay for RPI and PC"
 HOMEPAGE="http://www.sdr-j.tk/
 	https://github.com/JvanKatwijk/qt-dab"
-SRC_URI="https://github.com/JvanKatwijk/qt-dab/archive/${MY_PV}.tar.gz -> ${P}.tar.gz"
+SRC_URI="https://github.com/JvanKatwijk/qt-dab/archive/${PV}.tar.gz -> ${P}.tar.gz"
 
 LICENSE="GPL-2"
 SLOT="0"
@@ -32,7 +32,7 @@ DEPEND="!media-radio/dabstick-radio
 
 RDEPEND="${DEPEND}"
 
-S="${WORKDIR}/${PN}-${PV/./-}/dab-maxi"
+S="${WORKDIR}/${P}/dab-maxi"
 
 src_prepare() {
 	cmake_src_prepare
