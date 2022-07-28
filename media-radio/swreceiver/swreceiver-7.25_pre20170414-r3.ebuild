@@ -1,9 +1,9 @@
-# Copyright 1999-2021 Gentoo Authors
+# Copyright 1999-2022 Gentoo Authors
 # Distributed under the terms of the GNU General Public License v2
 
-EAPI=7
+EAPI=8
 
-inherit eutils git-r3 qmake-utils
+inherit git-r3 qmake-utils
 
 DESCRIPTION="SDR-J SW receiver for RTL2832-based USB sticks"
 HOMEPAGE="http://www.sdr-j.tk/
@@ -32,6 +32,10 @@ RDEPEND="${DEPEND}"
 
 S="${WORKDIR}/${P}/swreceiver"
 INPUT_DIRS="cardreader dabstick filereader pmsdr"
+
+PATCHES=(
+	"${FILESDIR}"/swreceiver-7.25-qwt6.patch
+)
 
 src_prepare() {
 	default
@@ -77,10 +81,8 @@ src_install() {
 	cd "${BUILD_DIR}"
 	exeinto "/usr/bin"
 	newexe ../../linux-bin/sdr-j-swreceiver-* "${PN}"
-	dodir "/usr/lib/${PN}/input"
 	insinto "/usr/lib/${PN}/input"
 	doins ../../linux-bin/input-plugins-sw/*.so
-	dodir "/usr/lib/${PN}/decoder"
 	insinto "/usr/lib/${PN}/decoder"
 	doins ../../linux-bin/decoder-plugins/*.so
 	elog "Make sure your ~/.jsdr-sw.ini file has 'deviceBase=/usr/lib/${PN}/input' and 'decoderBase=/usr/lib/${PN}/decoder' in it"
