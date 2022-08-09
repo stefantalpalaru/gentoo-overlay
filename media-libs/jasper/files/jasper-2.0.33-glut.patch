@@ -1,0 +1,26 @@
+diff -ur jasper-version-2.0.33.orig/build/cmake/modules/JasOpenGL.cmake jasper-version-2.0.33/build/cmake/modules/JasOpenGL.cmake
+--- jasper-version-2.0.33.orig/build/cmake/modules/JasOpenGL.cmake	2021-08-01 22:50:31.000000000 +0200
++++ jasper-version-2.0.33/build/cmake/modules/JasOpenGL.cmake	2022-08-09 23:25:55.572917702 +0200
+@@ -29,22 +29,6 @@
+ 			message(WARNING "Disabling OpenGL.")
+ 		endif()
+ 	endif()
+-	# On some systems (e.g., Fedora 21), there is a bug in the cmake code
+-	# that detects GLUT libraries.  The following ugliness is a workaround for 
+-	# this problem.
+-	if (NOT GLUT_Xmu_LIBRARY OR NOT GLUT_Xmi_LIBRARY)
+-		if (NOT GLUT_Xmu_LIBRARY)
+-			set(GLUT_Xmu_LIBRARY "")
+-			message(WARNING "Clearing bogus value for GLUT_Xmu_LIBRARY.")
+-			message(WARNING "Your version of CMake may be buggy.")
+-		endif()
+-		if (NOT GLUT_Xmi_LIBRARY)
+-			set(GLUT_Xmi_LIBRARY "")
+-			message(WARNING "Clearing bogus value for GLUT_Xmi_LIBRARY.")
+-			message(WARNING "Your version of CMake may be buggy.")
+-		endif()
+-		set(GLUT_LIBRARIES "${GLUT_glut_LIBRARY}")
+-	endif()
+ else()
+ 	set(JAS_HAVE_OPENGL 0)
+ 	set(OPENGL_INCLUDE_DIR "")
