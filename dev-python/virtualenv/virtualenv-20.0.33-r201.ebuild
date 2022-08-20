@@ -1,4 +1,4 @@
-# Copyright 1999-2021 Gentoo Authors
+# Copyright 1999-2022 Gentoo Authors
 # Distributed under the terms of the GNU General Public License v2
 
 EAPI=7
@@ -26,6 +26,9 @@ RDEPEND="
 	>=dev-python/appdirs-1.4.3[${PYTHON_USEDEP}]
 	>=dev-python/distlib-0.3.1[${PYTHON_USEDEP}]
 	>=dev-python/filelock-3[${PYTHON_USEDEP}]
+	dev-python/importlib_metadata[${PYTHON_USEDEP}]
+	dev-python/importlib_resources[${PYTHON_USEDEP}]
+	dev-python/pathlib2[${PYTHON_USEDEP}]
 	>=dev-python/setuptools-41[${PYTHON_USEDEP}]
 	>=dev-python/six-1.9.0[${PYTHON_USEDEP}]
 	!<dev-python/virtualenv-20.0.33-r200[${PYTHON_USEDEP}]
@@ -37,10 +40,6 @@ BDEPEND="
 	test? (
 		${RDEPEND}
 	)"
-
-distutils_enable_sphinx docs \
-	dev-python/sphinx_rtd_theme \
-	dev-python/towncrier
 
 src_prepare() {
 	# we don't have xonsh
