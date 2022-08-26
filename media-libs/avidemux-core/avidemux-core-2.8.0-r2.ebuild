@@ -1,7 +1,7 @@
-# Copyright 1999-2021 Gentoo Authors
+# Copyright 1999-2022 Gentoo Authors
 # Distributed under the terms of the GNU General Public License v2
 
-EAPI=7
+EAPI=8
 
 CMAKE_MAKEFILE_GENERATOR="emake"
 
@@ -12,7 +12,7 @@ HOMEPAGE="http://fixounet.free.fr/avidemux"
 SRC_URI="https://github.com/mean00/avidemux2/archive/${PV}.tar.gz -> avidemux-${PV}.tar.gz"
 
 # Multiple licenses because of all the bundled stuff.
-LICENSE="GPL-1 GPL-2 MIT PSF-2 public-domain"
+LICENSE="GPL-1 GPL-2 LGPL-2.1 MIT OFL-1.1 PSF-2 public-domain"
 SLOT="2.7"
 KEYWORDS="~amd64 ~x86"
 IUSE="debug nls nvenc sdl system-ffmpeg vaapi vdpau xv"

@@ -1,10 +1,10 @@
 # Copyright 1999-2022 Gentoo Authors
 # Distributed under the terms of the GNU General Public License v2
 
-EAPI=7
+EAPI=8
 
 CMAKE_MAKEFILE_GENERATOR="emake"
-PYTHON_COMPAT=( python3_{8..10} )
+PYTHON_COMPAT=( python3_{8..11} )
 
 inherit cmake flag-o-matic python-single-r1
 
@@ -13,7 +13,7 @@ HOMEPAGE="http://fixounet.free.fr/avidemux"
 SRC_URI="https://github.com/mean00/avidemux2/archive/${PV}.tar.gz -> avidemux-${PV}.tar.gz"
 
 # Multiple licenses because of all the bundled stuff.
-LICENSE="GPL-1 GPL-2 MIT PSF-2 public-domain"
+LICENSE="GPL-1 GPL-2 LGPL-2.1 MIT OFL-1.1 PSF-2 public-domain"
 SLOT="2.7"
 IUSE="a52 aac aften alsa amr dcaenc debug dts fdk fontconfig fribidi jack lame libsamplerate cpu_flags_x86_mmx nvenc opengl opus oss pulseaudio qt5 truetype twolame vdpau vorbis vpx x264 x265 xv xvid"
 KEYWORDS="~amd64 ~x86"
