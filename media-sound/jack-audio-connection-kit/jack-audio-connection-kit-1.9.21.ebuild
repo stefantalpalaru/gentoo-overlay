@@ -3,7 +3,7 @@
 
 EAPI=7
 
-PYTHON_COMPAT=( python3_{8..10} )
+PYTHON_COMPAT=( python3_{8..11} )
 PYTHON_REQ_USE="threads(+)"
 inherit python-single-r1 waf-utils multilib-minimal
 
@@ -89,5 +89,7 @@ multilib_src_install() {
 }
 
 multilib_src_install_all() {
-	python_fix_shebang "${ED}"
+	if use dbus; then
+		python_fix_shebang "${ED}"
+	fi
 }
