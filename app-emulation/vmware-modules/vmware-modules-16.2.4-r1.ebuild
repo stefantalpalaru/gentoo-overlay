@@ -8,8 +8,18 @@ inherit flag-o-matic linux-info linux-mod user udev
 DESCRIPTION="VMware kernel modules"
 HOMEPAGE="https://github.com/mkubecek/vmware-host-modules"
 
-MY_KERNEL_VERSION="5.18"
-SRC_URI="https://github.com/mkubecek/vmware-host-modules/archive/w${PV}-k${MY_KERNEL_VERSION}.zip -> ${P}-${MY_KERNEL_VERSION}.zip"
+# Highest kernel version known to work:
+MY_KERNEL_VERSION="5.19"
+
+# Upstream doesn't want to tag versions or anything that looks like properly
+# releasing the software, so we need to just pick a commit from
+# https://github.com/mkubecek/vmware-host-modules/commits/workstation-${PV}
+# and test it ourselves.
+#
+# Details: https://github.com/mkubecek/vmware-host-modules/issues/158#issuecomment-1228341760
+MY_COMMIT="5389d2915b66da4d614d9134411a72099ef0e1ab"
+
+SRC_URI=" https://github.com/mkubecek/vmware-host-modules/archive/${MY_COMMIT}.zip -> ${P}-${MY_COMMIT}.zip"
 
 LICENSE="GPL-2"
 SLOT="0"
@@ -24,7 +34,7 @@ BDEPEND="
 
 RESTRICT="mirror"
 
-S="${WORKDIR}/vmware-host-modules-w${PV}-k${MY_KERNEL_VERSION}"
+S="${WORKDIR}/vmware-host-modules-${MY_COMMIT}"
 
 pkg_setup() {
 	CONFIG_CHECK="~HIGH_RES_TIMERS"
@@ -38,6 +48,12 @@ pkg_setup() {
 
 	linux-info_pkg_setup
 	linux-mod_pkg_setup
+
+	if kernel_is gt ${MY_KERNEL_VERSION//./ }; then
+		ewarn
+		ewarn "Warning: this version of the modules is only known to work with kernels up to ${MY_KERNEL_VERSION}, while you are building them for a ${KV_FULL} kernel."
+		ewarn
+	fi
 
 	VMWARE_GROUP=${VMWARE_GROUP:-vmware}
 
