@@ -1,7 +1,7 @@
 # Copyright 2014-2022 Gentoo Authors
 # Distributed under the terms of the GNU General Public License v2
 
-EAPI=7
+EAPI=8
 
 CMAKE_IN_SOURCE_BUILD=1
 
@@ -10,12 +10,15 @@ inherit cmake git-r3
 DESCRIPTION="Compiler for the Pony language"
 HOMEPAGE="http://www.ponylang.org/"
 EGIT_REPO_URI="https://github.com/ponylang/ponyc"
+EGIT_COMMIT="${PV}"
 
 LICENSE="BSD-2"
 SLOT="0"
-KEYWORDS=""
+KEYWORDS="~amd64 ~x86"
 IUSE="test vim-syntax"
-RESTRICT="strip network-sandbox"
+RESTRICT="strip
+	network-sandbox
+	!test? ( test )"
 
 RDEPEND="
 	sys-libs/zlib
