@@ -5,12 +5,9 @@ EAPI=8
 
 inherit qmake-utils
 
-MY_COMMIT="7d8b26368d28955235dafe0bf23c6243f6ea4ae8"
-
 DESCRIPTION="cross-platform viewer/manager for ZIM archives"
 HOMEPAGE="https://kiwix.org/"
-#SRC_URI="https://github.com/kiwix/${PN}/archive/${PV}.tar.gz -> ${P}.tar.gz"
-SRC_URI="https://github.com/kiwix/kiwix-desktop/archive/${MY_COMMIT}.zip -> ${P}.zip"
+SRC_URI="https://github.com/kiwix/${PN}/archive/${PV}.tar.gz -> ${P}.tar.gz"
 
 LICENSE="GPL-3"
 SLOT="0"
@@ -26,8 +23,6 @@ DEPEND="
 	www-misc/kiwix-lib
 "
 BDEPEND="app-arch/unzip"
-
-S="${WORKDIR}/kiwix-desktop-${MY_COMMIT}"
 
 src_compile()
 {
