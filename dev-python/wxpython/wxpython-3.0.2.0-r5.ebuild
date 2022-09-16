@@ -7,7 +7,7 @@ PYTHON_COMPAT=( python2_7 )
 WX_GTK_VER="3.0"
 DISTUTILS_USE_SETUPTOOLS="manual"
 
-inherit alternatives desktop distutils-r1 eutils flag-o-matic wxwidgets xdg-utils
+inherit alternatives desktop distutils-r1 python-r1 python-utils-r1 wxwidgets xdg-utils
 
 MY_PN="wxPython-src"
 
@@ -19,7 +19,7 @@ SRC_URI="
 
 LICENSE="wxWinLL-3"
 SLOT="3.0"
-KEYWORDS="~alpha amd64 arm arm64 ~hppa ppc ppc64 sparc x86"
+KEYWORDS="~alpha ~amd64 ~arm ~arm64 ~hppa ~ppc ~ppc64 ~sparc ~x86"
 IUSE="cairo examples libnotify opengl"
 
 RDEPEND="
@@ -50,7 +50,7 @@ python_prepare_all() {
 
 	if use examples; then
 		cd "${DOC_S}"
-		epatch "${FILESDIR}"/${PN}-${SLOT}-wxversion-demo.patch
+		patch -p0 "${FILESDIR}"/${PN}-${SLOT}-wxversion-demo.patch
 	fi
 
 	cd "${S}"

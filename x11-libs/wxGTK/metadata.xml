@@ -14,7 +14,7 @@
 			gstreamer.
 		</flag>
 		<flag name="sdl">
-			Use Simple Directmedia Layer (<pkg>media-libs/libsdl</pkg>) for
+			Use Simple Directmedia Layer (<pkg>media-libs/libsdl2</pkg>) for
 			audio.
 		</flag>
 	</use>
