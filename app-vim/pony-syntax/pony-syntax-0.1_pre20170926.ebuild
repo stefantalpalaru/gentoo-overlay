@@ -1,7 +1,7 @@
-# Copyright 1999-2017 Gentoo Foundation
+# Copyright 1999-2022 Gentoo Foundation
 # Distributed under the terms of the GNU General Public License v2
 
-EAPI=6
+EAPI=8
 
 inherit git-r3 vim-plugin
 
@@ -9,7 +9,7 @@ DESCRIPTION="vim plugin: Pony language support"
 HOMEPAGE="https://github.com/dleonard0/pony-vim-syntax"
 SRC_URI=""
 EGIT_REPO_URI="https://github.com/dleonard0/pony-vim-syntax"
-EGIT_COMMIT="a0ab2e14d5a3796ebec01ce196392dc1de349cb3"
+EGIT_COMMIT="caa34b3d7a15d9bfbfbb2f5944c85eb1eddcfafc"
 
 LICENSE="public-domain"
 SLOT="0"
