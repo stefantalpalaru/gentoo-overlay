@@ -1,10 +1,11 @@
-# Copyright 1999-2017 Gentoo Foundation
+# Copyright 1999-2022 Gentoo Authors
 # Distributed under the terms of the GNU General Public License v2
 
-EAPI=6
+EAPI=8
 
 DESCRIPTION="utility that takes a screenshot using the framebuffer device"
-HOMEPAGE="http://jwilk.net/software/fbcat"
+HOMEPAGE="http://jwilk.net/software/fbcat
+	https://github.com/jwilk/fbcat"
 SRC_URI="https://github.com/jwilk/${PN}/archive/${PV}.tar.gz -> ${P}.tar.gz"
 
 LICENSE="GPL-2"
@@ -15,7 +16,7 @@ IUSE="doc fbgrab"
 RDEPEND=""
 DEPEND="
 	doc? ( dev-libs/libxslt ) \
-	fbgrab? ( !media-gfx/fbgrab ) \
+	fbgrab? ( !!media-gfx/fbgrab ) \
 "
 
 src_compile() {
