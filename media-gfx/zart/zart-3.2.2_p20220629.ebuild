@@ -3,12 +3,12 @@
 
 EAPI=8
 
-inherit flag-o-matic qmake-utils
+inherit flag-o-matic qmake-utils toolchain-funcs
 
 DESCRIPTION="G'MIC GUI for video streams"
 HOMEPAGE="https://github.com/c-koi/zart"
-ZART_COMMIT="ac29dcbcaba778060053480f3e5e7692e42a5338"
-SRC_URI="https://github.com/c-koi/zart/archive/${ZART_COMMIT}.zip -> ${P}.zip"
+ZART_COMMIT="34ebf6cce0bafb98abe57cec83c4a02cd1abeca0"
+SRC_URI="https://github.com/c-koi/zart/archive/${ZART_COMMIT}.tar.gz -> ${P}.tar.gz"
 
 LICENSE="CeCILL-2"
 SLOT="0"
@@ -36,7 +36,7 @@ PATCHES=(
 S="${WORKDIR}/${PN}-${ZART_COMMIT}"
 
 pkg_pretend() {
-	tc-has-openmp || die "Please switch to an openmp compatible compiler"
+	tc-check-openmp
 
 	if ! test-flag-CXX -std=c++11 ; then
 		die "You need at least GCC 4.7.x or Clang >= 3.3 for C++11-specific compiler flags"
