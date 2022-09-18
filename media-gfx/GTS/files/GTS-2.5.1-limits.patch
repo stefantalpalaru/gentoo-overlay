@@ -1,0 +1,25 @@
+From 553da5066d1385a61e417d2ab5cd31b4d05830f8 Mon Sep 17 00:00:00 2001
+From: echometerain <70437021+echometerain@users.noreply.github.com>
+Date: Mon, 25 Oct 2021 11:08:08 -0400
+Subject: [PATCH] =?UTF-8?q?Fix=20error:=20=E2=80=98numeric=5Flimits?=
+ =?UTF-8?q?=E2=80=99=20is=20not=20a=20member=20of=20=E2=80=98std=E2=80=99?=
+MIME-Version: 1.0
+Content-Type: text/plain; charset=UTF-8
+Content-Transfer-Encoding: 8bit
+
+---
+ sources/libcpp83gts_callback_and_action/fl_gl_image_view.cpp | 1 +
+ 1 file changed, 1 insertion(+)
+
+diff --git a/sources/libcpp83gts_callback_and_action/fl_gl_image_view.cpp b/sources/libcpp83gts_callback_and_action/fl_gl_image_view.cpp
+index f6eb75f..eb01aea 100644
+--- a/sources/libcpp83gts_callback_and_action/fl_gl_image_view.cpp
++++ b/sources/libcpp83gts_callback_and_action/fl_gl_image_view.cpp
+@@ -1,6 +1,7 @@
+ #include <iostream>	//std::cout
+ #include <cstdlib>
+ #include <algorithm>	// std::sort()
++#include <limits>       // std::numerical_limits
+ #include <sstream>
+ #include "FL/fl_ask.H"  // fl_alert(-)
+ #include "pri.h"
