@@ -3,14 +3,12 @@
 
 EAPI=8
 
-inherit git-r3 qmake-utils
+inherit qmake-utils
 
 DESCRIPTION="SDR-J SW receiver for RTL2832-based USB sticks"
 HOMEPAGE="http://www.sdr-j.tk/
 	https://github.com/JvanKatwijk/sdr-j-sw"
-EGIT_REPO_URI="https://github.com/JvanKatwijk/sdr-j-sw"
-EGIT_COMMIT="e00f2922f3301a78d6fa6a82bf40104b2a992680"
-
+SRC_URI="https://github.com/JvanKatwijk/sdr-j-sw/archive/refs/tags/${PV}.tar.gz -> ${P}.tar.gz"
 LICENSE="GPL-2"
 SLOT="0"
 KEYWORDS="~amd64 ~x86"
@@ -30,7 +28,7 @@ DEPEND="dev-qt/qtcore:5
 
 RDEPEND="${DEPEND}"
 
-S="${WORKDIR}/${P}/swreceiver"
+S="${WORKDIR}/sdr-j-sw-${PV}/swreceiver"
 INPUT_DIRS="cardreader dabstick filereader pmsdr"
 
 PATCHES=(
