@@ -19,24 +19,10 @@ RDEPEND="
 "
 DEPEND="${RDEPEND}"
 
-src_prepare() {
-	default
-
-	sed -i -e "s/DESTINATION lib/DESTINATION $(get_libdir)/" \
-		src/CMakeLists.txt
-
-	if ! use static-libs; then
-		sed -i -e '/mysofa-static/d' \
-			-e '/ARCHIVE DESTINATION/d' \
-			src/CMakeLists.txt
-	fi
-
-	cmake_src_prepare
-}
-
 src_configure() {
 	local mycmakeargs=(
 		-DBUILD_TESTS=OFF
+		-DBUILD_STATIC_LIBS=$(usex static-libs ON OFF)
 	)
 	cmake_src_configure
 }
