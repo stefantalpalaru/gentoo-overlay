@@ -1,57 +1,27 @@
-diff -urN dotherside-0.6.5.orig/CMakeLists.txt dotherside-0.6.5/CMakeLists.txt
---- dotherside-0.6.5.orig/CMakeLists.txt	2019-11-27 09:20:43.000000000 +0100
-+++ dotherside-0.6.5/CMakeLists.txt	2020-05-19 21:27:38.281755940 +0200
-@@ -1,5 +1,9 @@
- cmake_minimum_required(VERSION 3.0)
- 
-+option(ENABLE_DOCS "Enable docs" ON)
-+option(ENABLE_TESTS "Enable tests" ON)
-+option(ENABLE_STATIC_LIBS "Enable static libraries" ON)
-+
- # Add additional source path for cmake
- list(APPEND CMAKE_MODULE_PATH ${PROJECT_SOURCE_DIR}/cmake/)
- 
-@@ -18,6 +22,13 @@
-     endif()
- endif()
- 
--add_subdirectory(doc)
- add_subdirectory(lib)
--add_subdirectory(test)
-+
-+if(ENABLE_DOCS)
-+  add_subdirectory(doc)
-+endif()
-+
-+if(ENABLE_TESTS)
-+  add_subdirectory(test)
-+endif()
-+
-diff -urN dotherside-0.6.5.orig/DOtherSide.pc.cmake dotherside-0.6.5/DOtherSide.pc.cmake
---- dotherside-0.6.5.orig/DOtherSide.pc.cmake	1970-01-01 01:00:00.000000000 +0100
-+++ dotherside-0.6.5/DOtherSide.pc.cmake	2020-05-19 21:27:38.282755904 +0200
-@@ -0,0 +1,14 @@
-+prefix=@CMAKE_INSTALL_PREFIX@
-+exec_prefix=@CMAKE_INSTALL_PREFIX@
-+libdir=@CMAKE_INSTALL_FULL_LIBDIR@
-+sharedlibdir=@CMAKE_INSTALL_FULL_LIBDIR@
-+includedir=@CMAKE_INSTALL_FULL_INCLUDEDIR@
-+
-+Name: @PROJECT_NAME@
-+Description: C language library for creating bindings for the Qt QML language
-+Version: @DOTHERSIDE_VERSION@
-+
-+Requires: @PC_REQUIRES@
-+Libs: -L${libdir} -lDOtherSide
-+Cflags: -I${includedir}
-+
-diff -urN dotherside-0.6.5.orig/.gitignore dotherside-0.6.5/.gitignore
---- dotherside-0.6.5.orig/.gitignore	2019-11-27 09:20:43.000000000 +0100
-+++ dotherside-0.6.5/.gitignore	2020-05-19 21:27:38.282755904 +0200
-@@ -10,3 +10,29 @@
- .idea
+From 9724db6edbfd3ab9ff2f16bacb9215bef9f902d0 Mon Sep 17 00:00:00 2001
+From: =?UTF-8?q?=C8=98tefan=20Talpalaru?= <stefantalpalaru@yahoo.com>
+Date: Wed, 24 Apr 2019 14:11:04 +0200
+Subject: [PATCH] CMake-related changes
+
+- generate and install DOtherSide.pc for pkg-config
+- make docs, tests and static library optional
+- .gitignore: add CMake artefacts
+---
+ .gitignore          | 26 ++++++++++++++++++++++++++
+ CMakeLists.txt      | 16 ++++++++++++++--
+ DOtherSide.pc.cmake | 14 ++++++++++++++
+ lib/CMakeLists.txt  | 26 +++++++++++++++++++-------
+ 4 files changed, 73 insertions(+), 9 deletions(-)
+ create mode 100644 DOtherSide.pc.cmake
+
+diff --git a/.gitignore b/.gitignore
+index 54c4a01..3a0768d 100644
+--- a/.gitignore
++++ b/.gitignore
+@@ -11,3 +11,29 @@ nimcache
  *.orig
  doc
+ cmake-build-*
 +
 +# libraries
 +*.a
@@ -78,65 +48,121 @@ diff -urN dotherside-0.6.5.orig/.gitignore dotherside-0.6.5/.gitignore
 +# binaries
 +test/TestDynamicQObject
 +
-diff -urN dotherside-0.6.5.orig/lib/CMakeLists.txt dotherside-0.6.5/lib/CMakeLists.txt
---- dotherside-0.6.5.orig/lib/CMakeLists.txt	2019-11-27 09:20:43.000000000 +0100
-+++ dotherside-0.6.5/lib/CMakeLists.txt	2020-05-19 21:36:25.738085774 +0200
-@@ -1,5 +1,7 @@
- project(DOtherSide)
+diff --git a/CMakeLists.txt b/CMakeLists.txt
+index 4c3d984..045cfef 100644
+--- a/CMakeLists.txt
++++ b/CMakeLists.txt
+@@ -1,5 +1,9 @@
+ cmake_minimum_required(VERSION 3.2)
  
-+include(GNUInstallDirs)
++# Options
++option(ENABLE_DOCS "Enable docs" ON)
++option(ENABLE_TESTS "Enable tests" ON)
++option(ENABLE_STATIC_LIBS "Enable static libraries" ON)
+ 
+ project(DOtherSide
+   VERSION 0.9.0
+@@ -25,6 +29,14 @@ if (MSVC)
+   add_compile_options(/bigobj)
+ endif()
+ 
++# Subdirectories
+ add_subdirectory(lib)
+-add_subdirectory(doc)
+-add_subdirectory(test)
 +
- # Macro for merging common code between static and shared
- macro(add_target name type)
-     find_package(Qt5 COMPONENTS Core Qml Gui Quick QuickControls2 Widgets)
-@@ -38,8 +40,11 @@
++if(ENABLE_DOCS)
++  add_subdirectory(doc)
++endif()
++
++if(ENABLE_TESTS)
++  add_subdirectory(test)
++endif()
++
+diff --git a/DOtherSide.pc.cmake b/DOtherSide.pc.cmake
+new file mode 100644
+index 0000000..3328ba5
+--- /dev/null
++++ b/DOtherSide.pc.cmake
+@@ -0,0 +1,14 @@
++prefix=@CMAKE_INSTALL_PREFIX@
++exec_prefix=@CMAKE_INSTALL_PREFIX@
++libdir=@CMAKE_INSTALL_FULL_LIBDIR@
++sharedlibdir=@CMAKE_INSTALL_FULL_LIBDIR@
++includedir=@CMAKE_INSTALL_FULL_INCLUDEDIR@
++
++Name: @PROJECT_NAME@
++Description: C language library for creating bindings for the Qt QML language
++Version: @CMAKE_PROJECT_VERSION@
++
++Requires: @PC_REQUIRES@
++Libs: -L${libdir} -lDOtherSide
++Cflags: -I${includedir}
++
+diff --git a/lib/CMakeLists.txt b/lib/CMakeLists.txt
+index 53da707..df378a6 100644
+--- a/lib/CMakeLists.txt
++++ b/lib/CMakeLists.txt
+@@ -1,10 +1,14 @@
+ include(GNUInstallDirs)
  
-     target_link_libraries(${name} PRIVATE Qt5::Core Qt5::Gui Qt5::Widgets Qt5::Qml Qt5::Quick)
+ set(QTPREFIX "Qt")
++set(QTPREFIX_PC "Qt6")
++
++include(GNUInstallDirs)
+ 
+ find_package(Qt6 COMPONENTS Core Qml Gui Quick QuickControls2 Widgets)
+ if (NOT Qt6_FOUND)
+     set(QTPREFIX "Qt5")
++    set(QTPREFIX_PC "Qt5")
+     find_package(Qt5 COMPONENTS Core Qml Gui Quick QuickControls2 Widgets)
+ endif()
+ 
+@@ -51,9 +55,16 @@ macro(add_target name type)
+ 
+     target_link_libraries(${name} PRIVATE ${QTPREFIX}::Core ${QTPREFIX}::CorePrivate ${QTPREFIX}::Gui ${QTPREFIX}::Widgets ${QTPREFIX}::Qml ${QTPREFIX}::Quick)
  
 +    # for DOtherSide.pc
-+    set(PC_REQUIRES "Qt5Core, Qt5Gui, Qt5Widgets, Qt5Qml, Qt5Quick")
++    set(PC_REQUIRES "${QTPREFIX_PC}Core, ${QTPREFIX_PC}Gui, ${QTPREFIX_PC}Widgets, ${QTPREFIX_PC}Qml, ${QTPREFIX_PC}Quick")
      if (${Qt5QuickControls2_FOUND})
-         target_link_libraries(${name} PRIVATE Qt5::QuickControls2)
-+        set(PC_REQUIRES "${PC_REQUIRES}, Qt5QuickControls2")
+-        target_link_libraries(${name} PRIVATE ${QTPREFIX}::QuickControls2)
++	target_link_libraries(${name} PRIVATE ${QTPREFIX}::QuickControls2)
++	set(PC_REQUIRES "${PC_REQUIRES}, ${QTPREFIX_PC}QuickControls2")
      endif()
++
++    install(TARGETS ${name}
++      LIBRARY DESTINATION ${CMAKE_INSTALL_LIBDIR}
++    )
  endmacro()
  
-@@ -48,14 +53,24 @@
- set(major 0)
- set(minor 6)
- set(patch 4)
-+set(DOTHERSIDE_VERSION "${major}.${minor}.${patch}")
-+
- set_target_properties(${PROJECT_NAME}
- PROPERTIES
-     SOVERSION "${major}.${minor}"
-     VERSION "${major}.${minor}.${patch}"
+ # Add shared version
+@@ -68,7 +79,9 @@ PROPERTIES
  )
-+install(TARGETS ${PROJECT_NAME}
-+	LIBRARY DESTINATION ${CMAKE_INSTALL_LIBDIR}
-+)
  
  # Add static version
 -add_target(${PROJECT_NAME}Static STATIC)
 +if(ENABLE_STATIC_LIBS)
-+	add_target(${PROJECT_NAME}Static STATIC)
-+	install(TARGETS ${PROJECT_NAME}Static
-+		ARCHIVE DESTINATION ${CMAKE_INSTALL_LIBDIR}
-+	)
++    add_target(${PROJECT_NAME}Static STATIC)
 +endif(ENABLE_STATIC_LIBS)
  
  # Install directive for header files
  install(FILES
-@@ -64,8 +79,7 @@
+@@ -77,11 +90,10 @@ install(FILES
    DESTINATION include/DOtherSide
  )
  
 -# Install directive for binaries
 -install(TARGETS ${PROJECT_NAME}
--  RUNTIME DESTINATION bin
--  LIBRARY DESTINATION lib
+-  RUNTIME DESTINATION ${CMAKE_INSTALL_BINDIR}
+-  LIBRARY DESTINATION ${CMAKE_INSTALL_LIBDIR}
 -)
 +# pkg-config file
 +configure_file(${CMAKE_SOURCE_DIR}/DOtherSide.pc.cmake ${CMAKE_BINARY_DIR}/DOtherSide.pc @ONLY)
 +install(FILES ${CMAKE_BINARY_DIR}/DOtherSide.pc DESTINATION ${CMAKE_INSTALL_LIBDIR}/pkgconfig)
 +
+ 
+ # Install Pkg-Config definition
+ configure_file(DOtherSide.pc.in DOtherSide.pc @ONLY)
+-- 
+2.37.3
+

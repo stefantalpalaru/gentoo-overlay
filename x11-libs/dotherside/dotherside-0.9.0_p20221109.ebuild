@@ -1,13 +1,16 @@
-# Copyright 2019-2021 Gentoo Authors
+# Copyright 2019-2022 Gentoo Authors
 # Distributed under the terms of the GNU General Public License v2
 
-EAPI=7
+EAPI=8
 
 inherit cmake virtualx
 
+MY_COMMIT="244a9d62cb51519ca45fe2e69d77ec965f190fbb"
+
 DESCRIPTION="C language library for creating bindings for the Qt QML language"
 HOMEPAGE="https://github.com/filcuc/DOtherSide"
-SRC_URI="https://github.com/filcuc/dotherside/archive/v${PV}.tar.gz -> ${P}.tar.gz"
+#SRC_URI="https://github.com/filcuc/dotherside/archive/v${PV}.tar.gz -> ${P}.tar.gz"
+SRC_URI="https://github.com/filcuc/dotherside/archive/${MY_COMMIT}.tar.gz -> ${P}.tar.gz"
 
 LICENSE="LGPL-3-with-linking-exception"
 SLOT="0"
@@ -35,6 +38,8 @@ PATCHES=(
 	"${FILESDIR}/dotherside-skip-tests.patch"
 	"${FILESDIR}/dotherside-cmake.patch"
 )
+
+S="${WORKDIR}/${PN}-${MY_COMMIT}"
 
 src_configure() {
 	local mycmakeargs=(

@@ -1,7 +1,7 @@
-diff -ur DOtherSide-483c1848e20f056649afa3e155c84a6d0cbcf907.orig/test/test_dotherside.cpp DOtherSide-483c1848e20f056649afa3e155c84a6d0cbcf907/test/test_dotherside.cpp
---- DOtherSide-483c1848e20f056649afa3e155c84a6d0cbcf907.orig/test/test_dotherside.cpp	2018-11-28 23:20:39.000000000 +0100
-+++ DOtherSide-483c1848e20f056649afa3e155c84a6d0cbcf907/test/test_dotherside.cpp	2019-01-21 19:39:43.989006554 +0100
-@@ -270,6 +270,7 @@
+diff -ur dotherside-0.9.0.orig/test/test_dotherside.cpp dotherside-0.9.0/test/test_dotherside.cpp
+--- dotherside-0.9.0.orig/test/test_dotherside.cpp	2022-08-11 22:24:16.000000000 +0200
++++ dotherside-0.9.0/test/test_dotherside.cpp	2022-09-18 18:59:22.413149086 +0200
+@@ -279,6 +279,7 @@
  
      void testLoadUrl()
      {
@@ -9,15 +9,15 @@ diff -ur DOtherSide-483c1848e20f056649afa3e155c84a6d0cbcf907.orig/test/test_doth
          void *url = dos_qurl_create("qrc:///main.qml", QUrl::TolerantMode);
          QVERIFY(url != nullptr);
          dos_qqmlapplicationengine_load_url(m_engine, url);
-@@ -281,6 +282,7 @@
+@@ -290,6 +291,7 @@
  
      void testLoadData()
      {
 +        QSKIP("this one wants GLX");
-         dos_qqmlapplicationengine_load_data(m_engine, "import QtQuick 2.3; import QtQuick.Controls 1.2; ApplicationWindow { objectName: \"testWindow\"}");
+         dos_qqmlapplicationengine_load_data(m_engine, "import QtQuick 2.12; import QtQuick.Controls 2.12; ApplicationWindow { objectName: \"testWindow\"}");
          QCOMPARE(engine()->rootObjects().size(), 1);
          QCOMPARE(engine()->rootObjects().front()->objectName(), QString::fromLocal8Bit("testWindow"));
-@@ -715,12 +717,14 @@
+@@ -769,12 +771,14 @@
  private slots:
      void testCreate()
      {
