@@ -5,11 +5,11 @@ EAPI=8
 
 PYTHON_COMPAT=( python3_{8..11} )
 
-inherit python-r1 python-utils-r1
+inherit python-r1
 
 DESCRIPTION="mercurial to git converter using git-fast-import"
 HOMEPAGE="https://github.com/frej/fast-export"
-SRC_URI="https://github.com/frej/fast-export/archive/refs/tags/v210917.tar.gz -> ${P}.tar.gz"
+SRC_URI="https://github.com/frej/fast-export/archive/refs/tags/v${PV}.tar.gz -> ${P}.tar.gz"
 
 LICENSE="MIT"
 SLOT="0"
@@ -22,7 +22,6 @@ RDEPEND="${DEPEND}
 	dev-vcs/git
 	dev-vcs/mercurial[${PYTHON_USEDEP}]
 	dev-python/python-pluginloader[${PYTHON_USEDEP}]
-	!<dev-vcs/hg-fast-export-200213_p20201010-r1[${PYTHON_USEDEP}]
 "
 
 S="${WORKDIR}/fast-export-${PV}"
