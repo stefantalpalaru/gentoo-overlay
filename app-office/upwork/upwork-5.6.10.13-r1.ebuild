@@ -1,9 +1,9 @@
 # Copyright 1999-2022 Gentoo Authors
 # Distributed under the terms of the GNU General Public License v2
 
-EAPI=7
+EAPI=8
 
-inherit desktop eutils pax-utils rpm
+inherit desktop pax-utils rpm xdg-utils
 
 # Binary only distribution
 QA_PREBUILT="*"
@@ -26,7 +26,6 @@ RDEPEND="
 	dev-libs/expat
 	dev-libs/nspr
 	dev-libs/nss
-	gnome-base/gconf
 	media-libs/alsa-lib
 	media-libs/freetype
 	sys-apps/dbus
