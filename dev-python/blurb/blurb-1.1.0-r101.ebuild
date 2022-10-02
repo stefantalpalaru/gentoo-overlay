@@ -7,7 +7,7 @@ DISTUTILS_USE_PEP517=flit
 DISTUTILS_USE_SETUPTOOLS=pyproject.toml
 PYTHON_COMPAT=( python3_{8..11} )
 
-inherit distutils-r1
+inherit distutils-r1 python-utils-r1
 
 DESCRIPTION="Tool to create and manage NEWS blurbs for CPython"
 HOMEPAGE="https://github.com/python/core-workflow/tree/master/blurb"
