@@ -9,7 +9,7 @@ DESCRIPTION="VMware kernel modules"
 HOMEPAGE="https://github.com/mkubecek/vmware-host-modules"
 
 # Highest kernel version known to work:
-MY_KERNEL_VERSION="5.19"
+MY_KERNEL_VERSION="6.0"
 
 # Upstream doesn't want to tag versions or anything that looks like properly
 # releasing the software, so we need to just pick a commit from
@@ -17,9 +17,9 @@ MY_KERNEL_VERSION="5.19"
 # and test it ourselves.
 #
 # Details: https://github.com/mkubecek/vmware-host-modules/issues/158#issuecomment-1228341760
-MY_COMMIT="5389d2915b66da4d614d9134411a72099ef0e1ab"
+MY_COMMIT="cafa1489600562d26c8393ede8e702154276e0be"
 
-SRC_URI=" https://github.com/mkubecek/vmware-host-modules/archive/${MY_COMMIT}.zip -> ${P}-${MY_COMMIT}.zip"
+SRC_URI=" https://github.com/mkubecek/vmware-host-modules/archive/${MY_COMMIT}.tar.gz -> ${P}-${MY_COMMIT}.tar.gz"
 
 LICENSE="GPL-2"
 SLOT="0"
@@ -28,9 +28,6 @@ IUSE=""
 
 RDEPEND=""
 DEPEND=""
-BDEPEND="
-	app-arch/unzip
-"
 
 RESTRICT="mirror"
 
