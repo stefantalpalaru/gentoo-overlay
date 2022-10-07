@@ -1,3 +1,4 @@
+app-arch/libdeflate 1.14: Heavily optimized DEFLATE/zlib/gzip (de)compression
 app-arch/libzim 8.0.0: reference implementation for the ZIM archive format
 app-crypt/acme 1.8.0-r200: An implementation of the ACME protocol
 app-crypt/certbot 1.8.0-r200: Let's encrypt client to automate deployment of X.509 certificates
@@ -34,6 +35,7 @@ dev-libs/boost 1.80.0: Boost Libraries for C++
 dev-libs/chan 0.0.4 9999: pure C implementation of Go channels
 dev-libs/golib 0.0.1_pre20180515 9999: a library exposing Go's channels and goroutines to plain C
 dev-libs/keybinder 0.3.1-r201: A library for registering global keyboard shortcuts
+dev-libs/libb64 2.0.0.1-r1: Fast Base64 encoding/decoding routines
 dev-libs/libpeas 1.22.0-r6: A GObject plugins library
 dev-libs/libxml2 2.9.10-r6: XML C parser and toolkit
 dev-libs/lthread 1.0_pre20150617-r2 9999-r2: multicore enabled coroutine library written in C
@@ -840,7 +842,7 @@ net-misc/streamtuner2 2.2.1-r200: internet radio browser
 net-p2p/go-ethereum 1.10.25: Official golang implementation of the Ethereum protocol
 net-p2p/nimbus-eth2 22.10.0 9999-r16: Nim implementation of the Ethereum 2.0 blockchain
 net-p2p/pybitmessage 0.6.3.2_p20180521-r2: Reference client for Bitmessage: a P2P communications protocol
-net-p2p/transmission 3.00-r101: A fast, easy, and free BitTorrent client
+net-p2p/transmission 3.00-r101 4.0.0_beta1: A fast, easy, and free BitTorrent client
 net-print/pkpgcounter 3.50-r200: Generic PDL (Page Description Language) parser in Python
 net-print/pykota 1.26-r200: Flexible print quota and accounting package for use with CUPS and lpd
 net-wireless/cubicsdr 0.2.7-r1: Cross-Platform Software-Defined Radio Application
