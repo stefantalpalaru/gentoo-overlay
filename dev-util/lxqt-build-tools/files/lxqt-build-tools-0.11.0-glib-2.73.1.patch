@@ -1,0 +1,34 @@
+From 7aebedfa7bf103a2eb900a3b560c7bad3761e8bc Mon Sep 17 00:00:00 2001
+From: Zamir SUN <sztsian@gmail.com>
+Date: Tue, 12 Jul 2022 20:46:56 +0800
+Subject: [PATCH] FindGLIB.cmake: Use gdesktopappinfo.h to find gio-unix-2.0
+
+In glib2 2.73.1 gunixfdlist have been moved into glib-2.0
+
+<mock-chroot> sh-5.1# rpm -ql glib2-devel | grep gio/gunixfdlist.h
+/usr/include/glib-2.0/gio/gunixfdlist.h
+<mock-chroot> sh-5.1# rpm -q glib2-devel
+glib2-devel-2.73.1-2.fc37.x86_64
+
+So using gdesktopappinfo.h for gio-unix-2.0.
+
+Fixes: https://github.com/lxqt/lxqt-build-tools/issues/78
+
+Signed-off-by: Zamir SUN <sztsian@gmail.com>
+---
+ cmake/find-modules/FindGLIB.cmake | 2 +-
+ 1 file changed, 1 insertion(+), 1 deletion(-)
+
+diff --git a/cmake/find-modules/FindGLIB.cmake b/cmake/find-modules/FindGLIB.cmake
+index bb2336a..c6a06f7 100644
+--- a/cmake/find-modules/FindGLIB.cmake
++++ b/cmake/find-modules/FindGLIB.cmake
+@@ -101,7 +101,7 @@ foreach (_component ${GLIB_FIND_COMPONENTS})
+     elseif (${_component} STREQUAL "gio-unix")
+         pkg_check_modules(GIO_UNIX gio-unix-2.0)
+         find_path(GLIB_GIO_UNIX_INCLUDE_DIR
+-                  NAMES gio/gunixfdlist.h
++                  NAMES gio/gdesktopappinfo.h
+                   HINTS ${GIO_UNIX_INCLUDEDIR}
+                   PATH_SUFFIXES gio-unix-2.0)
+ 
