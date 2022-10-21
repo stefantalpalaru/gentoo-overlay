@@ -1,7 +1,7 @@
-# Copyright 1999-2021 Gentoo Authors
+# Copyright 1999-2022 Gentoo Authors
 # Distributed under the terms of the GNU General Public License v2
 
-EAPI=7
+EAPI=8
 PYTHON_COMPAT=( python2_7 )
 DISTUTILS_USE_SETUPTOOLS=rdepend
 
@@ -20,7 +20,7 @@ RESTRICT="!test? ( test )"
 
 RDEPEND="
 	>=app-crypt/acme-1.6.0:python2[${PYTHON_USEDEP}]
-	>=dev-python/configargparse-0.9.3[${PYTHON_USEDEP}]
+	>=dev-python/ConfigArgParse-0.9.3:python2[${PYTHON_USEDEP}]
 	dev-python/configobj[${PYTHON_USEDEP}]
 	>=dev-python/cryptography-2.8[${PYTHON_USEDEP}]
 	>=dev-python/distro-1.0.1[${PYTHON_USEDEP}]

@@ -1,7 +1,7 @@
-# Copyright 1999-2021 Gentoo Authors
+# Copyright 1999-2022 Gentoo Authors
 # Distributed under the terms of the GNU General Public License v2
 
-EAPI=7
+EAPI=8
 
 MY_PN="ConfigArgParse"
 MY_P="${MY_PN}-${PV}"
@@ -25,7 +25,7 @@ RESTRICT="!test? ( test )"
 BDEPEND="
 	test? ( dev-python/pyyaml:python2[${PYTHON_USEDEP}] )"
 RDEPEND="
-	!<dev-python/configargparse-1.0-r2[${PYTHON_USEDEP}]
+	!<dev-python/ConfigArgParse-1.0-r2[${PYTHON_USEDEP}]
 "
 
 python_test() {
