@@ -3,7 +3,7 @@ app-arch/libzim 8.0.0: reference implementation for the ZIM archive format
 app-crypt/acme 1.8.0-r200: An implementation of the ACME protocol
 app-crypt/certbot 1.8.0-r201: Let's encrypt client to automate deployment of X.509 certificates
 app-crypt/certbot-dns-linode 1.2.0-r3 1.31.0: Linode DNS Authenticator plugin for Certbot
-app-crypt/certbot-s3front 0.4.2_p20201118-r200: S3/CloudFront plugin for Let's Encrypt client
+app-crypt/certbot-s3front 0.4.2_p20201118: S3/CloudFront plugin for Let's Encrypt client
 app-editors/gedit 3.32.2-r3: A text editor for the GNOME desktop
 app-emacs/pymacs 0.26-r200: A tool that allows both-side communication beetween Python and Emacs Lisp
 app-emulation/playonlinux 4.4-r2: Set of scripts to easily install and use Windows games and software
@@ -35,7 +35,7 @@ dev-libs/boost 1.80.0: Boost Libraries for C++
 dev-libs/chan 0.0.4 9999: pure C implementation of Go channels
 dev-libs/golib 0.0.1_pre20180515 9999: a library exposing Go's channels and goroutines to plain C
 dev-libs/keybinder 0.3.1-r201: A library for registering global keyboard shortcuts
-dev-libs/libb64 2.0.0.1-r1: Fast Base64 encoding/decoding routines
+dev-libs/libb64 2.0.0.1_p20200910: Fast Base64 encoding/decoding routines
 dev-libs/libpeas 1.22.0-r6: A GObject plugins library
 dev-libs/libxml2 2.9.10-r6: XML C parser and toolkit
 dev-libs/lthread 1.0_pre20150617-r2 9999-r2: multicore enabled coroutine library written in C
@@ -164,7 +164,7 @@ dev-python/cookies 2.2.1-r3: Friendlier RFC 6265-compliant cookie parser/rendere
 dev-python/corner 2.0.1: Make scatter matrix corner plots
 dev-python/couchdb-python 1.1-r1: Python library for working with CouchDB
 dev-python/coverage 5.4-r1: Code coverage measurement for Python
-dev-python/cryptography 3.1.1-r200: Library providing cryptographic recipes and primitives
+dev-python/cryptography 3.1.1-r201: Library providing cryptographic recipes and primitives
 dev-python/cssselect 1.1.0-r200: parses CSS3 Selectors and translates them to XPath 1.0
 dev-python/csv23 0.3.2-r2: Python 2/3 unicode CSV compatibility layer
 dev-python/cycler 0.10.0-r200: Composable style cycles
