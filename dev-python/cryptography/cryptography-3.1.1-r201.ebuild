@@ -1,4 +1,4 @@
-# Copyright 1999-2021 Gentoo Authors
+# Copyright 1999-2022 Gentoo Authors
 # Distributed under the terms of the GNU General Public License v2
 
 EAPI=7
@@ -17,13 +17,15 @@ SRC_URI="mirror://pypi/${PN:0:1}/${PN}/${P}.tar.gz
 
 LICENSE="|| ( Apache-2.0 BSD )"
 SLOT="python2"
-KEYWORDS="~alpha ~amd64 ~arm ~arm64 ~hppa ~ia64 ~m68k ~mips ~ppc ~ppc64 ~riscv ~s390 ~sparc ~x86 ~x64-cygwin ~amd64-linux ~x86-linux ~ppc-macos ~x64-macos ~x64-solaris"
+KEYWORDS="~alpha ~amd64 ~arm ~arm64 ~hppa ~m68k ~mips ~sparc ~x86 ~x64-cygwin ~amd64-linux ~x86-linux ~ppc-macos ~x64-macos ~x64-solaris"
 IUSE="idna test"
 RESTRICT="!test? ( test )"
 
 RDEPEND="
 	>=dev-libs/openssl-1.0.2o-r6:0=
+	dev-python/enum34[${PYTHON_USEDEP}]
 	idna? ( >=dev-python/idna-2.1[${PYTHON_USEDEP}] )
+	dev-python/ipaddress[${PYTHON_USEDEP}]
 	>=dev-python/six-1.4.1[${PYTHON_USEDEP}]
 	>=dev-python/cffi-1.8:=[${PYTHON_USEDEP}]
 	!<dev-python/cryptography-3.1.1-r1[${PYTHON_USEDEP}]
