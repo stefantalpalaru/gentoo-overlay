@@ -787,7 +787,7 @@ dev-qt/qtwebkit 5.212.0_pre20200309-r3: WebKit rendering library for the Qt5 fra
 dev-util/gotags 1.4.1: ctags-compatible tag generator for Go
 dev-util/lxqt-build-tools 0.11.0-r1: LXQt Build Tools
 dev-util/tla-toolbox-bin 1.8.0: IDE for TLA+
-dev-util/valgrind 3.19.0-r100: An open-source memory debugger for GNU/Linux
+dev-util/valgrind 3.20.0-r100: An open-source memory debugger for GNU/Linux
 dev-vcs/bzr 2.7.1_pre-r2: Bazaar is a next generation distributed version control system
 dev-vcs/hg-fast-export 221024: mercurial to git converter using git-fast-import
 games-emulation/dbgl-bin 0.81: DOSBox Game Launcher

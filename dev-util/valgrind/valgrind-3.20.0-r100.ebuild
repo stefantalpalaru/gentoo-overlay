@@ -1,26 +1,36 @@
-# Copyright 1999-2021 Gentoo Authors
+# Copyright 1999-2022 Gentoo Authors
 # Distributed under the terms of the GNU General Public License v2
 
-EAPI=7
+EAPI=8
+
 inherit autotools flag-o-matic toolchain-funcs multilib pax-utils
 
 DESCRIPTION="An open-source memory debugger for GNU/Linux"
-HOMEPAGE="http://www.valgrind.org"
-LICENSE="GPL-2"
-SLOT="0"
-IUSE="mpi lto"
-RESTRICT="strip"
+HOMEPAGE="https://www.valgrind.org"
+#RESTRICT="strip"
 
-if [[ ${PV} == "9999" ]]; then
+if [[ ${PV} == 9999 ]]; then
 	EGIT_REPO_URI="https://sourceware.org/git/${PN}.git"
 	inherit git-r3
 else
-	SRC_URI="ftp://sourceware.org/pub/valgrind/${P}.tar.bz2"
+	SRC_URI="https://sourceware.org/pub/valgrind/${P}.tar.bz2"
 	KEYWORDS="-* ~amd64 ~arm ~arm64 ~ppc ~ppc64 ~x86 ~amd64-linux ~x86-linux ~x64-macos ~x64-solaris"
 fi
 
+LICENSE="GPL-2"
+SLOT="0"
+IUSE="mpi lto"
+
 DEPEND="mpi? ( virtual/mpi )"
 RDEPEND="${DEPEND}"
+
+PATCHES=(
+	# Respect CFLAGS, LDFLAGS
+	"${FILESDIR}"/${PN}-3.7.0-respect-flags.patch
+	"${FILESDIR}"/${PN}-3.15.0-Build-ldst_multiple-test-with-fno-pie.patch
+	"${FILESDIR}"/valgrind-3.15.0-strlen.patch
+	"${FILESDIR}"/valgrind-3.17.0-bextr.patch
+)
 
 src_prepare() {
 	# Correct hard coded doc location
@@ -29,12 +39,11 @@ src_prepare() {
 	# Don't force multiarch stuff on OSX, bug #306467
 	sed -i -e 's:-arch \(i386\|x86_64\)::g' Makefile.all.am || die
 
-	# Respect CFLAGS, LDFLAGS
-	eapply "${FILESDIR}"/${PN}-3.7.0-respect-flags.patch
-
-	eapply "${FILESDIR}"/${PN}-3.15.0-Build-ldst_multiple-test-with-fno-pie.patch
-	eapply "${FILESDIR}"/valgrind-3.15.0-strlen.patch
-	eapply "${FILESDIR}"/valgrind-3.17.0-bextr.patch
+	# Conditionally copy musl specific suppressions && apply patch
+	if use elibc_musl ; then
+		cp "${FILESDIR}/musl.supp" "${S}" || die
+		PATCHES+=( "${FILESDIR}"/valgrind-3.13.0-malloc.patch )
+	fi
 
 	if [[ ${CHOST} == *-solaris* ]] ; then
 		# upstream doesn't support this, but we don't build with
@@ -45,8 +54,7 @@ src_prepare() {
 		cp "${S}"/coregrind/link_tool_exe_{linux,solaris}.in
 	fi
 
-	# Allow users to test their own patches
-	eapply_user
+	default
 
 	# Regenerate autotools files
 	eautoreconf
