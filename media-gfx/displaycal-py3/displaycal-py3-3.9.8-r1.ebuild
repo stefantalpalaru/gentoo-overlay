@@ -30,7 +30,7 @@ DEPEND="
 	dev-python/pychromecast[${PYTHON_USEDEP}]
 	dev-python/send2trash:0[${PYTHON_USEDEP}]
 	>=dev-python/wxpython-4.1.1[${PYTHON_USEDEP}]
-	dev-python/zeroconf[${PYTHON_USEDEP}]
+	dev-python/python-zeroconf[${PYTHON_USEDEP}]
 	>=x11-libs/libX11-1.3.3
 	>=x11-apps/xrandr-1.3.2
 	>=x11-libs/libXxf86vm-1.1.0
