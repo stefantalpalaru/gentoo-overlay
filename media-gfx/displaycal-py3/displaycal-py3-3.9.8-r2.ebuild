@@ -4,7 +4,6 @@
 EAPI=8
 PYTHON_COMPAT=( python3_{8..10} )
 DISTUTILS_USE_PEP517=setuptools
-DISTUTILS_IN_SOURCE_BUILD=1
 
 inherit distutils-r1 xdg
 
