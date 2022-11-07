@@ -883,6 +883,7 @@ www-misc/kiwix-lib 11.0.0: Kiwix software suite core: code shared by all Kiwix p
 www-misc/kiwix-tools 3.3.0: collection of Kiwix related command line tools
 www-servers/tornado 4.5.3-r200 5.1.1-r200: Python web framework and asynchronous networking library
 www-servers/uwsgi 2.0.20-r200: uWSGI server for Python web applications
+x11-drivers/nvidia-drivers 390.154-r1: NVIDIA Accelerated Graphics Driver
 x11-libs/dotherside 0.9.0_p20221109: C language library for creating bindings for the Qt QML language
 x11-libs/pangox-compat 0.0.2-r4: PangoX compatibility library
 x11-libs/wxGTK 3.2.1-r300: GTK+ version of wxWidgets, a cross-platform C++ GUI toolkit
