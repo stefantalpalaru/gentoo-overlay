@@ -1,9 +1,9 @@
 # Copyright 1999-2022 Gentoo Authors
 # Distributed under the terms of the GNU General Public License v2
 
-EAPI=7
+EAPI=8
 PYTHON_COMPAT=(python3_{8..10})
-DISTUTILS_USE_SETUPTOOLS=manual
+DISTUTILS_USE_PEP517=setuptools
 
 inherit distutils-r1
 
@@ -17,12 +17,11 @@ IUSE=""
 RESTRICT="test"
 
 RDEPEND="
-	$(python_gen_cond_dep '>=app-crypt/acme-0.21.1:0[${PYTHON_USEDEP}]' -3)
-	$(python_gen_cond_dep '>=app-crypt/certbot-0.21.1:0[${PYTHON_USEDEP}]' -3)
-	$(python_gen_cond_dep '>=dev-python/dns-lexicon-2.2.1:0[${PYTHON_USEDEP}]' -3)
-	$(python_gen_cond_dep 'dev-python/mock:0[${PYTHON_USEDEP}]' -3)
-	$(python_gen_cond_dep 'dev-python/setuptools:0[${PYTHON_USEDEP}]' -3)
-	$(python_gen_cond_dep 'dev-python/zope-interface:0[${PYTHON_USEDEP}]' -3)
+	>=app-crypt/acme-0.21.1:0[${PYTHON_USEDEP}]
+	>=app-crypt/certbot-0.21.1:0[${PYTHON_USEDEP}]
+	>=dev-python/dns-lexicon-2.2.1:0[${PYTHON_USEDEP}]
+	dev-python/mock:0[${PYTHON_USEDEP}]
+	dev-python/zope-interface:0[${PYTHON_USEDEP}]
 "
 
 S="${WORKDIR}/certbot-${PV}/${PN}"
