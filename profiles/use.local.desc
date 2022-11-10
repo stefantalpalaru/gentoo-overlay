@@ -197,6 +197,10 @@ net-wireless/dump1090:minimal - Exclude all HTML/webserver extras for a tiny bui
 net-wireless/dump1090:rtlsdr - Build with Realtek RTL2832U (rtlsdr) support
 sci-astronomy/casacore:data - Installs measures and data (pulls sci-astronomy/casa-data)
 sci-astronomy/healpix:idl - Install healpix IDL/GDL routines
+sci-libs/cholmod:cuda - Use nvidia cuda toolkit for speeding up computations
+sci-libs/cholmod:matrixops - Support basic sparse and dense matrix operations (add, multiply, scale, et cetera)
+sci-libs/cholmod:modify - Enable Cholesky-modification routines like update, downdate, row-add, and row-delete
+sci-libs/cholmod:partition - Enable graph partitioning and graph-partition-based orderings through sci-libs/metis or sci-libs/parmetis
 sci-libs/gdal:armadillo - Use sci-libs/armadillo for faster TPS transform computation
 sci-libs/gdal:aux-xml - Enable Portable Auxilliary Metadata generation
 sci-libs/gdal:fits - Enable support for NASA's sci-libs/cfitsio library

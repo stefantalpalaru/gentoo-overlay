@@ -857,6 +857,7 @@ sci-astronomy/montage 5.0-r1: Toolkit for assembling FITS images into mosaics
 sci-geosciences/gpsprune-bin 20: An application for viewing, editing and converting GPS data.
 sci-geosciences/mkgmap-bin 3831: Tool to create garmin maps
 sci-geosciences/splitter-bin 580: Tile splitter for mkgmap
+sci-libs/cholmod 3.0.14-r1: Sparse Cholesky factorization and update/downdate library
 sci-libs/gdal 3.0.4-r200: Translator library for raster geospatial data formats (includes OGR support)
 sci-libs/scikits 0.1-r2: Common files for python scikits
 sci-libs/scikits_image 0.13.0-r200: Image processing routines for SciPy
