@@ -158,6 +158,9 @@ dev-util/valgrind:lto - Build with link time optimization (LTO)
 dev-vcs/bzr:sftp - Enable sftp support
 games-emulation/rpcs3:llvm - LLVM recompiler support
 games-emulation/rpcs3:vulkan - Vulkan video output support
+games-fps/gzdoom:gles2 - Enable GLES2 backend
+games-fps/gzdoom:non-free - Enable non-free components
+games-fps/gzdoom:vulkan - Enable Vulkan support
 media-gfx/fbcat:fbgrab - Install a 'fbgrab' wrapper script around fbcat that mimics media-gfx/fbgrab
 media-gfx/gmic:cli - Build the CLI interface
 media-gfx/gmic:gimp - Build the Qt5 GIMP plugin

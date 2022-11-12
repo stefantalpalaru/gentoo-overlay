@@ -792,8 +792,10 @@ dev-vcs/bzr 2.7.1_pre-r2: Bazaar is a next generation distributed version contro
 dev-vcs/hg-fast-export 221024: mercurial to git converter using git-fast-import
 games-emulation/dbgl-bin 0.81: DOSBox Game Launcher
 games-emulation/rpcs3 9999-r6: PlayStation 3 emulator
+games-fps/gzdoom 4.9.0: A modder-friendly OpenGL source port based on the DOOM engine
 games-misc/bsd-games 2.17_p28-r2: Collection of games from NetBSD
 games-sports/trigger 0.6.6.1: Free OpenGL rally car racing game
+games-util/qzdl 3.1.1: Qt version of BioHazard's ZDoom Launcher (ZDL)
 gnome-base/libgnome-keyring 3.12.0-r4: Compatibility library for accessing secrets
 media-fonts/breeze-sans 20170821-r2: a humanist sans-serif typeface designed by Dalton Maag for Samsung
 media-gfx/GTS 2.5.1: scanning tool developed by Studio Ghibli
