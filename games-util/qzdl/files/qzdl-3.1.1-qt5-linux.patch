@@ -1,0 +1,441 @@
+From 4457f7f8f2e2cc67f6a5ceca7a9f6fc4174ba347 Mon Sep 17 00:00:00 2001
+From: Wohlstand <admin@wohlnet.ru>
+Date: Mon, 19 Oct 2020 00:51:31 +0300
+Subject: [PATCH] Fixed Qt5 and Linux builds
+
+I tested this at me, it works flawless! I use Linux Mint 19.3.
+---
+ .gitignore                | 5 +++--
+ include/ZDLAboutDialog.h  | 4 ++--
+ include/ZDLImportDialog.h | 2 +-
+ include/ZDLInterface.h    | 2 +-
+ include/ZDLListWidget.h   | 3 ++-
+ include/ZDLMultiPane.h    | 4 +++-
+ include/ZDLNameInput.h    | 3 ++-
+ include/ZDLQSplitter.h    | 3 ++-
+ include/ZDLSettingsPane.h | 4 +++-
+ include/ZDLSettingsTab.h  | 2 +-
+ include/zdlcommon.h       | 8 ++++++++
+ qzdl.pro                  | 5 +++++
+ src/ZDLAboutDialog.cpp    | 2 ++
+ src/ZDLFileList.cpp       | 1 +
+ src/ZDLFilePane.cpp       | 2 +-
+ src/ZDLIWadList.cpp       | 1 +
+ src/ZDLImportDialog.cpp   | 4 ++++
+ src/ZDLInterface.cpp      | 6 +++++-
+ src/ZDLListWidget.cpp     | 5 ++++-
+ src/ZDLMainWindow.cpp     | 5 +++--
+ src/ZDLMultiPane.cpp      | 4 +++-
+ src/ZDLNameInput.cpp      | 7 ++++++-
+ src/ZDLSettingsPane.cpp   | 6 +++++-
+ src/ZDLSettingsTab.cpp    | 3 ++-
+ src/ZDLSourcePortList.cpp | 3 ++-
+ src/qzdl.cpp              | 2 ++
+ 26 files changed, 74 insertions(+), 22 deletions(-)
+
+diff --git a/.gitignore b/.gitignore
+index 5db85668..6df92aa4 100644
+--- a/.gitignore
++++ b/.gitignore
+@@ -11,7 +11,7 @@ Makefile
+ 
+ # User-specific files
+ *.suo
+-*.user
++*.user*
+ *.sln.docstates
+ 
+ # Build results
+@@ -22,6 +22,7 @@ Makefile
+ x64/
+ x86/
+ build/
++build-*/
+ bld/
+ [Bb]in/
+ [Oo]bj/
+@@ -133,7 +134,7 @@ publish/
+ # Publish Web Output
+ *.[Pp]ublish.xml
+ *.azurePubxml
+-# TODO: Comment the next line if you want to checkin your web deploy settings 
++# TODO: Comment the next line if you want to checkin your web deploy settings
+ # but database connection strings (with potential passwords) will be unencrypted
+ *.pubxml
+ *.publishproj
+diff --git a/include/ZDLAboutDialog.h b/include/ZDLAboutDialog.h
+index b94c9f10..a5272a89 100644
+--- a/include/ZDLAboutDialog.h
++++ b/include/ZDLAboutDialog.h
+@@ -19,8 +19,8 @@
+ #ifndef _ZABOUTDIALOG_H_
+ #define _ZABOUTDIALOG_H_
+ 
+-#include <QtGui>
+ #include <QObject>
++#include <QDialog>
+ #include "ZDLWidget.h"
+ 
+ class ZDLAboutDialog: public QDialog{
+@@ -32,4 +32,4 @@ Q_OBJECT
+ 		
+ };
+ 
+-#endif
+\ No newline at end of file
++#endif
+diff --git a/include/ZDLImportDialog.h b/include/ZDLImportDialog.h
+index 40d09e6e..139529a6 100644
+--- a/include/ZDLImportDialog.h
++++ b/include/ZDLImportDialog.h
+@@ -20,7 +20,7 @@
+ #ifndef _ZDLIMPORTDIALOG_HPP_
+ #define _ZDLIMPORTDIALOG_HPP_
+ 
+-#include <QtGui>
++#include <QDialog>
+ 
+ class ZDLImportDialog : public QDialog {
+ 	Q_OBJECT
+diff --git a/include/ZDLInterface.h b/include/ZDLInterface.h
+index ad9e6c4d..eac65b7d 100644
+--- a/include/ZDLInterface.h
++++ b/include/ZDLInterface.h
+@@ -20,7 +20,7 @@
+ #ifndef _ZDLINTERFACE_H_
+ #define _ZDLINTERFACE_H_
+ 
+-#include <QtGui>
++#include <QVBoxLayout>
+ #include <QObject>
+ #include "ZDLWidget.h"
+ #include "ZDLMultiPane.h"
+diff --git a/include/ZDLListWidget.h b/include/ZDLListWidget.h
+index 6ecab4d8..14212f61 100755
+--- a/include/ZDLListWidget.h
++++ b/include/ZDLListWidget.h
+@@ -20,7 +20,8 @@
+ #ifndef _ZLISTWIDGET_H_
+ #define _ZLISTWIDGET_H_
+ 
+-#include <QtGui>
++#include <QHBoxLayout>
++#include <QPushButton>
+ #include <QObject>
+ #include "ZDLWidget.h"
+ #include "ZDLListable.h"
+diff --git a/include/ZDLMultiPane.h b/include/ZDLMultiPane.h
+index 2d07d500..ec083635 100644
+--- a/include/ZDLMultiPane.h
++++ b/include/ZDLMultiPane.h
+@@ -20,7 +20,9 @@
+ #ifndef _MULTIPANE_H_
+ #define _MULTIPANE_H_
+ 
+-#include <QtGui>
++#include <QComboBox>
++#include <QLineEdit>
++#include <QPushButton>
+ #include <QObject>
+ #include "ZDLWidget.h"
+ 
+diff --git a/include/ZDLNameInput.h b/include/ZDLNameInput.h
+index dc862cbc..04908ad0 100644
+--- a/include/ZDLNameInput.h
++++ b/include/ZDLNameInput.h
+@@ -20,7 +20,8 @@
+ #ifndef _ZNAMEINPUT_H_
+ #define _ZNAMEINPUT_H_
+ 
+-#include <QtGui>
++#include <QDialog>
++#include <QPushButton>
+ #include <QObject>
+ #include "ZDLNameListable.h"
+ #include "ZDLFileInfo.h"
+diff --git a/include/ZDLQSplitter.h b/include/ZDLQSplitter.h
+index 5a1f171f..59277cc9 100644
+--- a/include/ZDLQSplitter.h
++++ b/include/ZDLQSplitter.h
+@@ -20,7 +20,8 @@
+ #ifndef _ZQSPLIT_H_
+ #define _ZQSPLIT_H_
+ #include <QObject>
+-#include <QtGui>
++#include <QSplitter>
++#include <QVBoxLayout>
+ #include "ZDLWidget.h"
+ 
+ 
+diff --git a/include/ZDLSettingsPane.h b/include/ZDLSettingsPane.h
+index 2e69ac25..996183bd 100644
+--- a/include/ZDLSettingsPane.h
++++ b/include/ZDLSettingsPane.h
+@@ -17,7 +17,9 @@
+  * along with this program.  If not, see <http://www.gnu.org/licenses/>.
+  */
+  
+-#include <QtGui>
++#include <QListWidget>
++#include <QComboBox>
++#include <QItemDelegate>
+ #include <QObject>
+ #include <QStyledItemDelegate>
+ #include "ZDLWidget.h"
+diff --git a/include/ZDLSettingsTab.h b/include/ZDLSettingsTab.h
+index 8c3a728c..c038b31c 100644
+--- a/include/ZDLSettingsTab.h
++++ b/include/ZDLSettingsTab.h
+@@ -17,7 +17,7 @@
+  * along with this program.  If not, see <http://www.gnu.org/licenses/>.
+  */
+  
+-#include <QtGui>
++#include <QCheckBox>
+ #include <QObject>
+ #include "ZDLWidget.h"
+ #include "ZDLSourcePortList.h"
+diff --git a/include/zdlcommon.h b/include/zdlcommon.h
+index d244b464..3ce9c192 100644
+--- a/include/zdlcommon.h
++++ b/include/zdlcommon.h
+@@ -37,6 +37,14 @@
+ #define QFD_QT_SEP(x)       x
+ #endif
+ 
++#ifndef FALSE
++#define FALSE 0
++#endif
++
++#ifndef TRUE
++#define TRUE 1
++#endif
++
+ extern QDebug *zdlDebug;
+ 
+ #if defined(ZDL_BLACKBOX)
+diff --git a/qzdl.pro b/qzdl.pro
+index 9ec21d05..bcc24832 100644
+--- a/qzdl.pro
++++ b/qzdl.pro
+@@ -22,6 +22,7 @@ UI_DIR = uic
+ RCC_DIR = rcc
+ 
+ QT += core gui
++greaterThan(QT_MAJOR_VERSION, 4): QT += widgets
+ CONFIG += release
+ DEFINES += _ZDL_NO_WARNINGS _ZDL_NO_WFA NOMINMAX QT_HAVE_MMX QT_HAVE_3DNOW QT_HAVE_SSE QT_HAVE_MMXEXT QT_HAVE_SSE2
+ 
+diff --git a/src/ZDLAboutDialog.cpp b/src/ZDLAboutDialog.cpp
+index 8395b3bc..0a5619f4 100644
+--- a/src/ZDLAboutDialog.cpp
++++ b/src/ZDLAboutDialog.cpp
+@@ -20,6 +20,8 @@
+ #include "ZDLAboutDialog.h"
+ #include "ZDLConfigurationManager.h"
+ #include <QDialogButtonBox>
++#include <QVBoxLayout>
++#include <QLabel>
+ #include "bmp_logo.xpm"
+ 
+ ZDLAboutDialog::ZDLAboutDialog(ZDLWidget *parent):QDialog(parent){
+diff --git a/src/ZDLFileList.cpp b/src/ZDLFileList.cpp
+index 9fb83070..3ddbd878 100644
+--- a/src/ZDLFileList.cpp
++++ b/src/ZDLFileList.cpp
+@@ -17,6 +17,7 @@
+  * along with this program.  If not, see <http://www.gnu.org/licenses/>.
+  */
+ 
++#include <QFileDialog>
+ #include "ZDLFileList.h"
+ #include "ZDLFileListable.h"
+ #include "ZDLConfigurationManager.h"
+diff --git a/src/ZDLFilePane.cpp b/src/ZDLFilePane.cpp
+index 6f704060..d941d4de 100644
+--- a/src/ZDLFilePane.cpp
++++ b/src/ZDLFilePane.cpp
+@@ -17,7 +17,7 @@
+  * along with this program.  If not, see <http://www.gnu.org/licenses/>.
+  */
+  
+-#include <QtGui>
++#include <QLabel>
+ #include <QApplication>
+ #include <QListWidget>
+ 
+diff --git a/src/ZDLIWadList.cpp b/src/ZDLIWadList.cpp
+index bc49646c..436240b1 100644
+--- a/src/ZDLIWadList.cpp
++++ b/src/ZDLIWadList.cpp
+@@ -17,6 +17,7 @@
+  * along with this program.  If not, see <http://www.gnu.org/licenses/>.
+  */
+ 
++#include <QFileDialog>
+ #include "zdlcommon.h"
+ #include "ZDLIWadList.h"
+ #include "ZDLNameListable.h"
+diff --git a/src/ZDLImportDialog.cpp b/src/ZDLImportDialog.cpp
+index 2716f0b6..53730d9f 100644
+--- a/src/ZDLImportDialog.cpp
++++ b/src/ZDLImportDialog.cpp
+@@ -17,6 +17,10 @@
+  * along with this program.  If not, see <http://www.gnu.org/licenses/>.
+  */
+ 
++#include <QVBoxLayout>
++#include <QLabel>
++#include <QDialogButtonBox>
++#include <QPushButton>
+ #include "ZDLImportDialog.h"
+ #include "zdlcommon.h"
+ 
+diff --git a/src/ZDLInterface.cpp b/src/ZDLInterface.cpp
+index 273cd191..2abbf4f0 100644
+--- a/src/ZDLInterface.cpp
++++ b/src/ZDLInterface.cpp
+@@ -17,7 +17,11 @@
+  * along with this program.  If not, see <http://www.gnu.org/licenses/>.
+  */
+ 
+-#include <QtGui>
++#include <QLabel>
++#include <QMessageBox>
++#include <QMenu>
++#include <QAction>
++#include <QFileDialog>
+ #include <QApplication>
+ #include <QProcessEnvironment>
+ #include <QMainWindow>
+diff --git a/src/ZDLListWidget.cpp b/src/ZDLListWidget.cpp
+index 19fe4d20..0b8b6f5e 100644
+--- a/src/ZDLListWidget.cpp
++++ b/src/ZDLListWidget.cpp
+@@ -17,7 +17,10 @@
+  * along with this program.  If not, see <http://www.gnu.org/licenses/>.
+  */
+ 
+-#include <QtGui>
++#include <QAction>
++#include <QDragEnterEvent>
++#include <QDropEvent>
++#include <QMessageBox>
+ #include <QApplication>
+ 
+ #include "ZDLConfigurationManager.h"
+diff --git a/src/ZDLMainWindow.cpp b/src/ZDLMainWindow.cpp
+index 3a115aa3..825edc06 100644
+--- a/src/ZDLMainWindow.cpp
++++ b/src/ZDLMainWindow.cpp
+@@ -17,7 +17,8 @@
+  * along with this program.  If not, see <http://www.gnu.org/licenses/>.
+  */
+ 
+-#include <QtGui>
++#include <QAction>
++#include <QMessageBox>
+ #include <QRegExp>
+ #include <QMainWindow>
+ 
+@@ -598,7 +599,7 @@ QStringList ParseParams(const QString& params)
+ 	switch (wordexp(qPrintable(params), &result, 0)) {
+ 		case 0:
+ 			for (size_t i=0; i<result.we_wordc; i++)
+-				plist<<result.we_wordv[i];
++				plist<<result.we_wordv[i]; // fall-through
+ 		case WRDE_NOSPACE:	//If error is WRDE_NOSPACE - there is a possibilty that at least some part of wordexp_t.we_wordv was allocated
+ 			wordfree (&result);
+ 	}
+diff --git a/src/ZDLMultiPane.cpp b/src/ZDLMultiPane.cpp
+index 5dcaf88a..7b0c5264 100644
+--- a/src/ZDLMultiPane.cpp
++++ b/src/ZDLMultiPane.cpp
+@@ -18,7 +18,9 @@
+  */
+  
+ 
+-#include <QtGui>
++#include <QVBoxLayout>
++#include <QLabel>
++#include <QFileDialog>
+ #include <QApplication>
+ #include <QComboBox>
+ #include "ZDLConfigurationManager.h"
+diff --git a/src/ZDLNameInput.cpp b/src/ZDLNameInput.cpp
+index 396cede6..8b3fd63b 100644
+--- a/src/ZDLNameInput.cpp
++++ b/src/ZDLNameInput.cpp
+@@ -17,7 +17,12 @@
+  * along with this program.  If not, see <http://www.gnu.org/licenses/>.
+  */
+  
+-#include <QtGui>
++#include <QVBoxLayout>
++#include <QHBoxLayout>
++#include <QLineEdit>
++#include <QLabel>
++#include <QFileDialog>
++#include <QMessageBox>
+ #include "ZDLNameInput.h"
+ #include "ZDLConfigurationManager.h"
+ 
+diff --git a/src/ZDLSettingsPane.cpp b/src/ZDLSettingsPane.cpp
+index 6ddf8d56..75976b28 100644
+--- a/src/ZDLSettingsPane.cpp
++++ b/src/ZDLSettingsPane.cpp
+@@ -17,7 +17,11 @@
+  * along with this program.  If not, see <http://www.gnu.org/licenses/>.
+  */
+ 
+-#include <QtGui>
++#include <QVBoxLayout>
++#include <QHBoxLayout>
++#include <QLabel>
++#include <QLineEdit>
++#include <QMouseEvent>
+ #include <QApplication>
+ #include <QComboBox>
+ #include "ZDLMapFile.h"
+diff --git a/src/ZDLSettingsTab.cpp b/src/ZDLSettingsTab.cpp
+index c1761767..9fc94684 100644
+--- a/src/ZDLSettingsTab.cpp
++++ b/src/ZDLSettingsTab.cpp
+@@ -17,7 +17,8 @@
+  * along with this program.  If not, see <http://www.gnu.org/licenses/>.
+  */
+  
+-#include <QtGui>
++#include <QLineEdit>
++#include <QLabel>
+ #include <QApplication>
+ 
+ #include "ZDLConfigurationManager.h"
+diff --git a/src/ZDLSourcePortList.cpp b/src/ZDLSourcePortList.cpp
+index c40a0e05..7396e43d 100644
+--- a/src/ZDLSourcePortList.cpp
++++ b/src/ZDLSourcePortList.cpp
+@@ -16,7 +16,8 @@
+  * You should have received a copy of the GNU General Public License
+  * along with this program.  If not, see <http://www.gnu.org/licenses/>.
+  */
+- 
++
++#include <QFileDialog>
+ #include "ZDLSourcePortList.h"
+ #include "ZDLNameListable.h"
+ #include "ZDLConfigurationManager.h"
+diff --git a/src/qzdl.cpp b/src/qzdl.cpp
+index 8ec36f39..c166854f 100644
+--- a/src/qzdl.cpp
++++ b/src/qzdl.cpp
+@@ -114,7 +114,9 @@ int main( int argc, char **argv ){
+ 	QFont::insertSubstitution(".Lucida Grande UI", "Lucida Grande");
+ #endif
+ 
++#if QT_VERSION < QT_VERSION_CHECK(5, 0, 0)
+ 	QApplication::setGraphicsSystem("native");
++#endif
+ 	QApplication a( argc, argv );
+ 	qapp = &a;
+ 	ZDLConfigurationManager::setArgv(eatenArgs);
