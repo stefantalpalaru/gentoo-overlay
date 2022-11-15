@@ -55,6 +55,8 @@ PATCHES=(
 	# (upstreamed)
 	"${FILESDIR}"/${PN}-1.80.0-unordered-fix.patch
 	"${FILESDIR}"/${PN}-1.80.0-unary-function.patch
+	"${FILESDIR}"/${PN}-1.80.0-python3.11.patch
+	"${FILESDIR}"/${PN}-1.80.0-unordered-ftm-malloc.patch
 )
 
 python_bindings_needed() {
