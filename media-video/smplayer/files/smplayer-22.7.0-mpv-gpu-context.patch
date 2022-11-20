@@ -1,0 +1,12 @@
+diff -ur smplayer-22.7.0.orig/src/core.cpp smplayer-22.7.0/src/core.cpp
+--- smplayer-22.7.0.orig/src/core.cpp	2022-11-19 16:05:09.393403849 +0100
++++ smplayer-22.7.0/src/core.cpp	2022-11-19 16:07:35.016789914 +0100
+@@ -1765,7 +1765,7 @@
+ 		}
+ 		if (proc->isMPV()) {
+ 			if (pref->vo.startsWith("gpu")) {
+-				proc->setOption("gpu-context", "x11egl");
++				proc->setOption("gpu-context", "auto");
+ 			}
+ 		}
+ 	}
