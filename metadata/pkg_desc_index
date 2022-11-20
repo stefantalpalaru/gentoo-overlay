@@ -831,6 +831,7 @@ media-sound/tg 0.5.0-r1 9999-r1: a program for timing mechanical watches
 media-tv/dvb-firmware 1.4.0 9999-r3: DVB firmware from the LibreELEC project
 media-tv/w_scan2 1.0.14 9999: Scan for DVB-C/DVB-T/DVB-S channels (w_scan fork)
 media-video/avidemux 2.8.1: Video editor designed for simple cutting, filtering and encoding tasks
+media-video/smplayer 22.7.0: Great Qt GUI front-end for mplayer/mpv
 media-video/subliminal 2.1.0-r5 9999-r6: Python library to search and download subtitles
 media-video/vobsub2srt 1.0_pre20171219-r2: Converts VobSub subtitles (.sub/.idx) to .srt text subtitles using tesseract
 net-analyzer/namebench 1.3.1-r4: DNS Benchmark Utility
@@ -894,4 +895,5 @@ x11-misc/electricsheep 3.0.2_p20180714-r5 9999-r5: realize the collective dream 
 x11-misc/magick-rotation 1.6.2-r5: Application that rotates tablet pc's screen automatically, based on orientation
 x11-misc/obmenu 1.0-r3: Menu editor designed for openbox
 x11-misc/obmenu2 1.1: Openbox menu editor
+x11-themes/chameleon-xcursors 0.5-r3: Style neutral scalable cursor theme
 x11-themes/numix-solarized 9999-r1: solarized version of Numix
