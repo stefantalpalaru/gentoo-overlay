@@ -3,7 +3,7 @@
 
 EAPI=8
 PYTHON_COMPAT=( python3_{8..10} )
-#DISTUTILS_USE_PEP517=setuptools
+DISTUTILS_USE_PEP517=setuptools
 
 inherit distutils-r1 xdg
 
@@ -41,7 +41,6 @@ RDEPEND="${DEPEND}
 	dev-python/dbus-python[${PYTHON_USEDEP}]
 "
 
-# Just in case someone renames the ebuild
 S="${WORKDIR}/${MY_P}"
 
 src_prepare() {
