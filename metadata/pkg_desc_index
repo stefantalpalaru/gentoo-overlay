@@ -785,7 +785,6 @@ dev-python/zope-interface 5.1.2-r201: Interfaces for Python
 dev-python/zope-testing 4.7-r201: Zope testing helpers
 dev-qt/qtwebkit 5.212.0_pre20200309-r3: WebKit rendering library for the Qt5 framework (deprecated)
 dev-util/gotags 1.4.1: ctags-compatible tag generator for Go
-dev-util/lxqt-build-tools 0.11.0-r1: LXQt Build Tools
 dev-util/tla-toolbox-bin 1.8.0: IDE for TLA+
 dev-util/valgrind 3.20.0-r100: An open-source memory debugger for GNU/Linux
 dev-vcs/bzr 2.7.1_pre-r2: Bazaar is a next generation distributed version control system
@@ -836,7 +835,6 @@ media-video/subliminal 2.1.0-r5 9999-r6: Python library to search and download s
 media-video/vobsub2srt 1.0_pre20171219-r2: Converts VobSub subtitles (.sub/.idx) to .srt text subtitles using tesseract
 net-analyzer/namebench 1.3.1-r4: DNS Benchmark Utility
 net-fs/tahoe-lafs 1.13.0: Secure, decentralized, data store
-net-libs/libnatpmp 20150609: An alternative protocol to UPnP IGD specification
 net-libs/liquid-dsp 1.5.0-r100 9999-r3: digital signal processing library for software-defined radios
 net-misc/magic-wormhole 0.11.2-r200: Securely and simply transfer data between computers
 net-misc/magic-wormhole-mailbox-server 0.4.1-r200: Rendezvous / mailbox server for Magic-Wormhole
@@ -857,7 +855,6 @@ sci-astronomy/casacore 3.4.0: Core libraries for the Common Astronomy Software A
 sci-astronomy/healpix 3.31-r1: Hierarchical Equal Area isoLatitude Pixelization of a sphere
 sci-astronomy/kapteyn 2.3.1-r200: Collection of python tools for astronomy
 sci-astronomy/montage 5.0-r1: Toolkit for assembling FITS images into mosaics
-sci-geosciences/gpsprune-bin 20: An application for viewing, editing and converting GPS data.
 sci-geosciences/mkgmap-bin 3831: Tool to create garmin maps
 sci-geosciences/splitter-bin 580: Tile splitter for mkgmap
 sci-libs/cholmod 3.0.14-r1: Sparse Cholesky factorization and update/downdate library
@@ -872,7 +869,6 @@ sys-cluster/heartbeat 3.0.6-r1: Heartbeat high availability cluster manager
 sys-devel/bison 2.7.1-r2: A general-purpose (yacc-compatible) parser generator
 sys-devel/flamegraph 1.0: stack trace visualizer
 sys-devel/pyflame 1.6.6-r1: a ptracing profiler for Python
-sys-libs/libbacktrace 1.0_p20220708: A C library for producing symbolic backtraces
 sys-power/phc-intel 0.3.2.12.31: Processor Hardware Control for Intel CPUs
 virtual/python-cffi 1-r2: A virtual for the Python cffi package
 virtual/python-enum34 2-r2: A virtual for Python enum34 module
@@ -887,7 +883,6 @@ www-misc/kiwix-lib 11.0.0: Kiwix software suite core: code shared by all Kiwix p
 www-misc/kiwix-tools 3.3.0: collection of Kiwix related command line tools
 www-servers/tornado 4.5.3-r200 5.1.1-r200: Python web framework and asynchronous networking library
 www-servers/uwsgi 2.0.20-r200: uWSGI server for Python web applications
-x11-drivers/nvidia-drivers 390.154-r1: NVIDIA Accelerated Graphics Driver
 x11-libs/dotherside 0.9.0_p20221109: C language library for creating bindings for the Qt QML language
 x11-libs/pangox-compat 0.0.2-r4: PangoX compatibility library
 x11-libs/wxGTK 3.2.1-r300: GTK+ version of wxWidgets, a cross-platform C++ GUI toolkit
