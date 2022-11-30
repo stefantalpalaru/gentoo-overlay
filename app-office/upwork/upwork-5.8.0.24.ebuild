@@ -11,8 +11,8 @@ QA_PREBUILT="*"
 DESCRIPTION="Project collaboration and tracking software for upwork.com"
 HOMEPAGE="https://www.upwork.com/"
 SRC_URI="
-	amd64? ( https://upwork-usw2-desktopapp.upwork.com/binaries/v5_6_10_13_3c485d1dd2af4f61/upwork-5.6.10.13-1fc24.x86_64.rpm )
-	x86? ( https://upwork-usw2-desktopapp.upwork.com/binaries/v5_6_10_13_3c485d1dd2af4f61/upwork-5.6.10.13-1fc24.i386.rpm )
+	amd64? ( https://upwork-usw2-desktopapp.upwork.com/binaries/v5_8_0_24_aef0dc8c37cf46a8/upwork-5.8.0.24-1fc24.x86_64.rpm )
+	x86? ( https://upwork-usw2-desktopapp.upwork.com/binaries/v5_8_0_24_aef0dc8c37cf46a8/upwork-5.8.0.24-1fc24.i386.rpm )
 "
 LICENSE="ODESK"
 SLOT="0"
@@ -55,7 +55,7 @@ src_install() {
 	doins -r usr/share
 	insinto /opt
 	doins -r opt/Upwork
-	fperms 0755 /opt/Upwork/{app.node,cmon,upwork}
+	fperms 0755 /opt/Upwork/{*.node,chrome-sandbox,chrome_crashpad_handler,cmon,upwork}
 	domenu usr/share/applications/upwork.desktop
 	doicon usr/share/icons/hicolor/128x128/apps/upwork.png
 }

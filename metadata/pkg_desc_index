@@ -12,7 +12,7 @@ app-emulation/vmware-modules 16.2.4-r2 17.0.0: VMware kernel modules
 app-emulation/vmware-workstation 16.2.4.20089737 17.0.0.20800274: Emulate a complete PC without the performance overhead of most emulators
 app-misc/iccloader 0.5 9999: systray widget used to load ICC color profiles with different color temperatures
 app-misc/yworklog 0.0.7-r200: Stack based utility with CLI interface helping to monitor time spent on tasks
-app-office/upwork 5.6.10.13-r1: Project collaboration and tracking software for upwork.com
+app-office/upwork 5.8.0.24: Project collaboration and tracking software for upwork.com
 app-text/pinfo 0.6.13-r1: Hypertext info and man viewer based on (n)curses
 app-text/wiki2text 0.2.1: Extract a plain text corpus from MediaWiki XML dumps, such as Wikipedia.
 app-text/zettlr-bin 2.3.0: A Markdown Editor for the 21st century.
