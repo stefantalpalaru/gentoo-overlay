@@ -15,4 +15,8 @@
 	<upstream>
 		<remote-id type="gitlab">AOMediaCodec/SVT-AV1</remote-id>
 	</upstream>
+	<use>
+		<flag name="lto">Build with link-time optimizations (LTO)</flag>
+		<flag name="pgo">Build with profile guided optimizations (PGO)</flag>
+	</use>
 </pkgmetadata>
