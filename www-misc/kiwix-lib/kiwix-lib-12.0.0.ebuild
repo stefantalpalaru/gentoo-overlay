@@ -19,7 +19,7 @@ RDEPEND="
 "
 
 DEPEND="
-	>=app-arch/libzim-7.2.0
+	>=app-arch/libzim-8.1.0
 	>=dev-cpp/mustache-4.1
 	dev-libs/icu
 	dev-libs/pugixml
@@ -29,3 +29,20 @@ DEPEND="
 "
 
 S="${WORKDIR}/libkiwix-${PV}"
+
+src_prepare() {
+	default
+
+	# disable tests
+	sed -i \
+		-e "/subdir('test')/d" \
+		meson.build || die
+}
+
+src_configure() {
+	local emesonargs=(
+		-Dwerror=false
+	)
+
+	meson_src_configure
+}

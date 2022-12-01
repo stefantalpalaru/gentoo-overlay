@@ -177,6 +177,8 @@ media-libs/avidemux-plugins:nvenc - Adds support for NVIDIA Encoder (NVENC) API 
 media-libs/avidemux-plugins:twolame - Enable TwoLAME support via media-sound/twolame, an optimised MPEG Audio Layer 2 (MP2) encoder.
 media-libs/avidemux-plugins:vpx - Enable WebM VP8 Codec SDK support via media-libs/libvpx.
 media-libs/avidemux-plugins:x265 - Enables HEVC support with media-libs/x265.
+media-libs/svt-av1:lto - Build with link-time optimizations (LTO)
+media-libs/svt-av1:pgo - Build with profile guided optimizations (PGO)
 media-sound/jack-audio-connection-kit:classic - Enable building of jackd"
 media-sound/jack-audio-connection-kit:metadata - Enable metadata API
 media-sound/jack-audio-connection-kit:pam - Add basic realtime configuration via sys-auth/realtime-base

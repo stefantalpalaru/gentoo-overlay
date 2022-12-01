@@ -15,6 +15,14 @@ KEYWORDS="~amd64"
 IUSE=""
 
 DEPEND="
-	>=www-misc/kiwix-lib-11.0.0
+	>=www-misc/kiwix-lib-12.0.0
 "
 RDEPEND="${DEPEND}"
+
+src_configure() {
+	local emesonargs=(
+		-Dwerror=false
+	)
+
+	meson_src_configure
+}

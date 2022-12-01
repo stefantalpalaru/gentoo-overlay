@@ -20,7 +20,7 @@ DEPEND="
 	dev-qt/qtimageformats:5
 	dev-qt/qtsvg:5
 	dev-qt/qtwebengine:5
-	www-misc/kiwix-lib
+	>=www-misc/kiwix-lib-12.0.0
 "
 BDEPEND="app-arch/unzip"
 
