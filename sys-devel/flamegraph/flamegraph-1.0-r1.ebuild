@@ -15,7 +15,7 @@ IUSE=""
 DEPEND=""
 RDEPEND="
 	dev-lang/perl
-	virtual/awk
+	app-alternatives/awk
 "
 
 S="${WORKDIR}/FlameGraph-${PV}"
