@@ -5,7 +5,7 @@ EAPI=8
 
 inherit cmake systemd xdg-utils
 
-MY_COMMIT="98cf7d9b3c"
+MY_COMMIT="bceb368f1b"
 MY_PV="${PV/_beta/-beta.}"
 
 DESCRIPTION="A fast, easy, and free BitTorrent client"
@@ -103,7 +103,7 @@ src_configure() {
 		-DUSE_SYSTEM_PSL=ON
 		-DWITH_CRYPTO=$(usex mbedtls polarssl openssl)
 		-DWITH_INOTIFY=ON
-		-DWITH_LIBAPPINDICATOR=$(usex appindicator ON OFF)
+		-DWITH_APPINDICATOR=$(usex appindicator ON OFF)
 		-DWITH_SYSTEMD=$(usex systemd ON OFF)
 	)
 
