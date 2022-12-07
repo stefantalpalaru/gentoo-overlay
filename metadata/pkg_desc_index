@@ -804,8 +804,8 @@ media-gfx/fbcat 0.5.2: utility that takes a screenshot using the framebuffer dev
 media-gfx/gifsicle 9999-r1: Create, manipulate, and optimize GIF images and animations
 media-gfx/gmic 3.1.6-r100: GREYC's Magic Image Converter
 media-gfx/zart 3.2.2_p20220629: G'MIC GUI for video streams
-media-libs/avidemux-core 2.8.1: Core libraries for simple video cutting, filtering and encoding tasks
-media-libs/avidemux-plugins 2.8.1: Plugins for the video editor media-video/avidemux
+media-libs/avidemux-core 2.8.1-r1: Core libraries for simple video cutting, filtering and encoding tasks
+media-libs/avidemux-plugins 2.8.1-r1: Plugins for the video editor media-video/avidemux
 media-libs/cimg 3.1.6-r100: C++ template image processing toolkit
 media-libs/glee 5.4.0: OpenGL Easy Extension library
 media-libs/hydrogen-drumkits 0.5: free drumkits for hydrogen
@@ -828,7 +828,7 @@ media-sound/setbfree 0.8.11-r2 99999999-r3: MIDI controlled DSP tonewheel organ
 media-sound/tg 0.5.0-r1 9999-r1: a program for timing mechanical watches
 media-tv/dvb-firmware 1.4.0 9999-r3: DVB firmware from the LibreELEC project
 media-tv/w_scan2 1.0.14 9999: Scan for DVB-C/DVB-T/DVB-S channels (w_scan fork)
-media-video/avidemux 2.8.1: Video editor designed for simple cutting, filtering and encoding tasks
+media-video/avidemux 2.8.1-r1: Video editor designed for simple cutting, filtering and encoding tasks
 media-video/smplayer 22.7.0: Great Qt GUI front-end for mplayer/mpv
 media-video/subliminal 2.1.0-r5 9999-r6: Python library to search and download subtitles
 media-video/vobsub2srt 1.0_pre20171219-r2: Converts VobSub subtitles (.sub/.idx) to .srt text subtitles using tesseract

@@ -50,7 +50,7 @@ COMMON_DEPEND="
 		libsamplerate? ( media-libs/libsamplerate )
 	)
 	lame? ( media-sound/lame )
-	nvenc? ( amd64? ( media-video/nvidia-video-codec ) )
+	nvenc? ( amd64? ( media-libs/nv-codec-headers ) )
 	opus? ( media-libs/opus )
 	pulseaudio? ( media-sound/pulseaudio )
 	qt5? (

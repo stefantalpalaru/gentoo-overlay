@@ -27,7 +27,7 @@ BDEPEND="
 "
 DEPEND="
 	~media-libs/avidemux-core-${PV}:${SLOT}[nls?,sdl?,vaapi?,vdpau?,xv?,nvenc?]
-	nvenc? ( amd64? ( media-video/nvidia-video-codec:0 ) )
+	nvenc? ( amd64? ( media-libs/nv-codec-headers ) )
 	opengl? ( virtual/opengl:0 )
 	qt5? (
 		dev-qt/qtcore:5
@@ -36,7 +36,7 @@ DEPEND="
 		dev-qt/qtopengl:5
 		dev-qt/qtwidgets:5
 	)
-	vaapi? ( x11-libs/libva:0= )
+	vaapi? ( media-libs/libva:0= )
 "
 RDEPEND="
 	${DEPEND}
