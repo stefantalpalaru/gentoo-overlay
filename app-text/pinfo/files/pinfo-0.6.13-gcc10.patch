@@ -1,0 +1,30 @@
+From fc4ad0b720894b25bf9037301a139c50759253ee Mon Sep 17 00:00:00 2001
+From: Jeroen Roovers <jer-gentoo@users.noreply.github.com>
+Date: Mon, 27 Jan 2020 12:26:46 +0100
+Subject: [PATCH] Fix compiling with -fno-common
+
+GCC 10 will enable -fno-common by default[0], which causes the linker to fail like this [1]:
+
+`ld: pinfo-colors.o:(.bss+0x34): multiple definition of `use_manual'; pinfo-pinfo.o:(.bss+0x10): first defined here`
+
+Fix this by removing the extraneous definition from `parse_config.h`.
+
+[0] https://gcc.gnu.org/gcc-10/porting_to.html#common
+[1] https://bugs.gentoo.org/706548
+---
+ src/parse_config.h | 2 --
+ 1 file changed, 2 deletions(-)
+
+diff --git a/src/parse_config.h b/src/parse_config.h
+index 2dffa4f..029500f 100644
+--- a/src/parse_config.h
++++ b/src/parse_config.h
+@@ -85,8 +85,6 @@ typedef struct colours
+ colours;
+ #endif /* HAVE_CURSES_COLOR */
+ 
+-int use_manual;
+-
+ int parse_config (void);
+ int parse_line (char *line);
+ char *str_toupper (char *s);
