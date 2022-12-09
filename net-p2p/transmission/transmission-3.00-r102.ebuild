@@ -23,7 +23,7 @@ EGIT_SUBMODULES=(
 LICENSE="|| ( GPL-2 GPL-3 Transmission-OpenSSL-exception ) GPL-2 MIT"
 SLOT="0"
 IUSE="appindicator cli doc gtk lightweight nls mbedtls qt5 systemd test"
-KEYWORDS="~amd64 ~arm ~mips ~ppc ~ppc64 ~x86 ~amd64-linux"
+KEYWORDS="~amd64 ~arm ~arm64 ~ppc ~ppc64 ~x86"
 RESTRICT="!test? ( test )"
 
 ACCT_DEPEND="

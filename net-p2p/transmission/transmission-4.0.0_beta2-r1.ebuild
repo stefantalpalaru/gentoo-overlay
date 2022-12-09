@@ -17,7 +17,7 @@ SRC_URI="https://github.com/transmission/transmission/releases/download/${MY_PV}
 LICENSE="|| ( GPL-2 GPL-3 Transmission-OpenSSL-exception ) GPL-2 MIT"
 SLOT="0"
 IUSE="appindicator cli doc gtk lightweight nls mbedtls qt5 systemd test"
-KEYWORDS="~amd64 ~arm ~arm64 ~mips ~ppc ~ppc64 ~x86 ~amd64-linux"
+KEYWORDS="~amd64 ~arm ~arm64 ~ppc ~ppc64 ~x86"
 RESTRICT="!test? ( test )"
 
 ACCT_DEPEND="
@@ -81,6 +81,10 @@ RDEPEND="${COMMON_DEPEND}
 REQUIRED_USE="appindicator? ( gtk )"
 
 S="${WORKDIR}/transmission-${MY_PV}+r${MY_COMMIT}"
+
+PATCHES=(
+	"${FILESDIR}/transmission-4.0.0_beta2-port-forwarding.patch"
+)
 
 src_configure() {
 	local mycmakeargs=(
