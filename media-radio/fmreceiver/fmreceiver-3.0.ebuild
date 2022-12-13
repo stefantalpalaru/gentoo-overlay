@@ -7,7 +7,7 @@ inherit qmake-utils
 
 DESCRIPTION="SDR-J FM receiver for RTL2832-based USB sticks"
 HOMEPAGE="http://www.sdr-j.tk/ https://github.com/JvanKatwijk/sdr-j-fm"
-SRC_URI="https://github.com/JvanKatwijk/sdr-j-fm/archive/refs/tags/${PV}.tar.gz -> ${P}.tar.gz"
+SRC_URI="https://github.com/JvanKatwijk/sdr-j-fm/archive/refs/tags/V${PV}.tar.gz -> ${P}.tar.gz"
 
 LICENSE="GPL-2"
 SLOT="0"
@@ -30,7 +30,7 @@ RDEPEND="${DEPEND}"
 S="${WORKDIR}/sdr-j-fm-${PV}"
 
 PATCHES=(
-	"${FILESDIR}/fmreceiver-2.1-qwt.patch"
+	"${FILESDIR}/fmreceiver-3.0-include.patch"
 )
 
 src_prepare() {

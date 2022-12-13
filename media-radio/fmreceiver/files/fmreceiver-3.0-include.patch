@@ -1,0 +1,11 @@
+diff -ur sdr-j-fm-3.0.orig/radio.cpp sdr-j-fm-3.0/radio.cpp
+--- sdr-j-fm-3.0.orig/radio.cpp	2022-12-13 14:12:46.000000000 +0100
++++ sdr-j-fm-3.0/radio.cpp	2022-12-13 14:53:01.205889004 +0100
+@@ -27,6 +27,7 @@
+ #include	<QHeaderView>
+ #include	<QSettings>
+ #include	<Qt>
++#include	<array>
+ #include	"radio.h"
+ #include	"audiosink.h"
+ #include	"fm-constants.h"
