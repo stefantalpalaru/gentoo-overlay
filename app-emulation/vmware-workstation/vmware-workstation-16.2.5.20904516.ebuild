@@ -11,7 +11,7 @@ MY_PV=$(ver_cut 1-3)
 PV_MODULES="${MY_PV}"
 PV_BUILD=$(ver_cut 4)
 MY_P="${MY_PN}-${MY_PV}-${PV_BUILD}"
-VMWARE_FUSION_VER="12.2.4/20071091" # https://softwareupdate.vmware.com/cds/vmw-desktop/fusion/
+VMWARE_FUSION_VER="12.2.5/20904517" # https://softwareupdate.vmware.com/cds/vmw-desktop/fusion/
 SYSTEMD_UNITS_TAG="gentoo-02"
 UNLOCKER_VERSION="3.0.4"
 
