@@ -40,7 +40,6 @@ dev-libs/libpeas 1.22.0-r6: A GObject plugins library
 dev-libs/libxml2 2.9.10-r6: XML C parser and toolkit
 dev-libs/lthread 1.0_pre20150617-r2 9999-r2: multicore enabled coroutine library written in C
 dev-libs/protobuf 3.13.0: Google's Protocol Buffers - Extensible mechanism for serializing structured data
-dev-nim/aporia 0.4.2-r1 9999-r1: IDE for the Nim programming language
 dev-nim/bcrypt-nim 0.2.1_pre20150221 9999: Nim bindings for bcrypt
 dev-nim/c2nim 0.9.14_p20191215 9999-r1: a tool to translate ANSI C code to Nim
 dev-nim/cairo-nim 1.0_pre20161029 9999: Nim bindings for cairo
@@ -818,7 +817,6 @@ media-libs/portaudio 19.07.00-r3: A free, cross-platform, open-source, audio I/O
 media-libs/svt-av1 1.4.1: Scalable Video Technology for AV1 (SVT-AV1 Encoder and Decoder)
 media-plugins/deadbeef-bs2b 9999-r1: bs2b DSP plugin for DeaDBeeF, using libbs2b.
 media-plugins/deadbeef-jack 9999-r2: JACK output plugin for DeaDBeeF.
-media-plugins/gimp-refocus 0.9.0-r1: refocus images using FIR Wiener filtering
 media-plugins/refocus-it 2.0.0-r1: Refocus-It plugin for The Gimp
 media-radio/fmreceiver 3.0: SDR-J FM receiver for RTL2832-based USB sticks
 media-radio/qt-dab 4.4.2: software DAB decoder for use with a dabstick, airspy or sdrplay for RPI and PC
@@ -855,16 +853,16 @@ sci-astronomy/casacore 3.4.0: Core libraries for the Common Astronomy Software A
 sci-astronomy/healpix 3.31-r1: Hierarchical Equal Area isoLatitude Pixelization of a sphere
 sci-astronomy/kapteyn 2.3.1-r200: Collection of python tools for astronomy
 sci-astronomy/montage 5.0-r1: Toolkit for assembling FITS images into mosaics
-sci-geosciences/mkgmap-bin 3831: Tool to create garmin maps
-sci-geosciences/splitter-bin 580: Tile splitter for mkgmap
+sci-geosciences/mkgmap-bin 4905: Tool to create garmin maps
+sci-geosciences/splitter-bin 652: Tile splitter for mkgmap
 sci-libs/cholmod 3.0.14-r1: Sparse Cholesky factorization and update/downdate library
 sci-libs/gdal 3.0.4-r200: Translator library for raster geospatial data formats (includes OGR support)
 sci-libs/scikits 0.1-r2: Common files for python scikits
 sci-libs/scikits_image 0.13.0-r200: Image processing routines for SciPy
 sci-libs/scikits_learn 0.20.4-r200: Python modules for machine learning and data mining
 sci-mathematics/xmds 2.2.3-r1: XMDS - The eXtensible Multi-Dimensional Simulator
-sci-misc/openfst 1.6.3: Finite State Transducer tools by Google et al
-sci-misc/opengrm-ngram 1.3.2: Google's open source finite-state n-gram library
+sci-misc/openfst 1.8.2: Finite State Transducer tools by Google et al
+sci-misc/opengrm-ngram 1.3.14: n-gram language models encoded as weighted finite-state transducers
 sys-cluster/heartbeat 3.0.6-r1: Heartbeat high availability cluster manager
 sys-devel/bison 2.7.1-r2: A general-purpose (yacc-compatible) parser generator
 sys-devel/flamegraph 1.0-r1: stack trace visualizer
