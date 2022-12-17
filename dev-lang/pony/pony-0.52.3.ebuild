@@ -23,26 +23,34 @@ RESTRICT="strip
 RDEPEND="
 	sys-libs/zlib
 	vim-syntax? ( app-vim/pony-syntax )"
-DEPEND="${RDEPEND}
+DEPEND="${RDEPEND}"
+BDEPEND="
+	sys-devel/binutils[gold]
 	sys-devel/clang
-	virtual/pkgconfig"
+	virtual/pkgconfig
+"
 
 src_prepare() {
 	default
+
 	sed -i \
 		-e 's/-Werror//' \
-		CMakeLists.txt
+		CMakeLists.txt || die
 
 	sed -i \
 		-e "s/-DCMAKE_C_FLAGS=\"-march=\$(arch) -mtune=\$(tune)\"/-DCMAKE_C_FLAGS=\"${CFLAGS}\"/g" \
 		-e "s/-DCMAKE_CXX_FLAGS=\"-march=\$(arch) -mtune=\$(tune)\"/-DCMAKE_CXX_FLAGS=\"${CXXFLAGS}\"/g" \
 		-e 's/ln -s/ln -sr/g' \
-		Makefile
+		Makefile || die
+
+	sed -i \
+		-e 's/-DBENCHMARK_ENABLE_GTEST_TESTS=OFF/-DBENCHMARK_ENABLE_GTEST_TESTS=OFF -DBENCHMARK_ENABLE_WERROR=OFF/' \
+		lib/CMakeLists.txt || die
 
 	gcc_lib_dir="$(gcc-config -L | cut -d ':' -f 1)"
 	sed -i \
 		-e "s#/lib/x86_64-linux-gnu#${gcc_lib_dir}#" \
-		src/libponyc/codegen/genexe.c
+		src/libponyc/codegen/genexe.c || die
 }
 
 common_make_args="config=release verbose=yes"
