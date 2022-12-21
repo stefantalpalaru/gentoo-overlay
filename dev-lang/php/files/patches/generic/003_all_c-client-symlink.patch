@@ -1,5 +1,5 @@
---- ext/imap/config.m4	2006-10-21 21:25:24.000000000 +0200
-+++ ext/imap/config.m4	2006-10-21 21:26:15.000000000 +0200
+--- a/ext/imap/config.m4	2006-10-21 21:25:24.000000000 +0200
++++ b/ext/imap/config.m4	2006-10-21 21:26:15.000000000 +0200
 @@ -192,12 +192,6 @@
        AC_MSG_ERROR(Cannot find rfc822.h. Please check your c-client installation.)
      fi

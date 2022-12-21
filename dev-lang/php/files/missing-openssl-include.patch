@@ -1,5 +1,5 @@
---- acinclude.m4	2012-11-17 21:53:06.346408695 +0100
-+++ acinclude.m4.new	2013-03-18 11:37:09.253432820 +0100
+--- a/acinclude.m4	2012-11-17 21:53:06.346408695 +0100
++++ b/acinclude.m4.new	2013-03-18 11:37:09.253432820 +0100
 @@ -2331,8 +2331,10 @@
        AC_MSG_ERROR([OpenSSL version 0.9.6 or greater required.])
      fi

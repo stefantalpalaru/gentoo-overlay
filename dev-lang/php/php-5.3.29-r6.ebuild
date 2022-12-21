@@ -1,9 +1,9 @@
-# Copyright 1999-2021 Gentoo Authors
+# Copyright 1999-2022 Gentoo Authors
 # Distributed under the terms of the GNU General Public License v2
 
-EAPI=6
+EAPI=7
 
-inherit apache-module autotools db-use depend.apache eapi7-ver eutils flag-o-matic libtool systemd
+inherit autotools depend.apache flag-o-matic multilib systemd
 
 KEYWORDS="~alpha ~amd64 ~arm ~hppa ~ia64 ~mips ~ppc ~ppc64 ~s390 ~sparc ~x86"
 
@@ -97,7 +97,7 @@ DEPEND="
 	gmp? ( >=dev-libs/gmp-4.1.2:* )
 	iconv? ( virtual/libiconv )
 	imap? ( virtual/imap-c-client[ssl=] )
-	intl? ( dev-libs/icu:= )
+	intl? ( dev-libs/icu:0/64.2 )
 	iodbc? ( dev-db/libiodbc )
 	kerberos? ( virtual/krb5 )
 	ldap? ( >=net-nds/openldap-1.2.11 )
@@ -171,7 +171,8 @@ REQUIRED_USE="
 RDEPEND="${DEPEND}
 	fpm? ( selinux? ( sec-policy/selinux-phpfpm ) )"
 
-DEPEND="${DEPEND}
+BDEPEND="${DEPEND}
+	~app-alternatives/yacc-0
 	<sys-devel/bison-3
 	sys-devel/flex
 	>=sys-devel/m4-1.4.3
@@ -219,7 +220,6 @@ php_install_ini() {
 		echo "zend_extension=${PHP_DESTDIR}/$(get_libdir)/opcache.so" >> ${phpinisrc}
 	fi
 
-	dodir "${PHP_INI_DIR#${EPREFIX}}"
 	insinto "${PHP_INI_DIR#${EPREFIX}}"
 	newins "${phpinisrc}" "${PHP_INI_FILE}"
 
@@ -256,7 +256,8 @@ php_set_ini_dir() {
 
 src_prepare() {
 	default
-	epatch "${FILESDIR}/php-5.5.14-remove-randegd.diff"
+
+	patch -p1 -i "${FILESDIR}/php-5.5.14-remove-randegd.diff" || die
 	# USE=sharedmem (session/mod_mm to be exact) tries to mmap() this path
 	# ([empty session.save_path]/session_mm_[sapi][gid].sem)
 	# there is no easy way to circumvent that, all php calls during
@@ -270,21 +271,21 @@ src_prepare() {
 		-i configure.in || die "Unable to change PHP branding"
 
 	# Apply generic PHP patches
-	EPATCH_SOURCE="${FILESDIR}/patches/generic" EPATCH_SUFFIX="patch" \
-		EPATCH_FORCE="yes" \
-		EPATCH_MULTI_MSG="Applying generic patches and fixes from upstream..." epatch
+	for P in "${FILESDIR}/patches/generic"/*.patch; do
+		patch -p1 -i "${P}" || die
+	done
 
 	#Fix bug 463498
-	epatch "${FILESDIR}/fix-libstdc++-underlinking.patch"
+	patch -p1 -i "${FILESDIR}/fix-libstdc++-underlinking.patch" || die
 
 	# Patch for pkg-config-0.28 (Bug 455040)
-	epatch "${FILESDIR}"/missing-openssl-include.patch
+	patch -p1 -i "${FILESDIR}"/missing-openssl-include.patch || die
 
-	epatch "${FILESDIR}"/bison_build_2a.patch
-	epatch "${FILESDIR}"/bison_any_version.patch
+	patch -p1 -i "${FILESDIR}"/bison_build_2a.patch || die
+	patch -p1 -i "${FILESDIR}"/bison_any_version.patch || die
 	rm Zend/zend_{language,ini}_parser.[ch]
 
-	epatch "${FILESDIR}"/freetype.patch
+	patch -p1 -i "${FILESDIR}"/freetype.patch || die
 
 	# Patch PHP to show Gentoo as the server platform
 	sed -e 's/PHP_UNAME=`uname -a | xargs`/PHP_UNAME=`uname -s -n -r -v | xargs`/g' \
@@ -306,15 +307,15 @@ src_prepare() {
 	fi
 
 	# modern mysql and mariadb libraries are already reentrant
-	epatch "${FILESDIR}"/libmysqlclient.patch
+	patch -p1 -i "${FILESDIR}"/libmysqlclient.patch || die
 	# mariadb puts my_global.h in /usr/include/mysql/server
-	epatch "${FILESDIR}"/mysql-include.patch
+	patch -p1 -i "${FILESDIR}"/mysql-include.patch || die
 
 	# support >=oniguruma-6.8.1
-	epatch "${FILESDIR}"/oniguruma.patch
+	patch -p1 -i "${FILESDIR}"/oniguruma.patch || die
 
 	# support OpenSSL-1.1
-	epatch "${FILESDIR}"/openssl-1.1.patch
+	patch -p1 -i "${FILESDIR}"/openssl-1.1.patch || die
 
 	#force rebuilding aclocal.m4
 	rm aclocal.m4
@@ -671,7 +672,7 @@ src_install() {
 
 	use fpm && systemd_newunit "${FILESDIR}/php-fpm_at-simple.service" "php-fpm@${SLOT}.service"
 
-	prune_libtool_files
+	find "${ED}" -name '*.la' -delete || die
 }
 
 src_test() {
@@ -722,12 +723,37 @@ src_test() {
 	fi
 }
 
+# @FUNCTION: apache-module_pkg_postinst
+# @DESCRIPTION:
+# This prints out information about the installed module and how to enable it.
+apache_module_pkg_postinst() {
+	debug-print-function $FUNCNAME $*
+
+	if [[ -n "${APACHE2_MOD_DEFINE}" ]] ; then
+		local my_opts="-D ${APACHE2_MOD_DEFINE// / -D }"
+
+		einfo
+		einfo "To enable ${PN}, you need to edit your /etc/conf.d/apache2 file and"
+		einfo "add '${my_opts}' to APACHE2_OPTS."
+		einfo
+	fi
+
+	if [[ -n "${APACHE2_MOD_CONF}" ]] ; then
+		set -- ${APACHE2_MOD_CONF}
+		einfo
+		einfo "Configuration file installed as"
+		einfo "    ${APACHE_MODULES_CONFDIR}/$(basename ${2:-$1}).conf"
+		einfo "You may want to edit it before turning the module on in /etc/conf.d/apache2"
+		einfo
+	fi
+}
+
 pkg_postinst() {
 	# Output some general info to the user
 	if use apache2 ; then
 		APACHE2_MOD_DEFINE="PHP5"
 		APACHE2_MOD_CONF="70_mod_php5"
-		apache-module_pkg_postinst
+		apache_module_pkg_postinst
 	fi
 
 	# Create the symlinks for php
