@@ -201,6 +201,15 @@ net-wireless/dump1090:minimal - Exclude all HTML/webserver extras for a tiny bui
 net-wireless/dump1090:rtlsdr - Build with Realtek RTL2832U (rtlsdr) support
 sci-astronomy/casacore:data - Installs measures and data (pulls sci-astronomy/casa-data)
 sci-astronomy/healpix:idl - Install healpix IDL/GDL routines
+sci-libs/caffe2:cuda - Add support for CUDA processing
+sci-libs/caffe2:ffmpeg - Add support for video processing operators
+sci-libs/caffe2:nnpack - Use NNPACK
+sci-libs/caffe2:numpy - Add support for math operations through numpy
+sci-libs/caffe2:opencl - Use OpenCL
+sci-libs/caffe2:opencv - Add support for image processing operators
+sci-libs/caffe2:openmp - Use OpenMP for parallel code
+sci-libs/caffe2:qnnpack - Use QNNPACK
+sci-libs/caffe2:xnnpack - Use XNNPACK
 sci-libs/cholmod:cuda - Use nvidia cuda toolkit for speeding up computations
 sci-libs/cholmod:matrixops - Support basic sparse and dense matrix operations (add, multiply, scale, et cetera)
 sci-libs/cholmod:modify - Enable Cholesky-modification routines like update, downdate, row-add, and row-delete

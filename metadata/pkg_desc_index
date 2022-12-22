@@ -856,6 +856,7 @@ sci-astronomy/kapteyn 2.3.1-r200: Collection of python tools for astronomy
 sci-astronomy/montage 5.0-r1: Toolkit for assembling FITS images into mosaics
 sci-geosciences/mkgmap-bin 4905: Tool to create garmin maps
 sci-geosciences/splitter-bin 652: Tile splitter for mkgmap
+sci-libs/caffe2 1.12.0-r1: A deep learning framework
 sci-libs/cholmod 3.0.14-r1: Sparse Cholesky factorization and update/downdate library
 sci-libs/gdal 3.0.4-r200: Translator library for raster geospatial data formats (includes OGR support)
 sci-libs/scikits 0.1-r2: Common files for python scikits
