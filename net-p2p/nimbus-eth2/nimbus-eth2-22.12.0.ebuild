@@ -10,6 +10,11 @@ DESCRIPTION="Nim implementation of the Ethereum 2.0 blockchain"
 HOMEPAGE="https://github.com/status-im/nimbus-eth2"
 EGIT_REPO_URI="https://github.com/status-im/nimbus-eth2.git"
 EGIT_COMMIT="v${PV/_/-}"
+
+# Upstream fucked up and pointed a Git submodule to a dangling commit: https://github.com/status-im/Nim/commit/7f90bcf5b4cbe5b7da534dd79bafbb4cafb313fa
+# so we disable Portage's submodule retrieval because it cannot deal with that.
+EGIT_SUBMODULES=()
+
 RESTRICT="strip network-sandbox"
 
 LICENSE="MIT-with-advertising Apache-2.0"
