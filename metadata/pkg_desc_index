@@ -17,7 +17,7 @@ app-office/upwork 5.8.0.24: Project collaboration and tracking software for upwo
 app-text/pinfo 0.6.13-r2: Hypertext info and man viewer based on (n)curses
 app-text/zettlr-bin 2.3.0: A Markdown Editor for the 21st century.
 app-vim/airline 9999-r1: vim plugin: lean & mean statusline for vim that's light as air
-app-vim/ale 3.2.0 99999999-r1: Asynchronous Lint Engine for vim
+app-vim/ale 3.3.0 99999999-r1: Asynchronous Lint Engine for vim
 app-vim/neocomplete 9999: vim plugin: Next generation completion framework after neocomplcache
 app-vim/nim-syntax 1.2_pre20211111 9999: Nim language support
 app-vim/pony-syntax 0.1_pre20170926 9999: vim plugin: Pony language support
