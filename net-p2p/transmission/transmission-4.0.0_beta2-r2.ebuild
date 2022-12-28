@@ -84,6 +84,7 @@ S="${WORKDIR}/transmission-${MY_PV}+r${MY_COMMIT}"
 
 PATCHES=(
 	"${FILESDIR}/transmission-4.0.0_beta2-port-forwarding.patch"
+	"${FILESDIR}/transmission-4.0.0_beta2-magnet-start-paused-fix.patch"
 )
 
 src_configure() {
