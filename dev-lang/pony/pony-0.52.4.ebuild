@@ -30,6 +30,10 @@ BDEPEND="
 	virtual/pkgconfig
 "
 
+PATCHES=(
+	"${FILESDIR}/pony-0.52.4-remove-DECnet-header.patch"
+)
+
 src_prepare() {
 	default
 
@@ -42,10 +46,6 @@ src_prepare() {
 		-e "s/-DCMAKE_CXX_FLAGS=\"-march=\$(arch) -mtune=\$(tune)\"/-DCMAKE_CXX_FLAGS=\"${CXXFLAGS}\"/g" \
 		-e 's/ln -s/ln -sr/g' \
 		Makefile || die
-
-	sed -i \
-		-e 's/-DBENCHMARK_ENABLE_GTEST_TESTS=OFF/-DBENCHMARK_ENABLE_GTEST_TESTS=OFF -DBENCHMARK_ENABLE_WERROR=OFF/' \
-		lib/CMakeLists.txt || die
 
 	gcc_lib_dir="$(gcc-config -L | cut -d ':' -f 1)"
 	sed -i \
