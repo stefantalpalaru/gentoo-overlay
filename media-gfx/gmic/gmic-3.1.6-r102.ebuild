@@ -1,4 +1,4 @@
-# Copyright 1999-2022 Gentoo Authors
+# Copyright 1999-2023 Gentoo Authors
 # Distributed under the terms of the GNU General Public License v2
 
 EAPI=8
@@ -67,6 +67,10 @@ DEPEND="${COMMON_DEPEND}
 GMIC_QT_DIR="gmic-qt-v.${PV}"
 S="${WORKDIR}/${PN}-v.${PV}"
 
+PATCHES=(
+	"${FILESDIR}/gmic-3.1.6-cmake.patch"
+)
+
 pkg_pretend() {
 	if use openmp ; then
 		tc-check-openmp
@@ -78,10 +82,10 @@ pkg_pretend() {
 }
 
 src_prepare() {
-	ln -s "${EPREFIX}"/usr/include/CImg.h ./src/ || die
 	cp -a "${DISTDIR}/gmic_stdlib$(ver_rs 1- '').h" src/gmic_stdlib.h || die
 	mv resources/{cmake,CMakeLists.txt} . || die "can't move CMake files"
 	cmake_src_prepare
+	PATCHES=()
 
 	ln -sr ../${PN}-v.${PV} ../${PN}
 
@@ -92,6 +96,7 @@ src_prepare() {
 		local S="${WORKDIR}/${GMIC_QT_DIR}"
 		cd ../${GMIC_QT_DIR}
 		patch -p1 -i "${FILESDIR}/gmic-3.1.6-bash5.2.patch" || die
+		patch -p1 -i "${FILESDIR}/gmic-3.1.6-stripping.patch" || die
 		cd -
 		cmake_src_prepare
 	fi
@@ -120,15 +125,19 @@ src_configure() {
 		-DENABLE_ZLIB=ON
 		-DENABLE_DYNAMIC_LINKING=ON
 		-DCUSTOM_CFLAGS=ON
+		-DUSE_SYSTEM_CIMG=ON
 	)
 
 	cmake_src_configure
 
 	# gmic-qt
 	local CMAKE_USE_DIR="${WORKDIR}/${GMIC_QT_DIR}"
+	append-cppflags -I"${WORKDIR}/gmic/src"
+	append-ldflags -L"${WORKDIR}/gmic-v.${PV}_build"
 	mycmakeargs=(
 		-DENABLE_DYNAMIC_LINKING=ON
 		-DENABLE_SYSTEM_GMIC=ON
+		-DGmic_DIR="${WORKDIR}/gmic-v.${PV}_build"
 	)
 	local BUILD_DIR
 	if use gimp; then
@@ -180,8 +189,6 @@ src_install() {
 	# Yes, upstream is bad and they should feel bad. Undo this madness so we can build media-gfx/zart
 	# using the installed "gmic.h".
 	sed -i -e '/^#define cimg.*_plugin/d' "${ED}/usr/include/gmic.h" || die "sed failed"
-
-	rm "${ED}/usr/include/CImg.h" || die "can't delete CImg.h"
 
 	use cli && use bash-completion && newbashcomp "${WORKDIR}/${PN}-v.${PV}_build/resources/${PN}_bashcompletion.sh" ${PN}
 

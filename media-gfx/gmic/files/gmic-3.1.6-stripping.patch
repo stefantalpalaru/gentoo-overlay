@@ -1,0 +1,11 @@
+diff -ur gmic-qt-v.3.1.6.orig/CMakeLists.txt gmic-qt-v.3.1.6/CMakeLists.txt
+--- gmic-qt-v.3.1.6.orig/CMakeLists.txt	2023-01-01 15:33:46.361033711 +0100
++++ gmic-qt-v.3.1.6/CMakeLists.txt	2023-01-01 16:08:21.943557359 +0100
+@@ -351,7 +351,6 @@
+     else()
+     endif()
+     if (NOT MSVC)
+-      set(CMAKE_EXE_LINKER_FLAGS "${CMAKE_EXE_LINKER_FLAGS} -s")
+     endif()
+     if (WIN32 AND NOT MSVC)
+       set(CMAKE_EXE_LINKER_FLAGS "${CMAKE_EXE_LINKER_FLAGS} -mwindows")
