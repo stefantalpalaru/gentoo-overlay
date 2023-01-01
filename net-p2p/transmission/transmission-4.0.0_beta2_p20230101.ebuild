@@ -1,16 +1,17 @@
-# Copyright 2006-2022 Gentoo Authors
+# Copyright 2006-2023 Gentoo Authors
 # Distributed under the terms of the GNU General Public License v2
 
 EAPI=8
 
-inherit cmake systemd xdg-utils
+inherit cmake git-r3 systemd xdg-utils
 
-MY_COMMIT="bceb368f1b"
 MY_PV="${PV/_beta/-beta.}"
 
 DESCRIPTION="A fast, easy, and free BitTorrent client"
 HOMEPAGE="https://transmissionbt.com/"
-SRC_URI="https://github.com/transmission/transmission/releases/download/${MY_PV}/transmission-${MY_PV}+r${MY_COMMIT}.tar.xz"
+#SRC_URI="https://github.com/transmission/transmission/releases/download/${MY_PV}/transmission-${MY_PV}+r${MY_COMMIT}.tar.xz"
+EGIT_REPO_URI="https://github.com/transmission/transmission.git"
+EGIT_COMMIT="bc380511db6b3ba65e5236904a6dd196ca12db51"
 # web/LICENSE is always GPL-2 whereas COPYING allows either GPL-2 or GPL-3 for the rest
 # transmission in licenses/ is for mentioning OpenSSL linking exception
 # MIT is in several libtransmission/ headers
@@ -80,10 +81,9 @@ RDEPEND="${COMMON_DEPEND}
 
 REQUIRED_USE="appindicator? ( gtk )"
 
-S="${WORKDIR}/transmission-${MY_PV}+r${MY_COMMIT}"
+#S="${WORKDIR}/transmission-${MY_PV}+r${MY_COMMIT}"
 
 PATCHES=(
-	"${FILESDIR}/transmission-4.0.0_beta2-port-forwarding.patch"
 	"${FILESDIR}/transmission-4.0.0_beta2-magnet-start-paused-fix.patch"
 )
 
