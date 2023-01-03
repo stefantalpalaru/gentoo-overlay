@@ -1,20 +1,20 @@
-# Copyright 1999-2017 Gentoo Foundation
+# Copyright 1999-2023 Gentoo Authors
 # Distributed under the terms of the GNU General Public License v2
 
-EAPI=6
+EAPI=8
 
 AUTOTOOLS_AUTORECONF=yes
 
 EGIT_REPO_URI="https://github.com/stefantalpalaru/iccloader.git"
-inherit autotools vala
+inherit autotools git-r3 vala
 
 DESCRIPTION="systray widget used to load ICC color profiles with different color temperatures"
 HOMEPAGE="https://github.com/stefantalpalaru/iccloader"
-SRC_URI="https://github.com/stefantalpalaru/${PN}/archive/v${PV}.tar.gz -> ${P}.tar.gz"
+SRC_URI=""
 
 LICENSE="MPL-2.0"
 SLOT="0"
-KEYWORDS="~amd64 ~x86"
+KEYWORDS=""
 IUSE="nls"
 
 RDEPEND="
@@ -27,8 +27,8 @@ DEPEND="${RDEPEND}
 	virtual/pkgconfig"
 
 src_prepare() {
-	vala_src_prepare
-	eapply_user
+	default
+	vala_setup
 	eautoreconf
 }
 
