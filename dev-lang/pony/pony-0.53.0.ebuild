@@ -30,10 +30,6 @@ BDEPEND="
 	virtual/pkgconfig
 "
 
-PATCHES=(
-	"${FILESDIR}/pony-0.52.4-remove-DECnet-header.patch"
-)
-
 src_prepare() {
 	default
 
