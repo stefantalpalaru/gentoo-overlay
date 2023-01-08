@@ -470,7 +470,7 @@ dev-python/pyasn1 0.4.8-r200: ASN.1 library for Python
 dev-python/pyasn1-modules 0.2.8-r200: pyasn1 modules
 dev-python/pyavm 0.9.4: Python module for Astronomy Visualization Metadata i/o
 dev-python/pybind11 2.4.3-r200: AST-based Python refactoring library
-dev-python/pycairo 1.18.2-r200: Python bindings for the cairo library
+dev-python/pycairo 1.18.2-r201: Python bindings for the cairo library
 dev-python/pycdf 0.6.3-r3: Python interface to scientific netCDF library
 dev-python/pychecker 0.8.19-r3: Python source code checking tool
 dev-python/pychef 0.2.3-r1: A Python API for interacting with a Chef server
