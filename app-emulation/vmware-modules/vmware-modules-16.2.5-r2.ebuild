@@ -17,7 +17,7 @@ MY_KERNEL_VERSION="6.1"
 # and test it ourselves.
 #
 # Details: https://github.com/mkubecek/vmware-host-modules/issues/158#issuecomment-1228341760
-MY_COMMIT="81b940e4593485f39780c542753ba64f6fd6bc59"
+MY_COMMIT="00dade1588074d071281fb83c4ba8824f0df3342"
 
 SRC_URI=" https://github.com/mkubecek/vmware-host-modules/archive/${MY_COMMIT}.tar.gz -> ${P}-${MY_COMMIT}.tar.gz"
 
