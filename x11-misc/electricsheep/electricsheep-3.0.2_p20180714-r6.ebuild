@@ -1,10 +1,10 @@
-# Copyright 1999-2021 Gentoo Authors
+# Copyright 1999-2023 Gentoo Authors
 # Distributed under the terms of the GNU General Public License v2
 
 EAPI=6
 WX_GTK_VER="3.0"
 
-inherit autotools wxwidgets
+inherit autotools flag-o-matic wxwidgets
 
 DESCRIPTION="realize the collective dream of sleeping computers from all over the internet"
 HOMEPAGE="http://electricsheep.org/"
@@ -14,7 +14,7 @@ if [[ ${PV} == "9999" ]]; then
 	S="${WORKDIR}/${P}/client_generic"
 else
 	MY_COMMIT="4949c31cfdb0d4363cfa726aa3aa8325e540773f"
-	SRC_URI="https://github.com/scottdraves/electricsheep/archive/${MY_COMMIT}.zip -> ${P}.zip"
+	SRC_URI="https://github.com/scottdraves/electricsheep/archive/${MY_COMMIT}.tar.gz -> ${P}.tar.gz"
 	S="${WORKDIR}/${PN}-${MY_COMMIT}/client_generic"
 	KEYWORDS="~amd64 ~x86"
 fi
@@ -44,6 +44,7 @@ RDEPEND="${DEPEND}"
 PATCHES=(
 	"$FILESDIR/electricsheep-glext-prototypes.patch"
 	"$FILESDIR/electricsheep-disable-vsync.patch"
+	"$FILESDIR/electricsheep-boost-1.81.0.patch"
 )
 
 src_prepare() {
