@@ -1,10 +1,10 @@
-# Copyright 1999-2021 Gentoo Authors
+# Copyright 1999-2023 Gentoo Authors
 # Distributed under the terms of the GNU General Public License v2
 
 EAPI=7
 WANT_LIBTOOL="none"
 
-inherit autotools eutils flag-o-matic multilib pax-utils python-utils-r1 toolchain-funcs multiprocessing
+inherit autotools flag-o-matic pax-utils python-utils-r1 toolchain-funcs
 
 DESCRIPTION="Python 2.7 fork with new syntax, builtins, and libraries backported from Python3"
 HOMEPAGE="https://github.com/naftaliharris/tauthon"
@@ -12,7 +12,7 @@ SRC_URI="https://github.com/naftaliharris/tauthon/archive/v${PV}.tar.gz -> ${P}.
 
 LICENSE="PSF-2"
 SLOT="2.8"
-KEYWORDS="alpha amd64 arm ~arm64 hppa ia64 ~m68k ~mips ppc ppc64 ~s390 sparc x86"
+KEYWORDS="~alpha amd64 arm ~arm64 hppa ~ia64 ~m68k ~mips ppc ppc64 ~s390 sparc x86"
 IUSE="-berkdb bluetooth build doc examples gdbm hardened ipv6 +lto +ncurses +pgo +readline sqlite +ssl +threads tk +wide-unicode wininst +xml"
 
 # Do not add a dependency on dev-lang/python to this ebuild.
@@ -42,13 +42,13 @@ RDEPEND="app-arch/bzip2:=
 		dev-tcltk/tix
 	)
 	xml? ( >=dev-libs/expat-2.1 )
-	!!<sys-apps/portage-2.1.9"
+"
 # bluetooth requires headers from bluez
 DEPEND="${RDEPEND}
 	bluetooth? ( net-wireless/bluez )
 	virtual/pkgconfig
 	>=sys-devel/autoconf-2.65
-	!sys-devel/gcc[libffi(-)]"
+"
 RDEPEND+=" !build? ( app-misc/mime-types )
 		"
 	#doc? ( dev-python/python-docs:${SLOT} )"
@@ -84,7 +84,7 @@ src_prepare() {
 		"${FILESDIR}/python-2.7.5-nonfatal-compileall.patch"
 		"${FILESDIR}/python-2.7.9-ncurses-pkg-config.patch"
 		"${FILESDIR}/python-2.7.10-cross-compile-warn-test.patch"
-		"${FILESDIR}/python-2.7.10-system-libffi.patch"
+		"${FILESDIR}/tauthon-2.8.4-system-libffi.patch"
 	)
 
 	default
@@ -317,6 +317,9 @@ src_install() {
 	cd "${BUILD_DIR}" || die
 	emake DESTDIR="${D}" altinstall
 
+	# "tauthon" symlink
+	ln -s tauthon${SLOT} "${ED}/usr/bin/tauthon"
+
 	# symlinks for autotools
 	ln -s tauthon${SLOT} "${ED}/usr/$(get_libdir)/python${SLOT}"
 	ln -s libtauthon${SLOT}.a "${ED}/usr/$(get_libdir)/libpython${SLOT}.a"
@@ -341,8 +344,8 @@ src_install() {
 	dodoc "${S}"/Misc/{ACKS,HISTORY}
 
 	if use examples; then
-		insinto /usr/share/doc/${PF}/examples
-		doins -r "${S}"/Tools
+		dointo /usr/share/doc/${PF}/examples
+		dodoc -r "${S}"/Tools
 	fi
 	insinto /usr/share/gdb/auto-load/usr/$(get_libdir) #443510
 	local libname=$(printf 'e:\n\t@echo $(INSTSONAME)\ninclude Makefile\n' | \
@@ -400,11 +403,11 @@ src_install() {
 }
 
 eselect_python_update() {
-	if [[ -z "$(eselect python show)" || ! -f "${EROOT}usr/bin/$(eselect python show)" ]]; then
+	if [[ -z "$(eselect python show)" || ! -f "${EROOT}/usr/bin/$(eselect python show)" ]]; then
 		eselect python update
 	fi
 
-	if [[ -z "$(eselect python show --python${PV%%.*})" || ! -f "${EROOT}usr/bin/$(eselect python show --python${PV%%.*})" ]]; then
+	if [[ -z "$(eselect python show --python${PV%%.*})" || ! -f "${EROOT}/usr/bin/$(eselect python show --python${PV%%.*})" ]]; then
 		eselect python update --python${PV%%.*}
 	fi
 }
