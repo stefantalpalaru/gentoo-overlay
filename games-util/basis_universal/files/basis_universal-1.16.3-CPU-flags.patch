@@ -1,0 +1,26 @@
+diff -ur basis_universal-1.16.3.orig/encoder/basisu_kernels_sse.cpp basis_universal-1.16.3/encoder/basisu_kernels_sse.cpp
+--- basis_universal-1.16.3.orig/encoder/basisu_kernels_sse.cpp	2022-02-25 01:46:57.000000000 +0100
++++ basis_universal-1.16.3/encoder/basisu_kernels_sse.cpp	2023-01-31 14:32:56.490605062 +0100
+@@ -22,22 +22,6 @@
+ #include <intrin.h>
+ #endif
+ 
+-#if !defined(_MSC_VER)
+-	#if __AVX__ || __AVX2__ || __AVX512F__
+-		#error Please check your compiler options
+-	#endif
+-	
+-	#if CPPSPMD_SSE2
+-		#if __SSE4_1__ || __SSE3__ || __SSE4_2__ || __SSSE3__
+-			#error SSE4.1/SSE3/SSE4.2/SSSE3 cannot be enabled to use this file
+-		#endif
+-	#else
+-		#if !__SSE4_1__ || !__SSE3__ || !__SSSE3__
+-			#error Please check your compiler options
+-		#endif
+-	#endif
+-#endif
+-
+ #include "cppspmd_sse.h"
+ 
+ #include "cppspmd_type_aliases.h"
