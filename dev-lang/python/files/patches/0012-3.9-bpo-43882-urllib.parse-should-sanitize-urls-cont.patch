@@ -1,0 +1,150 @@
+From 41823e6111ee1c9b4f114764548f4323ada85dd1 Mon Sep 17 00:00:00 2001
+From: "Miss Islington (bot)"
+ <31488909+miss-islington@users.noreply.github.com>
+Date: Thu, 29 Apr 2021 10:57:31 -0700
+Subject: [PATCH 12/36] [3.9] bpo-43882 - urllib.parse should sanitize urls
+ containing ASCII newline and tabs. (GH-25595) (GH-25725)
+MIME-Version: 1.0
+Content-Type: text/plain; charset=UTF-8
+Content-Transfer-Encoding: 8bit
+
+* bpo-43882 - urllib.parse should sanitize urls containing ASCII newline and tabs. (GH-25595)
+
+Co-authored-by: Gregory P. Smith <greg@krypto.org>
+Co-authored-by: Serhiy Storchaka <storchaka@gmail.com>
+(cherry picked from commit 76cd81d60310d65d01f9d7b48a8985d8ab89c8b4)
+Co-authored-by: Senthil Kumaran <skumaran@gatech.edu>
+(backported to Python 2.7 by Michał Górny)
+---
+ Doc/library/urlparse.rst                      | 13 +++++++++
+ Lib/test/test_urlparse.py                     | 29 +++++++++++++++++++
+ Lib/urlparse.py                               |  7 +++++
+ .../2021-04-25-07-46-37.bpo-43882.Jpwx85.rst  |  6 ++++
+ 4 files changed, 55 insertions(+)
+ create mode 100644 Misc/NEWS.d/next/Security/2021-04-25-07-46-37.bpo-43882.Jpwx85.rst
+
+diff --git a/Doc/library/urlparse.rst b/Doc/library/urlparse.rst
+index 2f8e4c5a44..0546dcae8c 100644
+--- a/Doc/library/urlparse.rst
++++ b/Doc/library/urlparse.rst
+@@ -267,6 +267,9 @@ The :mod:`urlparse` module defines the following functions:
+    decomposed before parsing, or is not a Unicode string, no error will be
+    raised.
+ 
++   Following the `WHATWG spec`_ that updates RFC 3986, ASCII newline
++   ``\n``, ``\r`` and tab ``\t`` characters are stripped from the URL.
++
+    .. versionadded:: 2.2
+ 
+    .. versionchanged:: 2.5
+@@ -276,6 +279,10 @@ The :mod:`urlparse` module defines the following functions:
+       Characters that affect netloc parsing under NFKC normalization will
+       now raise :exc:`ValueError`.
+ 
++   .. versionchanged:: 2.7.18_p9 (Gentoo)
++      ASCII newline and tab characters are stripped from the URL.
++
++.. _WHATWG spec: https://url.spec.whatwg.org/#concept-basic-url-parser
+ 
+ .. function:: urlunsplit(parts)
+ 
+@@ -327,6 +334,10 @@ The :mod:`urlparse` module defines the following functions:
+ 
+ .. seealso::
+ 
++   `WHATWG`_ -  URL Living standard
++      Working Group for the URL Standard that defines URLs, domains, IP addresses, the
++      application/x-www-form-urlencoded format, and their API.
++
+    :rfc:`3986` - Uniform Resource Identifiers
+       This is the current standard (STD66). Any changes to urlparse module
+       should conform to this. Certain deviations could be observed, which are
+@@ -351,6 +362,8 @@ The :mod:`urlparse` module defines the following functions:
+    :rfc:`1738` - Uniform Resource Locators (URL)
+       This specifies the formal syntax and semantics of absolute URLs.
+ 
++.. _WHATWG: https://url.spec.whatwg.org/
++
+ 
+ .. _urlparse-result-object:
+ 
+diff --git a/Lib/test/test_urlparse.py b/Lib/test/test_urlparse.py
+index 0b2107339a..9912fe2888 100644
+--- a/Lib/test/test_urlparse.py
++++ b/Lib/test/test_urlparse.py
+@@ -543,6 +543,35 @@ class UrlParseTestCase(unittest.TestCase):
+         self.assertEqual(p1.params, 'phone-context=+1-914-555')
+ 
+ 
++    def test_urlsplit_remove_unsafe_bytes(self):
++        # Remove ASCII tabs and newlines from input
++        url = "http://www.python.org/java\nscript:\talert('msg\r\n')/#frag"
++        p = urlparse.urlsplit(url)
++        self.assertEqual(p.scheme, "http")
++        self.assertEqual(p.netloc, "www.python.org")
++        self.assertEqual(p.path, "/javascript:alert('msg')/")
++        self.assertEqual(p.query, "")
++        self.assertEqual(p.fragment, "frag")
++        self.assertEqual(p.username, None)
++        self.assertEqual(p.password, None)
++        self.assertEqual(p.hostname, "www.python.org")
++        self.assertEqual(p.port, None)
++        self.assertEqual(p.geturl(), "http://www.python.org/javascript:alert('msg')/#frag")
++
++        # Remove ASCII tabs and newlines from input as bytes.
++        url = b"http://www.python.org/java\nscript:\talert('msg\r\n')/#frag"
++        p = urlparse.urlsplit(url)
++        self.assertEqual(p.scheme, b"http")
++        self.assertEqual(p.netloc, b"www.python.org")
++        self.assertEqual(p.path, b"/javascript:alert('msg')/")
++        self.assertEqual(p.query, b"")
++        self.assertEqual(p.fragment, b"frag")
++        self.assertEqual(p.username, None)
++        self.assertEqual(p.password, None)
++        self.assertEqual(p.hostname, b"www.python.org")
++        self.assertEqual(p.port, None)
++        self.assertEqual(p.geturl(), b"http://www.python.org/javascript:alert('msg')/#frag")
++
+     def test_attributes_bad_port(self):
+         """Check handling of non-integer ports."""
+         p = urlparse.urlsplit("http://www.example.net:foo")
+diff --git a/Lib/urlparse.py b/Lib/urlparse.py
+index 6c32727fce..4f24cc12c6 100644
+--- a/Lib/urlparse.py
++++ b/Lib/urlparse.py
+@@ -62,6 +62,9 @@ scheme_chars = ('abcdefghijklmnopqrstuvwxyz'
+                 '0123456789'
+                 '+-.')
+ 
++# Unsafe bytes to be removed per WHATWG spec
++_UNSAFE_URL_BYTES_TO_REMOVE = ['\t', '\r', '\n']
++
+ MAX_CACHE_SIZE = 20
+ _parse_cache = {}
+ 
+@@ -198,6 +201,10 @@ def urlsplit(url, scheme='', allow_fragments=True):
+     if len(_parse_cache) >= MAX_CACHE_SIZE: # avoid runaway growth
+         clear_cache()
+     netloc = query = fragment = ''
++
++    for b in _UNSAFE_URL_BYTES_TO_REMOVE:
++        url = url.replace(b, "")
++
+     i = url.find(':')
+     if i > 0:
+         if url[:i] == 'http': # optimize the common case
+diff --git a/Misc/NEWS.d/next/Security/2021-04-25-07-46-37.bpo-43882.Jpwx85.rst b/Misc/NEWS.d/next/Security/2021-04-25-07-46-37.bpo-43882.Jpwx85.rst
+new file mode 100644
+index 0000000000..a326d079df
+--- /dev/null
++++ b/Misc/NEWS.d/next/Security/2021-04-25-07-46-37.bpo-43882.Jpwx85.rst
+@@ -0,0 +1,6 @@
++The presence of newline or tab characters in parts of a URL could allow
++some forms of attacks.
++
++Following the controlling specification for URLs defined by WHATWG
++:func:`urllib.parse` now removes ASCII newlines and tabs from URLs,
++preventing such attacks.
+-- 
+2.38.1
+

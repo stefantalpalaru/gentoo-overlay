@@ -1,7 +1,7 @@
 From 138e2caeb4827ccfd1eaff2cf63afb79dfeeb3c4 Mon Sep 17 00:00:00 2001
 From: =?UTF-8?q?Micha=C5=82=20G=C3=B3rny?= <mgorny@gentoo.org>
 Date: Thu, 10 Sep 2020 13:39:48 +0200
-Subject: [PATCH 03/24] bpo-39603: Prevent header injection in http methods
+Subject: [PATCH 03/36] bpo-39603: Prevent header injection in http methods
  (GH-18485) (GH-21539)
 
 reject control chars in http method in http.client.putrequest to prevent http header injection
@@ -89,5 +89,5 @@ index d8a57f7353..e20a0986dc 100644
  class BasicTest(TestCase):
      def test_status_lines(self):
 -- 
-2.30.1
+2.38.1
 

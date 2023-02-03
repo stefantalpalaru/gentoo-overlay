@@ -1,7 +1,7 @@
-From 5a9256368dfee7a64c811f557de1b8df86e05b07 Mon Sep 17 00:00:00 2001
+From 3669fb11f14cf5096e4499ca72767419781dc02e Mon Sep 17 00:00:00 2001
 From: Mike Gilbert <floppym@gentoo.org>
 Date: Sun, 17 Jun 2018 11:14:43 -0400
-Subject: [PATCH 15/24] Turkish locale
+Subject: [PATCH 26/36] Turkish locale
 
 ---
  Objects/stringobject.c | 39 ++++++++++++++++++++++++---------------
@@ -112,5 +112,5 @@ index c47d32f406..7cd0d0e625 100644
          else
              *s_new = c;
 -- 
-2.30.1
+2.38.1
 

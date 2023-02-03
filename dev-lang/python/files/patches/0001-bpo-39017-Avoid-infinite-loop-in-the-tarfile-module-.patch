@@ -1,7 +1,7 @@
 From 893e6e3aee483d262df70656a68f63f601720fcd Mon Sep 17 00:00:00 2001
 From: Rishi <rishi_devan@mail.com>
 Date: Wed, 15 Jul 2020 13:51:00 +0200
-Subject: [PATCH 01/24] bpo-39017: Avoid infinite loop in the tarfile module
+Subject: [PATCH 01/36] bpo-39017: Avoid infinite loop in the tarfile module
  (GH-21454)
 
 Avoid infinite loop when reading specially crafted TAR files using the tarfile module
@@ -35,5 +35,5 @@ index 0000000000..ad26676f8b
 @@ -0,0 +1 @@
 +Avoid infinite loop when reading specially crafted TAR files using the tarfile module (CVE-2019-20907).
 -- 
-2.30.1
+2.38.1
 

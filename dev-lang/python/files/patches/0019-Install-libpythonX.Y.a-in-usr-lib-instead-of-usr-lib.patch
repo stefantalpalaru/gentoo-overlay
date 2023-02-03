@@ -1,7 +1,7 @@
-From 73abc7ceb91ed9455c31794c673faaba066b7e58 Mon Sep 17 00:00:00 2001
+From 00e32bb187075f3555167220ce2109b9dd2fc47e Mon Sep 17 00:00:00 2001
 From: Mike Gilbert <floppym@gentoo.org>
 Date: Sun, 17 Jun 2018 11:14:43 -0400
-Subject: [PATCH 08/24] Install libpythonX.Y.a in /usr/lib instead of
+Subject: [PATCH 19/36] Install libpythonX.Y.a in /usr/lib instead of
  /usr/lib/pythonX.Y/config.
 
 https://bugs.gentoo.org/show_bug.cgi?id=252372
@@ -85,5 +85,5 @@ index db5c47ee04..5b90731174 100755
  	 ExtraLibs="-L$ExtraLibDir -lpython\$(VERSION)";;
  esac
 -- 
-2.30.1
+2.38.1
 

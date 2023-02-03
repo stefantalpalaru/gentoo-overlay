@@ -1,7 +1,7 @@
-From aa1369965c042751a50de159233faec3aa929700 Mon Sep 17 00:00:00 2001
+From 8fb5096fa2875a07de811d1560d6cda16dbcef19 Mon Sep 17 00:00:00 2001
 From: =?UTF-8?q?Micha=C5=82=20G=C3=B3rny?= <mgorny@gentoo.org>
 Date: Sun, 29 Dec 2019 10:58:36 +0100
-Subject: [PATCH 22/24] Force using system libffi
+Subject: [PATCH 33/36] Force using system libffi
 
 ---
  setup.py | 8 ++++----
@@ -43,5 +43,5 @@ index c240376e07..78740fbe6c 100644
          if sysconfig.get_config_var('HAVE_LIBDL'):
              # for dlopen, see bpo-32647
 -- 
-2.30.1
+2.38.1
 

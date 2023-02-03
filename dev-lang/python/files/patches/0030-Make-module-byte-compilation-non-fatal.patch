@@ -1,7 +1,7 @@
-From 49a7b78349e6334cdf60ab1f6fc6a0c081844fc4 Mon Sep 17 00:00:00 2001
+From 45336adae0d20b66d2f23fb934388d0b1ccb80bc Mon Sep 17 00:00:00 2001
 From: =?UTF-8?q?Micha=C5=82=20G=C3=B3rny?= <mgorny@gentoo.org>
 Date: Sun, 29 Dec 2019 10:56:25 +0100
-Subject: [PATCH 19/24] Make module byte-compilation non-fatal
+Subject: [PATCH 30/36] Make module byte-compilation non-fatal
 
 ---
  Makefile.pre.in | 4 ++--
@@ -27,5 +27,5 @@ index 9f1a429cf9..4a404418a1 100644
  		-d $(LIBDEST) -f \
  		-x 'bad_coding|badsyntax|site-packages|lib2to3/tests/data' \
 -- 
-2.30.1
+2.38.1
 

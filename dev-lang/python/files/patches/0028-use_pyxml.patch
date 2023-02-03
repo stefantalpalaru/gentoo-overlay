@@ -1,7 +1,7 @@
-From d16b3c7eb7d770bf19595b97549e11c0c5d44093 Mon Sep 17 00:00:00 2001
+From 8c6756d7a9cf24e632412a4649474c23318229fd Mon Sep 17 00:00:00 2001
 From: Mike Gilbert <floppym@gentoo.org>
 Date: Sun, 17 Jun 2018 11:14:43 -0400
-Subject: [PATCH 17/24] use_pyxml
+Subject: [PATCH 28/36] use_pyxml
 
 ---
  Lib/xml/__init__.py | 33 ++++++++++++++++++---------------
@@ -51,5 +51,5 @@ index deed983d97..e6c332b8ab 100644
 -            del v
 +        raise ImportError("PyXML too old: %s" % ".".join(str(x) for x in v))
 -- 
-2.30.1
+2.38.1
 

@@ -1,7 +1,7 @@
-From e7b005c05dbdbce967a409abd71641281a8604bf Mon Sep 17 00:00:00 2001
+From 255d1d464a7f45a20986aa014c78e85ef47e6591 Mon Sep 17 00:00:00 2001
 From: Senthil Kumaran <senthil@uthcode.com>
 Date: Mon, 15 Feb 2021 11:16:43 -0800
-Subject: [PATCH 24/24] [3.6] bpo-42967: only use '&' as a query string
+Subject: [PATCH 08/36] [3.6] bpo-42967: only use '&' as a query string
  separator (GH-24297)  (GH-24532)
 MIME-Version: 1.0
 Content-Type: text/plain; charset=UTF-8
@@ -386,5 +386,5 @@ index 0000000000..f08489b414
 @@ -0,0 +1 @@
 +Fix web cache poisoning vulnerability by defaulting the query args separator to ``&``, and allowing the user to choose a custom separator.
 -- 
-2.30.1
+2.38.1
 

@@ -1,0 +1,83 @@
+From dae96acef25d8c95aff9673e29aa5ddee862e9b4 Mon Sep 17 00:00:00 2001
+From: =?UTF-8?q?Micha=C5=82=20G=C3=B3rny?= <mgorny@gentoo.org>
+Date: Sat, 19 Jun 2021 20:46:09 +0200
+Subject: [PATCH 13/36] Backport bpo-44022: Fix http client infinite line
+ reading (DoS) after a HTTP 100 Continue (GH-25916)
+
+Backport the fix from the following commit:
+
+    commit 47895e31b6f626bc6ce47d175fe9d43c1098909d
+    Author: Gen Xu <xgbarry@gmail.com>
+    Date:   2021-05-06 00:42:41 +0200
+
+        bpo-44022: Fix http client infinite line reading (DoS) after a HTTP 100 Continue (GH-25916)
+
+        Fixes http.client potential denial of service where it could get stuck reading lines from a malicious server after a 100 Continue response.
+
+        Co-authored-by: Gregory P. Smith <greg@krypto.org>
+
+Instead of reusing the header reading code, I have just added explicit
+counter to avoid having to refactor the old code.
+
+Plus the improved test from:
+
+    commit e60ab843cbb016fb6ff8b4f418641ac05a9b2fcc
+    Author: Gregory P. Smith <greg@krypto.org>
+    Date:   2021-06-03 05:43:38 +0200
+
+        bpo-44022: Improve the regression test. (GH-26503)
+
+        It wasn't actually detecting the regression due to the
+        assertion being too lenient.
+---
+ Lib/httplib.py           |  5 ++++-
+ Lib/test/test_httplib.py | 13 +++++++++++++
+ 2 files changed, 17 insertions(+), 1 deletion(-)
+
+diff --git a/Lib/httplib.py b/Lib/httplib.py
+index 81a08d5d71..ebfa59ff93 100644
+--- a/Lib/httplib.py
++++ b/Lib/httplib.py
+@@ -453,11 +453,14 @@ class HTTPResponse:
+             if status != CONTINUE:
+                 break
+             # skip the header from the 100 response
++            header_count = 0
+             while True:
+                 skip = self.fp.readline(_MAXLINE + 1)
+                 if len(skip) > _MAXLINE:
+                     raise LineTooLong("header line")
+-                skip = skip.strip()
++                header_count += 1
++                if header_count > _MAXHEADERS:
++                    raise HTTPException("got more than %d headers" % _MAXHEADERS)
+                 if not skip:
+                     break
+                 if self.debuglevel > 0:
+diff --git a/Lib/test/test_httplib.py b/Lib/test/test_httplib.py
+index e20a0986dc..5f6b1d0b20 100644
+--- a/Lib/test/test_httplib.py
++++ b/Lib/test/test_httplib.py
+@@ -675,6 +675,19 @@ class BasicTest(TestCase):
+         resp = httplib.HTTPResponse(FakeSocket(body))
+         self.assertRaises(httplib.LineTooLong, resp.begin)
+ 
++    def test_overflowing_header_limit_after_100(self):
++        body = (
++            'HTTP/1.1 100 OK\r\n'
++            'r\n' * 32768
++        )
++        resp = httplib.HTTPResponse(FakeSocket(body))
++        with self.assertRaises(httplib.HTTPException) as cm:
++            resp.begin()
++        # We must assert more because other reasonable errors that we
++        # do not want can also be HTTPException derived.
++        self.assertIn('got more than ', str(cm.exception))
++        self.assertIn('headers', str(cm.exception))
++
+     def test_overflowing_chunked_line(self):
+         body = (
+             'HTTP/1.1 200 OK\r\n'
+-- 
+2.38.1
+

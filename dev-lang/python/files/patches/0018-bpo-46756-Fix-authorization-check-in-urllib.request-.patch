@@ -1,0 +1,77 @@
+From e972fd923fd5172aa04c8f9d8775f1590ebbe394 Mon Sep 17 00:00:00 2001
+From: =?UTF-8?q?Micha=C5=82=20G=C3=B3rny?= <mgorny@gentoo.org>
+Date: Fri, 18 Mar 2022 12:26:44 +0100
+Subject: [PATCH 18/36] bpo-46756: Fix authorization check in urllib.request
+ (GH-31353)
+MIME-Version: 1.0
+Content-Type: text/plain; charset=UTF-8
+Content-Transfer-Encoding: 8bit
+
+Fix a bug in urllib.request.HTTPPasswordMgr.find_user_password() and
+urllib.request.HTTPPasswordMgrWithPriorAuth.is_authenticated() which
+allowed to bypass authorization. For example, access to URI "example.org/foobar"
+was allowed if the user was authorized for URI "example.org/foo".
+
+(rebased for 2.7 by Michał Górny)
+---
+ Lib/test/test_urllib2.py | 17 +++++++++++++++++
+ Lib/urllib2.py           |  8 ++++----
+ 2 files changed, 21 insertions(+), 4 deletions(-)
+
+diff --git a/Lib/test/test_urllib2.py b/Lib/test/test_urllib2.py
+index 0adbb13c43..6acab89678 100644
+--- a/Lib/test/test_urllib2.py
++++ b/Lib/test/test_urllib2.py
+@@ -137,6 +137,7 @@ def test_password_manager(self):
+     >>> add("Some Realm", "http://example.com/ni", "ni", "ni")
+     >>> add("c", "http://example.com/foo", "foo", "ni")
+     >>> add("c", "http://example.com/bar", "bar", "nini")
++    >>> add("c", "http://example.com/foo/bar", "foobar", "nibar")
+     >>> add("b", "http://example.com/", "first", "blah")
+     >>> add("b", "http://example.com/", "second", "spam")
+     >>> add("a", "http://example.com", "1", "a")
+@@ -158,6 +159,22 @@ def test_password_manager(self):
+     ('foo', 'ni')
+     >>> mgr.find_user_password("c", "http://example.com/bar")
+     ('bar', 'nini')
++    >>> mgr.find_user_password("c", "http://example.com/foo/")
++    ('foo', 'ni')
++    >>> mgr.find_user_password("c", "http://example.com/foo/bar")
++    ('foo', 'ni')
++    >>> mgr.find_user_password("c", "http://example.com/foo/baz")
++    ('foo', 'ni')
++    >>> mgr.find_user_password("c", "http://example.com/foobar")
++    (None, None)
++
++    >>> add("c", "http://example.com/baz/", "baz", "ninini")
++    >>> mgr.find_user_password("c", "http://example.com/baz")
++    (None, None)
++    >>> mgr.find_user_password("c", "http://example.com/baz/")
++    ('baz', 'ninini')
++    >>> mgr.find_user_password("c", "http://example.com/baz/bar")
++    ('baz', 'ninini')
+ 
+     Actually, this is really undefined ATM
+ ##     Currently, we use the highest-level path where more than one match:
+diff --git a/Lib/urllib2.py b/Lib/urllib2.py
+index c92fb6afb8..f45ef57ee3 100644
+--- a/Lib/urllib2.py
++++ b/Lib/urllib2.py
+@@ -833,10 +833,10 @@ class HTTPPasswordMgr:
+             return True
+         if base[0] != test[0]:
+             return False
+-        common = posixpath.commonprefix((base[1], test[1]))
+-        if len(common) == len(base[1]):
+-            return True
+-        return False
++        prefix = base[1]
++        if prefix[-1:] != '/':
++            prefix += '/'
++        return test[1].startswith(prefix)
+ 
+ 
+ class HTTPPasswordMgrWithDefaultRealm(HTTPPasswordMgr):
+-- 
+2.38.1
+

@@ -1,0 +1,28 @@
+From 1d70a42ec95f31e30778007feb34e6dd4a5f6220 Mon Sep 17 00:00:00 2001
+From: =?UTF-8?q?Micha=C5=82=20G=C3=B3rny?= <mgorny@gentoo.org>
+Date: Wed, 3 Feb 2021 10:14:49 +0100
+Subject: [PATCH 35/36] ssl: Hard-disable SSLv3 to avoid automagic deps
+
+Bug: https://bugs.gentoo.org/767886
+---
+ Modules/_ssl.c | 4 ++++
+ 1 file changed, 4 insertions(+)
+
+diff --git a/Modules/_ssl.c b/Modules/_ssl.c
+index 98c8a5a4a9..eb19686d01 100644
+--- a/Modules/_ssl.c
++++ b/Modules/_ssl.c
+@@ -76,6 +76,10 @@
+ #include "openssl/rand.h"
+ #include "openssl/dh.h"
+ 
++#ifndef OPENSSL_NO_SSL3
++#  define OPENSSL_NO_SSL3 1
++#endif
++
+ /* SSL error object */
+ static PyObject *PySSLErrorObject;
+ static PyObject *PySSLZeroReturnErrorObject;
+-- 
+2.38.1
+

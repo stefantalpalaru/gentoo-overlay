@@ -1,0 +1,155 @@
+From 11afbbe796db6d50e5f31d12d32c0b9e1c79439b Mon Sep 17 00:00:00 2001
+From: "Miss Islington (bot)"
+ <31488909+miss-islington@users.noreply.github.com>
+Date: Mon, 30 Aug 2021 12:21:57 -0700
+Subject: [PATCH 14/36] bpo-43124: Fix smtplib multiple CRLF injection
+ (GH-25987) (GH-28038)
+MIME-Version: 1.0
+Content-Type: text/plain; charset=UTF-8
+Content-Transfer-Encoding: 8bit
+
+Co-authored-by: Miguel Brito <5544985+miguendes@users.noreply.github.com>
+
+Co-authored-by: Łukasz Langa <lukasz@langa.pl>
+(cherry picked from commit 0897253f426068ea6a6fbe0ada01689af9ef1019)
+
+(updated for 2.7 by Michał Górny)
+---
+ Lib/smtplib.py                                | 12 +++-
+ Lib/test/test_smtplib.py                      | 65 +++++++++++++++++++
+ .../2021-05-08-11-50-46.bpo-43124.2CTM6M.rst  |  2 +
+ 3 files changed, 76 insertions(+), 3 deletions(-)
+ create mode 100644 Misc/NEWS.d/next/Security/2021-05-08-11-50-46.bpo-43124.2CTM6M.rst
+
+diff --git a/Lib/smtplib.py b/Lib/smtplib.py
+index 0c61065432..b6c7285d8b 100755
+--- a/Lib/smtplib.py
++++ b/Lib/smtplib.py
+@@ -336,10 +336,16 @@ class SMTP:
+     def putcmd(self, cmd, args=""):
+         """Send a command to the server."""
+         if args == "":
+-            str = '%s%s' % (cmd, CRLF)
++            s = cmd
+         else:
+-            str = '%s %s%s' % (cmd, args, CRLF)
+-        self.send(str)
++            s = '%s %s' % (cmd, args)
++        if '\r' in s or '\n' in s:
++            s = s.replace('\n', '\\n').replace('\r', '\\r')
++            raise ValueError(
++                'command and arguments contain prohibited newline characters: %s'
++                % (s,)
++            )
++        self.send(s + CRLF)
+ 
+     def getreply(self):
+         """Get a reply from the server.
+diff --git a/Lib/test/test_smtplib.py b/Lib/test/test_smtplib.py
+index 703b631c17..2224524ebd 100644
+--- a/Lib/test/test_smtplib.py
++++ b/Lib/test/test_smtplib.py
+@@ -155,6 +155,9 @@ class DebuggingServerTests(unittest.TestCase):
+         self._threads = test_support.threading_setup()
+         self.serv_evt = threading.Event()
+         self.client_evt = threading.Event()
++        # Capture SMTPChannel debug output
++        self.old_DEBUGSTREAM = smtpd.DEBUGSTREAM
++        smtpd.DEBUGSTREAM = StringIO.StringIO()
+         # Pick a random unused port by passing 0 for the port number
+         self.serv = smtpd.DebuggingServer((HOST, 0), ('nowhere', -1))
+         # Keep a note of what port was assigned
+@@ -176,6 +179,9 @@ class DebuggingServerTests(unittest.TestCase):
+         test_support.threading_cleanup(*self._threads)
+         # restore sys.stdout
+         sys.stdout = self.old_stdout
++        # restore DEBUGSTREAM
++        smtpd.DEBUGSTREAM.close()
++        smtpd.DEBUGSTREAM = self.old_DEBUGSTREAM
+ 
+     def testBasic(self):
+         # connect
+@@ -201,6 +207,17 @@ class DebuggingServerTests(unittest.TestCase):
+         self.assertEqual(smtp.ehlo(), expected)
+         smtp.quit()
+ 
++
++    def test_issue43124_putcmd_escapes_newline(self):
++        # see: https://bugs.python.org/issue43124
++        smtp = smtplib.SMTP(HOST, self.port, local_hostname='localhost',
++                            timeout=10)  # support.LOOPBACK_TIMEOUT in newer Pythons
++        self.addCleanup(smtp.close)
++        with self.assertRaises(ValueError) as exc:
++            smtp.putcmd('helo\nX-INJECTED')
++        self.assertIn("prohibited newline characters", str(exc.exception))
++        smtp.quit()
++
+     def testVRFY(self):
+         # VRFY isn't implemented in DebuggingServer
+         smtp = smtplib.SMTP(HOST, self.port, local_hostname='localhost', timeout=15)
+@@ -240,6 +257,54 @@ class DebuggingServerTests(unittest.TestCase):
+         mexpect = '%s%s\n%s' % (MSG_BEGIN, m, MSG_END)
+         self.assertEqual(self.output.getvalue(), mexpect)
+ 
++    def test_issue43124_escape_localhostname(self):
++        # see: https://bugs.python.org/issue43124
++        # connect and send mail
++        m = 'wazzuuup\nlinetwo'
++        smtp = smtplib.SMTP(HOST, self.port, local_hostname='hi\nX-INJECTED',
++                            timeout=10)  # support.LOOPBACK_TIMEOUT in newer Pythons
++        self.addCleanup(smtp.close)
++        with self.assertRaises(ValueError) as exc:
++            smtp.sendmail("hi@me.com", "you@me.com", m)
++        self.assertIn(
++            "prohibited newline characters: ehlo hi\\nX-INJECTED",
++            str(exc.exception),
++        )
++        # XXX (see comment in testSend)
++        time.sleep(0.01)
++        smtp.quit()
++
++        debugout = smtpd.DEBUGSTREAM.getvalue()
++        self.assertNotIn("X-INJECTED", debugout)
++
++    def test_issue43124_escape_options(self):
++        # see: https://bugs.python.org/issue43124
++        # connect and send mail
++        m = 'wazzuuup\nlinetwo'
++        smtp = smtplib.SMTP(
++            HOST, self.port, local_hostname='localhost',
++            timeout=10)  # support.LOOPBACK_TIMEOUT in newer Pythons
++
++        self.addCleanup(smtp.close)
++#        smtp.sendmail("hi@me.com", "you@me.com", m)
++        # NB: gross hack but still cleaner than backporting whole ESMTP
++        # support to DebuggingServer
++        smtp.does_esmtp = 1
++        with self.assertRaises(ValueError) as exc:
++            smtp.mail("hi@me.com", ["X-OPTION\nX-INJECTED-1", "X-OPTION2\nX-INJECTED-2"])
++        msg = str(exc.exception)
++        self.assertIn("prohibited newline characters", msg)
++        self.assertIn("X-OPTION\\nX-INJECTED-1 X-OPTION2\\nX-INJECTED-2", msg)
++        # XXX (see comment in testSend)
++        time.sleep(0.01)
++        smtp.quit()
++
++        debugout = smtpd.DEBUGSTREAM.getvalue()
++        self.assertNotIn("X-OPTION", debugout)
++        self.assertNotIn("X-OPTION2", debugout)
++        self.assertNotIn("X-INJECTED-1", debugout)
++        self.assertNotIn("X-INJECTED-2", debugout)
++
+ 
+ class NonConnectingTests(unittest.TestCase):
+ 
+diff --git a/Misc/NEWS.d/next/Security/2021-05-08-11-50-46.bpo-43124.2CTM6M.rst b/Misc/NEWS.d/next/Security/2021-05-08-11-50-46.bpo-43124.2CTM6M.rst
+new file mode 100644
+index 0000000000..e897d6cd36
+--- /dev/null
++++ b/Misc/NEWS.d/next/Security/2021-05-08-11-50-46.bpo-43124.2CTM6M.rst
+@@ -0,0 +1,2 @@
++Made the internal ``putcmd`` function in :mod:`smtplib` sanitize input for
++presence of ``\r`` and ``\n`` characters to avoid (unlikely) command injection.
+-- 
+2.38.1
+

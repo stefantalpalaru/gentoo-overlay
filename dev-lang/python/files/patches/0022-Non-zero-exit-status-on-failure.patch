@@ -1,7 +1,7 @@
-From 747265f2aec975ef7afdba624472fad0e5f339c2 Mon Sep 17 00:00:00 2001
+From 8f3e8ab1448553bb8f65156345091351c4e09b3c Mon Sep 17 00:00:00 2001
 From: Mike Gilbert <floppym@gentoo.org>
 Date: Sun, 17 Jun 2018 11:14:43 -0400
-Subject: [PATCH 11/24] Non-zero exit status on failure
+Subject: [PATCH 22/36] Non-zero exit status on failure
 
 https://bugs.gentoo.org/show_bug.cgi?id=281968
 https://bugs.python.org/issue6731
@@ -42,5 +42,5 @@ index fad7c39f25..469fa3c455 100644
  # --install-platlib
  if __name__ == '__main__':
 -- 
-2.30.1
+2.38.1
 

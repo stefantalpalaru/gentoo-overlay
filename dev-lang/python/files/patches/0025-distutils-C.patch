@@ -1,7 +1,7 @@
-From d8c32ee107f37468c9e92e452619b66aa8a0978e Mon Sep 17 00:00:00 2001
+From 9616af890f79e892a28b8518d8231dc2a01a2d02 Mon Sep 17 00:00:00 2001
 From: Mike Gilbert <floppym@gentoo.org>
 Date: Sun, 17 Jun 2018 11:14:43 -0400
-Subject: [PATCH 14/24] distutils C++
+Subject: [PATCH 25/36] distutils C++
 
 https://bugs.python.org/issue1222585
 ---
@@ -295,5 +295,5 @@ index 6a8bb2976d..9f1a429cf9 100644
  		$(PYTHON_FOR_BUILD) $(srcdir)/setup.py $$quiet build
  
 -- 
-2.30.1
+2.38.1
 

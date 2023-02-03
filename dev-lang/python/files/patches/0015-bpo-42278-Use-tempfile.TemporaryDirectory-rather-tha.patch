@@ -1,0 +1,59 @@
+From e5507ee1da8bb7a484311cf58238dd3daaae0aed Mon Sep 17 00:00:00 2001
+From: "Miss Islington (bot)"
+ <31488909+miss-islington@users.noreply.github.com>
+Date: Sun, 29 Aug 2021 05:57:05 -0700
+Subject: [PATCH 15/36] bpo-42278: Use tempfile.TemporaryDirectory rather than
+ tempfile.mktemp in pydoc (GH-23200) (GH-28026)
+MIME-Version: 1.0
+Content-Type: text/plain; charset=UTF-8
+Content-Transfer-Encoding: 8bit
+
+Co-authored-by: Łukasz Langa <lukasz@langa.pl>
+(cherry picked from commit c9227df5a9d8e958a2324cf0deba8524d1ded26a)
+
+Co-authored-by: E-Paine <63801254+E-Paine@users.noreply.github.com>
+
+(updated for Python 2.7 by Michał Górny)
+---
+ Lib/pydoc.py                                          | 11 ++++++-----
+ .../Security/2021-08-29-12-39-44.bpo-42278.jvmQz_.rst |  2 ++
+ 2 files changed, 8 insertions(+), 5 deletions(-)
+ create mode 100644 Misc/NEWS.d/next/Security/2021-08-29-12-39-44.bpo-42278.jvmQz_.rst
+
+diff --git a/Lib/pydoc.py b/Lib/pydoc.py
+index 62cc262ccb..c2f2d31026 100755
+--- a/Lib/pydoc.py
++++ b/Lib/pydoc.py
+@@ -1423,15 +1423,16 @@ def pipepager(text, cmd):
+ 
+ def tempfilepager(text, cmd):
+     """Page through text by invoking a program on a temporary file."""
++    import shutil
+     import tempfile
+-    filename = tempfile.mktemp()
+-    file = open(filename, 'w')
+-    file.write(_encode(text))
+-    file.close()
++    tempdir = tempfile.mkdtemp()
+     try:
++        filename = os.path.join(tempdir, 'pydoc.out')
++        with open(filename, 'w') as file:
++            file.write(_encode(text))
+         os.system(cmd + ' "' + filename + '"')
+     finally:
+-        os.unlink(filename)
++        shutil.rmtree(tempdir)
+ 
+ def ttypager(text):
+     """Page through text on a text terminal."""
+diff --git a/Misc/NEWS.d/next/Security/2021-08-29-12-39-44.bpo-42278.jvmQz_.rst b/Misc/NEWS.d/next/Security/2021-08-29-12-39-44.bpo-42278.jvmQz_.rst
+new file mode 100644
+index 0000000000..621c317670
+--- /dev/null
++++ b/Misc/NEWS.d/next/Security/2021-08-29-12-39-44.bpo-42278.jvmQz_.rst
+@@ -0,0 +1,2 @@
++Replaced usage of :func:`tempfile.mktemp` with :func:`tempfile.mkdtemp`
++to avoid a potential race condition.
+-- 
+2.38.1
+

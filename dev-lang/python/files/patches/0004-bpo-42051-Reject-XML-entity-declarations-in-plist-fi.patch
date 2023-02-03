@@ -1,7 +1,7 @@
 From dd9ccc8454250bb4c2e2fe517edbbbbe7d759e12 Mon Sep 17 00:00:00 2001
 From: "Miss Skeleton (bot)" <31488909+miss-islington@users.noreply.github.com>
 Date: Mon, 19 Oct 2020 21:38:30 -0700
-Subject: [PATCH 04/24] bpo-42051: Reject XML entity declarations in plist
+Subject: [PATCH 04/36] bpo-42051: Reject XML entity declarations in plist
  files (GH-22760) (GH-22801) (GH-22804)
 MIME-Version: 1.0
 Content-Type: text/plain; charset=UTF-8
@@ -87,5 +87,5 @@ index 0000000000..e865ed12a0
 +plist files to avoid XML vulnerabilities. This should not affect users as
 +entity declarations are not used in regular plist files.
 -- 
-2.30.1
+2.38.1
 

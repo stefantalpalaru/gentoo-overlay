@@ -1,7 +1,7 @@
-From 5f56a591d7592efd1a1639c60c3c7f31b97b7d30 Mon Sep 17 00:00:00 2001
+From 94de8848fcdd226ff3868ae073ff2751f4fcb5f7 Mon Sep 17 00:00:00 2001
 From: Mike Gilbert <floppym@gentoo.org>
 Date: Sun, 17 Jun 2018 11:34:34 -0400
-Subject: [PATCH 18/24] Disable nis
+Subject: [PATCH 29/36] Disable nis
 
 ---
  setup.py | 2 +-
@@ -21,5 +21,5 @@ index 89946bcd55..c240376e07 100644
                  exts.append(nis)
              else:
 -- 
-2.30.1
+2.38.1
 

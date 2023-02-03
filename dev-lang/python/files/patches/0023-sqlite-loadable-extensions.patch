@@ -1,7 +1,7 @@
-From 78ceb8f8641f95fdf7d527fc2cf31200051a9534 Mon Sep 17 00:00:00 2001
+From 8bb542dbafc6e6d097b39b24f46e7c55df1fbe53 Mon Sep 17 00:00:00 2001
 From: Mike Gilbert <floppym@gentoo.org>
 Date: Sun, 17 Jun 2018 11:14:43 -0400
-Subject: [PATCH 12/24] sqlite loadable extensions
+Subject: [PATCH 23/36] sqlite loadable extensions
 
 https://bugs.gentoo.org/show_bug.cgi?id=335505
 https://bugs.python.org/issue10268
@@ -48,5 +48,5 @@ index 469fa3c455..89946bcd55 100644
              if host_platform == 'darwin':
                  # In every directory on the search path search for a dynamic
 -- 
-2.30.1
+2.38.1
 

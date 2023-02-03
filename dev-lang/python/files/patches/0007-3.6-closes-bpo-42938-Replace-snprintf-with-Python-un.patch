@@ -1,7 +1,7 @@
 From fab838b2ee7cfb9037c24f0f18dfe01aa379b3f7 Mon Sep 17 00:00:00 2001
 From: Benjamin Peterson <benjamin@python.org>
 Date: Mon, 18 Jan 2021 15:11:46 -0600
-Subject: [PATCH 07/24] [3.6] closes bpo-42938: Replace snprintf with Python
+Subject: [PATCH 07/36] [3.6] closes bpo-42938: Replace snprintf with Python
  unicode formatting in ctypes param reprs. (GH-24250)
 MIME-Version: 1.0
 Content-Type: text/plain; charset=UTF-8
@@ -177,5 +177,5 @@ index 066fefc0cc..421addf353 100644
  
  static PyMemberDef PyCArgType_members[] = {
 -- 
-2.30.1
+2.38.1
 

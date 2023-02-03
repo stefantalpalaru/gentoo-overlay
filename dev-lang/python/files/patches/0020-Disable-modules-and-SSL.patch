@@ -1,7 +1,7 @@
-From dde9083f0a38262943bb1306dedc5976bff5694b Mon Sep 17 00:00:00 2001
+From 89fc66ee9aea78f3d5ee7ffacb94030cd21cc551 Mon Sep 17 00:00:00 2001
 From: Mike Gilbert <floppym@gentoo.org>
 Date: Sun, 17 Jun 2018 11:14:43 -0400
-Subject: [PATCH 09/24] Disable modules and SSL
+Subject: [PATCH 20/36] Disable modules and SSL
 
 ---
  setup.py | 50 +++++++++++++++++++++++++++++++-------------------
@@ -104,5 +104,5 @@ index f764223d06..cc423edcb2 100644
          # Modules that provide persistent dictionary-like semantics.  You will
          # probably want to arrange for at least one of them to be available on
 -- 
-2.30.1
+2.38.1
 

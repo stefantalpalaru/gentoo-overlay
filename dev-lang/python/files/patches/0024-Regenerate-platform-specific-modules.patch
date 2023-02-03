@@ -1,7 +1,7 @@
-From 14a011d466a47d874909e15516dacec4298d1584 Mon Sep 17 00:00:00 2001
+From 03a2ccd19b7b36e9bb49fe112e88aeee002548ed Mon Sep 17 00:00:00 2001
 From: Mike Gilbert <floppym@gentoo.org>
 Date: Sun, 17 Jun 2018 11:14:43 -0400
-Subject: [PATCH 13/24] Regenerate platform-specific modules
+Subject: [PATCH 24/36] Regenerate platform-specific modules
 
 https://bugs.python.org/issue12619
 ---
@@ -144,5 +144,5 @@ index c8779f302c..6a8bb2976d 100644
  .PHONY: maninstall libinstall inclinstall libainstall sharedinstall
  .PHONY: frameworkinstall frameworkinstallframework frameworkinstallstructure
 -- 
-2.30.1
+2.38.1
 

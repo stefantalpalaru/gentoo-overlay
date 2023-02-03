@@ -2,7 +2,7 @@ From bfc498a6c971c7393d37c25bdcf5f892afb16ed2 Mon Sep 17 00:00:00 2001
 From: "Miss Islington (bot)"
  <31488909+miss-islington@users.noreply.github.com>
 Date: Sun, 22 Nov 2020 09:33:09 -0800
-Subject: [PATCH 06/24] bpo-40791: Make compare_digest more constant-time.
+Subject: [PATCH 06/36] bpo-40791: Make compare_digest more constant-time.
  (GH-23438)
 MIME-Version: 1.0
 Content-Type: text/plain; charset=UTF-8
@@ -44,5 +44,5 @@ index 7ddd123f40..67011a6a82 100644
      /* loop count depends on length of b */
      length = len_b;
 -- 
-2.30.1
+2.38.1
 

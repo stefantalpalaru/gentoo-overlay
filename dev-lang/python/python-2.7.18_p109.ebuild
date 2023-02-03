@@ -4,25 +4,28 @@
 EAPI=7
 WANT_LIBTOOL="none"
 
-inherit autotools eutils flag-o-matic multilib pax-utils python-utils-r1 toolchain-funcs multiprocessing
+inherit autotools flag-o-matic pax-utils python-utils-r1 toolchain-funcs
 
 MY_P="Python-${PV%_p*}"
+PYVER=$(ver_cut 1-2)
 
 DESCRIPTION="An interpreted, interactive, object-oriented programming language"
 HOMEPAGE="https://www.python.org/"
 SRC_URI="https://www.python.org/ftp/python/${PV}/${MY_P}.tar.xz"
 
 LICENSE="PSF-2"
-SLOT="2.7"
-KEYWORDS="alpha amd64 arm arm64 hppa ia64 m68k ~mips ppc ppc64 s390 sparc x86"
-IUSE="-berkdb bluetooth build doc examples gdbm hardened ipv6 +lto +ncurses +pgo +readline +sqlite +ssl +threads tk +wide-unicode wininst +xml"
+SLOT="${PYVER}"
+KEYWORDS="~alpha amd64 arm arm64 hppa ~ia64 ~loong ~m68k ~mips ppc ppc64 ~riscv ~s390 sparc x86"
+IUSE="berkdb bluetooth build doc examples gdbm hardened ipv6 +lto +ncurses +pgo +readline +sqlite +ssl test +threads tk +wide-unicode wininst +xml"
+RESTRICT="!test? ( test ) network-sandbox"
 
 # Do not add a dependency on dev-lang/python to this ebuild.
 # If you need to apply a patch which requires python for bootstrapping, please
 # run the bootstrap code on your dev box and include the results in the
 # patchset. See bug 447752.
 
-RDEPEND="app-arch/bzip2:=
+RDEPEND="
+	app-arch/bzip2:=
 	dev-libs/libffi:=
 	>=sys-libs/zlib-1.1.3:=
 	virtual/libcrypt:=
@@ -43,19 +46,23 @@ RDEPEND="app-arch/bzip2:=
 		dev-tcltk/blt:=
 		dev-tcltk/tix
 	)
-	xml? ( >=dev-libs/expat-2.1 )
-	!!<sys-apps/portage-2.1.9"
+	xml? ( >=dev-libs/expat-2.1:= )
+"
 # bluetooth requires headers from bluez
-DEPEND="${RDEPEND}
+DEPEND="
+	${RDEPEND}
 	bluetooth? ( net-wireless/bluez )
+"
+BDEPEND="
+	app-alternatives/awk
 	virtual/pkgconfig
-	>=sys-devel/autoconf-2.65
-	!sys-devel/gcc[libffi(-)]"
-RDEPEND+=" !build? ( app-misc/mime-types )
-	doc? ( dev-python/python-docs:${SLOT} )"
-PDEPEND=">=app-eselect/eselect-python-20140125-r1"
+"
+RDEPEND+="
+	!build? ( app-misc/mime-types )
+	doc? ( dev-python/python-docs:${PYVER} )"
 
 S="${WORKDIR}/${MY_P}"
+QA_PKGCONFIG_VERSION=${PYVER}
 
 pkg_setup() {
 	if use berkdb; then
@@ -83,8 +90,8 @@ src_prepare() {
 	fi
 
 	local PATCHES=(
-		"${FILESDIR}/patches"
-		"${FILESDIR}/python-2.7.15-PGO-r1.patch"
+		"${FILESDIR}/patches" # from https://dev.gentoo.org/~mgorny/dist/python/python-gentoo-patches-2.7.18_p16.tar.xz
+		"${FILESDIR}/python-2.7.18-PGO.patch"
 	)
 
 	default
@@ -99,6 +106,10 @@ src_prepare() {
 		Modules/Setup.dist \
 		Modules/getpath.c \
 		setup.py || die "sed failed to replace @@GENTOO_LIBDIR@@"
+
+	if ! use wininst; then
+		rm Lib/distutils/command/wininst*.exe || die
+	fi
 
 	eautoreconf
 }
@@ -144,12 +155,6 @@ src_configure() {
 
 	filter-flags -malign-double
 
-	# https://bugs.gentoo.org/show_bug.cgi?id=50309
-	if is-flagq -O3; then
-		is-flagq -fstack-protector-all && replace-flags -O3 -O2
-		use hardened && replace-flags -O3 -O2
-	fi
-
 	if tc-is-cross-compiler; then
 		# Force some tests that try to poke fs paths.
 		export ac_cv_file__dev_ptc=no
@@ -172,7 +177,7 @@ src_configure() {
 		append-ldflags "${CFLAGS}"
 	fi
 
-	local dbmliborder
+	local dbmliborder=
 	if use gdbm; then
 		dbmliborder+="${dbmliborder:+:}gdbm"
 	fi
@@ -205,11 +210,11 @@ src_configure() {
 		--mandir='${prefix}/share/man'
 		--with-computed-gotos
 		--with-dbmliborder="${dbmliborder}"
-		--with-libc=""
+		--with-libc=
 		--enable-loadable-sqlite-extensions
+		--without-ensurepip
 		--with-system-expat
 		--with-system-ffi
-		--without-ensurepip
 	)
 	ECONF_SOURCE="${S}" OPT="" econf "${myeconfargs[@]}"
 
@@ -248,7 +253,7 @@ src_compile() {
 	fi
 
 	# Avoid invoking pgen for cross-compiles.
-	touch Include/graminit.h Python/graminit.c
+	touch Include/graminit.h Python/graminit.c || die
 
 	cd "${BUILD_DIR}" || die
 
@@ -284,7 +289,9 @@ src_test() {
 	cd "${BUILD_DIR}" || die
 
 	# Skip failing tests.
-	local skipped_tests="distutils gdb curses xpickle bdb runpy minidom xml_etree xml_etree_c"
+	# A security patch in the Gentoo patchset broke test.test_codecmaps_jp.TestEUCJISX0213Map and test.test_codecmaps_jp.TestEUCJPCOMPATMap.
+	# Another security patch broke urllib2 tests by assuming that dicts are ordered by default, as in Python-3.7
+	local skipped_tests="distutils gdb curses xpickle bdb runpy minidom xml_etree xml_etree_c codecmaps_jp urllib2 urllib2net urllibnet"
 
 	for test in ${skipped_tests}; do
 		mv "${S}"/Lib/test/test_${test}.py "${T}"
@@ -299,7 +306,7 @@ src_test() {
 	local -x TZ=UTC
 
 	# Rerun failed tests in verbose mode (regrtest -w).
-	emake test TESTOPTS="-w -uall,-audio -x test_test_support ${par_arg}" < /dev/tty
+	emake buildbottest TESTOPTS="${par_arg} -w -uall,-audio -x test_test_support" < /dev/tty
 	local result="$?"
 
 	for test in ${skipped_tests}; do
@@ -312,7 +319,7 @@ src_test() {
 	done
 
 	elog "If you would like to run them, you may:"
-	elog "cd '${EPREFIX}/usr/$(get_libdir)/python${SLOT}/test'"
+	elog "cd '${EPREFIX}/usr/$(get_libdir)/python${PYVER}/test'"
 	elog "and run the tests separately."
 
 	if [[ "${result}" -ne 0 ]]; then
@@ -321,45 +328,44 @@ src_test() {
 }
 
 src_install() {
-	local libdir=${ED}/usr/$(get_libdir)/python${SLOT}
+	local libdir=${ED}/usr/$(get_libdir)/python${PYVER}
 
 	cd "${BUILD_DIR}" || die
 	emake DESTDIR="${D}" altinstall
 
-	sed -e "s/\(LDFLAGS=\).*/\1/" -i "${libdir}/config/Makefile" || die "sed failed"
+	sed -e "s/\(LDFLAGS=\).*/\1/" -i "${libdir}/config/Makefile" || die
 
 	# Fix collisions between different slots of Python.
-	mv "${ED}/usr/bin/2to3" "${ED}/usr/bin/2to3-${SLOT}"
-	mv "${ED}/usr/bin/pydoc" "${ED}/usr/bin/pydoc${SLOT}"
-	mv "${ED}/usr/bin/idle" "${ED}/usr/bin/idle${SLOT}"
-	rm -f "${ED}/usr/bin/smtpd.py"
+	mv "${ED}/usr/bin/2to3" "${ED}/usr/bin/2to3-${PYVER}" || die
+	mv "${ED}/usr/bin/pydoc" "${ED}/usr/bin/pydoc${PYVER}" || die
+	mv "${ED}/usr/bin/idle" "${ED}/usr/bin/idle${PYVER}" || die
+	rm "${ED}/usr/bin/smtpd.py" || die
 
 	use berkdb || rm -r "${libdir}/"{bsddb,dbhash.py*,test/test_bsddb*} || die
 	use sqlite || rm -r "${libdir}/"{sqlite3,test/test_sqlite*} || die
-	use tk || rm -r "${ED}/usr/bin/idle${SLOT}" "${libdir}/"{idlelib,lib-tk} || die
-
+	use tk || rm -r "${ED}/usr/bin/idle${PYVER}" "${libdir}/"{idlelib,lib-tk} || die
 	use threads || rm -r "${libdir}/multiprocessing" || die
-	use wininst || rm -r "${libdir}/distutils/command/"wininst-*.exe || die
 
 	dodoc "${S}"/Misc/{ACKS,HISTORY,NEWS}
 
 	if use examples; then
-		insinto /usr/share/doc/${PF}/examples
-		doins -r "${S}"/Tools
+		docinto examples
+		dodoc -r "${S}"/Tools
 	fi
 	insinto /usr/share/gdb/auto-load/usr/$(get_libdir) #443510
 	local libname=$(printf 'e:\n\t@echo $(INSTSONAME)\ninclude Makefile\n' | \
 		emake --no-print-directory -s -f - 2>/dev/null)
 	newins "${S}"/Tools/gdb/libpython.py "${libname}"-gdb.py
 
-	newconfd "${FILESDIR}/pydoc.conf" pydoc-${SLOT}
-	newinitd "${FILESDIR}/pydoc.init" pydoc-${SLOT}
+	newconfd "${FILESDIR}/pydoc.conf" pydoc-${PYVER}
+	newinitd "${FILESDIR}/pydoc.init" pydoc-${PYVER}
 	sed \
-		-e "s:@PYDOC_PORT_VARIABLE@:PYDOC${SLOT/./_}_PORT:" \
-		-e "s:@PYDOC@:pydoc${SLOT}:" \
-		-i "${ED}/etc/conf.d/pydoc-${SLOT}" "${ED}/etc/init.d/pydoc-${SLOT}" || die "sed failed"
+		-e "s:@PYDOC_PORT_VARIABLE@:PYDOC${PYVER/./_}_PORT:" \
+		-e "s:@PYDOC@:pydoc${PYVER}:" \
+		-i "${ED}/etc/conf.d/pydoc-${PYVER}" \
+		"${ED}/etc/init.d/pydoc-${PYVER}" || die "sed failed"
 
-	local -x EPYTHON=python${SLOT}
+	local -x EPYTHON=python${PYVER}
 	# if not using a cross-compiler, use the fresh binary
 	if ! tc-is-cross-compiler; then
 		cat > python.wrap <<-EOF || die
@@ -376,39 +382,8 @@ src_install() {
 	echo "EPYTHON='${EPYTHON}'" > epython.py || die
 	python_domodule epython.py
 
-	# python-exec wrapping support
-	local pymajor=${SLOT%.*}
-	local scriptdir=${D}$(python_get_scriptdir)
-	mkdir -p "${scriptdir}" || die
-	# python and pythonX
-	ln -s "../../../bin/python${SLOT}" "${scriptdir}/python${pymajor}" || die
-	ln -s "python${pymajor}" "${scriptdir}/python" || die
-	# python-config and pythonX-config
-	ln -s "../../../bin/python${SLOT}-config" "${scriptdir}/python${pymajor}-config" || die
-	ln -s "python${pymajor}-config" "${scriptdir}/python-config" || die
-	# 2to3, pydoc, pyvenv
-	ln -s "../../../bin/2to3-${SLOT}" "${scriptdir}/2to3" || die
-	ln -s "../../../bin/pydoc${SLOT}" "${scriptdir}/pydoc" || die
-	# idle
-	if use tk; then
-		ln -s "../../../bin/idle${SLOT}" "${scriptdir}/idle" || die
-	fi
-}
-
-eselect_python_update() {
-	if [[ -z "$(eselect python show)" || ! -f "${EROOT}usr/bin/$(eselect python show)" ]]; then
-		eselect python update
-	fi
-
-	if [[ -z "$(eselect python show --python${PV%%.*})" || ! -f "${EROOT}usr/bin/$(eselect python show --python${PV%%.*})" ]]; then
-		eselect python update --python${PV%%.*}
-	fi
-}
-
-pkg_postinst() {
-	eselect_python_update
-}
-
-pkg_postrm() {
-	eselect_python_update
+	# python2* is no longer wrapped, so just symlink it
+	local pymajor=${PYVER%.*}
+	dosym "python${PYVER}" "/usr/bin/python${pymajor}"
+	dosym "python${PYVER}-config" "/usr/bin/python${pymajor}-config"
 }
