@@ -6,21 +6,25 @@ WANT_LIBTOOL="none"
 
 inherit autotools flag-o-matic pax-utils python-utils-r1 toolchain-funcs
 
+PYVER=$(ver_cut 1-2)
+
 DESCRIPTION="Python 2.7 fork with new syntax, builtins, and libraries backported from Python3"
 HOMEPAGE="https://github.com/naftaliharris/tauthon"
 SRC_URI="https://github.com/naftaliharris/tauthon/archive/v${PV}.tar.gz -> ${P}.tar.gz"
 
 LICENSE="PSF-2"
-SLOT="2.8"
-KEYWORDS="~alpha amd64 arm ~arm64 hppa ~ia64 ~m68k ~mips ppc ppc64 ~s390 sparc x86"
-IUSE="-berkdb bluetooth build doc examples gdbm hardened ipv6 +lto +ncurses +pgo +readline sqlite +ssl +threads tk +wide-unicode wininst +xml"
+SLOT="${PYVER}"
+KEYWORDS="~alpha amd64 arm arm64 hppa ~ia64 ~loong ~m68k ~mips ppc ppc64 ~riscv ~s390 sparc x86"
+IUSE="berkdb bluetooth build doc examples gdbm hardened ipv6 +lto +ncurses +pgo +readline +sqlite +ssl test +threads tk +wide-unicode wininst +xml"
+RESTRICT="!test? ( test ) network-sandbox"
 
 # Do not add a dependency on dev-lang/python to this ebuild.
 # If you need to apply a patch which requires python for bootstrapping, please
 # run the bootstrap code on your dev box and include the results in the
 # patchset. See bug 447752.
 
-RDEPEND="app-arch/bzip2:=
+RDEPEND="
+	app-arch/bzip2:=
 	dev-libs/libffi:=
 	>=sys-libs/zlib-1.1.3:=
 	virtual/libcrypt:=
@@ -41,18 +45,23 @@ RDEPEND="app-arch/bzip2:=
 		dev-tcltk/blt:=
 		dev-tcltk/tix
 	)
-	xml? ( >=dev-libs/expat-2.1 )
+	xml? ( >=dev-libs/expat-2.1:= )
 "
 # bluetooth requires headers from bluez
-DEPEND="${RDEPEND}
+DEPEND="
+	${RDEPEND}
 	bluetooth? ( net-wireless/bluez )
-	virtual/pkgconfig
-	>=sys-devel/autoconf-2.65
 "
-RDEPEND+=" !build? ( app-misc/mime-types )
-		"
-	#doc? ( dev-python/python-docs:${SLOT} )"
-PDEPEND=">=app-eselect/eselect-python-20140125-r1"
+BDEPEND="
+	app-alternatives/awk
+	virtual/pkgconfig
+"
+RDEPEND+="
+	!build? ( app-misc/mime-types )
+"
+	#doc? ( dev-python/python-docs:${PYVER} )"
+
+QA_PKGCONFIG_VERSION=${PYVER}
 
 pkg_setup() {
 	if use berkdb; then
@@ -75,16 +84,8 @@ src_prepare() {
 	rm -r Modules/_ctypes/libffi* || die
 	rm -r Modules/zlib || die
 
-	if tc-is-cross-compiler; then
-		local EPATCH_EXCLUDE="*_regenerate_platform-specific_modules*.patch"
-	fi
-
 	local PATCHES=(
 		"${FILESDIR}/patches"
-		"${FILESDIR}/python-2.7.5-nonfatal-compileall.patch"
-		"${FILESDIR}/python-2.7.9-ncurses-pkg-config.patch"
-		"${FILESDIR}/python-2.7.10-cross-compile-warn-test.patch"
-		"${FILESDIR}/tauthon-2.8.4-system-libffi.patch"
 	)
 
 	default
@@ -100,31 +101,35 @@ src_prepare() {
 		Modules/getpath.c \
 		setup.py || die "sed failed to replace @@GENTOO_LIBDIR@@"
 
+	if ! use wininst; then
+		rm Lib/distutils/command/wininst*.exe || die
+	fi
+
 	eautoreconf
 }
 
 src_configure() {
-		# dbm module can be linked against berkdb or gdbm.
-		# Defaults to gdbm when both are enabled, #204343.
-		local disable
-		use berkdb   || use gdbm || disable+=" dbm"
-		use berkdb   || disable+=" _bsddb"
-		# disable automagic bluetooth headers detection
-		use bluetooth || export ac_cv_header_bluetooth_bluetooth_h=no
-		use gdbm     || disable+=" gdbm"
-		use ncurses  || disable+=" _curses _curses_panel"
-		use readline || disable+=" readline"
-		use sqlite   || disable+=" _sqlite3"
-		use ssl      || export PYTHON_DISABLE_SSL="1"
-		use tk       || disable+=" _tkinter"
-		use xml      || disable+=" _elementtree pyexpat" # _elementtree uses pyexpat.
-		export PYTHON_DISABLE_MODULES="${disable}"
+	# dbm module can be linked against berkdb or gdbm.
+	# Defaults to gdbm when both are enabled, #204343.
+	local disable
+	use berkdb    || use gdbm || disable+=" dbm"
+	use berkdb    || disable+=" _bsddb"
+	# disable automagic bluetooth headers detection
+	use bluetooth || export ac_cv_header_bluetooth_bluetooth_h=no
+	use gdbm      || disable+=" gdbm"
+	use ncurses   || disable+=" _curses _curses_panel"
+	use readline  || disable+=" readline"
+	use sqlite    || disable+=" _sqlite3"
+	use ssl       || export PYTHON_DISABLE_SSL="1"
+	use tk        || disable+=" _tkinter"
+	use xml       || disable+=" _elementtree pyexpat" # _elementtree uses pyexpat.
+	export PYTHON_DISABLE_MODULES="${disable}"
 
-		if ! use xml; then
-			ewarn "You have configured Tauthon without XML support."
-			ewarn "This is NOT a recommended configuration as you"
-			ewarn "may face problems parsing any XML documents."
-		fi
+	if ! use xml; then
+		ewarn "You have configured Tauthon without XML support."
+		ewarn "This is NOT a recommended configuration as you"
+		ewarn "may face problems parsing any XML documents."
+	fi
 
 	if [[ -n "${PYTHON_DISABLE_MODULES}" ]]; then
 		einfo "Disabled modules: ${PYTHON_DISABLE_MODULES}"
@@ -134,21 +139,9 @@ src_configure() {
 		if [[ "$(gcc-major-version)" -ge 4 ]]; then
 			append-flags -fwrapv
 		fi
-
-		# https://developers.redhat.com/blog/2020/06/25/red-hat-enterprise-linux-8-2-brings-faster-python-3-8-run-speeds
-		if ver_test $(gcc-fullversion) -ge 5.3 ; then
-			append-flags -fno-semantic-interposition
-			append-ldflags -fno-semantic-interposition
-		fi
 	fi
 
 	filter-flags -malign-double
-
-	# https://bugs.gentoo.org/show_bug.cgi?id=50309
-	if is-flagq -O3; then
-		is-flagq -fstack-protector-all && replace-flags -O3 -O2
-		use hardened && replace-flags -O3 -O2
-	fi
 
 	if tc-is-cross-compiler; then
 		# Force some tests that try to poke fs paths.
@@ -167,12 +160,7 @@ src_configure() {
 	# Please query BSD team before removing this!
 	append-ldflags "-L."
 
-	# LTO needs this
-	if use lto; then
-		append-ldflags "${CFLAGS}"
-	fi
-
-	local dbmliborder
+	local dbmliborder=
 	if use gdbm; then
 		dbmliborder+="${dbmliborder:+:}gdbm"
 	fi
@@ -196,11 +184,11 @@ src_configure() {
 		--mandir='${prefix}/share/man'
 		--with-computed-gotos
 		--with-dbmliborder="${dbmliborder}"
-		--with-libc=""
+		--with-libc=
 		--enable-loadable-sqlite-extensions
+		--without-ensurepip
 		--with-system-expat
 		--with-system-ffi
-		--without-ensurepip
 	)
 	ECONF_SOURCE="${S}" OPT="" econf "${myeconfargs[@]}"
 
@@ -239,7 +227,7 @@ src_compile() {
 	fi
 
 	# Avoid invoking pgen for cross-compiles.
-	touch Include/graminit.h Python/graminit.c
+	touch Include/graminit.h Python/graminit.c || die
 
 	cd "${BUILD_DIR}" || die
 
@@ -290,7 +278,7 @@ src_test() {
 	local -x TZ=UTC
 
 	# Rerun failed tests in verbose mode (regrtest -w).
-	emake test TESTOPTS="-w -uall,-audio -x test_test_support ${par_arg}" < /dev/tty
+	emake buildbottest TESTOPTS="${par_arg} -w -uall,-audio -x test_test_support" < /dev/tty
 	local result="$?"
 
 	for test in ${skipped_tests}; do
@@ -303,7 +291,7 @@ src_test() {
 	done
 
 	elog "If you would like to run them, you may:"
-	elog "cd '${EPREFIX}/usr/$(get_libdir)/tauthon${SLOT}/test'"
+	elog "cd '${EPREFIX}/usr/$(get_libdir)/tauthon${PYVER}/test'"
 	elog "and run the tests separately."
 
 	if [[ "${result}" -ne 0 ]]; then
@@ -312,39 +300,34 @@ src_test() {
 }
 
 src_install() {
-	local libdir=${ED}/usr/$(get_libdir)/tauthon${SLOT}
+	local libdir=${ED}/usr/$(get_libdir)/tauthon${PYVER}
 
 	cd "${BUILD_DIR}" || die
 	emake DESTDIR="${D}" altinstall
 
-	# "tauthon" symlink
-	ln -s tauthon${SLOT} "${ED}/usr/bin/tauthon"
-
 	# symlinks for autotools
-	ln -s tauthon${SLOT} "${ED}/usr/$(get_libdir)/python${SLOT}"
-	ln -s libtauthon${SLOT}.a "${ED}/usr/$(get_libdir)/libpython${SLOT}.a"
-	ln -s libtauthon${SLOT}.so "${ED}/usr/$(get_libdir)/libpython${SLOT}.so"
-	ln -s python${SLOT}-config "${ED}/usr/bin/tauthon${SLOT}-config"
+	ln -s tauthon${PYVER} "${ED}/usr/$(get_libdir)/python${PYVER}"
+	ln -s libtauthon${PYVER}.a "${ED}/usr/$(get_libdir)/libpython${PYVER}.a"
+	ln -s libtauthon${PYVER}.so "${ED}/usr/$(get_libdir)/libpython${PYVER}.so"
+	ln -s python${PYVER}-config "${ED}/usr/bin/tauthon${PYVER}-config"
 
-	sed -e "s/\(LDFLAGS=\).*/\1/" -i "${libdir}/config/Makefile" || die "sed failed"
+	sed -e "s/\(LDFLAGS=\).*/\1/" -i "${libdir}/config/Makefile" || die
 
 	# Fix collisions between different slots of Python.
-	mv "${ED}/usr/bin/2to3" "${ED}/usr/bin/2to3-${SLOT}"
-	mv "${ED}/usr/bin/pydoc" "${ED}/usr/bin/pydoc${SLOT}"
-	mv "${ED}/usr/bin/idle" "${ED}/usr/bin/idle${SLOT}"
-	rm -f "${ED}/usr/bin/smtpd.py"
+	mv "${ED}/usr/bin/2to3" "${ED}/usr/bin/2to3-${PYVER}" || die
+	mv "${ED}/usr/bin/pydoc" "${ED}/usr/bin/pydoc${PYVER}" || die
+	mv "${ED}/usr/bin/idle" "${ED}/usr/bin/idle${PYVER}" || die
+	rm "${ED}/usr/bin/smtpd.py" || die
 
 	use berkdb || rm -r "${libdir}/"{bsddb,dbhash.py*,test/test_bsddb*} || die
 	use sqlite || rm -r "${libdir}/"{sqlite3,test/test_sqlite*} || die
-	use tk || rm -r "${ED}/usr/bin/idle${SLOT}" "${libdir}/"{idlelib,lib-tk} || die
-
+	use tk || rm -r "${ED}/usr/bin/idle${PYVER}" "${libdir}/"{idlelib,lib-tk} || die
 	use threads || rm -r "${libdir}/multiprocessing" || die
-	use wininst || rm -r "${libdir}/distutils/command/"wininst-*.exe || die
 
-	dodoc "${S}"/Misc/{ACKS,HISTORY}
+	dodoc "${S}"/Misc/{ACKS,HISTORY,NEWS}
 
 	if use examples; then
-		dointo /usr/share/doc/${PF}/examples
+		docinto examples
 		dodoc -r "${S}"/Tools
 	fi
 	insinto /usr/share/gdb/auto-load/usr/$(get_libdir) #443510
@@ -352,14 +335,15 @@ src_install() {
 		emake --no-print-directory -s -f - 2>/dev/null)
 	newins "${S}"/Tools/gdb/libpython.py "${libname}"-gdb.py
 
-	newconfd "${FILESDIR}/pydoc.conf" pydoc-${SLOT}
-	newinitd "${FILESDIR}/pydoc.init" pydoc-${SLOT}
+	newconfd "${FILESDIR}/pydoc.conf" pydoc-${PYVER}
+	newinitd "${FILESDIR}/pydoc.init" pydoc-${PYVER}
 	sed \
-		-e "s:@PYDOC_PORT_VARIABLE@:PYDOC${SLOT/./_}_PORT:" \
-		-e "s:@PYDOC@:pydoc${SLOT}:" \
-		-i "${ED}/etc/conf.d/pydoc-${SLOT}" "${ED}/etc/init.d/pydoc-${SLOT}" || die "sed failed"
+		-e "s:@PYDOC_PORT_VARIABLE@:PYDOC${PYVER/./_}_PORT:" \
+		-e "s:@PYDOC@:pydoc${PYVER}:" \
+		-i "${ED}/etc/conf.d/pydoc-${PYVER}" \
+		"${ED}/etc/init.d/pydoc-${PYVER}" || die "sed failed"
 
-	local -x EPYTHON=tauthon${SLOT}
+	local -x EPYTHON=tauthon${PYVER}
 	# if not using a cross-compiler, use the fresh binary
 	if ! tc-is-cross-compiler; then
 		cat > tauthon.wrap <<-EOF || die
@@ -376,46 +360,6 @@ src_install() {
 	echo "EPYTHON='${EPYTHON}'" > epython.py || die
 	python_domodule epython.py
 
-	# python-exec wrapping support
-	local pymajor=${SLOT%.*}
-	local scriptdir=${D}$(python_get_scriptdir)
-	mkdir -p "${scriptdir}" || die
-	# python and pythonX
-	ln -s "../../../bin/tauthon${SLOT}" \
-		"${scriptdir}/python${pymajor}" || die
-	ln -s "python${pymajor}" \
-		"${scriptdir}/python" || die
-	# python-config and pythonX-config
-	ln -s "../../../bin/python${SLOT}-config" \
-		"${scriptdir}/python${pymajor}-config" || die
-	ln -s "python${pymajor}-config" \
-		"${scriptdir}/python-config" || die
-	# 2to3, pydoc, pyvenv
-	ln -s "../../../bin/2to3-${SLOT}" \
-		"${scriptdir}/2to3" || die
-	ln -s "../../../bin/pydoc${SLOT}" \
-		"${scriptdir}/pydoc" || die
-	# idle
-	if use tk; then
-		ln -s "../../../bin/idle${SLOT}" \
-			"${scriptdir}/idle" || die
-	fi
-}
-
-eselect_python_update() {
-	if [[ -z "$(eselect python show)" || ! -f "${EROOT}/usr/bin/$(eselect python show)" ]]; then
-		eselect python update
-	fi
-
-	if [[ -z "$(eselect python show --python${PV%%.*})" || ! -f "${EROOT}/usr/bin/$(eselect python show --python${PV%%.*})" ]]; then
-		eselect python update --python${PV%%.*}
-	fi
-}
-
-pkg_postinst() {
-	eselect_python_update
-}
-
-pkg_postrm() {
-	eselect_python_update
+	dosym "tauthon${PYVER}" "/usr/bin/tauthon"
+	dosym "tauthon${PYVER}-config" "/usr/bin/tauthon-config"
 }

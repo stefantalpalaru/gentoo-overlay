@@ -28,9 +28,9 @@ dev-java/java-service-wrapper 3.5.50-r1: A wrapper that makes it possible to ins
 dev-lang/nim 1.0.10-r100 1.2.18-r100 1.4.8-r100 1.6.10-r100 9999-r13: compiled, garbage-collected systems programming language
 dev-lang/php 5.3.29-r6: The PHP language runtime engine: CLI, CGI, FPM/FastCGI, Apache2 and embed SAPIs
 dev-lang/pony 0.53.0: Compiler for the Pony language
-dev-lang/python 2.7.18_p108: An interpreted, interactive, object-oriented programming language
+dev-lang/python 2.7.18_p109: An interpreted, interactive, object-oriented programming language
 dev-lang/python-exec 2.4.10-r200: Python script wrapper
-dev-lang/tauthon 2.8.4: Python 2.7 fork with new syntax, builtins, and libraries backported from Python3
+dev-lang/tauthon 2.8.5 9999: Python 2.7 fork with new syntax, builtins, and libraries backported from Python3
 dev-libs/boost 1.81.0-r1: Boost Libraries for C++
 dev-libs/chan 0.0.4 9999: pure C implementation of Go channels
 dev-libs/golib 0.0.1_pre20180515 9999: a library exposing Go's channels and goroutines to plain C
