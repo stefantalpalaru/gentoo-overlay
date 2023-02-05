@@ -95,8 +95,9 @@ src_prepare() {
 			../${GMIC_QT_DIR}/CMakeLists.txt || die "sed failed"
 		local S="${WORKDIR}/${GMIC_QT_DIR}"
 		cd ../${GMIC_QT_DIR}
-		patch -p1 -i "${FILESDIR}/gmic-3.1.6-bash5.2.patch" || die
 		patch -p1 -i "${FILESDIR}/gmic-3.1.6-stripping.patch" || die
+		patch -p1 -i "${FILESDIR}/gmic-3.2.0-gmic_core.patch" || die
+		patch -p1 -i "${FILESDIR}/gmic-3.2.0-system-gmic.patch" || die
 		cd -
 		cmake_src_prepare
 	fi
@@ -137,7 +138,6 @@ src_configure() {
 	mycmakeargs=(
 		-DENABLE_DYNAMIC_LINKING=ON
 		-DENABLE_SYSTEM_GMIC=ON
-		-DGmic_DIR="${WORKDIR}/gmic-v.${PV}_build"
 	)
 	local BUILD_DIR
 	if use gimp; then

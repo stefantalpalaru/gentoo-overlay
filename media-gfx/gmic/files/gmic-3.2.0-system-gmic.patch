@@ -1,0 +1,17 @@
+diff -ur gmic-qt-v.3.2.0.orig/CMakeLists.txt gmic-qt-v.3.2.0/CMakeLists.txt
+--- gmic-qt-v.3.2.0.orig/CMakeLists.txt	2023-02-05 16:49:03.261012734 +0100
++++ gmic-qt-v.3.2.0/CMakeLists.txt	2023-02-05 16:49:47.070668613 +0100
+@@ -139,13 +139,6 @@
+ # Required packages
+ 
+ #
+-# Gmic
+-#
+-if (ENABLE_SYSTEM_GMIC)
+-  find_package(Gmic REQUIRED CONFIG)
+-endif (ENABLE_SYSTEM_GMIC)
+-
+-#
+ # Threads
+ #
+ find_package(Threads REQUIRED)
