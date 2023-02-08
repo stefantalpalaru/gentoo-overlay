@@ -846,7 +846,7 @@ net-misc/streamtuner2 2.2.2: Internet radio browser
 net-p2p/go-ethereum 1.10.26: Official golang implementation of the Ethereum protocol
 net-p2p/nimbus-eth2 23.1.1 9999-r16: Nim implementation of the Ethereum 2.0 blockchain
 net-p2p/pybitmessage 0.6.3.2_p20180521-r2: Reference client for Bitmessage: a P2P communications protocol
-net-p2p/transmission 3.00-r102 4.0.0_beta3: A fast, easy, and free BitTorrent client
+net-p2p/transmission 3.00-r102 4.0.0: A fast, easy, and free BitTorrent client
 net-print/pkpgcounter 3.50-r200: Generic PDL (Page Description Language) parser in Python
 net-print/pykota 1.26-r200: Flexible print quota and accounting package for use with CUPS and lpd
 net-wireless/cubicsdr 0.2.7-r1: Cross-Platform Software-Defined Radio Application

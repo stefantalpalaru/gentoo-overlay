@@ -5,14 +5,9 @@ EAPI=8
 
 inherit cmake systemd xdg-utils
 
-MY_PV="${PV/_beta/-beta.}"
-MY_COMMIT="634b1e8fc1"
-
 DESCRIPTION="A fast, easy, and free BitTorrent client"
 HOMEPAGE="https://transmissionbt.com/"
-SRC_URI="https://github.com/transmission/transmission/releases/download/${MY_PV}/transmission-${MY_PV}+r${MY_COMMIT}.tar.xz"
-#EGIT_REPO_URI="https://github.com/transmission/transmission.git"
-#EGIT_COMMIT="bc380511db6b3ba65e5236904a6dd196ca12db51"
+SRC_URI="https://github.com/transmission/transmission/releases/download/${PV}/${P}.tar.xz"
 
 # web/LICENSE is always GPL-2 whereas COPYING allows either GPL-2 or GPL-3 for the rest
 # transmission in licenses/ is for mentioning OpenSSL linking exception
@@ -83,8 +78,6 @@ RDEPEND="${COMMON_DEPEND}
 
 REQUIRED_USE="appindicator? ( gtk )"
 
-S="${WORKDIR}/transmission-${MY_PV}+r${MY_COMMIT}"
-
 PATCHES=(
 	"${FILESDIR}/transmission-4.0.0_beta2-magnet-start-paused-fix.patch"
 )
@@ -95,6 +88,7 @@ src_configure() {
 		-DENABLE_GTK=$(usex gtk ON OFF)
 		-DENABLE_QT=$(usex qt5 ON OFF)
 		-DENABLE_CLI=$(usex cli ON OFF)
+		-DENABLE_WEB=OFF # NPM error
 		-DENABLE_TESTS=$(usex test ON OFF)
 		-DENABLE_NLS=$(usex nls ON OFF)
 		-DINSTALL_DOC=$(usex doc ON OFF)
