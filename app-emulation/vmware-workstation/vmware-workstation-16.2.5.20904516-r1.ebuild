@@ -1,4 +1,4 @@
-# Copyright 1999-2022 Gentoo Authors
+# Copyright 1999-2023 Gentoo Authors
 # Distributed under the terms of the GNU General Public License v2
 
 EAPI=7
@@ -11,7 +11,7 @@ MY_PV=$(ver_cut 1-3)
 PV_MODULES="${MY_PV}"
 PV_BUILD=$(ver_cut 4)
 MY_P="${MY_PN}-${MY_PV}-${PV_BUILD}"
-VMWARE_FUSION_VER="13.0.0/20802013" # https://softwareupdate.vmware.com/cds/vmw-desktop/fusion/
+VMWARE_FUSION_VER="12.2.5/20904517" # https://softwareupdate.vmware.com/cds/vmw-desktop/fusion/
 SYSTEMD_UNITS_TAG="gentoo-02"
 UNLOCKER_VERSION="3.0.4"
 
@@ -55,10 +55,8 @@ RDEPEND="
 	dev-libs/json-c
 	dev-libs/nettle:0
 	gnome-base/dconf
-	gnome-base/gconf
 	media-gfx/graphite2
 	media-libs/alsa-lib
-	media-libs/libart_lgpl
 	media-libs/libvorbis
 	media-libs/mesa
 	media-plugins/alsa-plugins[speex]
@@ -76,8 +74,6 @@ RDEPEND="
 	x11-libs/startup-notification
 	x11-libs/xcb-util
 	x11-themes/hicolor-icon-theme
-	!app-emulation/vmware-player
-	!app-emulation/vmware-tools
 "
 DEPEND="
 	${PYTHON_DEPS}
@@ -125,7 +121,7 @@ src_unpack() {
 		for guest in ${DARWIN_GUESTS}; do
 			if use vmware-tools-${guest}; then
 				mkdir extracted/vmware-tools-${guest}
-				mv "payload/VMware Fusion.app/Contents/Library/isoimages/x86_x64/${guest}.iso" extracted/vmware-tools-${guest}/ || die
+				mv "payload/VMware Fusion.app/Contents/Library/isoimages/${guest}.iso" extracted/vmware-tools-${guest}/ || die
 			fi
 		done
 		rm -rf __MACOSX payload manifest.plist preflight postflight com.vmware.fusion.zip
@@ -418,9 +414,6 @@ pkg_postinst() {
 	xdg_mimeinfo_database_update
 	xdg_icon_cache_update
 	elog "${DOC_CONTENTS}"
-	elog "---"
-	elog "If inserting your license key in the GUI fails, you can do it from the command line, as root:"
-	elog "/opt/vmware/lib/vmware/bin/vmware-vmx-debug --new-sn  XXXXX-XXXXX-XXXXX-XXXXX-XXXXX"
 }
 
 pkg_postrm() {

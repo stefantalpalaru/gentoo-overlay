@@ -3,7 +3,7 @@
 
 EAPI=7
 
-inherit flag-o-matic linux-info linux-mod user udev
+inherit flag-o-matic linux-mod user udev
 
 DESCRIPTION="VMware kernel modules"
 HOMEPAGE="https://github.com/mkubecek/vmware-host-modules"
@@ -17,7 +17,7 @@ MY_KERNEL_VERSION="6.1"
 # and test it ourselves.
 #
 # Details: https://github.com/mkubecek/vmware-host-modules/issues/158#issuecomment-1228341760
-MY_COMMIT="95382676238f5207bc21ea24c60ce76b5f931e64"
+MY_COMMIT="d9e8b780c93aa83f88356897965f2fbe85fc9f3c"
 
 SRC_URI=" https://github.com/mkubecek/vmware-host-modules/archive/${MY_COMMIT}.tar.gz -> ${P}-${MY_COMMIT}.tar.gz"
 
