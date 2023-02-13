@@ -1,8 +1,8 @@
 # Copyright 1999-2023 Gentoo Authors
 # Distributed under the terms of the GNU General Public License v2
 
-EAPI=6
-WX_GTK_VER="3.0"
+EAPI=8
+WX_GTK_VER="3.0-gtk3"
 
 inherit autotools flag-o-matic wxwidgets
 
