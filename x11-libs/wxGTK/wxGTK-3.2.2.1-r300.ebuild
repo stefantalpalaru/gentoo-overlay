@@ -13,10 +13,10 @@ SRC_URI="https://github.com/wxWidgets/wxWidgets/releases/download/v${PV}/wxWidge
 KEYWORDS="~alpha ~amd64 ~arm ~arm64 ~hppa ~ia64 ~mips ~ppc ~ppc64 ~riscv ~sparc ~x86 ~amd64-linux ~x86-linux"
 IUSE="+X aqua doc debug egl gstreamer libnotify lzma opengl sdl tiff webkit"
 
-WXSUBVERSION=${PV}.0-gtk3			# 3.0.3.0-gtk3
-WXVERSION=${WXSUBVERSION%.*}			# 3.0.3
-WXVERSIONTAG=${PV%.*}					# 3.0
-WXRELEASE=${WXVERSION%.*}-gtk3			# 3.0-gtk3
+WXSUBVERSION=$(if [[ $(ver_cut 4 ${PV}) != "" ]]; then echo ${PV}; else echo ${PV}.0-gtk3; fi)			# 3.0.3.0-gtk3
+WXVERSION=$(ver_cut 1-3 ${PV})			# 3.0.3
+WXVERSIONTAG=$(ver_cut 1-2 ${PV})		# 3.0
+WXRELEASE=${WXVERSIONTAG}-gtk3			# 3.0-gtk3
 WXRELEASE_NODOT=${WXRELEASE//./}		# 30-gtk3
 WXRELEASE_NODOTSLASH=${WXRELEASE//-/}	# 30gtk3
 
