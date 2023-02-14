@@ -2,7 +2,7 @@
 # Distributed under the terms of the GNU General Public License v2
 
 EAPI=8
-PYTHON_COMPAT=(python2_7 python3_{8..10})
+PYTHON_COMPAT=(python2_7)
 DISTUTILS_USE_SETUPTOOLS=manual
 
 inherit distutils-r1
@@ -18,17 +18,11 @@ RESTRICT="test"
 
 RDEPEND="
 	$(python_gen_cond_dep '>=app-crypt/acme-0.21.1:python2[${PYTHON_USEDEP}]' -2)
-	$(python_gen_cond_dep '>=app-crypt/acme-0.21.1:0[${PYTHON_USEDEP}]' -3)
 	$(python_gen_cond_dep '>=app-crypt/certbot-0.21.1:python2[${PYTHON_USEDEP}]' -2)
-	$(python_gen_cond_dep '>=app-crypt/certbot-0.21.1:0[${PYTHON_USEDEP}]' -3)
 	$(python_gen_cond_dep '>=dev-python/dns-lexicon-2.2.1:python2[${PYTHON_USEDEP}]' -2)
-	$(python_gen_cond_dep '>=dev-python/dns-lexicon-2.2.1:0[${PYTHON_USEDEP}]' -3)
 	$(python_gen_cond_dep 'dev-python/mock:python2[${PYTHON_USEDEP}]' -2)
-	$(python_gen_cond_dep 'dev-python/mock:0[${PYTHON_USEDEP}]' -3)
 	$(python_gen_cond_dep 'dev-python/setuptools:python2[${PYTHON_USEDEP}]' -2)
-	$(python_gen_cond_dep 'dev-python/setuptools:0[${PYTHON_USEDEP}]' -3)
 	$(python_gen_cond_dep 'dev-python/zope-interface:python2[${PYTHON_USEDEP}]' -2)
-	$(python_gen_cond_dep 'dev-python/zope-interface:0[${PYTHON_USEDEP}]' -3)
 "
 
 S="${WORKDIR}/certbot-${PV}/${PN}"
