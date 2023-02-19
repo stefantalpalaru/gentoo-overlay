@@ -7,12 +7,12 @@ PYTHON_COMPAT=( python3_{9..11} )
 inherit python-single-r1 cmake cuda flag-o-matic
 
 MYPN=pytorch
-MYP=${MYPN}-${PV}
 
 DESCRIPTION="A deep learning framework"
 HOMEPAGE="https://pytorch.org/"
-SRC_URI="https://github.com/pytorch/${MYPN}/archive/refs/tags/v${PV}.tar.gz
-	-> ${MYP}.tar.gz"
+# We need the complete archive, with all thirdparty modules, for the "cutlass" library (used when CUDA is enabled)
+SRC_URI="https://github.com/pytorch/pytorch/releases/download/v${PV}/pytorch-v${PV}.tar.gz
+	-> ${MYPN}-${PVR}.tar.gz"
 
 LICENSE="BSD"
 SLOT="0"
@@ -24,6 +24,7 @@ REQUIRED_USE="
 	ffmpeg? ( opencv )
 " # ?? ( cuda rocm )
 
+# CUDA 12 not supported yet: https://github.com/pytorch/pytorch/issues/91122
 RDEPEND="
 	${PYTHON_DEPS}
 	dev-cpp/gflags:=
@@ -34,12 +35,12 @@ RDEPEND="
 	dev-libs/pthreadpool
 	dev-libs/sleef
 	sci-libs/lapack
-	sci-libs/onnx
+	>=sci-libs/onnx-1.12.0
 	sci-libs/foxi
 	cuda? (
 		=dev-libs/cudnn-8*
 		dev-libs/cudnn-frontend:0/8
-		dev-util/nvidia-cuda-toolkit:=[profiler]
+		<dev-util/nvidia-cuda-toolkit-12:=[profiler]
 	)
 	ffmpeg? ( media-video/ffmpeg:= )
 	nnpack? ( sci-libs/NNPACK )
@@ -59,23 +60,25 @@ DEPEND="
 	dev-libs/FXdiv
 	dev-libs/pocketfft
 	dev-libs/flatbuffers
+	sci-libs/kineto
 	$(python_gen_cond_dep '
 		dev-python/pyyaml[${PYTHON_USEDEP}]
 		dev-python/pybind11[${PYTHON_USEDEP}]
 	')
 "
 
-S="${WORKDIR}"/${MYP}
+S="${WORKDIR}"/${MYPN}-v${PV}
 
 PATCHES=(
-	"${FILESDIR}"/${PN}-1.11.0-gentoo.patch
-	"${FILESDIR}"/${PN}-1.12.0-install-dirs.patch
+	"${FILESDIR}"/${PN}-1.13.0-gentoo.patch
+	"${FILESDIR}"/${PN}-1.13.0-install-dirs.patch
 	"${FILESDIR}"/${PN}-1.12.0-glog-0.6.0.patch
 	"${FILESDIR}"/${PN}-1.12.0-clang.patch
 )
 
 src_prepare() {
 	filter-lto #bug 862672
+	rm -rf third_party/flatbuffers # wrong FLATBUFFERS_VERSION_MAJOR (2 instead of 23)
 	cmake_src_prepare
 	pushd torch/csrc/jit/serialization || die
 	flatc --cpp --gen-mutable --scoped-enums mobile_bytecode.fbs || die
@@ -128,9 +131,11 @@ src_configure() {
 		-DUSE_OPENMP=$(usex openmp)
 		-DUSE_ROCM=OFF # TODO
 		-DUSE_SYSTEM_CPUINFO=ON
-		-DUSE_SYSTEM_BIND11=ON
+		-DUSE_SYSTEM_PYBIND11=ON
+		-DUSE_VALGRIND=OFF
 		-DPYBIND11_PYTHON_VERSION="${EPYTHON#python}"
 		-DPYTHON_EXECUTABLE="${PYTHON}"
+		-DUSE_ITT=OFF
 		-DUSE_SYSTEM_EIGEN_INSTALL=ON
 		-DUSE_SYSTEM_PTHREADPOOL=ON
 		-DUSE_SYSTEM_FXDIV=ON
@@ -167,6 +172,7 @@ src_install() {
 	mv "${ED}"/usr/lib/python*/site-packages/caffe2 python/ || die
 	mv "${ED}"/usr/include/torch python/torch/include || die
 	cp torch/version.py python/torch/ || die
+	rm -r "${ED}"/var/tmp || die
 	python_domodule python/caffe2
 	python_domodule python/torch
 }

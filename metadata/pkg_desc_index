@@ -802,7 +802,7 @@ media-fonts/breeze-sans 20170821-r2: a humanist sans-serif typeface designed by 
 media-fonts/ipamonafont 1.0.8-r1: Hacked version of IPA fonts, which is suitable for browsing 2ch
 media-gfx/GTS 2.5.1: scanning tool developed by Studio Ghibli
 media-gfx/displaycal 3.8.9.3-r3: Display calibration and characterization powered by Argyll CMS
-media-gfx/displaycal-py3 3.9.10: Display calibration and characterization powered by Argyll CMS - Python3 fork
+media-gfx/displaycal-py3 3.9.10-r1: Display calibration and characterization powered by Argyll CMS - Python3 fork
 media-gfx/fbcat 0.5.2: utility that takes a screenshot using the framebuffer device
 media-gfx/gifsicle 9999-r1: Create, manipulate, and optimize GIF images and animations
 media-gfx/gmic 3.2.0-r100: GREYC's Magic Image Converter
@@ -858,7 +858,7 @@ sci-astronomy/kapteyn 2.3.1-r200: Collection of python tools for astronomy
 sci-astronomy/montage 5.0-r1: Toolkit for assembling FITS images into mosaics
 sci-geosciences/mkgmap-bin 4905: Tool to create garmin maps
 sci-geosciences/splitter-bin 652: Tile splitter for mkgmap
-sci-libs/caffe2 1.12.1-r1: A deep learning framework
+sci-libs/caffe2 1.13.1-r1: A deep learning framework
 sci-libs/cholmod 3.0.14-r1: Sparse Cholesky factorization and update/downdate library
 sci-libs/gdal 3.0.4-r200: Translator library for raster geospatial data formats (includes OGR support)
 sci-libs/scikits 0.1-r2: Common files for python scikits
