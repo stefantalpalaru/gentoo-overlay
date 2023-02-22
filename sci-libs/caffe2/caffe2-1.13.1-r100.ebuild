@@ -3,7 +3,8 @@
 
 EAPI=8
 
-PYTHON_COMPAT=( python3_{9..11} )
+# Python-3.11 not fully supported: https://github.com/pytorch/pytorch/issues/86566
+PYTHON_COMPAT=( python3_{9..10} )
 inherit python-single-r1 cmake cuda flag-o-matic
 
 MYPN=pytorch
@@ -12,7 +13,7 @@ DESCRIPTION="A deep learning framework"
 HOMEPAGE="https://pytorch.org/"
 # We need the complete archive, with all thirdparty modules, for the "cutlass" library (used when CUDA is enabled)
 SRC_URI="https://github.com/pytorch/pytorch/releases/download/v${PV}/pytorch-v${PV}.tar.gz
-	-> ${MYPN}-${PVR}.tar.gz"
+	-> ${MYPN}-full-${PV}.tar.gz"
 
 LICENSE="BSD"
 SLOT="0"
@@ -74,6 +75,7 @@ PATCHES=(
 	"${FILESDIR}"/${PN}-1.13.0-install-dirs.patch
 	"${FILESDIR}"/${PN}-1.12.0-glog-0.6.0.patch
 	"${FILESDIR}"/${PN}-1.12.0-clang.patch
+	"${FILESDIR}"/caffe2-1.13.1-functorch.patch
 )
 
 src_prepare() {
@@ -172,7 +174,6 @@ src_install() {
 	mv "${ED}"/usr/lib/python*/site-packages/caffe2 python/ || die
 	mv "${ED}"/usr/include/torch python/torch/include || die
 	cp torch/version.py python/torch/ || die
-	rm -r "${ED}"/var/tmp || die
 	python_domodule python/caffe2
 	python_domodule python/torch
 }
