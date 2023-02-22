@@ -843,7 +843,7 @@ net-misc/magic-wormhole-transit-relay 0.2.1-r200: Transit Relay server for Magic
 net-misc/pycnb 0.0.4-r200: Access cnb.cz daily rates with the comfort of your command line
 net-misc/ssvnc 1.0.29-r3: VNC viewer that adds encryption security to VNC connections
 net-misc/streamtuner2 2.2.2: Internet radio browser
-net-p2p/go-ethereum 1.11.1: Official golang implementation of the Ethereum protocol
+net-p2p/go-ethereum 1.11.2: Official golang implementation of the Ethereum protocol
 net-p2p/nimbus-eth2 23.2.0 9999-r16: Nim implementation of the Ethereum 2.0 blockchain
 net-p2p/pybitmessage 0.6.3.2_p20180521-r2: Reference client for Bitmessage: a P2P communications protocol
 net-p2p/transmission 3.00-r102 4.0.0: A fast, easy, and free BitTorrent client
@@ -858,7 +858,7 @@ sci-astronomy/kapteyn 2.3.1-r200: Collection of python tools for astronomy
 sci-astronomy/montage 5.0-r1: Toolkit for assembling FITS images into mosaics
 sci-geosciences/mkgmap-bin 4905: Tool to create garmin maps
 sci-geosciences/splitter-bin 652: Tile splitter for mkgmap
-sci-libs/caffe2 1.13.1-r100: A deep learning framework
+sci-libs/caffe2 1.13.1-r101: A deep learning framework
 sci-libs/cholmod 3.0.14-r1: Sparse Cholesky factorization and update/downdate library
 sci-libs/gdal 3.0.4-r200: Translator library for raster geospatial data formats (includes OGR support)
 sci-libs/pytorch 1.13.1-r100: Tensors and Dynamic neural networks in Python

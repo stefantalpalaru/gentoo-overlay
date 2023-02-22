@@ -202,6 +202,7 @@ net-wireless/dump1090:rtlsdr - Build with Realtek RTL2832U (rtlsdr) support
 sci-astronomy/casacore:data - Installs measures and data (pulls sci-astronomy/casa-data)
 sci-astronomy/healpix:idl - Install healpix IDL/GDL routines
 sci-libs/caffe2:cuda - Add support for CUDA processing
+sci-libs/caffe2:distributed - Support distributed applications
 sci-libs/caffe2:ffmpeg - Add support for video processing operators
 sci-libs/caffe2:nnpack - Use NNPACK
 sci-libs/caffe2:numpy - Add support for math operations through numpy
