@@ -3,7 +3,7 @@
 
 EAPI=8
 
-inherit cmake systemd xdg-utils
+inherit cmake flag-o-matic systemd tmpfiles xdg-utils
 
 DESCRIPTION="A fast, easy, and free BitTorrent client"
 HOMEPAGE="https://transmissionbt.com/"
@@ -14,7 +14,7 @@ SRC_URI="https://github.com/transmission/transmission/releases/download/${PV}/${
 # MIT is in several libtransmission/ headers
 LICENSE="|| ( GPL-2 GPL-3 Transmission-OpenSSL-exception ) GPL-2 MIT"
 SLOT="0"
-IUSE="appindicator cli doc gtk nls mbedtls qt5 systemd test"
+IUSE="appindicator cli debug doc gtk nls mbedtls qt5 systemd test"
 KEYWORDS="~amd64 ~arm ~arm64 ~ppc ~ppc64 ~x86"
 RESTRICT="!test? ( test )"
 
@@ -22,22 +22,17 @@ ACCT_DEPEND="
 	acct-group/transmission
 	acct-user/transmission
 "
-BDEPEND="${ACCT_DEPEND}
+BDEPEND="
 	virtual/pkgconfig
 	nls? (
-		gtk? (
-			dev-util/intltool
-			sys-devel/gettext
-		)
-		qt5? (
-			dev-qt/linguist-tools:5
-		)
+		gtk? ( sys-devel/gettext )
+		qt5? ( dev-qt/linguist-tools:5 )
 	)
 "
 COMMON_DEPEND="
 	>=app-arch/libdeflate-1.10
-	>=dev-libs/libevent-2.1.0:=
-	!mbedtls? ( dev-libs/openssl:0=	)
+	>=dev-libs/libevent-2.1.0:=[threads(+)]
+	!mbedtls? ( dev-libs/openssl:0= )
 	mbedtls? ( net-libs/mbedtls:0= )
 	dev-libs/libb64
 	net-libs/libnatpmp
@@ -47,30 +42,21 @@ COMMON_DEPEND="
 	sys-libs/zlib:=
 	nls? ( virtual/libintl )
 	gtk? (
-		>=dev-cpp/glibmm-2.60.0:2
 		>=dev-cpp/gtkmm-3.24.0:3.0
-		appindicator? ( >=dev-libs/libappindicator-0.4.90:3 )
+		>=dev-cpp/glibmm-2.60.0:2
+		appindicator? ( dev-libs/libayatana-appindicator )
 	)
 	qt5? (
 		dev-qt/qtcore:5
-		dev-qt/qtdbus:5
 		dev-qt/qtgui:5
-		dev-qt/qtnetwork:5
 		dev-qt/qtwidgets:5
+		dev-qt/qtnetwork:5
+		dev-qt/qtdbus:5
 	)
 	systemd? ( >=sys-apps/systemd-209:= )
 "
 DEPEND="${COMMON_DEPEND}
-	nls? (
-		virtual/libintl
-		gtk? (
-			dev-util/intltool
-			sys-devel/gettext
-		)
-		qt5? (
-			dev-qt/linguist-tools:5
-		)
-	)
+	nls? ( virtual/libintl )
 "
 RDEPEND="${COMMON_DEPEND}
 	${ACCT_DEPEND}
@@ -78,21 +64,18 @@ RDEPEND="${COMMON_DEPEND}
 
 REQUIRED_USE="appindicator? ( gtk )"
 
-PATCHES=(
-	"${FILESDIR}/transmission-4.0.0_beta2-magnet-start-paused-fix.patch"
-)
-
 src_configure() {
 	local mycmakeargs=(
 		-DCMAKE_INSTALL_DOCDIR=share/doc/${PF}
 		-DENABLE_GTK=$(usex gtk ON OFF)
 		-DENABLE_QT=$(usex qt5 ON OFF)
+		-DENABLE_MAC=OFF
 		-DENABLE_CLI=$(usex cli ON OFF)
-		-DENABLE_WEB=OFF # NPM error
 		-DENABLE_TESTS=$(usex test ON OFF)
 		-DENABLE_NLS=$(usex nls ON OFF)
 		-DINSTALL_DOC=$(usex doc ON OFF)
 		-DRUN_CLANG_TIDY=OFF
+		-DUSE_GTK_VERSION=3
 		-DUSE_SYSTEM_EVENT2=ON
 		-DUSE_SYSTEM_DEFLATE=ON
 		-DUSE_SYSTEM_DHT=OFF
@@ -101,11 +84,15 @@ src_configure() {
 		-DUSE_SYSTEM_UTP=OFF
 		-DUSE_SYSTEM_B64=ON
 		-DUSE_SYSTEM_PSL=ON
-		-DWITH_CRYPTO=$(usex mbedtls polarssl openssl)
+		-DUSE_QT_VERSION=5
+		-DWITH_CRYPTO=$(usex mbedtls mbedtls openssl)
 		-DWITH_INOTIFY=ON
 		-DWITH_APPINDICATOR=$(usex appindicator ON OFF)
 		-DWITH_SYSTEMD=$(usex systemd ON OFF)
 	)
+
+	# Disable assertions by default, bug 893870.
+	use debug || append-cppflags -DNDEBUG
 
 	cmake_src_configure
 }
@@ -123,10 +110,7 @@ src_install() {
 	insinto /usr/lib/sysctl.d
 	doins "${FILESDIR}"/60-transmission.conf
 
-	if [[ ${EUID} == 0 ]]; then
-		diropts -o transmission -g transmission
-	fi
-	keepdir /var/lib/transmission
+	newtmpfiles "${FILESDIR}"/transmission-daemon.tmpfiles transmission-daemon.conf
 }
 
 pkg_postrm() {
@@ -141,4 +125,5 @@ pkg_postinst() {
 		xdg_desktop_database_update
 		xdg_icon_cache_update
 	fi
+	tmpfiles_process transmission-daemon.conf
 }
