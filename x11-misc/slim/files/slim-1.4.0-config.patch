@@ -1,0 +1,30 @@
+diff -ur slim-1.4.0.orig/slim.conf slim-1.4.0/slim.conf
+--- slim-1.4.0.orig/slim.conf	2023-03-02 15:14:05.087524856 +0100
++++ slim-1.4.0/slim.conf	2023-03-02 15:17:42.295738029 +0100
+@@ -21,7 +21,7 @@
+ 
+ # Activate numlock when slim starts. Valid values: on|off
+ # Default is to not change it
+-#numlock             on
++numlock             on
+ 
+ # Hide the mouse cursor (note: does not work with some WMs).
+ # Valid values: true|false
+@@ -35,7 +35,7 @@
+ # NOTE: if your system does not have bash you need to adjust the command
+ # according to your preferred shell, e.g. for freebsd use:
+ # login_cmd           exec /bin/sh - ~/.xinitrc %session
+-login_cmd           exec /bin/bash -login ~/.xinitrc %session
++login_cmd           exec /bin/bash -login /usr/share/slim/Xsession %session
+ 
+ # Commands executed when starting and exiting a session.
+ # They can be used for registering a X11 session with
+@@ -64,7 +64,7 @@
+ # displayed is the Name= value and the string substutited in place of
+ # %session is the Exec= value -- note that this may provide a full
+ # path to the session executable!
+-#sessiondir     /usr/share/xsessions
++sessiondir	/usr/share/xsessions
+ 
+ 
+ # Executed when pressing F11 (requires imagemagick)
