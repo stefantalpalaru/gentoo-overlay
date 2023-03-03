@@ -87,6 +87,8 @@ REQUIRED_USE="appindicator? ( gtk )"
 
 PATCHES=(
 	"${FILESDIR}/default_trackers-r3.patch"
+	"${FILESDIR}/transmission-3.00-openssl-3.patch"
+	"${FILESDIR}/transmission-3.00-horizontal-progress-bars.patch"
 )
 
 src_configure() {
