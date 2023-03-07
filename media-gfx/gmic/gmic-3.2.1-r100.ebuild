@@ -67,10 +67,6 @@ DEPEND="${COMMON_DEPEND}
 GMIC_QT_DIR="gmic-qt-v.${PV}"
 S="${WORKDIR}/${PN}-v.${PV}"
 
-PATCHES=(
-	"${FILESDIR}/gmic-3.1.6-cmake.patch"
-)
-
 pkg_pretend() {
 	if use openmp ; then
 		tc-check-openmp
@@ -96,7 +92,6 @@ src_prepare() {
 		local S="${WORKDIR}/${GMIC_QT_DIR}"
 		cd ../${GMIC_QT_DIR}
 		patch -p1 -i "${FILESDIR}/gmic-3.1.6-stripping.patch" || die
-		patch -p1 -i "${FILESDIR}/gmic-3.2.0-gmic_core.patch" || die
 		patch -p1 -i "${FILESDIR}/gmic-3.2.0-system-gmic.patch" || die
 		cd -
 		cmake_src_prepare
