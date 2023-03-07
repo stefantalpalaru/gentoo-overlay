@@ -19,7 +19,6 @@ RDEPEND="${DEPEND}
 	net-libs/gnutls:0
 	dev-libs/nspr
 	dev-libs/nss
-	gnome-base/gconf
 	media-libs/alsa-lib
 	media-libs/freetype
 	sys-apps/dbus
