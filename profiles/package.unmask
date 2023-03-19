@@ -110,7 +110,6 @@ dev-python/py-notify
 dev-python/py-smbpasswd
 dev-python/py-xmlrpc
 dev-python/pyPdf
-dev-python/pyamazon
 dev-python/pyamf
 dev-python/pyao
 dev-python/pycdf
@@ -139,7 +138,6 @@ dev-python/pystatgrab
 dev-python/pytest-mpl
 dev-python/pytest-runner
 dev-python/python-biggles
-dev-python/python-caja
 dev-python/python-catcher
 dev-python/python-cdb
 dev-python/python-cdb
@@ -169,6 +167,7 @@ dev-python/ropeide
 dev-python/ropemacs
 dev-python/sampy
 dev-python/sancho
+dev-python/scandir
 dev-python/scipy-python2
 dev-python/sclapp
 dev-python/shm

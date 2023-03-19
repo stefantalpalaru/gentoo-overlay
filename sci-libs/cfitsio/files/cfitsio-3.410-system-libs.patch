@@ -1,0 +1,45 @@
+diff -ur cfitsio.orig/cfitsio.pc.in cfitsio/cfitsio.pc.in
+--- cfitsio.orig/cfitsio.pc.in	2013-04-08 20:11:56.000000000 +0200
++++ cfitsio/cfitsio.pc.in	2023-03-18 18:30:51.370995467 +0100
+@@ -7,5 +7,5 @@
+ Description: FITS File Subroutine Library
+ Version: @CFITSIO_MAJOR@.@CFITSIO_MINOR@
+ Libs: -L${libdir} -lcfitsio @LIBS@
+-Libs.private: -lm
++Libs.private: -lm -lz -lbz2
+ Cflags: -I${includedir}
+diff -ur cfitsio.orig/Makefile.in cfitsio/Makefile.in
+--- cfitsio.orig/Makefile.in	2016-08-30 21:27:02.000000000 +0200
++++ cfitsio/Makefile.in	2023-03-18 18:30:58.810941131 +0100
+@@ -68,9 +68,7 @@
+ 		pliocomp.c fits_hcompress.c fits_hdecompress.c \
+ 		simplerng.c
+ 
+-ZLIB_SOURCES =	zlib/adler32.c zlib/crc32.c zlib/deflate.c zlib/infback.c \
+-		zlib/inffast.c zlib/inflate.c zlib/inftrees.c zlib/trees.c \
+-		zlib/uncompr.c zlib/zcompress.c zlib/zuncompress.c zlib/zutil.c
++ZLIB_SOURCES =	zlib/zcompress.c zlib/zuncompress.c
+ 
+ SOURCES = ${CORE_SOURCES} ${ZLIB_SOURCES} @F77_WRAPPERS@
+ 
+@@ -103,7 +101,7 @@
+ shared: lib${PACKAGE}${SHLIB_SUFFIX}
+ 
+ lib${PACKAGE}${SHLIB_SUFFIX}: ${OBJECTS}
+-		${SHLIB_LD} ${LDFLAGS} -o ${CFITSIO_SHLIB} ${OBJECTS} -lm ${LIBS}
++		${SHLIB_LD} ${LDFLAGS} -o ${CFITSIO_SHLIB} ${OBJECTS} -lm -lz -lbz2 ${LIBS}
+ 		@if [ "x${CFITSIO_SHLIB_SONAME}" != x ]; then \
+ 			ln -sf ${CFITSIO_SHLIB} ${CFITSIO_SHLIB_SONAME}; \
+ 			ln -sf ${CFITSIO_SHLIB_SONAME} $@; \
+diff -ur cfitsio.orig/zlib/zcompress.c cfitsio/zlib/zcompress.c
+--- cfitsio.orig/zlib/zcompress.c	2016-08-30 23:21:34.000000000 +0200
++++ cfitsio/zlib/zcompress.c	2023-03-18 18:30:34.121121447 +0100
+@@ -3,7 +3,7 @@
+ #include <stdlib.h>
+ #include <string.h>
+ #include <limits.h>
+-#include "zlib.h"  
++#include <zlib.h>
+ 
+ #define GZBUFSIZE 115200    /* 40 FITS blocks */
+ #define BUFFINCR   28800    /* 10 FITS blocks */
