@@ -19,7 +19,7 @@ case "${EAPI:-0}" in
 	4|5|6)
 		inherit eapi7-ver
 		;;
-	7)
+	7|8)
 		;;
 	*)
 		die "Unsupported EAPI=${EAPI} (unknown) for ${ECLASS}"
@@ -74,14 +74,14 @@ _twisted-r1_camelcase() {
 	echo "${out}"
 }
 
-# @ECLASS-VARIABLE: TWISTED_PN
+# @ECLASS_VARIABLE: TWISTED_PN
 # @DESCRIPTION:
 # The real package name. Default to camel-case conversion of ${PN}.
 #
 # Example: TwistedCore
 : ${TWISTED_PN:=$(_twisted-r1_camelcase ${PN})}
 
-# @ECLASS-VARIABLE: TWISTED_P
+# @ECLASS_VARIABLE: TWISTED_P
 # @DESCRIPTION:
 # The real package name with version appended.
 #
@@ -90,7 +90,7 @@ _twisted-r1_camelcase() {
 # Example: TwistedCore-1.2.3
 : ${TWISTED_P:=${TWISTED_PN}-${PV}}
 
-# @ECLASS-VARIABLE: TWISTED_RELEASE
+# @ECLASS_VARIABLE: TWISTED_RELEASE
 # @DESCRIPTION:
 # The 'release' of Twisted. Defaults to the major & minor version
 # number from ${PV}.
@@ -101,9 +101,9 @@ _twisted-r1_camelcase() {
 # Example: 1.2
 : ${TWISTED_RELEASE:=$(ver_cut 1-2 ${PV})}
 
-HOMEPAGE="https://www.twistedmatrix.com/trac/"
-SRC_URI="https://twistedmatrix.com/Releases/${TWISTED_PN#Twisted}"
-SRC_URI="${SRC_URI}/${TWISTED_RELEASE}/${TWISTED_P}.tar.bz2"
+HOMEPAGE="https://www.twisted.org/
+	https://github.com/twisted/twisted"
+SRC_URI="https://github.com/twisted/${PN}/archive/refs/tags/${P}.tar.gz"
 
 LICENSE="MIT"
 SLOT="0"
@@ -111,7 +111,7 @@ IUSE=""
 
 S=${WORKDIR}/${TWISTED_P}
 
-# @ECLASS-VARIABLE: TWISTED_PLUGINS
+# @ECLASS_VARIABLE: TWISTED_PLUGINS
 # @DESCRIPTION:
 # An array of Twisted plugins, whose cache is regenerated
 # in pkg_postinst() and pkg_postrm() phases.

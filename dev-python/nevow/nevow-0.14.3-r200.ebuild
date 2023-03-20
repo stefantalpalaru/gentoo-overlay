@@ -4,7 +4,7 @@
 EAPI=7
 PYTHON_COMPAT=( python2_7 )
 
-inherit twisted-r1
+inherit distutils-r1 twisted-r1
 
 DESCRIPTION="A web templating framework that provides LivePage, an automatic AJAX toolkit"
 HOMEPAGE="https://github.com/twisted/nevow https://pypi.org/project/Nevow/"
