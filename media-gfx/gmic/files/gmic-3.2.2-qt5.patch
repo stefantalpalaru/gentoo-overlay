@@ -1,0 +1,37 @@
+From 420e85e005401d942a3ca5f5c39ee3c867fe8bdd Mon Sep 17 00:00:00 2001
+From: Lily Foster <lily@lily.flowers>
+Date: Fri, 17 Mar 2023 14:37:08 -0400
+Subject: [PATCH] Do not build all host code by default
+
+This is problematic because some host code, like 8bf, require Qt6 and
+that prevents building other host code with Qt5 at all.
+---
+ CMakeLists.txt | 8 --------
+ 1 file changed, 8 deletions(-)
+
+diff --git a/CMakeLists.txt b/CMakeLists.txt
+index 8090050..8e4bd38 100644
+--- a/CMakeLists.txt
++++ b/CMakeLists.txt
+@@ -433,8 +433,6 @@ set (gmic_qt_SRCS
+   src/GmicStdlib.h
+   src/HeadlessProcessor.h
+   src/Host/GmicQtHost.h
+-  src/Host/None/ImageDialog.h
+-  src/Host/None/JpegQualityDialog.h
+   src/HtmlTranslator.h
+   src/IconLoader.h
+   src/ImageTools.h
+@@ -524,12 +522,6 @@ set(gmic_qt_SRCS
+   src/GmicQt.cpp
+   src/GmicStdlib.cpp
+   src/HeadlessProcessor.cpp
+-  src/Host/8bf/host_8bf.cpp
+-  src/Host/Gimp/host_gimp.cpp
+-  src/Host/None/host_none.cpp
+-  src/Host/None/ImageDialog.cpp
+-  src/Host/None/JpegQualityDialog.cpp
+-  src/Host/PaintDotNet/host_paintdotnet.cpp
+   src/HtmlTranslator.cpp
+   src/IconLoader.cpp
+   src/ImageTools.cpp

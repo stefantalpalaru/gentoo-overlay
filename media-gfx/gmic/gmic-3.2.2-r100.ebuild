@@ -93,6 +93,8 @@ src_prepare() {
 		cd ../${GMIC_QT_DIR}
 		patch -p1 -i "${FILESDIR}/gmic-3.1.6-stripping.patch" || die
 		patch -p1 -i "${FILESDIR}/gmic-3.2.0-system-gmic.patch" || die
+		patch -p1 -i "${FILESDIR}/gmic-3.2.2-qt-form-patch.patch" || die
+		patch -p1 -i "${FILESDIR}/gmic-3.2.2-qt5.patch" || die
 		cd -
 		cmake_src_prepare
 	fi
@@ -133,6 +135,7 @@ src_configure() {
 	mycmakeargs=(
 		-DENABLE_DYNAMIC_LINKING=ON
 		-DENABLE_SYSTEM_GMIC=ON
+		-DGMIC_LIB_PATH="${WORKDIR}/gmic-v.${PV}_build"
 	)
 	local BUILD_DIR
 	if use gimp; then
