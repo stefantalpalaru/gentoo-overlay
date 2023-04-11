@@ -1,5 +1,5 @@
 app-arch/libdeflate 1.14: Heavily optimized DEFLATE/zlib/gzip (de)compression
-app-arch/libzim 8.1.0: reference implementation for the ZIM archive format
+app-arch/libzim 8.1.1: reference implementation for the ZIM archive format
 app-crypt/acme 1.8.0-r200: An implementation of the ACME protocol
 app-crypt/certbot 1.8.0-r201: Let's encrypt client to automate deployment of X.509 certificates
 app-crypt/certbot-dns-linode 1.2.0-r5 2.3.0: Linode DNS Authenticator plugin for Certbot

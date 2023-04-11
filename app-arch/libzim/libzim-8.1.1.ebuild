@@ -23,3 +23,12 @@ RDEPEND="
 "
 
 DEPEND="virtual/pkgconfig"
+
+src_prepare() {
+	default
+
+	# Disable GTest automagic: https://github.com/openzim/libzim/issues/757
+	sed -i \
+		-e "s/gtest_dep = dependency('gtest'/gtest_dep = dependency(''/" \
+		meson.build || die
+}
