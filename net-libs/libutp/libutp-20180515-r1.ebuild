@@ -18,6 +18,10 @@ KEYWORDS="~amd64 ~arm ~arm64 ~ppc ~ppc64 ~x86"
 
 S="${WORKDIR}/${PN}-${MY_COMMIT}"
 
+PATCHES=(
+	"${FILESDIR}/libutp-20180515-bool.patch"
+)
+
 src_configure() {
 	local mycmakeargs=(
 		-DLIBUTP_SHARED=ON

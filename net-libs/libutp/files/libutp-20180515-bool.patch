@@ -1,0 +1,12 @@
+diff -ur libutp-9cb9f9c4f0073d78b08d6542cebaea6564ecadfe.orig/include/libutp/utp_types.h libutp-9cb9f9c4f0073d78b08d6542cebaea6564ecadfe/include/libutp/utp_types.h
+--- libutp-9cb9f9c4f0073d78b08d6542cebaea6564ecadfe.orig/include/libutp/utp_types.h	2023-03-05 16:42:54.000000000 +0100
++++ libutp-9cb9f9c4f0073d78b08d6542cebaea6564ecadfe/include/libutp/utp_types.h	2023-04-21 20:36:41.623880266 +0200
+@@ -108,8 +108,4 @@
+ typedef const char * cstr;
+ typedef char * str;
+ 
+-#ifndef __cplusplus
+-typedef uint8 bool;
+-#endif
+-
+ #endif //__UTP_TYPES_H__
