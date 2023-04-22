@@ -1,5 +1,5 @@
 #!/sbin/openrc-run
-# Copyright 1999-2018 Gentoo Foundation
+# Copyright 1999-2023 Gentoo Authors
 # Distributed under the terms of the GNU General Public License v2
 
 depend() {
@@ -11,17 +11,18 @@ start() {
 	ebegin Starting VMware USB Arbitrator
 	@@BINDIR@@/vmware-usbarbitrator
 	eend $?
+
 	ebegin Starting VMware services
 
 	# vmci might be:
 	# 1) built as external kernel module
 	# 2) built as internal kernel module (with name vmw_vmci)
 	# 3) embedded in the kernel
-	for mod in /lib/modules/$(uname -r)/misc/vmci.ko \
-		/lib/modules/$(uname -r)/kernel/drivers/misc/vmw_vmci/vmw_vmci.ko ;
+	for mod in /lib/modules/$(uname -r)/misc/vmci.ko* \
+		/lib/modules/$(uname -r)/kernel/drivers/misc/vmw_vmci/vmw_vmci.ko* ;
 	do
 		if [[ -f "${mod}" ]] ; then
-			modprobe -v $(basename "${mod}" .ko)
+			modprobe -v $(basename "${mod}" | cut -d '.' -f 1)
 			eend $?
 			break
 		fi
@@ -31,18 +32,18 @@ start() {
 	# 1) built as external kernel module
 	# 2) built as internal kernel module (with name vmw_vsock_vmci_transport)
 	# 3) embedded in the kernel
-	for mod in /lib/modules/$(uname -r)/misc/vsock.ko \
-		/lib/modules/$(uname -r)/kernel/net/vmw_vsock/vmw_vsock_vmci_transport.ko ;
+	for mod in /lib/modules/$(uname -r)/misc/vsock.ko* \
+		/lib/modules/$(uname -r)/kernel/net/vmw_vsock/vmw_vsock_vmci_transport.ko* ;
 	do
 		if [[ -f "${mod}" ]] ; then
-			modprobe -v $(basename "${mod}" .ko)
+			modprobe -v $(basename "${mod}" | cut -d '.' -f 1)
 			eend $?
 			break
 		fi
 	done
 
 	# vmblock
-	if [[ -f /lib/modules/$(uname -r)/misc/vmblock.ko ]]; then
+	if [[ -f /lib/modules/$(uname -r)/misc/vmblock.ko* ]]; then
 		modprobe -v vmblock
 		eend $?
 	fi
@@ -70,11 +71,11 @@ stop() {
 	# 1) built as external kernel module
 	# 2) built as internal kernel module (with name vmw_vsock_vmci_transport)
 	# 3) embedded in the kernel
-	for mod in /lib/modules/$(uname -r)/misc/vsock.ko \
-		/lib/modules/$(uname -r)/kernel/net/vmw_vsock/vmw_vsock_vmci_transport.ko ;
+	for mod in /lib/modules/$(uname -r)/misc/vsock.ko* \
+		/lib/modules/$(uname -r)/kernel/net/vmw_vsock/vmw_vsock_vmci_transport.ko* ;
 	do
 		if [[ -f "${mod}" ]] ; then
-			modprobe -rv $(basename "${mod}" .ko)
+			modprobe -rv $(basename "${mod}" | cut -d '.' -f 1)
 			eend $?
 			break
 		fi
@@ -84,18 +85,18 @@ stop() {
 	# 1) built as external kernel module
 	# 2) built as internal kernel module (with name vmw_vmci)
 	# 3) embedded in the kernel
-	for mod in /lib/modules/$(uname -r)/misc/vmci.ko \
-		/lib/modules/$(uname -r)/kernel/drivers/misc/vmw_vmci/vmw_vmci.ko ;
+	for mod in /lib/modules/$(uname -r)/misc/vmci.ko* \
+		/lib/modules/$(uname -r)/kernel/drivers/misc/vmw_vmci/vmw_vmci.ko* ;
 	do
 		if [[ -f "${mod}" ]] ; then
-			modprobe -rv $(basename "${mod}" .ko)
+			modprobe -rv $(basename "${mod}" | cut -d '.' -f 1)
 			eend $?
 			break
 		fi
 	done
 
 	# vmblock
-	if [[ -f /lib/modules/$(uname -r)/misc/vmblock.ko ]]; then
+	if [[ -f /lib/modules/$(uname -r)/misc/vmblock.ko* ]]; then
 		modprobe -rv vmblock
 		eend $?
 	fi
