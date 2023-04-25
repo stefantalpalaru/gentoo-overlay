@@ -1,22 +1,22 @@
-# Copyright 1999-2021 Gentoo Authors
+# Copyright 1999-2023 Gentoo Authors
 # Distributed under the terms of the GNU General Public License v2
 
 EAPI=8
-MY_PV="${PV/./,}"
+MY_PV="4.6-${PV}"
 
 inherit cmake desktop xdg
 
 DESCRIPTION="software DAB decoder for use with a dabstick, airspy or sdrplay for RPI and PC"
 HOMEPAGE="http://www.sdr-j.tk/
 	https://github.com/JvanKatwijk/qt-dab"
-SRC_URI="https://github.com/JvanKatwijk/qt-dab/archive/${PV}.tar.gz -> ${P}.tar.gz"
+SRC_URI="https://github.com/JvanKatwijk/qt-dab/archive/refs/tags/qt-dab-${MY_PV}.tar.gz"
 
 LICENSE="GPL-2"
-SLOT="0"
+SLOT="5"
 KEYWORDS="~amd64 ~x86"
 IUSE="cpu_flags_x86_sse"
 
-DEPEND="!media-radio/dabstick-radio
+DEPEND="
 	dev-qt/qtcore:5
 	dev-qt/qtgui:5
 	media-libs/faad2
@@ -32,7 +32,7 @@ DEPEND="!media-radio/dabstick-radio
 
 RDEPEND="${DEPEND}"
 
-S="${WORKDIR}/${P}/dab-maxi"
+S="${WORKDIR}/${PN}-${PN}-${MY_PV}/qt-dab-s${SLOT}"
 
 src_prepare() {
 	cmake_src_prepare
@@ -40,8 +40,7 @@ src_prepare() {
 
 src_configure() {
 	local mycmakeargs=(
-		-DTRY_EPG=ON
-		-DRTLSDR=ON
+		-DRTLSDR_LINUX=ON
 		-DRTL_TCP=ON
 		-DFDK_AAC=ON
 	)
@@ -54,12 +53,12 @@ src_configure() {
 }
 
 src_install() {
-	doicon qt-dab.png
-	domenu qt-dab.desktop
+	doicon qt-dab-${SLOT}.png
+	domenu qt-dab-${SLOT}.desktop
 
 	cd "${BUILD_DIR}"
 	exeinto "/usr/bin"
-	newexe "${P}" "${PN}"
+	newexe "${P}" "${PN}-${SLOT}"
 }
 
 pkg_postinst() {
