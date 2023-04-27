@@ -34,6 +34,7 @@ dev-lang/tauthon 2.8.5 9999: Python 2.7 fork with new syntax, builtins, and libr
 dev-libs/boost 1.82.0: Boost Libraries for C++
 dev-libs/chan 0.0.4 9999: pure C implementation of Go channels
 dev-libs/cudnn 8.8.1.3-r1100 8.8.1.3-r1200: NVIDIA Accelerated Deep Learning on GPU library
+dev-libs/dht 0.27: BitTorrent DHT library
 dev-libs/golib 0.0.1_pre20180515 9999: a library exposing Go's channels and goroutines to plain C
 dev-libs/icu 64.2: International Components for Unicode
 dev-libs/keybinder 0.3.1-r201: A library for registering global keyboard shortcuts
