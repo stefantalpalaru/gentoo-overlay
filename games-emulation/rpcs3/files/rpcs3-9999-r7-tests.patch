@@ -1,0 +1,10 @@
+diff -ur rpcs3-9999.orig/rpcs3/CMakeLists.txt rpcs3-9999/rpcs3/CMakeLists.txt
+--- rpcs3-9999.orig/rpcs3/CMakeLists.txt	2023-05-04 17:44:46.215497662 +0200
++++ rpcs3-9999/rpcs3/CMakeLists.txt	2023-05-04 17:45:08.865312378 +0200
+@@ -217,6 +217,4 @@
+         DESTINATION ${CMAKE_INSTALL_DATADIR}/rpcs3)
+     install(DIRECTORY ../bin/git
+         DESTINATION ${CMAKE_INSTALL_DATADIR}/rpcs3)
+-    install(DIRECTORY ../bin/test
+-        DESTINATION ${CMAKE_INSTALL_DATADIR}/rpcs3)
+ endif()
