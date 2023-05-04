@@ -204,6 +204,17 @@ net-wireless/dump1090:minimal - Exclude all HTML/webserver extras for a tiny bui
 net-wireless/dump1090:rtlsdr - Build with Realtek RTL2832U (rtlsdr) support
 sci-astronomy/casacore:data - Installs measures and data (pulls sci-astronomy/casa-data)
 sci-astronomy/healpix:idl - Install healpix IDL/GDL routines
+sci-geosciences/qgis:3d - Build QGIS 3D library using dev-qt/qt3d
+sci-geosciences/qgis:georeferencer - Determines whether georeferencer plugin should be built
+sci-geosciences/qgis:grass - Add support for grass
+sci-geosciences/qgis:hdf5 - Enable MDAL support for sci-libs/hdf5
+sci-geosciences/qgis:mapserver - Determines whether mapserver should be built
+sci-geosciences/qgis:netcdf - Enable MDAL support for GRIB and XMDF formats
+sci-geosciences/qgis:opencl - Enable OpenCL support
+sci-geosciences/qgis:pdal - Enable support for PDAL for point clouds via sci-libs/pdal
+sci-geosciences/qgis:polar - Enable support for the polar coordinate system via x11-libs/qwtpolar
+sci-geosciences/qgis:qml - Enable support Qml-based plugins using dev-qt/qtdeclarative
+sci-geosciences/qgis:serial - Enable support for serial GPS using dev-qt/qtserialport
 sci-libs/caffe2:cuda - Add support for CUDA processing
 sci-libs/caffe2:distributed - Support distributed applications
 sci-libs/caffe2:ffmpeg - Add support for video processing operators
