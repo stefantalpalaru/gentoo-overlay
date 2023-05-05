@@ -13,7 +13,6 @@ KEYWORDS=""
 LICENSE="GPL-2"
 SLOT="0"
 IUSE="alsa joystick +llvm pulseaudio sdl vulkan"
-RESTRICT="network-sandbox"
 
 RDEPEND="
 	${PYTHON_DEPS}
@@ -62,7 +61,6 @@ EGIT_SUBMODULES=(
 )
 
 PATCHES=(
-	"${FILESDIR}/rpcs3-9999-r7-sdl.patch"
 	"${FILESDIR}/rpcs3-9999-r7-tests.patch"
 )
 
