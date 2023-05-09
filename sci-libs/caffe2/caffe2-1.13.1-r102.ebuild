@@ -40,9 +40,9 @@ RDEPEND="
 	>=sci-libs/onnx-1.12.0
 	sci-libs/foxi
 	cuda? (
-		=dev-libs/cudnn-8*
+		dev-libs/cudnn:0/8
 		dev-libs/cudnn-frontend:0/8
-		<dev-util/nvidia-cuda-toolkit-12:=[profiler]
+		=dev-util/nvidia-cuda-toolkit-11*:=[profiler]
 	)
 	ffmpeg? ( media-video/ffmpeg:= )
 	mpi? ( sys-cluster/openmpi )
@@ -78,6 +78,7 @@ PATCHES=(
 	"${FILESDIR}"/${PN}-1.12.0-glog-0.6.0.patch
 	"${FILESDIR}"/${PN}-1.12.0-clang.patch
 	"${FILESDIR}"/caffe2-1.13.1-functorch.patch
+	"${FILESDIR}"/caffe2-2.0.1-gcc-13.patch
 )
 
 src_prepare() {

@@ -78,6 +78,7 @@ PATCHES=(
 	"${FILESDIR}"/${PN}-1.12.0-glog-0.6.0.patch
 	"${FILESDIR}"/caffe2-1.13.1-functorch.patch
 	"${FILESDIR}"/caffe2-2.0.0-nvfuser.patch
+	"${FILESDIR}"/caffe2-2.0.1-gcc-13.patch
 )
 
 src_prepare() {
