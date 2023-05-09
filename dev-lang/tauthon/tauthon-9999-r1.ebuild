@@ -59,7 +59,7 @@ BDEPEND="
 RDEPEND+="
 	!build? ( app-misc/mime-types )
 "
-	#doc? ( dev-python/python-docs:${PYVER} )"
+	#doc? ( app-doc/python-docs:${PYVER} )"
 
 QA_PKGCONFIG_VERSION=${PYVER}
 

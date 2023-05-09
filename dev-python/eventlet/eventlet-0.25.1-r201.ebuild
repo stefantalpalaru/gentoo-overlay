@@ -23,7 +23,7 @@ RDEPEND="
 	>=dev-python/six-1.10.0:python2[${PYTHON_USEDEP}]
 	!<dev-python/eventlet-0.25.1-r3[${PYTHON_USEDEP}]
 "
-DEPEND="doc? ( >=dev-python/python-docs-2.7.6-r1:2.7 )
+DEPEND="doc? ( >=app-doc/python-docs-2.7.6-r1:2.7 )
 	test? ( ${RDEPEND}
 		dev-python/pyopenssl[${PYTHON_USEDEP}]
 		dev-python/nose[${PYTHON_USEDEP}] )"
@@ -40,8 +40,8 @@ python_prepare_all() {
 	sed -i '/enum-compat/d' setup.py || die
 
 	if use doc; then
-		local PYTHON_DOC_ATOM=$(best_version -b dev-python/python-docs:2.7)
-		local PYTHON_DOC_VERSION="${PYTHON_DOC_ATOM#dev-python/python-docs-}"
+		local PYTHON_DOC_ATOM=$(best_version -b app-doc/python-docs:2.7)
+		local PYTHON_DOC_VERSION="${PYTHON_DOC_ATOM#app-doc/python-docs-}"
 		local PYTHON_DOC="/usr/share/doc/python-docs-${PYTHON_DOC_VERSION}/html"
 		local PYTHON_DOC_INVENTORY="${PYTHON_DOC}/objects.inv"
 		sed -i "s|'https://docs.python.org/': None|'${PYTHON_DOC}': '${PYTHON_DOC_INVENTORY}'|" doc/conf.py || die
