@@ -1,0 +1,16 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE pkgmetadata SYSTEM "https://www.gentoo.org/dtd/metadata.dtd">
+<pkgmetadata>
+	<maintainer type="person">
+		<name>Ryan Fox</name>
+		<email>flewkey@2a03.party</email>
+	</maintainer>
+	<use>
+		<flag name="gtk2">Use gtk-2 instead of gtk-3</flag>
+		<flag name="rdf">Enable LADSPA-RDF support</flag>
+		<flag name="sf2">Enable builtin SF2 sample support using <pkg>media-sound/fluidsynth</pkg></flag>
+	</use>
+	<upstream>
+		<remote-id type="github">falkTX/Carla</remote-id>
+	</upstream>
+</pkgmetadata>
