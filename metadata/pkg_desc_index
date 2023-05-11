@@ -820,6 +820,7 @@ media-radio/fmreceiver 3.0: SDR-J FM receiver for RTL2832-based USB sticks
 media-radio/qt-dab 4.6 5.3: software DAB decoder for use with a dabstick, airspy or sdrplay for RPI and PC
 media-radio/swreceiver 0.8: SDR-J SW receiver for RTL2832-based USB sticks
 media-sound/carla 2.5.4 9999: Fully-featured audio plugin host, supports many audio drivers and plugin formats
+media-sound/dcue 1.5: generate CUE sheets from Discogs data
 media-sound/fmit 1.2.14: Free Music Instrument Tuner
 media-sound/keyfinder-cli 1.1.1: Musical key detection software (libkeyfinder CLI)
 media-sound/lmms 1.2.2-r1 9999-r1: Cross-platform music production software
