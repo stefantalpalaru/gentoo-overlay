@@ -1,4 +1,4 @@
-# Copyright 1999-2022 Gentoo Authors
+# Copyright 1999-2023 Gentoo Authors
 # Distributed under the terms of the GNU General Public License v2
 
 EAPI=7
@@ -63,6 +63,10 @@ RDEPEND+="
 
 S="${WORKDIR}/${MY_P}"
 QA_PKGCONFIG_VERSION=${PYVER}
+QA_CONFIG_IMPL_DECL_SKIP=(
+	chflags
+	lchflags
+)
 
 pkg_setup() {
 	if use berkdb; then
@@ -92,6 +96,7 @@ src_prepare() {
 	local PATCHES=(
 		"${FILESDIR}/patches" # from https://dev.gentoo.org/~mgorny/dist/python/python-gentoo-patches-2.7.18_p16.tar.xz
 		"${FILESDIR}/python-2.7.18-PGO.patch"
+		"${FILESDIR}/python-2.7.18-configure-implicit.patch"
 	)
 
 	default
@@ -266,7 +271,7 @@ src_compile() {
 	fi
 	export par_arg
 
-	emake EXTRATESTOPTS="${par_arg} -uall,-audio -x test_distutils -x test_bdb -x test_runpy -x test_test_support"
+	emake EXTRATESTOPTS="${par_arg} -uall,-audio -x test_distutils -x test_bdb -x test_runpy -x test_test_support -x test_socket"
 
 	# Restore saved value from above.
 	local -x PYTHONDONTWRITEBYTECODE=${_PYTHONDONTWRITEBYTECODE}
