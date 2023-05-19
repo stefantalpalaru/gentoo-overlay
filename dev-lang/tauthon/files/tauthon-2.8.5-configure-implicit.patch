@@ -1,0 +1,11 @@
+diff -ur Python-2.7.18.orig/configure.ac Python-2.7.18/configure.ac
+--- Python-2.7.18.orig/configure.ac	2023-05-19 16:07:26.205336388 +0200
++++ Python-2.7.18/configure.ac	2023-05-19 16:27:13.776206962 +0200
+@@ -4408,6 +4408,7 @@
+ AC_CACHE_VAL(ac_cv_broken_poll,
+ AC_RUN_IFELSE([AC_LANG_SOURCE([[
+ #include <poll.h>
++#include <unistd.h>
+ 
+ int main()
+ {

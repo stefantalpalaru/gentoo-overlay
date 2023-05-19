@@ -4,17 +4,17 @@
 EAPI=7
 WANT_LIBTOOL="none"
 
-inherit autotools flag-o-matic git-r3 pax-utils python-utils-r1 toolchain-funcs
+inherit autotools flag-o-matic pax-utils python-utils-r1 toolchain-funcs
 
-PYVER="2.8"
+PYVER=$(ver_cut 1-2)
 
 DESCRIPTION="Python 2.7 fork with new syntax, builtins, and libraries backported from Python3"
 HOMEPAGE="https://github.com/naftaliharris/tauthon"
-EGIT_REPO_URI="https://github.com/naftaliharris/tauthon"
+SRC_URI="https://github.com/naftaliharris/tauthon/archive/v${PV}.tar.gz -> ${P}.tar.gz"
 
 LICENSE="PSF-2"
 SLOT="${PYVER}"
-KEYWORDS=""
+KEYWORDS="~alpha amd64 arm arm64 hppa ~ia64 ~loong ~m68k ~mips ppc ppc64 ~riscv ~s390 sparc x86"
 IUSE="berkdb bluetooth build doc examples gdbm hardened ipv6 +lto +ncurses +pgo +readline +sqlite +ssl test +threads tk +wide-unicode wininst +xml"
 RESTRICT="!test? ( test ) network-sandbox"
 
@@ -62,6 +62,10 @@ RDEPEND+="
 	#doc? ( app-doc/python-docs:${PYVER} )"
 
 QA_PKGCONFIG_VERSION=${PYVER}
+QA_CONFIG_IMPL_DECL_SKIP=(
+	chflags
+	lchflags
+)
 
 pkg_setup() {
 	if use berkdb; then
@@ -86,6 +90,7 @@ src_prepare() {
 
 	local PATCHES=(
 		"${FILESDIR}/patches"
+		"${FILESDIR}/tauthon-2.8.5-configure-implicit.patch"
 	)
 
 	default
@@ -240,7 +245,7 @@ src_compile() {
 	fi
 	export par_arg
 
-	emake EXTRATESTOPTS="${par_arg} -uall,-audio -x test_distutils -x test_bdb -x test_runpy -x test_test_support"
+	emake EXTRATESTOPTS="${par_arg} -uall,-audio -x test_distutils -x test_bdb -x test_runpy -x test_test_support -x test_socket"
 
 	# Restore saved value from above.
 	local -x PYTHONDONTWRITEBYTECODE=${_PYTHONDONTWRITEBYTECODE}
