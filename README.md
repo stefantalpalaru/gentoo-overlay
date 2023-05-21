@@ -4,7 +4,7 @@
 
 ## Installing
 
-This overlay is available in the official Gentoo list. Add it with `layman -a stefantalpalaru` or `eselect repository enable stefantalpalaru`.
+This overlay is available in the official Gentoo list. Add it with `eselect repository enable stefantalpalaru`.
 
 ## Counting packages
 
