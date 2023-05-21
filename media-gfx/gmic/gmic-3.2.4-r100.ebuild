@@ -8,9 +8,11 @@ CMAKE_BUILD_TYPE=Release
 inherit bash-completion-r1 cmake flag-o-matic qmake-utils toolchain-funcs
 
 DESCRIPTION="GREYC's Magic Image Converter"
-HOMEPAGE="http://gmic.eu/ https://github.com/dtschump/gmic https://framagit.org/dtschump/gmic"
+HOMEPAGE="http://gmic.eu/
+	https://github.com/GreycLab/gmic
+	https://framagit.org/dtschump/gmic"
 GMIC_QT_URI="https://github.com/c-koi/gmic-qt/archive/v.${PV}.tar.gz -> gmic-qt-${PV}.tar.gz"
-SRC_URI="https://github.com/dtschump/gmic/archive/v.${PV}.tar.gz -> ${P}.tar.gz
+SRC_URI="https://github.com/GreycLab/gmic/archive/v.${PV}.tar.gz -> ${P}.tar.gz
 	https://gmic.eu/gmic_stdlib$(ver_rs 1- '').h
 	gimp? ( ${GMIC_QT_URI} )
 	gui? ( ${GMIC_QT_URI} )
@@ -93,8 +95,6 @@ src_prepare() {
 		cd ../${GMIC_QT_DIR}
 		patch -p1 -i "${FILESDIR}/gmic-3.1.6-stripping.patch" || die
 		patch -p1 -i "${FILESDIR}/gmic-3.2.0-system-gmic.patch" || die
-		patch -p1 -i "${FILESDIR}/gmic-3.2.2-qt-form-patch.patch" || die
-		patch -p1 -i "${FILESDIR}/gmic-3.2.2-qt5.patch" || die
 		cd -
 		cmake_src_prepare
 	fi
