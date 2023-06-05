@@ -2,7 +2,7 @@
 # Distributed under the terms of the GNU General Public License v2
 
 EAPI=8
-PYTHON_COMPAT=( python3_{9..10} )
+PYTHON_COMPAT=( python3_{10..11} )
 DISTUTILS_USE_PEP517=setuptools
 
 inherit distutils-r1 xdg
@@ -43,11 +43,15 @@ RDEPEND="${DEPEND}
 
 S="${WORKDIR}/${MY_P}"
 
+PATCHES=(
+	"${FILESDIR}/displaycal-py3-3.9.11-dist.patch"
+)
+
 src_prepare() {
-	# A "[bdist_wininst]" setting affects us, for some reason
-	sed -i \
-		-e '/^install_script/d' \
-		setup.cfg || die
+	## A "[bdist_wininst]" setting affects us, for some reason
+	#sed -i \
+		#-e '/^install_script/d' \
+		#setup.cfg || die
 
 	# Don't install RPM and Debian scripts
 	sed -i \
@@ -77,6 +81,7 @@ src_install() {
 	distutils-r1_src_install
 
 	mv "${ED}/usr/share/doc/${MY_P}" "${ED}/usr/share/doc/${P}" || die
+	find "${ED}" -type d -name var -exec rm -rf '{}' \; 2>/dev/null
 }
 
 pkg_postinst() {
