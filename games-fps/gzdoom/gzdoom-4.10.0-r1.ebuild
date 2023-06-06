@@ -1,4 +1,4 @@
-# Copyright 1999-2022 Gentoo Authors
+# Copyright 1999-2023 Gentoo Authors
 # Distributed under the terms of the GNU General Public License v2
 
 EAPI=8
@@ -13,7 +13,7 @@ LICENSE="Apache-2.0 BSD BZIP2 GPL-3 LGPL-2.1+ LGPL-3 MIT
 	non-free? ( Activision ChexQuest3 DOOM-COLLECTORS-EDITION freedist WidePix )"
 SLOT="0"
 KEYWORDS="~amd64 ~arm64"
-IUSE="debug gles2 gtk +non-free openmp telemetry vulkan"
+IUSE="debug gles2 gtk +non-free openmp +swr telemetry vulkan"
 
 DEPEND="
 	app-arch/bzip2
@@ -30,6 +30,7 @@ S="${WORKDIR}/${PN}-g${PV}"
 
 PATCHES=(
 	"${FILESDIR}"/${PN}-4.7.1-Introduce-the-BUILD_NONFREE-option.patch
+	"${FILESDIR}/gzdoom-4.10.0-gcc13.patch"
 )
 
 src_prepare() {
@@ -58,6 +59,7 @@ src_configure() {
 		-DHAVE_VULKAN="$(usex vulkan)"
 		-DHAVE_GLES2="$(usex gles2)"
 		-DNO_OPENMP="$(usex !openmp)"
+		-DZDOOM_ENABLE_SWR="$(usex swr)"
 		-DBUILD_NONFREE="$(usex non-free)"
 	)
 
