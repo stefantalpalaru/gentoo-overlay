@@ -1,23 +1,23 @@
-# Copyright 1999-2022 Gentoo Authors
+# Copyright 1999-2023 Gentoo Authors
 # Distributed under the terms of the GNU General Public License v2
 
-EAPI=7
-PYTHON_COMPAT=( python3_{8..11} )
-WX_GTK_VER="3.2-gtk3"
+EAPI=8
+
 DISTUTILS_IN_SOURCE_BUILD=1
+PYTHON_COMPAT=( python3_{10..11} )
+PYPI_NO_NORMALIZE=1
+PYPI_PN="wxPython"
+WX_GTK_VER="3.2-gtk3"
 
-inherit distutils-r1 multiprocessing python-r1 python-utils-r1 virtualx wxwidgets
-
-MY_PN="wxPython"
+inherit distutils-r1 multiprocessing pypi virtualx wxwidgets
 
 DESCRIPTION="A blending of the wxWindows C++ class library with Python"
 HOMEPAGE="https://www.wxpython.org/
 		https://github.com/wxWidgets/Phoenix"
-SRC_URI="mirror://pypi/${P:0:1}/${MY_PN}/${MY_PN}-${PV}.tar.gz"
 
 LICENSE="wxWinLL-3"
 SLOT="4.0"
-KEYWORDS="~alpha ~amd64 ~arm ~arm64 ~hppa ~ppc ~ppc64 ~sparc ~x86"
+KEYWORDS="~alpha amd64 arm arm64 ~loong ppc ppc64 ~riscv ~sparc x86"
 IUSE="test webkit"
 RESTRICT="!test? ( test )"
 
@@ -30,12 +30,13 @@ RDEPEND="
 	media-libs/tiff:0
 	media-libs/libjpeg-turbo:0"
 
-DEPEND="${RDEPEND}
+DEPEND="${RDEPEND}"
+BDEPEND="
 	app-doc/doxygen
+	dev-python/cython[${PYTHON_USEDEP}]
 	dev-python/setuptools:0[${PYTHON_USEDEP}]
 	>=dev-python/sip-6.6.2[${PYTHON_USEDEP}]
 	dev-python/six:0[${PYTHON_USEDEP}]
-	dev-python/attrdict3:0[${PYTHON_USEDEP}]
 	test? (
 		${VIRTUALX_DEPEND}
 		dev-python/appdirs:0[${PYTHON_USEDEP}]
@@ -43,8 +44,6 @@ DEPEND="${RDEPEND}
 		dev-python/pillow:0[${PYTHON_USEDEP}]
 		dev-python/pytest:0[${PYTHON_USEDEP}]
 	)"
-
-S="${WORKDIR}/${MY_PN}-${PV}"
 
 PATCHES=(
 	"${FILESDIR}/wxpython-4.1.0-skip-broken-tests.patch"
