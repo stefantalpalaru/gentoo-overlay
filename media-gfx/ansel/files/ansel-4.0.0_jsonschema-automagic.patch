@@ -1,0 +1,23 @@
+diff -ur ansel-4.0.0_p20230609.orig/CMakeLists.txt ansel-4.0.0_p20230609/CMakeLists.txt
+--- ansel-4.0.0_p20230609.orig/CMakeLists.txt	2023-06-11 12:23:08.975773792 +0200
++++ ansel-4.0.0_p20230609/CMakeLists.txt	2023-06-11 12:25:37.814732317 +0200
+@@ -364,6 +364,9 @@
+ endif()
+ 
+ # we need jsonschema to check noiseprofiles.json
++# In case of Git clones this file is generated at build time, for releases
++# it is included in the tarball.
++if (WANT_JSON_VALIDATION)
+ find_program(jsonschema_BIN jsonschema)
+ if(${jsonschema_BIN} STREQUAL "jsonschema_BIN-NOTFOUND")
+   message(STATUS "Missing jsonschema, problems in noiseprofiles.json might go unnoticed")
+@@ -372,6 +375,9 @@
+   message(STATUS "Found jsonschema")
+   set(VALIDATE_JSON 1)
+ endif(${jsonschema_BIN} STREQUAL "jsonschema_BIN-NOTFOUND")
++else()
++  set(VALIDATE_JSON 0)
++endif()
+ 
+ # we need an XSLT interpreter to generate preferences_gen.h and anselrc
+ find_program(Xsltproc_BIN xsltproc)

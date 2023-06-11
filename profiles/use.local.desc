@@ -163,6 +163,15 @@ games-fps/gzdoom:gles2 - Enable GLES2 backend
 games-fps/gzdoom:non-free - Enable non-free components
 games-fps/gzdoom:swr - Enable software renderer
 games-util/basis_universal:opencl - Enable OpenCL support
+media-gfx/ansel:avif - Support importing and exporting AVIF images
+media-gfx/ansel:flickr - Add support for uploading photos to flickr
+media-gfx/ansel:geolocation - Enable geotagging support
+media-gfx/ansel:gmic - Use the G'MIC image-processing framework (media-gfx/gmic), e.g. to support Colour LUTs compressed using their compression scheme
+media-gfx/ansel:kwallet - Enable encrypted storage of passwords with kde-frameworks/kwallet
+media-gfx/ansel:lto - Enable link-time optimisations in the RawSpeed library
+media-gfx/ansel:midi - Support using MIDI input devices such as Behringer X-Touch Mini, Arturia Beatstep or Korg nanoKONTROL2, as input devices
+media-gfx/ansel:opencl - Enable opencl support
+media-gfx/ansel:tools - Install tools for generating base curves and noise profiles
 media-gfx/fbcat:fbgrab - Install a 'fbgrab' wrapper script around fbcat that mimics media-gfx/fbgrab
 media-gfx/gmic:cli - Build the CLI interface
 media-gfx/gmic:gimp - Build the Qt5 GIMP plugin

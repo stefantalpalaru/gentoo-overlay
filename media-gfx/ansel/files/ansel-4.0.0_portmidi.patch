@@ -1,0 +1,19 @@
+diff -ur ansel-4.0.0_p20230609.orig/src/libs/CMakeLists.txt ansel-4.0.0_p20230609/src/libs/CMakeLists.txt
+--- ansel-4.0.0_p20230609.orig/src/libs/CMakeLists.txt	2023-06-11 12:40:07.208648862 +0200
++++ ansel-4.0.0_p20230609/src/libs/CMakeLists.txt	2023-06-11 12:41:01.468269189 +0200
+@@ -70,6 +70,7 @@
+ add_library(menubuttons MODULE "tools/menu_buttons.c")
+ add_library(masktoolbar MODULE "tools/mask_toolbar.c")
+ 
++if(USE_PORTMIDI)
+ find_path(PORTMIDI_INCLUDE_DIR NAMES portmidi.h
+           DOC "The Portmidi include directory"
+ )
+@@ -83,6 +84,7 @@
+   add_library(midi MODULE "tools/midi.c")
+   target_link_libraries (midi ${PORTMIDI_LIBRARY})
+ endif()
++endif(USE_PORTMIDI)
+ 
+ 
+ # the modules specific to map mode
