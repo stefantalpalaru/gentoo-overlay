@@ -830,6 +830,7 @@ media-sound/tg 0.5.0-r1 9999-r1: a program for timing mechanical watches
 media-tv/dvb-firmware 1.4.0 9999-r3: DVB firmware from the LibreELEC project
 media-tv/w_scan2 1.0.14 9999: Scan for DVB-C/DVB-T/DVB-S channels (w_scan fork)
 media-video/avidemux 2.8.1-r1: Video editor designed for simple cutting, filtering and encoding tasks
+media-video/mlvapp 1.14 9999: Magic Lantern Video (MLV) processing suite
 media-video/smplayer 22.7.0: Great Qt GUI front-end for mplayer/mpv
 media-video/subliminal 2.1.0-r5 9999-r6: Python library to search and download subtitles
 media-video/vobsub2srt 1.0_pre20171219-r2: Converts VobSub subtitles (.sub/.idx) to .srt text subtitles using tesseract
