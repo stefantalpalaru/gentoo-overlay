@@ -2,14 +2,14 @@
 # Distributed under the terms of the GNU General Public License v2
 
 EAPI=8
-MY_PV="4.6-${PV}"
+MY_PV="4.7/${PV}"
 
 inherit cmake desktop xdg
 
 DESCRIPTION="software DAB decoder for use with a dabstick, airspy or sdrplay for RPI and PC"
 HOMEPAGE="http://www.sdr-j.tk/
 	https://github.com/JvanKatwijk/qt-dab"
-SRC_URI="https://github.com/JvanKatwijk/qt-dab/archive/refs/tags/qt-dab-${MY_PV}.tar.gz"
+SRC_URI="https://github.com/JvanKatwijk/qt-dab/archive/refs/tags/qt-dab-${MY_PV}.tar.gz -> ${PN}-${MY_PV/\//-}.tar.gz"
 
 LICENSE="GPL-2"
 SLOT="5"
@@ -32,9 +32,18 @@ DEPEND="
 
 RDEPEND="${DEPEND}"
 
-S="${WORKDIR}/${PN}-${PN}-${MY_PV}/qt-dab-s${SLOT}"
+S="${WORKDIR}/${PN}-${PN}-${MY_PV/\//-}/qt-dab-s${SLOT}"
+
+PATCHES=(
+	"${FILESDIR}/qt-dab-4.7-includes.patch"
+)
 
 src_prepare() {
+	cd ..
+	default
+	cd - 2>/dev/null
+
+	PATCHES=()
 	cmake_src_prepare
 }
 
