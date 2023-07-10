@@ -1,0 +1,13 @@
+diff -ur OpenRGB-release_0.9.orig/OpenRGB.pro OpenRGB-release_0.9/OpenRGB.pro
+--- OpenRGB-release_0.9.orig/OpenRGB.pro	2023-07-10 12:18:33.546557348 +0200
++++ OpenRGB-release_0.9/OpenRGB.pro	2023-07-10 12:20:11.465800340 +0200
+@@ -46,9 +46,6 @@
+ #-----------------------------------------------------------------------------------------------#
+ win32:BUILDDATE = $$system(date /t)
+ unix:BUILDDATE  = $$system(date -R -d "@${SOURCE_DATE_EPOCH:-$(date +%s)}")
+-GIT_COMMIT_ID   = $$system(git log -n 1 --pretty=format:"%H")
+-GIT_COMMIT_DATE = $$system(git log -n 1 --pretty=format:"%ci")
+-GIT_BRANCH      = $$system(git branch --show-current)
+ 
+ DEFINES +=                                                                                      \
+     VERSION_STRING=\\"\"\"$$VERSION\\"\"\"                                                      \

@@ -31,7 +31,7 @@ BDEPEND="
 "
 
 PATCHES=(
-	"${FILESDIR}"/OpenRGB-0.5-build-system.patch
+	"${FILESDIR}"/OpenRGB-0.9-build-system.patch
 	"${FILESDIR}"/OpenRGB-0.7-r1-udev.patch
 )
 
@@ -45,6 +45,10 @@ src_configure() {
 	# The official build system bundles OpenRGB as a submodule instead, and
 	# compiles the .cpp file again.
 	append-ldflags -Wl,--export-dynamic
+
+	# The build system needs to use "-save-temps" to generate udev rules, and
+	# that clashes with "-pipe".
+	filter-flags -pipe
 
 	eqmake5 \
 		INCLUDEPATH+="${ESYSROOT}/usr/include/nlohmann" \
