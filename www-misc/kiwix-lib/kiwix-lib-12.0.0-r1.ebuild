@@ -19,7 +19,7 @@ RDEPEND="
 "
 
 DEPEND="
-	>=app-arch/libzim-8.1.0
+	>=app-arch/libzim-8.1.0:=
 	>=dev-cpp/mustache-4.1
 	dev-libs/icu
 	dev-libs/pugixml
