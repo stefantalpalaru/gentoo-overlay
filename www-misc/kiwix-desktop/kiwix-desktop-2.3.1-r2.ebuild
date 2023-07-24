@@ -1,4 +1,4 @@
-# Copyright 2020-2022 Gentoo Authors
+# Copyright 2020-2023 Gentoo Authors
 # Distributed under the terms of the GNU General Public License v2
 
 EAPI=8
@@ -23,6 +23,10 @@ DEPEND="
 	>=www-misc/kiwix-lib-12.0.0:=
 "
 BDEPEND="app-arch/unzip"
+
+PATCHES=(
+	"${FILESDIR}/kiwix-desktop-2.3.1-shared_ptr.patch"
+)
 
 src_compile()
 {
