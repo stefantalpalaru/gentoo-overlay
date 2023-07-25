@@ -46,7 +46,7 @@ _PYTHON_ALL_IMPLS=(
 	pypy3
 	python2_7
 	tauthon2_8
-	python3_{8..11}
+	python3_{10..12}
 )
 readonly _PYTHON_ALL_IMPLS
 
@@ -58,7 +58,7 @@ _PYTHON_HISTORICAL_IMPLS=(
 	jython2_7
 	pypy pypy1_{8,9} pypy2_0
 	python2_{5..7}
-	python3_{1..7}
+	python3_{1..9}
 )
 readonly _PYTHON_HISTORICAL_IMPLS
 
@@ -135,9 +135,9 @@ _python_set_impls() {
 			# please keep them in sync with _PYTHON_ALL_IMPLS
 			# and _PYTHON_HISTORICAL_IMPLS
 			case ${i} in
-				pypy3|python2_7|tauthon2_8|python3_[89]|python3_1[01])
+				pypy3|python2_7|tauthon2_8|python3_9|python3_1[0-2])
 					;;
-				jython2_7|pypy|pypy1_[89]|pypy2_0|python2_[5-6]|python3_[1-7])
+				jython2_7|pypy|pypy1_[89]|pypy2_0|python2_[5-6]|python3_[1-9])
 					obsolete+=( "${i}" )
 					;;
 				*)
@@ -434,24 +434,18 @@ _python_export() {
 			PYTHON_PKG_DEP)
 				local d
 				case ${impl} in
-					python2.7)
-						PYTHON_PKG_DEP='>=dev-lang/python-2.7.10_p15:2.7';;
-					python3.8)
-						PYTHON_PKG_DEP=">=dev-lang/python-3.8.13:3.8";;
-					python3.9)
-						PYTHON_PKG_DEP=">=dev-lang/python-3.9.12:3.9";;
-					python3.10)
-						PYTHON_PKG_DEP=">=dev-lang/python-3.10.4:3.10";;
-					python3.11)
-						PYTHON_PKG_DEP=">=dev-lang/python-3.11.0_beta4:3.11";;
 					python*)
-						PYTHON_PKG_DEP="dev-lang/python:${impl#python}";;
+						PYTHON_PKG_DEP="dev-lang/python:${impl#python}"
+						;;
+					tauthon*)
+						PYTHON_PKG_DEP="dev-lang/tauthon:${impl#tauthon}"
+						;;
 					pypy)
-						PYTHON_PKG_DEP='>=dev-python/pypy-7.3.9:0=';;
+						PYTHON_PKG_DEP="dev-python/${impl}:0="
+						;;
 					pypy3)
-						PYTHON_PKG_DEP='>=dev-python/pypy3-7.3.9_p1:0=';;
-					tauthon2.8)
-						PYTHON_PKG_DEP='dev-lang/tauthon:2.8';;
+						PYTHON_PKG_DEP="dev-python/${impl}:="
+						;;
 					*)
 						die "Invalid implementation: ${impl}"
 				esac
