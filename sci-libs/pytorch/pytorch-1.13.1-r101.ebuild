@@ -5,7 +5,7 @@ EAPI=8
 
 DISTUTILS_USE_PEP517=setuptools
 # Python-3.11 not fully supported: https://github.com/pytorch/pytorch/issues/86566
-PYTHON_COMPAT=( python3_{9..10} )
+PYTHON_COMPAT=( python3_10 )
 DISTUTILS_SINGLE_IMPL=1
 inherit distutils-r1
 
@@ -20,9 +20,12 @@ KEYWORDS="~amd64"
 RESTRICT="test"
 
 REQUIRED_USE=${PYTHON_REQUIRED_USE}
+BDEPEND="
+	~sci-libs/caffe2-${PV}[${PYTHON_SINGLE_USEDEP}]
+"
 RDEPEND="
 	${PYTHON_DEPS}
-	~sci-libs/caffe2-${PV}[${PYTHON_SINGLE_USEDEP}]
+	${BDEPEND}
 	$(python_gen_cond_dep '
 		dev-python/typing-extensions[${PYTHON_USEDEP}]
 	')
