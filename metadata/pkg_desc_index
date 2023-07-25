@@ -867,7 +867,7 @@ sci-libs/caffe2 1.13.1-r102 2.0.1-r100: A deep learning framework
 sci-libs/cfitsio 3.410-r1: C and Fortran library for manipulating FITS files
 sci-libs/cholmod 3.0.14-r1: Sparse Cholesky factorization and update/downdate library
 sci-libs/gdal 3.0.4-r200: Translator library for raster geospatial data formats (includes OGR support)
-sci-libs/pytorch 1.13.1-r101 2.0.1-r101: Tensors and Dynamic neural networks in Python
+sci-libs/pytorch 1.13.1-r102 2.0.1-r102: Tensors and Dynamic neural networks in Python
 sci-libs/scikits 0.1-r2: Common files for python scikits
 sci-libs/scikits_image 0.13.0-r200: Image processing routines for SciPy
 sci-libs/scikits_learn 0.20.4-r200: Python modules for machine learning and data mining

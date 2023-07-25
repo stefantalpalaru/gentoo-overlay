@@ -27,6 +27,11 @@ RDEPEND="
 	${PYTHON_DEPS}
 	${BDEPEND}
 	$(python_gen_cond_dep '
+		dev-python/filelock[${PYTHON_USEDEP}]
+		dev-python/jinja[${PYTHON_USEDEP}]
+		dev-python/networkx[${PYTHON_USEDEP}]
+		dev-python/opt-einsum[${PYTHON_USEDEP}]
+		dev-python/sympy[${PYTHON_USEDEP}]
 		dev-python/typing-extensions[${PYTHON_USEDEP}]
 	')
 "
@@ -36,22 +41,23 @@ DEPEND="${RDEPEND}
 	')
 "
 
-src_prepare() {
-	eapply \
-		"${FILESDIR}"/0002-Don-t-build-libtorch-again-for-PyTorch-1.7.1.patch \
-		"${FILESDIR}"/pytorch-1.9.0-Change-library-directory-according-to-CMake-build.patch \
-		"${FILESDIR}"/${P}-global-dlopen.patch \
-		"${FILESDIR}"/pytorch-1.7.1-torch_shm_manager.patch \
-		"${FILESDIR}"/${PN}-1.13.0-setup.patch \
+PATCHES=(
+	"${FILESDIR}"/0002-Don-t-build-libtorch-again-for-PyTorch-1.7.1.patch
+	"${FILESDIR}"/pytorch-1.9.0-Change-library-directory-according-to-CMake-build.patch
+	"${FILESDIR}"/pytorch-2.0.0-global-dlopen.patch
+	"${FILESDIR}"/pytorch-1.7.1-torch_shm_manager.patch
+	"${FILESDIR}"/${PN}-1.13.0-setup.patch
+)
 
+src_prepare() {
 	# Set build dir for pytorch's setup
 	sed -i \
-		-e "/BUILD_DIR/s|build|${EXPREFIX}/var/lib/caffe2/|" \
+		-e "/BUILD_DIR/s|build|${EPREFIX}/var/lib/caffe2/|" \
 		tools/setup_helpers/env.py \
 		|| die
 
 	# Crazy workaround for splitting "caffe2" and "pytorch" in two different packages:
-	cp -a "${EXPREFIX}/usr/$(get_libdir)/functorch.so" functorch/ || die
+	cp -a "${EPREFIX}/usr/$(get_libdir)/functorch.so" functorch/ || die
 
 	distutils-r1_src_prepare
 }
