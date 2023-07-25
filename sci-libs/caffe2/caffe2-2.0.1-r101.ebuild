@@ -4,7 +4,7 @@
 EAPI=8
 
 # Python-3.11 not fully supported: https://github.com/pytorch/pytorch/issues/86566
-PYTHON_COMPAT=( python3_{9..10} )
+PYTHON_COMPAT=( python3_10 )
 inherit python-single-r1 cmake cuda flag-o-matic
 
 MYPN=pytorch
@@ -69,15 +69,16 @@ DEPEND="
 		dev-python/pybind11[${PYTHON_USEDEP}]
 	')
 "
+BDEPEND="${DEPEND}"
 
 S="${WORKDIR}"/${MYPN}-v${PV}
 
 PATCHES=(
-	"${FILESDIR}"/${PN}-1.13.0-gentoo.patch
+	"${FILESDIR}"/${PN}-2.0.0-gentoo.patch
 	"${FILESDIR}"/${PN}-1.13.0-install-dirs.patch
 	"${FILESDIR}"/${PN}-1.12.0-glog-0.6.0.patch
-	"${FILESDIR}"/${PN}-1.12.0-clang.patch
 	"${FILESDIR}"/caffe2-1.13.1-functorch.patch
+	"${FILESDIR}"/caffe2-2.0.0-nvfuser.patch
 	"${FILESDIR}"/caffe2-2.0.1-gcc-13.patch
 )
 
@@ -175,7 +176,6 @@ src_install() {
 	insinto "/var/lib/${PN}"
 	doins "${BUILD_DIR}"/CMakeCache.txt
 
-	#rm -rf python
 	mkdir -p python/torch/include || die
 	mv "${ED}"/usr/lib/python*/site-packages/caffe2 python/ || die
 	mv "${ED}"/usr/include/torch python/torch/include || die
