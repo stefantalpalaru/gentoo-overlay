@@ -76,20 +76,20 @@ src_install() {
 	dosym ../share/nim/bin/nim /usr/bin/nim
 	exeinto /usr/bin
 	doexe tools/niminst/niminst
-	doexe bin/nim-gdb
 	doexe bin/nimgrep
 	doexe bin/nimpretty
 	doexe bin/nimsuggest
+	# nim-gdb
+	insinto /usr/share/nim/tools/debug
+	doins tools/debug/nim{-gdb,lldb}.py
+	sed -i -e "s%^NIM_SYSROOT.*$%NIM_SYSROOT=$EPREFIX/usr/share/nim%" bin/nim-gdb
+	doexe bin/nim-gdb
 	# modules ignored by `koch install`
 	rm -rf doc/nimcache
 	insinto /usr/share/nim/lib
 	doins -r doc
 	insinto /usr/share/nim/lib/wrappers
 	doins -r lib/wrappers/linenoise
-	# GDB helper
-	insinto /usr/share/nim/tools/debug
-	doins tools/debug/nim-gdb.py
-	doins tools/debug/nimlldb.py
 
 	#if use doc; then
 		#HTML_DOCS=doc/html/*.html

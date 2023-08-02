@@ -13,7 +13,10 @@ LICENSE="MIT"
 SLOT="0"
 KEYWORDS=""
 IUSE="bash-completion boehm-gc +readline test" # "doc" is broken
-RESTRICT="!test? ( test )"
+RESTRICT="
+	!test? ( test )
+	network-sandbox
+"
 
 DEPEND="
 	readline? ( sys-libs/readline:= )
@@ -93,7 +96,7 @@ src_install() {
 	doexe bin/nimpretty
 	# nim-gdb
 	insinto /usr/share/nim/tools/debug
-	doins tools/debug/nim-{gdb,lldb}.py
+	doins tools/debug/nim{-gdb,lldb}.py
 	sed -i -e "s%^NIM_SYSROOT.*$%NIM_SYSROOT=$EPREFIX/usr/share/nim%" bin/nim-gdb
 	doexe bin/nim-gdb
 	# modules ignored by `koch install`
