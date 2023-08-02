@@ -6,7 +6,6 @@
 		<name>Ștefan Talpalaru</name>
 	</maintainer>
 	<use>
-		<flag name="cli">Enables the CLI interface</flag>
 		<flag name="lightweight">Optimize Transmission OG for low-resource systems (smaller cache size, prefer unencrypted peer connections, etc.)</flag>
 		<flag name="mbedtls">Use mbed TLS instead of OpenSSL</flag>
 	</use>

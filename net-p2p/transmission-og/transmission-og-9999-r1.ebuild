@@ -3,27 +3,18 @@
 
 EAPI=8
 
-inherit cmake flag-o-matic git-r3 systemd xdg-utils
+inherit flag-o-matic git-r3 systemd xdg-utils
 
 DESCRIPTION="Transmission 3.00 fork (BitTorrent client)"
 HOMEPAGE="https://github.com/stefantalpalaru/transmission-og"
 EGIT_REPO_URI="https://github.com/stefantalpalaru/transmission-og"
-EGIT_SUBMODULES=(
-	'*'
-	'-third-party/dht'
-	'-third-party/libb64'
-	'-third-party/libevent'
-	'-third-party/libnatpmp'
-	'-third-party/libutp'
-	'-third-party/miniupnpc'
-)
 
-# web/LICENSE is always GPL-2 whereas COPYING allows either GPL-2 or GPL-3 for the rest
-# transmission in licenses/ is for mentioning OpenSSL linking exception
-# MIT is in several libtransmission/ headers
+# web/LICENSE is always GPL-2 whereas COPYING allows either GPL-2 or GPL-3 for the rest.
+# "Transmission-..." in licenses/ is for mentioning an OpenSSL linking exception.
+# MIT is in several libtransmission/ headers.
 LICENSE="|| ( GPL-2 GPL-3 Transmission-OpenSSL-exception ) GPL-2 MIT"
 SLOT="0"
-IUSE="appindicator cli doc gtk lightweight nls mbedtls qt5 systemd test"
+IUSE="appindicator doc gtk lightweight nls mbedtls qt5 static-libs systemd test"
 #KEYWORDS="~amd64 ~arm ~arm64 ~ppc ~ppc64 ~x86"
 RESTRICT="!test? ( test )"
 
@@ -91,36 +82,36 @@ REQUIRED_USE="appindicator? ( gtk )"
 src_configure() {
 	append-cppflags "-DNDEBUG"
 
-	local mycmakeargs=(
-		-DCMAKE_INSTALL_DOCDIR=share/doc/${PF}
-
-		-DENABLE_CLI=$(usex cli ON OFF)
-		-DENABLE_GTK=$(usex gtk ON OFF)
-		-DENABLE_LIGHTWEIGHT=$(usex lightweight)
-		-DENABLE_NLS=$(usex nls ON OFF)
-		-DENABLE_QT=$(usex qt5 ON OFF)
-		-DENABLE_TESTS=$(usex test ON OFF)
-		-DINSTALL_DOC=$(usex doc ON OFF)
-		-DUSE_SYSTEM_B64=ON
-		-DUSE_SYSTEM_DHT=ON
-		-DUSE_SYSTEM_EVENT2=ON
-		-DUSE_SYSTEM_MINIUPNPC=ON
-		-DUSE_SYSTEM_NATPMP=ON
-		-DUSE_SYSTEM_UTP=ON
-		-DWITH_CRYPTO=$(usex mbedtls polarssl openssl)
-		-DWITH_INOTIFY=ON
-		-DWITH_LIBAPPINDICATOR=$(usex appindicator ON OFF)
-		-DWITH_SYSTEMD=$(usex systemd ON OFF)
+	local myeconfargs=(
+		$(use_enable lightweight)
+		$(use_enable nls)
+		$(use_enable static-libs static)
+		$(use_with gtk)
+		$(use_with qt5 qt)
+		$(use_with systemd)
+		--enable-cli
+		--enable-external-b64
+		--enable-external-dht
+		--enable-external-libevent
+		--enable-external-miniupnpc
+		--enable-external-natpmp
+		--enable-external-utp
+		--with-crypto=$(usex mbedtls polarssl openssl)
+		--with-inotify
 	)
-
-	cmake_src_configure
+	econf "${myeconfargs[@]}"
 }
 
 src_install() {
-	cmake_src_install
+	emake DESTDIR="${D}" install
+
+	if ! use static-libs; then
+		find "${ED}" -type f -name '*.la' -delete || die
+	fi
 
 	newinitd "${FILESDIR}"/transmission-og-daemon.initd.10 transmission-og-daemon
 	newconfd "${FILESDIR}"/transmission-og-daemon.confd.4 transmission-og-daemon
+
 	if use systemd; then
 		systemd_dounit daemon/transmission-og-daemon.service
 		systemd_install_serviced "${FILESDIR}"/transmission-og-daemon.service.conf
@@ -128,11 +119,6 @@ src_install() {
 
 	insinto /usr/lib/sysctl.d
 	doins "${FILESDIR}"/60-transmission-og.conf
-
-	#if [[ ${EUID} == 0 ]]; then
-		#diropts -o transmission -g transmission
-	#fi
-	#keepdir /var/lib/transmission
 }
 
 pkg_postrm() {
