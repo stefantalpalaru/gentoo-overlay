@@ -9,7 +9,8 @@ inherit cmake git-r3 python-single-r1
 DESCRIPTION="PlayStation 3 emulator"
 HOMEPAGE="https://rpcs3.net/"
 EGIT_REPO_URI="https://github.com/RPCS3/rpcs3"
-KEYWORDS=""
+EGIT_COMMIT="v0.0.29"
+KEYWORDS="~amd64 ~x86"
 LICENSE="GPL-2"
 SLOT="0"
 IUSE="alsa joystick +llvm pulseaudio sdl vulkan"
@@ -30,7 +31,7 @@ RDEPEND="
 	media-libs/glew:0
 	media-libs/libpng:*
 	media-libs/openal
-	media-video/ffmpeg
+	media-video/ffmpeg:0/56.58.58
 	pulseaudio? ( media-libs/libpulse )
 	sys-devel/gdb
 	sys-libs/zlib
