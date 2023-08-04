@@ -89,7 +89,9 @@ src_prepare() {
 	rm -r Modules/zlib || die
 
 	local PATCHES=(
-		"${FILESDIR}/patches"
+		"${FILESDIR}/patches/0002-Disable-modules-and-SSL.patch"
+		"${FILESDIR}/patches/0003_all_libdir-r1.patch"
+		"${FILESDIR}/patches/0010-use_pyxml.patch"
 		"${FILESDIR}/tauthon-2.8.5-configure-implicit.patch"
 	)
 
