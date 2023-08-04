@@ -9,7 +9,8 @@ inherit cmake git-r3 python-single-r1
 DESCRIPTION="PlayStation 3 emulator"
 HOMEPAGE="https://rpcs3.net/"
 EGIT_REPO_URI="https://github.com/RPCS3/rpcs3"
-KEYWORDS=""
+EGIT_COMMIT="v0.0.29"
+KEYWORDS="~amd64 ~x86"
 LICENSE="GPL-2"
 SLOT="0"
 IUSE="alsa joystick +llvm pulseaudio sdl vulkan"
@@ -17,11 +18,10 @@ IUSE="alsa joystick +llvm pulseaudio sdl vulkan"
 RDEPEND="
 	${PYTHON_DEPS}
 	>=dev-libs/pugixml-1.11
-	>=dev-qt/qtcore-5.15.2
-	>=dev-qt/qtdbus-5.15.2
-	>=dev-qt/qtgui-5.15.2
-	>=dev-qt/qtsvg-5.15.2
-	>=dev-qt/qtwidgets-5.15.2
+	>=dev-qt/qtbase-6.5.2[dbus,gui,widgets]
+	>=dev-qt/qtdeclarative-6.5.2:6
+	>=dev-qt/qtmultimedia-6.5.2:6
+	>=dev-qt/qtsvg-6.5.2:6
 	alsa? ( media-libs/alsa-lib )
 	dev-libs/flatbuffers
 	dev-libs/libusb
@@ -30,7 +30,7 @@ RDEPEND="
 	media-libs/glew:0
 	media-libs/libpng:*
 	media-libs/openal
-	media-video/ffmpeg:0/57.59.59
+	media-video/ffmpeg:0/56.58.58
 	pulseaudio? ( media-libs/libpulse )
 	sys-devel/gdb
 	sys-libs/zlib
