@@ -17,7 +17,7 @@ IUSE=""
 RESTRICT="test"
 
 RDEPEND="
-	>=app-crypt/acme-${PV}:0[${PYTHON_USEDEP}]
+	>=app-crypt/acme-${PV}:0/1[${PYTHON_USEDEP}]
 	>=app-crypt/certbot-${PV}:0/1[${PYTHON_USEDEP}]
 	>=dev-python/dns-lexicon-3.2.1:0[${PYTHON_USEDEP}]
 "

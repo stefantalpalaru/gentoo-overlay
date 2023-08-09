@@ -16,7 +16,7 @@ KEYWORDS="~amd64 ~x86"
 IUSE=""
 
 RDEPEND="
-	>=app-crypt/acme-0.1.1:0[${PYTHON_USEDEP}]
+	>=app-crypt/acme-0.1.1:0/1[${PYTHON_USEDEP}]
 	>=app-crypt/certbot-0.9.3:0/1[${PYTHON_USEDEP}]
 	dev-python/boto3:0[${PYTHON_USEDEP}]
 	dev-python/mock:0[${PYTHON_USEDEP}]
