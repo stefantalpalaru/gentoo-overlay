@@ -874,6 +874,7 @@ sys-cluster/heartbeat 3.0.6-r2: Heartbeat high availability cluster manager
 sys-devel/bison 2.7.1-r2: A general-purpose (yacc-compatible) parser generator
 sys-devel/flamegraph 1.0-r1: stack trace visualizer
 sys-devel/pyflame 1.6.6-r2: a ptracing profiler for Python
+sys-kernel/gentoo-sources 6.3.13: Full sources including the Gentoo patchset for the 6.3 kernel tree
 virtual/python-cffi 1-r3: A virtual for the Python cffi package
 virtual/python-enum34 2-r3: A virtual for Python enum34 module
 virtual/python-funcsigs 2-r4: A Virtual for Python function signatures from PEP362 (py3.6 variant)
