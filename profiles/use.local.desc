@@ -17,12 +17,15 @@ app-emulation/vmware-workstation:vmware-tools-winPre2k - Install VMware Tools fo
 app-emulation/vmware-workstation:vmware-tools-winPreVista - Install VMware Tools for Windows (after 2000, before Vista) guests.
 app-emulation/vmware-workstation:vmware-tools-windows - Install VMware Tools for Windows (Vista and later) guests.
 dev-lang/nim:boehm-gc - Enable Hans Boehm's garbage collector (dev-libs/boehm-gc).
+dev-lang/php:argon2 - Enable password hashing algorithm from app-crypt/argon2
 dev-lang/php:bcmath - Add support for libbcmath
 dev-lang/php:cli - Enable CLI SAPI
+dev-lang/php:coverage - Include gcov symbols for test coverage and lcov reports. Only useful for extension developers, and requires GCC.
 dev-lang/php:ctype - Enable ctype functions
 dev-lang/php:curlwrappers - Enable curl wrappers
 dev-lang/php:embed - Enable embed SAPI
 dev-lang/php:enchant - Add supports Enchant spelling library.
+dev-lang/php:ffi - Enable the Foreign Function Interface (FFI) extension using dev-libs/libffi
 dev-lang/php:fileinfo - Add fileinfo extension support
 dev-lang/php:filter - Add filter extension support
 dev-lang/php:flatfile - Add dbm support for flat files
@@ -33,14 +36,20 @@ dev-lang/php:inifile - Add dbm support for .ini files
 dev-lang/php:intl - Enables the intl extension for extended internalization support
 dev-lang/php:json - Enable JSON support
 dev-lang/php:ldap-sasl - Add SASL support for the PHP LDAP extension
+dev-lang/php:lmdb - Enable support for dev-db/lmdb db backend
+dev-lang/php:opcache - Enables built-in opcode cache, replacing pecl-apc et al.
 dev-lang/php:pcntl - Add support for process creation functions
 dev-lang/php:pdo - Enable the bundled PDO extensions
 dev-lang/php:phar - Enables the phar extension to provide phar archive support
+dev-lang/php:phpdbg - Enable the PHP Debug Command Line SAPI (like gdb for php)
+dev-lang/php:session-mm - Include dev-libs/mm support for session storage
 dev-lang/php:sharedmem - Add support for shared memory use
 dev-lang/php:simplexml - Support for SimpleXML
+dev-lang/php:sodium - Enable support for crypto through dev-libs/libsodium
 dev-lang/php:sybase-ct - Add support for Sybase-CT
 dev-lang/php:sysvipc - Support for System V-compatible inter-process communication
 dev-lang/php:tokenizer - Add support for the PHP file parser
+dev-lang/php:tokyocabinet - Enable support for dev-db/tokyocabinet db backend
 dev-lang/php:wddx - Add support for Web Distributed Data eXchange
 dev-lang/php:xmlreader - Enable XMLReader support
 dev-lang/php:xmlwriter - Enable XMLWriter support
@@ -64,6 +73,10 @@ dev-libs/boost:numpy - Optionally build NumPy extensions when Boost.Python is en
 dev-libs/boost:tools - Build and install the boost tools (bcp, quickbook, inspect, wave)
 dev-libs/libpeas:glade - Install the glade catalog
 dev-libs/libpeas:python - Build support for loading dev-lang/python plugins
+dev-php/pecl-apcu:lock-pthreadmutex - Enable pthread mutex locking
+dev-php/pecl-apcu:lock-pthreadrw - Enable pthread read/write locking
+dev-php/pecl-apcu:lock-semaphore - Enable semaphore locks instead of fcntl
+dev-php/pecl-apcu:lock-spinlock - Enable spin locks (EXPERIMENTAL)
 dev-python/PyQt5:bluetooth - Build bindings for the QtBluetooth module
 dev-python/PyQt5:dbus - Build bindings for the QtDBus module
 dev-python/PyQt5:declarative - Build bindings for the QtQml/QtQuick modules and enable the qmlscene plugin
