@@ -17,7 +17,7 @@ MY_KERNEL_VERSION="6.4"
 # and test it ourselves.
 #
 # Details: https://github.com/mkubecek/vmware-host-modules/issues/158#issuecomment-1228341760
-MY_COMMIT="650fb3abeb82f2b7d3a14f9579a7529d153636b7"
+MY_COMMIT="efc76a69acebb66409af5f267c51ccc027e057e6"
 
 SRC_URI=" https://github.com/mkubecek/vmware-host-modules/archive/${MY_COMMIT}.tar.gz -> ${P}-${MY_COMMIT}.tar.gz"
 
@@ -45,7 +45,7 @@ pkg_setup() {
 	if kernel_is -ge 2 6 37 && kernel_is -lt 2 6 39; then
 		CONFIG_CHECK="${CONFIG_CHECK} BKL"
 	fi
-	CONFIG_CHECK="${CONFIG_CHECK} VMWARE_VMCI VMWARE_VMCI_VSOCKETS"
+	CONFIG_CHECK="${CONFIG_CHECK} VMWARE_VMCI ~VMWARE_VMCI_VSOCKETS"
 
 	linux-info_pkg_setup
 	linux-mod_pkg_setup
