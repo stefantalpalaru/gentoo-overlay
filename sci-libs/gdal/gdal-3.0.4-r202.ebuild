@@ -5,8 +5,6 @@ EAPI=8
 
 GENTOO_DEPEND_ON_PERL="no"
 PYTHON_COMPAT=( python2_7 python3_{10..12} )
-DISTUTILS_OPTIONAL=1
-DISTUTILS_USE_SETUPTOOLS=manual
 inherit autotools bash-completion-r1 perl-module distutils-r1 flag-o-matic java-pkg-opt-2 toolchain-funcs
 
 DESCRIPTION="Translator library for raster geospatial data formats (includes OGR support)"
