@@ -16,7 +16,7 @@ SLOT="0"
 if [[ ${PV} == *9999* ]]; then
 	LANGS=" af ca cs da de el es fi fr gl he hu it ja nb nl pl pt-BR pt-PT ro ru sk sl sq sv th uk zh-CN zh-TW"
 else
-	EGIT_COMMIT="8876feeb971840aaa7cd1e523d28ac8dee1b4fa6"
+	EGIT_COMMIT="ff82b588278f1e1234c947dc83296ffe194ec150"
 	KEYWORDS="~amd64 ~arm64 -x86"
 	LANGS=" cs de es fi fr he hu it ja nl pl pt-BR ru sl sq tr uk zh-CN zh-TW"
 fi
@@ -85,6 +85,7 @@ PATCHES=(
 	"${FILESDIR}"/ansel-4.0.0_libxcf-cmake.patch
 	"${FILESDIR}"/ansel-4.0.0_cmake-musl.patch
 	"${FILESDIR}"/ansel-4.0.0_portmidi.patch
+	"${FILESDIR}"/ansel-4.0.0_exiv-0.28.patch
 )
 
 pkg_pretend() {

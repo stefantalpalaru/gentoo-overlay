@@ -85,6 +85,7 @@ PATCHES=(
 	"${FILESDIR}"/ansel-4.0.0_libxcf-cmake.patch
 	"${FILESDIR}"/ansel-4.0.0_cmake-musl.patch
 	"${FILESDIR}"/ansel-4.0.0_portmidi.patch
+	"${FILESDIR}"/ansel-4.0.0_exiv-0.28.patch
 )
 
 pkg_pretend() {
