@@ -108,18 +108,13 @@ BDEPEND="
 	)
 "
 
+PATCHES=(
+	"${FILESDIR}/qgis-3.32.2-exiv2-0.28.patch"
+	"${FILESDIR}/qgis-3.32.2-protobuf.patch"
+)
+
 src_prepare() {
 	cmake_src_prepare
-	# Tests want to be run inside a git repo
-	if [[ ${PV} != *9999* ]]; then
-		if use test; then
-			git init -q || die
-			git config user.email "larry@gentoo.org" || die
-			git config user.name "Larry the Cow" || die
-			git add . || die
-			git commit -m "init" || die
-		fi
-	fi
 }
 
 src_configure() {
@@ -153,6 +148,7 @@ src_configure() {
 		-DWITH_QUICK=$(usex qml)
 		-DWITH_QTSERIALPORT=$(usex serial)
 		-DWITH_QTWEBKIT=OFF
+		-Dprotobuf_MODULE_COMPATIBLE=ON
 	)
 
 	# We list all supported versions *by upstream for this version*

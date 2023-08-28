@@ -797,7 +797,7 @@ gnome-base/libgnome-keyring 3.12.0-r4: Compatibility library for accessing secre
 media-fonts/breeze-sans 20170821-r3: a humanist sans-serif typeface designed by Dalton Maag for Samsung
 media-fonts/ipamonafont 1.0.8-r1: Hacked version of IPA fonts, which is suitable for browsing 2ch
 media-gfx/GTS 2.5.1: scanning tool developed by Studio Ghibli
-media-gfx/ansel 4.0.0_pre20230609 9999: Darktable 4.0 fork
+media-gfx/ansel 4.0.0_pre20230627 9999-r1: Darktable 4.0 fork
 media-gfx/displaycal 3.8.9.3-r3: Display calibration and characterization powered by Argyll CMS
 media-gfx/displaycal-py3 3.9.11: Display calibration and characterization powered by Argyll CMS - Python3 fork
 media-gfx/fbcat 0.5.2: utility that takes a screenshot using the framebuffer device
@@ -859,7 +859,7 @@ sci-astronomy/healpix 3.31-r2: Hierarchical Equal Area isoLatitude Pixelization 
 sci-astronomy/kapteyn 2.3.1-r200: Collection of python tools for astronomy
 sci-astronomy/montage 5.0-r1: Toolkit for assembling FITS images into mosaics
 sci-geosciences/mkgmap-bin 4907: Tool to create garmin maps
-sci-geosciences/qgis 3.32.2: User friendly Geographic Information System
+sci-geosciences/qgis 3.32.2-r1: User friendly Geographic Information System
 sci-geosciences/splitter-bin 653: Tile splitter for mkgmap
 sci-libs/caffe2 1.13.1-r103 2.0.1-r101: A deep learning framework
 sci-libs/cfitsio 3.410-r1: C and Fortran library for manipulating FITS files
