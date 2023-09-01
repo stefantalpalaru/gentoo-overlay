@@ -35,8 +35,7 @@ src_unpack() {
 
 src_install() {
 	cp -a * "${ED}/"
-	mkdir -p "${ED}/usr/bin"
-	ln -sr ../../opt/Zettlr/Zettlr "${ED}/usr/bin/Zettlr"
+	ln -s zettlr "${ED}/usr/bin/Zettlr"
 }
 
 pkg_postrm() {
