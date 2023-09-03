@@ -5,6 +5,7 @@ app-office/upwork
 app-text/calibre
 app-text/pdfshuffler
 dev-db/metakit
+dev-lang/php
 dev-python/PyZilla
 dev-python/RecSQL
 dev-python/amqplib
