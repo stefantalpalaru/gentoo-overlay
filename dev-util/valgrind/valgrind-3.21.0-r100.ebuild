@@ -1,21 +1,19 @@
-# Copyright 1999-2022 Gentoo Authors
+# Copyright 1999-2023 Gentoo Authors
 # Distributed under the terms of the GNU General Public License v2
 
 EAPI=8
+
+# The Valgrind upstream maintainer also maintains it in Fedora and will
+# backport fixes there which haven't yet made it into a release. Keep an eye
+# on it for fixes we should cherry-pick too:
+# https://src.fedoraproject.org/rpms/valgrind/tree/rawhide
 
 inherit autotools flag-o-matic toolchain-funcs multilib pax-utils
 
 DESCRIPTION="An open-source memory debugger for GNU/Linux"
 HOMEPAGE="https://www.valgrind.org"
-#RESTRICT="strip"
-
-if [[ ${PV} == 9999 ]]; then
-	EGIT_REPO_URI="https://sourceware.org/git/${PN}.git"
-	inherit git-r3
-else
-	SRC_URI="https://sourceware.org/pub/valgrind/${P}.tar.bz2"
-	KEYWORDS="-* ~amd64 ~arm ~arm64 ~ppc ~ppc64 ~x86 ~amd64-linux ~x86-linux ~x64-macos ~x64-solaris"
-fi
+SRC_URI="https://sourceware.org/pub/valgrind/${P}.tar.bz2"
+KEYWORDS="-* ~amd64 ~arm ~arm64 ~ppc ~ppc64 ~x86 ~amd64-linux ~x86-linux ~x64-macos ~x64-solaris"
 
 LICENSE="GPL-2"
 SLOT="0"
@@ -28,6 +26,8 @@ PATCHES=(
 	# Respect CFLAGS, LDFLAGS
 	"${FILESDIR}"/${PN}-3.7.0-respect-flags.patch
 	"${FILESDIR}"/${PN}-3.15.0-Build-ldst_multiple-test-with-fno-pie.patch
+	"${FILESDIR}"/${PN}-3.21.0-glibc-2.34-suppressions.patch
+	"${FILESDIR}"/${PN}-3.21.0-memcpy-fortify_source.patch
 	"${FILESDIR}"/valgrind-3.15.0-strlen.patch
 	"${FILESDIR}"/valgrind-3.17.0-bextr.patch
 )
@@ -38,12 +38,6 @@ src_prepare() {
 
 	# Don't force multiarch stuff on OSX, bug #306467
 	sed -i -e 's:-arch \(i386\|x86_64\)::g' Makefile.all.am || die
-
-	# Conditionally copy musl specific suppressions && apply patch
-	if use elibc_musl ; then
-		cp "${FILESDIR}/musl.supp" "${S}" || die
-		PATCHES+=( "${FILESDIR}"/valgrind-3.13.0-malloc.patch )
-	fi
 
 	if [[ ${CHOST} == *-solaris* ]] ; then
 		# upstream doesn't support this, but we don't build with
@@ -82,6 +76,7 @@ src_configure() {
 	filter-flags -fstack-protector-all
 	filter-flags -fstack-protector-strong
 	filter-flags -m64 -mx32
+	filter-flags -fsanitize -fsanitize=*
 	replace-flags -ggdb3 -ggdb2
 
 	if use amd64 || use ppc64; then
@@ -102,15 +97,12 @@ src_configure() {
 src_install() {
 	default
 
-	if [[ ${PV} == "9999" ]]; then
-		# Otherwise FAQ.txt won't exist:
-		emake -C docs FAQ.txt
-		mv docs/FAQ.txt . || die "Couldn't move FAQ.txt"
-	fi
-
 	dodoc FAQ.txt
 
 	pax-mark m "${ED}"/usr/$(get_libdir)/valgrind/*-*-linux
+
+	# See README_PACKAGERS
+	dostrip -x /usr/libexec/valgrind/vgpreload* /usr/$(get_libdir)/valgrind/*
 
 	if [[ ${CHOST} == *-darwin* ]] ; then
 		# fix install_names on shared libraries, can't turn them into bundles,
@@ -123,10 +115,10 @@ src_install() {
 }
 
 pkg_postinst() {
-	elog "Valgrind will not work if glibc does not have debug symbols."
+	elog "Valgrind will not work if libc (e.g. glibc) does not have debug symbols."
 	elog "To fix this you can add splitdebug to FEATURES in make.conf"
-	elog "and remerge glibc.  See:"
-	elog "https://bugs.gentoo.org/show_bug.cgi?id=214065"
-	elog "https://bugs.gentoo.org/show_bug.cgi?id=274771"
-	elog "https://bugs.gentoo.org/show_bug.cgi?id=388703"
+	elog "and remerge glibc. See:"
+	elog "https://bugs.gentoo.org/214065"
+	elog "https://bugs.gentoo.org/274771"
+	elog "https://bugs.gentoo.org/388703"
 }
