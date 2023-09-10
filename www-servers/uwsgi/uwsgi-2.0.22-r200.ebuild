@@ -8,39 +8,47 @@ PYTHON_COMPAT=( python2_7 python3_{10..12} )
 PYTHON_REQ_USE="threads(+)"
 
 RUBY_OPTIONAL="yes"
-USE_RUBY="ruby25 ruby26 ruby27 ruby30"
+USE_RUBY="ruby30 ruby31 ruby32"
 
 PHP_EXT_INI="no"
 PHP_EXT_NAME="dummy"
 PHP_EXT_OPTIONAL_USE="php"
-USE_PHP="php7-4" # deps must be registered separately below
+USE_PHP="php7-4 php8-0 php8-1 php8-2" # deps must be registered separately below
+
+POSTGRES_COMPAT=( 13 14 15 )
 
 MY_P="${P/_/-}"
 
-inherit lua-single pax-utils php-ext-source-r3 python-r1 ruby-ng
+inherit lua-single multiprocessing pax-utils php-ext-source-r3 postgres python-r1 ruby-ng
 
 DESCRIPTION="uWSGI server for Python web applications"
-HOMEPAGE="https://projects.unbit.it/uwsgi/"
+HOMEPAGE="https://projects.unbit.it/uwsgi/
+		https://uwsgi-docs.readthedocs.io/en/latest/
+		https://github.com/unbit/uwsgi"
 SRC_URI="https://github.com/unbit/uwsgi/archive/${PV}.tar.gz -> ${P}.tar.gz"
 
 LICENSE="GPL-2"
 SLOT="0"
 KEYWORDS="amd64 arm ~arm64 x86 ~amd64-linux"
 
-UWSGI_PLUGINS_STD=( ping cache carbon nagios rpc rrdtool
+UWSGI_PLUGINS_STD=(
+	ping cache carbon nagios rpc rrdtool
 	http ugreen signal syslog rsyslog
 	router_{uwsgi,redirect,basicauth,rewrite,http,cache,static,memcached,redis,hash,expires,metrics}
 	{core,fast,raw,ssl}router
 	redislog mongodblog log{file,socket}
 	spooler cheaper_busyness symcall
 	transformation_{chunked,gzip,offload,tofile}
-	zergpool )
-UWSGI_PLUGINS_OPT=( alarm_{curl,xmpp} clock_{monotonic,realtime} curl_cron
+	zergpool
+)
+UWSGI_PLUGINS_OPT=(
+	alarm_{curl,xmpp} clock_{monotonic,realtime} curl_cron
 	dumbloop echo emperor_{amqp,pg,zeromq} forkptyrouter
 	geoip graylog2 legion_cache_fetch ldap log{crypto,pipe} notfound pam
 	rados router_{access,radius,spnego,xmldir}
 	sqlite ssi stats_pusher_statsd
-	systemd_logger transformation_toupper tuntap webdav xattr xslt zabbix )
+	systemd_logger transformation_toupper tuntap webdav xattr xslt zabbix
+)
 
 LANG_SUPPORT_SIMPLE=( cgi mono perl ) # plugins which can be built in the main build process
 LANG_SUPPORT_EXTENDED=( go lua php python python-asyncio ruby )
@@ -61,19 +69,25 @@ for plugin in ${UWSGI_PLUGINS_STD[@]}; do IUSE="${IUSE} +uwsgi_plugins_${plugin}
 for plugin in ${UWSGI_PLUGINS_OPT[@]}; do IUSE="${IUSE} uwsgi_plugins_${plugin}"; done
 IUSE="${IUSE} ${LANG_SUPPORT_SIMPLE[@]} ${LANG_SUPPORT_EXTENDED[@]}"
 
-REQUIRED_USE="|| ( ${LANG_SUPPORT_SIMPLE[@]} ${LANG_SUPPORT_EXTENDED[@]} )
+REQUIRED_USE="
+	|| ( ${LANG_SUPPORT_SIMPLE[@]} ${LANG_SUPPORT_EXTENDED[@]} )
 	uwsgi_plugins_logcrypto? ( ssl )
 	uwsgi_plugins_sslrouter? ( ssl )
 	routing? ( pcre )
+	uwsgi_plugins_emperor_pg? ( ${POSTGRES_REQ_USE} )
 	uwsgi_plugins_emperor_zeromq? ( zeromq )
 	uwsgi_plugins_forkptyrouter? ( uwsgi_plugins_corerouter )
 	uwsgi_plugins_router_xmldir? ( xml !expat )
 	lua? ( ${LUA_REQUIRED_USE} )
 	python? ( ${PYTHON_REQUIRED_USE} )
 	python-asyncio? ( python )
-	expat? ( xml )"
+	expat? ( xml )
+"
 
-# util-linux is required for libuuid when requesting zeromq support
+# Dependency notes:
+# - util-linux is required for libuuid when requesting zeromq support
+# - sys-devel/gcc[go] is needed for libgo.so
+#
 # Order:
 # 1. Unconditional
 # 2. General features
@@ -94,11 +108,14 @@ CDEPEND="
 		expat? ( dev-libs/expat )
 	)
 	yaml? ( dev-libs/libyaml )
-	zeromq? ( net-libs/zeromq sys-apps/util-linux )
+	zeromq? (
+		net-libs/zeromq
+		sys-apps/util-linux
+	)
 	uwsgi_plugins_alarm_curl? ( net-misc/curl )
 	uwsgi_plugins_alarm_xmpp? ( net-libs/gloox )
 	uwsgi_plugins_curl_cron? ( net-misc/curl )
-	uwsgi_plugins_emperor_pg? ( dev-db/postgresql:= )
+	uwsgi_plugins_emperor_pg? ( ${POSTGRES_DEP} )
 	uwsgi_plugins_geoip? ( dev-libs/geoip )
 	uwsgi_plugins_ldap? ( net-nds/openldap:= )
 	uwsgi_plugins_pam? ( sys-libs/pam )
@@ -115,22 +132,30 @@ CDEPEND="
 	perl? ( dev-lang/perl:= )
 	php? (
 		php_targets_php7-4? ( dev-lang/php:7.4[embed] )
+		php_targets_php8-0? ( dev-lang/php:8.0[embed] )
+		php_targets_php8-1? ( dev-lang/php:8.1[embed] )
+		php_targets_php8-2? ( dev-lang/php:8.2[embed] )
 	)
 	python? ( ${PYTHON_DEPS} )
 	python-asyncio? ( virtual/python-greenlet[${PYTHON_USEDEP}] )
-	ruby? ( $(ruby_implementations_depend) )"
+	ruby? ( $(ruby_implementations_depend) )
+"
 DEPEND="${CDEPEND}"
 RDEPEND="
 	${CDEPEND}
 	${PYTHON_DEPS}
 	selinux? ( sec-policy/selinux-uwsgi )
-	uwsgi_plugins_rrdtool? ( net-analyzer/rrdtool )"
+	uwsgi_plugins_rrdtool? ( net-analyzer/rrdtool )
+"
 BDEPEND="virtual/pkgconfig"
 
 S="${WORKDIR}/${MY_P}"
 
+PATCHES=(
+	"${FILESDIR}"/uwsgi-2.0.21-libphp-version.patch
+)
+
 src_unpack() {
-	echo ${PYTHON_USEDEP}
 	default
 }
 
@@ -138,6 +163,7 @@ pkg_setup() {
 	python_setup
 	use lua && lua-single_pkg_setup
 	use ruby && ruby-ng_pkg_setup
+	use uwsgi_plugins_emperor_pg && postgres_pkg_setup
 }
 
 src_prepare() {
@@ -161,6 +187,7 @@ src_configure() {
 	local json="false"
 	local xml="false"
 
+	local p
 	for p in ${UWSGI_PLUGINS_STD[@]} ${UWSGI_PLUGINS_OPT[@]} ; do
 		use uwsgi_plugins_${p} && embedded_plugins+=("${p}")
 	done
@@ -219,10 +246,8 @@ src_configure() {
 	fi
 
 	if use uwsgi_plugins_emperor_pg ; then
-		PGPV="$(best_version dev-db/postgresql)"
-		PGSLOT="$(ver_cut 1-2 ${PGPV##dev-db/postgresql-})"
 		sed -i \
-			-e "s|pg_config|pg_config${PGSLOT/.}|" \
+			-e "s|pg_config|${PG_CONFIG}|" \
 			plugins/emperor_pg/uwsgiplugin.py || die "sed failed"
 	fi
 }
@@ -241,13 +266,13 @@ python_compile_plugins() {
 	EPYV=${EPYTHON/.}
 	PYV=${EPYV/python}
 
-	${PYTHON} uwsgiconfig.py --plugin plugins/python gentoo ${EPYV} || die "building plugin for ${EPYTHON} failed"
+	${EPYTHON} uwsgiconfig.py --plugin plugins/python gentoo ${EPYV} || die "building plugin for ${EPYTHON} failed"
 
 	if use python-asyncio ; then
 		if [[ "${PYV}" != "27" ]] ; then
-			${PYTHON} uwsgiconfig.py --plugin plugins/asyncio gentoo asyncio${PYV} || die "building plugin for asyncio-support in ${EPYTHON} failed"
+			${EPYTHON} uwsgiconfig.py --plugin plugins/asyncio gentoo asyncio${PYV} || die "building plugin for asyncio-support in ${EPYTHON} failed"
 		fi
-		${PYTHON} uwsgiconfig.py --plugin plugins/greenlet gentoo greenlet${PYV} || die "building plugin for greenlet-support in ${EPYTHON} failed"
+		${EPYTHON} uwsgiconfig.py --plugin plugins/greenlet gentoo greenlet${PYV} || die "building plugin for greenlet-support in ${EPYTHON} failed"
 	fi
 }
 
@@ -258,21 +283,23 @@ python_install_symlinks() {
 src_compile() {
 	mkdir -p "${T}/plugins" || die
 
-	CPUCOUNT=1 python uwsgiconfig.py --build gentoo || die "building uwsgi failed"
+	export CPUCOUNT="$(makeopts_jobs)"
+
+	${EPYTHON} uwsgiconfig.py --build gentoo || die "building uwsgi failed"
 
 	if use go ; then
-		python uwsgiconfig.py --plugin plugins/gccgo gentoo || die "building plugin for go failed"
+		${EPYTHON} uwsgiconfig.py --plugin plugins/gccgo gentoo || die "building plugin for go failed"
 	fi
 
 	if use lua ; then
 		# setting the name for the pkg-config file to lua, since that is the name
 		# provided by the wrapper from Lua eclasses
-		UWSGICONFIG_LUAPC="lua" python uwsgiconfig.py --plugin plugins/lua gentoo || die "building plugin for lua failed"
+		UWSGICONFIG_LUAPC="lua" ${EPYTHON} uwsgiconfig.py --plugin plugins/lua gentoo || die "building plugin for lua failed"
 	fi
 
 	if use php ; then
 		for s in $(php_get_slots); do
-			UWSGICONFIG_PHPDIR="/usr/$(get_libdir)/${s}" python uwsgiconfig.py --plugin plugins/php gentoo ${s/.} || die "building plugin for ${s} failed"
+			UWSGICONFIG_PHPDIR="/usr/$(get_libdir)/${s}" ${EPYTHON} uwsgiconfig.py --plugin plugins/php gentoo ${s/.} || die "building plugin for ${s} failed"
 		done
 	fi
 
@@ -299,6 +326,7 @@ src_install() {
 	use perl && dosym uwsgi /usr/bin/uwsgi_psgi
 
 	if use php ; then
+		local s
 		for s in $(php_get_slots); do
 			dosym uwsgi /usr/bin/uwsgi_${s/.}
 		done
@@ -345,10 +373,10 @@ pkg_postinst() {
 		elog " "
 		elog "  '--plugins ${EPYV}' for ${EPYTHON}"
 		if use python-asyncio ; then
-			if [[ ${EPYV} == python34 ]] ; then
+			if [[ "${PYV}" != "27" ]] ; then
 				elog "  '--plugins ${EPYV},asyncio${PYV}' for asyncio support in ${EPYTHON}"
 			else
-				elog "  (asyncio is only supported in python3.4)"
+				elog "  (asyncio is only supported in Python3)"
 			fi
 		fi
 	}
