@@ -6,6 +6,7 @@ app-text/calibre
 app-text/pdfshuffler
 dev-db/metakit
 dev-lang/php
+dev-libs/openssl
 dev-python/PyZilla
 dev-python/RecSQL
 dev-python/amqplib
