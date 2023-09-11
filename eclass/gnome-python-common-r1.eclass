@@ -19,13 +19,13 @@
 : ${GNOME_TARBALL_SUFFIX:=bz2}
 : ${GNOME2_LA_PUNT:=yes}
 
-# @ECLASS-VARIABLE: G_PY_BINDINGS
+# @ECLASS_VARIABLE: G_PY_BINDINGS
 # @DESCRIPTION:
 # The actual '--enable-<binding>' name. If multiple bindings are to
 # be enabled, must be an array.
 : ${G_PY_BINDINGS:=${PN%-python}}
 
-# @ECLASS-VARIABLE: EXAMPLES
+# @ECLASS_VARIABLE: EXAMPLES
 # @DEFAULT_UNSET
 # @DESCRIPTION:
 # The set of example files to be installed if the 'examples' USE flag
