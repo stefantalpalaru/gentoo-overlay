@@ -41,7 +41,7 @@ dev-libs/libb64 2.0.0.1_p20200910-r1: Fast Base64 encoding/decoding routines
 dev-libs/libpeas 1.22.0-r7: A GObject plugins library
 dev-libs/libxml2 2.11.4: XML C parser and toolkit
 dev-libs/lthread 1.0_pre20150617-r2 9999-r2: multicore enabled coroutine library written in C
-dev-libs/openssl 1.1.1v: Full-strength general purpose cryptography library (including SSL and TLS)
+dev-libs/openssl 1.1.1w: Full-strength general purpose cryptography library (including SSL and TLS)
 dev-libs/protobuf 3.13.0: Google's Protocol Buffers - Extensible mechanism for serializing structured data
 dev-nim/bcrypt-nim 0.2.1_pre20150221 9999: Nim bindings for bcrypt
 dev-nim/c2nim 0.9.14_p20191215 9999-r1: a tool to translate ANSI C code to Nim
