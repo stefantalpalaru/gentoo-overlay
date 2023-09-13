@@ -1,0 +1,89 @@
+diff --git a/CMakeLists.txt b/CMakeLists.txt
+index b2d6662..c059c00 100644
+--- a/CMakeLists.txt
++++ b/CMakeLists.txt
+@@ -1,6 +1,10 @@
+ cmake_minimum_required(VERSION 3.13)
+ project(sdrpp)
+ 
++if(${CMAKE_SYSTEM_NAME} MATCHES "Linux")
++    include(GNUInstallDirs)
++endif()
++
+ # Backends
+ option(OPT_BACKEND_GLFW "Use the GLFW backend" ON)
+ option(OPT_BACKEND_ANDROID "Use the Android backend" OFF)
+@@ -303,18 +307,18 @@ endif ()
+ configure_file(${CMAKE_SOURCE_DIR}/sdrpp_module.cmake ${CMAKE_CURRENT_BINARY_DIR}/sdrpp_module.cmake @ONLY)
+ 
+ # Install directives
+-install(TARGETS sdrpp DESTINATION bin)
+-install(DIRECTORY ${CMAKE_SOURCE_DIR}/root/res/bandplans DESTINATION share/sdrpp)
+-install(DIRECTORY ${CMAKE_SOURCE_DIR}/root/res/colormaps DESTINATION share/sdrpp)
+-install(DIRECTORY ${CMAKE_SOURCE_DIR}/root/res/fonts DESTINATION share/sdrpp)
+-install(DIRECTORY ${CMAKE_SOURCE_DIR}/root/res/icons DESTINATION share/sdrpp)
+-install(DIRECTORY ${CMAKE_SOURCE_DIR}/root/res/themes DESTINATION share/sdrpp)
++install(TARGETS sdrpp DESTINATION ${CMAKE_INSTALL_BINDIR})
++install(DIRECTORY ${CMAKE_SOURCE_DIR}/root/res/bandplans DESTINATION ${CMAKE_INSTALL_DATAROOTDIR}/sdrpp)
++install(DIRECTORY ${CMAKE_SOURCE_DIR}/root/res/colormaps DESTINATION ${CMAKE_INSTALL_DATAROOTDIR}/sdrpp)
++install(DIRECTORY ${CMAKE_SOURCE_DIR}/root/res/fonts DESTINATION ${CMAKE_INSTALL_DATAROOTDIR}/sdrpp)
++install(DIRECTORY ${CMAKE_SOURCE_DIR}/root/res/icons DESTINATION ${CMAKE_INSTALL_DATAROOTDIR}/sdrpp)
++install(DIRECTORY ${CMAKE_SOURCE_DIR}/root/res/themes DESTINATION ${CMAKE_INSTALL_DATAROOTDIR}/sdrpp)
+ configure_file(${CMAKE_SOURCE_DIR}/sdrpp.desktop ${CMAKE_CURRENT_BINARY_DIR}/sdrpp.desktop @ONLY)
+ 
+ if (${CMAKE_SYSTEM_NAME} MATCHES "Linux")
+-    install(FILES ${CMAKE_CURRENT_BINARY_DIR}/sdrpp.desktop DESTINATION share/applications)
++    install(FILES ${CMAKE_CURRENT_BINARY_DIR}/sdrpp.desktop DESTINATION ${CMAKE_INSTALL_DATAROOTDIR}/applications)
+ endif ()
+ 
+ # Create uninstall target
+ configure_file(${CMAKE_SOURCE_DIR}/cmake_uninstall.cmake ${CMAKE_CURRENT_BINARY_DIR}/cmake_uninstall.cmake @ONLY)
+-add_custom_target(uninstall ${CMAKE_COMMAND} -P ${CMAKE_CURRENT_BINARY_DIR}/cmake_uninstall.cmake)
+\ No newline at end of file
++add_custom_target(uninstall ${CMAKE_COMMAND} -P ${CMAKE_CURRENT_BINARY_DIR}/cmake_uninstall.cmake)
+diff --git a/core/CMakeLists.txt b/core/CMakeLists.txt
+index 59d38fc..b6768da 100644
+--- a/core/CMakeLists.txt
++++ b/core/CMakeLists.txt
+@@ -168,4 +168,4 @@ set(CORE_FILES ${RUNTIME_OUTPUT_DIRECTORY} PARENT_SCOPE)
+ # cmake .. "-DCMAKE_TOOLCHAIN_FILE=C:/dev/vcpkg/scripts/buildsystems/vcpkg.cmake"
+ 
+ # Install directives
+-install(TARGETS sdrpp_core DESTINATION lib)
+\ No newline at end of file
++install(TARGETS sdrpp_core DESTINATION ${CMAKE_INSTALL_LIBDIR})
+diff --git a/core/libcorrect/CMakeLists.txt b/core/libcorrect/CMakeLists.txt
+index 7fce281..91c164c 100644
+--- a/core/libcorrect/CMakeLists.txt
++++ b/core/libcorrect/CMakeLists.txt
+@@ -92,8 +92,8 @@ add_subdirectory(tools)
+ # add_subdirectory(benchmarks)
+ 
+ # install(TARGETS correct correct_static
+-#         DESTINATION lib)
+-# install(FILES ${INSTALL_HEADERS} DESTINATION "${CMAKE_INSTALL_PREFIX}/include")
++#         DESTINATION ${CMAKE_INSTALL_LIBDIR})
++# install(FILES ${INSTALL_HEADERS} DESTINATION "${CMAKE_INSTALL_INCLUDEDIR}")
+ 
+ add_library(fec_shim_static EXCLUDE_FROM_ALL src/fec_shim.c ${correct_obj_files})
+ set_target_properties(fec_shim_static PROPERTIES OUTPUT_NAME "fec")
+@@ -103,6 +103,6 @@ add_custom_target(fec-shim-h COMMAND ${CMAKE_COMMAND} -E copy ${PROJECT_SOURCE_D
+ add_custom_target(shim DEPENDS fec_shim_static fec_shim_shared fec-shim-h)
+ 
+ # install(TARGETS fec_shim_static fec_shim_shared
+-#         DESTINATION lib
++#         DESTINATION ${CMAKE_INSTALL_LIBDIR}
+ #         OPTIONAL)
+-# install(FILES ${PROJECT_BINARY_DIR}/include/fec.h DESTINATION "${CMAKE_INSTALL_PREFIX}/include" OPTIONAL)
++# install(FILES ${PROJECT_BINARY_DIR}/include/fec.h DESTINATION "${CMAKE_INSTALL_INCLUDEDIR} OPTIONAL)
+diff --git a/sdrpp_module.cmake b/sdrpp_module.cmake
+index a14a1bb..8dea77e 100644
+--- a/sdrpp_module.cmake
++++ b/sdrpp_module.cmake
+@@ -16,4 +16,4 @@ set_target_properties(${PROJECT_NAME} PROPERTIES PREFIX "")
+ target_compile_options(${PROJECT_NAME} PRIVATE ${SDRPP_MODULE_COMPILER_FLAGS})
+ 
+ # Install directives
+-install(TARGETS ${PROJECT_NAME} DESTINATION lib/sdrpp/plugins)
+\ No newline at end of file
++install(TARGETS ${PROJECT_NAME} DESTINATION ${CMAKE_INSTALL_LIBDIR}/sdrpp/plugins)

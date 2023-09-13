@@ -1,0 +1,20 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE pkgmetadata SYSTEM "http://www.gentoo.org/dtd/metadata.dtd">
+<pkgmetadata>
+	<maintainer type="person">
+		<email>stefantalpalaru@yahoo.com</email>
+		<name>Ștefan Talpalaru</name>
+	</maintainer>
+	<use>
+		<flag name='airspy'>Airspy support</flag>
+		<flag name='bladerf'>Bladerf support</flag>
+		<flag name='discord'>Discord presence support</flag>
+		<flag name='hackrf'>Hackrf support</flag>
+		<flag name='limesdr'>Limesdr support</flag>
+		<flag name='plutosdr'>Plutosdr support</flag>
+		<flag name='rtaudio'>RTaudio driver</flag>
+		<flag name='rtlsdr'>rtlsdr support</flag>
+		<flag name='soapysdr'>soapysdr support</flag>
+		<flag name='spyserver'>spyserver support</flag>
+	</use>
+</pkgmetadata>
