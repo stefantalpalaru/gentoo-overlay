@@ -226,6 +226,16 @@ net-wireless/dump1090:bladerf - Build with Nuand BladeRF support
 net-wireless/dump1090:hackrf - Build with Great Scott Gadgets HackRF support
 net-wireless/dump1090:minimal - Exclude all HTML/webserver extras for a tiny build, e.g. to export data only
 net-wireless/dump1090:rtlsdr - Build with Realtek RTL2832U (rtlsdr) support
+net-wireless/sdrpp:airspy - Airspy support
+net-wireless/sdrpp:bladerf - Bladerf support
+net-wireless/sdrpp:discord - Discord presence support
+net-wireless/sdrpp:hackrf - Hackrf support
+net-wireless/sdrpp:limesdr - Limesdr support
+net-wireless/sdrpp:plutosdr - Plutosdr support
+net-wireless/sdrpp:rtaudio - RTaudio driver
+net-wireless/sdrpp:rtlsdr - rtlsdr support
+net-wireless/sdrpp:soapysdr - soapysdr support
+net-wireless/sdrpp:spyserver - spyserver support
 sci-astronomy/casacore:data - Installs measures and data (pulls sci-astronomy/casa-data)
 sci-astronomy/healpix:idl - Install healpix IDL/GDL routines
 sci-geosciences/qgis:3d - Build QGIS 3D library using dev-qt/qt3d

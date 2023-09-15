@@ -854,13 +854,14 @@ net-print/pkpgcounter 3.50-r200: Generic PDL (Page Description Language) parser 
 net-print/pykota 1.26-r200: Flexible print quota and accounting package for use with CUPS and lpd
 net-wireless/cubicsdr 0.2.7-r1: Cross-Platform Software-Defined Radio Application
 net-wireless/dump1090 7.2: simple Mode S decoder for RTLSDR devices
+net-wireless/sdrpp 1.1.0_pre20230907: a cross-platform SDR software with the aim of being bloat free and simple to use
 sci-astronomy/astrometry 0.78-r2: Automated astrometric calibration programs and service
 sci-astronomy/casacore 3.4.0: Core libraries for the Common Astronomy Software Applications
 sci-astronomy/healpix 3.31-r2: Hierarchical Equal Area isoLatitude Pixelization of a sphere
 sci-astronomy/kapteyn 2.3.1-r200: Collection of python tools for astronomy
 sci-astronomy/montage 5.0-r1: Toolkit for assembling FITS images into mosaics
 sci-geosciences/mkgmap-bin 4907: Tool to create garmin maps
-sci-geosciences/qgis 3.32.2-r1: User friendly Geographic Information System
+sci-geosciences/qgis 3.32.3: User friendly Geographic Information System
 sci-geosciences/splitter-bin 653: Tile splitter for mkgmap
 sci-libs/caffe2 1.13.1-r103 2.0.1-r101: A deep learning framework
 sci-libs/cfitsio 3.410-r1: C and Fortran library for manipulating FITS files
