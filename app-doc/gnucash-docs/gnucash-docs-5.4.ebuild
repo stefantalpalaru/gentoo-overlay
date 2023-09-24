@@ -26,7 +26,7 @@ BDEPEND="
 "
 
 src_prepare() {
-	eapply "${FILESDIR}/gnucash-docs-5.1-partially-revert-kde-help-dir.patch"
+	eapply "${FILESDIR}/gnucash-docs-5.4-partially-revert-kde-help-dir.patch"
 	cmake_src_prepare
 }
 

@@ -63,6 +63,7 @@ RDEPEND="
 		${PYTHON_DEPS}
 		$(python_gen_cond_dep '
 			dev-python/pygobject:3[${PYTHON_USEDEP}]
+			dev-python/setuptools:0[${PYTHON_USEDEP}]
 		')
 	)
 	quotes? (
@@ -92,10 +93,9 @@ BDEPEND="
 	virtual/pkgconfig
 "
 
-#~app-doc/gnucash-docs-${PV}
 PDEPEND="
 	doc? (
-		~app-doc/gnucash-docs-5.2
+		~app-doc/gnucash-docs-${PV}
 		gnome-extra/yelp
 	)
 "
@@ -162,6 +162,11 @@ src_configure() {
 		-DWITH_SQL=${sql_on_off}
 	)
 
+	if use python; then
+		mycmakeargs+=(
+			-DPython3_EXECUTABLE="${PYTHON}"
+		)
+	fi
 	cmake_src_configure
 }
 
