@@ -20,6 +20,7 @@ DEPEND="
 	media-libs/libjpeg-turbo:0=
 	media-libs/libsdl2[gles2?,opengl,vulkan?]
 	media-libs/libvpx:=
+	media-libs/libwebp:=
 	media-libs/openal
 	media-libs/zmusic
 	sys-libs/zlib
@@ -30,7 +31,6 @@ S="${WORKDIR}/${PN}-g${PV}"
 
 PATCHES=(
 	"${FILESDIR}"/${PN}-4.7.1-Introduce-the-BUILD_NONFREE-option.patch
-	"${FILESDIR}/gzdoom-4.10.0-gcc13.patch"
 )
 
 src_prepare() {
