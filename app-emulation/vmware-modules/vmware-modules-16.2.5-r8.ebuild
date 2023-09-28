@@ -17,7 +17,7 @@ MY_KERNEL_VERSION="6.4"
 # and test it ourselves.
 #
 # Details: https://github.com/mkubecek/vmware-host-modules/issues/158#issuecomment-1228341760
-MY_COMMIT="650fb3abeb82f2b7d3a14f9579a7529d153636b7"
+MY_COMMIT="3b4aadaeec916d2d39550808866413736bff4410"
 
 SRC_URI=" https://github.com/mkubecek/vmware-host-modules/archive/${MY_COMMIT}.tar.gz -> ${P}-${MY_COMMIT}.tar.gz"
 
@@ -35,6 +35,7 @@ S="${WORKDIR}/vmware-host-modules-${MY_COMMIT}"
 
 PATCHES=(
 	"${FILESDIR}/vmware-modules-16.2.5-kernel-6.4.10.patch"
+	"${FILESDIR}/vmware-modules-17.0.2-kernel-6.5.patch"
 )
 
 pkg_setup() {
