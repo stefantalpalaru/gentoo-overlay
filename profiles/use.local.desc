@@ -182,7 +182,6 @@ games-fps/gzdoom:gles2 - Enable GLES2 backend
 games-fps/gzdoom:non-free - Enable non-free components
 games-fps/gzdoom:swr - Enable software renderer
 games-strategy/warzone2100:discord - Enable Discord presence/join integration
-games-util/basis_universal:opencl - Enable OpenCL support
 media-gfx/ansel:avif - Support importing and exporting AVIF images
 media-gfx/ansel:flickr - Add support for uploading photos to flickr
 media-gfx/ansel:geolocation - Enable geotagging support
