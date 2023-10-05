@@ -1,7 +1,7 @@
-diff -ur pytorch-v2.0.0.orig/c10/CMakeLists.txt pytorch-v2.0.0/c10/CMakeLists.txt
---- pytorch-v2.0.0.orig/c10/CMakeLists.txt	2023-04-04 02:12:06.603905392 +0200
-+++ pytorch-v2.0.0/c10/CMakeLists.txt	2023-04-04 02:17:45.701427102 +0200
-@@ -65,7 +65,7 @@
+diff -ur caffe2-2.1.0.orig/c10/CMakeLists.txt caffe2-2.1.0/c10/CMakeLists.txt
+--- caffe2-2.1.0.orig/c10/CMakeLists.txt	2023-10-05 14:53:15.817493823 +0200
++++ caffe2-2.1.0/c10/CMakeLists.txt	2023-10-05 14:53:36.057336647 +0200
+@@ -87,7 +87,7 @@
  if(${USE_GLOG})
      target_link_libraries(c10 PUBLIC glog::glog)
  endif()
@@ -10,10 +10,10 @@ diff -ur pytorch-v2.0.0.orig/c10/CMakeLists.txt pytorch-v2.0.0/c10/CMakeLists.tx
  
  find_package(Backtrace)
  if(Backtrace_FOUND)
-diff -ur pytorch-v2.0.0.orig/caffe2/CMakeLists.txt pytorch-v2.0.0/caffe2/CMakeLists.txt
---- pytorch-v2.0.0.orig/caffe2/CMakeLists.txt	2023-04-04 02:12:06.483906269 +0200
-+++ pytorch-v2.0.0/caffe2/CMakeLists.txt	2023-04-04 02:26:18.007683171 +0200
-@@ -106,7 +106,7 @@
+diff -ur caffe2-2.1.0.orig/caffe2/CMakeLists.txt caffe2-2.1.0/caffe2/CMakeLists.txt
+--- caffe2-2.1.0.orig/caffe2/CMakeLists.txt	2023-10-05 14:53:15.817493823 +0200
++++ caffe2-2.1.0/caffe2/CMakeLists.txt	2023-10-05 14:53:36.057336647 +0200
+@@ -107,7 +107,7 @@
  # Note: the folders that are being commented out have not been properly
  # addressed yet.
  
@@ -22,23 +22,7 @@ diff -ur pytorch-v2.0.0.orig/caffe2/CMakeLists.txt pytorch-v2.0.0/caffe2/CMakeLi
    if(NOT TARGET fxdiv)
      set(FXDIV_BUILD_TESTS OFF CACHE BOOL "")
      set(FXDIV_BUILD_BENCHMARKS OFF CACHE BOOL "")
-@@ -533,7 +533,6 @@
- if(NOT MSVC)
-   set_source_files_properties(${TORCH_SRC_DIR}/csrc/jit/tensorexpr/llvm_jit.cpp PROPERTIES COMPILE_FLAGS -Wno-noexcept-type)
-   # Force -Werror on several files
--  set_source_files_properties(${CMAKE_CURRENT_LIST_DIR}/../aten/src/ATen/native/mkldnn/Pooling.cpp PROPERTIES COMPILE_FLAGS "-Werror")
- endif()
- # Disable certain warnings for GCC-9.X
- if(CMAKE_COMPILER_IS_GNUCXX AND (CMAKE_CXX_COMPILER_VERSION VERSION_GREATER 9.0.0))
-@@ -811,7 +810,6 @@
- torch_compile_options(torch_cpu)  # see cmake/public/utils.cmake
- if(HAS_WERROR_SIGN_COMPARE AND WERROR)
-   # target_compile_options(torch_cpu PRIVATE "-Werror=sign-compare")
--  set_property(SOURCE ${ATen_CORE_SRCS} ${ATen_CPU_SRCS} APPEND PROPERTY COMPILE_OPTIONS "-Werror=sign-compare")
- endif()
- 
- set_property(SOURCE ${ATen_CORE_SRCS} APPEND
-@@ -975,7 +973,6 @@
+@@ -1023,7 +1023,6 @@
  endif()
  
  if(NOT MSVC AND USE_XNNPACK)
@@ -46,19 +30,9 @@ diff -ur pytorch-v2.0.0.orig/caffe2/CMakeLists.txt pytorch-v2.0.0/caffe2/CMakeLi
  endif()
  
  # ==========================================================
-@@ -1095,8 +1092,7 @@
- target_include_directories(torch_cpu PRIVATE
-   ${TORCH_ROOT}/third_party/miniz-2.1.0)
- 
--target_include_directories(torch_cpu PRIVATE
--  ${TORCH_ROOT}/third_party/kineto/libkineto/include)
-+target_include_directories(torch_cpu PRIVATE /usr/include/kineto)
- 
- if(USE_KINETO)
-   target_include_directories(torch_cpu PRIVATE
-diff -ur pytorch-v2.0.0.orig/cmake/Codegen.cmake pytorch-v2.0.0/cmake/Codegen.cmake
---- pytorch-v2.0.0.orig/cmake/Codegen.cmake	2023-04-03 21:46:00.000000000 +0200
-+++ pytorch-v2.0.0/cmake/Codegen.cmake	2023-04-04 02:23:25.178946202 +0200
+diff -ur caffe2-2.1.0.orig/cmake/Codegen.cmake caffe2-2.1.0/cmake/Codegen.cmake
+--- caffe2-2.1.0.orig/cmake/Codegen.cmake	2023-10-05 14:53:12.947516107 +0200
++++ caffe2-2.1.0/cmake/Codegen.cmake	2023-10-05 14:53:36.057336647 +0200
 @@ -57,7 +57,7 @@
    if(MSVC)
      set(OPT_FLAG "/fp:strict ")
@@ -68,10 +42,10 @@ diff -ur pytorch-v2.0.0.orig/cmake/Codegen.cmake pytorch-v2.0.0/cmake/Codegen.cm
      if("${CMAKE_BUILD_TYPE}" MATCHES "Debug")
        set(OPT_FLAG " ")
      endif()
-diff -ur pytorch-v2.0.0.orig/cmake/Dependencies.cmake pytorch-v2.0.0/cmake/Dependencies.cmake
---- pytorch-v2.0.0.orig/cmake/Dependencies.cmake	2023-04-03 21:46:00.000000000 +0200
-+++ pytorch-v2.0.0/cmake/Dependencies.cmake	2023-04-04 02:28:00.806931915 +0200
-@@ -486,7 +486,7 @@
+diff -ur caffe2-2.1.0.orig/cmake/Dependencies.cmake caffe2-2.1.0/cmake/Dependencies.cmake
+--- caffe2-2.1.0.orig/cmake/Dependencies.cmake	2023-10-05 14:53:12.947516107 +0200
++++ caffe2-2.1.0/cmake/Dependencies.cmake	2023-10-05 14:58:02.915264350 +0200
+@@ -487,7 +487,7 @@
  list(APPEND Caffe2_DEPENDENCY_LIBS cpuinfo)
  
  # ---[ QNNPACK
@@ -80,7 +54,7 @@ diff -ur pytorch-v2.0.0.orig/cmake/Dependencies.cmake pytorch-v2.0.0/cmake/Depen
    set(CAFFE2_THIRD_PARTY_ROOT "${PROJECT_SOURCE_DIR}/third_party")
  
    if(NOT DEFINED QNNPACK_SOURCE_DIR)
-@@ -542,7 +542,7 @@
+@@ -543,7 +543,7 @@
  endif()
  
  # ---[ Caffe2 Int8 operators (enabled by USE_QNNPACK) depend on gemmlowp and neon2sse headers
@@ -89,7 +63,16 @@ diff -ur pytorch-v2.0.0.orig/cmake/Dependencies.cmake pytorch-v2.0.0/cmake/Depen
    set(CAFFE2_THIRD_PARTY_ROOT "${PROJECT_SOURCE_DIR}/third_party")
    include_directories(SYSTEM "${CAFFE2_THIRD_PARTY_ROOT}/gemmlowp")
    include_directories(SYSTEM "${CAFFE2_THIRD_PARTY_ROOT}/neon2sse")
-@@ -1551,7 +1551,6 @@
+@@ -1244,7 +1244,7 @@
+ 
+ # ---[ cuDNN
+ if(USE_CUDNN)
+-  set(CUDNN_FRONTEND_INCLUDE_DIR ${CMAKE_CURRENT_LIST_DIR}/../third_party/cudnn_frontend/include)
++  set(CUDNN_FRONTEND_INCLUDE_DIR /opt/cuda/targets/x86_64-linux/include)
+   target_include_directories(torch::cudnn INTERFACE ${CUDNN_FRONTEND_INCLUDE_DIR})
+ endif()
+ 
+@@ -1555,7 +1555,6 @@
        set_target_properties(onnx_proto PROPERTIES CXX_STANDARD 17)
      endif()
    endif()
@@ -97,7 +80,7 @@ diff -ur pytorch-v2.0.0.orig/cmake/Dependencies.cmake pytorch-v2.0.0/cmake/Depen
  
    add_definitions(-DONNX_NAMESPACE=${ONNX_NAMESPACE})
    if(NOT USE_SYSTEM_ONNX)
-@@ -1819,7 +1818,6 @@
+@@ -1834,7 +1833,6 @@
  #
  set(TEMP_BUILD_SHARED_LIBS ${BUILD_SHARED_LIBS})
  set(BUILD_SHARED_LIBS OFF CACHE BOOL "Build shared libs" FORCE)
@@ -105,7 +88,7 @@ diff -ur pytorch-v2.0.0.orig/cmake/Dependencies.cmake pytorch-v2.0.0/cmake/Depen
  
  # Disable compiler feature checks for `fmt`.
  #
-@@ -1828,9 +1826,7 @@
+@@ -1843,9 +1841,7 @@
  # CMAKE_CXX_FLAGS in ways that break feature checks. Since we already know
  # `fmt` is compatible with a superset of the compilers that PyTorch is, it
  # shouldn't be too bad to just disable the checks.
@@ -115,9 +98,9 @@ diff -ur pytorch-v2.0.0.orig/cmake/Dependencies.cmake pytorch-v2.0.0/cmake/Depen
  set(BUILD_SHARED_LIBS ${TEMP_BUILD_SHARED_LIBS} CACHE BOOL "Build shared libs" FORCE)
  
  # ---[ Kineto
-diff -ur pytorch-v2.0.0.orig/cmake/External/nnpack.cmake pytorch-v2.0.0/cmake/External/nnpack.cmake
---- pytorch-v2.0.0.orig/cmake/External/nnpack.cmake	2023-04-03 21:46:00.000000000 +0200
-+++ pytorch-v2.0.0/cmake/External/nnpack.cmake	2023-04-04 02:26:48.387461156 +0200
+diff -ur caffe2-2.1.0.orig/cmake/External/nnpack.cmake caffe2-2.1.0/cmake/External/nnpack.cmake
+--- caffe2-2.1.0.orig/cmake/External/nnpack.cmake	2023-10-05 14:53:12.957516030 +0200
++++ caffe2-2.1.0/cmake/External/nnpack.cmake	2023-10-05 14:53:36.057336647 +0200
 @@ -58,7 +58,7 @@
    set(PTHREADPOOL_SOURCE_DIR "${CAFFE2_THIRD_PARTY_ROOT}/pthreadpool" CACHE STRING "pthreadpool source directory")
    set(GOOGLETEST_SOURCE_DIR "${CAFFE2_THIRD_PARTY_ROOT}/googletest" CACHE STRING "Google Test source directory")
@@ -127,10 +110,10 @@ diff -ur pytorch-v2.0.0.orig/cmake/External/nnpack.cmake pytorch-v2.0.0/cmake/Ex
      if(NOT USE_SYSTEM_PTHREADPOOL AND USE_INTERNAL_PTHREADPOOL_IMPL)
        set(NNPACK_CUSTOM_THREADPOOL ON CACHE BOOL "")
      endif()
-diff -ur pytorch-v2.0.0.orig/cmake/public/utils.cmake pytorch-v2.0.0/cmake/public/utils.cmake
---- pytorch-v2.0.0.orig/cmake/public/utils.cmake	2023-04-03 21:46:00.000000000 +0200
-+++ pytorch-v2.0.0/cmake/public/utils.cmake	2023-04-04 02:22:52.489185098 +0200
-@@ -507,8 +507,6 @@
+diff -ur caffe2-2.1.0.orig/cmake/public/utils.cmake caffe2-2.1.0/cmake/public/utils.cmake
+--- caffe2-2.1.0.orig/cmake/public/utils.cmake	2023-10-05 14:53:12.957516030 +0200
++++ caffe2-2.1.0/cmake/public/utils.cmake	2023-10-05 14:53:36.057336647 +0200
+@@ -492,8 +492,6 @@
    endif()
  
    # Use -O2 for release builds (-O3 doesn't improve perf, and -Os results in perf regression)
@@ -139,10 +122,10 @@ diff -ur pytorch-v2.0.0.orig/cmake/public/utils.cmake pytorch-v2.0.0/cmake/publi
  
  endfunction()
  
-diff -ur pytorch-v2.0.0.orig/CMakeLists.txt pytorch-v2.0.0/CMakeLists.txt
---- pytorch-v2.0.0.orig/CMakeLists.txt	2023-04-04 02:12:07.723897204 +0200
-+++ pytorch-v2.0.0/CMakeLists.txt	2023-04-04 02:22:03.839540632 +0200
-@@ -799,12 +799,11 @@
+diff -ur caffe2-2.1.0.orig/CMakeLists.txt caffe2-2.1.0/CMakeLists.txt
+--- caffe2-2.1.0.orig/CMakeLists.txt	2023-10-05 14:53:15.927492969 +0200
++++ caffe2-2.1.0/CMakeLists.txt	2023-10-05 14:53:36.057336647 +0200
+@@ -812,12 +812,11 @@
  
  # ---[ Build flags
  if(NOT MSVC)
@@ -156,40 +139,38 @@ diff -ur pytorch-v2.0.0.orig/CMakeLists.txt pytorch-v2.0.0/CMakeLists.txt
    append_cxx_flag_if_supported("-Werror=non-virtual-dtor" CMAKE_CXX_FLAGS)
    append_cxx_flag_if_supported("-Werror=braced-scalar-init" CMAKE_CXX_FLAGS)
    append_cxx_flag_if_supported("-Werror=range-loop-construct" CMAKE_CXX_FLAGS)
-@@ -912,8 +911,6 @@
+@@ -917,8 +916,6 @@
    string(APPEND CMAKE_LINKER_FLAGS_DEBUG " -fno-omit-frame-pointer -O0")
    append_cxx_flag_if_supported("-fno-math-errno" CMAKE_CXX_FLAGS)
    append_cxx_flag_if_supported("-fno-trapping-math" CMAKE_CXX_FLAGS)
 -  append_cxx_flag_if_supported("-Werror=format" CMAKE_CXX_FLAGS)
 -  append_cxx_flag_if_supported("-Werror=cast-function-type" CMAKE_CXX_FLAGS)
- endif()
- 
- if(USE_ASAN)
-diff -ur pytorch-v2.0.0.orig/torch/CMakeLists.txt pytorch-v2.0.0/torch/CMakeLists.txt
---- pytorch-v2.0.0.orig/torch/CMakeLists.txt	2023-04-04 02:12:06.593905465 +0200
-+++ pytorch-v2.0.0/torch/CMakeLists.txt	2023-04-04 02:19:23.450712752 +0200
-@@ -66,15 +66,9 @@
+ else()
+   # skip unwanted includes from windows.h
+   add_compile_definitions(WIN32_LEAN_AND_MEAN)
+diff -ur caffe2-2.1.0.orig/torch/CMakeLists.txt caffe2-2.1.0/torch/CMakeLists.txt
+--- caffe2-2.1.0.orig/torch/CMakeLists.txt	2023-10-05 14:53:15.787494053 +0200
++++ caffe2-2.1.0/torch/CMakeLists.txt	2023-10-05 14:53:36.057336647 +0200
+@@ -63,14 +63,6 @@
      ${CMAKE_BINARY_DIR}
      ${CMAKE_BINARY_DIR}/aten/src
      ${CMAKE_BINARY_DIR}/caffe2/aten/src
 -    ${CMAKE_BINARY_DIR}/third_party
 -    ${CMAKE_BINARY_DIR}/third_party/onnx
- 
+-
 -    ${TORCH_ROOT}/third_party/valgrind-headers
- 
+-
 -    ${TORCH_ROOT}/third_party/gloo
 -    ${TORCH_ROOT}/third_party/onnx
 -    ${TORCH_ROOT}/third_party/flatbuffers/include
--    ${TORCH_ROOT}/third_party/kineto/libkineto/include
-+    /usr/include/kineto
+     ${TORCH_ROOT}/third_party/kineto/libkineto/include
  
      ${TORCH_SRC_DIR}/csrc
-     ${TORCH_SRC_DIR}/csrc/api/include
-@@ -87,7 +81,6 @@
+@@ -84,7 +76,6 @@
      python::python
      pybind::pybind11
      shm
 -    fmt::fmt-header-only
      ATEN_CPU_FILES_GEN_LIB)
  
- set(TORCH_PYTHON_COMPILE_DEFINITIONS)
+ if(USE_ASAN AND TARGET Sanitizer::address)

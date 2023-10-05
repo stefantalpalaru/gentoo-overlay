@@ -3,17 +3,66 @@
 
 EAPI=8
 
-# Python-3.11 not fully supported: https://github.com/pytorch/pytorch/issues/86566
-PYTHON_COMPAT=( python3_10 )
-inherit python-single-r1 cmake cuda flag-o-matic
+PYTHON_COMPAT=( python3_{10,11} )
+inherit git-r3 cmake cuda flag-o-matic python-single-r1
 
 MYPN=pytorch
 
 DESCRIPTION="A deep learning framework"
 HOMEPAGE="https://pytorch.org/"
 # We need the complete archive, with all thirdparty modules, for the "cutlass" library (used when CUDA is enabled)
-SRC_URI="https://github.com/pytorch/pytorch/releases/download/v${PV}/pytorch-v${PV}.tar.gz
-	-> ${MYPN}-full-${PV}.tar.gz"
+#SRC_URI="https://github.com/pytorch/pytorch/releases/download/v${PV}/pytorch-v${PV}.tar.gz
+	#-> ${MYPN}-full-${PV}.tar.gz"
+
+# It takes weeks for a full source tarball to appear attached to a release. Use Git instead.
+EGIT_REPO_URI="https://github.com/pytorch/pytorch"
+EGIT_COMMIT="v${PV}"
+EGIT_SUBMODULES=(
+	'*'
+	'-third_party/pybind11'
+	'-third_party/NNPACK_deps/FP16'
+	'-third_party/NNPACK_deps/FXdiv'
+	'-third_party/NNPACK_deps/psimd'
+	'-third_party/NNPACK_deps/pthreadpool'
+	'-android/libs/fbjni'
+	'-third_party/FP16'
+	'-third_party/FXdiv'
+	'-third_party/NNPACK'
+	'-third_party/QNNPACK'
+	'-third_party/VulkanMemoryAllocator'
+	'-third_party/XNNPACK'
+	'-third_party/benchmark'
+	'-third_party/cpuinfo'
+	'-third_party/cub'
+	'-third_party/cudnn_frontend'
+	'-third_party/eigen'
+	'-third_party/fbgemm'
+	'-third_party/flatbuffers'
+	'-third_party/fmt'
+	'-third_party/foxi'
+	'-third_party/gemmlowp/gemmlowp'
+	'-third_party/gloo'
+	'-third_party/googletest'
+	'-third_party/ideep'
+	'-third_party/ios-cmake'
+	'-third_party/ittapi'
+	'-third_party/mimalloc'
+	'-third_party/nccl/nccl'
+	'-third_party/neon2sse'
+	'-third_party/nlohmann'
+	'-third_party/onnx'
+	'-third_party/onnx-tensorrt'
+	'-third_party/pocketfft'
+	'-third_party/protobuf'
+	'-third_party/psimd'
+	'-third_party/pthreadpool'
+	'-third_party/python-enum'
+	'-third_party/python-peachpy'
+	'-third_party/python-six'
+	'-third_party/sleef'
+	'-third_party/tbb'
+	'-third_party/zstd'
+)
 
 LICENSE="BSD"
 SLOT="0"
@@ -26,7 +75,6 @@ REQUIRED_USE="
 	mpi? ( distributed )
 " # ?? ( cuda rocm )
 
-# CUDA 12 not supported yet: https://github.com/pytorch/pytorch/issues/91122
 RDEPEND="
 	${PYTHON_DEPS}
 	dev-cpp/gflags:=
@@ -42,7 +90,7 @@ RDEPEND="
 	cuda? (
 		dev-libs/cudnn:0/8
 		dev-libs/cudnn-frontend:0/8
-		=dev-util/nvidia-cuda-toolkit-11*:=[profiler]
+		=dev-util/nvidia-cuda-toolkit-12*:=[profiler]
 	)
 	ffmpeg? ( media-video/ffmpeg:= )
 	mpi? ( sys-cluster/openmpi )
@@ -55,6 +103,7 @@ RDEPEND="
 	qnnpack? ( sci-libs/QNNPACK )
 	xnnpack? ( sci-libs/XNNPACK )
 "
+# Torch uses recent Kineto commits that have not been released, then installs the library headers.
 DEPEND="
 	${RDEPEND}
 	dev-cpp/eigen
@@ -63,23 +112,22 @@ DEPEND="
 	dev-libs/FXdiv
 	dev-libs/pocketfft
 	dev-libs/flatbuffers
-	sci-libs/kineto
 	$(python_gen_cond_dep '
 		dev-python/pyyaml[${PYTHON_USEDEP}]
 		dev-python/pybind11[${PYTHON_USEDEP}]
 	')
+	!!sci-libs/kineto
 "
 BDEPEND="${DEPEND}"
 
-S="${WORKDIR}"/${MYPN}-v${PV}
+#S="${WORKDIR}"/${MYPN}-v${PV}
 
 PATCHES=(
-	"${FILESDIR}"/${PN}-1.13.0-gentoo.patch
+	"${FILESDIR}"/${PN}-2.1.0-gentoo.patch
 	"${FILESDIR}"/${PN}-1.13.0-install-dirs.patch
 	"${FILESDIR}"/${PN}-1.12.0-glog-0.6.0.patch
-	"${FILESDIR}"/${PN}-1.12.0-clang.patch
 	"${FILESDIR}"/caffe2-1.13.1-functorch.patch
-	"${FILESDIR}"/caffe2-2.0.1-gcc-13.patch
+	"${FILESDIR}"/caffe2-2.1.0-nvfuser.patch
 )
 
 src_prepare() {
@@ -112,7 +160,6 @@ src_configure() {
 		-DUSE_CCACHE=OFF
 		-DUSE_CUDA=$(usex cuda)
 		-DUSE_CUDNN=$(usex cuda)
-		-DUSE_FAST_NVCC=$(usex cuda)
 		-DTORCH_CUDA_ARCH_LIST="${TORCH_CUDA_ARCH_LIST:-3.5 7.0}"
 		-DUSE_DISTRIBUTED=$(usex distributed)
 		-DUSE_TENSORPIPE=$(usex distributed) # required by USE_DISTRIBUTED
@@ -124,7 +171,7 @@ src_configure() {
 		-DUSE_GFLAGS=ON
 		-DUSE_GLOG=ON
 		-DUSE_GLOO=OFF
-		-DUSE_KINETO=OFF # TODO
+		-DUSE_KINETO=ON
 		-DUSE_LEVELDB=OFF
 		-DUSE_MAGMA=OFF # TODO: In GURU as sci-libs/magma
 		-DUSE_MKLDNN=OFF

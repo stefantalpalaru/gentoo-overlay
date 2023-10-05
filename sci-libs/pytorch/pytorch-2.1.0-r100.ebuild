@@ -4,8 +4,7 @@
 EAPI=8
 
 DISTUTILS_USE_PEP517=setuptools
-# Python-3.11 not fully supported: https://github.com/pytorch/pytorch/issues/86566
-PYTHON_COMPAT=( python3_10 )
+PYTHON_COMPAT=( python3_{10,11} )
 DISTUTILS_SINGLE_IMPL=1
 inherit distutils-r1
 
@@ -42,7 +41,7 @@ DEPEND="${RDEPEND}
 "
 
 PATCHES=(
-	"${FILESDIR}"/0002-Don-t-build-libtorch-again-for-PyTorch-1.7.1.patch
+	"${FILESDIR}"/pytorch-2.1.0-don-t-build-libtorch-again.patch
 	"${FILESDIR}"/pytorch-1.9.0-Change-library-directory-according-to-CMake-build.patch
 	"${FILESDIR}"/pytorch-2.0.0-global-dlopen.patch
 	"${FILESDIR}"/pytorch-1.7.1-torch_shm_manager.patch
