@@ -11,7 +11,7 @@ MY_PV=$(ver_cut 1-3)
 PV_MODULES="${MY_PV}"
 PV_BUILD=$(ver_cut 4)
 MY_P="${MY_PN}-${MY_PV}-${PV_BUILD}"
-VMWARE_FUSION_VER="13.0.1/21139760" # https://softwareupdate.vmware.com/cds/vmw-desktop/fusion/
+VMWARE_FUSION_VER="13.5.0/22583790" # https://softwareupdate.vmware.com/cds/vmw-desktop/fusion/
 SYSTEMD_UNITS_TAG="gentoo-02"
 UNLOCKER_VERSION="3.0.5"
 
@@ -32,7 +32,7 @@ SLOT="0"
 KEYWORDS="~amd64"
 # the kernel modules are optional because they're not needed to connect to VMs
 # running on remote systems - https://bugs.gentoo.org/604426
-IUSE="cups doc macos-guests +modules ovftool systemd vix"
+IUSE="doc macos-guests +modules ovftool systemd vix"
 DARWIN_GUESTS="darwin darwinPre15"
 IUSE_VMWARE_GUESTS="${DARWIN_GUESTS} linux linuxPreGlibc25 netware solaris windows winPre2k winPreVista"
 for guest in ${IUSE_VMWARE_GUESTS}; do
@@ -62,7 +62,6 @@ RDEPEND="
 	media-plugins/alsa-plugins[speex]
 	net-dns/libidn
 	net-libs/gnutls
-	cups? ( net-print/cups )
 	sys-apps/tcp-wrappers
 	sys-apps/util-linux
 	sys-auth/polkit
@@ -199,14 +198,6 @@ src_install() {
 	# install the ancillaries
 	insinto /usr
 	doins -r */share
-
-	if use cups; then
-		exeinto $(cups-config --serverbin)/filter
-		doexe */extras/thnucups
-
-		insinto /etc/cups
-		doins -r */etc/cups/*
-	fi
 
 	# Hardcoded EULA path. We need to disable the default compression.
 	insinto /usr/share/doc/vmware-workstation

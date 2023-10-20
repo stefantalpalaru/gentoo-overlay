@@ -17,26 +17,17 @@ MY_KERNEL_VERSION="6.5"
 # and test it ourselves.
 #
 # Details: https://github.com/mkubecek/vmware-host-modules/issues/158#issuecomment-1228341760
-MY_COMMIT="8b2d31498a8df9b1215f407c989b065953b73455"
+MY_COMMIT="f29c1d7df4a26417a06c7bf1dd4ea43e013668dc"
 
 SRC_URI=" https://github.com/mkubecek/vmware-host-modules/archive/${MY_COMMIT}.tar.gz -> ${P}-${MY_COMMIT}.tar.gz"
 
 LICENSE="GPL-2"
 SLOT="0"
 KEYWORDS="~amd64"
-IUSE=""
-
-RDEPEND=""
-DEPEND=""
 
 RESTRICT="mirror"
 
 S="${WORKDIR}/vmware-host-modules-${MY_COMMIT}"
-
-PATCHES=(
-	"${FILESDIR}/vmware-modules-16.2.5-kernel-6.4.10.patch"
-	"${FILESDIR}/vmware-modules-17.0.2-kernel-6.5.patch"
-)
 
 pkg_setup() {
 	CONFIG_CHECK="~HIGH_RES_TIMERS"
