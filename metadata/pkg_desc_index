@@ -792,7 +792,7 @@ dev-vcs/bzr 2.7.1_pre-r3: Bazaar is a next generation distributed version contro
 dev-vcs/hg-fast-export 221024-r1: mercurial to git converter using git-fast-import
 games-emulation/dbgl-bin 0.97: DOSBox Game Launcher
 games-emulation/rpcs3 0.0.29-r1 9999-r11: PlayStation 3 emulator
-games-fps/gzdoom 4.11.1: A modder-friendly OpenGL source port based on the DOOM engine
+games-fps/gzdoom 4.11.2: A modder-friendly OpenGL source port based on the DOOM engine
 games-misc/bsd-games 2.17_p28-r2: Collection of games from NetBSD
 games-sports/trigger 0.6.6.1: Free OpenGL rally car racing game
 games-strategy/warzone2100 4.3.5-r1: 3D real-time strategy game
