@@ -2,7 +2,6 @@
 # Distributed under the terms of the GNU General Public License v2
 
 EAPI=7
-EGIT_SUBMODULES=('*' '-vendor/nim-json-rpc')
 
 inherit git-r3
 
@@ -13,6 +12,7 @@ EGIT_COMMIT="v${PV/_/-}"
 
 # Upstream fucked up and pointed a Git submodule to a dangling commit: https://github.com/status-im/Nim/commit/7f90bcf5b4cbe5b7da534dd79bafbb4cafb313fa
 # so we disable Portage's submodule retrieval because it cannot deal with that.
+#EGIT_SUBMODULES=('*' '-vendor/nim-json-rpc')
 EGIT_SUBMODULES=()
 
 RESTRICT="strip network-sandbox"
@@ -22,9 +22,7 @@ SLOT="0"
 KEYWORDS="~amd64 ~x86"
 IUSE="lto"
 
-DEPEND=""
 RDEPEND="${DEPEND}"
-BDEPEND=""
 
 src_compile() {
 	NIMFLAGS="-d:disableMarchNative --passC:'${CFLAGS}' --passL:'${LDFLAGS}' -d:chronicles_sinks=textlines -d:chronicles_colors=none"
