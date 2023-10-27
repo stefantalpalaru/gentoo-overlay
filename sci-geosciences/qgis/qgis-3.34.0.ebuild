@@ -108,11 +108,6 @@ BDEPEND="
 	)
 "
 
-PATCHES=(
-	"${FILESDIR}/qgis-3.32.2-exiv2-0.28.patch"
-	"${FILESDIR}/qgis-3.32.2-protobuf.patch"
-)
-
 src_prepare() {
 	cmake_src_prepare
 }
@@ -149,6 +144,7 @@ src_configure() {
 		-DWITH_QTSERIALPORT=$(usex serial)
 		-DWITH_QTWEBKIT=OFF
 		-Dprotobuf_MODULE_COMPATIBLE=ON
+		-DWITH_DRACO=OFF
 	)
 
 	# We list all supported versions *by upstream for this version*
