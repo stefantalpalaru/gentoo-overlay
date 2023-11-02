@@ -9,7 +9,7 @@ DESCRIPTION="VMware kernel modules"
 HOMEPAGE="https://github.com/mkubecek/vmware-host-modules"
 
 # Highest kernel version known to work:
-MY_KERNEL_VERSION="6.5"
+MY_KERNEL_VERSION="6.6"
 
 # Upstream does not want to tag versions or anything that looks like properly
 # releasing the software, so we need to just pick a commit from
