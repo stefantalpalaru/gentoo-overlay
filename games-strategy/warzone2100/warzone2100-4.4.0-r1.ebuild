@@ -65,7 +65,6 @@ DOCS=( README.md doc/images doc/Scripting.md doc/js-globals.md )
 
 PATCHES=(
 	"${FILESDIR}"/${PN}-4.1.3-no-compress-manpages.patch
-	"${FILESDIR}/warzone2100-4.3.5-vulkan.patch"
 )
 
 src_unpack() {
@@ -90,6 +89,7 @@ src_prepare() {
 src_configure() {
 	# TODO: unbundle nlohmann-json
 	# TODO: unbundle fmt
+	# TODO: unbundle SQLiteCpp
 	local mycmakeargs=(
 		-DWZ_DISTRIBUTOR="Gentoo Linux"
 		-DWZ_ENABLE_WARNINGS_AS_ERRORS=OFF
@@ -97,6 +97,7 @@ src_configure() {
 		-DBUILD_SHARED_LIBS=OFF
 		-DENABLE_NLS=$(usex nls)
 		-DENABLE_DISCORD=$(usex discord)
+		-DFMT_INSTALL=OFF
 	)
 
 	cmake_src_configure
