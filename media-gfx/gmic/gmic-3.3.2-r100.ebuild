@@ -81,7 +81,6 @@ pkg_pretend() {
 
 src_prepare() {
 	cp -a "${DISTDIR}/gmic_stdlib$(ver_rs 1- '').h" src/gmic_stdlib.h || die
-	mv resources/{cmake,CMakeLists.txt} . || die "can't move CMake files"
 	cmake_src_prepare
 	PATCHES=()
 
