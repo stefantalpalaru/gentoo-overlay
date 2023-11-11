@@ -4,7 +4,7 @@
 EAPI=8
 
 DISTUTILS_IN_SOURCE_BUILD=1
-PYTHON_COMPAT=( python3_{10..11} )
+PYTHON_COMPAT=( python3_{10..12} )
 PYPI_NO_NORMALIZE=1
 PYPI_PN="wxPython"
 WX_GTK_VER="3.2-gtk3"
@@ -17,7 +17,7 @@ HOMEPAGE="https://www.wxpython.org/
 
 LICENSE="wxWinLL-3"
 SLOT="4.0"
-KEYWORDS="~alpha amd64 arm arm64 ~loong ppc ppc64 ~riscv ~sparc x86"
+KEYWORDS="~alpha amd64 arm arm64 ~hppa ~loong ppc ppc64 ~riscv ~sparc x86"
 IUSE="test webkit"
 RESTRICT="!test? ( test )"
 
@@ -48,6 +48,7 @@ BDEPEND="
 PATCHES=(
 	"${FILESDIR}/wxpython-4.1.0-skip-broken-tests.patch"
 	"${FILESDIR}/wxpython-4.2.0-flags.patch"
+	"${FILESDIR}/wxpython-4.2.0-cython-3.0.0.patch"
 )
 
 python_prepare_all() {

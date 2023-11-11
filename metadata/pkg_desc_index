@@ -767,7 +767,7 @@ dev-python/wrapt 1.12.1-r200: Module for decorators, wrappers and monkey patchin
 dev-python/wsaccel 0.6.3-r200: Accelerator for ws4py, autobahn and tornado
 dev-python/wstools 0.4.8-r200: WSDL parsing services package for Web Services for Python
 dev-python/wtforms 2.3.3-r200: Flexible forms validation and rendering library for python web development
-dev-python/wxpython 3.0.2.0-r5 4.2.1: A blending of the wxWindows C++ class library with Python
+dev-python/wxpython 3.0.2.0-r5 4.2.1-r1: A blending of the wxWindows C++ class library with Python
 dev-python/xarray 0.11.3-r4: N-D labeled arrays and datasets in Python
 dev-python/xcffib 0.10.1-r200: A drop in replacement for xpyb, an XCB python binding
 dev-python/xlrd 1.2.0-r200: Library to extract data from Microsoft Excel spreadsheets
@@ -899,7 +899,7 @@ www-servers/tornado 4.5.3-r200 5.1.1-r200: Python web framework and asynchronous
 www-servers/uwsgi 2.0.22-r200: uWSGI server for Python web applications
 x11-libs/dotherside 0.9.0_p20221109: C language library for creating bindings for the Qt QML language
 x11-libs/pangox-compat 0.0.2-r4: PangoX compatibility library
-x11-libs/wxGTK 3.2.2.1-r300: GTK+ version of wxWidgets, a cross-platform C++ GUI toolkit
+x11-libs/wxGTK 3.2.4-r300: GTK+ version of wxWidgets, a cross-platform C++ GUI toolkit
 x11-misc/electricsheep 3.0.2_p20180714-r7 9999-r7: realize the collective dream of sleeping computers from all over the internet
 x11-misc/magick-rotation 1.6.2-r5: Application that rotates tablet pc's screen automatically, based on orientation
 x11-misc/obmenu2 1.1-r1: Openbox menu editor
