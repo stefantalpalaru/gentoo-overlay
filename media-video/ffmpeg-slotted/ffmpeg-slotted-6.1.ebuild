@@ -66,13 +66,11 @@ FFMPEG_FLAG_MAP=(
 		# libavfilter options
 		appkit
 		bs2b:libbs2b chromaprint cuda:cuda-llvm flite:libflite frei0r vmaf:libvmaf
-		fribidi:libfribidi fontconfig ladspa lcms:lcms2 libass libplacebo libtesseract lv2
+		fribidi:libfribidi fontconfig harfbuzz:libharfbuzz ladspa lcms:lcms2 libass libplacebo libtesseract lv2
 		truetype:libfreetype vidstab:libvidstab
 		rubberband:librubberband zeromq:libzmq zimg:libzimg
 		# libswresample options
 		libsoxr
-		# Threads; we only support pthread for now but ffmpeg supports more
-		+threads:pthreads
 )
 
 # Same as above but for encoders, i.e. they do something only with USE=encode.
@@ -84,7 +82,7 @@ FFMPEG_ENCODER_FLAG_MAP=(
 )
 
 IUSE="
-	alsa +encode oss pic sndio test v4l
+	alsa +encode lto oss pic sndio test v4l
 	${FFMPEG_FLAG_MAP[@]%:*}
 	${FFMPEG_ENCODER_FLAG_MAP[@]%:*}
 "
@@ -172,7 +170,7 @@ RDEPEND="
 	dav1d? ( >=media-libs/dav1d-0.4.0:0=[${MULTILIB_USEDEP}] )
 	encode? (
 		amrenc? ( >=media-libs/vo-amrwbenc-0.1.2-r1[${MULTILIB_USEDEP}] )
-		kvazaar? ( >=media-libs/kvazaar-1.2.0[${MULTILIB_USEDEP}] )
+		kvazaar? ( >=media-libs/kvazaar-2.0.0[${MULTILIB_USEDEP}] )
 		mp3? ( >=media-sound/lame-3.99.5-r1[${MULTILIB_USEDEP}] )
 		openh264? ( >=media-libs/openh264-1.4.0-r1:=[${MULTILIB_USEDEP}] )
 		rav1e? ( >=media-video/rav1e-0.4:=[capi] )
@@ -196,6 +194,7 @@ RDEPEND="
 	gme? ( >=media-libs/game-music-emu-0.6.0[${MULTILIB_USEDEP}] )
 	gmp? ( >=dev-libs/gmp-6:0=[${MULTILIB_USEDEP}] )
 	gsm? ( >=media-sound/gsm-1.0.13-r1[${MULTILIB_USEDEP}] )
+	harfbuzz? ( media-libs/harfbuzz[${MULTILIB_USEDEP}] )
 	iconv? ( >=virtual/libiconv-0-r1[${MULTILIB_USEDEP}] )
 	iec61883? (
 		>=media-libs/libiec61883-1.2.0-r1[${MULTILIB_USEDEP}]
@@ -238,12 +237,12 @@ RDEPEND="
 	sndio? ( media-sound/sndio:=[${MULTILIB_USEDEP}] )
 	speex? ( >=media-libs/speex-1.2_rc1-r1[${MULTILIB_USEDEP}] )
 	srt? ( >=net-libs/srt-1.3.0:=[${MULTILIB_USEDEP}] )
-	ssh? ( >=net-libs/libssh-0.5.5:=[sftp,${MULTILIB_USEDEP}] )
+	ssh? ( >=net-libs/libssh-0.6.0:=[sftp,${MULTILIB_USEDEP}] )
 	svg? (
 		gnome-base/librsvg:2=[${MULTILIB_USEDEP}]
 		x11-libs/cairo[${MULTILIB_USEDEP}]
 	)
-	nvenc? ( >=media-libs/nv-codec-headers-9.1.23.1 )
+	nvenc? ( media-libs/nv-codec-headers )
 	svt-av1? ( >=media-libs/svt-av1-0.9.0[${MULTILIB_USEDEP}] )
 	truetype? ( >=media-libs/freetype-2.5.0.1:2[${MULTILIB_USEDEP}] )
 	vaapi? ( >=media-libs/libva-1.2.1-r1:0=[${MULTILIB_USEDEP}] )
@@ -255,7 +254,7 @@ RDEPEND="
 		>=media-libs/libogg-1.3.0[${MULTILIB_USEDEP}]
 	)
 	vpx? ( >=media-libs/libvpx-1.4.0:=[${MULTILIB_USEDEP}] )
-	vulkan? ( >=media-libs/vulkan-loader-1.2.189:=[${MULTILIB_USEDEP}] )
+	vulkan? ( >=media-libs/vulkan-loader-1.3.255:=[${MULTILIB_USEDEP}] )
 	X? (
 		>=x11-libs/libX11-1.6.2[${MULTILIB_USEDEP}]
 		>=x11-libs/libXext-1.3.2[${MULTILIB_USEDEP}]
@@ -318,7 +317,6 @@ S=${WORKDIR}/${MY_P/_/-}
 
 PATCHES=(
 	"${FILESDIR}"/ffmpeg-5.1.2-get_cabac_inline_x86-32-bit.patch
-	"${FILESDIR}"/ffmpeg-6.0-libplacebo-remove-deprecated-field.patch
 )
 
 MULTILIB_WRAPPED_HEADERS=(
@@ -433,7 +431,7 @@ multilib_src_configure() {
 	done
 
 	# LTO support, bug #566282, bug #754654, bug #772854
-	[[ ${ABI} != x86 ]] && is-flagq "-flto*" && myconf+=( "--enable-lto" )
+	[[ ${ABI} != x86 ]] && use lto && myconf+=( "--enable-lto=auto" )
 	filter-lto
 
 	# Mandatory configuration
@@ -445,6 +443,7 @@ multilib_src_configure() {
 		# We use optflags, so that overrides them anyway.
 		--disable-optimizations
 		--disable-libcelt # bug #664158
+		--enable-pthreads
 		"${myconf[@]}"
 	)
 

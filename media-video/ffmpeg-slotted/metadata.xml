@@ -34,6 +34,7 @@
 
 			Improvements are being made to the runtime initialization, and so over time, this option will have an impact on fewer and fewer codecs.
 		</flag>
+		<flag name="harfbuzz">Enables harfbuzz support in the drawtext filter.</flag>
 		<flag name="iec61883"> Support for FireWire DV/HDV input device using <pkg>media-libs/libiec61883</pkg>.</flag>
 		<flag name="kvazaar">Enables <pkg>media-libs/kvazaar</pkg> based HEVC encoder.</flag>
 		<flag name="lcms">Enable ICC profile support via <pkg>media-libs/lcms</pkg>.</flag>
@@ -47,6 +48,7 @@
 		<flag name="libtesseract">Enables the OCR filter via <pkg>app-text/tesseract</pkg>.</flag>
 		<flag name="libv4l">Uses <pkg>media-libs/libv4l</pkg> for video4linux instead of direct calls. Adds support for more devices via the userspace library.</flag>
 		<flag name="libxml2">Uses <pkg>dev-libs/libxml2</pkg> to enable dash demuxing support.</flag>
+		<flag name="lto">Enable Link Time Optimization (LTO).</flag>
 		<flag name="lv2">Enables lv2 audio filter wrapper.</flag>
 		<flag name="mipsdspr1">Enables MIPS DSP ASE R1 optimizations.</flag>
 		<flag name="mipsdspr2">Enables MIPS DSP ASE R2 optimizations.</flag>
