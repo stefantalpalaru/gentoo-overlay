@@ -13,7 +13,6 @@ SRC_URI="https://github.com/openzim/libzim/archive/refs/tags/${PV}.tar.gz -> ${P
 LICENSE="GPL-2"
 SLOT="0"
 KEYWORDS="~amd64"
-IUSE=""
 
 RDEPEND="
 	app-arch/xz-utils
