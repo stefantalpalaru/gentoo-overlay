@@ -789,7 +789,7 @@ dev-util/gotags 1.4.1: ctags-compatible tag generator for Go
 dev-util/tla-toolbox-bin 1.8.0: IDE for TLA+
 dev-util/valgrind 3.22.0-r100: An open-source memory debugger for GNU/Linux
 dev-vcs/bzr 2.7.1_pre-r3: Bazaar is a next generation distributed version control system
-dev-vcs/hg-fast-export 221024-r1: mercurial to git converter using git-fast-import
+dev-vcs/hg-fast-export 231118: mercurial to git converter using git-fast-import
 games-emulation/dbgl-bin 0.97: DOSBox Game Launcher
 games-emulation/rpcs3 0.0.29-r1 9999-r11: PlayStation 3 emulator
 games-fps/gzdoom 4.11.3: A modder-friendly OpenGL source port based on the DOOM engine

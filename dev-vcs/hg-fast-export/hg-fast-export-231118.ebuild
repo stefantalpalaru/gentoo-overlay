@@ -14,7 +14,6 @@ SRC_URI="https://github.com/frej/fast-export/archive/refs/tags/v${PV}.tar.gz -> 
 LICENSE="MIT"
 SLOT="0"
 KEYWORDS="~amd64 ~x86"
-IUSE=""
 REQUIRED_USE="${PYTHON_REQUIRED_USE}"
 
 DEPEND="${PYTHON_DEPS}"
