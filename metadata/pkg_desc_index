@@ -896,7 +896,7 @@ www-misc/kiwix-desktop 2.3.1-r2: cross-platform viewer/manager for ZIM archives
 www-misc/kiwix-lib 12.1.0: Kiwix software suite core: code shared by all Kiwix ports
 www-misc/kiwix-tools 3.5.0: collection of Kiwix related command line tools
 www-servers/tornado 4.5.3-r200 5.1.1-r200: Python web framework and asynchronous networking library
-www-servers/uwsgi 2.0.22-r200: uWSGI server for Python web applications
+www-servers/uwsgi 2.0.23-r200: uWSGI server for Python web applications
 x11-libs/dotherside 0.9.0_p20221109: C language library for creating bindings for the Qt QML language
 x11-libs/pangox-compat 0.0.2-r4: PangoX compatibility library
 x11-libs/wxGTK 3.2.4-r300: GTK+ version of wxWidgets, a cross-platform C++ GUI toolkit
