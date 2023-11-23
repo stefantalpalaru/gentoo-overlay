@@ -1,3 +1,4 @@
+app-alternatives/yacc 0: Virtual for yacc (yet another compiler compiler)
 app-arch/libdeflate 1.14: Heavily optimized DEFLATE/zlib/gzip (de)compression
 app-arch/libzim 9.0.0: reference implementation for the ZIM archive format
 app-crypt/acme 1.8.0-r200 1.32.0: An implementation of the ACME protocol
@@ -39,6 +40,7 @@ dev-libs/cudnn 8.9.5.29-r1100 8.9.5.29-r1200: NVIDIA Accelerated Deep Learning o
 dev-libs/cudnn-frontend 0.9.2: A c++ wrapper for the cudnn backend API
 dev-libs/dht 0.27: BitTorrent DHT library
 dev-libs/golib 0.0.1_pre20180515 9999: a library exposing Go's channels and goroutines to plain C
+dev-libs/icu 64.2: International Components for Unicode
 dev-libs/keybinder 0.3.1-r201: A library for registering global keyboard shortcuts
 dev-libs/libb64 2.0.0.1_p20200910-r1: Fast Base64 encoding/decoding routines
 dev-libs/libpeas 1.22.0-r7: A GObject plugins library

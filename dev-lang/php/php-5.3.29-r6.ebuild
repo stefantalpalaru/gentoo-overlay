@@ -62,7 +62,7 @@ IUSE="${IUSE}
 IUSE="${IUSE} bcmath berkdb bzip2 calendar cdb cjk
 	crypt +ctype curl curlwrappers debug
 	enchant exif +fileinfo +filter firebird
-	flatfile ftp gd gdbm gmp +hash +iconv imap inifile
+	flatfile ftp gd gdbm gmp +hash +iconv inifile
 	intl iodbc ipv6 +json kerberos ldap ldap-sasl libedit mhash
 	mssql mysql mysqli nls
 	odbc pcntl pdo +phar +posix postgres qdbm
@@ -79,7 +79,7 @@ DEPEND="
 	bzip2? ( app-arch/bzip2 )
 	cdb? ( || ( dev-db/cdb dev-db/tinycdb ) )
 	cjk? ( !gd? (
-		virtual/jpeg:0
+		media-libs/libjpeg-turbo:0
 		media-libs/libpng:0=
 		sys-libs/zlib
 	) )
@@ -87,16 +87,15 @@ DEPEND="
 	curl? ( >=net-misc/curl-7.10.5 )
 	enchant? ( app-text/enchant:0 )
 	exif? ( !gd? (
-		virtual/jpeg:0
+		media-libs/libjpeg-turbo:0
 		media-libs/libpng:0=
 		sys-libs/zlib
 	) )
 	firebird? ( dev-db/firebird )
-	gd? ( virtual/jpeg:0 media-libs/libpng:0= sys-libs/zlib )
+	gd? ( media-libs/libjpeg-turbo:0 media-libs/libpng:0= sys-libs/zlib )
 	gdbm? ( >=sys-libs/gdbm-1.8.0 )
 	gmp? ( >=dev-libs/gmp-4.1.2:* )
 	iconv? ( virtual/libiconv )
-	imap? ( virtual/imap-c-client[ssl=] )
 	intl? ( dev-libs/icu:0/64.2 )
 	iodbc? ( dev-db/libiodbc )
 	kerberos? ( virtual/krb5 )
@@ -123,7 +122,7 @@ DEPEND="
 		=media-libs/freetype-2*
 		>=media-libs/t1lib-5.0.0
 		!gd? (
-			virtual/jpeg:0 media-libs/libpng:0= sys-libs/zlib )
+			media-libs/libjpeg-turbo:0 media-libs/libpng:0= sys-libs/zlib )
 	)
 	unicode? ( dev-libs/oniguruma )
 	wddx? ( >=dev-libs/libxml2-2.6.8 )
@@ -133,7 +132,7 @@ DEPEND="
 	xmlwriter? ( >=dev-libs/libxml2-2.6.8 )
 	xpm? (
 		x11-libs/libXpm
-		virtual/jpeg:0
+		media-libs/libjpeg-turbo:0
 		media-libs/libpng:0= sys-libs/zlib
 	)
 	xslt? ( dev-libs/libxslt >=dev-libs/libxml2-2.6.8 )
@@ -163,7 +162,7 @@ REQUIRED_USE="
 
 	qdbm? ( !gdbm )
 	readline? ( !libedit )
-	recode? ( !imap !mysql !mysqli )
+	recode? ( !mysql !mysqli )
 	sharedmem? ( !threads )
 
 	!cli? ( !cgi? ( !fpm? ( !apache2? ( !embed? ( cli ) ) ) ) )"
@@ -432,13 +431,6 @@ src_configure() {
 	# enable gd last, so configure can pick up the previous settings
 	my_conf+="
 	$(use_with gd gd )"
-
-	# IMAP support
-	if use imap ; then
-		my_conf+="
-		$(use_with imap imap )
-		$(use_with ssl imap-ssl )"
-	fi
 
 	# Interbase/firebird support
 
