@@ -15,7 +15,7 @@ app-i18n/transifex-client 1.6.10: The Transifex command-line client
 app-misc/iccloader 0.5-r1 9999-r1: systray widget used to load ICC color profiles with different color temperatures
 app-misc/openrgb 0.9: Open source RGB lighting control that doesn't depend on manufacturer software
 app-misc/yworklog 0.0.7-r200: Stack based utility with CLI interface helping to monitor time spent on tasks
-app-office/gnucash 5.4: A personal finance manager
+app-office/gnucash 5.4-r1: A personal finance manager
 app-office/upwork 5.8.0.25: Project collaboration and tracking software for upwork.com
 app-text/pinfo 0.6.13-r2: Hypertext info and man viewer based on (n)curses
 app-text/zettlr-bin 3.0.2: A Markdown Editor for the 21st century.

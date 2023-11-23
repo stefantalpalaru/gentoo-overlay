@@ -6,12 +6,13 @@ EAPI=8
 # Please bump with app-doc/gnucash-docs
 
 PYTHON_COMPAT=( python3_{9..12} )
+MY_P="${P}-1"
 
 inherit cmake gnome2-utils python-single-r1
 
 DESCRIPTION="A personal finance manager"
 HOMEPAGE="https://www.gnucash.org/"
-SRC_URI="https://github.com/Gnucash/gnucash/releases/download/${PV}/${P}.tar.bz2"
+SRC_URI="https://github.com/Gnucash/gnucash/releases/download/${PV}/${MY_P}.tar.bz2"
 
 LICENSE="GPL-2+"
 SLOT="0"
