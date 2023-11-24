@@ -13,15 +13,13 @@ EGIT_REPO_URI="https://github.com/aurelienpierreeng/ansel"
 LICENSE="GPL-3 CC-BY-3.0"
 SLOT="0"
 
-if [[ ${PV} == *9999* ]]; then
-	LANGS=" af ca cs da de el es fi fr gl he hu it ja nb nl pl pt-BR pt-PT ro ru sk sl sq sv th uk zh-CN zh-TW"
-else
-	EGIT_COMMIT="8876feeb971840aaa7cd1e523d28ac8dee1b4fa6"
+if [[ ${PV} != *9999* ]]; then
+	EGIT_COMMIT="f7669af89a71882ebad15982d698b8df7e6c6ce8"
 	KEYWORDS="~amd64 ~arm64 -x86"
-	LANGS=" cs de es fi fr he hu it ja nl pl pt-BR ru sl sq tr uk zh-CN zh-TW"
 fi
 
-IUSE="avif colord cpu_flags_x86_avx cpu_flags_x86_sse3 cups flickr geolocation gmic keyring gphoto2 graphicsmagick heif jpeg2k kwallet lto lua midi nls opencl openmp openexr test tools webp
+LANGS=" af ca cs da de el eo es fi fr gl he hu it ja nb nl pl pt-BR pt-PT ro ru sk sl sq sr sr@latin sv th tr uk zh-CN zh-TW"
+IUSE="avif colord cpu_flags_x86_avx cpu_flags_x86_sse3 cups geolocation gmic keyring graphicsmagick heif jpeg2k kwallet lto lua midi nls opencl openmp openexr test tools webp
 	${LANGS// / l10n_}"
 
 REQUIRED_USE="lua? ( ${LUA_REQUIRED_USE} )"
@@ -63,11 +61,9 @@ DEPEND="dev-db/sqlite:3
 	avif? ( >=media-libs/libavif-0.8.2:= )
 	colord? ( x11-libs/colord-gtk:= )
 	cups? ( net-print/cups )
-	flickr? ( media-libs/flickcurl )
 	geolocation? ( >=sci-geosciences/osm-gps-map-1.1.0 )
 	gmic? ( media-gfx/gmic )
 	keyring? ( >=app-crypt/libsecret-0.18 )
-	gphoto2? ( media-libs/libgphoto2:= )
 	graphicsmagick? ( media-gfx/graphicsmagick )
 	heif? ( media-libs/libheif:= )
 	jpeg2k? ( media-libs/openjpeg:2= )
@@ -80,12 +76,11 @@ RDEPEND="${DEPEND}
 	kwallet? ( >=kde-frameworks/kwallet-5.34.0-r1 )"
 
 PATCHES=(
-	"${FILESDIR}"/ansel-4.0.0_cmake-march-autodetection.patch
+	"${FILESDIR}"/ansel-4.0.0_cmake-march-autodetection-r1.patch
 	"${FILESDIR}"/ansel-4.0.0_jsonschema-automagic.patch
 	"${FILESDIR}"/ansel-4.0.0_libxcf-cmake.patch
 	"${FILESDIR}"/ansel-4.0.0_cmake-musl.patch
 	"${FILESDIR}"/ansel-4.0.0_portmidi.patch
-	"${FILESDIR}"/ansel-4.0.0_exiv-0.28.patch
 )
 
 pkg_pretend() {
@@ -129,9 +124,7 @@ src_configure() {
 		-DRAWSPEED_MUSL_SYSTEM=$(usex elibc_musl)
 		-DTESTBUILD_OPENCL_PROGRAMS=OFF
 		-DUSE_AVIF=$(usex avif)
-		-DUSE_CAMERA_SUPPORT=$(usex gphoto2)
 		-DUSE_COLORD=$(usex colord)
-		-DUSE_FLICKR=$(usex flickr)
 		-DUSE_GMIC=$(usex gmic)
 		-DUSE_GRAPHICSMAGICK=$(usex graphicsmagick)
 		-DUSE_KWALLET=$(usex kwallet)

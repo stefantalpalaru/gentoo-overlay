@@ -182,7 +182,6 @@ games-fps/gzdoom:gles2 - Enable GLES2 backend
 games-fps/gzdoom:non-free - Enable non-free components
 games-fps/gzdoom:swr - Enable software renderer
 media-gfx/ansel:avif - Support importing and exporting AVIF images
-media-gfx/ansel:flickr - Add support for uploading photos to flickr
 media-gfx/ansel:geolocation - Enable geotagging support
 media-gfx/ansel:gmic - Use the G'MIC image-processing framework (media-gfx/gmic), e.g. to support Colour LUTs compressed using their compression scheme
 media-gfx/ansel:kwallet - Enable encrypted storage of passwords with kde-frameworks/kwallet
