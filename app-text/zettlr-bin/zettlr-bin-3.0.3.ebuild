@@ -13,7 +13,6 @@ LICENSE="GPL-3"
 SLOT="0"
 KEYWORDS="~amd64"
 
-DEPEND=""
 RDEPEND="${DEPEND}
 	dev-libs/expat
 	net-libs/gnutls:0
@@ -24,7 +23,6 @@ RDEPEND="${DEPEND}
 	sys-apps/dbus
 	x11-libs/gtk+:3[cups]
 "
-BDEPEND=""
 
 RESTRICT="mirror"
 S="${WORKDIR}"
