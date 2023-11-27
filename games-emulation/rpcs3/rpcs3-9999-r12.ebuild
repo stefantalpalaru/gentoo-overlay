@@ -9,10 +9,10 @@ inherit cmake git-r3 python-single-r1
 DESCRIPTION="PlayStation 3 emulator"
 HOMEPAGE="https://rpcs3.net/"
 EGIT_REPO_URI="https://github.com/RPCS3/rpcs3"
-KEYWORDS=""
 LICENSE="GPL-2"
 SLOT="0"
 IUSE="alsa joystick +llvm pulseaudio sdl vulkan"
+RESTRICT="network-sandbox"
 
 RDEPEND="
 	${PYTHON_DEPS}
@@ -29,7 +29,6 @@ RDEPEND="
 	media-libs/glew:0
 	media-libs/libpng:*
 	media-libs/openal
-	media-video/ffmpeg:0/57.59.59
 	pulseaudio? ( media-libs/libpulse )
 	sys-devel/gdb
 	sys-libs/zlib
@@ -52,11 +51,9 @@ EGIT_SUBMODULES=(
 	"-3rdparty/libpng"
 	"-3rdparty/libsdl-org/SDL"
 	"-3rdparty/libusb"
-	"-3rdparty/llvm/llvm"
 	"-3rdparty/pugixml"
 	"-3rdparty/xxHash"
 	"-3rdparty/zlib"
-	"-rpcs3-ffmpeg"
 )
 
 PATCHES=(
@@ -76,7 +73,7 @@ src_prepare() {
 
 src_configure() {
 	local mycmakeargs=(
-		-DBUILD_LLVM=OFF
+		-DBUILD_LLVM=ON
 		-DBUILD_SHARED_LIBS=OFF
 		-DCMAKE_CXX_FLAGS="${CXXFLAGS}"
 		-DCMAKE_C_FLAGS="${CFLAGS}"
@@ -89,7 +86,7 @@ src_configure() {
 		-DUSE_PULSE=$(usex pulseaudio ON OFF)
 		-DUSE_SDL=$(usex sdl)
 		-DUSE_SYSTEM_CURL=ON
-		-DUSE_SYSTEM_FFMPEG=ON
+		-DUSE_SYSTEM_FFMPEG=OFF
 		-DUSE_SYSTEM_FLATBUFFERS=ON
 		-DUSE_SYSTEM_LIBPNG=ON
 		-DUSE_SYSTEM_LIBUSB=ON

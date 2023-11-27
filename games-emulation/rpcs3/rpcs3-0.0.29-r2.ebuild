@@ -14,6 +14,7 @@ KEYWORDS="~amd64 ~x86"
 LICENSE="GPL-2"
 SLOT="0"
 IUSE="alsa joystick +llvm pulseaudio sdl vulkan"
+RESTRICT="network-sandbox"
 
 RDEPEND="
 	${PYTHON_DEPS}
@@ -53,7 +54,6 @@ EGIT_SUBMODULES=(
 	"-3rdparty/libpng"
 	"-3rdparty/libsdl-org/SDL"
 	"-3rdparty/libusb"
-	"-3rdparty/llvm/llvm"
 	"-3rdparty/pugixml"
 	"-3rdparty/xxHash"
 	"-3rdparty/zlib"
@@ -77,7 +77,7 @@ src_prepare() {
 
 src_configure() {
 	local mycmakeargs=(
-		-DBUILD_LLVM=OFF
+		-DBUILD_LLVM=ON
 		-DBUILD_SHARED_LIBS=OFF
 		-DCMAKE_CXX_FLAGS="${CXXFLAGS}"
 		-DCMAKE_C_FLAGS="${CFLAGS}"
