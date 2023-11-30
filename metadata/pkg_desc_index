@@ -851,7 +851,7 @@ net-misc/pycnb 0.0.4-r200: Access cnb.cz daily rates with the comfort of your co
 net-misc/ssvnc 1.0.29-r3: VNC viewer that adds encryption security to VNC connections
 net-misc/streamtuner2 2.2.2-r1: Internet radio browser
 net-p2p/go-ethereum 1.13.5: Official golang implementation of the Ethereum protocol
-net-p2p/nimbus-eth2 23.10.1 9999-r17: Nim implementation of the Ethereum 2.0 blockchain
+net-p2p/nimbus-eth2 23.11.0 9999-r17: Nim implementation of the Ethereum 2.0 blockchain
 net-p2p/pybitmessage 0.6.3.2_p20180521-r2: Reference client for Bitmessage: a P2P communications protocol
 net-p2p/transmission 3.00-r104 4.0.4-r100: A fast, easy, and free BitTorrent client
 net-p2p/transmission-og 3.01 9999-r1: Transmission 3.00 fork (BitTorrent client)
