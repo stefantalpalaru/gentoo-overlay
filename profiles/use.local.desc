@@ -18,6 +18,7 @@ app-emulation/vmware-workstation:vmware-tools-winPreVista - Install VMware Tools
 app-emulation/vmware-workstation:vmware-tools-windows - Install VMware Tools for Windows (Vista and later) guests.
 app-office/gnucash:aqbanking - Connect to some internet banks via AqBanking
 app-office/gnucash:quotes - Enable Online Stock Quote retrieval
+dev-lang/erlang:kpoll - Enable kernel polling support
 dev-lang/nim:boehm-gc - Enable Hans Boehm's garbage collector (dev-libs/boehm-gc).
 dev-lang/php:argon2 - Enable password hashing algorithm from app-crypt/argon2
 dev-lang/php:bcmath - Add support for libbcmath
@@ -205,6 +206,7 @@ media-sound/lmms:libgig - Enables GIG player plugin.
 media-sound/lmms:soundio - Enables libsoundio support.
 media-sound/lmms:stk - Enables STK Mallet plugin.
 media-sound/lmms:vst - Enables the VeSTige plugin to run VST plugins through Wine.
+media-video/aegisub:uchardet - Enable charset discovery via app-i18n/uchardet
 media-video/ffmpeg-slotted:amf - Enables support for AMD's Advanced Media Framework (AMF)
 media-video/ffmpeg-slotted:amr - Enables Adaptive Multi-Rate Audio support
 media-video/ffmpeg-slotted:amrenc - Enables Adaptive Multi-Rate Audio encoding support with media-libs/vo-amrwbenc.
