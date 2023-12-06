@@ -872,7 +872,7 @@ sci-astronomy/montage 5.0-r1: Toolkit for assembling FITS images into mosaics
 sci-geosciences/mkgmap-bin 4907: Tool to create garmin maps
 sci-geosciences/qgis 3.34.1: User friendly Geographic Information System
 sci-geosciences/splitter-bin 653: Tile splitter for mkgmap
-sci-libs/caffe2 2.1.1-r100: A deep learning framework
+sci-libs/caffe2 2.1.1-r101: A deep learning framework
 sci-libs/cfitsio 3.410-r1: C and Fortran library for manipulating FITS files
 sci-libs/cholmod 3.0.14-r1: Sparse Cholesky factorization and update/downdate library
 sci-libs/gdal 3.0.4-r202: Translator library for raster geospatial data formats (includes OGR support)

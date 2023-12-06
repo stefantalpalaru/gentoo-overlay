@@ -229,4 +229,6 @@ src_install() {
 	cp torch/version.py python/torch/ || die
 	python_domodule python/caffe2
 	python_domodule python/torch
+
+	rm "${ED}/usr/$(get_libdir)/__init__.py" || die
 }
