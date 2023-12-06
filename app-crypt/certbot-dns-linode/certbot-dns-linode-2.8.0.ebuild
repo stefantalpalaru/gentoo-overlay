@@ -13,7 +13,6 @@ SRC_URI="https://github.com/certbot/certbot/archive/v${PV}.tar.gz -> certbot-${P
 KEYWORDS="~amd64 ~x86"
 LICENSE="Apache-2.0"
 SLOT="0"
-IUSE=""
 RESTRICT="test"
 
 RDEPEND="
