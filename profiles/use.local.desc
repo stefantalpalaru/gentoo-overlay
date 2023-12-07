@@ -276,9 +276,6 @@ net-p2p/go-ethereum:devtools - Build Ethereum development tools (evm, abigen, pu
 net-p2p/nimbus-eth2:lto - Enable Link Time Optimization (LTO)
 net-p2p/pybitmessage:opencl - Enable dev-python/pyopencl for GPU acceleration
 net-p2p/pybitmessage:qrcode - Enable dev-python/qrcode for QR code support
-net-p2p/transmission:cli - Enables the CLI interface
-net-p2p/transmission:lightweight - Optimize transmission for low-resource systems (smaller cache size, prefer unencrypted peer connections, etc.)
-net-p2p/transmission:mbedtls - Use mbed TLS instead of OpenSSL
 net-p2p/transmission-og:lightweight - Optimize Transmission OG for low-resource systems (smaller cache size, prefer unencrypted peer connections, etc.)
 net-p2p/transmission-og:mbedtls - Use mbed TLS instead of OpenSSL
 net-wireless/cubicsdr:bladerf - Add support for bladerf hardware
