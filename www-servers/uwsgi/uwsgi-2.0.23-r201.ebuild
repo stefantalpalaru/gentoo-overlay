@@ -15,7 +15,7 @@ PHP_EXT_NAME="dummy"
 PHP_EXT_OPTIONAL_USE="php"
 USE_PHP="php7-4 php8-0 php8-1 php8-2" # deps must be registered separately below
 
-POSTGRES_COMPAT=( 13 14 15 )
+POSTGRES_COMPAT=( 13 14 15 16 )
 
 MY_P="${P/_/-}"
 
