@@ -35,7 +35,7 @@ dev-lang/php 5.3.29-r6 7.4.33-r6 8.0.30: The PHP language runtime engine
 dev-lang/pony 0.58.0: Compiler for the Pony language
 dev-lang/python 2.7.18_p112: An interpreted, interactive, object-oriented programming language
 dev-lang/tauthon 2.8.5-r3 9999-r3: Python 2.7 fork with new syntax, builtins, and libraries backported from Python3
-dev-libs/boost 1.83.0: Boost Libraries for C++
+dev-libs/boost 1.84.0: Boost Libraries for C++
 dev-libs/chan 0.0.4 9999: pure C implementation of Go channels
 dev-libs/cudnn 8.9.5.29-r1100 8.9.5.29-r1200: NVIDIA Accelerated Deep Learning on GPU library
 dev-libs/cudnn-frontend 1.0.0: A c++ wrapper for the cudnn backend API
