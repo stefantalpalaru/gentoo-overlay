@@ -6,7 +6,7 @@ EAPI=8
 # Please bump with app-doc/gnucash-docs
 
 PYTHON_COMPAT=( python3_{9..12} )
-MY_P="${P}-1"
+MY_P="${P}"
 
 inherit cmake gnome2-utils python-single-r1
 
