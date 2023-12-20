@@ -6,9 +6,6 @@ WX_GTK_VER="3.0-gtk3"
 
 inherit autotools elisp-common flag-o-matic java-pkg-opt-2 systemd toolchain-funcs wxwidgets
 
-# NOTE: If you need symlinks for binaries please tell maintainers or
-# open up a bug to let it be created.
-
 UPSTREAM_V="$(ver_cut 1-2)"
 
 DESCRIPTION="Erlang programming language, runtime environment and libraries (OTP)"
@@ -36,7 +33,10 @@ RDEPEND="
 	sctp? ( net-misc/lksctp-tools )
 	ssl? ( >=dev-libs/openssl-0.9.7d:0= )
 	systemd? ( sys-apps/systemd )
-	wxwidgets? ( x11-libs/wxGTK:${WX_GTK_VER}[X,opengl] )
+	wxwidgets? (
+		dev-libs/glib:2
+		x11-libs/wxGTK:${WX_GTK_VER}[X,opengl]
+	)
 "
 DEPEND="${RDEPEND}
 	dev-lang/perl
@@ -81,6 +81,7 @@ src_configure() {
 
 		$(use_enable kpoll kernel-poll)
 		$(use_with java javac)
+		$(use_with odbc)
 		$(use_enable sctp)
 		$(use_with ssl ssl)
 		$(use_enable ssl dynamic-ssl-lib)
