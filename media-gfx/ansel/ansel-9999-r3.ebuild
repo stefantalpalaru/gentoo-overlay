@@ -14,7 +14,7 @@ LICENSE="GPL-3 CC-BY-3.0"
 SLOT="0"
 
 if [[ ${PV} != *9999* ]]; then
-	EGIT_COMMIT="f7669af89a71882ebad15982d698b8df7e6c6ce8"
+	EGIT_COMMIT="ca74e8a2eb11db58db1b170b62687e41bb88f6fa"
 	KEYWORDS="~amd64 ~arm64 -x86"
 fi
 
@@ -118,7 +118,6 @@ src_configure() {
 		-DBUILD_NOISE_TOOLS=$(usex tools)
 		-DBUILD_PRINT=$(usex cups)
 		-DCUSTOM_CFLAGS=ON
-		-DDONT_USE_INTERNAL_LUA=ON
 		-DRAWSPEED_ENABLE_LTO=$(usex lto)
 		-DRAWSPEED_ENABLE_WERROR=OFF
 		-DRAWSPEED_MUSL_SYSTEM=$(usex elibc_musl)
@@ -130,6 +129,7 @@ src_configure() {
 		-DUSE_KWALLET=$(usex kwallet)
 		-DUSE_LIBSECRET=$(usex keyring)
 		-DUSE_LUA=$(usex lua)
+		-DUSE_BUNDLED_LUA=OFF
 		-DUSE_MAP=$(usex geolocation)
 		-DUSE_NLS=$(usex nls)
 		-DUSE_OPENCL=$(usex opencl)
