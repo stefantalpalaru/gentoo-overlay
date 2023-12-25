@@ -29,7 +29,7 @@ app-vim/vim-linux-coding-style 0.4_p20200610: Vim plugin to respect the Linux ke
 dev-cpp/mustache 4.1: Mustache implementation for modern C++
 dev-db/metakit 2.4.9.7_p20110819: Embedded database library
 dev-java/java-service-wrapper 3.5.50-r1: A wrapper that makes it possible to install a Java Application as daemon
-dev-lang/erlang 26.2-r1: Erlang programming language, runtime environment and libraries (OTP)
+dev-lang/erlang 26.2.1-r1: Erlang programming language, runtime environment and libraries (OTP)
 dev-lang/nim 1.0.10-r100 1.2.18-r100 1.4.8-r100 1.6.12-r100 2.0.0-r101 9999-r15: compiled, garbage-collected systems programming language
 dev-lang/php 5.3.29-r6 7.4.33-r6 8.0.30: The PHP language runtime engine
 dev-lang/pony 0.58.0: Compiler for the Pony language
