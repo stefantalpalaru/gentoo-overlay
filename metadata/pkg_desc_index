@@ -825,7 +825,7 @@ media-plugins/deadbeef-bs2b 9999-r1: bs2b DSP plugin for DeaDBeeF, using libbs2b
 media-plugins/deadbeef-jack 9999-r2: JACK output plugin for DeaDBeeF.
 media-plugins/refocus-it 2.0.0-r1: Refocus-It plugin for The Gimp
 media-radio/fmreceiver 3.16: SDR-J FM receiver for RTL2832-based USB sticks
-media-radio/qt-dab 4.7 5.4 6.2: software DAB decoder for use with a dabstick, airspy or sdrplay for RPI and PC
+media-radio/qt-dab 4.7 5.4 6.40: software DAB decoder for use with a dabstick, airspy or sdrplay for RPI and PC
 media-radio/swreceiver 0.8: SDR-J SW receiver for RTL2832-based USB sticks
 media-sound/carla 2.5.4 9999: Fully-featured audio plugin host, supports many audio drivers and plugin formats
 media-sound/dcue 1.5: generate CUE sheets from Discogs data

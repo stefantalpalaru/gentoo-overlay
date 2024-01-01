@@ -8,7 +8,7 @@ inherit cmake desktop xdg
 DESCRIPTION="software DAB decoder for use with a dabstick, airspy or sdrplay for RPI and PC"
 HOMEPAGE="http://www.sdr-j.tk/
 	https://github.com/JvanKatwijk/qt-dab"
-SRC_URI="https://github.com/JvanKatwijk/qt-dab/archive/refs/tags/Qt-DAB-${PV}.tar.gz"
+SRC_URI="https://github.com/JvanKatwijk/qt-dab/archive/refs/tags/qt-dab-${PV}.tar.gz"
 
 LICENSE="GPL-2"
 SLOT="6"
@@ -31,7 +31,7 @@ DEPEND="
 
 RDEPEND="${DEPEND}"
 
-S="${WORKDIR}/qt-dab-Qt-DAB-${PV}/qt-dab-s${SLOT}"
+S="${WORKDIR}/qt-dab-qt-dab-${PV}/qt-dab-s${SLOT}"
 
 src_prepare() {
 	cd ..
