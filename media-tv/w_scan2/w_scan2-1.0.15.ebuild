@@ -1,21 +1,20 @@
-# Copyright 1999-2018 Gentoo Foundation
+# Copyright 1999-2017 Gentoo Foundation
 # Distributed under the terms of the GNU General Public License v2
 
 EAPI=6
 
-inherit autotools git-r3
+inherit autotools
 
 DESCRIPTION="Scan for DVB-C/DVB-T/DVB-S channels (w_scan fork)"
 HOMEPAGE="https://github.com/stefantalpalaru/w_scan2"
-EGIT_REPO_URI="https://github.com/stefantalpalaru/w_scan2"
+SRC_URI="https://github.com/stefantalpalaru/${PN}/archive/${PV}.tar.gz -> ${P}.tar.gz"
 
 LICENSE="GPL-2"
 SLOT="0"
-KEYWORDS=""
+KEYWORDS="~amd64 ~x86"
 IUSE="doc examples"
 
 DEPEND=">=virtual/linuxtv-dvb-headers-5.8"
-RDEPEND=""
 
 src_prepare() {
 	default
