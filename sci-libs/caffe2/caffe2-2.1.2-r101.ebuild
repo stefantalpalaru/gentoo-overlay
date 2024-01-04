@@ -50,8 +50,6 @@ EGIT_SUBMODULES=(
 	'-third_party/nccl/nccl'
 	'-third_party/neon2sse'
 	'-third_party/nlohmann'
-	'-third_party/onnx'
-	'-third_party/onnx-tensorrt'
 	'-third_party/pocketfft'
 	'-third_party/protobuf'
 	'-third_party/psimd'
@@ -85,7 +83,6 @@ RDEPEND="
 	dev-libs/pthreadpool
 	dev-libs/sleef
 	sci-libs/lapack
-	>=sci-libs/onnx-1.12.0
 	sci-libs/foxi
 	cuda? (
 		dev-libs/cudnn:0/8
@@ -198,7 +195,7 @@ src_configure() {
 		-DUSE_SYSTEM_FXDIV=ON
 		-DUSE_SYSTEM_FP16=ON
 		-DUSE_SYSTEM_GLOO=ON
-		-DUSE_SYSTEM_ONNX=ON
+		-DUSE_SYSTEM_ONNX=OFF
 		-DUSE_SYSTEM_SLEEF=ON
 
 		-Wno-dev
