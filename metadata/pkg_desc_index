@@ -854,7 +854,7 @@ net-misc/ssvnc 1.0.29-r3: VNC viewer that adds encryption security to VNC connec
 net-misc/streamtuner2 2.2.2-r1: Internet radio browser
 net-p2p/go-ethereum 1.13.8: Official golang implementation of the Ethereum protocol
 net-p2p/nicotine+ 9999: A fork of nicotine, a Soulseek client in Python
-net-p2p/nimbus-eth2 24.1.0 9999-r17: Nim implementation of the Ethereum 2.0 blockchain
+net-p2p/nimbus-eth2 24.1.1 9999-r17: Nim implementation of the Ethereum 2.0 blockchain
 net-p2p/pybitmessage 0.6.3.2_p20180521-r2: Reference client for Bitmessage: a P2P communications protocol
 net-p2p/transmission-og 3.01 9999-r1: Transmission 3.00 fork (BitTorrent client)
 net-p2p/transmission-remote-gtk 1.6.0_p20230618: GTK+ client for management of the Transmission BitTorrent client, over HTTP RPC
