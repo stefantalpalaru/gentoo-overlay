@@ -69,7 +69,7 @@ dev-nim/opengl-nim 1.1.0 9999: Nim bindings for OpenGL
 dev-nim/sdl2-nim 1.1_pre20170319 9999: Nim bindings for SDL 2
 dev-nim/x11-nim 0.1_pre20161106 9999: Nim bindings for X11
 dev-nim/zmq-nim 0.1_pre20161028 9999: Nim bindings for ZeroMQ
-dev-php/pecl-apcu 5.1.22: Stripped down version of APC supporting only user cache
+dev-php/pecl-apcu 5.1.23: Stripped down version of APC supporting only user cache
 dev-php/pecl-imagick 3.7.0-r1: PHP wrapper for the ImageMagick library
 dev-php/xdebug 3.1.6: A PHP debugging and profiling extension
 dev-python/Babel 2.8.0-r4: Collection of tools for internationalizing Python applications
