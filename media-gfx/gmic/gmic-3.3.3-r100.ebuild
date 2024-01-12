@@ -26,6 +26,7 @@ REQUIRED_USE="
 	gimp? ( png fftw X )
 	gui? ( png fftw X )
 "
+RESTRICT="network-sandbox"
 
 QT_DEPS="
 	dev-qt/qtcore:5=
