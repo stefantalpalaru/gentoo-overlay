@@ -793,7 +793,7 @@ dev-util/valgrind 3.22.0-r100: An open-source memory debugger for GNU/Linux
 dev-vcs/bzr 2.7.1_pre-r3: Bazaar is a next generation distributed version control system
 dev-vcs/hg-fast-export 231118: mercurial to git converter using git-fast-import
 games-emulation/dbgl-bin 0.97: DOSBox Game Launcher
-games-emulation/rpcs3 0.0.29-r2 9999-r12: PlayStation 3 emulator
+games-emulation/rpcs3 0.0.29-r3 9999-r13: PlayStation 3 emulator
 games-fps/gzdoom 4.11.3: A modder-friendly OpenGL source port based on the DOOM engine
 games-misc/bsd-games 2.17_p28-r2: Collection of games from NetBSD
 games-sports/trigger 0.6.6.1: Free OpenGL rally car racing game
