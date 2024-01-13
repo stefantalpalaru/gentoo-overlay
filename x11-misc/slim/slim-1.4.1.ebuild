@@ -34,6 +34,7 @@ PDEPEND="branding? ( >=x11-themes/slim-themes-1.2.3a-r3 )"
 PATCHES=(
 	# Our Gentoo-specific config changes
 	"${FILESDIR}"/slim-1.4.0-config.patch
+	"${FILESDIR}"/slim-1.4.1-pam.patch
 )
 
 src_prepare() {

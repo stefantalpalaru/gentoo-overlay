@@ -1,0 +1,13 @@
+--- a/log.h	2023-04-15 14:44:32.407609227 +0200
++++ b/log.h	2023-04-15 14:44:48.530942444 +0200
+@@ -13,6 +13,10 @@
+ #ifndef _LOG_H_
+ #define _LOG_H_
+ 
++#ifdef USE_PAM
++#include "PAM.h"
++#endif
++
+ #include <fstream>
+ 
+ using namespace std;
