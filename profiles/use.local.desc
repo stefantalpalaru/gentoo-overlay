@@ -18,6 +18,7 @@ app-emulation/vmware-workstation:vmware-tools-winPreVista - Install VMware Tools
 app-emulation/vmware-workstation:vmware-tools-windows - Install VMware Tools for Windows (Vista and later) guests.
 app-office/gnucash:aqbanking - Connect to some internet banks via AqBanking
 app-office/gnucash:quotes - Enable Online Stock Quote retrieval
+dev-debug/valgrind:lto - Build with link time optimization (LTO)
 dev-lang/erlang:kpoll - Enable kernel polling support
 dev-lang/nim:boehm-gc - Enable Hans Boehm's garbage collector (dev-libs/boehm-gc).
 dev-lang/php:argon2 - Enable password hashing algorithm from app-crypt/argon2
@@ -175,7 +176,6 @@ dev-qt/qtwebkit:multimedia - Enable HTML5 audio/video support via dev-qt/qtmulti
 dev-qt/qtwebkit:orientation - Enable device orientation detection via dev-qt/qtsensors
 dev-qt/qtwebkit:printsupport - Enable printing via dev-qt/qtprintsupport
 dev-qt/qtwebkit:qml - Build QML/QtQuick bindings
-dev-util/valgrind:lto - Build with link time optimization (LTO)
 dev-vcs/bzr:sftp - Enable sftp support
 games-emulation/rpcs3:llvm - LLVM recompiler support
 games-emulation/rpcs3:vulkan - Vulkan video output support
