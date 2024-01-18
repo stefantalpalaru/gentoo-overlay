@@ -27,6 +27,10 @@ KEYWORDS="~amd64"
 
 RESTRICT="mirror"
 
+RDEPEND="
+	acct-group/vmware
+"
+
 S="${WORKDIR}/vmware-host-modules-${MY_COMMIT}"
 
 PATCHES=(
