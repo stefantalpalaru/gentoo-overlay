@@ -13,16 +13,7 @@
 # to quickly make sure users in the installed system are sane.
 
 case ${EAPI} in
-	6|7) ;;
-	8)
-		if [[ ${CATEGORY} != acct-* ]]; then
-			eerror "In EAPI ${EAPI}, packages must not inherit user.eclass"
-			eerror "unless they are in the acct-user or acct-group category."
-			eerror "Migrate your package to GLEP 81 user/group management,"
-			eerror "or inherit user-info if you need only the query functions."
-			die "Invalid \"inherit user\" in EAPI ${EAPI}"
-		fi
-		;;
+	6|7|8) ;;
 	*) die "${ECLASS}: EAPI ${EAPI:-0} not supported" ;;
 esac
 

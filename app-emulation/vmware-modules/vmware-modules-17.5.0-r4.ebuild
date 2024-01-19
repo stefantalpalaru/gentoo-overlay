@@ -1,4 +1,4 @@
-# Copyright 1999-2023 Gentoo Authors
+# Copyright 1999-2024 Gentoo Authors
 # Distributed under the terms of the GNU General Public License v2
 
 EAPI=8
@@ -52,10 +52,6 @@ pkg_setup() {
 		ewarn
 	fi
 
-	VMWARE_MODULE_LIST="vmmon vmnet"
-
-	VMWARE_MOD_DIR="${PN}-${PVR}"
-
 	BUILD_TARGETS="auto-build KERNEL_DIR=${KERNEL_DIR} KBUILD_OUTPUT=${KV_OUT_DIR}"
 
 	filter-flags -mfpmath=sse -mavx -mpclmul -maes
@@ -74,8 +70,8 @@ src_prepare() {
 }
 
 src_compile() {
-	for mod in ${VMWARE_MODULE_LIST}; do
-		local modlist+=( ${mod}=misc:${S}/${mod}-only )
+	for mod in vmmon vmnet; do
+		local modlist+=( ${mod}=misc:"${S}"/${mod}-only )
 	done
 
 	linux-mod-r1_src_compile
