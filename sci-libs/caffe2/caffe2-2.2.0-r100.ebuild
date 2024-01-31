@@ -1,4 +1,4 @@
-# Copyright 2022-2023 Gentoo Authors
+# Copyright 2022-2024 Gentoo Authors
 # Distributed under the terms of the GNU General Public License v2
 
 EAPI=8
@@ -120,11 +120,10 @@ BDEPEND="${DEPEND}"
 #S="${WORKDIR}"/${MYPN}-v${PV}
 
 PATCHES=(
-	"${FILESDIR}"/${PN}-2.1.0-gentoo.patch
+	"${FILESDIR}"/${PN}-2.2.0-gentoo.patch
 	"${FILESDIR}"/${PN}-1.13.0-install-dirs.patch
 	"${FILESDIR}"/${PN}-1.12.0-glog-0.6.0.patch
 	"${FILESDIR}"/caffe2-1.13.1-functorch.patch
-	"${FILESDIR}"/caffe2-2.1.0-nvfuser.patch
 )
 
 src_prepare() {
@@ -226,6 +225,4 @@ src_install() {
 	cp torch/version.py python/torch/ || die
 	python_domodule python/caffe2
 	python_domodule python/torch
-
-	rm "${ED}/usr/$(get_libdir)/__init__.py" || die
 }
