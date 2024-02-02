@@ -13,5 +13,5 @@ emaint sync --repo stefantalpalaru
 
 ## Counting packages
 
-`ls -Fd */* | grep '/$' | grep -Ev '^(profiles|metadata)' | wc -l`
+`ls -Fd */* | grep '/$' | grep -Ev '^(profiles|metadata|acct-)' | wc -l`
 
