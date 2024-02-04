@@ -1,4 +1,4 @@
-# Copyright 1999-2022 Gentoo Authors
+# Copyright 1999-2024 Gentoo Authors
 # Distributed under the terms of the GNU General Public License v2
 
 EAPI=7
@@ -14,7 +14,6 @@ HOMEPAGE="https://projects.gnome.org/nautilus-python/"
 LICENSE="GPL-2+"
 SLOT="0"
 KEYWORDS="~alpha amd64 ~arm64 x86"
-IUSE=""
 REQUIRED_USE="${PYTHON_REQUIRED_USE}"
 
 # Require pygobject:3 and USE=introspection on nautilus for sanity,
@@ -28,7 +27,7 @@ RDEPEND="
 	${PYTHON_DEPS}
 "
 DEPEND="${RDEPEND}
-	>=dev-util/gtk-doc-am-1.14
+	>=dev-build/gtk-doc-am-1.14
 	virtual/pkgconfig
 "
 

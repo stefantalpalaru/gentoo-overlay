@@ -1,7 +1,13 @@
-# Copyright 1999-2023 Gentoo Authors
+# Copyright 1999-2024 Gentoo Authors
 # Distributed under the terms of the GNU General Public License v2
 
 EAPI=8
+
+# Keep an eye on both of these after releases for patches:
+# * https://www.boost.org/patches/
+# * https://www.boost.org/users/history/version_${MY_PV}.html
+# (e.g. https://www.boost.org/users/history/version_1_83_0.html)
+# Note that the latter may sometimes feature patches not on the former too.
 
 PYTHON_COMPAT=( python2_7 python3_{10..12} )
 
@@ -28,10 +34,10 @@ RESTRICT="test"
 
 RDEPEND="
 	bzip2? ( app-arch/bzip2:=[${MULTILIB_USEDEP}] )
-	icu? ( >=dev-libs/icu-3.6:=[${MULTILIB_USEDEP}] )
+	icu? ( dev-libs/icu:=[${MULTILIB_USEDEP}] )
 	!icu? ( virtual/libiconv[${MULTILIB_USEDEP}] )
 	lzma? ( app-arch/xz-utils:=[${MULTILIB_USEDEP}] )
-	mpi? ( >=virtual/mpi-2.0-r4[${MULTILIB_USEDEP},cxx,threads] )
+	mpi? ( virtual/mpi[${MULTILIB_USEDEP},cxx,threads] )
 	python? (
 		${PYTHON_DEPS}
 		numpy? (
@@ -42,24 +48,18 @@ RDEPEND="
 	zlib? ( sys-libs/zlib:=[${MULTILIB_USEDEP}] )
 	zstd? ( app-arch/zstd:=[${MULTILIB_USEDEP}] )"
 DEPEND="${RDEPEND}"
-BDEPEND=">=dev-util/b2-4.9.2"
+BDEPEND=">=dev-build/b2-4.9.2"
 
 PATCHES=(
 	"${FILESDIR}"/${PN}-1.81.0-disable_icu_rpath.patch
-	"${FILESDIR}"/${PN}-1.79.0-context-x32.patch
 	"${FILESDIR}"/${PN}-1.79.0-build-auto_index-tool.patch
-	# Boost.MPI's __init__.py doesn't work on Py3
-	"${FILESDIR}"/${PN}-1.79.0-boost-mpi-python-PEP-328.patch
-	"${FILESDIR}"/${PN}-1.81.0-phoenix-multiple-definitions.patch
+
+	# upstreamed
+	"${FILESDIR}"/${PN}-1.83.0-math-gcc14.patch
+	"${FILESDIR}"/${PN}-1.79.0-context-x32.patch
+	"${FILESDIR}"/${PN}-1.84.0-signals2-patch1.patch
+	"${FILESDIR}"/${PN}-1.84.0-signals2-patch2.patch
 )
-
-python_bindings_needed() {
-	multilib_is_native_abi && use python
-}
-
-tools_needed() {
-	multilib_is_native_abi && use tools
-}
 
 create_user-config.jam() {
 	local user_config_jam="${BUILD_DIR}"/user-config.jam
@@ -83,7 +83,7 @@ create_user-config.jam() {
 		${mpi_configuration}
 	__EOF__
 
-	if python_bindings_needed; then
+	if multilib_native_use python; then
 		append_to_user_config() {
 			local py_config
 			if tc-is-cross-compiler; then
@@ -96,7 +96,7 @@ create_user-config.jam() {
 		python_foreach_impl append_to_user_config
 	fi
 
-	if python_bindings_needed && use numpy; then
+	if multilib_native_use python && use numpy; then
 		einfo "Enabling support for NumPy extensions in Boost.Python"
 	else
 		einfo "Disabling support for NumPy extensions in Boost.Python"
@@ -131,7 +131,7 @@ ejam() {
 	create_user-config.jam
 
 	local b2_opts=( "--user-config=${BUILD_DIR}/user-config.jam" )
-	if python_bindings_needed; then
+	if multilib_native_use python; then
 		append_to_b2_opts() {
 			b2_opts+=( python="${EPYTHON#python}" )
 		}
@@ -205,7 +205,7 @@ multilib_src_compile() {
 		--prefix="${EPREFIX}"/usr \
 		"${OPTIONS[@]}" || die
 
-	if tools_needed; then
+	if multilib_native_use tools; then
 		pushd tools >/dev/null || die
 		ejam \
 			--prefix="${EPREFIX}"/usr \
@@ -222,7 +222,7 @@ multilib_src_install() {
 		--libdir="${ED}"/usr/$(get_libdir) \
 		"${OPTIONS[@]}" install || die "Installation of Boost libraries failed"
 
-	if tools_needed; then
+	if multilib_native_use tools; then
 		dobin dist/bin/*
 
 		insinto /usr/share
@@ -279,7 +279,6 @@ multilib_src_install_all() {
 		if use mpi; then
 			move_mpi_py_into_sitedir() {
 				python_moduleinto boost
-				python_domodule "${S}"/libs/mpi/build/__init__.py
 
 				python_domodule "${ED}"/usr/$(get_libdir)/boost-${EPYTHON}/mpi.so
 				rm -r "${ED}"/usr/$(get_libdir)/boost-${EPYTHON} || die

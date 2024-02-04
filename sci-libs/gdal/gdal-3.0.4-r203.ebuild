@@ -1,10 +1,10 @@
-# Copyright 1999-2023 Gentoo Authors
+# Copyright 1999-2024 Gentoo Authors
 # Distributed under the terms of the GNU General Public License v2
 
 EAPI=8
 
 GENTOO_DEPEND_ON_PERL="no"
-PYTHON_COMPAT=( python2_7 python3_{10..12} )
+PYTHON_COMPAT=( python2_7 )
 inherit autotools bash-completion-r1 perl-module distutils-r1 flag-o-matic java-pkg-opt-2 toolchain-funcs
 
 DESCRIPTION="Translator library for raster geospatial data formats (includes OGR support)"
@@ -25,7 +25,7 @@ REQUIRED_USE="
 
 BDEPEND="
 	virtual/pkgconfig
-	doc? ( app-doc/doxygen )
+	doc? ( app-text/doxygen )
 	java? (
 		dev-java/ant-core
 		dev-lang/swig:0
@@ -109,6 +109,10 @@ src_prepare() {
 	# SWIG: Use of the include path to find the input file is deprecated and will not work with ccache.
 	sed -e "s: gdal_array.i: ../include/gdal_array.i:" \
 		-i swig/python/GNUmakefile || die "sed python makefile failed"
+
+	sed -i \
+		-e '/use_2to3/d' \
+		swig/python/setup.py
 
 	config_rpath_update .
 	eautoreconf
@@ -228,6 +232,8 @@ src_configure() {
 		append-cxxflags $(${PKG_CONFIG} --cflags libtirpc)
 	fi
 
+	append-cxxflags -fpermissive
+
 	ECONF_SOURCE="${S}" econf "${myconf[@]}"
 
 	# mysql-config puts this in (and boy is it a PITA to get it out)
@@ -260,7 +266,7 @@ src_compile() {
 	fi
 
 	if use python; then
-		rm -f "${S}"/swig/python/*_wrap.cpp || die
+		rm "${S}"/swig/python/extensions/*_wrap.cpp || die
 		emake -C "${S}"/swig/python generate
 		pushd "${S}"/swig/python > /dev/null || die
 		distutils-r1_src_compile

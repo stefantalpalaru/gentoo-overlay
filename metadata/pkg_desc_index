@@ -6,7 +6,6 @@ app-crypt/acme 1.8.0-r200 1.32.0: An implementation of the ACME protocol
 app-crypt/certbot 1.8.0-r201 1.32.0-r1: Let’s Encrypt client to automate deployment of X.509 certificates
 app-crypt/certbot-dns-linode 1.32.0-r1 2.6.0 2.7.1 2.7.2 2.7.3 2.7.4 2.8.0: Linode DNS Authenticator plugin for Certbot
 app-crypt/certbot-s3front 0.4.2_p20201118-r3: S3/CloudFront plugin for Let's Encrypt client
-app-doc/gnucash-docs 5.5: Documentation package for GnuCash
 app-editors/gedit 3.32.2-r4: A text editor for the GNOME desktop
 app-emacs/pymacs 0.26-r200: A tool that allows both-side communication beetween Python and Emacs Lisp
 app-emulation/playonlinux 4.4-r4: Set of scripts to easily install and use Windows games and software
@@ -17,7 +16,6 @@ app-i18n/transifex-client 1.6.10: The Transifex command-line client
 app-misc/iccloader 0.5-r1 9999-r1: systray widget used to load ICC color profiles with different color temperatures
 app-misc/openrgb 0.9: Open source RGB lighting control that doesn't depend on manufacturer software
 app-misc/yworklog 0.0.7-r200: Stack based utility with CLI interface helping to monitor time spent on tasks
-app-office/gnucash 5.5: A personal finance manager
 app-office/upwork 5.8.0.25: Project collaboration and tracking software for upwork.com
 app-text/pinfo 0.6.13-r2: Hypertext info and man viewer based on (n)curses
 app-text/zettlr-bin 3.0.3: A Markdown Editor for the 21st century.
@@ -33,20 +31,20 @@ dev-debug/valgrind 3.22.0-r100: An open-source memory debugger for GNU/Linux
 dev-java/java-service-wrapper 3.5.50-r1: A wrapper that makes it possible to install a Java Application as daemon
 dev-lang/erlang 26.2.1-r1: Erlang programming language, runtime environment and libraries (OTP)
 dev-lang/nim 1.0.10-r100 1.2.18-r100 1.4.8-r100 1.6.18-r100 2.0.2-r100 9999-r15: compiled, garbage-collected systems programming language
-dev-lang/php 5.3.29-r6 7.4.33-r6 8.0.30: The PHP language runtime engine
+dev-lang/php 5.3.29-r7 7.4.33-r7 8.0.30-r1: The PHP language runtime engine
 dev-lang/pony 0.58.1: Compiler for the Pony language
 dev-lang/python 2.7.18_p112: An interpreted, interactive, object-oriented programming language
 dev-lang/tauthon 2.8.5-r3 9999-r3: Python 2.7 fork with new syntax, builtins, and libraries backported from Python3
-dev-libs/boost 1.84.0: Boost Libraries for C++
+dev-libs/boost 1.84.0-r1: Boost Libraries for C++
 dev-libs/chan 0.0.4 9999: pure C implementation of Go channels
 dev-libs/cudnn 8.9.5.29-r1100 8.9.5.29-r1200: NVIDIA Accelerated Deep Learning on GPU library
 dev-libs/cudnn-frontend 1.0.3: A c++ wrapper for the cudnn backend API
 dev-libs/dht 0.27: BitTorrent DHT library
 dev-libs/golib 0.0.1_pre20180515 9999: a library exposing Go's channels and goroutines to plain C
-dev-libs/icu 64.2: International Components for Unicode
+dev-libs/icu 64.2-r1: International Components for Unicode
 dev-libs/keybinder 0.3.1-r201: A library for registering global keyboard shortcuts
 dev-libs/libb64 2.0.0.1_p20200910-r1: Fast Base64 encoding/decoding routines
-dev-libs/libpeas 1.22.0-r7: A GObject plugins library
+dev-libs/libpeas 1.22.0-r8: A GObject plugins library
 dev-libs/libxml2 2.11.4: XML C parser and toolkit
 dev-libs/lthread 1.0_pre20150617-r2 9999-r2: multicore enabled coroutine library written in C
 dev-libs/openssl 1.1.1w: Full-strength general purpose cryptography library (including SSL and TLS)
@@ -382,7 +380,7 @@ dev-python/mwlib-ext 0.13.2-r1: Extension module to mwlib to pull in reportlab
 dev-python/mysql-python 1.2.5-r200: Python interface to MySQL
 dev-python/naima 0.8.4-r200: Python package for gamma-ray astronomy
 dev-python/namespace-jaraco 2-r4: Namespace package declaration for jaraco
-dev-python/nautilus-python 1.2.2-r2: Python bindings for the Nautilus file manager
+dev-python/nautilus-python 1.2.2-r3: Python bindings for the Nautilus file manager
 dev-python/nbconvert 5.6.1-r200: Converting Jupyter Notebooks
 dev-python/nbformat 4.4.0-r200: Reference implementation of the Jupyter Notebook format
 dev-python/nbsphinx 0.5.1-r200: Jupyter Notebook Tools for Sphinx
@@ -502,7 +500,7 @@ dev-python/pyftpdlib 1.5.6-r200: Python FTP server library
 dev-python/pygame 1.9.6-r200: Python bindings for SDL multimedia library
 dev-python/pyglet 1.4.11-r2: Cross-platform windowing and multimedia library for Python
 dev-python/pygments 2.5.2-r200: Pygments is a syntax highlighting package written in Python
-dev-python/pygobject 2.28.6-r58 3.36.1-r5: Python bindings for GObject Introspection
+dev-python/pygobject 2.28.6-r59 3.36.1-r5: Python bindings for GObject Introspection
 dev-python/pygraphviz 1.5-r200: Python wrapper for the Graphviz Agraph data structure
 dev-python/pygresql 5.2.1-r200: A Python interface for the PostgreSQL database
 dev-python/pygtk 2.24.0-r8: GTK+2 bindings for Python
@@ -772,7 +770,7 @@ dev-python/wrapt 1.12.1-r200: Module for decorators, wrappers and monkey patchin
 dev-python/wsaccel 0.6.3-r200: Accelerator for ws4py, autobahn and tornado
 dev-python/wstools 0.4.8-r200: WSDL parsing services package for Web Services for Python
 dev-python/wtforms 2.3.3-r200: Flexible forms validation and rendering library for python web development
-dev-python/wxpython 3.0.2.0-r5 4.2.1-r1: A blending of the wxWindows C++ class library with Python
+dev-python/wxpython 3.0.2.0-r5 4.2.1-r2: A blending of the wxWindows C++ class library with Python
 dev-python/xarray 0.11.3-r4: N-D labeled arrays and datasets in Python
 dev-python/xcffib 0.10.1-r200: A drop in replacement for xpyb, an XCB python binding
 dev-python/xlrd 1.2.0-r200: Library to extract data from Microsoft Excel spreadsheets
@@ -800,7 +798,7 @@ games-misc/bsd-games 2.17_p28-r2: Collection of games from NetBSD
 games-sports/trigger 0.6.6.1: Free OpenGL rally car racing game
 games-util/minigalaxy 1.2.6: A simple GOG client for Linux
 games-util/qzdl 3.1.1: Qt version of BioHazard's ZDoom Launcher (ZDL)
-gnome-base/libgnome-keyring 3.12.0-r4: Compatibility library for accessing secrets
+gnome-base/libgnome-keyring 3.12.0-r5: Compatibility library for accessing secrets
 media-fonts/breeze-sans 20170821-r3: a humanist sans-serif typeface designed by Dalton Maag for Samsung
 media-fonts/ipamonafont 1.0.8-r1: Hacked version of IPA fonts, which is suitable for browsing 2ch
 media-gfx/GTS 2.5.1: scanning tool developed by Studio Ghibli
@@ -818,7 +816,7 @@ media-libs/jasper 2.0.33-r1 3.0.6-r1 4.1.2 9999-r3: Implementation of the codec 
 media-libs/libmysofa 1.3.2: Reader for AES SOFA files to get better HRTFs
 media-libs/libspatialaudio 0.3.0-r3: Ambisonic encoding / decoding and binauralization library in C++
 media-libs/nv-codec-headers 8.1.24.15 11.0.10.3 11.1.5.3 12.0.16.1 12.1.14.0: FFmpeg version of headers required to interface with Nvidias codec APIs
-media-libs/portaudio 19.07.00-r3: A free, cross-platform, open-source, audio I/O library
+media-libs/portaudio 19.07.00-r4: A free, cross-platform, open-source, audio I/O library
 media-libs/pyliblo 0.10.0: A Python wrapper for the liblo OSC library
 media-libs/svt-av1 1.8.0-r101: Scalable Video Technology for AV1 (SVT-AV1 Encoder and Decoder)
 media-plugins/deadbeef-bs2b 9999-r1: bs2b DSP plugin for DeaDBeeF, using libbs2b.
@@ -838,7 +836,7 @@ media-sound/tg 0.5.0-r1 9999-r1: a program for timing mechanical watches
 media-tv/dvb-firmware 1.4.0 9999-r3: DVB firmware from the LibreELEC project
 media-tv/w_scan2 1.0.15 9999-r1: Scan for DVB-C/DVB-T/DVB-S channels (w_scan fork)
 media-video/aegisub 3.3.3-r1: Advanced subtitle editor
-media-video/ffmpeg-slotted 6.1.1: slotted FFmpeg
+media-video/ffmpeg-slotted 6.1.1-r1: slotted FFmpeg
 media-video/mlvapp 1.14 9999: Magic Lantern Video (MLV) processing suite
 media-video/smplayer 23.12.0: Great Qt GUI front-end for mplayer/mpv
 media-video/subliminal 2.1.0-r6 9999-r7: Python library to search and download subtitles
@@ -865,7 +863,7 @@ net-wireless/cubicsdr 0.2.7-r1: Cross-Platform Software-Defined Radio Applicatio
 net-wireless/dump1090 7.2: simple Mode S decoder for RTLSDR devices
 net-wireless/sdrpp 1.1.0_pre20230907: a cross-platform SDR software with the aim of being bloat free and simple to use
 sci-astronomy/astrometry 0.78-r2: Automated astrometric calibration programs and service
-sci-astronomy/casacore 3.4.0: Core libraries for the Common Astronomy Software Applications
+sci-astronomy/casacore 3.4.0-r1: Core libraries for the Common Astronomy Software Applications
 sci-astronomy/healpix 3.31-r2: Hierarchical Equal Area isoLatitude Pixelization of a sphere
 sci-astronomy/kapteyn 2.3.1-r200: Collection of python tools for astronomy
 sci-astronomy/montage 5.0-r1: Toolkit for assembling FITS images into mosaics
@@ -875,7 +873,7 @@ sci-geosciences/splitter-bin 653: Tile splitter for mkgmap
 sci-libs/caffe2 2.2.0-r100: A deep learning framework
 sci-libs/cfitsio 3.410-r1: C and Fortran library for manipulating FITS files
 sci-libs/cholmod 3.0.14-r1: Sparse Cholesky factorization and update/downdate library
-sci-libs/gdal 3.0.4-r202: Translator library for raster geospatial data formats (includes OGR support)
+sci-libs/gdal 3.0.4-r203: Translator library for raster geospatial data formats (includes OGR support)
 sci-libs/pytorch 2.2.0-r100: Tensors and Dynamic neural networks in Python
 sci-libs/scikits 0.1-r3: Common files for python scikits
 sci-libs/scikits_image 0.13.0-r200: Image processing routines for SciPy
@@ -901,7 +899,7 @@ www-misc/kiwix-lib 12.1.0: Kiwix software suite core: code shared by all Kiwix p
 www-misc/kiwix-tools 3.5.0: collection of Kiwix related command line tools
 www-servers/tornado 4.5.3-r200 5.1.1-r200: Python web framework and asynchronous networking library
 www-servers/uwsgi 2.0.23-r201: uWSGI server for Python web applications
-x11-libs/dotherside 0.9.0_p20221109: C language library for creating bindings for the Qt QML language
+x11-libs/dotherside 0.9.0_p20221109-r1: C language library for creating bindings for the Qt QML language
 x11-libs/pangox-compat 0.0.2-r4: PangoX compatibility library
 x11-libs/wxGTK 3.2.4-r300: GTK+ version of wxWidgets, a cross-platform C++ GUI toolkit
 x11-misc/electricsheep 3.0.2_p20180714-r7 9999-r7: realize the collective dream of sleeping computers from all over the internet

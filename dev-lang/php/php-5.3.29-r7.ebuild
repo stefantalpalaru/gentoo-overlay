@@ -1,4 +1,4 @@
-# Copyright 1999-2022 Gentoo Authors
+# Copyright 1999-2024 Gentoo Authors
 # Distributed under the terms of the GNU General Public License v2
 
 EAPI=7
@@ -175,7 +175,7 @@ BDEPEND="${DEPEND}
 	<sys-devel/bison-3
 	sys-devel/flex
 	>=sys-devel/m4-1.4.3
-	>=sys-devel/libtool-1.5.18"
+	>=dev-build/libtool-1.5.18"
 
 # Allow users to install production version if they want to
 

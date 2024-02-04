@@ -1,11 +1,11 @@
-# Copyright 1999-2021 Gentoo Authors
+# Copyright 1999-2024 Gentoo Authors
 # Distributed under the terms of the GNU General Public License v2
 
 EAPI=7
 
 PYTHON_COMPAT=( python2_7 )
 
-inherit cmake eutils toolchain-funcs fortran-2 python-r1
+inherit cmake toolchain-funcs fortran-2 python-r1
 
 DESCRIPTION="Core libraries for the Common Astronomy Software Applications"
 HOMEPAGE="https://github.com/casacore/casacore"
@@ -16,6 +16,7 @@ KEYWORDS="~amd64 ~x86 ~amd64-linux ~x86-linux"
 SLOT="0"
 IUSE="+data doc fftw hdf5 openmp python +threads test"
 REQUIRED_USE="python? ( ${PYTHON_REQUIRED_USE} )"
+RESTRICT="!test? ( test )"
 
 RDEPEND="
 	sci-astronomy/wcslib:0=
@@ -34,7 +35,7 @@ RDEPEND="
 "
 DEPEND="${RDEPEND}
 	virtual/pkgconfig
-	doc? ( app-doc/doxygen )
+	doc? ( app-text/doxygen )
 	test? ( sci-astronomy/casa-data	)
 "
 
@@ -73,8 +74,8 @@ src_compile() {
 src_install(){
 	cmake_src_install
 	if use doc; then
-		insinto /usr/share/doc/${PF}
-		doins -r doc/html
+		docinto /usr/share/doc/${PF}
+		dodoc -r doc/html
 		docompress -x /usr/share/doc/${PF}/html
 	fi
 }

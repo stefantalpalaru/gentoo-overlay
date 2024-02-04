@@ -16,8 +16,6 @@ app-emulation/vmware-workstation:vmware-tools-solaris - Install VMware Tools for
 app-emulation/vmware-workstation:vmware-tools-winPre2k - Install VMware Tools for Windows (before 2000) guests.
 app-emulation/vmware-workstation:vmware-tools-winPreVista - Install VMware Tools for Windows (after 2000, before Vista) guests.
 app-emulation/vmware-workstation:vmware-tools-windows - Install VMware Tools for Windows (Vista and later) guests.
-app-office/gnucash:aqbanking - Connect to some internet banks via AqBanking
-app-office/gnucash:quotes - Enable Online Stock Quote retrieval
 dev-debug/valgrind:lto - Build with link time optimization (LTO)
 dev-lang/erlang:kpoll - Enable kernel polling support
 dev-lang/nim:boehm-gc - Enable Hans Boehm's garbage collector (dev-libs/boehm-gc).

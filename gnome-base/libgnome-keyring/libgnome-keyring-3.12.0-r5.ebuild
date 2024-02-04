@@ -1,4 +1,4 @@
-# Copyright 1999-2022 Gentoo Authors
+# Copyright 1999-2024 Gentoo Authors
 # Distributed under the terms of the GNU General Public License v2
 
 EAPI=7
@@ -15,7 +15,7 @@ SLOT="0"
 IUSE="debug +introspection test vala"
 RESTRICT="!test? ( test )"
 REQUIRED_USE="vala? ( introspection )"
-KEYWORDS="~alpha amd64 arm arm64 ~ia64 ~mips ppc ppc64 sparc x86 ~amd64-linux ~x86-linux ~sparc-solaris"
+KEYWORDS="~alpha amd64 arm arm64 ~ia64 ~mips ppc ppc64 sparc x86 ~amd64-linux ~x86-linux"
 
 RDEPEND="
 	>=dev-libs/glib-2.16.0:2[${MULTILIB_USEDEP}]
@@ -25,7 +25,7 @@ RDEPEND="
 	introspection? ( >=dev-libs/gobject-introspection-1.30.0 )
 "
 DEPEND="${RDEPEND}
-	dev-util/gtk-doc-am
+	dev-build/gtk-doc-am
 	>=dev-util/intltool-0.35
 	sys-devel/gettext
 	virtual/pkgconfig
@@ -37,8 +37,8 @@ DEPEND="${RDEPEND}
 
 python_check_deps() {
 	if use test; then
-		has_version "dev-python/pygobject:2[${PYTHON_USEDEP}]" &&
-		has_version "dev-python/dbus-python[${PYTHON_USEDEP}]"
+		python_has_version "dev-python/pygobject:2[${PYTHON_USEDEP}]" &&
+		python_has_version "dev-python/dbus-python[${PYTHON_USEDEP}]"
 	fi
 }
 
