@@ -1,4 +1,4 @@
-# Copyright 1999-2023 Gentoo Authors
+# Copyright 1999-2024 Gentoo Authors
 # Distributed under the terms of the GNU General Public License v2
 
 EAPI=8
@@ -7,7 +7,7 @@ inherit cmake desktop xdg flag-o-matic
 
 DESCRIPTION="A modder-friendly OpenGL source port based on the DOOM engine"
 HOMEPAGE="https://zdoom.org"
-SRC_URI="https://github.com/coelckers/${PN}/archive/g${PV}.tar.gz -> ${P}.tar.gz"
+SRC_URI="https://github.com/ZDoom/${PN}/archive/g${PV}.tar.gz -> ${P}.tar.gz"
 
 LICENSE="Apache-2.0 BSD BZIP2 GPL-3 LGPL-2.1+ LGPL-3 MIT
 	non-free? ( Activision ChexQuest3 DOOM-COLLECTORS-EDITION freedist WidePix )"
@@ -34,10 +34,10 @@ PATCHES=(
 )
 
 src_prepare() {
-	rm -rf docs/licenses || die
-	rm -rf libraries/{bzip2,jpeg,zlib} || die
-	if ! use non-free ; then
-		rm -rf wadsrc_bm wadsrc_extra wadsrc_widepix || die
+	rm -rf docs/licenses
+	rm -rf libraries/{bzip2,jpeg,zlib}
+	if ! use non-free; then
+		rm -rf wadsrc_bm wadsrc_extra wadsrc_widepix
 	fi
 
 	cmake_src_prepare
@@ -61,10 +61,15 @@ src_configure() {
 		-DNO_OPENMP="$(usex !openmp)"
 		-DZDOOM_ENABLE_SWR="$(usex swr)"
 		-DBUILD_NONFREE="$(usex non-free)"
+		-DSEND_ANON_STATS="$(usex telemetry)"
+	)
+
+	# multiple GCC-13 failures when precompiled headers are disabled
+	mycmakeargs+=(
+		-DCMAKE_DISABLE_PRECOMPILE_HEADERS=OFF
 	)
 
 	use debug || append-cppflags -DNDEBUG
-	use telemetry || append-cppflags -DNO_SEND_STATS
 
 	cmake_src_configure
 }
