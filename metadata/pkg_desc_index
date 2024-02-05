@@ -770,7 +770,7 @@ dev-python/wrapt 1.12.1-r200: Module for decorators, wrappers and monkey patchin
 dev-python/wsaccel 0.6.3-r200: Accelerator for ws4py, autobahn and tornado
 dev-python/wstools 0.4.8-r200: WSDL parsing services package for Web Services for Python
 dev-python/wtforms 2.3.3-r200: Flexible forms validation and rendering library for python web development
-dev-python/wxpython 3.0.2.0-r5 4.2.1-r2: A blending of the wxWindows C++ class library with Python
+dev-python/wxpython 3.0.2.0-r5 4.2.1-r3: A blending of the wxWindows C++ class library with Python
 dev-python/xarray 0.11.3-r4: N-D labeled arrays and datasets in Python
 dev-python/xcffib 0.10.1-r200: A drop in replacement for xpyb, an XCB python binding
 dev-python/xlrd 1.2.0-r200: Library to extract data from Microsoft Excel spreadsheets
