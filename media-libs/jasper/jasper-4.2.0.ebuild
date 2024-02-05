@@ -36,6 +36,7 @@ multilib_src_configure() {
 	local mycmakeargs=(
 		-DALLOW_IN_SOURCE_BUILD=OFF
 		-DBASH_PROGRAM="${EPREFIX}"/bin/bash
+		-DJAS_PACKAGING=ON
 		-DJAS_ENABLE_ASAN=OFF
 		-DJAS_ENABLE_LSAN=OFF
 		-DJAS_ENABLE_MSAN=OFF
