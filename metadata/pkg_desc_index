@@ -18,7 +18,7 @@ app-misc/openrgb 0.9: Open source RGB lighting control that doesn't depend on ma
 app-misc/yworklog 0.0.7-r200: Stack based utility with CLI interface helping to monitor time spent on tasks
 app-office/upwork 5.8.0.25: Project collaboration and tracking software for upwork.com
 app-text/pinfo 0.6.13-r2: Hypertext info and man viewer based on (n)curses
-app-text/zettlr-bin 3.0.3: A Markdown Editor for the 21st century.
+app-text/zettlr-bin 3.0.5: A Markdown Editor for the 21st century.
 app-vim/airline 9999-r1: vim plugin: lean & mean statusline for vim that's light as air
 app-vim/ale 3.3.0 99999999-r1: Asynchronous Lint Engine for vim
 app-vim/neocomplete 9999: vim plugin: Next generation completion framework after neocomplcache
