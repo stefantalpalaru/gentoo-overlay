@@ -1,4 +1,4 @@
-# Copyright 1999-2023 Gentoo Authors
+# Copyright 1999-2024 Gentoo Authors
 # Distributed under the terms of the GNU General Public License v2
 
 EAPI=8
@@ -8,12 +8,12 @@ PYTHON_COMPAT=( python2_7 python3_{10..12} )
 PYTHON_REQ_USE="threads(+)"
 
 RUBY_OPTIONAL="yes"
-USE_RUBY="ruby30 ruby31 ruby32"
+USE_RUBY="ruby31 ruby32 ruby33"
 
 PHP_EXT_INI="no"
 PHP_EXT_NAME="dummy"
 PHP_EXT_OPTIONAL_USE="php"
-USE_PHP="php7-4 php8-0 php8-1 php8-2" # deps must be registered separately below
+USE_PHP="php7-4 php8-0 php8-1 php8-2 php8-3" # deps must be registered separately below
 
 POSTGRES_COMPAT=( 13 14 15 16 )
 
@@ -135,6 +135,7 @@ CDEPEND="
 		php_targets_php8-0? ( dev-lang/php:8.0[embed] )
 		php_targets_php8-1? ( dev-lang/php:8.1[embed] )
 		php_targets_php8-2? ( dev-lang/php:8.2[embed] )
+		php_targets_php8-3? ( dev-lang/php:8.3[embed] )
 	)
 	python? ( ${PYTHON_DEPS} )
 	python-asyncio? ( virtual/python-greenlet[${PYTHON_USEDEP}] )
@@ -255,9 +256,9 @@ src_configure() {
 each_ruby_compile() {
 	cd "${WORKDIR}/${MY_P}" || die "sed failed"
 
-	UWSGICONFIG_RUBYPATH="${RUBY}" python uwsgiconfig.py --plugin plugins/rack gentoo rack_${RUBY##*/} || die "building plugin for ${RUBY} failed"
-	UWSGICONFIG_RUBYPATH="${RUBY}" python uwsgiconfig.py --plugin plugins/fiber gentoo fiber_${RUBY##*/}|| die "building fiber plugin for ${RUBY} failed"
-	UWSGICONFIG_RUBYPATH="${RUBY}" python uwsgiconfig.py --plugin plugins/rbthreads gentoo rbthreads_${RUBY##*/}|| die "building rbthreads plugin for ${RUBY} failed"
+	UWSGICONFIG_RUBYPATH="${RUBY}" ${EPYTHON} uwsgiconfig.py --plugin plugins/rack gentoo rack_${RUBY##*/} || die "building plugin for ${RUBY} failed"
+	UWSGICONFIG_RUBYPATH="${RUBY}" ${EPYTHON} uwsgiconfig.py --plugin plugins/fiber gentoo fiber_${RUBY##*/}|| die "building fiber plugin for ${RUBY} failed"
+	UWSGICONFIG_RUBYPATH="${RUBY}" ${EPYTHON} uwsgiconfig.py --plugin plugins/rbthreads gentoo rbthreads_${RUBY##*/}|| die "building rbthreads plugin for ${RUBY} failed"
 }
 
 python_compile_plugins() {
