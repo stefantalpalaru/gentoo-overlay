@@ -786,7 +786,7 @@ dev-python/zope-component 4.4.1-r201: Zope Component Architecture
 dev-python/zope-event 4.5.0-r201: Event publishing / dispatch, used by Zope Component Architecture
 dev-python/zope-interface 5.1.2-r201: Interfaces for Python
 dev-python/zope-testing 4.7-r201: Zope testing helpers
-dev-qt/qtwebkit 5.212.0_pre20200309-r5: WebKit rendering library for the Qt5 framework (deprecated)
+dev-qt/qtwebkit 5.212.0_pre20200309-r6: WebKit rendering library for the Qt5 framework (deprecated)
 dev-util/gotags 1.4.1: ctags-compatible tag generator for Go
 dev-util/tla-toolbox-bin 1.8.0: IDE for TLA+
 dev-vcs/bzr 2.7.1_pre-r3: Bazaar is a next generation distributed version control system
