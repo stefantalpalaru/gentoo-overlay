@@ -85,7 +85,14 @@ COMMON_DEPEND="
 		')
 	)
 	qml? ( dev-qt/qtdeclarative:5 )
-	serial? ( dev-qt/qtserialport:5 )
+	serial? (
+		dev-qt/qtserialport:5
+		python? (
+			$(python_gen_cond_dep '
+				dev-python/PyQt5[serialport,${PYTHON_USEDEP}]
+			')
+		)
+	)
 "
 DEPEND="${COMMON_DEPEND}
 	dev-qt/qttest:5
@@ -109,6 +116,13 @@ BDEPEND="
 "
 
 src_prepare() {
+	# https://github.com/qgis/QGIS/issues/53571#issuecomment-1961276436
+	if ! use serial; then
+		sed -i \
+			-e '/Import QtSerialPort\/QtSerialPortmod.sip/d' \
+			python/core/core.sip.in || die
+	fi
+
 	cmake_src_prepare
 }
 
