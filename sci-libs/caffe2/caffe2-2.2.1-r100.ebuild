@@ -3,6 +3,7 @@
 
 EAPI=8
 
+# Python 3.12 not supported by torch.compile() - https://github.com/pytorch/pytorch/issues/120233
 PYTHON_COMPAT=( python3_{10,11} )
 inherit git-r3 cmake cuda flag-o-matic python-single-r1
 
