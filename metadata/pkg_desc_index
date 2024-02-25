@@ -895,9 +895,9 @@ virtual/python-greenlet 1.0-r5: A virtual for Python greenlet module
 virtual/python-ipaddress 1.0-r3: A virtual for Python ipaddress module
 virtual/python-pathlib 1.0-r2: A virtual for Python pathlib module
 virtual/python-typing 0-r4: A virtual for the Python typing module
-www-misc/kiwix-desktop 2.3.1-r2: cross-platform viewer/manager for ZIM archives
-www-misc/kiwix-lib 12.1.0: Kiwix software suite core: code shared by all Kiwix ports
-www-misc/kiwix-tools 3.5.0: collection of Kiwix related command line tools
+www-misc/kiwix-desktop 2.3.1-r3: cross-platform viewer/manager for ZIM archives
+www-misc/kiwix-lib 12.1.0-r1: Kiwix software suite core: code shared by all Kiwix ports
+www-misc/kiwix-tools 3.5.0-r1: collection of Kiwix related command line tools
 www-servers/tornado 4.5.3-r200 5.1.1-r200: Python web framework and asynchronous networking library
 www-servers/uwsgi 2.0.24-r200: uWSGI server for Python web applications
 x11-libs/dotherside 0.9.0_p20221109-r1: C language library for creating bindings for the Qt QML language

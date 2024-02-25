@@ -1,4 +1,4 @@
-# Copyright 2020-2022 Gentoo Authors
+# Copyright 2020-2024 Gentoo Authors
 # Distributed under the terms of the GNU General Public License v2
 
 EAPI=8
@@ -10,9 +10,8 @@ HOMEPAGE="https://kiwix.org/"
 SRC_URI="https://github.com/kiwix/$PN/archive/$PV.tar.gz -> $P.tar.gz"
 
 LICENSE="GPL-3"
-SLOT="0"
+SLOT="0/12"
 KEYWORDS="~amd64"
-IUSE=""
 
 RDEPEND="
 	net-misc/aria2[bittorrent,metalink,xmlrpc]
