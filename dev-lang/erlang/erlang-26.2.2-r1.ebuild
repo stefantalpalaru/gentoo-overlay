@@ -1,4 +1,4 @@
-# Copyright 1999-2023 Gentoo Authors
+# Copyright 1999-2024 Gentoo Authors
 # Distributed under the terms of the GNU General Public License v2
 
 EAPI=8
@@ -148,6 +148,9 @@ src_install() {
 
 	## Clean up the no longer needed files
 	rm "${ED}/${erl_libdir}/Install" || die
+
+	# Bug #922743
+	docompress "${my_manpath}"
 
 	insinto "${my_manpath}"
 	doins -r "${WORKDIR}"/man/*
