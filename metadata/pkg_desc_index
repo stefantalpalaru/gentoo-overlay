@@ -1,4 +1,5 @@
 acct-group/vmware 0: Group for VMware
+app-admin/zenmonitor3 2.0.0-r1: Zen monitor is monitoring software for AMD Zen-based CPUs
 app-alternatives/yacc 0: Virtual for yacc (yet another compiler compiler)
 app-arch/libdeflate 1.14: Heavily optimized DEFLATE/zlib/gzip (de)compression
 app-arch/libzim 9.1.0: reference implementation for the ZIM archive format
@@ -887,6 +888,7 @@ sys-cluster/heartbeat 3.0.6-r2: Heartbeat high availability cluster manager
 sys-devel/bison 2.7.1-r2: A general-purpose (yacc-compatible) parser generator
 sys-devel/flamegraph 1.0-r1: stack trace visualizer
 sys-devel/pyflame 1.6.6-r2: a ptracing profiler for Python
+sys-kernel/zenpower3 0.2.0-r1: Linux kernel driver for reading sensors of AMD Zen family CPUs
 virtual/python-cffi 1-r3: A virtual for the Python cffi package
 virtual/python-enum34 2-r3: A virtual for Python enum34 module
 virtual/python-funcsigs 2-r4: A Virtual for Python function signatures from PEP362 (py3.6 variant)
