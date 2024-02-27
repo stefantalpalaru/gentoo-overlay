@@ -11,8 +11,8 @@ app-editors/gedit 3.32.2-r4: A text editor for the GNOME desktop
 app-emacs/pymacs 0.26-r200: A tool that allows both-side communication beetween Python and Emacs Lisp
 app-emulation/playonlinux 4.4-r4: Set of scripts to easily install and use Windows games and software
 app-emulation/vagrant-bin 2.0.3: Tool for building and distributing virtual machines
-app-emulation/vmware-modules 16.2.5-r12 17.5.0-r4: VMware kernel modules
-app-emulation/vmware-workstation 16.2.5.20904516-r4 17.5.0.22583795: Emulate a complete PC without the performance overhead of most emulators
+app-emulation/vmware-modules 16.2.5-r12 17.5.1: VMware kernel modules
+app-emulation/vmware-workstation 16.2.5.20904516-r4 17.5.1.23298084: Emulate a complete PC without the performance overhead of most emulators
 app-i18n/transifex-client 1.6.10: The Transifex command-line client
 app-misc/iccloader 0.5-r1 9999-r1: systray widget used to load ICC color profiles with different color temperatures
 app-misc/openrgb 0.9: Open source RGB lighting control that doesn't depend on manufacturer software

@@ -1,4 +1,4 @@
-# Copyright 1999-2023 Gentoo Authors
+# Copyright 1999-2024 Gentoo Authors
 # Distributed under the terms of the GNU General Public License v2
 
 EAPI=7
@@ -11,7 +11,7 @@ MY_PV=$(ver_cut 1-3)
 PV_MODULES="${MY_PV}"
 PV_BUILD=$(ver_cut 4)
 MY_P="${MY_PN}-${MY_PV}-${PV_BUILD}"
-VMWARE_FUSION_VER="13.5.0/22583790" # https://softwareupdate.vmware.com/cds/vmw-desktop/fusion/
+VMWARE_FUSION_VER="13.5.1/23298085" # https://softwareupdate.vmware.com/cds/vmw-desktop/fusion/
 SYSTEMD_UNITS_TAG="gentoo-02"
 UNLOCKER_VERSION="3.0.5"
 
@@ -140,13 +140,6 @@ src_prepare() {
 		chrpath -d vmware-ovftool/libcurl.so.4
 	fi
 
-	if use macos-guests; then
-		sed -i -e "s#vmx_path = '/usr#vmx_path = '${ED}${VM_INSTALL_DIR//\//\\/}#" \
-			-e "s#os\.path\.isfile('/usr#os.path.isfile('${ED}${VM_INSTALL_DIR//\//\\/}#" \
-			-e "s#vmwarebase = '/usr#vmwarebase = '${ED}${VM_INSTALL_DIR//\//\\/}#" \
-			"${WORKDIR}"/unlocker-*/unlocker.py
-	fi
-
 	DOC_CONTENTS="
 /etc/env.d is updated during ${PN} installation. Please run:\n
 'env-update && source /etc/profile'\n
@@ -193,7 +186,7 @@ src_install() {
 	sed -i \
 		-e "s/@@VERSION@@/${vmware_installer_version}/" \
 		-e "s,@@VMWARE_INSTALLER@@,${VM_INSTALL_DIR}/lib/vmware-installer/${vmware_installer_version}," \
-		"${ED}/etc/vmware-installer/bootstrap"
+		"${ED}/etc/vmware-installer/bootstrap" || die
 
 	# install the ancillaries
 	insinto /usr
@@ -250,7 +243,9 @@ src_install() {
 		doins -r *
 
 		chmod 0755 "${ED}${VM_INSTALL_DIR}"/lib/vmware-ovftool/{ovftool,ovftool.bin}
-		sed -i 's/readlink/readlink -f/' "${ED}${VM_INSTALL_DIR}"/lib/vmware-ovftool/ovftool
+		sed -i \
+			-e 's/readlink/readlink -f/' \
+			"${ED}${VM_INSTALL_DIR}"/lib/vmware-ovftool/ovftool || die
 		dosym ../lib/vmware-ovftool/ovftool "${VM_INSTALL_DIR}"/bin/ovftool
 
 		cd - >/dev/null
@@ -339,23 +334,28 @@ src_install() {
 	if use modules; then
 		# install the init.d script
 		local initscript="${T}/vmware.rc"
-		sed -e "s:@@BINDIR@@:${VM_INSTALL_DIR}/bin:g" \
+		sed \
+			-e "s:@@BINDIR@@:${VM_INSTALL_DIR}/bin:g" \
 			"${FILESDIR}/vmware.rc" > "${initscript}" || die
 		newinitd "${initscript}" vmware
 	fi
 
 	# fill in variable placeholders
-	sed -e "s:@@LIBCONF_DIR@@:${VM_INSTALL_DIR}/lib/vmware/libconf:g" \
-		-i "${ED}${VM_INSTALL_DIR}"/lib/vmware/libconf/etc/gtk-3.0/gdk-pixbuf.loaders || die
-	sed -e "s:@@BINARY@@:${EPREFIX}${VM_INSTALL_DIR}/bin/vmplayer:g" \
+	sed -i \
+		-e "s:@@LIBCONF_DIR@@:${VM_INSTALL_DIR}/lib/vmware/libconf:g" \
+		"${ED}${VM_INSTALL_DIR}"/lib/vmware/libconf/etc/gtk-3.0/gdk-pixbuf.loaders || die
+	sed -i \
+		-e "s:@@BINARY@@:${EPREFIX}${VM_INSTALL_DIR}/bin/vmplayer:g" \
 		-e "/^Encoding/d" \
-		-i "${ED}/usr/share/applications/vmware-player.desktop" || die
-	sed -e "s:@@BINARY@@:${EPREFIX}${VM_INSTALL_DIR}/bin/vmware:g" \
+		"${ED}/usr/share/applications/vmware-player.desktop" || die
+	sed -i \
+		-e "s:@@BINARY@@:${EPREFIX}${VM_INSTALL_DIR}/bin/vmware:g" \
 		-e "/^Encoding/d" \
-		-i "${ED}/usr/share/applications/vmware-workstation.desktop" || die
-	sed -e "s:@@BINARY@@:${EPREFIX}${VM_INSTALL_DIR}/bin/vmware-netcfg:g" \
+		"${ED}/usr/share/applications/vmware-workstation.desktop" || die
+	sed -i \
+		-e "s:@@BINARY@@:${EPREFIX}${VM_INSTALL_DIR}/bin/vmware-netcfg:g" \
 		-e "/^Encoding/d" \
-		-i "${ED}/usr/share/applications/vmware-netcfg.desktop" || die
+		"${ED}/usr/share/applications/vmware-netcfg.desktop" || die
 
 	# install systemd unit files
 	if use systemd; then
@@ -364,6 +364,12 @@ src_install() {
 
 	# enable macOS guests support
 	if use macos-guests; then
+		sed -i \
+			-e "s#vmx_path = '/usr#vmx_path = '${ED}${VM_INSTALL_DIR//\//\\/}#" \
+			-e "s#os\.path\.isfile('/usr#os.path.isfile('${ED}${VM_INSTALL_DIR//\//\\/}#" \
+			-e "s#vmwarebase = '/usr#vmwarebase = '${ED}${VM_INSTALL_DIR//\//\\/}#" \
+			"${WORKDIR}"/unlocker-*/unlocker.py || die
+
 		python3 "${WORKDIR}"/unlocker-*/unlocker.py >/dev/null || die "unlocker.py failed"
 	fi
 
