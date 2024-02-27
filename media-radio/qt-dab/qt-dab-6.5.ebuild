@@ -1,4 +1,4 @@
-# Copyright 1999-2023 Gentoo Authors
+# Copyright 1999-2024 Gentoo Authors
 # Distributed under the terms of the GNU General Public License v2
 
 EAPI=8
@@ -8,7 +8,7 @@ inherit cmake desktop xdg
 DESCRIPTION="software DAB decoder for use with a dabstick, airspy or sdrplay for RPI and PC"
 HOMEPAGE="http://www.sdr-j.tk/
 	https://github.com/JvanKatwijk/qt-dab"
-SRC_URI="https://github.com/JvanKatwijk/qt-dab/archive/refs/tags/qt-dab-${PV}.tar.gz"
+SRC_URI="https://github.com/JvanKatwijk/qt-dab/archive/refs/tags/Qt-DAB-${PV}.tar.gz"
 
 LICENSE="GPL-2"
 SLOT="6"
@@ -31,7 +31,7 @@ DEPEND="
 
 RDEPEND="${DEPEND}"
 
-S="${WORKDIR}/qt-dab-qt-dab-${PV}/qt-dab-s${SLOT}"
+S="${WORKDIR}/qt-dab-Qt-DAB-${PV}/qt-dab-${PV}"
 
 src_prepare() {
 	cd ..
@@ -56,8 +56,8 @@ src_configure() {
 }
 
 src_install() {
-	doicon qt-dab-${SLOT}.ico
-	domenu qt-dab-${SLOT}.desktop
+	doicon qt-dab-${PV}.ico
+	domenu qt-dab-${PV}.desktop
 
 	cd "${BUILD_DIR}"
 	exeinto "/usr/bin"
