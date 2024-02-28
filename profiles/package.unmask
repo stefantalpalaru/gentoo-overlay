@@ -90,6 +90,7 @@ dev-python/mwlib-ext
 dev-python/mysql-python
 dev-python/nevow
 dev-python/newt_syrup
+dev-python/nose
 dev-python/nose-cover3
 dev-python/nose-testconfig
 dev-python/numdisplay
