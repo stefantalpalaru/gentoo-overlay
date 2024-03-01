@@ -1,4 +1,5 @@
 acct-group/vmware 0: Group for VMware
+app-admin/conky 1.19.8: An advanced, highly configurable system monitor for X
 app-admin/zenmonitor3 2.0.0-r1: Zen monitor is monitoring software for AMD Zen-based CPUs
 app-alternatives/yacc 0: Virtual for yacc (yet another compiler compiler)
 app-arch/libdeflate 1.14: Heavily optimized DEFLATE/zlib/gzip (de)compression

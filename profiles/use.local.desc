@@ -2,6 +2,25 @@
 # Please add your descriptions to your package's metadata.xml ONLY.
 # * generated automatically using pmaint *
 
+app-admin/conky:apcupsd - Enable support for sys-power/apcupsd
+app-admin/conky:bundled-toluapp - Enable support for bundled toluapp. This only makes sense in combination with the lua-* flags
+app-admin/conky:cmus - Enable monitoring of music played by media-sound/cmus
+app-admin/conky:extras - Enable syntax highlighting for app-editors/nanoand app-editors/vim
+app-admin/conky:ical - Enable support for events from iCalendar (RFC 5545) files using dev-libs/libical
+app-admin/conky:intel-backlight - Enable support for Intel backlight
+app-admin/conky:iostats - Enable support for per-task I/O statistics
+app-admin/conky:irc - Enable support for displaying everything from an irc channel using net-libs/libircclient
+app-admin/conky:lua-cairo - Enable if you want Lua Cairo bindings
+app-admin/conky:lua-imlib - Enable if you want Lua Imlib2 bindings
+app-admin/conky:lua-rsvg - Enable if you want Lua RSVG bindings
+app-admin/conky:math - Enable support for glibc's libm math library
+app-admin/conky:moc - Enable monitoring of music played by media-sound/moc
+app-admin/conky:mpd - Enable monitoring of music controlled by media-sound/mpd
+app-admin/conky:nvidia - Enable reading of nvidia card temperature sensors via x11-drivers/nvidia-drivers
+app-admin/conky:portmon - Enable support for tcp (ip4) port monitoring
+app-admin/conky:thinkpad - Enable support for IBM/Lenovo notebooks
+app-admin/conky:webserver - Enable support to act as a webserver serving conkys output using net-libs/libmicrohttpd
+app-admin/conky:xmms2 - Enable monitoring of music played by media-sound/xmms2
 app-admin/zenmonitor3:cli - Build zenmonitor-cli
 app-emulation/playonlinux:winbind - Enables support for the winbind auth daemon
 app-emulation/vmware-workstation:macos-guests - Support macOS guests.
