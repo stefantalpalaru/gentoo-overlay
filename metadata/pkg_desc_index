@@ -833,6 +833,7 @@ media-sound/dcue 1.5: generate CUE sheets from Discogs data
 media-sound/fmit 1.2.14: Free Music Instrument Tuner
 media-sound/gwc 0.22.6: Gtk (formerly Gnome) Wave Cleaner
 media-sound/keyfinder-cli 1.1.1: Musical key detection software (libkeyfinder CLI)
+media-sound/kid3 3.9.5: Simple tag editor based on Qt
 media-sound/lmms 1.2.2-r1 9999-r1: Cross-platform music production software
 media-sound/setbfree 0.8.11-r2 99999999-r3: MIDI controlled DSP tonewheel organ
 media-sound/tg 0.5.0-r1 9999-r1: a program for timing mechanical watches
