@@ -17,7 +17,7 @@ SRC_URI="https://ffmpeg.org/releases/${MY_P/_/-}.tar.xz
 
 BDEPEND=" verify-sig? ( sec-keys/openpgp-keys-ffmpeg )"
 
-SLOT="${MAJ_VER}"
+S=${WORKDIR}/${MY_P/_/-}
 LICENSE="
 	!gpl? ( LGPL-2.1 )
 	gpl? ( GPL-2 )
@@ -41,6 +41,7 @@ LICENSE="
 	)
 	samba? ( GPL-3 )
 "
+SLOT="${MAJ_VER}"
 KEYWORDS="~alpha ~amd64 ~arm ~arm64 ~hppa ~ia64 ~loong ~mips ~ppc ~ppc64 ~riscv ~sparc ~x86 ~amd64-linux ~x86-linux ~arm64-macos ~x64-macos"
 
 # Options to use as use_enable in the foo[:bar] form.
@@ -230,7 +231,7 @@ RDEPEND="
 	opengl? ( media-libs/libglvnd[X,${MULTILIB_USEDEP}] )
 	opus? ( >=media-libs/opus-1.0.2-r2[${MULTILIB_USEDEP}] )
 	pulseaudio? ( >=media-libs/libpulse-2.1-r1[${MULTILIB_USEDEP}] )
-	qsv? ( media-libs/oneVPL[${MULTILIB_USEDEP}] )
+	qsv? ( media-libs/libvpl[${MULTILIB_USEDEP}] )
 	rubberband? ( >=media-libs/rubberband-1.8.1-r1[${MULTILIB_USEDEP}] )
 	samba? ( >=net-fs/samba-3.6.23-r1[client,${MULTILIB_USEDEP}] )
 	sdl? ( media-libs/libsdl2[sound,video,${MULTILIB_USEDEP}] )
@@ -301,6 +302,7 @@ GPL_REQUIRED_USE="
 		xvid? ( gpl )
 	)
 "
+
 REQUIRED_USE="
 	cuda? ( nvenc )
 	libv4l? ( v4l )
@@ -312,8 +314,6 @@ RESTRICT="
 	!test? ( test )
 	gpl? ( openssl? ( bindist ) fdk? ( bindist ) )
 "
-
-S=${WORKDIR}/${MY_P/_/-}
 
 PATCHES=(
 	"${FILESDIR}"/ffmpeg-5.1.2-get_cabac_inline_x86-32-bit.patch
