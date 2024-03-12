@@ -17,10 +17,11 @@ SRC_URI="https://github.com/GreycLab/gmic/archive/v.${PV}.tar.gz -> ${P}.tar.gz
 	gimp? ( ${GMIC_QT_URI} )
 	gui? ( ${GMIC_QT_URI} )
 "
-KEYWORDS="~amd64 ~x86"
+S="${WORKDIR}/${PN}-v.${PV}"
 LICENSE="CeCILL-2 GPL-3"
 SLOT="0"
-IUSE="bash-completion +cli ffmpeg fftw gimp graphicsmagick gui jpeg opencv openexr openmp png static-libs tiff X"
+KEYWORDS="~amd64 ~x86"
+IUSE="bash-completion +cli ffmpeg +fftw gimp graphicsmagick gui jpeg opencv openexr openmp png static-libs tiff X"
 REQUIRED_USE="
 	|| ( cli gimp gui )
 	gimp? ( png fftw X )
@@ -68,7 +69,6 @@ DEPEND="${COMMON_DEPEND}
 "
 
 GMIC_QT_DIR="gmic-qt-v.${PV}"
-S="${WORKDIR}/${PN}-v.${PV}"
 
 pkg_pretend() {
 	if use openmp ; then
