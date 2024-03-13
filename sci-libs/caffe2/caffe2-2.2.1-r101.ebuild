@@ -87,7 +87,7 @@ RDEPEND="
 	sci-libs/foxi
 	cuda? (
 		dev-libs/cudnn:0/8
-		dev-libs/cudnn-frontend:0/8
+		dev-libs/cudnn-frontend:0
 		=dev-util/nvidia-cuda-toolkit-12*:=[profiler]
 	)
 	ffmpeg? ( media-video/ffmpeg:= )
@@ -205,6 +205,7 @@ src_configure() {
 
 	if use cuda; then
 		addpredict "/dev/nvidiactl" # bug 867706
+		addpredict "/proc/self/task" # bug 926116
 
 		mycmakeargs+=(
 			-DCMAKE_CUDA_FLAGS="$(cuda_gccdir -f | tr -d \")"
