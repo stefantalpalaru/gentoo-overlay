@@ -177,7 +177,7 @@ src_install() {
 	#   the new environment
 	local PLUGIN_DIR="/usr/$(get_libdir)/gimp/2.0/plug-ins/"
 	insinto "${PLUGIN_DIR}"
-	doins "resources/gmic_cluts.gmz"
+	doins resources/*.gmz
 
 	cmake_src_install
 
