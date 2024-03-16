@@ -271,7 +271,7 @@ RDEPEND="
 	vaapi? ( >=media-libs/libva-1.2.1-r1:0=[${MULTILIB_USEDEP}] )
 	vdpau? ( >=x11-libs/libvdpau-0.7[${MULTILIB_USEDEP}] )
 	vidstab? ( >=media-libs/vidstab-1.1.0[${MULTILIB_USEDEP}] )
-	vmaf? ( media-libs/libvmaf[${MULTILIB_USEDEP}] )
+	vmaf? ( media-libs/libvmaf:=[${MULTILIB_USEDEP}] )
 	vorbis? (
 		>=media-libs/libvorbis-1.3.3-r1[${MULTILIB_USEDEP}]
 		>=media-libs/libogg-1.3.0[${MULTILIB_USEDEP}]
@@ -351,6 +351,7 @@ PATCHES=(
 	"${FILESDIR}"/${PN}-4.4.4-opencl-parallel-gmake-fix.patch
 	"${FILESDIR}"/${PN}-4.4.4-glslang.patch
 	"${WORKDIR}"/${PN}-4.4.4-texinfo.patch
+	"${FILESDIR}"/ffmpeg-4.4.4-libvmaf-2.0.0.patch
 )
 
 MULTILIB_WRAPPED_HEADERS=(
