@@ -1,4 +1,4 @@
-# Copyright 1999-2022 Gentoo Authors
+# Copyright 1999-2024 Gentoo Authors
 # Distributed under the terms of the GNU General Public License v2
 
 EAPI=8
@@ -14,10 +14,10 @@ DESCRIPTION="Display calibration and characterization powered by Argyll CMS - Py
 HOMEPAGE="https://github.com/eoyilmaz/displaycal-py3"
 SRC_URI="https://github.com/eoyilmaz/displaycal-py3/releases/download/${PV}/${MY_P}.tar.gz"
 
+S="${WORKDIR}/${MY_P}"
 LICENSE="GPL-3"
 SLOT="0"
 KEYWORDS="~amd64 ~x86"
-IUSE=""
 RESTRICT="test"
 
 DEPEND="
@@ -40,8 +40,6 @@ RDEPEND="${DEPEND}
 	dev-python/numpy[${PYTHON_USEDEP}]
 	dev-python/dbus-python[${PYTHON_USEDEP}]
 "
-
-S="${WORKDIR}/${MY_P}"
 
 PATCHES=(
 	"${FILESDIR}/displaycal-py3-3.9.11-dist.patch"
