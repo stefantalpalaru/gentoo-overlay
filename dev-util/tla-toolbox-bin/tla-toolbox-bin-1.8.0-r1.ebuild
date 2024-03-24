@@ -1,4 +1,4 @@
-# Copyright 2022 Gentoo Authors
+# Copyright 2022-2024 Gentoo Authors
 # Distributed under the terms of the GNU General Public License v2
 
 EAPI=8
@@ -8,18 +8,16 @@ DESCRIPTION="IDE for TLA+"
 HOMEPAGE="https://lamport.azurewebsites.net/tla/toolbox.html
 	https://github.com/tlaplus/tlaplus"
 SRC_URI="https://github.com/tlaplus/tlaplus/releases/download/v${PV}/TLAToolbox-${PV}-linux.gtk.x86_64.zip"
+S="${WORKDIR}/toolbox"
 
 LICENSE="MIT"
 SLOT="0"
 KEYWORDS="~amd64"
 
-DEPEND=""
 RDEPEND="${DEPEND}
 	x11-libs/gtk+:3
 "
 BDEPEND="app-arch/unzip"
-
-S="${WORKDIR}/toolbox"
 
 src_install() {
 	dodir "/opt/${MY_PN}"

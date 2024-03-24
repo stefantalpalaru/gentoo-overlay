@@ -790,7 +790,7 @@ dev-python/zope-interface 5.1.2-r201: Interfaces for Python
 dev-python/zope-testing 4.7-r201: Zope testing helpers
 dev-qt/qtwebkit 5.212.0_pre20200309-r6: WebKit rendering library for the Qt5 framework (deprecated)
 dev-util/gotags 1.4.1: ctags-compatible tag generator for Go
-dev-util/tla-toolbox-bin 1.8.0: IDE for TLA+
+dev-util/tla-toolbox-bin 1.8.0-r1: IDE for TLA+
 dev-vcs/bzr 2.7.1_pre-r3: Bazaar is a next generation distributed version control system
 dev-vcs/hg-fast-export 231118: mercurial to git converter using git-fast-import
 games-emulation/dbgl-bin 0.97: DOSBox Game Launcher
