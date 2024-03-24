@@ -1,4 +1,4 @@
-# Copyright 1999-2017 Gentoo Foundation
+# Copyright 1999-2024 Gentoo Foundation
 # Distributed under the terms of the GNU General Public License v2
 
 EAPI=6
@@ -6,6 +6,21 @@ EAPI=6
 DESCRIPTION="free drumkits for hydrogen"
 HOMEPAGE="http://www.hydrogen-music.org"
 SRC_URI="
+	mirror://sourceforge/hydrogen/Sound%20Libraries/Main%20sound%20libraries/AVLDrumkits-RedZeppelin-2023.h2drumkit
+	mirror://sourceforge/hydrogen/Sound%20Libraries/Main%20sound%20libraries/AVLDrumkits-BuskmansHoliday.h2drumkit
+	mirror://sourceforge/hydrogen/Sound%20Libraries/Main%20sound%20libraries/AVLDrumkits-BlondeBop-HotRod.h2drumkit
+	mirror://sourceforge/hydrogen/Sound%20Libraries/Main%20sound%20libraries/AVLDrumkits-BlondeBop.h2drumkit
+	mirror://sourceforge/hydrogen/Sound%20Libraries/Main%20sound%20libraries/AVLDrumkits-BlackPearl-2023.h2drumkit
+	mirror://sourceforge/hydrogen/Sound%20Libraries/Main%20sound%20libraries/Ian%20Paice.h2drumkit
+	mirror://sourceforge/hydrogen/Sound%20Libraries/Main%20sound%20libraries/Tre%20Cool.h2drumkit
+	mirror://sourceforge/hydrogen/Sound%20Libraries/Main%20sound%20libraries/Travis%20Barker.h2drumkit
+	mirror://sourceforge/hydrogen/Sound%20Libraries/Main%20sound%20libraries/John%20Bonham.h2drumkit
+	mirror://sourceforge/hydrogen/Sound%20Libraries/Main%20sound%20libraries/Dave%20Grohl.h2drumkit
+	mirror://sourceforge/hydrogen/Sound%20Libraries/Main%20sound%20libraries/BeatBuddy_Kit.h2drumkit
+	mirror://sourceforge/hydrogen/Sound%20Libraries/Main%20sound%20libraries/The%20Black%20Pearl%201.0.h2drumkit
+	mirror://sourceforge/hydrogen/Sound%20Libraries/Main%20sound%20libraries/Lightning1024.h2drumkit
+	mirror://sourceforge/hydrogen/Sound%20Libraries/Main%20sound%20libraries/Gimme%20A%20Hand%201.0.h2drumkit
+	mirror://sourceforge/hydrogen/Sound%20Libraries/Main%20sound%20libraries/SF3007-2011-Set-03.h2drumkit
 	mirror://sourceforge/hydrogen/Sound%20Libraries/Main%20sound%20libraries/ForzeeStereo.h2drumkit
 	mirror://sourceforge/hydrogen/Sound%20Libraries/Main%20sound%20libraries/Boss_DR-110.h2drumkit
 	mirror://sourceforge/hydrogen/Sound%20Libraries/Main%20sound%20libraries/circAfrique%20v4.h2drumkit
@@ -32,21 +47,19 @@ SRC_URI="
 	mirror://sourceforge/hydrogen/Sound%20Libraries/Main%20sound%20libraries/3355606kit.h2drumkit
 	mirror://sourceforge/hydrogen/Sound%20Libraries/Main%20sound%20libraries/VariBreaks.h2drumkit
 "
-RESTRICT="mirror"
+S="${WORKDIR}"
 
 LICENSE="OpenMusic CC-BY-SA-3.0 CC-BY-4.0 GPL-2 GPL-2+ public-domain"
 SLOT="0"
 KEYWORDS="amd64 x86"
 
-IUSE=""
+RESTRICT="mirror"
 RDEPEND="media-sound/hydrogen"
-
-S="${WORKDIR}"
 
 src_unpack(){
 	cp "${DISTDIR}"/*.h2drumkit "${S}"
 	for F in *.h2drumkit; do
-		tar xzf "${F}"
+		tar -xzf "${F}" 2>/dev/null || tar -xf "${F}"
 		rm "${F}"
 	done
 	find -type f -name '._*' -delete
