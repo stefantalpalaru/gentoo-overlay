@@ -869,6 +869,7 @@ net-wireless/cubicsdr 0.2.7-r1: Cross-Platform Software-Defined Radio Applicatio
 net-wireless/dump1090 7.2: simple Mode S decoder for RTLSDR devices
 net-wireless/sdrpp 1.1.0_pre20230907: a cross-platform SDR software with the aim of being bloat free and simple to use
 sci-astronomy/astrometry 0.78-r2: Automated astrometric calibration programs and service
+sci-astronomy/calcmysky 0.3.2: Simulator of light scattering by planetary atmospheres
 sci-astronomy/casacore 3.4.0-r1: Core libraries for the Common Astronomy Software Applications
 sci-astronomy/healpix 3.31-r2: Hierarchical Equal Area isoLatitude Pixelization of a sphere
 sci-astronomy/kapteyn 2.3.1-r200: Collection of python tools for astronomy
