@@ -1,0 +1,7 @@
+diff -ur deadbeef-jack-9999.orig/Makefile deadbeef-jack-9999/Makefile
+--- deadbeef-jack-9999.orig/Makefile	2024-03-24 02:46:56.375688791 +0100
++++ deadbeef-jack-9999/Makefile	2024-03-24 02:48:41.499988349 +0100
+@@ -1,2 +1,2 @@
+ all:
+-	gcc -I/usr/local/include  -std=c99 -shared -O2 -o jack.so -ljack jack.c -fPIC -Wall -march=native
++	$(CC) -std=c99 -shared -fPIC -Wall -DDDB_API_LEVEL=15 $(CPPFLAGS) $(CFLAGS) $(LDFLAGS) -o jack.so -ljack jack.c
