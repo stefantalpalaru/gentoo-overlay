@@ -1,0 +1,27 @@
+diff -ur hydrogen-1.2.3.orig/CMakeLists.txt hydrogen-1.2.3/CMakeLists.txt
+--- hydrogen-1.2.3.orig/CMakeLists.txt	2024-03-24 01:32:28.903977935 +0100
++++ hydrogen-1.2.3/CMakeLists.txt	2024-03-24 01:36:43.168435179 +0100
+@@ -479,10 +479,10 @@
+ endif()
+ install(DIRECTORY data DESTINATION ${H2_DATA_PATH} PATTERN ".git" EXCLUDE PATTERN "i18n" EXCLUDE PATTERN doc EXCLUDE)
+ if(NOT MINGW AND NOT APPLE)
+-	install(FILES ${CMAKE_SOURCE_DIR}/linux/org.hydrogenmusic.Hydrogen.metainfo.xml DESTINATION "${CMAKE_INSTALL_DATAROOTDIR}/metainfo")
+-	install(FILES ${CMAKE_SOURCE_DIR}/linux/org.hydrogenmusic.Hydrogen.desktop DESTINATION "${CMAKE_INSTALL_DATAROOTDIR}/applications")
++	install(FILES ${CMAKE_SOURCE_DIR}/linux/org.hydrogenmusic.Hydrogen.metainfo.xml DESTINATION "${CMAKE_INSTALL_FULL_DATAROOTDIR}/metainfo") 
++	install(FILES ${CMAKE_SOURCE_DIR}/linux/org.hydrogenmusic.Hydrogen.desktop DESTINATION "${CMAKE_INSTALL_FULL_DATAROOTDIR}/applications")
+ 	install(FILES ${CMAKE_SOURCE_DIR}/data/img/gray/h2-icon.svg DESTINATION "${CMAKE_INSTALL_FULL_DATAROOTDIR}/icons/hicolor/scalable/apps" RENAME "org.hydrogenmusic.Hydrogen.svg")
+-	install(FILES ${CMAKE_SOURCE_DIR}/linux/hydrogen.1 DESTINATION "${CMAKE_INSTALL_MANDIR}/man1")
++	install(FILES ${CMAKE_SOURCE_DIR}/linux/hydrogen.1 DESTINATION 	"${CMAKE_INSTALL_FULL_MANDIR}/man1")
+ endif()
+ 
+ #
+diff -ur hydrogen-1.2.3.orig/src/core/CMakeLists.txt hydrogen-1.2.3/src/core/CMakeLists.txt
+--- hydrogen-1.2.3.orig/src/core/CMakeLists.txt	2024-03-24 01:32:28.892978002 +0100
++++ hydrogen-1.2.3/src/core/CMakeLists.txt	2024-03-24 01:38:00.330966993 +0100
+@@ -77,5 +77,5 @@
+ 
+ if(NOT APPLE AND NOT WIN32)
+     install(DIRECTORY ${CMAKE_SOURCE_DIR}/src/core DESTINATION "${CMAKE_INSTALL_INCLUDEDIR}/hydrogen" FILES_MATCHING PATTERN "*.h" PATTERN ".svn" EXCLUDE)
+-    install(FILES "${CMAKE_CURRENT_BINARY_DIR}/config.h" DESTINATION "${CMAKE_INSTALL_INCLUDEDIR}/hydrogen" )
++    install(FILES "${CMAKE_CURRENT_BINARY_DIR}/config.h" DESTINATION "${CMAKE_INSTALL_FULL_INCLUDEDIR}/hydrogen" )
+ endif()

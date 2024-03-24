@@ -1,0 +1,11 @@
+diff -ruN hydrogen-1.2.2.orig/src/gui/src/Widgets/FileDialog.h hydrogen-1.2.2/src/gui/src/Widgets/FileDialog.h
+--- hydrogen-1.2.2.orig/src/gui/src/Widgets/FileDialog.h	2024-02-06 23:21:52.516707059 +0100
++++ hydrogen-1.2.2/src/gui/src/Widgets/FileDialog.h	2024-02-06 23:19:33.433991583 +0100
+@@ -23,6 +23,7 @@
+ #define FILEDIALOG_H
+ 
+ #include <QDialog>
++#include <QFileDialog>
+ #include <core/Object.h>
+ 
+ /** Custom file dialog checking whether the user has write access to

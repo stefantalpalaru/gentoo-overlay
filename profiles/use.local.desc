@@ -226,6 +226,8 @@ media-sound/audacity:vamp - Enables vamp plugins support (Audio analysing plugin
 media-sound/carla:gtk2 - Use gtk-2 instead of gtk-3
 media-sound/carla:rdf - Enable LADSPA-RDF support
 media-sound/carla:sf2 - Enable builtin SF2 sample support using media-sound/fluidsynth
+media-sound/hydrogen:archive - Use libarchive instead of libtar
+media-sound/hydrogen:portmidi - Add portmidi support
 media-sound/kid3:acoustid - Build acoustic fingerprinting plugin using media-libs/chromaprint
 media-sound/kid3:mpris - Enable support for MPRIS2 interface using dev-qt/qtdbus
 media-sound/lmms:carla - Enables Carla audio plugin host (LADSPA, DSSI, LV2, VST2, VST3, AU).
