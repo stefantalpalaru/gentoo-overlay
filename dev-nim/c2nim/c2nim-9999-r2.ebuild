@@ -1,4 +1,4 @@
-# Copyright 1999-2017 Gentoo Foundation
+# Copyright 1999-2024 Gentoo Foundation
 # Distributed under the terms of the GNU General Public License v2
 
 EAPI=6
@@ -11,11 +11,11 @@ EGIT_REPO_URI="https://github.com/nim-lang/c2nim"
 
 LICENSE="MIT"
 SLOT="0"
-KEYWORDS=""
 IUSE="doc test"
+RESTRICT="!test? ( test )"
 
 DEPEND="
-	>=dev-lang/nim-0.18.0
+	>=dev-lang/nim-1.2.0
 "
 RDEPEND="${DEPEND}"
 
@@ -29,7 +29,6 @@ src_test() {
 }
 
 src_install() {
-	dodir /usr/bin
 	exeinto /usr/bin
 	doexe ${PN}
 
