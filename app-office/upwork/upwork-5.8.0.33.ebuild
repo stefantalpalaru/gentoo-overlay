@@ -1,4 +1,4 @@
-# Copyright 1999-2023 Gentoo Authors
+# Copyright 1999-2024 Gentoo Authors
 # Distributed under the terms of the GNU General Public License v2
 
 EAPI=8
@@ -11,17 +11,15 @@ QA_PREBUILT="*"
 DESCRIPTION="Project collaboration and tracking software for upwork.com"
 HOMEPAGE="https://www.upwork.com/"
 SRC_URI="
-	amd64? ( https://upwork-usw2-desktopapp.upwork.com/binaries/v5_8_0_25_e119f6b95355474f/upwork-5.8.0.25-1fc24.x86_64.rpm )
-	x86? ( https://upwork-usw2-desktopapp.upwork.com/binaries/v5_8_0_25_e119f6b95355474f/upwork-5.8.0.25-1fc24.i386.rpm )
+	amd64? ( https://upwork-usw2-desktopapp.upwork.com/binaries/v${PV//./_}_42e992f623e44665/${P}-1fc24.x86_64.rpm )
 "
-LICENSE="ODESK"
-SLOT="0"
-KEYWORDS="~amd64 ~x86"
-RESTRICT="mirror fetch"
-
 S=${WORKDIR}
 
-DEPEND=""
+LICENSE="ODESK"
+SLOT="0"
+KEYWORDS="~amd64"
+RESTRICT="mirror fetch"
+
 RDEPEND="
 	dev-libs/expat
 	dev-libs/nspr
