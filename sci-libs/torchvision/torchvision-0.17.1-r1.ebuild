@@ -49,5 +49,6 @@ src_prepare() {
 	if use cuda; then
 		export FORCE_CUDA=1
 		export NVCC_FLAGS="$(cuda_gccdir -f | tr -d \")"
+		addpredict "/proc/self/task" # bug 926116
 	fi
 }
