@@ -885,7 +885,7 @@ sci-libs/pytorch 2.2.2-r100: Tensors and Dynamic neural networks in Python
 sci-libs/scikits 0.1-r3: Common files for python scikits
 sci-libs/scikits_image 0.13.0-r200: Image processing routines for SciPy
 sci-libs/scikits_learn 0.20.4-r200: Python modules for machine learning and data mining
-sci-libs/torchvision 0.17.1-r1: Datasets, transforms and models to specific to computer vision
+sci-libs/torchvision 0.17.2: Datasets, transforms and models to specific to computer vision
 sci-mathematics/xmds 2.2.3-r2: XMDS - The eXtensible Multi-Dimensional Simulator
 sci-misc/openfst 1.8.2: Finite State Transducer tools by Google et al
 sci-misc/opengrm-ngram 1.3.14: n-gram language models encoded as weighted finite-state transducers
