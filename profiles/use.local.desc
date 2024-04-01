@@ -405,16 +405,6 @@ sci-geosciences/qgis:pdal - Enable support for PDAL for point clouds via sci-lib
 sci-geosciences/qgis:polar - Enable support for the polar coordinate system via x11-libs/qwtpolar
 sci-geosciences/qgis:qml - Enable support Qml-based plugins using dev-qt/qtdeclarative
 sci-geosciences/qgis:serial - Enable support for serial GPS using dev-qt/qtserialport
-sci-libs/caffe2:cuda - Add support for CUDA processing
-sci-libs/caffe2:distributed - Support distributed applications
-sci-libs/caffe2:ffmpeg - Add support for video processing operators
-sci-libs/caffe2:nnpack - Use NNPACK
-sci-libs/caffe2:numpy - Add support for math operations through numpy
-sci-libs/caffe2:opencl - Use OpenCL
-sci-libs/caffe2:opencv - Add support for image processing operators
-sci-libs/caffe2:openmp - Use OpenMP for parallel code
-sci-libs/caffe2:qnnpack - Use QNNPACK
-sci-libs/caffe2:xnnpack - Use XNNPACK
 sci-libs/cfitsio:tools - Build execs fpack, funpack, imcopy, fitscopy, listhead
 sci-libs/cholmod:cuda - Use nvidia cuda toolkit for speeding up computations
 sci-libs/cholmod:matrixops - Support basic sparse and dense matrix operations (add, multiply, scale, et cetera)

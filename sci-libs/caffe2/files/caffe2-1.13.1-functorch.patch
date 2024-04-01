@@ -1,9 +1,0 @@
-diff -ur pytorch-v1.13.1.orig/functorch/CMakeLists.txt pytorch-v1.13.1/functorch/CMakeLists.txt
---- pytorch-v1.13.1.orig/functorch/CMakeLists.txt	2023-02-21 20:57:46.765218440 +0100
-+++ pytorch-v1.13.1/functorch/CMakeLists.txt	2023-02-21 20:58:46.074754713 +0100
-@@ -35,4 +35,4 @@
- if(NOT ${TORCH_PYTHON_LINK_FLAGS} STREQUAL "")
-   set_target_properties(${PROJECT_NAME} PROPERTIES LINK_FLAGS ${TORCH_PYTHON_LINK_FLAGS})
- endif()
--install(TARGETS ${PROJECT_NAME} DESTINATION "${CMAKE_CURRENT_SOURCE_DIR}")
-+install(TARGETS ${PROJECT_NAME} DESTINATION "${CMAKE_INSTALL_LIBDIR}")
