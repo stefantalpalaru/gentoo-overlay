@@ -6,7 +6,7 @@ app-arch/libdeflate 1.14: Heavily optimized DEFLATE/zlib/gzip (de)compression
 app-arch/libzim 9.1.0: reference implementation for the ZIM archive format
 app-crypt/acme 1.8.0-r200 1.32.0: An implementation of the ACME protocol
 app-crypt/certbot 1.8.0-r201 1.32.0-r1: Let’s Encrypt client to automate deployment of X.509 certificates
-app-crypt/certbot-dns-linode 1.32.0-r1 2.7.4 2.8.0 2.9.0: Linode DNS Authenticator plugin for Certbot
+app-crypt/certbot-dns-linode 1.32.0-r1 2.8.0 2.9.0 2.10.0: Linode DNS Authenticator plugin for Certbot
 app-crypt/certbot-s3front 0.4.2_p20201118-r3: S3/CloudFront plugin for Let's Encrypt client
 app-editors/gedit 3.32.2-r4: A text editor for the GNOME desktop
 app-emacs/pymacs 0.26-r200: A tool that allows both-side communication beetween Python and Emacs Lisp
