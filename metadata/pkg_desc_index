@@ -842,7 +842,7 @@ media-tv/dvb-firmware 1.4.0 9999-r3: DVB firmware from the LibreELEC project
 media-tv/w_scan2 1.0.15 9999-r1: Scan for DVB-C/DVB-T/DVB-S channels (w_scan fork)
 media-video/aegisub 3.3.3-r1: Advanced subtitle editor
 media-video/ffmpeg 4.4.4-r10 6.1.1-r5: Complete solution to record/convert/stream audio and video. Includes libavcodec
-media-video/ffmpeg-slotted 6.1.1-r3: slotted FFmpeg
+media-video/ffmpeg-slotted 7.0: slotted FFmpeg
 media-video/mlvapp 1.14 9999: Magic Lantern Video (MLV) processing suite
 media-video/smplayer 23.12.0: Great Qt GUI front-end for mplayer/mpv
 media-video/subliminal 2.1.0-r6 9999-r7: Python library to search and download subtitles

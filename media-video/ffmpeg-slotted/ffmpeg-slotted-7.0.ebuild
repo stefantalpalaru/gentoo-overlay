@@ -325,11 +325,8 @@ RESTRICT="
 
 PATCHES=(
 	"${FILESDIR}"/ffmpeg-5.1.2-get_cabac_inline_x86-32-bit.patch
-	"${FILESDIR}"/ffmpeg-6.1-wint-conversion.patch
-	"${FILESDIR}"/ffmpeg-6.0-fix-lto-type-mismatch.patch
 	"${FILESDIR}"/ffmpeg-6.1-opencl-parallel-gmake-fix.patch
 	"${FILESDIR}"/ffmpeg-6.1-gcc-14.patch
-	"${FILESDIR}"/ffmpeg-6.0.1-alignment.patch
 )
 
 MULTILIB_WRAPPED_HEADERS=(
@@ -519,13 +516,13 @@ multilib_src_install() {
 	if multilib_is_native_abi; then
 		for i in "${FFTOOLS[@]}" ; do
 			if use fftools_${i} ; then
-				newbin tools/${i}$(get_exeext) ${i}-6$(get_exeext)
+				newbin tools/${i}$(get_exeext) ${i}-${MAJ_VER}$(get_exeext)
 			fi
 		done
 	fi
 
 	for i in ffmpeg ffplay ffprobe; do
-		mv "${ED}/usr/bin/${i}$(get_exeext)" "${ED}/usr/bin/${i}-6$(get_exeext)" || die
+		mv "${ED}/usr/bin/${i}$(get_exeext)" "${ED}/usr/bin/${i}-${MAJ_VER}$(get_exeext)" || die
 	done
 
 	rm -rf "${ED}/usr/$(get_libdir)" "${ED}/usr/include" "${ED}/usr/share/ffmpeg-${MAJ_VER}/examples"
