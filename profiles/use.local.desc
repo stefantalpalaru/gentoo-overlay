@@ -370,6 +370,13 @@ net-p2p/go-ethereum:devtools - Build Ethereum development tools (evm, abigen, pu
 net-p2p/nimbus-eth2:lto - Enable Link Time Optimization (LTO)
 net-p2p/pybitmessage:opencl - Enable dev-python/pyopencl for GPU acceleration
 net-p2p/pybitmessage:qrcode - Enable dev-python/qrcode for QR code support
+net-p2p/retroshare:cli - Enables terminal login support for retroshare-service
+net-p2p/retroshare:jsonapi - Enables the new RetroShare JSON API
+net-p2p/retroshare:libupnp - Enables UPnP port forwarding via net-libs/libupnp
+net-p2p/retroshare:miniupnp - Enables UPnP port forwarding via net-libs/miniupnpc
+net-p2p/retroshare:plugins - RetroShare plugins requiring an obsolete ffmpeg version
+net-p2p/retroshare:service - Enables the new RetroShare service
+net-p2p/retroshare:sqlcipher - Enables GXS database encryption via SQLCipher
 net-p2p/transmission-og:lightweight - Optimize Transmission OG for low-resource systems (smaller cache size, prefer unencrypted peer connections, etc.)
 net-p2p/transmission-og:mbedtls - Use mbed TLS instead of OpenSSL
 net-wireless/cubicsdr:bladerf - Add support for bladerf hardware
