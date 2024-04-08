@@ -806,7 +806,7 @@ media-fonts/ipamonafont 1.0.8-r1: Hacked version of IPA fonts, which is suitable
 media-gfx/GTS 2.5.1: scanning tool developed by Studio Ghibli
 media-gfx/ansel 4.0.0_pre20231222 9999-r3: Darktable 4.0 fork
 media-gfx/displaycal 3.8.9.3-r3: Display calibration and characterization powered by Argyll CMS
-media-gfx/displaycal-py3 3.9.12: Display calibration and characterization powered by Argyll CMS - Python3 fork
+media-gfx/displaycal-py3 3.9.12-r1: Display calibration and characterization powered by Argyll CMS - Python3 fork
 media-gfx/fbcat 0.5.2: utility that takes a screenshot using the framebuffer device
 media-gfx/gifsicle 9999-r1: Create, manipulate, and optimize GIF images and animations
 media-gfx/gmic 3.3.5-r101: GREYC's Magic Image Converter

@@ -1,0 +1,23 @@
+diff -ur DisplayCAL-3.9.12.orig/DisplayCAL/setup.py DisplayCAL-3.9.12/DisplayCAL/setup.py
+--- DisplayCAL-3.9.12.orig/DisplayCAL/setup.py	2024-04-08 08:58:21.019410037 +0200
++++ DisplayCAL-3.9.12/DisplayCAL/setup.py	2024-04-08 09:01:27.474293917 +0200
+@@ -696,7 +696,7 @@
+             data_files.append(
+                 (
+                     os.path.join(os.path.dirname(data), "metainfo"),
+-                    [os.path.normpath(os.path.join(pydir, "..", "dist",  f"{appstream_id}.appdata.xml"))],
++                    [os.path.normpath(os.path.join(pydir, "..", "misc",  f"{appstream_id}.appdata.xml"))],
+                 )
+             )
+             data_files.append(
+diff -ur DisplayCAL-3.9.12.orig/setup.py DisplayCAL-3.9.12/setup.py
+--- DisplayCAL-3.9.12.orig/setup.py	2024-04-08 08:58:21.018410043 +0200
++++ DisplayCAL-3.9.12/setup.py	2024-04-08 09:00:48.471527388 +0200
+@@ -692,7 +692,6 @@
+         dist_tmpl_name = Path(pydir, "dist", tmpl_name)
+         replace_placeholders(
+             misc_tmpl_name,
+-            dist_tmpl_name,
+             lastmod_time,
+             {
+                 "APPDATAPROVIDES": provides,
