@@ -1,0 +1,19 @@
+diff -ur chapel-2.0.0.orig/compiler/llvm/clangUtil.cpp chapel-2.0.0/compiler/llvm/clangUtil.cpp
+--- chapel-2.0.0.orig/compiler/llvm/clangUtil.cpp	2024-03-15 17:55:19.000000000 +0100
++++ chapel-2.0.0/compiler/llvm/clangUtil.cpp	2024-04-09 17:53:42.355082750 +0200
+@@ -2976,6 +2976,15 @@
+   // add -pthread since we will use pthreads
+   clangCCArgs.push_back("-pthread");
+ 
++#if HAVE_LLVM_VER >= 160
++  // Disable system-wide Clang config files. Those on Gentoo contain linker
++  // flags like "-Wl,-z,relro" that trigger errors during the "internal clang
++  // parsing" phase.
++  // This flag was introduced in Clang 16.0.0:
++  // https://releases.llvm.org/16.0.0/tools/clang/docs/ReleaseNotes.html
++  clangCCArgs.push_back("--no-default-config");
++#endif
++
+   // add system compiler args from printchplenv
+   {
+     std::vector<std::string> args;
