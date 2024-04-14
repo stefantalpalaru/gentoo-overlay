@@ -26,6 +26,7 @@ HOMEPAGE="https://projects.unbit.it/uwsgi/
 		https://uwsgi-docs.readthedocs.io/en/latest/
 		https://github.com/unbit/uwsgi"
 SRC_URI="https://github.com/unbit/uwsgi/archive/${PV}.tar.gz -> ${P}.tar.gz"
+S="${WORKDIR}/${MY_P}"
 
 LICENSE="GPL-2"
 SLOT="0"
@@ -149,8 +150,6 @@ RDEPEND="
 	uwsgi_plugins_rrdtool? ( net-analyzer/rrdtool )
 "
 BDEPEND="virtual/pkgconfig"
-
-S="${WORKDIR}/${MY_P}"
 
 PATCHES=(
 	"${FILESDIR}"/uwsgi-2.0.21-libphp-version.patch
