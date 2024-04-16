@@ -13,6 +13,7 @@ HOMEPAGE="https://www.erlang.org/"
 SRC_URI="https://github.com/erlang/otp/archive/OTP-${PV}.tar.gz -> ${P}.tar.gz
 	https://github.com/erlang/otp/releases/download/OTP-${UPSTREAM_V}/otp_doc_man_${UPSTREAM_V}.tar.gz -> ${PN}_doc_man_${UPSTREAM_V}.tar.gz
 	doc? ( https://github.com/erlang/otp/releases/download/OTP-${UPSTREAM_V}/otp_doc_html_${UPSTREAM_V}.tar.gz -> ${PN}_doc_html_${UPSTREAM_V}.tar.gz )"
+S="${WORKDIR}/otp-OTP-${PV}"
 
 LICENSE="Apache-2.0"
 # We use this subslot because Compiled HiPE Code can be loaded on the exact
@@ -42,12 +43,11 @@ DEPEND="${RDEPEND}
 	dev-lang/perl
 "
 
-S="${WORKDIR}/otp-OTP-${PV}"
-
 PATCHES=(
 	"${FILESDIR}"/${PN}-22.0-dont-ignore-LDFLAGS.patch
 	"${FILESDIR}"/${PN}-24.0.2-serial-configure.patch
 	"${FILESDIR}"/${PN}-25.1.2-c99.patch # Bug #882887
+	"${FILESDIR}"/${PN}-26.2.4-test-errorinfo.patch
 )
 
 SITEFILE=50"${PN}"-gentoo.el
