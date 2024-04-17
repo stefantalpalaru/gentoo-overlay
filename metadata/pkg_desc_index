@@ -859,7 +859,7 @@ net-misc/magic-wormhole-transit-relay 0.2.1-r200: Transit Relay server for Magic
 net-misc/pycnb 0.0.4-r200: Access cnb.cz daily rates with the comfort of your command line
 net-misc/ssvnc 1.0.29-r3: VNC viewer that adds encryption security to VNC connections
 net-misc/streamtuner2 2.2.2-r1: Internet radio browser
-net-p2p/go-ethereum 1.13.14: Official golang implementation of the Ethereum protocol
+net-p2p/go-ethereum 1.13.15: Official golang implementation of the Ethereum protocol
 net-p2p/nicotine+ 9999: A fork of nicotine, a Soulseek client in Python
 net-p2p/nimbus-eth2 24.3.0 9999-r18: Nim implementation of the Ethereum 2.0 blockchain
 net-p2p/pybitmessage 0.6.3.2_p20180521-r2: Reference client for Bitmessage: a P2P communications protocol
