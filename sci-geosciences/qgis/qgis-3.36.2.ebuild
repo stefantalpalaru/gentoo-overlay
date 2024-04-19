@@ -3,7 +3,7 @@
 
 EAPI=8
 
-PYTHON_COMPAT=( python3_{10..11} )
+PYTHON_COMPAT=( python3_{10..12} )
 PYTHON_REQ_USE="sqlite"
 
 inherit cmake python-single-r1 virtualx xdg
@@ -14,8 +14,8 @@ SRC_URI="https://qgis.org/downloads/${P}.tar.bz2
 	examples? ( https://qgis.org/downloads/data/qgis_sample_data.tar.gz -> qgis_sample_data-2.8.14.tar.gz )"
 LICENSE="GPL-2+ GPL-3+"
 SLOT="0"
-KEYWORDS="amd64 ~x86"
-IUSE="3d doc examples +georeferencer grass hdf5 mapserver netcdf opencl oracle pdal polar postgres python qml serial test"
+KEYWORDS="~amd64 ~x86"
+IUSE="3d doc examples +georeferencer grass hdf5 mapserver netcdf opencl oracle pdal postgres python qml serial test"
 
 REQUIRED_USE="${PYTHON_REQUIRED_USE}
 	mapserver? ( python )
@@ -25,9 +25,6 @@ REQUIRED_USE="${PYTHON_REQUIRED_USE}
 # Disabling test suite because upstream disallow running from install path
 RESTRICT="!test? ( test )"
 
-# At some point the dependency on qwtpolar should be
-# replaced with a dependency on qwt[polar]. Currently
-# it does not build with qwt-6.2[polar] though.
 COMMON_DEPEND="
 	app-crypt/qca:2[qt5(+),ssl]
 	>=dev-db/spatialite-4.2.0
@@ -54,7 +51,7 @@ COMMON_DEPEND="
 	>=sci-libs/proj-4.9.3:=
 	sys-libs/zlib
 	>=x11-libs/qscintilla-2.10.1:=[qt5(+)]
-	>=x11-libs/qwt-6.1.2:6=[qt5(+),svg]
+	>=x11-libs/qwt-6.2.0:6=[polar,qt5(+),svg]
 	3d? ( dev-qt/qt3d:5 )
 	georeferencer? ( sci-libs/gsl:= )
 	grass? ( sci-geosciences/grass:= )
@@ -67,7 +64,6 @@ COMMON_DEPEND="
 		sci-libs/gdal:=[oracle]
 	)
 	pdal? ( sci-libs/pdal:= )
-	polar? ( >=x11-libs/qwtpolar-1.1.1-r1[qt5(+)] )
 	postgres? ( dev-db/postgresql:= )
 	python? (
 		${PYTHON_DEPS}
@@ -149,7 +145,6 @@ src_configure() {
 		$(cmake_use_find_package netcdf NetCDF)
 		-DUSE_OPENCL=$(usex opencl)
 		-DWITH_ORACLE=$(usex oracle)
-		-DWITH_QWTPOLAR=$(usex polar)
 		-DWITH_PDAL=$(usex pdal)
 		-DWITH_POSTGRESQL=$(usex postgres)
 		-DWITH_BINDINGS=$(usex python)
