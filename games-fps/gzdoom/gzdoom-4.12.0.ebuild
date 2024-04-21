@@ -8,6 +8,7 @@ inherit cmake desktop xdg flag-o-matic
 DESCRIPTION="A modder-friendly OpenGL source port based on the DOOM engine"
 HOMEPAGE="https://zdoom.org"
 SRC_URI="https://github.com/ZDoom/${PN}/archive/g${PV}.tar.gz -> ${P}.tar.gz"
+S="${WORKDIR}/${PN}-g${PV}"
 
 LICENSE="Apache-2.0 BSD BZIP2 GPL-3 LGPL-2.1+ LGPL-3 MIT
 	non-free? ( Activision ChexQuest3 DOOM-COLLECTORS-EDITION freedist WidePix )"
@@ -26,8 +27,6 @@ DEPEND="
 	sys-libs/zlib
 	gtk? ( x11-libs/gtk+:3 )"
 RDEPEND="${DEPEND}"
-
-S="${WORKDIR}/${PN}-g${PV}"
 
 PATCHES=(
 	"${FILESDIR}"/${PN}-4.7.1-Introduce-the-BUILD_NONFREE-option.patch
