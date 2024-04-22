@@ -829,7 +829,7 @@ media-plugins/refocus-it 2.0.0-r1: Refocus-It plugin for The Gimp
 media-radio/fmreceiver 3.16: SDR-J FM receiver for RTL2832-based USB sticks
 media-radio/qt-dab 6.5: software DAB decoder for use with a dabstick, airspy or sdrplay for RPI and PC
 media-radio/swreceiver 0.8: SDR-J SW receiver for RTL2832-based USB sticks
-media-sound/audacity 3.4.2: Free crossplatform audio editor
+media-sound/audacity 3.5.0: Free crossplatform audio editor
 media-sound/carla 2.5.4 9999: Fully-featured audio plugin host, supports many audio drivers and plugin formats
 media-sound/dcue 1.5: generate CUE sheets from Discogs data
 media-sound/fmit 1.2.14: Free Music Instrument Tuner

@@ -5,7 +5,7 @@ EAPI=8
 
 WX_GTK_VER="3.2-gtk3"
 
-inherit cmake wxwidgets xdg virtualx
+inherit cmake flag-o-matic wxwidgets xdg virtualx
 
 DESCRIPTION="Free crossplatform audio editor"
 HOMEPAGE="https://www.audacityteam.org/"
@@ -16,12 +16,10 @@ HOMEPAGE="https://www.audacityteam.org/"
 MY_THREADPOOL_DATE=20140926
 MY_THREADPOOL="https://raw.githubusercontent.com/progschj/ThreadPool/9a42ec1329f259a5f4881a291db1dcb8f2ad9040/ThreadPool.h -> progschj-ThreadPool-${MY_THREADPOOL_DATE}.h"
 
-KEYWORDS="~amd64 ~arm64 ~ppc64 ~riscv ~x86"
 MY_P="Audacity-${PV}"
+SRC_URI="https://github.com/audacity/audacity/releases/download/Audacity-${PV}/${PN}-sources-${PV}.tar.gz
+		audiocom? ( ${MY_THREADPOOL} )"
 S="${WORKDIR}/${PN}-sources-${PV}"
-SRC_URI="https://github.com/audacity/audacity/releases/download/Audacity-${PV}/${PN}-sources-${PV}.tar.gz"
-
-SRC_URI+=" audiocom? ( ${MY_THREADPOOL} )"
 
 # GPL-2+, GPL-3 - Audacity itself
 # ZLIB - The ThreadPool single-header library
@@ -31,8 +29,13 @@ LICENSE="GPL-2+
 	audiocom? ( ZLIB )
 "
 SLOT="0"
-IUSE="alsa audiocom ffmpeg +flac id3tag +ladspa +lv2 mpg123 ogg
+#KEYWORDS="~amd64 ~arm64 ~ppc64 ~riscv ~x86"
+IUSE="alsa audiocom ffmpeg +flac id3tag +ladspa +lv2 mpg123 +ogg
 	opus +portmixer sbsms test twolame vamp +vorbis wavpack"
+REQUIRED_USE="
+	opus? ( ogg )
+	vorbis? ( ogg )
+"
 RESTRICT="!test? ( test )"
 
 # dev-db/sqlite:3 hard dependency.
@@ -60,7 +63,6 @@ RESTRICT="!test? ( test )"
 RDEPEND="dev-db/sqlite:3
 	dev-libs/expat
 	dev-libs/glib:2
-	dev-libs/rapidjson:=
 	media-libs/libjpeg-turbo:=
 	media-libs/libpng:=
 	media-libs/libsndfile
@@ -90,9 +92,12 @@ RDEPEND="dev-db/sqlite:3
 		media-libs/sratom
 		media-libs/suil
 	)
-	mpg123? ( media-sound/mpg123 )
+	mpg123? ( media-sound/mpg123-base )
 	ogg? ( media-libs/libogg )
-	opus? ( media-libs/opus )
+	opus? (
+		media-libs/opus
+		media-libs/opusfile
+	)
 	sbsms? ( media-libs/libsbsms )
 	twolame? ( media-sound/twolame )
 	vamp? ( media-libs/vamp-plugin-sdk )
@@ -100,11 +105,12 @@ RDEPEND="dev-db/sqlite:3
 	wavpack? ( media-sound/wavpack )
 "
 DEPEND="${RDEPEND}
+	dev-libs/rapidjson
+	x11-base/xorg-proto
 	test? ( <dev-cpp/catch-3:0 )"
-BDEPEND="
+BDEPEND="|| ( dev-lang/nasm dev-lang/yasm )
 	sys-devel/gettext
-	virtual/pkgconfig
-"
+	virtual/pkgconfig"
 
 PATCHES=(
 	# Equivalent to previous versions
@@ -128,18 +134,19 @@ PATCHES=(
 src_prepare() {
 	cmake_src_prepare
 
-	local header_subs="${S}/lib-src/header-substitutes"
-	cat <<-EOF >"${header_subs}/allegro.h" || die
-	/* Hack the allegro.h header substitute to use system headers.  */
-	#include <portsmf/allegro.h>
-	EOF
+	append-cppflags "-I${EPREFIX}/usr/include/portsmf"
 
 	# Keep in sync with has_networking and the ThreadPool.h SRC_URI.
 	if use audiocom; then
-		mkdir -p "${S}/"/lib-src/threadpool/ThreadPool/ || die
-		cp "${DISTDIR}"/progschj-ThreadPool-"${MY_THREADPOOL_DATE}".h \
-		   "${S}"/lib-src/threadpool/ThreadPool/ThreadPool.h || die
+		mkdir -p "${S}/lib-src/threadpool/ThreadPool/" || die
+		cp "${DISTDIR}/progschj-ThreadPool-${MY_THREADPOOL_DATE}.h" \
+		   "${S}/lib-src/threadpool/ThreadPool/ThreadPool.h" || die
 	fi
+
+	# Remove documentation incorrect installations
+	sed -i -e \
+		'/install( FILES "${topdir}\/LICENSE.txt" "${topdir}\/README.md"/,+1d' \
+		src/CMakeLists.txt || die
 }
 
 src_configure() {
@@ -181,12 +188,13 @@ src_configure() {
 		-Daudacity_use_libmp3lame=system
 		-Daudacity_use_libmpg123=$(usex mpg123 system off)
 		-Daudacity_use_libogg=$(usex ogg system off)
-		-Daudacity_use_libopus=$(usex flac system off)
+		-Daudacity_use_libopus=$(usex opus system off)
 		-Daudacity_use_libsndfile=system
 		-Daudacity_use_libvorbis=$(usex vorbis system off)
 		-Daudacity_use_lv2=$(usex lv2 system off)
 		-Daudacity_use_midi=system
 		-Daudacity_use_nyquist=local
+		-Daudacity_use_opusfile=$(usex opus system off)
 		-Daudacity_use_pch=off
 		-Daudacity_use_portaudio=system
 		-Daudacity_use_portmixer=$(usex portmixer system off)
@@ -211,11 +219,4 @@ src_configure() {
 
 src_test() {
 	virtx cmake_src_test
-}
-
-src_install() {
-	cmake_src_install
-
-	# Remove bad doc install
-	rm -r "${ED}"/usr/share/doc || die
 }
