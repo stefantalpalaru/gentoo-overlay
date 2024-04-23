@@ -1,0 +1,98 @@
+From 2e96177e7b1c146a992559da396c3e75121741d6 Mon Sep 17 00:00:00 2001
+From: Matthieu Hodgkinson <saintmatthieu@gmail.com>
+Date: Tue, 23 Apr 2024 15:34:41 +0200
+Subject: [PATCH] leaked progress dialog window fix
+
+---
+ .../lib-project-file-io/SqliteSampleBlock.cpp | 22 ++++++++++++++-----
+ libraries/lib-wave-track/SampleBlock.h        |  5 +----
+ 2 files changed, 17 insertions(+), 10 deletions(-)
+
+diff --git a/libraries/lib-project-file-io/SqliteSampleBlock.cpp b/libraries/lib-project-file-io/SqliteSampleBlock.cpp
+index 05d4594fcd9d..78b048163a1c 100644
+--- a/libraries/lib-project-file-io/SqliteSampleBlock.cpp
++++ b/libraries/lib-project-file-io/SqliteSampleBlock.cpp
+@@ -167,6 +167,11 @@ class SqliteSampleBlockFactory final
+    SampleBlockPtr DoCreateFromId(
+       sampleFormat srcformat, SampleBlockID id) override;
+ 
++   SampleBlock::DeletionCallback GetSampleBlockDeletionCallback() const
++   {
++      return mSampleBlockDeletionCallback;
++   }
++
+ private:
+    void OnBeginPurge(size_t begin, size_t end);
+    void OnEndPurge();
+@@ -175,7 +180,7 @@ class SqliteSampleBlockFactory final
+ 
+    AudacityProject &mProject;
+    Observer::Subscription mUndoSubscription;
+-   std::optional<SampleBlock::DeletionCallback::Scope> mScope;
++   SampleBlock::DeletionCallback mSampleBlockDeletionCallback;
+    const std::shared_ptr<ConnectionPtr> mppConnection;
+ 
+    // Track all blocks that this factory has created, but don't control
+@@ -286,7 +291,7 @@ SampleBlockPtr SqliteSampleBlockFactory::DoCreateFromId(
+    // This may throw database errors
+    // It initializes the rest of the fields
+    ssb->Load(static_cast<SampleBlockID>(id));
+-   
++
+    return ssb;
+ }
+ 
+@@ -338,7 +343,12 @@ SqliteSampleBlock::SqliteSampleBlock(
+ 
+ SqliteSampleBlock::~SqliteSampleBlock()
+ {
+-   DeletionCallback::Call(*this);
++   if (
++      const auto cb = mpFactory ? mpFactory->GetSampleBlockDeletionCallback() :
++                                  SampleBlock::DeletionCallback {})
++   {
++      cb(*this);
++   }
+ 
+    if (IsSilent()) {
+       // The block object was constructed but failed to Load() or Commit().
+@@ -1100,7 +1110,7 @@ void SqliteSampleBlockFactory::OnBeginPurge(size_t begin, size_t end)
+        return;
+    auto purgeStartTime = std::chrono::system_clock::now();
+    std::shared_ptr<ProgressDialog> progressDialog;
+-   mScope.emplace([=, nDeleted = 0](auto&) mutable {
++   mSampleBlockDeletionCallback = [=, nDeleted = 0](auto&) mutable {
+       ++nDeleted;
+       if(!progressDialog)
+       {
+@@ -1111,12 +1121,12 @@ void SqliteSampleBlockFactory::OnBeginPurge(size_t begin, size_t end)
+       }
+       else
+          progressDialog->Poll(nDeleted, nToDelete);
+-   });
++   };
+ }
+ 
+ void SqliteSampleBlockFactory::OnEndPurge()
+ {
+-   mScope.reset();
++   mSampleBlockDeletionCallback = {};
+ }
+ 
+ // Inject our database implementation at startup
+diff --git a/libraries/lib-wave-track/SampleBlock.h b/libraries/lib-wave-track/SampleBlock.h
+index af27ffb18e1e..b5415fdfb736 100644
+--- a/libraries/lib-wave-track/SampleBlock.h
++++ b/libraries/lib-wave-track/SampleBlock.h
+@@ -45,10 +45,7 @@ class MinMaxRMS
+ class WAVE_TRACK_API SampleBlock
+ {
+ public:
+-   //! Type of function that is informed when a block is about to be deleted
+-   struct DeletionCallback : GlobalHook<DeletionCallback,
+-      void(const SampleBlock&)
+-   >{};
++   using DeletionCallback = std::function<void(const SampleBlock &)>;
+ 
+    virtual ~SampleBlock();
+ 

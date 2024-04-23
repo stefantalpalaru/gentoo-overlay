@@ -29,7 +29,7 @@ LICENSE="GPL-2+
 	audiocom? ( ZLIB )
 "
 SLOT="0"
-#KEYWORDS="~amd64 ~arm64 ~ppc64 ~riscv ~x86"
+KEYWORDS="~amd64 ~arm64 ~ppc64 ~riscv ~x86"
 IUSE="alsa audiocom ffmpeg +flac id3tag +ladspa +lv2 mpg123 +ogg
 	opus +portmixer sbsms test twolame vamp +vorbis wavpack"
 REQUIRED_USE="
@@ -129,6 +129,9 @@ PATCHES=(
 
 	# #920363
 	"${FILESDIR}/audacity-3.4.2-audiocom-std-string.patch"
+
+	# https://github.com/audacity/audacity/issues/6321
+	"${FILESDIR}/audacity-3.5.0-progress-window-fix.patch"
 )
 
 src_prepare() {
