@@ -813,6 +813,7 @@ media-gfx/fbcat 0.5.2: utility that takes a screenshot using the framebuffer dev
 media-gfx/gifsicle 9999-r1: Create, manipulate, and optimize GIF images and animations
 media-gfx/gmic 3.3.5-r101: GREYC's Magic Image Converter
 media-gfx/zart 3.2.2_p20220629: G'MIC GUI for video streams
+media-libs/chromaprint 1.5.1-r4: Library implementing a custom algorithm for extracting audio fingerprints
 media-libs/cimg 3.3.5-r100: C++ template image processing toolkit
 media-libs/glee 5.4.0: OpenGL Easy Extension library
 media-libs/hydrogen-drumkits 1.2.3: free drumkits for hydrogen

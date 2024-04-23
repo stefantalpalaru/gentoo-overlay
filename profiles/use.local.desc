@@ -213,6 +213,7 @@ media-gfx/gmic:cli - Build the CLI interface
 media-gfx/gmic:gimp - Build the Qt5 GIMP plugin
 media-gfx/gmic:gui - Build the standalone Qt5 GUI
 media-gfx/gmic:opencv - Enable support for webcams using the OpenCV library
+media-libs/chromaprint:tools - Build and install fpcalc and fpcollect tools
 media-libs/svt-av1:lto - Build with link-time optimizations (LTO)
 media-libs/svt-av1:pgo - Build with profile guided optimizations (PGO)
 media-sound/audacity:audiocom - Enable integrated uploading to audio.com
