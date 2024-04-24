@@ -129,9 +129,6 @@ PATCHES=(
 
 	# #920363
 	"${FILESDIR}/audacity-3.4.2-audiocom-std-string.patch"
-
-	# https://github.com/audacity/audacity/issues/6321
-	"${FILESDIR}/audacity-3.5.0-progress-window-fix.patch"
 )
 
 src_prepare() {
