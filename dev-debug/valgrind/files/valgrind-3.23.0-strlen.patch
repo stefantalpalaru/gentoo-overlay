@@ -1,7 +1,7 @@
-diff -ur valgrind-3.15.0.orig/coregrind/m_redir.c valgrind-3.15.0/coregrind/m_redir.c
---- valgrind-3.15.0.orig/coregrind/m_redir.c	2019-04-13 12:56:21.000000000 +0200
-+++ valgrind-3.15.0/coregrind/m_redir.c	2020-05-16 02:24:09.300965843 +0200
-@@ -1342,9 +1342,6 @@
+diff '--color=auto' -ur valgrind-3.23.0.orig/coregrind/m_redir.c valgrind-3.23.0/coregrind/m_redir.c
+--- valgrind-3.23.0.orig/coregrind/m_redir.c	2024-04-26 18:47:41.000000000 +0200
++++ valgrind-3.23.0/coregrind/m_redir.c	2024-04-27 00:21:15.659078507 +0200
+@@ -1372,9 +1372,6 @@
        add_hardwired_spec(
           "ld-linux.so.2", "index",
           (Addr)&VG_(x86_linux_REDIR_FOR_index), mandatory);
@@ -11,11 +11,10 @@ diff -ur valgrind-3.15.0.orig/coregrind/m_redir.c valgrind-3.15.0/coregrind/m_re
     }
  
  #  elif defined(VGP_amd64_linux)
-@@ -1369,17 +1366,6 @@
-       add_hardwired_spec(
+@@ -1400,17 +1397,6 @@
           "ld-linux-x86-64.so.2", "index",
           (Addr)&VG_(amd64_linux_REDIR_FOR_index), NULL);
--      add_hardwired_spec(
+       add_hardwired_spec(
 -         "ld-linux-x86-64.so.2", "strlen",
 -         (Addr)&VG_(amd64_linux_REDIR_FOR_strlen),
 -#        ifndef GLIBC_MANDATORY_STRLEN_REDIRECT
@@ -26,10 +25,11 @@ diff -ur valgrind-3.15.0.orig/coregrind/m_redir.c valgrind-3.15.0/coregrind/m_re
 -         complain_about_stripped_glibc_ldso
 -#        endif
 -      );   
-    }
- 
- #  elif defined(VGP_ppc32_linux)
-@@ -1387,12 +1373,6 @@
+-      add_hardwired_spec(
+          "ld-linux-x86-64.so.2", "strcmp",
+          (Addr)&VG_(amd64_linux_REDIR_FOR_strcmp),
+ #        ifndef GLIBC_MANDATORY_STRLEN_REDIRECT
+@@ -1426,12 +1412,6 @@
        the start, otherwise ld.so makes a lot of noise. */
     if (0==VG_(strcmp)("Memcheck", VG_(details).name)) {
  
@@ -42,7 +42,7 @@ diff -ur valgrind-3.15.0.orig/coregrind/m_redir.c valgrind-3.15.0/coregrind/m_re
        add_hardwired_spec(
           "ld.so.1", "strcmp",
           (Addr)&VG_(ppc32_linux_REDIR_FOR_strcmp),
-@@ -1412,13 +1392,6 @@
+@@ -1451,13 +1431,6 @@
        the start, otherwise ld.so makes a lot of noise. */
     if (0==VG_(strcmp)("Memcheck", VG_(details).name)) {
  
@@ -56,7 +56,7 @@ diff -ur valgrind-3.15.0.orig/coregrind/m_redir.c valgrind-3.15.0/coregrind/m_re
        add_hardwired_spec(
           "ld64.so.1", "index",
           (Addr)VG_(fnptr_to_fnentry)( &VG_(ppc64_linux_REDIR_FOR_strchr) ),
-@@ -1433,13 +1406,6 @@
+@@ -1472,13 +1445,6 @@
      */
     if (0==VG_(strcmp)("Memcheck", VG_(details).name)) {
  
@@ -70,7 +70,7 @@ diff -ur valgrind-3.15.0.orig/coregrind/m_redir.c valgrind-3.15.0/coregrind/m_re
        add_hardwired_spec(
           "ld64.so.2", "index",
           (Addr)&VG_(ppc64_linux_REDIR_FOR_strchr),
-@@ -1454,17 +1420,6 @@
+@@ -1493,17 +1459,6 @@
        distros, ld.so's soname is ld-linux.so.3, but Ubuntu 14.04 on
        Odroid uses ld-linux-armhf.so.3 for some reason. */
     if (0==VG_(strcmp)("Memcheck", VG_(details).name)) {
@@ -88,7 +88,7 @@ diff -ur valgrind-3.15.0.orig/coregrind/m_redir.c valgrind-3.15.0/coregrind/m_re
        /* memcpy */
        add_hardwired_spec(
           "ld-linux.so.3", "memcpy",
-@@ -1505,11 +1460,6 @@
+@@ -1544,11 +1499,6 @@
        the start, otherwise ld.so makes a lot of noise. */
     if (0==VG_(strcmp)("Memcheck", VG_(details).name)) {
        add_hardwired_spec(
@@ -100,7 +100,7 @@ diff -ur valgrind-3.15.0.orig/coregrind/m_redir.c valgrind-3.15.0/coregrind/m_re
           "ld-linux-aarch64.so.1", "index",
           (Addr)&VG_(arm64_linux_REDIR_FOR_index),
           NULL 
-@@ -1519,13 +1469,6 @@
+@@ -1558,13 +1508,6 @@
           (Addr)&VG_(arm64_linux_REDIR_FOR_strcmp),
           NULL 
        );
@@ -113,8 +113,8 @@ diff -ur valgrind-3.15.0.orig/coregrind/m_redir.c valgrind-3.15.0/coregrind/m_re
 -#     endif
     }
  
- #  elif defined(VGP_x86_darwin)
-@@ -1534,8 +1477,6 @@
+ #  elif defined(VGP_x86_freebsd) || defined(VGP_amd64_freebsd) || defined(VGP_arm64_freebsd)
+@@ -1575,8 +1518,6 @@
     if (0==VG_(strcmp)("Memcheck", VG_(details).name)) {
        add_hardwired_spec("dyld", "strcmp",
                           (Addr)&VG_(x86_darwin_REDIR_FOR_strcmp), NULL);
@@ -123,7 +123,7 @@ diff -ur valgrind-3.15.0.orig/coregrind/m_redir.c valgrind-3.15.0/coregrind/m_re
        add_hardwired_spec("dyld", "strcat",
                           (Addr)&VG_(x86_darwin_REDIR_FOR_strcat), NULL);
        add_hardwired_spec("dyld", "strcpy",
-@@ -1550,8 +1491,6 @@
+@@ -1591,8 +1532,6 @@
     if (0==VG_(strcmp)("Memcheck", VG_(details).name)) {
        add_hardwired_spec("dyld", "strcmp",
                           (Addr)&VG_(amd64_darwin_REDIR_FOR_strcmp), NULL);
@@ -132,15 +132,17 @@ diff -ur valgrind-3.15.0.orig/coregrind/m_redir.c valgrind-3.15.0/coregrind/m_re
        add_hardwired_spec("dyld", "strcat",
                           (Addr)&VG_(amd64_darwin_REDIR_FOR_strcat), NULL);
        add_hardwired_spec("dyld", "strcpy",
-@@ -1579,32 +1518,14 @@
+@@ -1618,34 +1557,15 @@
+ 
+ #  elif defined(VGP_mips32_linux)
     if (0==VG_(strcmp)("Memcheck", VG_(details).name)) {
-       /* this is mandatory - can't sanely continue without it */
-       add_hardwired_spec(
+-      /* this is mandatory - can't sanely continue without it */
+-      add_hardwired_spec(
 -         "ld.so.1", "strlen",
 -         (Addr)&VG_(mips32_linux_REDIR_FOR_strlen),
 -         complain_about_stripped_glibc_ldso
 -      );
--      add_hardwired_spec(
+       add_hardwired_spec(
           "ld.so.1", "index",
           (Addr)&VG_(mips32_linux_REDIR_FOR_index),
           complain_about_stripped_glibc_ldso
@@ -165,7 +167,7 @@ diff -ur valgrind-3.15.0.orig/coregrind/m_redir.c valgrind-3.15.0/coregrind/m_re
        add_hardwired_spec(
           "ld.so.1", "index",
           (Addr)&VG_(mips64_linux_REDIR_FOR_index),
-@@ -1612,11 +1533,6 @@
+@@ -1653,11 +1573,6 @@
        );
  #     if defined(VGABI_64)
        add_hardwired_spec(
@@ -177,7 +179,19 @@ diff -ur valgrind-3.15.0.orig/coregrind/m_redir.c valgrind-3.15.0/coregrind/m_re
           "ld-linux-mipsn8.so.1", "index",
           (Addr)&VG_(mips64_linux_REDIR_FOR_index),
           complain_about_stripped_glibc_ldso
-@@ -1639,10 +1555,6 @@
+@@ -1677,11 +1592,6 @@
+    if (0==VG_(strcmp)("Memcheck", VG_(details).name)) {
+ 
+       add_hardwired_spec(
+-         "ld.so.1", "strlen",
+-         (Addr)&VG_(nanomips_linux_REDIR_FOR_strlen),
+-         complain_about_stripped_glibc_ldso
+-      );
+-      add_hardwired_spec(
+          "ld.so.1", "index",
+          (Addr)&VG_(nanomips_linux_REDIR_FOR_index),
+          complain_about_stripped_glibc_ldso
+@@ -1695,10 +1605,6 @@
        add_hardwired_spec("/lib/ld.so.1", "strcmp",
                           (Addr)&VG_(x86_solaris_REDIR_FOR_strcmp), NULL);
     }
@@ -188,7 +202,7 @@ diff -ur valgrind-3.15.0.orig/coregrind/m_redir.c valgrind-3.15.0/coregrind/m_re
  
  #  elif defined(VGP_amd64_solaris)
     if (0==VG_(strcmp)("Memcheck", VG_(details).name)) {
-@@ -1661,10 +1573,6 @@
+@@ -1717,10 +1623,6 @@
        add_hardwired_spec("/lib/amd64/ld.so.1", "strcat",
                           (Addr)&VG_(amd64_solaris_REDIR_FOR_strcat), NULL);
     }

@@ -30,7 +30,7 @@ app-vim/pony-syntax 0.1_pre20170926 9999: vim plugin: Pony language support
 app-vim/vim-linux-coding-style 0.4_p20200610: Vim plugin to respect the Linux kernel coding style
 dev-cpp/mustache 4.1: Mustache implementation for modern C++
 dev-db/metakit 2.4.9.7_p20110819: Embedded database library
-dev-debug/valgrind 3.22.0-r100: An open-source memory debugger for GNU/Linux
+dev-debug/valgrind 3.23.0-r100: An open-source memory debugger for GNU/Linux
 dev-java/java-service-wrapper 3.5.50-r1: A wrapper that makes it possible to install a Java Application as daemon
 dev-lang/chapel 2.0.1: Chapel programming language compiler
 dev-lang/erlang 26.2.4-r1: Erlang programming language, runtime environment and libraries (OTP)
