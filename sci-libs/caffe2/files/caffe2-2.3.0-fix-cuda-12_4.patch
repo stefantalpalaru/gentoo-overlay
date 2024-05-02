@@ -1,0 +1,20 @@
+diff '--color=auto' -ur pytorch-2.3.0.orig/aten/src/ATen/core/boxing/impl/boxing.h pytorch-2.3.0/aten/src/ATen/core/boxing/impl/boxing.h
+--- pytorch-2.3.0.orig/aten/src/ATen/core/boxing/impl/boxing.h	2024-04-08 22:27:33.000000000 +0200
++++ pytorch-2.3.0/aten/src/ATen/core/boxing/impl/boxing.h	2024-05-02 12:27:58.396609264 +0200
+@@ -39,7 +39,15 @@
+ struct has_ivalue_to : std::false_type {};
+ 
+ template <class T>
+-struct has_ivalue_to<T, std::void_t<decltype(std::declval<IValue>().to<T>())>>
++struct ivalue_to_helper
++{
++    using type = decltype(std::declval<IValue>().template to<T>());
++};
++template <class T>
++using ivalue_to_helper_t = typename ivalue_to_helper<T>::type;
++
++template <class T>
++struct has_ivalue_to<T, std::void_t<ivalue_to_helper_t<T>>>
+ : std::true_type
+ {};
+ 

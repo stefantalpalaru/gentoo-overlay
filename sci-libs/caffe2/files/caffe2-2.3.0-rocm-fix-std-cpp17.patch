@@ -12,7 +12,7 @@ https://github.com/pytorch/pytorch/issues/103222
  # minimal.  I'm not sure if we need hip_hcc or not; for now leave it out
 --- a/caffe2/CMakeLists.txt
 +++ b/caffe2/CMakeLists.txt
-@@ -1598,6 +1598,7 @@ if(USE_ROCM)
+@@ -1712,6 +1712,7 @@ if(USE_ROCM)
  
    # Since PyTorch files contain HIP headers, these flags are required for the necessary definitions to be added.
    target_compile_options(torch_hip PUBLIC ${HIP_CXX_FLAGS})  # experiment
@@ -20,7 +20,7 @@ https://github.com/pytorch/pytorch/issues/103222
    target_link_libraries(torch_hip PUBLIC c10_hip)
  
    if(NOT INTERN_BUILD_MOBILE)
-@@ -1774,6 +1775,7 @@ if(BUILD_TEST)
+@@ -1908,6 +1909,7 @@ if(BUILD_TEST)
        target_include_directories(${test_name} PRIVATE $<INSTALL_INTERFACE:include>)
        target_include_directories(${test_name} PRIVATE ${Caffe2_CPU_INCLUDE} ${Caffe2_HIP_INCLUDE})
        target_compile_options(${test_name} PRIVATE ${HIP_CXX_FLAGS})
@@ -28,7 +28,7 @@ https://github.com/pytorch/pytorch/issues/103222
        add_test(NAME ${test_name} COMMAND $<TARGET_FILE:${test_name}>)
        if(INSTALL_TEST)
          install(TARGETS ${test_name} DESTINATION test)
-@@ -1955,6 +1957,7 @@ if(BUILD_PYTHON)
+@@ -2092,6 +2094,7 @@ if(BUILD_PYTHON)
      endif()
      if(NOT MSVC)
        target_compile_options(caffe2_pybind11_state_hip PRIVATE ${HIP_CXX_FLAGS} -fvisibility=hidden)
@@ -38,14 +38,14 @@ https://github.com/pytorch/pytorch/issues/103222
      set_target_properties(caffe2_pybind11_state_hip PROPERTIES SUFFIX ${PY_EXT_SUFFIX})
 --- a/cmake/Dependencies.cmake
 +++ b/cmake/Dependencies.cmake
-@@ -1287,7 +1287,6 @@ if(USE_ROCM)
+@@ -1278,7 +1278,6 @@
      list(APPEND HIP_CXX_FLAGS -Wno-duplicate-decl-specifier)
      list(APPEND HIP_CXX_FLAGS -DCAFFE2_USE_MIOPEN)
      list(APPEND HIP_CXX_FLAGS -DTHRUST_DEVICE_SYSTEM=THRUST_DEVICE_SYSTEM_HIP)
 -    list(APPEND HIP_CXX_FLAGS -std=c++17)
-     add_definitions(-DROCM_VERSION=${ROCM_VERSION_DEV_INT})
-     add_definitions(-DTORCH_HIP_VERSION=${TORCH_HIP_VERSION})
-     message("TORCH_HIP_VERSION=${TORCH_HIP_VERSION} is added as a compiler defines")
+     if(ROCM_VERSION_DEV VERSION_GREATER_EQUAL "6.0.0")
+       list(APPEND HIP_CXX_FLAGS -DHIPBLAS_V2)
+     endif()
 --- a/cmake/public/utils.cmake
 +++ b/cmake/public/utils.cmake
 @@ -335,6 +335,7 @@ function(caffe2_hip_binary_target target_name_or_src)

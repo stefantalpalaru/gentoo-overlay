@@ -45,7 +45,7 @@ RDEPEND="
 	sci-libs/foxi
 	cuda? (
 		=dev-libs/cudnn-8*
-		>=dev-libs/cudnn-frontend-0.9.2:0/8
+		>=dev-libs/cudnn-frontend-1.0.3:0/8
 		dev-util/nvidia-cuda-toolkit:=[profiler]
 	)
 	fbgemm? ( >=dev-libs/FBGEMM-2023.12.01 )
@@ -81,7 +81,7 @@ RDEPEND="
 "
 DEPEND="
 	${RDEPEND}
-	cuda? ( >=dev-libs/cutlass-3.1.0 )
+	cuda? ( >=dev-libs/cutlass-3.4.1 )
 	onednn? ( sci-libs/ideep )
 	dev-libs/psimd
 	dev-libs/FP16
@@ -100,13 +100,13 @@ PATCHES=(
 	"${FILESDIR}"/${PN}-1.13.0-install-dirs.patch
 	"${FILESDIR}"/${PN}-1.12.0-glog-0.6.0.patch
 	"${FILESDIR}"/${PN}-1.13.1-tensorpipe.patch
-	"${FILESDIR}"/${PN}-2.0.0-gcc13.patch
-	"${FILESDIR}"/${PN}-2.0.0-cudnn_include_fix.patch
+	"${FILESDIR}"/${PN}-2.3.0-cudnn_include_fix.patch
+	"${FILESDIR}"/caffe2-2.3.0-fix-cuda-12_4.patch
 	"${FILESDIR}"/${PN}-2.1.2-fix-rpath.patch
 	"${FILESDIR}"/${PN}-2.1.2-fix-openmp-link.patch
-	"${FILESDIR}"/${PN}-2.1.2-rocm-fix-std-cpp17.patch
-	"${FILESDIR}"/caffe2-2.2.1-fix-cuda-12_4.patch
-	"${FILESDIR}"/caffe2-2.2.1-cuda-thrust.patch
+	"${FILESDIR}"/${PN}-2.3.0-rocm-fix-std-cpp17.patch
+	"${FILESDIR}"/caffe2-2.2.2-musl.patch
+	"${FILESDIR}"/caffe2-2.3.0-CMakeFix.patch
 )
 
 src_prepare() {
