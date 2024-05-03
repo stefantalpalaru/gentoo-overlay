@@ -8,6 +8,7 @@ inherit unpacker xdg-utils
 DESCRIPTION="A Markdown Editor for the 21st century."
 HOMEPAGE="https://www.zettlr.com/"
 SRC_URI="https://github.com/Zettlr/Zettlr/releases/download/v${PV}/Zettlr-${PV}-amd64.deb"
+S="${WORKDIR}"
 
 LICENSE="GPL-3"
 SLOT="0"
@@ -25,7 +26,6 @@ RDEPEND="${DEPEND}
 "
 
 RESTRICT="mirror"
-S="${WORKDIR}"
 
 src_unpack() {
 	unpack_deb ${A}
