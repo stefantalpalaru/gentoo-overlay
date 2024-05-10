@@ -1,4 +1,4 @@
-# Copyright 1999-2022 Gentoo Authors
+# Copyright 1999-2024 Gentoo Authors
 # Distributed under the terms of the GNU General Public License v2
 
 # @ECLASS: python-utils-r1.eclass
@@ -32,7 +32,8 @@ if [[ ${_PYTHON_ECLASS_INHERITED} ]]; then
 	die 'python-r1 suite eclasses can not be used with python.eclass.'
 fi
 
-if [[ ! ${_PYTHON_UTILS_R1} ]]; then
+if [[ ! ${_PYTHON_UTILS_R1_ECLASS} ]]; then
+_PYTHON_UTILS_R1_ECLASS=1
 
 [[ ${EAPI} == [67] ]] && inherit eapi8-dosym
 [[ ${EAPI} == 6 ]] && inherit eqawarn
@@ -46,7 +47,7 @@ _PYTHON_ALL_IMPLS=(
 	pypy3
 	python2_7
 	tauthon2_8
-	python3_{10..12}
+	python3_{10..13}
 )
 readonly _PYTHON_ALL_IMPLS
 
@@ -86,7 +87,7 @@ _python_verify_patterns() {
 	local impl pattern
 	for pattern; do
 		case ${pattern} in
-			-[23]|3.[89]|3.1[01])
+			-[23]|3.[89]|3.1[0-3])
 				continue
 				;;
 		esac
@@ -120,11 +121,18 @@ _python_verify_patterns() {
 _python_set_impls() {
 	local i
 
-	if ! declare -p PYTHON_COMPAT &>/dev/null; then
-		die 'PYTHON_COMPAT not declared.'
+	# TODO: drop BASH_VERSINFO check when we require EAPI 8
+	if [[ ${BASH_VERSINFO[0]} -ge 5 ]]; then
+		[[ ${PYTHON_COMPAT@a} == *a* ]]
+	else
+		[[ $(declare -p PYTHON_COMPAT) == "declare -a"* ]]
 	fi
-	if [[ $(declare -p PYTHON_COMPAT) != "declare -a"* ]]; then
-		die 'PYTHON_COMPAT must be an array.'
+	if [[ ${?} -ne 0 ]]; then
+		if ! declare -p PYTHON_COMPAT &>/dev/null; then
+			die 'PYTHON_COMPAT not declared.'
+		else
+			die 'PYTHON_COMPAT must be an array.'
+		fi
 	fi
 
 	local obsolete=()
@@ -135,7 +143,7 @@ _python_set_impls() {
 			# please keep them in sync with _PYTHON_ALL_IMPLS
 			# and _PYTHON_HISTORICAL_IMPLS
 			case ${i} in
-				pypy3|python2_7|tauthon2_8|python3_9|python3_1[0-2])
+				pypy3|python2_7|tauthon2_8|python3_9|python3_1[0-3])
 					;;
 				jython2_7|pypy|pypy1_[89]|pypy2_0|python2_[5-6]|python3_[1-9])
 					obsolete+=( "${i}" )
@@ -152,17 +160,6 @@ _python_set_impls() {
 		done
 	fi
 
-	if [[ -n ${obsolete[@]} && ${EBUILD_PHASE} == setup ]]; then
-		# complain if people don't clean up old impls while touching
-		# the ebuilds recently.  use the copyright year to infer last
-		# modification
-		# NB: this check doesn't have to work reliably
-		if [[ $(head -n 1 "${EBUILD}" 2>/dev/null) == *2022* ]]; then
-			eqawarn "Please clean PYTHON_COMPAT of obsolete implementations:"
-			eqawarn "  ${obsolete[*]}"
-		fi
-	fi
-
 	local supp=() unsupp=()
 
 	for i in "${_PYTHON_ALL_IMPLS[@]}"; do
@@ -172,6 +169,10 @@ _python_set_impls() {
 			unsupp+=( "${i}" )
 		fi
 	done
+
+	if [[ ! ${supp[@]} ]]; then
+		die "No supported implementation in PYTHON_COMPAT."
+	fi
 
 	if [[ ${_PYTHON_SUPPORTED_IMPLS[@]} ]]; then
 		# set once already, verify integrity
@@ -221,12 +222,12 @@ _python_impl_matches() {
 			-3)
 				[[ ${impl} =~ python3 ]] && return 0
 				;;
-			3.9)
-				# the only unmasked pypy3 version is pypy3.9 atm
+			3.10)
+				# the only unmasked pypy3 version is pypy3.10 atm
 				[[ ${impl} == python${pattern/./_} || ${impl} == pypy3 ]] &&
 					return 0
 				;;
-			3.8|3.1[01])
+			3.8|3.9|3.1[1-3])
 				[[ ${impl} == python${pattern/./_} ]] && return 0
 				;;
 			*)
@@ -322,15 +323,17 @@ _python_export() {
 				debug-print "${FUNCNAME}: EPYTHON = ${EPYTHON}"
 				;;
 			PYTHON)
-				export PYTHON=${EPREFIX}/usr/bin/${impl}
+				# Under EAPI 7+, this should just use ${BROOT}, but Portage
+				# <3.0.50 was buggy, and prefix users need this to update.
+				export PYTHON=${BROOT-${EPREFIX}}/usr/bin/${impl}
 				debug-print "${FUNCNAME}: PYTHON = ${PYTHON}"
 				;;
 			PYTHON_SITEDIR)
 				[[ -n ${PYTHON} ]] || die "PYTHON needs to be set for ${var} to be exported, or requested before it"
 				PYTHON_SITEDIR=$(
-					"${PYTHON}" - <<-EOF || die
-						import sysconfig
-						print(sysconfig.get_path("purelib"))
+					"${PYTHON}" - "${EPREFIX}/usr" <<-EOF || die
+						import sys, sysconfig
+						print(sysconfig.get_path("purelib", vars={"base": sys.argv[1]}))
 					EOF
 				)
 				export PYTHON_SITEDIR
@@ -339,9 +342,9 @@ _python_export() {
 			PYTHON_INCLUDEDIR)
 				[[ -n ${PYTHON} ]] || die "PYTHON needs to be set for ${var} to be exported, or requested before it"
 				PYTHON_INCLUDEDIR=$(
-					"${PYTHON}" - <<-EOF || die
-						import sysconfig
-						print(sysconfig.get_path("platinclude"))
+					"${PYTHON}" - "${ESYSROOT}/usr" <<-EOF || die
+						import sys, sysconfig
+						print(sysconfig.get_path("platinclude", vars={"installed_platbase": sys.argv[1]}))
 					EOF
 				)
 				export PYTHON_INCLUDEDIR
@@ -610,9 +613,7 @@ python_optimize() {
 		debug-print "${FUNCNAME}: using sys.path: ${*/%/;}"
 	fi
 
-	local jobs=$(makeopts_jobs "${MAKEOPTS}" INF)
-	[[ ${jobs} == INF ]] && jobs=$(get_nproc)
-
+	local jobs=$(makeopts_jobs)
 	local d
 	for d; do
 		# make sure to get a nice path without //
@@ -631,7 +632,8 @@ python_optimize() {
 				"${PYTHON}" -O -m compileall -j "${jobs}" -q -f -d "${instpath}" "${d}"
 				"${PYTHON}" -OO -m compileall -j "${jobs}" -q -f -d "${instpath}" "${d}"
 				;;
-			python*)
+			python*|pypy3)
+				# Python 3.9+
 				"${PYTHON}" -m compileall -j "${jobs}" -o 0 -o 1 -o 2 --hardlink-dupes -q -f -d "${instpath}" "${d}"
 				;;
 			*)
@@ -889,7 +891,7 @@ python_doheader() {
 	[[ ${EPYTHON} ]] || die 'No Python implementation set (EPYTHON is null).'
 
 	local includedir=$(python_get_includedir)
-	local d=${includedir#${EPREFIX}}
+	local d=${includedir#${ESYSROOT}}
 
 	(
 		insopts -m 0644
@@ -1044,8 +1046,6 @@ python_fix_shebang() {
 	debug-print-function ${FUNCNAME} "${@}"
 
 	[[ ${EPYTHON} ]] || die "${FUNCNAME}: EPYTHON unset (pkg_setup not called?)"
-	local PYTHON
-	_python_export "${EPYTHON}" PYTHON
 
 	local force quiet
 	while [[ ${@} ]]; do
@@ -1090,11 +1090,10 @@ python_fix_shebang() {
 					"${EPYTHON}")
 						match=1
 						;;
-					python|python[23])
+					python|python3)
 						match=1
-						[[ ${in_path##*/} == python2 ]] && error=1
 						;;
-					python[23].[0-9]|python3.[1-9][0-9]|pypy|pypy3|jython[23].[0-9])
+					python2|python[23].[0-9]|python3.[1-9][0-9]|pypy|pypy3|jython[23].[0-9])
 						# Explicit mismatch.
 						match=1
 						error=1
@@ -1119,7 +1118,7 @@ python_fix_shebang() {
 			if [[ ! ${error} ]]; then
 				debug-print "${FUNCNAME}: in file ${f#${D%/}}"
 				debug-print "${FUNCNAME}: rewriting shebang: ${shebang}"
-				sed -i -e "1s@${from}@#!${PYTHON}@" "${f}" || die
+				sed -i -e "1s@${from}@#!${EPREFIX}/usr/bin/${EPYTHON}@" "${f}" || die
 				any_fixed=1
 			else
 				eerror "The file has incompatible shebang:"
@@ -1255,6 +1254,62 @@ _python_check_EPYTHON() {
 	fi
 }
 
+# @FUNCTION: _python_check_occluded_packages
+# @INTERNAL
+# @DESCRIPTION:
+# Check if the current directory does not contain any incomplete
+# package sources that would block installed packages from being used
+# (and effectively e.g. make it impossible to load compiled extensions).
+_python_check_occluded_packages() {
+	debug-print-function ${FUNCNAME} "${@}"
+
+	[[ -z ${BUILD_DIR} || ! -d ${BUILD_DIR}/install ]] && return
+
+	local sitedir="${BUILD_DIR}/install$(python_get_sitedir)"
+	# avoid unnecessarily checking if we are inside install dir
+	[[ ${sitedir} -ef . ]] && return
+
+	local f fn diff l
+	for f in "${sitedir}"/*/; do
+		f=${f%/}
+		fn=${f##*/}
+
+		# skip metadata directories
+		[[ ${fn} == *.dist-info || ${fn} == *.egg-info ]] && continue
+
+		if [[ -d ${fn} ]]; then
+			diff=$(
+				comm -1 -3 <(
+					find "${fn}" -type f -not -path '*/__pycache__/*' |
+						sort
+					assert
+				) <(
+					cd "${sitedir}" &&
+						find "${fn}" -type f -not -path '*/__pycache__/*' |
+						sort
+					assert
+				)
+			)
+
+			if [[ -n ${diff} ]]; then
+				eqawarn "The directory ${fn} occludes package installed for ${EPYTHON}."
+				eqawarn "The installed package includes additional files:"
+				eqawarn
+				while IFS= read -r l; do
+					eqawarn "    ${l}"
+				done <<<"${diff}"
+				eqawarn
+
+				if [[ ! ${_PYTHON_WARNED_OCCLUDED_PACKAGES} ]]; then
+					eqawarn "For more information on occluded packages, please see:"
+					eqawarn "https://projects.gentoo.org/python/guide/test.html#importerrors-for-c-extensions"
+					_PYTHON_WARNED_OCCLUDED_PACKAGES=1
+				fi
+			fi
+		fi
+	done
+}
+
 # @VARIABLE: EPYTEST_DESELECT
 # @DEFAULT_UNSET
 # @DESCRIPTION:
@@ -1273,6 +1328,31 @@ _python_check_EPYTHON() {
 # parameter, when calling epytest.  The listed files will be entirely
 # skipped from test collection.
 
+# @ECLASS_VARIABLE: EPYTEST_TIMEOUT
+# @DEFAULT_UNSET
+# @DESCRIPTION:
+# If set to a non-empty value, enables pytest-timeout plugin and sets
+# test timeout to the specified value.  This variable can be either set
+# in ebuilds that are known to hang, or by user to prevent hangs
+# in automated test environments.  If this variable is set prior
+# to calling distutils_enable_tests in distutils-r1, a test dependency
+# on dev-python/pytest-timeout is added automatically.
+
+# @ECLASS_VARIABLE: EPYTEST_XDIST
+# @DEFAULT_UNSET
+# @DESCRIPTION:
+# If set to a non-empty value, enables running tests in parallel
+# via pytest-xdist plugin.  If this variable is set prior to calling
+# distutils_enable_tests in distutils-r1, a test dependency
+# on dev-python/pytest-xdist is added automatically.
+
+# @ECLASS_VARIABLE: EPYTEST_JOBS
+# @USER_VARIABLE
+# @DEFAULT_UNSET
+# @DESCRIPTION:
+# Specifies the number of jobs for parallel (pytest-xdist) test runs.
+# When unset, defaults to -j from MAKEOPTS, or the current nproc.
+
 # @FUNCTION: epytest
 # @USAGE: [<args>...]
 # @DESCRIPTION:
@@ -1285,16 +1365,10 @@ epytest() {
 	debug-print-function ${FUNCNAME} "${@}"
 
 	_python_check_EPYTHON
+	_python_check_occluded_packages
 
-	local color
-	case ${NOCOLOR} in
-		true|yes)
-			color=no
-			;;
-		*)
-			color=yes
-			;;
-	esac
+	local color=yes
+	[[ ${NO_COLOR} ]] && color=no
 
 	local args=(
 		# verbose progress reporting and tracebacks
@@ -1307,31 +1381,82 @@ epytest() {
 		# override filterwarnings=error, we do not really want -Werror
 		# for end users, as it tends to fail on new warnings from deps
 		-Wdefault
+		# however, do error out if the package failed to load
+		# an appropriate async plugin
+		-Werror::pytest.PytestUnhandledCoroutineWarning
 		# override color output
 		"--color=${color}"
 		# count is more precise when we're dealing with a large number
 		# of tests
 		-o console_output_style=count
-		# disable the undesirable-dependency plugins by default to
-		# trigger missing argument strips.  strip options that require
-		# them from config files.  enable them explicitly via "-p ..."
-		# if you *really* need them.
-		-p no:cov
-		-p no:flake8
-		-p no:flakes
-		-p no:pylint
-		# sterilize pytest-markdown as it runs code snippets from all
-		# *.md files found without any warning
-		-p no:markdown
-		# pytest-sugar undoes everything that's good about pytest output
-		# and makes it hard to read logs
-		-p no:sugar
-		# pytest-xvfb automatically spawns Xvfb for every test suite,
-		# effectively forcing it even when we'd prefer the tests
-		# not to have DISPLAY at all, causing crashes sometimes
-		# and causing us to miss missing virtualx usage
-		-p no:xvfb
+		# minimize the temporary directory retention, the test suites
+		# of some packages can grow them pretty large and normally
+		# we don't need to preserve them
+		-o tmp_path_retention_count=0
+		-o tmp_path_retention_policy=failed
 	)
+
+	if [[ ! ${PYTEST_DISABLE_PLUGIN_AUTOLOAD} ]]; then
+		args+=(
+			# disable the undesirable-dependency plugins by default to
+			# trigger missing argument strips.  strip options that require
+			# them from config files.  enable them explicitly via "-p ..."
+			# if you *really* need them.
+			-p no:cov
+			-p no:flake8
+			-p no:flakes
+			-p no:pylint
+			# sterilize pytest-markdown as it runs code snippets from all
+			# *.md files found without any warning
+			-p no:markdown
+			# pytest-sugar undoes everything that's good about pytest output
+			# and makes it hard to read logs
+			-p no:sugar
+			# pytest-xvfb automatically spawns Xvfb for every test suite,
+			# effectively forcing it even when we'd prefer the tests
+			# not to have DISPLAY at all, causing crashes sometimes
+			# and causing us to miss missing virtualx usage
+			-p no:xvfb
+			# intrusive packages that break random test suites
+			-p no:pytest-describe
+			-p no:plus
+			-p no:tavern
+			# does something to logging
+			-p no:salt-factories
+		)
+	fi
+
+	if [[ -n ${EPYTEST_TIMEOUT} ]]; then
+		if [[ ${PYTEST_PLUGINS} != *pytest_timeout* ]]; then
+			args+=(
+				-p timeout
+			)
+		fi
+
+		args+=(
+			"--timeout=${EPYTEST_TIMEOUT}"
+		)
+	fi
+
+	if [[ ${EPYTEST_XDIST} ]]; then
+		local jobs=${EPYTEST_JOBS:-$(makeopts_jobs)}
+		if [[ ${jobs} -gt 1 ]]; then
+			if [[ ${PYTEST_PLUGINS} != *xdist.plugin* ]]; then
+				args+=(
+					# explicitly enable the plugin, in case the ebuild was
+					# using PYTEST_DISABLE_PLUGIN_AUTOLOAD=1
+					-p xdist
+				)
+			fi
+			args+=(
+				-n "${jobs}"
+				# worksteal ensures that workers don't end up idle when heavy
+				# jobs are unevenly distributed
+				--dist=worksteal
+			)
+		fi
+	fi
+
 	local x
 	for x in "${EPYTEST_DESELECT[@]}"; do
 		args+=( --deselect "${x}" )
@@ -1367,8 +1492,14 @@ eunittest() {
 	debug-print-function ${FUNCNAME} "${@}"
 
 	_python_check_EPYTHON
+	_python_check_occluded_packages
 
-	set -- "${EPYTHON}" -m unittest_or_fail discover -v "${@}"
+	# unittest fails with "no tests" correctly since Python 3.12
+	local runner=unittest
+	if _python_impl_matches "${EPYTHON}" -2 3.{9..11}; then
+		runner=unittest_or_fail
+	fi
+	set -- "${EPYTHON}" -m "${runner}" discover -v "${@}"
 
 	echo "${@}" >&2
 	"${@}" || die -n "Tests failed with ${EPYTHON}"
@@ -1411,10 +1542,8 @@ _python_run_check_deps() {
 # A convenience wrapper for has_version() with verbose output and better
 # defaults for use in python_check_deps().
 #
-# The wrapper accepts EAPI 7+-style -b/-d/-r options to indicate
-# the root to perform the lookup on.  Unlike has_version, the default
-# is -b.  In EAPI 6, -b and -d are translated to --host-root
-# for compatibility.
+# The wrapper accepts -b/-d/-r options to indicate the root to perform
+# the lookup on.  Unlike has_version, the default is -b.
 #
 # The wrapper accepts multiple package specifications.  For the check
 # to succeed, *all* specified atoms must match.
@@ -1447,5 +1576,4 @@ python_has_version() {
 	return 0
 }
 
-_PYTHON_UTILS_R1=1
 fi
