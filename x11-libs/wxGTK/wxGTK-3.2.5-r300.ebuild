@@ -1,4 +1,4 @@
-# Copyright 1999-2023 Gentoo Authors
+# Copyright 1999-2024 Gentoo Authors
 # Distributed under the terms of the GNU General Public License v2
 
 EAPI=8
@@ -9,9 +9,8 @@ DESCRIPTION="GTK+ version of wxWidgets, a cross-platform C++ GUI toolkit"
 HOMEPAGE="https://wxwidgets.org/"
 SRC_URI="https://github.com/wxWidgets/wxWidgets/releases/download/v${PV}/wxWidgets-${PV}.tar.bz2
 	doc? ( https://github.com/wxWidgets/wxWidgets/releases/download/v${PV}/wxWidgets-${PV}-docs-html.tar.bz2 )"
-
-KEYWORDS="~alpha ~amd64 ~arm ~arm64 ~hppa ~ia64 ~mips ~ppc ~ppc64 ~riscv ~sparc ~x86 ~amd64-linux ~x86-linux"
-IUSE="+X aqua doc debug egl gstreamer libnotify lzma opengl sdl tiff webkit"
+S="${WORKDIR}/wxWidgets-${PV}"
+LICENSE="wxWinLL-3 GPL-2 doc? ( wxWinFDL-3 )"
 
 WXSUBVERSION=$(if [[ $(ver_cut 4 ${PV}) != "" ]]; then echo ${PV}; else echo ${PV}.0-gtk3; fi)			# 3.0.3.0-gtk3
 WXVERSION=$(ver_cut 1-3 ${PV})			# 3.0.3
@@ -21,6 +20,8 @@ WXRELEASE_NODOT=${WXRELEASE//./}		# 30-gtk3
 WXRELEASE_NODOTSLASH=${WXRELEASE//-/}	# 30gtk3
 
 SLOT="${WXRELEASE}/${WXVERSION}"
+KEYWORDS="~alpha ~amd64 ~arm ~arm64 ~hppa ~ia64 ~mips ~ppc ~ppc64 ~riscv ~sparc ~x86 ~amd64-linux ~x86-linux"
+IUSE="+X aqua doc debug egl gstreamer libnotify lzma opengl sdl tiff webkit"
 
 RDEPEND="
 	dev-libs/expat[${MULTILIB_USEDEP}]
@@ -59,10 +60,6 @@ DEPEND="${RDEPEND}
 	X? ( x11-base/xorg-proto )"
 
 PDEPEND=">=app-eselect/eselect-wxwidgets-20131230"
-
-LICENSE="wxWinLL-3 GPL-2 doc? ( wxWinFDL-3 )"
-
-S="${WORKDIR}/wxWidgets-${PV}"
 
 src_prepare() {
 	default
