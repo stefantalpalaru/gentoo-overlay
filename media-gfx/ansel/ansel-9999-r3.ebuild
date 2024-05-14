@@ -1,4 +1,4 @@
-# Copyright 1999-2023 Gentoo Authors
+# Copyright 1999-2024 Gentoo Authors
 # Distributed under the terms of the GNU General Public License v2
 
 EAPI=8
@@ -14,7 +14,7 @@ LICENSE="GPL-3 CC-BY-3.0"
 SLOT="0"
 
 if [[ ${PV} != *9999* ]]; then
-	EGIT_COMMIT="ca74e8a2eb11db58db1b170b62687e41bb88f6fa"
+	EGIT_COMMIT="61eb388760d130476415a51e19f94b199a1088fe"
 	KEYWORDS="~amd64 ~arm64 -x86"
 fi
 
