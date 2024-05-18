@@ -17,7 +17,7 @@ SLOT="0/2"
 KEYWORDS="amd64 ~arm ~arm64 ~hppa ~ia64 ~loong ~ppc ~ppc64 ~riscv sparc x86"
 IUSE="lto pgo cpu_flags_x86_avx512f"
 
-BDEPEND="amd64? ( dev-lang/yasm )"
+BDEPEND="amd64? ( dev-lang/nasm )"
 
 PATCHES=(
 	"${FILESDIR}"/svt-av1-1.5.0-fortify-no-override.patch
