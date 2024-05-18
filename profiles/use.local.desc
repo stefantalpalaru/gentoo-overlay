@@ -21,6 +21,7 @@ app-admin/conky:nvidia - Enable reading of nvidia card temperature sensors via x
 app-admin/conky:portmon - Enable support for tcp (ip4) port monitoring
 app-admin/conky:thinkpad - Enable support for IBM/Lenovo notebooks
 app-admin/conky:webserver - Enable support to act as a webserver serving conkys output using net-libs/libmicrohttpd
+app-admin/conky:xinput - Enable Xinput support
 app-admin/conky:xmms2 - Enable monitoring of music played by media-sound/xmms2
 app-admin/zenmonitor3:cli - Build zenmonitor-cli
 app-emulation/playonlinux:winbind - Enables support for the winbind auth daemon
