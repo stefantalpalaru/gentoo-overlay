@@ -14,8 +14,8 @@ SRC_URI="https://github.com/stefantalpalaru/transmission-og/releases/download/${
 # MIT is in several libtransmission/ headers.
 LICENSE="|| ( GPL-2 GPL-3 Transmission-OpenSSL-exception ) GPL-2 MIT"
 SLOT="0"
-IUSE="appindicator doc gtk lightweight nls mbedtls qt5 static-libs systemd test"
 KEYWORDS="~amd64 ~arm ~arm64 ~ppc ~ppc64 ~x86"
+IUSE="appindicator doc gtk lightweight nls mbedtls qt5 static-libs systemd test"
 RESTRICT="!test? ( test )"
 
 ACCT_DEPEND="
