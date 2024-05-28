@@ -14,6 +14,7 @@ DESCRIPTION="A deep learning framework"
 HOMEPAGE="https://pytorch.org/"
 SRC_URI="https://github.com/pytorch/${MYPN}/archive/refs/tags/v${PV}.tar.gz
 	-> ${MYP}.tar.gz"
+
 S="${WORKDIR}"/${MYP}
 
 LICENSE="BSD"
@@ -43,8 +44,7 @@ RDEPEND="
 	dev-libs/pthreadpool
 	dev-libs/sleef
 	virtual/lapack
-	>=sci-libs/onnx-1.12.0
-	<sci-libs/onnx-1.15.0
+	sci-libs/onnx
 	sci-libs/foxi
 	cuda? (
 		=dev-libs/cudnn-8*
