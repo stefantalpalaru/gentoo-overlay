@@ -24,7 +24,6 @@ app-admin/conky:webserver - Enable support to act as a webserver serving conkys 
 app-admin/conky:xinput - Enable Xinput support
 app-admin/conky:xmms2 - Enable monitoring of music played by media-sound/xmms2
 app-admin/zenmonitor3:cli - Build zenmonitor-cli
-app-emulation/playonlinux:winbind - Enables support for the winbind auth daemon
 app-emulation/vmware-workstation:macos-guests - Support macOS guests.
 app-emulation/vmware-workstation:modules - Install app-emulation/vmware-modules in order to run VMs locally.
 app-emulation/vmware-workstation:ovftool - Install OVF tool.

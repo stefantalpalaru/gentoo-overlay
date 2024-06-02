@@ -10,7 +10,6 @@ app-crypt/certbot-dns-linode 1.32.0-r1 2.8.0 2.9.0 2.10.0: Linode DNS Authentica
 app-crypt/certbot-s3front 0.4.2_p20201118-r3: S3/CloudFront plugin for Let's Encrypt client
 app-editors/gedit 3.32.2-r4: A text editor for the GNOME desktop
 app-emacs/pymacs 0.26-r200: A tool that allows both-side communication beetween Python and Emacs Lisp
-app-emulation/playonlinux 4.4-r4: Set of scripts to easily install and use Windows games and software
 app-emulation/vagrant-bin 2.0.3: Tool for building and distributing virtual machines
 app-emulation/vmware-modules 17.5.2: VMware kernel modules
 app-emulation/vmware-workstation 17.5.2.23775571: Emulate a complete PC without the performance overhead of most emulators
