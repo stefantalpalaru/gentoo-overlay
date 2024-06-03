@@ -586,7 +586,7 @@ dev-python/python-oembed 0.2.4-r1: A Python library that implements an OEmbed co
 dev-python/python-openid 2.2.5-r200: OpenID support for servers and consumers
 dev-python/python-openstackclient 4.0.0-r200: A client for the OpenStack APIs
 dev-python/python-pam 0.1.4-r1: A python interface to the PAM library on linux using ctypes
-dev-python/python-pluginloader 1.0.0-r4 1.0.0-r202: Library to manage python plugins/extensions
+dev-python/python-pluginloader 1.0.0-r5 1.0.0-r203: Library to manage python plugins/extensions
 dev-python/python-prctl 1.6.1-r1: Control process attributes through prctl
 dev-python/python-recaptcha 2.0.1-r200: A plugin for reCAPTCHA and reCAPTCHA Mailhide
 dev-python/pythondialog 3.5.1-r3 3.5.1-r201: A Python module for making simple text/console-mode user interfaces
