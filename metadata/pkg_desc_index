@@ -799,6 +799,7 @@ games-fps/gzdoom 4.12.2: A modder-friendly OpenGL source port based on the DOOM 
 games-misc/bsd-games 2.17_p28-r2: Collection of games from NetBSD
 games-sports/trigger 0.6.6.1: Free OpenGL rally car racing game
 games-util/minigalaxy 1.2.6: A simple GOG client for Linux
+games-util/new-lg4ff 0.4.0-r1 9999-r1: Experimental Logitech force feedback module
 games-util/qzdl 3.1.1: Qt version of BioHazard's ZDoom Launcher (ZDL)
 gnome-base/libgnome-keyring 3.12.0-r5: Compatibility library for accessing secrets
 media-fonts/breeze-sans 20170821-r3: a humanist sans-serif typeface designed by Dalton Maag for Samsung
