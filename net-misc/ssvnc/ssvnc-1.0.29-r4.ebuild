@@ -1,13 +1,14 @@
-# Copyright 1999-2019 Gentoo Authors
+# Copyright 1999-2024 Gentoo Authors
 # Distributed under the terms of the GNU General Public License v2
 
-EAPI=6
+EAPI=8
 
-inherit eutils multilib toolchain-funcs
+inherit toolchain-funcs
 
 DESCRIPTION="VNC viewer that adds encryption security to VNC connections"
-HOMEPAGE="http://www.karlrunge.com/x11vnc/ssvnc.html"
-SRC_URI="mirror://sourceforge/ssvnc/${P}.src.tar.gz"
+HOMEPAGE="http://www.karlrunge.com/x11vnc/ssvnc.html
+		https://sourceforge.net/projects/ssvnc/"
+SRC_URI="https://downloads.sourceforge.net/${PN}/${PN}/${P}.src.tar.gz"
 
 LICENSE="GPL-2"
 SLOT="0"
@@ -15,9 +16,9 @@ KEYWORDS="amd64 x86 ~amd64-linux ~x86-linux"
 IUSE="java"
 
 RDEPEND="sys-libs/zlib
-	virtual/jpeg:0
 	dev-libs/openssl:0=
 	dev-lang/tk:0
+	media-libs/libjpeg-turbo
 	net-misc/stunnel
 	java? ( virtual/jre:* )
 	x11-terms/xterm
