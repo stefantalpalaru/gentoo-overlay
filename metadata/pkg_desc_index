@@ -52,7 +52,6 @@ dev-libs/protobuf 3.13.0: Google's Protocol Buffers - Extensible mechanism for s
 dev-nim/bcrypt-nim 0.2.1_pre20150221 9999: Nim bindings for bcrypt
 dev-nim/c2nim 0.9.19 9999-r2: a tool to translate ANSI C code to Nim
 dev-nim/cairo-nim 1.0_pre20161029 9999: Nim bindings for cairo
-dev-nim/chan-nim 0.1_pre20170320 9999: Nim bindings for dev-libs/chan
 dev-nim/dialogs 1.1.1 9999: portable dialogs for Nim
 dev-nim/einheit 0.1.7_p20170620: Nim unit test library
 dev-nim/golib-nim 0.0.1_pre20181005 9999: Nim bindings for golib
