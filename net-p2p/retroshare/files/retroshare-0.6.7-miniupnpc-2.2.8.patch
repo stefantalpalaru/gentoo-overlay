@@ -1,0 +1,26 @@
+diff '--color=auto' -ur retroshare-0.6.7.orig/libretroshare/src/rs_upnp/upnphandler_miniupnp.cc retroshare-0.6.7/libretroshare/src/rs_upnp/upnphandler_miniupnp.cc
+--- retroshare-0.6.7.orig/libretroshare/src/rs_upnp/upnphandler_miniupnp.cc	2024-06-12 00:35:07.385419659 +0200
++++ retroshare-0.6.7/libretroshare/src/rs_upnp/upnphandler_miniupnp.cc	2024-06-12 00:45:36.596834642 +0200
+@@ -41,6 +41,9 @@
+ 		struct UPNPUrls urls;
+ 		struct IGDdatas data;
+ 		char lanaddr[16];	/* my ip address on the LAN */
++#if MINIUPNPC_API_VERSION >= 18
++		char wanaddr[16];	/* my ip address on the WAN */
++#endif
+ };
+ 
+ #include <iostream>
+@@ -139,7 +142,11 @@
+ 		putchar('\n');
+ 		if(UPNP_GetValidIGD(upcd->devlist, &(upcd->urls),
+ 				&(upcd->data), upcd->lanaddr,
+-				sizeof(upcd->lanaddr)))
++				sizeof(upcd->lanaddr)
++#if MINIUPNPC_API_VERSION >= 18
++				, upcd->wanaddr, sizeof(upcd->wanaddr)
++#endif
++				))
+ 		{
+ 			printf("Found valid IGD : %s\n",
+ 					upcd->urls.controlURL);

@@ -58,6 +58,10 @@ BDEPEND="dev-build/cmake
 	virtual/pkgconfig
 	jsonapi? ( app-text/doxygen )"
 
+PATCHES=(
+	"${FILESDIR}"/retroshare-0.6.7-miniupnpc-2.2.8.patch
+)
+
 src_configure() {
 	local qconfigs=(
 		$(usex cli '' 'no_')rs_service_terminal_login
