@@ -1,5 +1,5 @@
 acct-group/vmware 0: Group for VMware
-app-admin/conky 1.21.2: An advanced, highly configurable system monitor for X
+app-admin/conky 1.21.3: An advanced, highly configurable system monitor for X
 app-admin/zenmonitor3 2.0.0-r1: Zen monitor is monitoring software for AMD Zen-based CPUs
 app-alternatives/yacc 0: Virtual for yacc (yet another compiler compiler)
 app-arch/libdeflate 1.14: Heavily optimized DEFLATE/zlib/gzip (de)compression
@@ -17,7 +17,7 @@ app-misc/openrgb 0.9: Open source RGB lighting control that doesn't depend on ma
 app-misc/yworklog 0.0.7-r200: Stack based utility with CLI interface helping to monitor time spent on tasks
 app-office/upwork 5.8.0.33: Project collaboration and tracking software for upwork.com
 app-text/pinfo 0.6.13-r2: Hypertext info and man viewer based on (n)curses
-app-text/zettlr-bin 3.1.1: A Markdown Editor for the 21st century.
+app-text/zettlr-bin 3.2.0: A Markdown Editor for the 21st century.
 app-vim/airline 9999-r1: vim plugin: lean & mean statusline for vim that's light as air
 app-vim/ale 3.3.0 99999999-r1: Asynchronous Lint Engine for vim
 app-vim/chapel-syntax 2.0.0: vim plugin:
