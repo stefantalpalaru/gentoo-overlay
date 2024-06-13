@@ -3,22 +3,20 @@
 
 EAPI=8
 WX_GTK_VER="3.0-gtk3"
-MY_COMMIT="5fbbb684752be06ccbea41639968aa7f1cc678dd"
 
-inherit autotools flag-o-matic wxwidgets
+inherit autotools flag-o-matic git-r3 wxwidgets
 
 DESCRIPTION="realize the collective dream of sleeping computers from all over the internet"
 HOMEPAGE="http://electricsheep.org/
 		https://github.com/scottdraves/electricsheep"
-SRC_URI="https://github.com/scottdraves/electricsheep/archive/${MY_COMMIT}.tar.gz -> ${P}.tar.gz"
-S="${WORKDIR}/${PN}-${MY_COMMIT}/client_generic"
+EGIT_REPO_URI="https://github.com/scottdraves/electricsheep"
+S="${WORKDIR}/${P}/client_generic"
 LICENSE="GPL-2"
 SLOT="0"
-KEYWORDS="~amd64 ~x86"
 IUSE="video_cards_nvidia"
 
 DEPEND="dev-lang/lua:5.1
-	dev-libs/boost
+	dev-libs/boost:0=
 	dev-libs/expat
 	dev-libs/tinyxml
 	gnome-base/libgtop
@@ -36,7 +34,8 @@ DEPEND="dev-lang/lua:5.1
 RDEPEND="${DEPEND}"
 
 PATCHES=(
-	"$FILESDIR/electricsheep-disable-vsync.patch"
+	"${FILESDIR}"/electricsheep-disable-vsync.patch
+	"${FILESDIR}"/electricsheep-boost-1.85.patch
 )
 
 src_prepare() {

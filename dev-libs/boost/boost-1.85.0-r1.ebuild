@@ -48,17 +48,14 @@ RDEPEND="
 	zlib? ( sys-libs/zlib:=[${MULTILIB_USEDEP}] )
 	zstd? ( app-arch/zstd:=[${MULTILIB_USEDEP}] )"
 DEPEND="${RDEPEND}"
-BDEPEND=">=dev-build/b2-4.9.2"
+BDEPEND=">=dev-build/b2-5.0.0"
 
 PATCHES=(
 	"${FILESDIR}"/${PN}-1.81.0-disable_icu_rpath.patch
 	"${FILESDIR}"/${PN}-1.79.0-build-auto_index-tool.patch
-
-	# upstreamed
-	"${FILESDIR}"/${PN}-1.83.0-math-gcc14.patch
-	"${FILESDIR}"/${PN}-1.79.0-context-x32.patch
-	"${FILESDIR}"/${PN}-1.84.0-signals2-patch1.patch
-	"${FILESDIR}"/${PN}-1.84.0-signals2-patch2.patch
+	"${FILESDIR}"/${PN}-1.85.0-bcp-filesystem.patch
+	"${FILESDIR}"/${PN}-1.85.0-python-numpy-2.patch
+	"${FILESDIR}"/${PN}-1.85.0-container-aliasing.patch
 )
 
 create_user-config.jam() {

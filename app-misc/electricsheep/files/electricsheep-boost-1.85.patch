@@ -1,0 +1,73 @@
+diff '--color=auto' -ur client_generic/Client/lua_playlist.h client_generic/Client/lua_playlist.h
+--- client_generic/Client/lua_playlist.h	2024-02-13 15:55:46.000000000 +0100
++++ client_generic/Client/lua_playlist.h	2024-06-13 15:41:43.457721728 +0200
+@@ -17,13 +17,12 @@
+ 
+ #include	"boost/filesystem/path.hpp"
+ #include	"boost/filesystem/operations.hpp"
+-#include	"boost/filesystem/convenience.hpp"
++#include	"boost/filesystem.hpp"
+ #include	<boost/thread.hpp>
+ 
+ using boost::filesystem::path;
+ using boost::filesystem::exists;
+ using boost::filesystem::directory_iterator;
+-using boost::filesystem::extension;
+ 
+ 
+ //	Lua.
+diff '--color=auto' -ur client_generic/Client/Player.cpp client_generic/Client/Player.cpp
+--- client_generic/Client/Player.cpp	2024-02-13 15:55:46.000000000 +0100
++++ client_generic/Client/Player.cpp	2024-06-13 15:41:43.457721728 +0200
+@@ -60,7 +60,7 @@
+ 
+ #include	"boost/filesystem/path.hpp"
+ #include	"boost/filesystem/operations.hpp"
+-#include	"boost/filesystem/convenience.hpp"
++#include	"boost/filesystem.hpp"
+ 
+ #if defined(MAC) || defined(WIN32)
+ 	#define HONOR_VBL_SYNC
+@@ -69,7 +69,6 @@
+ using boost::filesystem::path;
+ using boost::filesystem::exists;
+ using boost::filesystem::directory_iterator;
+-using boost::filesystem::extension;
+ 
+ using namespace DisplayOutput;
+ 
+diff '--color=auto' -ur client_generic/ContentDecoder/graph_playlist.h client_generic/ContentDecoder/graph_playlist.h
+--- client_generic/ContentDecoder/graph_playlist.h	2024-02-13 15:55:46.000000000 +0100
++++ client_generic/ContentDecoder/graph_playlist.h	2024-06-13 15:41:43.457721728 +0200
+@@ -13,13 +13,12 @@
+ 
+ #include	"boost/filesystem/path.hpp"
+ #include	"boost/filesystem/operations.hpp"
+-#include	"boost/filesystem/convenience.hpp"
++#include	"boost/filesystem.hpp"
+ 
+ using boost::filesystem::path;
+ using boost::filesystem::exists;
+ using boost::filesystem::no_check;
+ using boost::filesystem::directory_iterator;
+-using boost::filesystem::extension;
+ 
+ namespace ContentDecoder
+ {
+diff '--color=auto' -ur client_generic/TupleStorage/luastorage.cpp client_generic/TupleStorage/luastorage.cpp
+--- client_generic/TupleStorage/luastorage.cpp	2024-02-13 15:55:46.000000000 +0100
++++ client_generic/TupleStorage/luastorage.cpp	2024-06-13 15:41:43.457721728 +0200
+@@ -9,12 +9,11 @@
+ 
+ #include	"boost/filesystem/path.hpp"
+ #include	"boost/filesystem/operations.hpp"
+-#include	"boost/filesystem/convenience.hpp"
++#include	"boost/filesystem.hpp"
+ 
+ using boost::filesystem::path;
+ using boost::filesystem::exists;
+ using boost::filesystem::directory_iterator;
+-using boost::filesystem::extension;
+ 
+ using namespace std;
+ 
