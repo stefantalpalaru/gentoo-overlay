@@ -1,6 +1,6 @@
-diff -ur client_generic.orig/DisplayOutput/OpenGL/glx.cpp client_generic/DisplayOutput/OpenGL/glx.cpp
---- client_generic.orig/DisplayOutput/OpenGL/glx.cpp	2018-07-14 23:10:29.000000000 +0200
-+++ client_generic/DisplayOutput/OpenGL/glx.cpp	2019-01-20 19:08:12.055142844 +0100
+diff '--color=auto' -ur electricsheep-5fbbb684752be06ccbea41639968aa7f1cc678dd.orig/client_generic/DisplayOutput/OpenGL/glx.cpp electricsheep-5fbbb684752be06ccbea41639968aa7f1cc678dd/client_generic/DisplayOutput/OpenGL/glx.cpp
+--- client_generic/DisplayOutput/OpenGL/glx.cpp	2024-02-13 15:55:46.000000000 +0100
++++ client_generic/DisplayOutput/OpenGL/glx.cpp	2024-06-13 11:44:46.381667120 +0200
 @@ -466,13 +466,15 @@
  {
      m_VSync = !m_VSync;

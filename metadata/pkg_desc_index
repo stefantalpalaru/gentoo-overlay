@@ -12,6 +12,7 @@ app-editors/gedit 3.32.2-r4: A text editor for the GNOME desktop
 app-emacs/pymacs 0.26-r200: A tool that allows both-side communication beetween Python and Emacs Lisp
 app-emulation/vmware-modules 17.5.2: VMware kernel modules
 app-emulation/vmware-workstation 17.5.2.23775571: Emulate a complete PC without the performance overhead of most emulators
+app-misc/electricsheep 3.0.2_p20240213 9999-r8: realize the collective dream of sleeping computers from all over the internet
 app-misc/iccloader 0.5-r1 9999-r1: systray widget used to load ICC color profiles with different color temperatures
 app-misc/openrgb 0.9: Open source RGB lighting control that doesn't depend on manufacturer software
 app-misc/yworklog 0.0.7-r200: Stack based utility with CLI interface helping to monitor time spent on tasks
@@ -910,7 +911,6 @@ www-servers/uwsgi 2.0.26-r200: uWSGI server for Python web applications
 x11-libs/dotherside 0.9.0_p20221109-r1: C language library for creating bindings for the Qt QML language
 x11-libs/pangox-compat 0.0.2-r4: PangoX compatibility library
 x11-libs/wxGTK 3.2.5-r300: GTK+ version of wxWidgets, a cross-platform C++ GUI toolkit
-x11-misc/electricsheep 3.0.2_p20180714-r7 9999-r7: realize the collective dream of sleeping computers from all over the internet
 x11-misc/magick-rotation 1.6.2-r5: Application that rotates tablet pc's screen automatically, based on orientation
 x11-misc/obmenu2 1.1-r1: Openbox menu editor
 x11-misc/slim 1.4.1: Simple Login Manager resurrected

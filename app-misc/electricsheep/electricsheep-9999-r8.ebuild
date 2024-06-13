@@ -1,27 +1,19 @@
-# Copyright 1999-2023 Gentoo Authors
+# Copyright 1999-2024 Gentoo Authors
 # Distributed under the terms of the GNU General Public License v2
 
 EAPI=8
 WX_GTK_VER="3.0-gtk3"
 
-inherit autotools flag-o-matic wxwidgets
+inherit autotools flag-o-matic git-r3 wxwidgets
 
 DESCRIPTION="realize the collective dream of sleeping computers from all over the internet"
-HOMEPAGE="http://electricsheep.org/"
-if [[ ${PV} == "9999" ]]; then
-	inherit git-r3
-	EGIT_REPO_URI="https://github.com/scottdraves/electricsheep"
-	S="${WORKDIR}/${P}/client_generic"
-else
-	MY_COMMIT="4949c31cfdb0d4363cfa726aa3aa8325e540773f"
-	SRC_URI="https://github.com/scottdraves/electricsheep/archive/${MY_COMMIT}.tar.gz -> ${P}.tar.gz"
-	S="${WORKDIR}/${PN}-${MY_COMMIT}/client_generic"
-	KEYWORDS="~amd64 ~x86"
-fi
-
-IUSE="video_cards_nvidia"
+HOMEPAGE="http://electricsheep.org/
+		https://github.com/scottdraves/electricsheep"
+EGIT_REPO_URI="https://github.com/scottdraves/electricsheep"
+S="${WORKDIR}/${P}/client_generic"
 LICENSE="GPL-2"
 SLOT="0"
+IUSE="video_cards_nvidia"
 
 DEPEND="dev-lang/lua:5.1
 	dev-libs/boost
@@ -42,9 +34,7 @@ DEPEND="dev-lang/lua:5.1
 RDEPEND="${DEPEND}"
 
 PATCHES=(
-	"$FILESDIR/electricsheep-glext-prototypes.patch"
 	"$FILESDIR/electricsheep-disable-vsync.patch"
-	"$FILESDIR/electricsheep-boost-1.81.0.patch"
 )
 
 src_prepare() {
