@@ -13,12 +13,13 @@ SLOT="0"
 IUSE="+wine"
 
 DEPEND="
+	dev-qt/linguist-tools:5
 	dev-qt/qtcore:5
 	dev-qt/qtgui:5
-	dev-qt/linguist-tools:5
 	dev-qt/qtnetwork:5
 	dev-qt/qtwidgets:5
 	media-libs/opencv
+	sys-process/procps
 	wine? (
 		virtual/wine
 	)

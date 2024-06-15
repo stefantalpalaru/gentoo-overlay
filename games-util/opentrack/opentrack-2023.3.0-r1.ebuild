@@ -21,6 +21,7 @@ DEPEND="
 	dev-qt/qtnetwork:5
 	dev-qt/qtwidgets:5
 	media-libs/opencv
+	sys-process/procps
 	wine? (
 		virtual/wine
 	)
