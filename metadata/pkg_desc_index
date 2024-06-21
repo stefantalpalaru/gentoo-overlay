@@ -824,6 +824,7 @@ media-libs/pyliblo 0.10.0: A Python wrapper for the liblo OSC library
 media-libs/svt-av1 1.8.0-r102 2.1.0-r100: Scalable Video Technology for AV1 (SVT-AV1 Encoder and Decoder)
 media-plugins/deadbeef-bs2b 9999-r1: bs2b DSP plugin for DeaDBeeF, using libbs2b.
 media-plugins/deadbeef-jack 9999-r3: JACK output plugin for DeaDBeeF.
+media-plugins/eq10q 2.2-r1: Audio plugin bundle over the LV2 standard for Linux
 media-plugins/refocus-it 2.0.0-r1: Refocus-It plugin for The Gimp
 media-radio/fmreceiver 3.16: SDR-J FM receiver for RTL2832-based USB sticks
 media-radio/qt-dab 6.5: software DAB decoder for use with a dabstick, airspy or sdrplay for RPI and PC
