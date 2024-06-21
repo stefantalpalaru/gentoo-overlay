@@ -29,9 +29,11 @@ DEPEND="
 
 RDEPEND="${DEPEND}"
 
-src_prepare() {
-	default
+PATCHES=(
+	"${FILESDIR}"/opentrack-2024.1.0-flags.patch
+)
 
+src_prepare() {
 	sed -i \
 		-e "s%share/doc/opentrack%share/doc/${P}%" \
 		cmake/opentrack-hier.cmake || die
