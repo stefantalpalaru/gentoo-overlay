@@ -4,11 +4,14 @@
 EAPI=8
 
 inherit cmake
+MY_COMMIT="225c98bab109872e5cd0687a1564c1531744c3cb"
 
 DESCRIPTION="Head tracking software for MS Windows, Linux, and Apple OSX"
 HOMEPAGE="https://github.com/opentrack/opentrack"
-SRC_URI="https://github.com/${PN}/${PN}/archive/${P}.tar.gz"
-S="${WORKDIR}/${PN}-${P}"
+#SRC_URI="https://github.com/${PN}/${PN}/archive/${P}.tar.gz"
+SRC_URI="https://github.com/opentrack/opentrack/archive/${MY_COMMIT}.tar.gz -> ${P}.tar.gz"
+#S="${WORKDIR}/${PN}-${P}"
+S="${WORKDIR}/${PN}-${MY_COMMIT}"
 LICENSE="MIT"
 SLOT="0"
 KEYWORDS="~amd64 ~x86"
