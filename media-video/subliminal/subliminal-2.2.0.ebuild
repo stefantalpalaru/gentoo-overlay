@@ -46,14 +46,3 @@ DEPEND="
 
 # Tests don't work in 2.0.5. Recheck in later versions. See Gentoo bug 630114.
 RESTRICT=test
-
-python_prepare_all() {
-	# Disable code checkers as they require unavailable dependencies.
-	sed -i -e 's/--\(pep8\|flakes\)//g' pytest.ini || die
-	sed -i -e "s/'pytest-\(pep8\|flakes\)',//g" setup.py || die
-
-	# Disable unconditional dependency on dev-python/pytest-runner.
-	sed -i -e "s|'pytest-runner'||g" setup.py || die
-
-	distutils-r1_python_prepare_all
-}
