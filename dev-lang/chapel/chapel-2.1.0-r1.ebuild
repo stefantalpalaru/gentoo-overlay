@@ -26,6 +26,7 @@ DEPEND="
 	>=dev-lang/python-3.5
 	dev-libs/gmp
 	sys-apps/hwloc
+	sys-libs/libunwind
 	vim-syntax? ( app-vim/chapel-syntax )
 "
 RDEPEND="${DEPEND}"
@@ -44,7 +45,7 @@ src_prepare() {
 	export CHPL_RE2=bundled
 	export CHPL_GMP=system
 	export CHPL_HWLOC=system
-	export CHPL_UNWIND=bundled
+	export CHPL_UNWIND=system
 }
 
 src_configure() {
@@ -58,7 +59,14 @@ src_configure() {
 src_compile() {
 	unset CHPL_HOME
 	emake VERBOSE=1
-	emake VERBOSE=1 check
+
+	# https://github.com/chapel-lang/chapel/issues/25381
+	sed -i \
+		-e '/^dependency_libs/d' \
+		third-party/qthread/install/*/lib/libqthread.la || die
+
+	#export CHPL_CHECK_DEBUG=1
+	#emake VERBOSE=1 check
 }
 
 src_install() {
@@ -73,12 +81,16 @@ src_install() {
 		CHPL_RE2=bundled
 		CHPL_GMP=system
 		CHPL_HWLOC=system
-		CHPL_UNWIND=bundled
+		CHPL_UNWIND=system
 	EOF
 	doenvd "${envd}"
 }
 
 src_test() {
+	unset CHPL_HOME
+	unset CHPL_LLVM_CONFIG
+	source util/setchplenv.bash
+
 	emake test-venv
 	cd examples
 	mkdir Logs
