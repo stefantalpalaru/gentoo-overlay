@@ -2,7 +2,7 @@
 # Distributed under the terms of the GNU General Public License v2
 
 EAPI=8
-LLVM_MAX_SLOT=17
+LLVM_MAX_SLOT=18
 
 inherit llvm multiprocessing
 
@@ -23,8 +23,9 @@ RESTRICT="
 "
 DEPEND="
 	dev-lang/perl
-	dev-lang/python
+	>=dev-lang/python-3.5
 	dev-libs/gmp
+	sys-apps/hwloc
 	vim-syntax? ( app-vim/chapel-syntax )
 "
 RDEPEND="${DEPEND}"
@@ -38,9 +39,11 @@ src_prepare() {
 
 	export CHPL_TASKS=qthreads
 	export CHPL_TARGET_COMPILER=llvm
+	export CHPL_HOST_COMPILER=llvm
 	export CHPL_LLVM=system
 	export CHPL_RE2=bundled
 	export CHPL_GMP=system
+	export CHPL_HWLOC=system
 	export CHPL_UNWIND=bundled
 }
 
@@ -48,10 +51,12 @@ src_configure() {
 	unset CHPL_HOME
 	unset CHPL_LLVM_CONFIG
 	source util/setchplenv.bash
+
 	./configure --prefix="${EPREFIX}/usr"
 }
 
 src_compile() {
+	unset CHPL_HOME
 	emake VERBOSE=1
 	emake VERBOSE=1 check
 }
@@ -67,6 +72,7 @@ src_install() {
 		CHPL_LLVM_CONFIG="$(get_llvm_prefix ${LLVM_MAX_SLOT})/bin/llvm-config"
 		CHPL_RE2=bundled
 		CHPL_GMP=system
+		CHPL_HWLOC=system
 		CHPL_UNWIND=bundled
 	EOF
 	doenvd "${envd}"
