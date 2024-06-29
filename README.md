@@ -7,8 +7,8 @@
 This overlay is available in the official Gentoo list. Add it with:
 
 ```bash
-eselect repository enable stefantalpalaru
-emaint sync --repo stefantalpalaru
+eselect repository enable stefantalpalaru guru cg
+emaint sync
 ```
 
 ## Counting packages

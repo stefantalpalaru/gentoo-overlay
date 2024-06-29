@@ -1,0 +1,34 @@
+diff '--color=auto' -ur opentrack-opentrack-2024.1.1.orig/cmake/FindONNXRuntime.cmake opentrack-opentrack-2024.1.1/cmake/FindONNXRuntime.cmake
+--- opentrack-opentrack-2024.1.1.orig/cmake/FindONNXRuntime.cmake	2024-06-23 12:06:20.000000000 +0200
++++ opentrack-opentrack-2024.1.1/cmake/FindONNXRuntime.cmake	2024-06-25 20:31:31.313028698 +0200
+@@ -75,6 +75,7 @@
+ 		# For when the directory structure of the onnx source repo is preserved
+ 		"include/onnxruntime/core/session" 
+ 		"include/onnxruntime"
++		"include/onnxruntime/onnxruntime"
+ 		# For when we copy the files somewhere
+ 		"include"
+ 		)
+@@ -101,4 +102,4 @@
+ mark_as_advanced(ONNXRuntime_INCLUDE_DIR ONNXRuntime_LIBRARY ONNXRuntime_RUNTIME)
+ 
+ set(ONNXRuntime_INCLUDE_DIRS ${ONNXRuntime_INCLUDE_DIR})
+-set(ONNXRuntime_LIBRARIES ${ONNXRuntime_LIBRARY})
+\ No newline at end of file
++set(ONNXRuntime_LIBRARIES ${ONNXRuntime_LIBRARY})
+diff '--color=auto' -ur opentrack-opentrack-2024.1.1.orig/tracker-neuralnet/CMakeLists.txt opentrack-opentrack-2024.1.1/tracker-neuralnet/CMakeLists.txt
+--- opentrack-opentrack-2024.1.1.orig/tracker-neuralnet/CMakeLists.txt	2024-06-25 20:30:31.004425561 +0200
++++ opentrack-opentrack-2024.1.1/tracker-neuralnet/CMakeLists.txt	2024-06-25 20:30:46.675322438 +0200
+@@ -4,9 +4,9 @@
+     return()
+ endif()
+ 
+-find_package(OpenCV QUIET)
+-find_package(OpenMP QUIET) # Used to control number of onnx threads.
+-find_package(ONNXRuntime QUIET)
++find_package(OpenCV)
++find_package(OpenMP) # Used to control number of onnx threads.
++find_package(ONNXRuntime)
+ 
+ if(OpenCV_FOUND AND ONNXRuntime_FOUND AND OpenMP_FOUND)
+     if(MSVC)

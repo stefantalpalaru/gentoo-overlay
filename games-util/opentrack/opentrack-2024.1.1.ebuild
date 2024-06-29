@@ -4,18 +4,15 @@
 EAPI=8
 
 inherit cmake
-MY_COMMIT="225c98bab109872e5cd0687a1564c1531744c3cb"
 
 DESCRIPTION="Head tracking software for MS Windows, Linux, and Apple OSX"
 HOMEPAGE="https://github.com/opentrack/opentrack"
-#SRC_URI="https://github.com/${PN}/${PN}/archive/${P}.tar.gz"
-SRC_URI="https://github.com/opentrack/opentrack/archive/${MY_COMMIT}.tar.gz -> ${P}.tar.gz"
-#S="${WORKDIR}/${PN}-${P}"
-S="${WORKDIR}/${PN}-${MY_COMMIT}"
+SRC_URI="https://github.com/${PN}/${PN}/archive/${P}.tar.gz"
+S="${WORKDIR}/${PN}-${P}"
 LICENSE="MIT"
 SLOT="0"
 KEYWORDS="~amd64 ~x86"
-IUSE="+wine"
+IUSE="+neuralnet +wine"
 
 DEPEND="
 	dev-qt/linguist-tools:5
@@ -24,6 +21,9 @@ DEPEND="
 	dev-qt/qtnetwork:5
 	dev-qt/qtwidgets:5
 	media-libs/opencv
+	neuralnet? (
+		sci-libs/onnxruntime
+	)
 	sys-process/procps
 	wine? (
 		virtual/wine
@@ -34,6 +34,7 @@ RDEPEND="${DEPEND}"
 
 PATCHES=(
 	"${FILESDIR}"/opentrack-2024.1.0-flags.patch
+	"${FILESDIR}"/opentrack-2024.1.1_onnxruntime.patch
 )
 
 src_prepare() {

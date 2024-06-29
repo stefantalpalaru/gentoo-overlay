@@ -6,6 +6,7 @@
 		<name>Ștefan Talpalaru</name>
 	</maintainer>
 	<use>
+		<flag name='neuralnet'>"AI" face tracking, using onnxruntime.</flag>
 		<flag name='wine'>Build the WINE plugin.</flag>
 	</use>
 </pkgmetadata>
