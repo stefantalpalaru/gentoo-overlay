@@ -1,4 +1,4 @@
-# Copyright 1999-2023 Gentoo Authors
+# Copyright 1999-2024 Gentoo Authors
 # Distributed under the terms of the GNU General Public License v2
 
 EAPI=8
@@ -10,9 +10,10 @@ inherit xdg cmake
 DESCRIPTION="Cross-platform music production software"
 HOMEPAGE="https://lmms.io"
 SRC_URI="https://github.com/LMMS/lmms/releases/download/v${PV/_/-}/${PN}_${PV/_/-}.tar.xz -> ${P}.tar.xz"
-KEYWORDS="amd64 x86"
+S="${WORKDIR}/${PN}"
 LICENSE="GPL-2 LGPL-2"
 SLOT="0"
+KEYWORDS="amd64 x86"
 IUSE="alsa carla debug fluidsynth jack libgig mp3 ogg portaudio pulseaudio sdl soundio stk vst"
 
 COMMON_DEPEND="
@@ -34,7 +35,7 @@ COMMON_DEPEND="
 		media-libs/libvorbis
 	)
 	portaudio? ( >=media-libs/portaudio-19_pre )
-	pulseaudio? ( media-sound/pulseaudio )
+	pulseaudio? ( media-libs/libpulse )
 	sci-libs/fftw:3.0
 	sdl? (
 		>=media-libs/sdl-sound-1.0.1
@@ -63,12 +64,11 @@ RDEPEND="${COMMON_DEPEND}
 
 DOCS=( README.md doc/AUTHORS )
 
-S="${WORKDIR}/${PN}"
-
 PATCHES=(
-	"${FILESDIR}/${PN}-1.2.2-no_compress_man.patch" #733284
+	"${FILESDIR}/lmms-1.2.2-no_compress_man.patch" #733284
 	"${FILESDIR}/lmms-1.2.2-carla.patch"
 	"${FILESDIR}/lmms-1.2.2-kwidgetsaddons.patch"
+	"${FILESDIR}/lmms-1.2.2-plugin-path.patch"
 )
 
 src_configure() {
