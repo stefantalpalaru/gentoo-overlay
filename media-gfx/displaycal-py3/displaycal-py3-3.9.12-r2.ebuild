@@ -43,6 +43,7 @@ RDEPEND="${DEPEND}
 
 PATCHES=(
 	"${FILESDIR}/displaycal-py3-3.9.12-dist.patch"
+	"${FILESDIR}/displaycal-py3-3.9.12-gcc-14.patch"
 )
 
 src_prepare() {

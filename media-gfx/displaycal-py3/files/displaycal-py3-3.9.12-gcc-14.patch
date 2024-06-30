@@ -1,0 +1,22 @@
+From f5f6d70c6058d04c36f35576e60490a896cd8e1c Mon Sep 17 00:00:00 2001
+From: xz-dev <xiangzhedev@gmail.com>
+Date: Sun, 23 Jun 2024 23:41:12 +0800
+Subject: [PATCH] fix: DisplayCAL/RealDisplaySizeMM.c build with gcc14
+
+---
+ DisplayCAL/RealDisplaySizeMM.c | 2 +-
+ 1 file changed, 1 insertion(+), 1 deletion(-)
+
+diff --git a/DisplayCAL/RealDisplaySizeMM.c b/DisplayCAL/RealDisplaySizeMM.c
+index 4d3c1c95..ee5706c8 100644
+--- a/DisplayCAL/RealDisplaySizeMM.c
++++ b/DisplayCAL/RealDisplaySizeMM.c
+@@ -848,7 +848,7 @@ disppath **get_displays() {
+                         Atom edid_atom, ret_type;
+                         int ret_format;
+                         long ret_len = 0;
+-                        unsigned long *ret_togo;
++                        unsigned long ret_togo;
+                         unsigned char *atomv = NULL;
+                         int ii;
+                         char *keys[] = {        /* Possible keys that may be used */
