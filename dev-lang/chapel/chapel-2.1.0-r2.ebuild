@@ -3,8 +3,9 @@
 
 EAPI=8
 LLVM_MAX_SLOT=18
+PYTHON_COMPAT=( python3_{10..12} )
 
-inherit llvm multiprocessing
+inherit llvm multiprocessing python-any-r1
 
 DESCRIPTION="Chapel programming language compiler"
 HOMEPAGE="https://chapel-lang.org/
@@ -23,9 +24,7 @@ RESTRICT="
 "
 DEPEND="
 	dev-lang/perl
-	>=dev-lang/python-3.5
 	dev-libs/gmp
-	sys-apps/hwloc
 	sys-libs/libunwind
 	vim-syntax? ( app-vim/chapel-syntax )
 "
@@ -44,8 +43,14 @@ src_prepare() {
 	export CHPL_LLVM=system
 	export CHPL_RE2=bundled
 	export CHPL_GMP=system
-	export CHPL_HWLOC=system
+	# System hwloc is usually linked to libudev which tries to access the
+	# X.org socket for the :0 display, resulting in an error message messing
+	# our tests.
+	# This bundled version is built without libudev support.
+	export CHPL_HWLOC=bundled
 	export CHPL_UNWIND=system
+
+	export XAUTHORITY=~/.Xauthority
 }
 
 src_configure() {
@@ -66,7 +71,7 @@ src_compile() {
 		third-party/qthread/install/*/lib/libqthread.la || die
 
 	#export CHPL_CHECK_DEBUG=1
-	#emake VERBOSE=1 check
+	emake VERBOSE=1 check
 }
 
 src_install() {
@@ -80,7 +85,7 @@ src_install() {
 		CHPL_LLVM_CONFIG="$(get_llvm_prefix ${LLVM_MAX_SLOT})/bin/llvm-config"
 		CHPL_RE2=bundled
 		CHPL_GMP=system
-		CHPL_HWLOC=system
+		CHPL_HWLOC=bundled
 		CHPL_UNWIND=system
 	EOF
 	doenvd "${envd}"

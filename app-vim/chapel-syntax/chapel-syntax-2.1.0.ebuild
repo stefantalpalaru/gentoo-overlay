@@ -6,7 +6,7 @@ EAPI=8
 inherit vim-plugin
 
 DESCRIPTION="vim plugin: "
-HOMEPAGE="http://www.vim.org/scripts/script.php?script_id="
+HOMEPAGE="https://github.com/chapel-lang/chapel"
 SRC_URI="https://github.com/chapel-lang/chapel/releases/download/${PV}/chapel-${PV}.tar.gz"
 S="${WORKDIR}/chapel-${PV}/highlight/vim"
 LICENSE="vim"
