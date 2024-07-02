@@ -201,6 +201,7 @@ games-emulation/rpcs3:vulkan - Vulkan video output support
 games-fps/gzdoom:gles2 - Enable GLES2 backend
 games-fps/gzdoom:non-free - Enable non-free components
 games-fps/gzdoom:swr - Enable software renderer
+games-util/opentrack:neuralnet - "AI" face tracking, using onnxruntime.
 games-util/opentrack:wine - Build the WINE plugin.
 media-gfx/ansel:avif - Support importing and exporting AVIF images
 media-gfx/ansel:geolocation - Enable geotagging support

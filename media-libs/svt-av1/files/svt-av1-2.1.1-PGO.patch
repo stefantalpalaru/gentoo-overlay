@@ -1,0 +1,259 @@
+diff '--color=auto' -ur SVT-AV1-v2.1.2.orig/Build/obj1fastdownloader.cmake SVT-AV1-v2.1.2/Build/obj1fastdownloader.cmake
+--- SVT-AV1-v2.1.2.orig/Build/obj1fastdownloader.cmake	2024-06-28 07:47:53.000000000 +0200
++++ SVT-AV1-v2.1.2/Build/obj1fastdownloader.cmake	2024-07-02 15:32:05.246495805 +0200
+@@ -7,24 +7,22 @@
+ 
+ set(BUILD_DIRECTORY ${CMAKE_ARGV3})
+ 
++# We only need to encode one short video during profiling, in order to execute
++# the code paths we want to optimise. Encoding 29 more files provides no
++# benefits and slows down the process to an unacceptable level.
++set(PROFILING_VIDEO "stefan_sif.y4m")
++
+ set(EXPECTED_HASH
+-    a4aab832a5dd67eb42687e2935c1044b87eabe0a96fc73550339150a8f05c5b1)
+-set(TARHASH "")
+-if(EXISTS ${BUILD_DIRECTORY}/objective-1-fast.tar.gz)
+-    file(SHA256 "${BUILD_DIRECTORY}/objective-1-fast.tar.gz" TARHASH)
++    28c0dc1afdd9081d8004cc35f839f8d34cabc0fc8b677f9f70286be6bdbd9f57)
++set(FILEHASH "")
++if(EXISTS ${BUILD_DIRECTORY}/objective-1-fast/${PROFILING_VIDEO})
++    file(SHA256 "${BUILD_DIRECTORY}/objective-1-fast/${PROFILING_VIDEO}" FILEHASH)
+ endif()
+ 
+-if(NOT TARHASH STREQUAL EXPECTED_HASH)
++if(NOT FILEHASH STREQUAL EXPECTED_HASH)
+     file(
+-        DOWNLOAD https://media.xiph.org/video/derf/objective-1-fast.tar.gz
+-        ${BUILD_DIRECTORY}/objective-1-fast.tar.gz
++        DOWNLOAD https://media.xiph.org/video/derf/y4m/${PROFILING_VIDEO}
++        ${BUILD_DIRECTORY}/objective-1-fast/${PROFILING_VIDEO}
+         SHOW_PROGRESS
+         EXPECTED_HASH SHA256=${EXPECTED_HASH})
+ endif()
+-if(NOT EXISTS ${BUILD_DIRECTORY}/TAR_DONE
+-   OR NOT EXISTS ${BUILD_DIRECTORY}/objective-1-fast/DOTA2_60f_420.y4m)
+-    execute_process(COMMAND ${CMAKE_COMMAND} -E tar xvf objective-1-fast.tar.gz
+-                    WORKING_DIRECTORY ${BUILD_DIRECTORY})
+-    execute_process(COMMAND ${CMAKE_COMMAND} -E touch TAR_DONE
+-                    WORKING_DIRECTORY ${BUILD_DIRECTORY})
+-endif()
+diff '--color=auto' -ur SVT-AV1-v2.1.2.orig/Build/pgohelper.cmake SVT-AV1-v2.1.2/Build/pgohelper.cmake
+--- SVT-AV1-v2.1.2.orig/Build/pgohelper.cmake	2024-06-28 07:47:53.000000000 +0200
++++ SVT-AV1-v2.1.2/Build/pgohelper.cmake	2024-07-02 15:32:25.580366270 +0200
+@@ -19,6 +19,11 @@
+     )
+ endif()
+ 
++# Delete any existing Clang profiling data.
++execute_process(COMMAND sh -c "rm -f *.profraw *.profdata"
++    WORKING_DIRECTORY "${BUILD_DIRECTORY}"
++)
++
+ unset(videofiles)
+ string(REPLACE "::" ";" VIDEO_DIRECTORY "${VIDEO_DIRECTORY}")
+ 
+@@ -30,10 +35,11 @@
+ foreach(video IN LISTS videofiles)
+     get_filename_component(videoname "${video}" NAME_WE)
+ 
++    SET(ENCODING_COMMAND ${SvtAv1EncApp} -i ${video} -b "${BUILD_DIRECTORY}/${videoname}.ivf" --preset 2 --film-grain 8 --tune 0)
++    list(JOIN ENCODING_COMMAND " " ENCODING_COMMAND_STR)
+     message(
+         STATUS
+-            "Running ${SvtAv1EncApp} -i ${video} -b ${BUILD_DIRECTORY}/${videoname}.ivf"
++            "Running ${ENCODING_COMMAND_STR}"
+     )
+-    execute_process(COMMAND ${SvtAv1EncApp} -i ${video} -b
+-                            ${BUILD_DIRECTORY}/${videoname}.ivf)
++    execute_process(COMMAND ${ENCODING_COMMAND})
+ endforeach()
+diff '--color=auto' -ur SVT-AV1-v2.1.2.orig/CMakeLists.txt SVT-AV1-v2.1.2/CMakeLists.txt
+--- SVT-AV1-v2.1.2.orig/CMakeLists.txt	2024-07-02 15:31:47.664607810 +0200
++++ SVT-AV1-v2.1.2/CMakeLists.txt	2024-07-02 15:32:05.246495805 +0200
+@@ -166,6 +166,13 @@
+     unset(SVT_AV1_PGO CACHE)
+ endif()
+ 
++if(CMAKE_C_COMPILER_ID MATCHES "Clang" AND SVT_AV1_PGO)
++    find_program(LLVM_PROFDATA llvm-profdata)
++    if(NOT LLVM_PROFDATA)
++        message(FATAL_ERROR "llvm-profdata not found.")
++    endif()
++endif()
++
+ option(BUILD_APPS "Build Enc Apps" ON)
+ option(EXCLUDE_HASH "Disables the use of the git hash in the build to produce hash exact binaries, implies REPRODUCIBLE_BUILDS")
+ option(REPRODUCIBLE_BUILDS "Disable use of certain C macros to always generate reproducable builds" ${EXCLUDE_HASH})
+@@ -178,16 +185,21 @@
+         set(PGO_COMPILER_FLAGS "/GL")
+         set(PGO_LINKER_FLAGS "/LTCG /USEPROFILE")
+     else()
+-        set(PGO_COMPILER_FLAGS "-fprofile-use=${SVT_AV1_PGO_DIR} -fprofile-correction")
+-        set(PGO_LINKER_FLAGS "-fprofile-use=${SVT_AV1_PGO_DIR} -fprofile-correction")
++        set(PGO_COMPILER_FLAGS "-fprofile-use=${SVT_AV1_PGO_DIR}")
++        set(PGO_LINKER_FLAGS "-fprofile-use=${SVT_AV1_PGO_DIR}")
++        if (CMAKE_C_COMPILER_ID STREQUAL "GNU") # GCC
++            # We want unprofiled code optimised for speed, not size, so we mark the profiling data as "partial".
++            set(PGO_COMPILER_FLAGS "${PGO_COMPILER_FLAGS} -fprofile-correction -fprofile-partial-training")
++            set(PGO_LINKER_FLAGS "${PGO_LINKER_FLAGS} -fprofile-correction -fprofile-partial-training")
++        endif()
+     endif()
+ elseif(SVT_INTERNAL_PGO_GENERATE)
+     if(MSVC)
+         set(PGO_COMPILER_FLAGS "/GL")
+         set(PGO_LINKER_FLAGS "/LTCG /GENPROFILE")
+     else()
+-        set(PGO_COMPILER_FLAGS "-fprofile-generate=${SVT_AV1_PGO_DIR} -fprofile-correction")
+-        set(PGO_LINKER_FLAGS "-fprofile-generate=${SVT_AV1_PGO_DIR} -fprofile-correction")
++        set(PGO_COMPILER_FLAGS "-fprofile-generate=${SVT_AV1_PGO_DIR}")
++        set(PGO_LINKER_FLAGS "-fprofile-generate=${SVT_AV1_PGO_DIR}")
+     endif()
+ endif()
+ 
+@@ -534,21 +546,29 @@
+         --clean-first
+         --target SvtAv1EncApp
+         COMMENT "Compiling with PGO generate"
+-        DEPENDS SvtAv1EncApp)
+-    add_custom_target(PGOCompileGenUse
+-        ${CMAKE_COMMAND} ${CMAKE_BINARY_DIR} -DSVT_INTERNAL_PGO_GENERATE=ON -DSVT_INTERNAL_PGO_USE=ON
+-        COMMAND ${CMAKE_COMMAND} --build ${CMAKE_BINARY_DIR}
+-        --clean-first
+-        --target SvtAv1EncApp
+-        COMMENT "Compiling PGO gen+use"
+-        DEPENDS SvtAv1EncApp)
++        VERBATIM
++        USES_TERMINAL
++    )
++
++    if(CMAKE_C_COMPILER_ID MATCHES "Clang")
++        # We want unprofiled code optimised for speed, not size, so we mark the profiling data as "sparse".
++        set(PROFILE_MERGE_CMD sh -c "${LLVM_PROFDATA} merge --sparse=true *.profraw -o default.profdata")
++    else()
++        # Do nothing. GCC has no profile merging step.
++        set(PROFILE_MERGE_CMD true)
++    endif()
++
+     add_custom_target(PGOCompileUse
+         ${CMAKE_COMMAND} ${CMAKE_BINARY_DIR} -DSVT_INTERNAL_PGO_GENERATE=OFF -DSVT_INTERNAL_PGO_USE=ON
++        COMMAND ${PROFILE_MERGE_CMD}
+         COMMAND ${CMAKE_COMMAND} --build ${CMAKE_BINARY_DIR}
+         --clean-first
+         --target SvtAv1EncApp
+         COMMENT "Compiling PGO use"
+-        DEPENDS SvtAv1EncApp)
++        COMMAND_EXPAND_LISTS
++        VERBATIM
++        USES_TERMINAL
++    )
+ 
+     if(SVT_AV1_PGO_CUSTOM_VIDEOS)
+         add_custom_target(PGOGenerateProfile ${CMAKE_COMMAND} -P
+@@ -556,29 +576,38 @@
+             ${CMAKE_BINARY_DIR}
+             ${SVT_AV1_PGO_CUSTOM_VIDEOS}
+             $<TARGET_FILE:SvtAv1EncApp>
+-            COMMENT "Generating PGO profile")
++            COMMENT "Generating PGO profile"
++            VERBATIM
++            USES_TERMINAL
++        )
+     else()
+         add_custom_target(DownloadObjOneFast ${CMAKE_COMMAND} -P
+             ${PROJECT_SOURCE_DIR}/Build/obj1fastdownloader.cmake
+             ${CMAKE_BINARY_DIR}
+-            COMMENT "Downloading objective-1-fast")
++            COMMENT "Downloading video file"
++            VERBATIM
++            USES_TERMINAL
++        )
+         add_custom_target(PGOGenerateProfile ${CMAKE_COMMAND} -P
+             ${PROJECT_SOURCE_DIR}/Build/pgohelper.cmake
+             ${CMAKE_BINARY_DIR}
+             ${CMAKE_BINARY_DIR}/objective-1-fast
+             $<TARGET_FILE:SvtAv1EncApp>
+             COMMENT "Generating PGO profile"
+-            DEPENDS DownloadObjOneFast)
++            DEPENDS DownloadObjOneFast
++            VERBATIM
++            USES_TERMINAL
++        )
+     endif()
+ 
+-    add_custom_target(RunPGO ALL
++    add_custom_target(RunPGO
+         ${CMAKE_COMMAND} --build ${CMAKE_BINARY_DIR} --config $<CONFIG> --target PGOCompileGen
+         COMMAND ${CMAKE_COMMAND} --build ${CMAKE_BINARY_DIR} --config $<CONFIG> --target PGOGenerateProfile
+-        COMMAND ${CMAKE_COMMAND} --build ${CMAKE_BINARY_DIR} --config $<CONFIG> --target PGOCompileGenUse
+-        COMMAND ${CMAKE_COMMAND} --build ${CMAKE_BINARY_DIR} --config $<CONFIG> --target PGOGenerateProfile
+         COMMAND ${CMAKE_COMMAND} --build ${CMAKE_BINARY_DIR} --config $<CONFIG> --target PGOCompileUse
+         COMMENT "Compiling PGO Binary"
+-        DEPENDS PGOCompileUse)
++        VERBATIM
++        USES_TERMINAL
++    )
+ endif()
+ 
+ if(BUILD_TESTING)
+diff '--color=auto' -ur SVT-AV1-v2.1.2.orig/Docs/Build-Guide.md SVT-AV1-v2.1.2/Docs/Build-Guide.md
+--- SVT-AV1-v2.1.2.orig/Docs/Build-Guide.md	2024-06-28 07:47:53.000000000 +0200
++++ SVT-AV1-v2.1.2/Docs/Build-Guide.md	2024-07-02 15:32:05.246495805 +0200
+@@ -42,7 +42,9 @@
+ - __Build Instructions__
+   - `cd Build/linux`
+   - `./build.sh <release | debug>`
+-  - for LTO build run `./build.sh <release | debug> --enable-lto`
++  - for an LTO build, run `./build.sh <release | debug> --enable-lto`
++  - for a PGO build, run `./build.sh <release | debug> --enable-pgo`
++    (LTO and PGO can be combined, for maximum gains)
+ 
+ - __Sample Binaries location__
+   - Binaries can be found under `Bin/Release` and/or `Bin/Debug`
+@@ -67,7 +69,7 @@
+   - Change the permissions on the sample application `SvtAV1EncApp` executable by running the command: `chmod +x SvtAv1EncApp`
+   - cd into your chosen location
+   - Run the sample application to encode: `./SvtAv1EncApp -i [in.yuv] -w [width] -h [height] -b [out.ivf]`
+-  - Sample application supports reading from pipe. E.g. `ffmpeg -i [input.mp4] -nostdin -f rawvideo -pix_fmt yuv420p - | ./SvtAv1EncApp -i stdin -n [number_of_frames_to_encode] -w [width] -h [height]`
++  - Sample application supports reading from pipe. E.g. `ffmpeg -i [in.mp4] -map 0:v:0 -pix_fmt yuv420p -f yuv4mpegpipe -strict -1 - | ./SvtAv1EncApp -i stdin -n [number_of_frames_to_encode] -b [out.ivf]`
+ 
+ # SVT-AV1 ffmpeg plugin installation
+ 
+diff '--color=auto' -ur SVT-AV1-v2.1.2.orig/Docs/CommonQuestions.md SVT-AV1-v2.1.2/Docs/CommonQuestions.md
+--- SVT-AV1-v2.1.2.orig/Docs/CommonQuestions.md	2024-06-28 07:47:53.000000000 +0200
++++ SVT-AV1-v2.1.2/Docs/CommonQuestions.md	2024-07-02 15:32:05.246495805 +0200
+@@ -5,7 +5,22 @@
+ [[_TOC_]]
+ 
+ # Why build with LTO
+-The purpose of building with link-time optimization (LTO) enabled is to reduce the call and return overhead by inline expansion. This means that a function's call site will be replaced with the body of the function itself. In order for the inline expansion to occur, additional compile time is required.
++
++The purpose of building with link-time optimization (LTO) enabled is to reduce the call and return overhead by inline expansion - even across different files. This means that a function's call site will be replaced with the body of the function itself. In order for this inline expansion to occur, additional compile time and memory are required.
++
++# Why build with PGO
++
++Profile-guided optimization (PGO) reduces the compiler's guesswork on which
++parts of the code deserve more aggressive optimizations, by collecting a
++runtime profile of an instrumented version of the program, while it's encoding
++a video file. That profile is then used to compile an optimized version, which
++is slightly more performant than the usual build using compiler heuristics.
++
++PGO makes the build longer, by having to build the program twice and run it in
++between builds. It works with GCC and Clang, and using CMake directly
++requires you to specify the "RunPGO" target, instead of the default "all".
++
++PGO and LTO can be combined.
+ 
+ # What Presets Do
+ 
+diff '--color=auto' -ur SVT-AV1-v2.1.2.orig/README.md SVT-AV1-v2.1.2/README.md
+--- SVT-AV1-v2.1.2.orig/README.md	2024-06-28 07:47:53.000000000 +0200
++++ SVT-AV1-v2.1.2/README.md	2024-07-02 15:32:05.246495805 +0200
+@@ -33,6 +33,7 @@
+ 
+ **Common Questions/Issues**
+ - [Why build with LTO?](Docs/CommonQuestions.md#why-build-with-lto)
++- [Why build with PGO?](Docs/CommonQuestions.md#why-build-with-pgo)
+ - [What presets do](Docs/CommonQuestions.md#what-presets-do)
+ - [Scene change detection](Docs/CommonQuestions.md#scene-change-detection)
+ - [GOP size selection](Docs/CommonQuestions.md#gop-size-selection)
