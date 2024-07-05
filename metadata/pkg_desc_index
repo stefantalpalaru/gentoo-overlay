@@ -36,7 +36,7 @@ dev-lang/nim 1.0.10-r100 1.2.18-r100 1.4.8-r100 1.6.20-r100 2.0.8-r100 9999-r15:
 dev-lang/php 5.3.29-r7 7.4.33-r7 8.0.30-r1: The PHP language runtime engine
 dev-lang/pony 0.58.5: Compiler for the Pony language
 dev-lang/python 2.7.18_p113: An interpreted, interactive, object-oriented programming language
-dev-lang/tauthon 2.8.5-r3 9999-r3: Python 2.7 fork with new syntax, builtins, and libraries backported from Python3
+dev-lang/tauthon 2.8.5-r4 9999-r4: Python 2.7 fork with new syntax, builtins, and libraries backported from Python3
 dev-libs/boost 1.85.0-r1: Boost Libraries for C++
 dev-libs/cudnn 8.9.7.29-r1100 8.9.7.29-r1200 9.0.0.312-r1100 9.0.0.312-r1200: NVIDIA Accelerated Deep Learning on GPU library
 dev-libs/cudnn-frontend 1.5.2: A c++ wrapper for the cudnn backend API
@@ -132,7 +132,7 @@ dev-python/bjoern 1.4.3-r1: A screamingly fast Python WSGI server written in C
 dev-python/bleach 3.2.1-r2: an easy whitelist-based HTML-sanitizing tool
 dev-python/blinker 1.4-r4: Fast, simple object-to-object and broadcast signaling
 dev-python/blosc 1.5.1-r200: High performance compressor optimized for binary data
-dev-python/blurb 1.1.0-r103: Tool to create and manage NEWS blurbs for CPython
+dev-python/blurb 1.1.0_p20240412-r100: Tool to create and manage NEWS blurbs for CPython
 dev-python/boto 2.49.0-r200: Amazon Web Services API
 dev-python/boto3 1.10.2-r201: The AWS SDK for Python
 dev-python/botocore 1.14.17-r200: Low-level, data-driven core of boto 3.
