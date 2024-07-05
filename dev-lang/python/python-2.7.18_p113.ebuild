@@ -1,4 +1,4 @@
-# Copyright 1999-2023 Gentoo Authors
+# Copyright 1999-2024 Gentoo Authors
 # Distributed under the terms of the GNU General Public License v2
 
 EAPI=7
@@ -12,6 +12,7 @@ PYVER=$(ver_cut 1-2)
 DESCRIPTION="An interpreted, interactive, object-oriented programming language"
 HOMEPAGE="https://www.python.org/"
 SRC_URI="https://www.python.org/ftp/python/${PV%_*}/${MY_P}.tar.xz"
+S="${WORKDIR}/${MY_P}"
 
 LICENSE="PSF-2"
 SLOT="${PYVER}"
@@ -61,7 +62,6 @@ RDEPEND+="
 	!build? ( app-misc/mime-types )
 	doc? ( app-doc/python-docs:${PYVER} )"
 
-S="${WORKDIR}/${MY_P}"
 QA_PKGCONFIG_VERSION=${PYVER}
 QA_CONFIG_IMPL_DECL_SKIP=(
 	chflags
@@ -97,6 +97,7 @@ src_prepare() {
 		"${FILESDIR}/patches" # from https://dev.gentoo.org/~mgorny/dist/python/python-gentoo-patches-2.7.18_p16.tar.xz
 		"${FILESDIR}/python-2.7.18-PGO.patch"
 		"${FILESDIR}/python-2.7.18-configure-implicit.patch"
+		"${FILESDIR}/python-2.7.18-gcc-14.patch"
 	)
 
 	default
@@ -271,7 +272,7 @@ src_compile() {
 	fi
 	export par_arg
 
-	emake EXTRATESTOPTS="${par_arg} -uall,-audio -x test_distutils -x test_bdb -x test_runpy -x test_test_support -x test_socket"
+	emake EXTRATESTOPTS="${par_arg} -uall,-audio -x test_distutils -x test_ftplib -x test_bdb -x test_runpy -x test_test_support -x test_socket"
 
 	# Restore saved value from above.
 	local -x PYTHONDONTWRITEBYTECODE=${_PYTHONDONTWRITEBYTECODE}
