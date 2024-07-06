@@ -914,6 +914,6 @@ x11-libs/pangox-compat 0.0.2-r4: PangoX compatibility library
 x11-libs/wxGTK 3.2.5-r300: GTK+ version of wxWidgets, a cross-platform C++ GUI toolkit
 x11-misc/magick-rotation 1.6.2-r5: Application that rotates tablet pc's screen automatically, based on orientation
 x11-misc/obmenu2 1.1-r1: Openbox menu editor
-x11-misc/slim 1.4.1: Simple Login Manager resurrected
+x11-misc/slim 1.4.1-r1: Simple Login Manager resurrected
 x11-themes/chameleon-xcursors 0.5-r3: Style neutral scalable cursor theme
 x11-themes/numix-solarized 9999-r1: solarized version of Numix

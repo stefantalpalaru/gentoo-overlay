@@ -7,11 +7,10 @@ inherit cmake pam systemd
 
 DESCRIPTION="Simple Login Manager resurrected"
 HOMEPAGE="https://slim-fork.sourceforge.io/"
-SRC_URI="mirror://sourceforge/project/${PN}-fork/${P}.tar.gz"
-KEYWORDS="~amd64 ~arm ~arm64 ~mips ~ppc ~ppc64 ~sparc x86"
-
+SRC_URI="https://downloads.sourceforge.net/${PN}-fork/${P}.tar.gz"
 LICENSE="GPL-2"
 SLOT="0"
+KEYWORDS="~amd64 ~arm ~arm64 ~mips ~ppc ~ppc64 ~sparc x86"
 IUSE="branding pam"
 
 RDEPEND="
