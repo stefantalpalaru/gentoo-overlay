@@ -1,0 +1,12 @@
+diff '--color=auto' -ur Python-2.7.18.orig/Modules/_tkinter.c Python-2.7.18/Modules/_tkinter.c
+--- Python-2.7.18.orig/Modules/_tkinter.c	2020-04-19 23:13:39.000000000 +0200
++++ Python-2.7.18/Modules/_tkinter.c	2024-07-05 16:00:54.630854897 +0200
+@@ -1175,7 +1175,7 @@
+             return NULL;
+         }
+         if (sizeof(Py_UNICODE) == sizeof(Tcl_UniChar))
+-            return Tcl_NewUnicodeObj(inbuf, size);
++            return Tcl_NewUnicodeObj((const Tcl_UniChar *)inbuf, size);
+         allocsize = ((size_t)size) * sizeof(Tcl_UniChar);
+         if (allocsize >= size)
+             outbuf = (Tcl_UniChar*)attemptckalloc(allocsize);
