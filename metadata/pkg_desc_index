@@ -863,7 +863,7 @@ net-p2p/nicotine+ 3.3.4 9999: A fork of nicotine, a Soulseek client in Python
 net-p2p/nimbus-eth2 24.6.0 9999-r19: Nim implementation of the Ethereum 2.0 blockchain
 net-p2p/pybitmessage 0.6.3.2_p20180521-r2: Reference client for Bitmessage: a P2P communications protocol
 net-p2p/retroshare 0.6.7-r1: Decentralized, private and secure communication and sharing platform
-net-p2p/transmission-og 3.03 9999-r1: Transmission 3.00 fork (BitTorrent client)
+net-p2p/transmission-og 3.04 9999-r1: Transmission 3.00 fork (BitTorrent client)
 net-p2p/transmission-remote-gtk 1.6.0_p20230618: GTK+ client for management of the Transmission BitTorrent client, over HTTP RPC
 net-print/pkpgcounter 3.50-r200: Generic PDL (Page Description Language) parser in Python
 net-print/pykota 1.26-r200: Flexible print quota and accounting package for use with CUPS and lpd
