@@ -13,20 +13,17 @@ S="${WORKDIR}/SVT-AV1-v${PV}"
 
 # Also see "Alliance for Open Media Patent License 1.0"
 LICENSE="BSD-2 Apache-2.0 BSD ISC LGPL-2.1+ MIT"
-SLOT="0/2"
+SLOT="0/1"
 KEYWORDS="~amd64 ~arm64 ~hppa ~ia64 ~loong ~ppc ~ppc64 ~riscv ~sparc ~x86"
 IUSE="+lto +pgo cpu_flags_x86_avx512f"
 
 BDEPEND="
-	amd64? ( dev-lang/nasm )
-"
-RDEPEND="
-	dev-libs/cpuinfo
+	amd64? ( dev-lang/yasm )
 "
 
 PATCHES=(
 	"${FILESDIR}"/svt-av1-1.5.0-fortify-no-override.patch
-	"${FILESDIR}"/svt-av1-2.1.1-PGO.patch
+	"${FILESDIR}"/svt-av1-1.8.0-PGO.patch
 )
 
 src_unpack() {
@@ -63,10 +60,7 @@ multilib_src_configure() {
 		-DCMAKE_OUTPUT_DIRECTORY="${BUILD_DIR}"
 		-DENABLE_AVX512=$(usex cpu_flags_x86_avx512f)
 		-DEXCLUDE_HASH=ON
-		-DUSE_EXTERNAL_CPUINFO=ON
 	)
-
-	[[ ${ABI} != amd64 ]] && mycmakeargs+=( -DCOMPILE_C_ONLY=ON )
 
 	cmake_src_configure
 }
