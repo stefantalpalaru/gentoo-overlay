@@ -132,7 +132,6 @@ dev-python/bjoern 1.4.3-r1: A screamingly fast Python WSGI server written in C
 dev-python/bleach 3.2.1-r2: an easy whitelist-based HTML-sanitizing tool
 dev-python/blinker 1.4-r4: Fast, simple object-to-object and broadcast signaling
 dev-python/blosc 1.5.1-r200: High performance compressor optimized for binary data
-dev-python/blurb 1.1.0_p20240412-r100: Tool to create and manage NEWS blurbs for CPython
 dev-python/boto 2.49.0-r200: Amazon Web Services API
 dev-python/boto3 1.10.2-r201: The AWS SDK for Python
 dev-python/botocore 1.14.17-r200: Low-level, data-driven core of boto 3.
