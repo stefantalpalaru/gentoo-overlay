@@ -1,0 +1,71 @@
+From 48866f7a18736123e990559b9bb135e7114bfb22 Mon Sep 17 00:00:00 2001
+From: Veronika Kossmann <nanodesuu@gmail.com>
+Date: Sat, 18 May 2024 19:45:31 +0300
+Subject: [PATCH 1/2] Compiles and works for Workstation 17.5.2 and Mainline
+ kernel 6.9.1. Applied
+ https://github.com/mkubecek/vmware-host-modules/issues/243#issuecomment-2098516707
+ and
+ https://github.com/mkubecek/vmware-host-modules/issues/239#issuecomment-2118783046
+
+---
+ vmmon-only/include/x86msr.h | 2 +-
+ vmnet-only/vmnetInt.h       | 9 +++++++--
+ 2 files changed, 8 insertions(+), 3 deletions(-)
+
+diff --git a/vmmon-only/include/x86msr.h b/vmmon-only/include/x86msr.h
+index f67a0e12..74eaae03 100644
+--- a/vmmon-only/include/x86msr.h
++++ b/vmmon-only/include/x86msr.h
+@@ -67,7 +67,7 @@ typedef struct MSRReply {
+ typedef struct MSRQuery {
+    uint32 msrNum;           // IN
+    uint32 numLogicalCPUs;   // IN/OUT
+-   MSRReply logicalCPUs[0]; // OUT
++   MSRReply logicalCPUs[]; // OUT
+ } MSRQuery;
+ #pragma pack(pop)
+ 
+diff --git a/vmnet-only/vmnetInt.h b/vmnet-only/vmnetInt.h
+index b49c3990..f8fbc75a 100644
+--- a/vmnet-only/vmnetInt.h
++++ b/vmnet-only/vmnetInt.h
+@@ -41,8 +41,13 @@
+     compat_skb_set_network_header(skb, sizeof (struct ethhdr)),  \
+     dev_queue_xmit(skb)                                   \
+   )
+-#define dev_lock_list()    read_lock(&dev_base_lock)
+-#define dev_unlock_list()  read_unlock(&dev_base_lock)
++#if LINUX_VERSION_CODE >= KERNEL_VERSION(6, 9, 0)
++#   define dev_lock_list()    rcu_read_lock()
++#   define dev_unlock_list()  rcu_read_unlock()
++#else
++#   define dev_lock_list()    read_lock(&dev_base_lock)
++#   define dev_unlock_list()  read_unlock(&dev_base_lock)
++#endif
+ 
+ 
+ extern struct proto vmnet_proto;
+
+From d9f51eee7513715830ac214f1b25db79059f5270 Mon Sep 17 00:00:00 2001
+From: Veronika Kossmann <nanodesuu@gmail.com>
+Date: Sat, 18 May 2024 20:23:18 +0300
+Subject: [PATCH 2/2] Seems x86cpuid.h also need to be patched to prevent
+ array-index-out-of-bounds
+
+---
+ vmmon-only/include/x86cpuid.h | 2 +-
+ 1 file changed, 1 insertion(+), 1 deletion(-)
+
+diff --git a/vmmon-only/include/x86cpuid.h b/vmmon-only/include/x86cpuid.h
+index e2d297bf..c46fad70 100644
+--- a/vmmon-only/include/x86cpuid.h
++++ b/vmmon-only/include/x86cpuid.h
+@@ -92,7 +92,7 @@ typedef struct CPUIDQuery {
+    uint32 eax;                // IN
+    uint32 ecx;                // IN
+    uint32 numLogicalCPUs;     // IN/OUT
+-   CPUIDReply logicalCPUs[0]; // OUT
++   CPUIDReply logicalCPUs[]; // OUT
+ } CPUIDQuery;
+ #pragma pack(pop)
+ #endif
