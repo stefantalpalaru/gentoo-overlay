@@ -1,0 +1,27 @@
+--- a/onnxruntime/core/framework/op_node_proto_helper.cc	2022-10-22 00:18:22.000000000 +0100
++++ b/onnxruntime/core/framework/op_node_proto_helper.cc	2022-12-07 16:34:57.050648297 +0000
+@@ -132,11 +132,7 @@
+       return ORT_MAKE_STATUS(ONNXRUNTIME, FAIL, "No attribute with name: ", name, " is defined."); \
+     }                                                                                              \
+     if (!HasTypedList<T>(attr)) {                                                                  \
+-      return ORT_MAKE_STATUS(ONNXRUNTIME, FAIL, "Attribute: ", name,                               \
+-                             " expected to be of type: ",                                          \
+-                             AttributeProto::AttributeType_Name(ArrayTypeToAttributeType<T>()),    \
+-                             " but is of type: ",                                                  \
+-                             AttributeProto::AttributeType_Name(attr->type()));                    \
++      return ORT_MAKE_STATUS(ONNXRUNTIME, FAIL, "Attribute: ", name);                              \
+     }                                                                                              \
+     values = gsl::make_span<const T>(reinterpret_cast<const T*>(attr->list().data()),              \
+                                      attr->list##_size());                                         \
+@@ -202,10 +198,7 @@
+   }
+   if (!HasTypedList<std::string>(attr)) {
+     return ORT_MAKE_STATUS(ONNXRUNTIME, FAIL, "Requested attribute: ",
+-                           name, " is expected to have type: ",
+-                           AttributeProto::AttributeType_Name(AttributeProto_AttributeType_STRINGS),
+-                           " but is of type: ",
+-                           AttributeProto::AttributeType_Name(attr->type()));
++                           name);
+   }
+   std::vector<std::reference_wrapper<const std::string>> result;
+   if (attr->strings_size() > 0) {

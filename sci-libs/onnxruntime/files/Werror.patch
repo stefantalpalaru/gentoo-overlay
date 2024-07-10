@@ -1,0 +1,11 @@
+diff '--color=auto' -ur onnxruntime-1.18.0.orig/cmake/CMakeLists.txt onnxruntime-1.18.0/cmake/CMakeLists.txt
+--- onnxruntime-1.18.0.orig/cmake/CMakeLists.txt	2024-06-25 13:44:52.307367262 +0200
++++ onnxruntime-1.18.0/cmake/CMakeLists.txt	2024-06-25 13:50:08.875474200 +0200
+@@ -979,7 +979,6 @@
+       target_compile_definitions(${target_name} PRIVATE ORT_NEURAL_SPEED)
+     endif()
+ 
+-    set_target_properties(${target_name} PROPERTIES COMPILE_WARNING_AS_ERROR ON)
+     if (onnxruntime_USE_CUDA)
+       # Suppress a "conversion_function_not_usable" warning in gsl/span
+       target_compile_options(${target_name} PRIVATE "$<$<COMPILE_LANGUAGE:CUDA>:SHELL:-Xcudafe \"--diag_suppress=conversion_function_not_usable\">")

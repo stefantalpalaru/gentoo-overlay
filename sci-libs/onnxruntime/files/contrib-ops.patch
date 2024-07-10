@@ -1,0 +1,17 @@
+diff '--color=auto' -ur onnxruntime-1.18.0.orig/onnxruntime/core/providers/shared_library/provider_bridge_provider.cc onnxruntime-1.18.0/onnxruntime/core/providers/shared_library/provider_bridge_provider.cc
+--- onnxruntime-1.18.0.orig/onnxruntime/core/providers/shared_library/provider_bridge_provider.cc	2024-05-15 09:14:29.000000000 +0200
++++ onnxruntime-1.18.0/onnxruntime/core/providers/shared_library/provider_bridge_provider.cc	2024-06-24 19:36:18.875492946 +0200
+@@ -575,12 +575,12 @@
+ template <>
+ std::unique_ptr<EinsumTypedComputeProcessor<MLFloat16>> EinsumTypedComputeProcessor<MLFloat16>::Create(OpKernelContext* context, AllocatorPtr allocator, concurrency::ThreadPool* tp, EinsumComputePreprocessor& einsum_compute_preprocessor, void* einsum_cuda_assets) { return g_host_cpu.EinsumTypedComputeProcessor_MLFloat16__Create(context, allocator, tp, einsum_compute_preprocessor, einsum_cuda_assets); }
+ 
++#ifndef DISABLE_CONTRIB_OPS
+ void UpsampleBase::AdjustOutputSizeAsPolicy(TensorShapeVector& output_dims, gsl::span<const int64_t> input_dims,
+                                             InlinedVector<float>& scales) const {
+   g_host_cpu.UpsampleBase__AdjustOutputSizeAsPolicy(this, output_dims, input_dims, scales);
+ }
+ 
+-#ifndef DISABLE_CONTRIB_OPS
+ namespace contrib {
+ Status embed_layer_norm::CheckInputs(const OpKernelContext* context, bool quantizedVersion) {
+   return g_host_cpu.embed_layer_norm__CheckInputs(context, quantizedVersion);

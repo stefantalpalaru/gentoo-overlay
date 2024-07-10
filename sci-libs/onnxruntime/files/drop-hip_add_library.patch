@@ -1,0 +1,335 @@
+From 2748f38362f3aa77fe18de7521b52e7d0fd78224 Mon Sep 17 00:00:00 2001
+From: cloudhan <guangyunhan@microsoft.com>
+Date: Tue, 25 Oct 2022 12:57:48 +0800
+Subject: [PATCH] Drop hip_add_library (#13406)
+
+Switching to use CMake's builtin hip language support.
+---
+ cmake/CMakeLists.txt                          | 30 ++++++++++++++-----
+ cmake/onnxruntime_kernel_explorer.cmake       |  2 +-
+ cmake/onnxruntime_providers.cmake             |  5 ++--
+ cmake/onnxruntime_rocm_hipify.cmake           | 14 +++++++--
+ .../contrib_ops/cuda/math/isfinite_impl.cu    |  4 +--
+ .../core/providers/cuda/math/topk_impl.cuh    |  4 +--
+ .../cuda/reduction/reduction_functions.cu     |  4 +--
+ onnxruntime/core/providers/rocm/rocm_utils.cu |  4 +--
+ .../training_ops/cuda/gist/gist_impl.cu       | 20 ++++++-------
+ .../cuda/optimizer/adamw/adamw_impl.cu        |  4 +--
+ .../clip_grad_norm/clip_grad_norm_impl.cu     |  2 +-
+ 11 files changed, 58 insertions(+), 35 deletions(-)
+
+diff --git a/cmake/CMakeLists.txt b/cmake/CMakeLists.txt
+index 572f31bad11..0d1dad3ed46 100644
+--- a/cmake/CMakeLists.txt
++++ b/cmake/CMakeLists.txt
+@@ -1177,10 +1177,6 @@ else()
+   if (HAS_ENUM_CONSTEXPR_CONVERSION)
+     target_compile_options(${PROTOBUF_LIB} PRIVATE "-Wno-enum-constexpr-conversion")
+   endif()
+-  if (onnxruntime_USE_ROCM)
+-    # float16.h:90:12: error: ‘tmp’ is used uninitialized
+-    list(APPEND ORT_WARNING_FLAGS -Wno-uninitialized)
+-  endif()
+ endif()
+ 
+ #names in this var must match the directory names under onnxruntime/core/providers
+@@ -1324,14 +1320,34 @@ function(onnxruntime_set_compile_flags target_name)
+       #too many such errors in eigen
+       target_compile_options(${target_name} PRIVATE "$<$<COMPILE_LANGUAGE:CUDA>:SHELL:--compiler-options -Wno-deprecated-copy>" "$<$<COMPILE_LANGUAGE:CXX>:-Wno-deprecated-copy>")
+     endif()
++    foreach(FLAG ${ORT_WARNING_FLAGS})
++      target_compile_options(${target_name} PRIVATE "$<$<COMPILE_LANGUAGE:CXX>:${FLAG}>")
++    endforeach()
+     if (onnxruntime_USE_CUDA)
++      foreach(FLAG ${ORT_WARNING_FLAGS})
++        target_compile_options(${target_name} PRIVATE "$<$<COMPILE_LANGUAGE:CUDA>:SHELL:--compiler-options ${FLAG}>")
++      endforeach()
+       if ((NVCC_HAS_STRICT_ALIASING AND "${target_name}" MATCHES "cuda") OR (HAS_STRICT_ALIASING AND NOT "${target_name}" MATCHES "cuda"))
+         target_compile_options(${target_name} PRIVATE "$<$<COMPILE_LANGUAGE:CUDA>:-Wno-strict-aliasing>")
+       endif()
+     endif()
+-    foreach(ORT_FLAG ${ORT_WARNING_FLAGS})
+-      target_compile_options(${target_name} PRIVATE "$<$<COMPILE_LANGUAGE:CUDA>:SHELL:--compiler-options ${ORT_FLAG}>" "$<$<NOT:$<COMPILE_LANGUAGE:CUDA>>:${ORT_FLAG}>")
+-    endforeach()
++    if (onnxruntime_USE_ROCM)
++      # flags are detected with CXX language mode, some flags are not supported with hipclang
++      # because we may mix gcc and hipclang
++      set(ORT_HIP_WARNING_FLAGS ${ORT_WARNING_FLAGS})
++      list(REMOVE_ITEM ORT_HIP_WARNING_FLAGS -Wno-nonnull-compare)
++
++      # float16.h:90:12: error: ‘tmp’ is used uninitialized
++      list(APPEND ORT_HIP_WARNING_FLAGS -Wno-uninitialized)
++
++      # some #pragma unroll will fail, do not treat them as error
++      # #warning must not be treated as error
++      list(APPEND ORT_HIP_WARNING_FLAGS -Wno-error=pass-failed "-Wno-error=#warnings")
++
++      foreach(FLAG ${ORT_HIP_WARNING_FLAGS})
++        target_compile_options(${target_name} PRIVATE "$<$<COMPILE_LANGUAGE:HIP>:SHELL:${FLAG}>")
++      endforeach()
++    endif()
+ endfunction()
+ 
+ function(onnxruntime_set_source_file_properties target_name)
+diff --git a/cmake/onnxruntime_kernel_explorer.cmake b/cmake/onnxruntime_kernel_explorer.cmake
+index 5168a75fe7d..87fff40c79f 100644
+--- a/cmake/onnxruntime_kernel_explorer.cmake
++++ b/cmake/onnxruntime_kernel_explorer.cmake
+@@ -45,7 +45,7 @@ target_link_libraries(kernel_explorer
+ target_compile_definitions(kernel_explorer
+   PUBLIC ROCM_USE_FLOAT16
+   PRIVATE $<TARGET_PROPERTY:onnxruntime_pybind11_state,COMPILE_DEFINITIONS>)
+-target_compile_options(kernel_explorer PRIVATE -Wno-unknown-warning-option -Wno-sign-compare -D__HIP_PLATFORM_HCC__=1)
++target_compile_options(kernel_explorer PRIVATE -Wno-sign-compare -D__HIP_PLATFORM_HCC__=1)
+ 
+ add_dependencies(kernel_explorer onnxruntime_pybind11_state)
+ 
+diff --git a/cmake/onnxruntime_providers.cmake b/cmake/onnxruntime_providers.cmake
+index 75cdfceb692..f9505d6b54a 100644
+--- a/cmake/onnxruntime_providers.cmake
++++ b/cmake/onnxruntime_providers.cmake
+@@ -1365,9 +1365,8 @@ if (onnxruntime_USE_ROCM)
+     list(APPEND HIP_CLANG_FLAGS --offload-arch=${HIP_ARCH})
+   endforeach()
+ 
+-  #onnxruntime_add_shared_library_module(onnxruntime_providers_rocm ${onnxruntime_providers_rocm_src})
+-  hip_add_library(onnxruntime_providers_rocm MODULE ${onnxruntime_providers_rocm_src})
+-  onnxruntime_configure_target(onnxruntime_providers_rocm)
++  auto_set_source_files_hip_language(${onnxruntime_providers_rocm_src})
++  onnxruntime_add_shared_library_module(onnxruntime_providers_rocm ${onnxruntime_providers_rocm_src})
+ 
+   if(NOT MSVC)
+     target_compile_options(onnxruntime_providers_rocm PRIVATE -Wno-sign-compare -D__HIP_PLATFORM_HCC__=1)
+diff --git a/cmake/onnxruntime_rocm_hipify.cmake b/cmake/onnxruntime_rocm_hipify.cmake
+index 2dcffe8f913..3da5d5307d2 100644
+--- a/cmake/onnxruntime_rocm_hipify.cmake
++++ b/cmake/onnxruntime_rocm_hipify.cmake
+@@ -174,6 +174,13 @@ set(training_ops_excluded_files
+   "cuda_training_kernels.h"
+ )
+ 
++function(auto_set_source_files_hip_language)
++  foreach(f ${ARGN})
++    if(f MATCHES ".*\\.cu$")
++      set_source_files_properties(${f} PROPERTIES LANGUAGE HIP)
++    endif()
++  endforeach()
++endfunction()
+ 
+ # cuda_dir must be relative to REPO_ROOT
+ function(hipify cuda_dir in_excluded_file_patterns out_generated_cc_files out_generated_cu_files)
+@@ -207,15 +214,16 @@ function(hipify cuda_dir in_excluded_file_patterns out_generated_cc_files out_ge
+       DEPENDS ${hipify_tool} ${f}
+       COMMENT "Hipify: ${cuda_f_rel} -> amdgpu/${rocm_f_rel}"
+     )
+-    if(f MATCHES "\\..*cuh?")
++    if(f MATCHES ".*\\.cuh?$")
+       list(APPEND generated_cu_files ${f_out})
+     else()
+       list(APPEND generated_cc_files ${f_out})
+     endif()
+   endforeach()
+ 
+-  set_source_files_properties(generated_cc_files PROPERTIES GENERATED TRUE)
+-  set_source_files_properties(generated_cu_files PROPERTIES GENERATED TRUE)
++  set_source_files_properties(${generated_cc_files} PROPERTIES GENERATED TRUE)
++  set_source_files_properties(${generated_cu_files} PROPERTIES GENERATED TRUE)
++  auto_set_source_files_hip_language(${generated_cu_files})
+   set(${out_generated_cc_files} ${generated_cc_files} PARENT_SCOPE)
+   set(${out_generated_cu_files} ${generated_cu_files} PARENT_SCOPE)
+ endfunction()
+diff --git a/onnxruntime/contrib_ops/cuda/math/isfinite_impl.cu b/onnxruntime/contrib_ops/cuda/math/isfinite_impl.cu
+index 68d9662d45d..5c5b30f3b20 100644
+--- a/onnxruntime/contrib_ops/cuda/math/isfinite_impl.cu
++++ b/onnxruntime/contrib_ops/cuda/math/isfinite_impl.cu
+@@ -23,7 +23,7 @@ __global__ void IsAllFiniteMultiTensorImpl(ChunkGroup<1> chunks, bool* output) {
+ 
+   const TSrc* chunk_ptr = tensor_ptr + chunk_start_idx;
+   bool result = true;
+-#pragma unroll(4)
++#pragma unroll 4
+   for (int i = threadIdx.x; i < chunk_size; i += blockDim.x) {
+     if (isinf_only) {
+       result &= !IsInfScalar(chunk_ptr[i]);
+@@ -68,4 +68,4 @@ INSTANTIATE_ISALLFINITE_FUNCTOR(float)
+ INSTANTIATE_ISALLFINITE_FUNCTOR(double)
+ 
+ }  // namespace cuda
+-}  // namespace onnxruntime
+\ No newline at end of file
++}  // namespace onnxruntime
+diff --git a/onnxruntime/core/providers/cuda/math/topk_impl.cuh b/onnxruntime/core/providers/cuda/math/topk_impl.cuh
+index 0a9aaebb21e..7434d33ef80 100644
+--- a/onnxruntime/core/providers/cuda/math/topk_impl.cuh
++++ b/onnxruntime/core/providers/cuda/math/topk_impl.cuh
+@@ -336,7 +336,7 @@ __global__ void RadixTopK(const T* X, T* V, int64_t* I, const TArray<int64_t> el
+   uint32_t superior = 0, equal = 0;
+   for (int64_t x_i = tid; x_i < dimension; x_i += blockDim.x) {
+     auto x = X[FROM(x_i)];
+-    if (1 == largest && x > Kth || 0 == largest && x < Kth) {
++    if ((1 == largest && x > Kth) || (0 == largest && x < Kth)) {
+       ++superior;
+     } else if (Equal(x, Kth)) {
+       ++equal;
+@@ -358,7 +358,7 @@ __global__ void RadixTopK(const T* X, T* V, int64_t* I, const TArray<int64_t> el
+   auto output_i = superior + LESS(K - all_superior, equal);
+   for (int64_t x_i = tid; x_i < dimension; x_i += blockDim.x) {
+     auto x = X[FROM(x_i)];
+-    if (1 == largest && x > Kth || 0 == largest && x < Kth) {
++    if ((1 == largest && x > Kth) || (0 == largest && x < Kth)) {
+       auto to_i = TO(output_i);
+       V[to_i] = x;
+       I[to_i] = x_i;
+diff --git a/onnxruntime/core/providers/cuda/reduction/reduction_functions.cu b/onnxruntime/core/providers/cuda/reduction/reduction_functions.cu
+index fdd0eb5347f..9db3fb1251f 100644
+--- a/onnxruntime/core/providers/cuda/reduction/reduction_functions.cu
++++ b/onnxruntime/core/providers/cuda/reduction/reduction_functions.cu
+@@ -401,7 +401,7 @@ __global__ void reduce_matrix_rows_kernel(const TIn* input, TOut* output, int m,
+     for (int row = tid_y_in_grid; row < m; row += y_grid_stride) {
+       // Thread-level reduction. Each thread loads y_load_count_per_thread values
+       // and aggregrate them.
+-#pragma unroll(y_load_count_per_thread)
++#pragma unroll y_load_count_per_thread
+       for (int row_inner = 0; row_inner < y_load_count_per_thread; ++row_inner) {
+         int row_final = row + row_inner * t_count_y_in_grid;
+         int col_final = col;
+@@ -418,7 +418,7 @@ __global__ void reduce_matrix_rows_kernel(const TIn* input, TOut* output, int m,
+ 
+ // This loop conducts reduction on elements stored in shared memory.
+ // Each block reduces blockDim.y-by-blockDim.x tensor to 1-by-blockDim.x tensor.
+-#pragma unroll(4)
++#pragma unroll 4
+     for (int stride = blockDim.y / 2; stride > 0; stride /= 2) {
+       if (threadIdx.y < stride) {
+         shared_memory[tid_in_block] += shared_memory[tid_in_block + stride * blockDim.x];
+diff --git a/onnxruntime/core/providers/rocm/rocm_utils.cu b/onnxruntime/core/providers/rocm/rocm_utils.cu
+index 6f54c119f25..ef65d70eea0 100644
+--- a/onnxruntime/core/providers/rocm/rocm_utils.cu
++++ b/onnxruntime/core/providers/rocm/rocm_utils.cu
+@@ -35,8 +35,8 @@ void Fill(hipStream_t stream, T* output, T value, int64_t count) {
+ template <typename T>
+ class ConstantBufferImpl : public IConstantBuffer<T> {
+  public:
+-  ConstantBufferImpl(T val) : val_(val), buffer_(nullptr), count_(0) {
+-  }
++  ConstantBufferImpl(T val) : buffer_(nullptr), count_(0), val_(val) {}
++
+   ~ConstantBufferImpl() {
+     if (buffer_)
+       HIP_CALL_THROW(hipFree(buffer_));
+diff --git a/orttraining/orttraining/training_ops/cuda/gist/gist_impl.cu b/orttraining/orttraining/training_ops/cuda/gist/gist_impl.cu
+index 6c301347a2a..4ea692c88ca 100644
+--- a/orttraining/orttraining/training_ops/cuda/gist/gist_impl.cu
++++ b/orttraining/orttraining/training_ops/cuda/gist/gist_impl.cu
+@@ -34,7 +34,7 @@ __global__ void _GistPack1EncoderKernel(
+     uint8_t* output_data,
+     const size_t factor,
+     const CUDA_LONG N) {
+- 
++
+   CALCULATE_ELEMENTWISE_INDEX_OR_EXIT(id, N); // id of Y (compressed tensor)
+   uint8_t out = 0x0;
+   uint8_t bit_out = 0x0;
+@@ -67,9 +67,9 @@ __global__ void _GistPack8EncoderKernel(
+     const T* input_data,
+     uint8_t* output_data,
+     const CUDA_LONG N) {
+- 
++
+   CALCULATE_ELEMENTWISE_INDEX_OR_EXIT(id, N);
+-  
++
+   T X = input_data[id];
+ 
+   if (X == (T)0) {
+@@ -127,7 +127,7 @@ __global__ void _GistPack8EncoderKernel(
+   if (pack_e >= 0x1f) { //NaN values
+     pack_e = 0;
+   }
+-  output_data[id] = (s << (pack_e_size + pack_m_size)) | (pack_e << pack_m_size) | pack_m;  
++  output_data[id] = (s << (pack_e_size + pack_m_size)) | (pack_e << pack_m_size) | pack_m;
+ }
+ 
+ template <typename T>
+@@ -180,7 +180,7 @@ __global__ void _GistPack16EncoderKernel(
+     half* output_data,
+     const CUDA_LONG N) {
+   CALCULATE_ELEMENTWISE_INDEX_OR_EXIT(id, N);
+-  
++
+   T X = input_data[id];
+   output_data[id] = __float2half(X);
+ }
+@@ -327,7 +327,7 @@ __global__ void _GistPackMsfp15DecoderKernel(
+   const int tile_i = id % num_tiles;
+   const int pre_axis_i = id / num_tiles;
+ 
+-  // Extract exponent 
++  // Extract exponent
+   uint32_t shared_exp = 0;
+   for (int i = 7; i >= 0; i--) {
+     size_t in_i = pre_axis_i * axis_size +
+@@ -397,7 +397,7 @@ void GistPack1EncoderImpl(
+     uint8_t* output_data,
+     const size_t N) {
+   int blocksPerGrid = (int)(ceil(static_cast<float>(N) / GridDim::maxThreadsPerBlock));
+-  cudaMemset(output_data, 0, N);
++  CUDA_CALL_THROW(cudaMemset(output_data, 0, N));
+   _GistPack1EncoderKernel<<<blocksPerGrid, GridDim::maxThreadsPerBlock, 0, stream>>>(input_data, output_data, GIST_PACK1_FACTOR, (CUDA_LONG)N);
+ }
+ 
+@@ -419,7 +419,7 @@ void GistPack8EncoderImpl(
+     uint8_t* output_data,
+     const size_t N) {
+   int blocksPerGrid = (int)(ceil(static_cast<float>(N) / GridDim::maxThreadsPerBlock));
+-  
++
+   _GistPack8EncoderKernel<<<blocksPerGrid, GridDim::maxThreadsPerBlock, 0, stream>>>(input_data, output_data, (CUDA_LONG)N);
+ }
+ 
+@@ -472,8 +472,8 @@ void GistPackMsfp15EncoderImpl(
+ 
+   int blocksPerGrid = (int)(ceil(static_cast<float>(threads) / GridDim::maxThreadsPerBlock));
+   _GistPackMsfp15EncoderKernel<<<blocksPerGrid, GridDim::maxThreadsPerBlock, 0, stream>>>(
+-    input_data, 
+-    output_data, 
++    input_data,
++    output_data,
+     (CUDA_LONG)threads,
+     (CUDA_LONG)pre_axis_size,
+     (CUDA_LONG)axis_size,
+diff --git a/orttraining/orttraining/training_ops/cuda/optimizer/adamw/adamw_impl.cu b/orttraining/orttraining/training_ops/cuda/optimizer/adamw/adamw_impl.cu
+index 5314cc78ec7..139c20d12f6 100644
+--- a/orttraining/orttraining/training_ops/cuda/optimizer/adamw/adamw_impl.cu
++++ b/orttraining/orttraining/training_ops/cuda/optimizer/adamw/adamw_impl.cu
+@@ -64,7 +64,7 @@ __global__ void AdamWComputeMode0(
+   PrepareMTAData(chunks, block_idx, weight_chunk_ptr, grad_chunk_ptr,
+                  momentum_1_chunk_ptr, momentum_2_chunk_ptr, chunk_size);
+ 
+-#pragma unroll(4)
++#pragma unroll 4
+   for (int i = threadIdx.x; i < chunk_size; i += blockDim.x) {
+     float w = static_cast<float>(weight_chunk_ptr[i]);
+     float g = static_cast<float>(grad_chunk_ptr[i]);
+@@ -112,7 +112,7 @@ __global__ void AdamWComputeMode1(
+   PrepareMTAData(chunks, block_idx, weight_chunk_ptr, grad_chunk_ptr,
+                  momentum_1_chunk_ptr, momentum_2_chunk_ptr, chunk_size);
+ 
+-#pragma unroll(4)
++#pragma unroll 4
+   for (int i = threadIdx.x; i < chunk_size; i += blockDim.x) {
+     float w = static_cast<float>(weight_chunk_ptr[i]);
+     float g = static_cast<float>(grad_chunk_ptr[i]);
+diff --git a/orttraining/orttraining/training_ops/cuda/optimizer/clip_grad_norm/clip_grad_norm_impl.cu b/orttraining/orttraining/training_ops/cuda/optimizer/clip_grad_norm/clip_grad_norm_impl.cu
+index e6ddfcaa9b1..54bd0063937 100644
+--- a/orttraining/orttraining/training_ops/cuda/optimizer/clip_grad_norm/clip_grad_norm_impl.cu
++++ b/orttraining/orttraining/training_ops/cuda/optimizer/clip_grad_norm/clip_grad_norm_impl.cu
+@@ -25,7 +25,7 @@ __global__ void ClipGradNorm(
+ 
+   T* gradients_chunk_ptr = static_cast<T*>(chunks.tensor_ptrs[0][tensor_idx]) + chunk_start_idx;
+ 
+-#pragma unroll(4)
++#pragma unroll 4
+   for (int i = threadIdx.x; i < chunk_size; i += blockDim.x) {
+     float clip_coefficient = max_norm / (*total_norm + epsilon);
+     gradients_chunk_ptr[i] = static_cast<T>(gradients_chunk_ptr[i]) *

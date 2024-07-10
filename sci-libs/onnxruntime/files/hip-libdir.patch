@@ -1,0 +1,11 @@
+--- a/cmake/CMakeLists.txt	2023-11-22 14:35:17.000000000 +0000
++++ b/cmake/CMakeLists.txt	2023-11-22 14:39:51.810259678 +0000
+@@ -284,7 +284,7 @@
+     set(CMAKE_HIP_ARCHITECTURES "gfx906;gfx908;gfx90a;gfx1030;gfx1100;gfx1101")
+   endif()
+ 
+-  file(GLOB rocm_cmake_components ${onnxruntime_ROCM_HOME}/lib/cmake/*)
++  file(GLOB rocm_cmake_components ${onnxruntime_ROCM_HOME}/${CMAKE_INSTALL_LIBDIR}/cmake/*)
+   list(APPEND CMAKE_PREFIX_PATH ${rocm_cmake_components})
+   # Force cmake to accept the configured HIP compiler. Because the configured CMAKE_PREFIX_PATH does not work during
+   # enable_language(HIP), we might need to move configuring of CMAKE_PREFIX_PATH to build.py (in the future).

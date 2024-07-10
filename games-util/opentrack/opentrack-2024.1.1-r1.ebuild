@@ -22,7 +22,7 @@ DEPEND="
 	dev-qt/qtwidgets:5
 	media-libs/opencv
 	neuralnet? (
-		sci-libs/onnxruntime
+		sci-libs/onnxruntime:=
 	)
 	sys-process/procps
 	wine? (

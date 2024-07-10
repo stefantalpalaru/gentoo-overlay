@@ -1,0 +1,78 @@
+diff '--color=auto' -ur onnxruntime-1.18.0.orig/cmake/CMakeLists.txt onnxruntime-1.18.0/cmake/CMakeLists.txt
+--- onnxruntime-1.18.0.orig/cmake/CMakeLists.txt	2024-06-24 15:26:32.593489015 +0200
++++ onnxruntime-1.18.0/cmake/CMakeLists.txt	2024-06-24 15:27:40.131083581 +0200
+@@ -588,6 +588,17 @@
+   message(STATUS "Using Protocol Buffers ${Protobuf_VERSION}")
+ endif()
+ 
++if (onnxruntime_ENABLE_PYTHON OR onnxruntime_USE_CUDA)
++  Find_Package(Microsoft.GSL)
++  if (Microsoft.GSL_FOUND)
++    message( STATUS "Microsoft.GSL Version: ${Microsoft.GSL_VERSION}")
++    mark_as_advanced(GSL_INCLUDE_DIRS)
++    list(APPEND onnxruntime_EXTERNAL_LIBRARIES ${Microsoft.GSL_LINK_FLAGS})
++  else ()
++    message(FATAL_ERROR "This build is patched to only use system GSL, but it can't be found.")
++  endif()
++endif()
++
+ include(external/onnxruntime_external_deps.cmake)
+ 
+ set(ORT_WARNING_FLAGS)
+Only in onnxruntime-1.18.0/cmake: CMakeLists.txt.orig
+diff '--color=auto' -ur onnxruntime-1.18.0.orig/cmake/external/onnxruntime_external_deps.cmake onnxruntime-1.18.0/cmake/external/onnxruntime_external_deps.cmake
+--- onnxruntime-1.18.0.orig/cmake/external/onnxruntime_external_deps.cmake	2024-06-24 15:26:32.541489328 +0200
++++ onnxruntime-1.18.0/cmake/external/onnxruntime_external_deps.cmake	2024-06-24 15:28:46.758683610 +0200
+@@ -359,23 +359,6 @@
+   endif()
+ endif()
+ 
+-if(onnxruntime_USE_CUDA)
+-  FetchContent_Declare(
+-    GSL
+-    URL ${DEP_URL_microsoft_gsl}
+-    URL_HASH SHA1=${DEP_SHA1_microsoft_gsl}
+-    PATCH_COMMAND ${Patch_EXECUTABLE} --binary --ignore-whitespace -p1 < ${PROJECT_SOURCE_DIR}/patches/gsl/1064.patch
+-    FIND_PACKAGE_ARGS 4.0 NAMES Microsoft.GSL
+-  )
+-else()
+-  FetchContent_Declare(
+-    GSL
+-    URL ${DEP_URL_microsoft_gsl}
+-    URL_HASH SHA1=${DEP_SHA1_microsoft_gsl}
+-    FIND_PACKAGE_ARGS 4.0 NAMES Microsoft.GSL
+-  )
+-endif()
+-
+ FetchContent_Declare(
+     safeint
+     URL ${DEP_URL_safeint}
+@@ -389,7 +372,7 @@
+ # protobuf's cmake/utf8_range.cmake has the following line
+ include_directories(${utf8_range_SOURCE_DIR})
+ 
+-onnxruntime_fetchcontent_makeavailable(Protobuf nlohmann_json mp11 GSL flatbuffers ${ONNXRUNTIME_CPUINFO_PROJ} ${ONNXRUNTIME_CLOG_PROJ})
++onnxruntime_fetchcontent_makeavailable(Protobuf nlohmann_json mp11 flatbuffers ${ONNXRUNTIME_CPUINFO_PROJ} ${ONNXRUNTIME_CLOG_PROJ})
+ if(NOT re2_FOUND)
+   onnxruntime_fetchcontent_makeavailable(re2)
+ endif()
+@@ -495,9 +478,6 @@
+ include(eigen)
+ include(wil)
+ 
+-set(GSL_TARGET "Microsoft.GSL::GSL")
+-set(GSL_INCLUDE_DIR "$<TARGET_PROPERTY:${GSL_TARGET},INTERFACE_INCLUDE_DIRECTORIES>")
+-
+ add_library(safeint_interface INTERFACE)
+ target_include_directories(safeint_interface INTERFACE ${safeint_SOURCE_DIR})
+ 
+@@ -523,7 +503,7 @@
+ #onnxruntime_EXTERNAL_LIBRARIES could contain onnx, onnx_proto,libprotobuf, cuda/cudnn,
+ # dnnl/mklml, onnxruntime_codegen_tvm, tvm and pthread
+ # pthread is always at the last
+-set(onnxruntime_EXTERNAL_LIBRARIES ${onnxruntime_EXTERNAL_LIBRARIES_XNNPACK} ${WIL_TARGET} nlohmann_json::nlohmann_json ONNX::onnx ONNX::onnx_proto ${PROTOBUF_LIB} re2::re2 Boost::mp11 safeint_interface flatbuffers::flatbuffers ${GSL_TARGET} ${ABSEIL_LIBS} date::date ${ONNXRUNTIME_CLOG_TARGET_NAME})
++set(onnxruntime_EXTERNAL_LIBRARIES ${onnxruntime_EXTERNAL_LIBRARIES_XNNPACK} ${WIL_TARGET} nlohmann_json::nlohmann_json ONNX::onnx ONNX::onnx_proto ${PROTOBUF_LIB} re2::re2 Boost::mp11 safeint_interface flatbuffers::flatbuffers ${ABSEIL_LIBS} date::date ${ONNXRUNTIME_CLOG_TARGET_NAME})
+ # The source code of onnx_proto is generated, we must build this lib first before starting to compile the other source code that uses ONNX protobuf types.
+ # The other libs do not have the problem. All the sources are already there. We can compile them in any order.
+ set(onnxruntime_EXTERNAL_DEPENDENCIES ONNX::onnx_proto flatbuffers::flatbuffers)
+Only in onnxruntime-1.18.0/cmake/external: onnxruntime_external_deps.cmake.orig

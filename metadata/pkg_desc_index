@@ -796,7 +796,7 @@ games-fps/gzdoom 4.12.2: A modder-friendly OpenGL source port based on the DOOM 
 games-misc/bsd-games 2.17_p28-r2: Collection of games from NetBSD
 games-sports/trigger 0.6.6.1: Free OpenGL rally car racing game
 games-util/new-lg4ff 0.4.0-r1 9999-r1: Experimental Logitech force feedback module
-games-util/opentrack 2024.1.1 9999-r1: Head tracking software for MS Windows, Linux, and Apple OSX
+games-util/opentrack 2024.1.1-r1: Head tracking software for MS Windows, Linux, and Apple OSX
 games-util/oversteer 0.8.2 9999-r1: Steering Wheel Manager for Linux
 games-util/qzdl 3.1.1: Qt version of BioHazard's ZDoom Launcher (ZDL)
 gnome-base/libgnome-keyring 3.12.0-r5: Compatibility library for accessing secrets
@@ -882,6 +882,7 @@ sci-libs/caffe2 2.3.1: A deep learning framework
 sci-libs/cfitsio 3.410-r1: C and Fortran library for manipulating FITS files
 sci-libs/cholmod 3.0.14-r1: Sparse Cholesky factorization and update/downdate library
 sci-libs/gdal 3.0.4-r203: Translator library for raster geospatial data formats (includes OGR support)
+sci-libs/onnxruntime 1.18.1: Cross-platform inference and training machine-learning accelerator.
 sci-libs/pytorch 2.3.1: Tensors and Dynamic neural networks in Python
 sci-libs/scikits 0.1-r3: Common files for python scikits
 sci-libs/scikits_image 0.13.0-r200: Image processing routines for SciPy

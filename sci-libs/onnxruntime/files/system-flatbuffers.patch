@@ -1,0 +1,13 @@
+--- a/cmake/onnxruntime_providers.cmake	2023-11-18 04:58:21.000000000 +0000
++++ b/cmake/onnxruntime_providers.cmake	2023-11-24 14:26:39.770689739 +0000
+@@ -262,6 +262,10 @@
+   target_compile_options(onnxruntime_providers PRIVATE "-Wno-bitwise-instead-of-logical")
+ endif()
+ 
++# Use system flatbuffers
++find_package(FlatBuffers REQUIRED)
++add_library(flatbuffers::flatbuffers ALIAS flatbuffers::flatbuffers_shared)
++
+ if (MSVC)
+    target_compile_options(onnxruntime_providers PRIVATE "/bigobj")
+ #   if(NOT CMAKE_SIZEOF_VOID_P EQUAL 8)

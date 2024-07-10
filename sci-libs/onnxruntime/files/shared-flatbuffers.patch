@@ -1,0 +1,11 @@
+--- a/cmake/CMakeLists.txt	2022-12-06 23:01:07.000000000 +0000
++++ b/cmake/CMakeLists.txt	2022-12-06 23:04:00.414809752 +0000
+@@ -1608,7 +1608,7 @@
+ endif()
+ if (Flatbuffers_FOUND)
+   message("Use flatbuffers from preinstalled system lib")
+-  add_library(flatbuffers ALIAS flatbuffers::flatbuffers)
++  add_library(flatbuffers ALIAS flatbuffers::flatbuffers_shared)
+ else()
+   message("Use flatbuffers from submodule")
+   # We do not need to build flatc for iOS or Android Cross Compile

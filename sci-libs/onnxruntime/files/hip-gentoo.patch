@@ -1,0 +1,13 @@
+--- a/cmake/CMakeLists.txt	2023-12-07 10:47:53.000000000 +0000
++++ b/cmake/CMakeLists.txt	2023-12-07 11:19:40.128892269 +0000
+@@ -301,6 +301,10 @@
+   endif()
+   add_compile_options("$<$<COMPILE_LANGUAGE:HIP>:SHELL:-x hip>")
+ 
++  # Fix HIP on Gentoo
++  add_compile_options("$<$<COMPILE_LANGUAGE:HIP>:-fno-stack-protector>")
++  add_compile_options("$<$<COMPILE_LANGUAGE:HIP>:--rocm-device-lib-path=/usr/lib/amdgcn/bitcode>")
++
+   if (NOT onnxruntime_HIPIFY_PERL)
+     find_path(HIPIFY_PERL_PATH
+       NAMES hipify-perl

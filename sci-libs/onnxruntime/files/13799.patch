@@ -1,0 +1,117 @@
+From b75806ac55d8c5337d622c030c38011002bf102e Mon Sep 17 00:00:00 2001
+From: wejoncy <wejoncy@163.com>
+Date: Thu, 1 Dec 2022 11:39:10 +0800
+Subject: [PATCH 1/3] quick fix for build under DISABLE_ABSEIL
+
+---
+ onnxruntime/core/framework/session_options.h                    | 1 +
+ onnxruntime/core/graph/graph.cc                                 | 2 +-
+ .../core/providers/xnnpack/xnnpack_execution_provider.cc        | 2 +-
+ 3 files changed, 3 insertions(+), 2 deletions(-)
+
+diff --git a/onnxruntime/core/framework/session_options.h b/onnxruntime/core/framework/session_options.h
+index 8001fca7da9..656fd92e5ed 100644
+--- a/onnxruntime/core/framework/session_options.h
++++ b/onnxruntime/core/framework/session_options.h
+@@ -11,6 +11,7 @@
+ #include "core/optimizer/graph_transformer_level.h"
+ #include "core/util/thread_utils.h"
+ #include "core/framework/config_options.h"
++#include "core/framework/ort_value.h"
+ 
+ namespace onnxruntime {
+ 
+diff --git a/onnxruntime/core/graph/graph.cc b/onnxruntime/core/graph/graph.cc
+index 08f00078e30..2d4becb65f8 100644
+--- a/onnxruntime/core/graph/graph.cc
++++ b/onnxruntime/core/graph/graph.cc
+@@ -3843,7 +3843,7 @@ Node& Graph::CreateFusedSubGraphNode(const IndexedSubGraph& sub_graph, const std
+                 "Schema was not found for fused node. Domain:", fused_node.Domain(), " OpType:", fused_node.OpType());
+   } else if (IndexedSubGraph::SourceOfSchema::REUSE_OR_CREATE == sub_graph.schema_source) {
+     auto schema_key = GenerateSchemaKey(sub_graph);
+-    if (!reusable_fused_schema_map_.contains(schema_key)) {
++    if (!reusable_fused_schema_map_.count(schema_key)) {
+       fused_schemas_containers_.push_back(
+           function_utils::CreateSchema(*this, sub_graph, /*allow_aggregated_tensor_type=*/true));
+       reusable_fused_schema_map_.emplace(schema_key, *fused_schemas_containers_.back());
+diff --git a/onnxruntime/core/providers/xnnpack/xnnpack_execution_provider.cc b/onnxruntime/core/providers/xnnpack/xnnpack_execution_provider.cc
+index daebe4564b1..4d0b3c90ba6 100644
+--- a/onnxruntime/core/providers/xnnpack/xnnpack_execution_provider.cc
++++ b/onnxruntime/core/providers/xnnpack/xnnpack_execution_provider.cc
+@@ -179,7 +179,7 @@ static bool RequestDynamicSchema(const NodeUnit& node_unit) {
+   std::string key = node_unit.UnitType() == NodeUnit::Type::QDQGroup
+                         ? "QLinear" + node_unit.OpType()
+                         : node_unit.OpType();
+-  return dynamic_schema_set.contains(key);
++  return dynamic_schema_set.count(key);
+ }
+ 
+ // Add Compute Capability for the second call. All target nodes have the tag of "XnnpackExecutionProvider"
+
+From f0c78c360d74d7ae27f4c61cb79cc2e65fdfa10f Mon Sep 17 00:00:00 2001
+From: wejoncy <wejoncy@163.com>
+Date: Thu, 1 Dec 2022 11:52:57 +0800
+Subject: [PATCH 2/3] fix warning
+
+---
+ onnxruntime/core/graph/graph.cc                               | 2 +-
+ .../core/providers/xnnpack/xnnpack_execution_provider.cc      | 4 ++--
+ 2 files changed, 3 insertions(+), 3 deletions(-)
+
+diff --git a/onnxruntime/core/graph/graph.cc b/onnxruntime/core/graph/graph.cc
+index 2d4becb65f8..1e2b2d220d5 100644
+--- a/onnxruntime/core/graph/graph.cc
++++ b/onnxruntime/core/graph/graph.cc
+@@ -3843,7 +3843,7 @@ Node& Graph::CreateFusedSubGraphNode(const IndexedSubGraph& sub_graph, const std
+                 "Schema was not found for fused node. Domain:", fused_node.Domain(), " OpType:", fused_node.OpType());
+   } else if (IndexedSubGraph::SourceOfSchema::REUSE_OR_CREATE == sub_graph.schema_source) {
+     auto schema_key = GenerateSchemaKey(sub_graph);
+-    if (!reusable_fused_schema_map_.count(schema_key)) {
++    if (reusable_fused_schema_map_.count(schema_key) == 0) {
+       fused_schemas_containers_.push_back(
+           function_utils::CreateSchema(*this, sub_graph, /*allow_aggregated_tensor_type=*/true));
+       reusable_fused_schema_map_.emplace(schema_key, *fused_schemas_containers_.back());
+diff --git a/onnxruntime/core/providers/xnnpack/xnnpack_execution_provider.cc b/onnxruntime/core/providers/xnnpack/xnnpack_execution_provider.cc
+index 4d0b3c90ba6..bef78fab415 100644
+--- a/onnxruntime/core/providers/xnnpack/xnnpack_execution_provider.cc
++++ b/onnxruntime/core/providers/xnnpack/xnnpack_execution_provider.cc
+@@ -179,7 +179,7 @@ static bool RequestDynamicSchema(const NodeUnit& node_unit) {
+   std::string key = node_unit.UnitType() == NodeUnit::Type::QDQGroup
+                         ? "QLinear" + node_unit.OpType()
+                         : node_unit.OpType();
+-  return dynamic_schema_set.count(key);
++  return dynamic_schema_set.count(key) > 0;
+ }
+ 
+ // Add Compute Capability for the second call. All target nodes have the tag of "XnnpackExecutionProvider"
+@@ -257,7 +257,7 @@ std::vector<std::unique_ptr<ComputeCapability>> XnnpackExecutionProvider::GetCap
+ 
+     bool request_node = false;
+     // any node in NodeUnit will trigger IsNodeSupported, so we just check once.
+-    if (node_unit_supported_result.count(&node_unit)) {
++    if (node_unit_supported_result.count(&node_unit) > 0) {
+       continue;
+     } else if (node_unit.GetNode().GetExecutionProviderType() == "") {
+       // unassigned node.
+
+From 0498e951a71f133bab043f4372a5c97fdd4de1aa Mon Sep 17 00:00:00 2001
+From: JiCheng <wejoncy@163.com>
+Date: Thu, 1 Dec 2022 14:16:34 +0800
+Subject: [PATCH 3/3] Update session_options.h
+
+---
+ onnxruntime/core/framework/session_options.h | 1 -
+ 1 file changed, 1 deletion(-)
+
+diff --git a/onnxruntime/core/framework/session_options.h b/onnxruntime/core/framework/session_options.h
+index 656fd92e5ed..8001fca7da9 100644
+--- a/onnxruntime/core/framework/session_options.h
++++ b/onnxruntime/core/framework/session_options.h
+@@ -11,7 +11,6 @@
+ #include "core/optimizer/graph_transformer_level.h"
+ #include "core/util/thread_utils.h"
+ #include "core/framework/config_options.h"
+-#include "core/framework/ort_value.h"
+ 
+ namespace onnxruntime {
+ 

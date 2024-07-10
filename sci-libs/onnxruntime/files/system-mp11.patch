@@ -1,0 +1,12 @@
+--- a/cmake/external/onnxruntime_external_deps.cmake~	2023-11-25 16:39:01.000000000 +0000
++++ b/cmake/external/onnxruntime_external_deps.cmake	2023-11-25 16:46:30.745470900 +0000
+@@ -37,6 +37,9 @@
+     )
+ endif()
+ 
++add_library(mp11 INTERFACE)
++add_library(Boost::mp11 ALIAS mp11)
++
+ if (onnxruntime_BUILD_UNIT_TESTS)
+   # WebAssembly threading support in Node.js is still an experimental feature and
+   # not working properly with googletest suite.

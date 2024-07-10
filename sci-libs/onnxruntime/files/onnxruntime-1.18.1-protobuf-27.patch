@@ -1,0 +1,25 @@
+diff '--color=auto' -ur onnxruntime-1.18.1.orig/onnxruntime/core/graph/graph.cc onnxruntime-1.18.1/onnxruntime/core/graph/graph.cc
+--- onnxruntime-1.18.1.orig/onnxruntime/core/graph/graph.cc	2024-06-24 20:24:55.000000000 +0200
++++ onnxruntime-1.18.1/onnxruntime/core/graph/graph.cc	2024-07-10 16:58:11.557478887 +0200
+@@ -1234,10 +1234,6 @@
+ 
+     // Remove sparse_initializers from protobuf to save memory as they are converted to dense now
+     graph_proto_->mutable_sparse_initializer()->Clear();
+-    const int sparse_num_cleared = graph_proto_->sparse_initializer().ClearedCount();
+-    for (int i = 0; i < sparse_num_cleared; ++i) {
+-      delete graph_proto_->mutable_sparse_initializer()->ReleaseCleared();
+-    }
+   }
+ #endif
+ 
+@@ -3508,10 +3504,6 @@
+   // and can be reused. Need to explicitly release the cleared objects and free the
+   // memory.
+   graph_proto_->mutable_initializer()->Clear();
+-  const int num_cleared = graph_proto_->initializer().ClearedCount();
+-  for (int i = 0; i < num_cleared; i++) {
+-    delete graph_proto_->mutable_initializer()->ReleaseCleared();
+-  }
+ }
+ 
+ const ONNX_NAMESPACE::TensorProto* Graph::GetConstantInitializer(const std::string& initializer_name,

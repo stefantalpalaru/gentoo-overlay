@@ -1,0 +1,14 @@
+--- a/cmake/CMakeLists.txt	2023-11-25 15:28:38.000000000 +0000
++++ b/cmake/CMakeLists.txt	2023-11-25 15:34:04.112130224 +0000
+@@ -550,6 +550,11 @@
+ get_filename_component(REPO_ROOT "${REPO_ROOT}" ABSOLUTE)
+ set(ONNXRUNTIME_INCLUDE_DIR ${REPO_ROOT}/include/onnxruntime)
+ 
++Find_Package(Protobuf CONFIG REQUIRED)
++if(protobuf_VERBOSE)
++  message(STATUS "Using Protocol Buffers ${Protobuf_VERSION}")
++endif()
++
+ include(external/onnxruntime_external_deps.cmake)
+ 
+ set(ORT_WARNING_FLAGS)

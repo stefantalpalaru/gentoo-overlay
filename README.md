@@ -7,7 +7,7 @@
 This overlay is available in the official Gentoo list. Add it with:
 
 ```bash
-eselect repository enable stefantalpalaru guru cg
+eselect repository enable stefantalpalaru guru
 emaint sync
 ```
 

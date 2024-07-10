@@ -1,0 +1,24 @@
+diff '--color=auto' -ur onnxruntime-1.18.0.orig/onnxruntime/core/session/inference_session.cc onnxruntime-1.18.0/onnxruntime/core/session/inference_session.cc
+--- onnxruntime-1.18.0.orig/onnxruntime/core/session/inference_session.cc	2024-05-15 09:14:29.000000000 +0200
++++ onnxruntime-1.18.0/onnxruntime/core/session/inference_session.cc	2024-06-25 13:04:28.542643289 +0200
+@@ -406,20 +406,6 @@
+   ORT_THROW_IF_ERROR(graph_transformer_mgr_.SetSteps(session_options_.max_num_graph_transformation_steps));
+ #endif
+ 
+-#if !defined(ORT_MINIMAL_BUILD) || defined(ORT_EXTENDED_MINIMAL_BUILD)
+-  {
+-    auto disabled_string = session_options_.config_options.GetConfigOrDefault(
+-        kOrtSessionOptionsDisableSpecifiedOptimizers, "");
+-    if (!disabled_string.empty()) {
+-      const auto disabled_list = utils::SplitString(disabled_string, ";");
+-      InlinedHashSet<std::string> disabled_rules_and_transformers;
+-      disabled_rules_and_transformers.reserve(disabled_list.size());
+-      disabled_rules_and_transformers.insert(disabled_list.cbegin(), disabled_list.cend());
+-      ORT_THROW_IF_ERROR(FilterEnabledOptimizers(std::move(disabled_rules_and_transformers)));
+-    }
+-  }
+-#endif
+-
+   bool set_denormal_as_zero =
+       session_options_.config_options.GetConfigOrDefault(kOrtSessionOptionsConfigSetDenormalAsZero, "0") == "1";
+ 

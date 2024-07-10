@@ -1,0 +1,14 @@
+--- a/cmake/external/onnxruntime_external_deps.cmake	2023-11-25 23:56:24.000000000 +0000
++++ b/cmake/external/onnxruntime_external_deps.cmake	2023-11-25 23:57:25.195511046 +0000
+@@ -297,6 +297,7 @@
+-  if (google_nsync_SOURCE_DIR)
+-    add_library(nsync::nsync_cpp ALIAS nsync_cpp)
+-    target_include_directories(nsync_cpp PUBLIC ${google_nsync_SOURCE_DIR}/public)
+-  endif()
++  if (NOT TARGET nsync_cpp)
++    add_library(nsync_cpp SHARED IMPORTED GLOBAL)
++    set_property(TARGET nsync_cpp PROPERTY IMPORTED_LOCATION "/usr/${CMAKE_INSTALL_LIBDIR}/libnsync_cpp.so")
++    add_library(nsync::nsync_cpp ALIAS nsync_cpp)
++  endif()
+ endif()
+ 

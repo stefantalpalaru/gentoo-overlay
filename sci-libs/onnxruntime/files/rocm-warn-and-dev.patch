@@ -1,0 +1,789 @@
+From 13d1a3c0074ba3501c07166004d168ca77251763 Mon Sep 17 00:00:00 2001
+From: PeixuanZuo <94887879+PeixuanZuo@users.noreply.github.com>
+Date: Wed, 28 Sep 2022 03:52:10 +0800
+Subject: [PATCH] [ROCm] add SkipLayerNorm vectorize Regular case (#12821)
+
+**Description**: Describe your changes.
+add SkipLayerNorm vectorize regular case
+1. when hidden size <= 1024, SkipLayerNormTunable op can use both small
+case and regular case
+2. when hidden size > 1024, SkipLayerNormTunable op can only use regular
+case.
+
+**Motivation and Context**
+- Why is this change required? What problem does it solve?
+- If it fixes an open issue, please link to the issue here.
+---
+ .../contrib_ops/rocm/bert/layer_norm.cuh      | 43 ++++++++++++++
+ .../rocm/bert/skip_layer_norm_impl_kernel.h   | 43 ++++++++++++++
+ .../rocm/bert/skip_layer_norm_tunable_op.h    | 58 +++++++++++++------
+ .../kernels/skip_layer_norm.cc                | 26 +++++++++
+ .../kernels/skip_layer_norm_test.py           | 21 ++++---
+ 5 files changed, 166 insertions(+), 25 deletions(-)
+
+diff --git a/onnxruntime/contrib_ops/rocm/bert/layer_norm.cuh b/onnxruntime/contrib_ops/rocm/bert/layer_norm.cuh
+index 1c52679e76e..73868516478 100644
+--- a/onnxruntime/contrib_ops/rocm/bert/layer_norm.cuh
++++ b/onnxruntime/contrib_ops/rocm/bert/layer_norm.cuh
+@@ -109,6 +109,49 @@ __device__ inline void LayerNorm(
+   }
+ }
+ 
++template <typename T, int TPB, int ILP>
++__device__ inline void LayerNormVec(
++    const hipcub::KeyValuePair<T, T>& thread_data, const int ld, const int offset, const T* beta,
++    const T* gamma, const T epsilon, T* output) {
++  // Assuming thread_data is already divided by ld
++  using VecT = aligned_vector<T, ILP>;
++  using BlockReduce = hipcub::BlockReduce<hipcub::KeyValuePair<T, T>, TPB>;
++  __shared__ typename BlockReduce::TempStorage temp_storage;
++  __shared__ T mu;      // mean
++  __shared__ T rsigma;  // 1 / std.dev.
++
++  KeyValuePairSum pair_sum;
++  const auto sum_kv = BlockReduce(temp_storage).Reduce(thread_data, pair_sum);
++
++  if (threadIdx.x == 0) {
++    mu = sum_kv.key;
++    rsigma = Rsqrt(sum_kv.value - mu * mu + epsilon);
++  }
++  __syncthreads();
++
++  if (ILP * threadIdx.x < ld) {
++    T beta_v[ILP], gamma_v[ILP], output_v[ILP];
++    VecT* gamma_val = reinterpret_cast<VecT*>(&gamma_v);
++    VecT* output_val = reinterpret_cast<VecT*>(&output_v);
++
++    for (int i = threadIdx.x * ILP; i < ld; i += TPB * ILP) {
++      int idx = offset + i;
++      if (beta != nullptr) {
++        VecT* beta_val = reinterpret_cast<VecT*>(&beta_v);
++        *beta_val = *reinterpret_cast<const VecT*>(&beta[i]);
++      }
++      *gamma_val = *reinterpret_cast<const VecT*>(&gamma[i]);
++      *output_val = *reinterpret_cast<const VecT*>(&output[idx]);
++      #pragma unroll
++      for (int k = 0; k < ILP; k++) {
++        output_v[k] = (beta != nullptr) ? gamma_v[k] * (output_v[k] - mu) * rsigma + beta_v[k] :
++                                          gamma_v[k] * (output_v[k] - mu) * rsigma;
++      }
++      *(reinterpret_cast<VecT*>(&output[idx])) = *reinterpret_cast<VecT*>(&output_v[0]);
++    }
++  }
++}
++
+ template <typename T, int TPB, int ILP>
+ __device__ inline void LayerNormSmall(const T* input_v, const hipcub::KeyValuePair<T, T>& thread_data,
+                                       const int ld, const int idx, const T* beta, const T* gamma,
+diff --git a/onnxruntime/contrib_ops/rocm/bert/skip_layer_norm_impl_kernel.h b/onnxruntime/contrib_ops/rocm/bert/skip_layer_norm_impl_kernel.h
+index 9af848f36b9..056e9863068 100644
+--- a/onnxruntime/contrib_ops/rocm/bert/skip_layer_norm_impl_kernel.h
++++ b/onnxruntime/contrib_ops/rocm/bert/skip_layer_norm_impl_kernel.h
+@@ -45,6 +45,49 @@ __global__ void SkipLayerNormKernel(
+   LayerNorm<T, TPB>(thread_data, ld, offset, beta, gamma, epsilon, output);
+ }
+ 
++// Vectorized kernel
++template <typename T, unsigned TPB, int ILP>
++__global__ void SkipLayerNormKernelVec(
++    const int ld, const T* input, const T* skip, const T* beta, const T* gamma,
++    const T* bias, const T epsilon, T* output, bool hasBias) {
++  const T reverse_ld = T(1.f / ld);
++  const int offset = blockIdx.x * ld;
++
++  KeyValuePairSum pair_sum;
++  // reduce x and x^2
++  hipcub::KeyValuePair<T, T> thread_data(0, 0);
++
++  using VecT = aligned_vector<T, ILP>;
++  T input_v[ILP], skip_v[ILP], bias_v[ILP], output_v[ILP];
++  if (threadIdx.x * ILP < ld) {
++    VecT* input_val = reinterpret_cast<VecT*>(&input_v);
++    VecT* skip_val = reinterpret_cast<VecT*>(&skip_v);
++
++    for (int i = threadIdx.x * ILP; i < ld; i += TPB * ILP) {
++      int idx = offset + i;
++
++      *input_val = *reinterpret_cast<const VecT*>(&input[idx]);
++      *skip_val = *reinterpret_cast<const VecT*>(&skip[idx]);
++      if (hasBias) {
++        VecT* bias_val = reinterpret_cast<VecT*>(&bias_v);
++        *bias_val = *reinterpret_cast<const VecT*>(&bias[i]);
++      }
++
++      T rldval_sum = T(0.f);
++      T rldvalsq_sum = T(0.f);
++      #pragma unroll
++      for (int k = 0; k < ILP; k++) {
++        input_v[k] += hasBias ? skip_v[k] + bias_v[k] : skip_v[k];
++        const T rldval = reverse_ld * input_v[k];
++        thread_data = pair_sum(thread_data, hipcub::KeyValuePair<T, T>(rldval, rldval * input_v[k]));
++      }
++      *(reinterpret_cast<VecT*>(&output[idx])) = *reinterpret_cast<VecT*>(&input_v[0]);
++    }
++  }
++
++  LayerNormVec<T, TPB, ILP>(thread_data, ld, offset, beta, gamma, epsilon, output);
++}
++
+ // Vectorized kernel
+ template <typename T, unsigned TPB, int ILP>
+ __global__ void SkipLayerNormKernelSmall(
+diff --git a/onnxruntime/contrib_ops/rocm/bert/skip_layer_norm_tunable_op.h b/onnxruntime/contrib_ops/rocm/bert/skip_layer_norm_tunable_op.h
+index e504c6b78b8..115ddaf1b4f 100644
+--- a/onnxruntime/contrib_ops/rocm/bert/skip_layer_norm_tunable_op.h
++++ b/onnxruntime/contrib_ops/rocm/bert/skip_layer_norm_tunable_op.h
+@@ -12,6 +12,8 @@
+ #include "core/providers/rocm/cu_inc/common.cuh"
+ #include "core/providers/rocm/tunable/tunable.h"
+ 
++using onnxruntime::rocm::CeilDiv;
++
+ namespace onnxruntime {
+ namespace contrib {
+ namespace rocm {
+@@ -42,9 +44,9 @@ struct SkipLayerNormParams : onnxruntime::rocm::tunable::OpParams {
+ 
+ template <typename T, int ThreadsPerBlock, int VecSize>
+ Status SkipLayerNormSmallOp(const SkipLayerNormParams<T>* params) {
+-  using onnxruntime::rocm::CeilDiv;
+   TUNABLE_OP_RETURN_UNSUPPOTED_ARGUMENT_IF(
+-      !((params->ld <= 1024 && params->ld % VecSize == 0 && params->ld == ThreadsPerBlock * VecSize)));
++      !((params->ld <= 1024 && params->ld % VecSize == 0 &&
++         params->ld <= ThreadsPerBlock * VecSize && params->ld > (ThreadsPerBlock - GPU_WARP_SIZE) * VecSize)));
+   SkipLayerNormKernelSmall<T, ThreadsPerBlock, VecSize><<<dim3(CeilDiv(params->element_count, params->ld)),
+                                                           dim3(ThreadsPerBlock),
+                                                           0, params->stream>>>(
+@@ -54,30 +56,50 @@ Status SkipLayerNormSmallOp(const SkipLayerNormParams<T>* params) {
+   return HIP_CALL(hipGetLastError());
+ }
+ 
+-#define ADD_OP(threads_per_block)                                         \
+-  this->ops_.emplace_back(SkipLayerNormSmallOp<T, threads_per_block, 1>); \
+-  this->ops_.emplace_back(SkipLayerNormSmallOp<T, threads_per_block, 2>); \
+-  this->ops_.emplace_back(SkipLayerNormSmallOp<T, threads_per_block, 4>); \
+-  this->ops_.emplace_back(SkipLayerNormSmallOp<T, threads_per_block, 8>); \
+-  this->ops_.emplace_back(SkipLayerNormSmallOp<T, threads_per_block, 16>);
++template <typename T, int ThreadsPerBlock, int VecSize>
++Status SkipLayerNormRegularOp(const SkipLayerNormParams<T>* params) {
++  TUNABLE_OP_RETURN_UNSUPPOTED_ARGUMENT_IF(
++      !((params->ld > 0 && params->ld % VecSize == 0 &&
++       (params->ld >= ThreadsPerBlock * VecSize ||
++       (params->ld < 64 && params->ld > (ThreadsPerBlock - GPU_WARP_SIZE) * VecSize)))));
++  SkipLayerNormKernelVec<T, ThreadsPerBlock, VecSize><<<dim3(CeilDiv(params->element_count, params->ld)),
++                                                        dim3(ThreadsPerBlock),
++                                                        0, params->stream>>>(
++      params->ld, params->input, params->skip,
++      params->beta, params->gamma, params->bias, maybe2half<T>(params->epsilon), params->output,
++      (params->bias == nullptr) ? false : true);
++  return HIP_CALL(hipGetLastError());
++}
++
++#define ADD_OP_FOR_ALL_VEC_SIZE(name, threads_per_block)  \
++  this->ops_.emplace_back(name<T, threads_per_block, 1>); \
++  this->ops_.emplace_back(name<T, threads_per_block, 2>); \
++  this->ops_.emplace_back(name<T, threads_per_block, 4>); \
++  this->ops_.emplace_back(name<T, threads_per_block, 8>); \
++  this->ops_.emplace_back(name<T, threads_per_block, 16>);
++
++#define ADD_OP_FOR_ALL_THREADS_PER_BLOCK_ALL_VEC_SIZE(name) \
++  ADD_OP_FOR_ALL_VEC_SIZE(name, 64)                         \
++  ADD_OP_FOR_ALL_VEC_SIZE(name, 128)                        \
++  ADD_OP_FOR_ALL_VEC_SIZE(name, 192)                        \
++  ADD_OP_FOR_ALL_VEC_SIZE(name, 256)                        \
++  ADD_OP_FOR_ALL_VEC_SIZE(name, 320)                        \
++  ADD_OP_FOR_ALL_VEC_SIZE(name, 384)
+ 
+ template <typename T>
+ class SkipLayerNormTunableOp : public onnxruntime::rocm::tunable::TunableOp<SkipLayerNormParams<T>> {
+  public:
+   SkipLayerNormTunableOp() {
+-    ADD_OP(64)
+-    ADD_OP(128)
+-    ADD_OP(192)
+-    ADD_OP(256)
+-    ADD_OP(320)
+-    ADD_OP(384)
+-
+-    // NOTE: the 3-th kernel seems to be better in gerenal case, so set it as default one
+-    this->SetDefaultId(3);
++    ADD_OP_FOR_ALL_THREADS_PER_BLOCK_ALL_VEC_SIZE(SkipLayerNormSmallOp)
++    ADD_OP_FOR_ALL_THREADS_PER_BLOCK_ALL_VEC_SIZE(SkipLayerNormRegularOp)
++
++    // NOTE: the 30-th kernel is SkipLayerNormRegularOp ThreadsPerBlock=64 VecSize=1
++    this->SetDefaultId(30);
+   }
+ };
+ 
+-#undef ADD_OP
++#undef ADD_OP_FOR_ALL_VEC_SIZE
++#undef ADD_OP_FOR_ALL_THREADS_PER_BLOCK_ALL_VEC_SIZE
+ 
+ }  // namespace rocm
+ }  // namespace contrib
+diff --git a/onnxruntime/python/tools/kernel_explorer/kernels/skip_layer_norm.cc b/onnxruntime/python/tools/kernel_explorer/kernels/skip_layer_norm.cc
+index e85ece82ac8..8a12669e853 100644
+--- a/onnxruntime/python/tools/kernel_explorer/kernels/skip_layer_norm.cc
++++ b/onnxruntime/python/tools/kernel_explorer/kernels/skip_layer_norm.cc
+@@ -38,6 +38,30 @@ class SkipLayerNormSmall : public IKernelExplorer {
+   ParamsT params_{};
+ };
+ 
++template <typename T, int ThreadsPerBlock, int VecSize>
++class SkipLayerNormRegular : public IKernelExplorer {
++ public:
++  SkipLayerNormRegular(DeviceArray& output, DeviceArray& input, DeviceArray& skip,
++                       DeviceArray& gamma, DeviceArray& beta, DeviceArray& bias,
++                       float epsilon, int hidden_size, int element_count)
++      : params_(this->Stream(), static_cast<T*>(output.ptr()), static_cast<T*>(input.ptr()),
++                static_cast<T*>(skip.ptr()), static_cast<T*>(gamma.ptr()), static_cast<T*>(beta.ptr()),
++                static_cast<T*>(bias.ptr()), epsilon, hidden_size, element_count) {}
++
++  void Run() override {
++    ORT_THROW_IF_ERROR((contrib::rocm::SkipLayerNormRegularOp<T, ThreadsPerBlock, VecSize>(&params_)));
++  }
++
++  bool IsSupported() {
++    Status status = contrib::rocm::SkipLayerNormRegularOp<T, ThreadsPerBlock, VecSize>(&params_);
++    return status.IsOK();
++  }
++
++ private:
++  using ParamsT = contrib::rocm::SkipLayerNormParams<T>;
++  ParamsT params_{};
++};
++
+ template <typename T>
+ class SkipLayerNormTunable : public IKernelExplorer {
+  public:
+@@ -102,6 +126,8 @@ class SkipLayerNormTunable : public IKernelExplorer {
+ void InitSkipLayerNorm(py::module m) {
+   REGISTER_OP_FOR_ALL_THREADS_PER_BLOCK_ALL_VEC_SIZE(SkipLayerNormSmall, half);
+   REGISTER_OP_FOR_ALL_THREADS_PER_BLOCK_ALL_VEC_SIZE(SkipLayerNormSmall, float);
++  REGISTER_OP_FOR_ALL_THREADS_PER_BLOCK_ALL_VEC_SIZE(SkipLayerNormRegular, half);
++  REGISTER_OP_FOR_ALL_THREADS_PER_BLOCK_ALL_VEC_SIZE(SkipLayerNormRegular, float);
+ 
+   REGISTER_TUNABLE_OP(half);
+   REGISTER_TUNABLE_OP(float);
+diff --git a/onnxruntime/python/tools/kernel_explorer/kernels/skip_layer_norm_test.py b/onnxruntime/python/tools/kernel_explorer/kernels/skip_layer_norm_test.py
+index e062afcc590..c12cb1fc63f 100644
+--- a/onnxruntime/python/tools/kernel_explorer/kernels/skip_layer_norm_test.py
++++ b/onnxruntime/python/tools/kernel_explorer/kernels/skip_layer_norm_test.py
+@@ -11,9 +11,16 @@
+ import pytest
+ 
+ 
+-def get_bert_sizes():
+-    batch_sizes = [1, 8, 64, 128]
+-    seq_lens = [64, 128, 256, 384, 512]
++def get_bert_sizes_test():
++    batch_sizes = [1, 8, 128]
++    seq_lens = [64, 256]
++    hidden_sizes = [1, 2, 3, 4, 5, 7, 8, 9, 13, 32, 63, 64, 65, 127, 128, 129, 177, 256, 1023, 1024]
++    return product(batch_sizes, seq_lens, hidden_sizes)
++
++
++def get_bert_sizes_profile():
++    batch_sizes = [1, 8, 128, 256]
++    seq_lens = [64, 128, 256, 384]
+     hidden_sizes = [768, 1024]
+     return product(batch_sizes, seq_lens, hidden_sizes)
+ 
+@@ -43,7 +50,8 @@ def run_skip_layer_norm(batch_size: int, seq_len: int, hidden_size: int, dtype:
+     bias = np.random.rand(hidden_size).astype(dtype)
+     gamma = np.random.rand(hidden_size).astype(dtype)
+     beta = np.random.rand((hidden_size)).astype(dtype)
+-    epsilon = 0.0005
++    # Becuase of rocm FMAs calculation issue with float16, epsilon should be larger when hidden_size is small
++    epsilon = 0.05 if hidden_size < 8 else 0.0005
+     output_y = np.random.rand(batch_size, seq_len, hidden_size).astype(dtype)
+ 
+     input_d = ke.DeviceArray(input_x)
+@@ -68,11 +76,10 @@ def run_skip_layer_norm(batch_size: int, seq_len: int, hidden_size: int, dtype:
+ dtypes = ["float32", "float16"]
+ 
+ 
+-@pytest.mark.parametrize("bert_sizes", get_bert_sizes())
++@pytest.mark.parametrize("bert_sizes", get_bert_sizes_test())
+ @pytest.mark.parametrize("dtype", dtypes)
+ def test_skip_layer_norm(bert_sizes, dtype):
+     for func in dtype_to_funcs(dtype):
+-        print(func)
+         run_skip_layer_norm(*bert_sizes, dtype, func)
+ 
+ 
+@@ -111,7 +118,7 @@ def profile_skip_layer_norm_func(batch_size, seq_len, hidden_size, dtype, func):
+ 
+ def profile():
+     for dtype in dtypes:
+-        for bert_size in get_bert_sizes():
++        for bert_size in get_bert_sizes_profile():
+             for func in dtype_to_funcs(dtype):
+                 profile_skip_layer_norm_func(*bert_size, dtype, func)
+             print()
+From 51ac6617f5be599eba2ac6e3d995220c1762d109 Mon Sep 17 00:00:00 2001
+From: cloudhan <guangyunhan@microsoft.com>
+Date: Fri, 7 Oct 2022 09:45:01 +0800
+Subject: [PATCH] Fix warnings and enable dev mode for ROCm CI (#13223)
+
+Fix warnings and enable dev mode for ROCm CI:
+
+* Fix ROCm headers complaining "This file is deprecated. Use the header file from ..."
+* Disable warning signed and unsigned compare for kernel explorer
+* Fix unused and nondiscard warnings
+* Enable dev mode for ROCm CI
+* Walkaround error "unknown warning option '-Wno-nonnull-compare'" in kernel explorer by using '-Wno-unknown-warning-option' to ignore the unknown option
+* Fix error "unused parameter 'mask'"
+* Fix warning "instantiation of variable 'onnxruntime::rocm::Consts<float>::One' required here, but no definition is available", etc. Fixed by using C++17's inline (implied by constexpr) static initialization.
+* Remove unused variable
+* Add the missing `override` specifier
+---
+ cmake/onnxruntime_kernel_explorer.cmake       |  1 +
+ cmake/onnxruntime_providers.cmake             | 11 +++-
+ .../contrib_ops/rocm/bert/attention_impl.h    |  2 +-
+ .../rocm/bert/skip_layer_norm_impl_kernel.h   |  4 +-
+ .../core/providers/rocm/RoctracerLogger.cc    |  3 -
+ .../core/providers/rocm/RoctracerLogger.h     | 10 ++--
+ .../core/providers/rocm/cu_inc/common.cuh     |  4 ++
+ .../core/providers/rocm/integer_gemm.cc       |  2 +-
+ .../core/providers/rocm/miopen_common.cc      | 57 -------------------
+ .../core/providers/rocm/miopen_common.h       | 24 ++++----
+ onnxruntime/core/providers/rocm/rocm_pch.h    |  8 +--
+ .../core/providers/rocm/rocm_profiler.cc      | 22 +++----
+ onnxruntime/core/providers/rocm/rocm_utils.cu |  4 +-
+ .../core/session/provider_bridge_ort.cc       |  2 +-
+ .../linux-migraphx-ci-pipeline.yml            |  1 -
+ .../orttraining-pai-ci-pipeline.yml           |  1 -
+ .../github/azure-pipelines/templates/rocm.yml |  1 -
+ 17 files changed, 52 insertions(+), 105 deletions(-)
+
+diff --git a/cmake/onnxruntime_kernel_explorer.cmake b/cmake/onnxruntime_kernel_explorer.cmake
+index 01572075ead..5168a75fe7d 100644
+--- a/cmake/onnxruntime_kernel_explorer.cmake
++++ b/cmake/onnxruntime_kernel_explorer.cmake
+@@ -45,6 +45,7 @@ target_link_libraries(kernel_explorer
+ target_compile_definitions(kernel_explorer
+   PUBLIC ROCM_USE_FLOAT16
+   PRIVATE $<TARGET_PROPERTY:onnxruntime_pybind11_state,COMPILE_DEFINITIONS>)
++target_compile_options(kernel_explorer PRIVATE -Wno-unknown-warning-option -Wno-sign-compare -D__HIP_PLATFORM_HCC__=1)
+ 
+ add_dependencies(kernel_explorer onnxruntime_pybind11_state)
+ 
+diff --git a/cmake/onnxruntime_providers.cmake b/cmake/onnxruntime_providers.cmake
+index 56d01d6a8c3..2daa6c260c7 100644
+--- a/cmake/onnxruntime_providers.cmake
++++ b/cmake/onnxruntime_providers.cmake
+@@ -1399,8 +1399,15 @@ if (onnxruntime_USE_ROCM)
+ 
+   add_dependencies(onnxruntime_providers_rocm onnxruntime_providers_shared ${onnxruntime_EXTERNAL_DEPENDENCIES})
+   target_link_libraries(onnxruntime_providers_rocm PRIVATE ${ONNXRUNTIME_ROCM_LIBS} ${ONNXRUNTIME_PROVIDERS_SHARED} ${ABSEIL_LIBS})
+-  # During transition to separate hipFFT repo, put hipfft/include early
+-  target_include_directories(onnxruntime_providers_rocm PRIVATE ${ONNXRUNTIME_ROOT} ${CMAKE_CURRENT_BINARY_DIR} ${CMAKE_CURRENT_BINARY_DIR}/amdgpu/onnxruntime ${eigen_INCLUDE_DIRS} PUBLIC ${onnxruntime_ROCM_HOME}/hipfft/include ${onnxruntime_ROCM_HOME}/include ${onnxruntime_ROCM_HOME}/hipcub/include ${onnxruntime_ROCM_HOME}/hiprand/include ${onnxruntime_ROCM_HOME}/rocrand/include ${onnxruntime_ROCM_HOME}/roctracer/include)
++  target_include_directories(onnxruntime_providers_rocm SYSTEM
++    PRIVATE
++      ${ONNXRUNTIME_ROOT}
++      ${CMAKE_CURRENT_BINARY_DIR}
++      ${CMAKE_CURRENT_BINARY_DIR}/amdgpu/onnxruntime
++      ${eigen_INCLUDE_DIRS}
++    PUBLIC
++      ${onnxruntime_ROCM_HOME}/include
++      ${onnxruntime_ROCM_HOME}/include/roctracer)
+   install(DIRECTORY ${PROJECT_SOURCE_DIR}/../include/onnxruntime/core/providers/rocm  DESTINATION ${CMAKE_INSTALL_INCLUDEDIR}/onnxruntime/core/providers)
+   set_target_properties(onnxruntime_providers_rocm PROPERTIES LINKER_LANGUAGE CXX)
+   set_target_properties(onnxruntime_providers_rocm PROPERTIES FOLDER "ONNXRuntime")
+diff --git a/onnxruntime/contrib_ops/rocm/bert/attention_impl.h b/onnxruntime/contrib_ops/rocm/bert/attention_impl.h
+index b862280ba04..7b027679c6c 100644
+--- a/onnxruntime/contrib_ops/rocm/bert/attention_impl.h
++++ b/onnxruntime/contrib_ops/rocm/bert/attention_impl.h
+@@ -4,7 +4,7 @@
+ #pragma once
+ 
+ #include <hip/hip_fp16.h>
+-#include <rocblas.h>
++#include <rocblas/rocblas.h>
+ #include "core/providers/rocm/shared_inc/rocm_utils.h"
+ 
+ namespace onnxruntime {
+diff --git a/onnxruntime/contrib_ops/rocm/bert/skip_layer_norm_impl_kernel.h b/onnxruntime/contrib_ops/rocm/bert/skip_layer_norm_impl_kernel.h
+index 056e9863068..ee38b1c7e70 100644
+--- a/onnxruntime/contrib_ops/rocm/bert/skip_layer_norm_impl_kernel.h
++++ b/onnxruntime/contrib_ops/rocm/bert/skip_layer_norm_impl_kernel.h
+@@ -58,7 +58,7 @@ __global__ void SkipLayerNormKernelVec(
+   hipcub::KeyValuePair<T, T> thread_data(0, 0);
+ 
+   using VecT = aligned_vector<T, ILP>;
+-  T input_v[ILP], skip_v[ILP], bias_v[ILP], output_v[ILP];
++  T input_v[ILP], skip_v[ILP], bias_v[ILP];
+   if (threadIdx.x * ILP < ld) {
+     VecT* input_val = reinterpret_cast<VecT*>(&input_v);
+     VecT* skip_val = reinterpret_cast<VecT*>(&skip_v);
+@@ -73,8 +73,6 @@ __global__ void SkipLayerNormKernelVec(
+         *bias_val = *reinterpret_cast<const VecT*>(&bias[i]);
+       }
+ 
+-      T rldval_sum = T(0.f);
+-      T rldvalsq_sum = T(0.f);
+       #pragma unroll
+       for (int k = 0; k < ILP; k++) {
+         input_v[k] += hasBias ? skip_v[k] + bias_v[k] : skip_v[k];
+diff --git a/onnxruntime/core/providers/rocm/RoctracerLogger.cc b/onnxruntime/core/providers/rocm/RoctracerLogger.cc
+index f6bf3ce2ed8..ab48ad71a21 100644
+--- a/onnxruntime/core/providers/rocm/RoctracerLogger.cc
++++ b/onnxruntime/core/providers/rocm/RoctracerLogger.cc
+@@ -14,8 +14,6 @@ static timestamp_t timespec_to_ns(const timespec& time) {
+ 
+ //using namespace std::chrono;
+ 
+-constexpr size_t kBufSize(2 * 1024 * 1024);
+-
+ RoctracerLogger& RoctracerLogger::singleton() {
+   static RoctracerLogger instance;
+   return instance;
+@@ -348,4 +346,3 @@ bool ApiIdList::contains(uint32_t apiId)
+ {
+   return (filter_.find(apiId) != filter_.end()) ? !invert_ : invert_;  // XOR
+ }
+-
+diff --git a/onnxruntime/core/providers/rocm/RoctracerLogger.h b/onnxruntime/core/providers/rocm/RoctracerLogger.h
+index 81385940f7d..55c952a9b9d 100644
+--- a/onnxruntime/core/providers/rocm/RoctracerLogger.h
++++ b/onnxruntime/core/providers/rocm/RoctracerLogger.h
+@@ -10,11 +10,11 @@
+ #include <deque>
+ #include <atomic>
+ 
+-#include <roctracer.h>
+-#include <roctracer_hcc.h>
+-#include <roctracer_hip.h>
+-#include <roctracer_ext.h>
+-#include <roctracer_roctx.h>
++#include <roctracer/roctracer.h>
++#include <roctracer/roctracer_hcc.h>
++#include <roctracer/roctracer_hip.h>
++#include <roctracer/roctracer_ext.h>
++#include <roctracer/roctracer_roctx.h>
+ 
+ 
+ namespace onnxruntime{
+diff --git a/onnxruntime/core/providers/rocm/cu_inc/common.cuh b/onnxruntime/core/providers/rocm/cu_inc/common.cuh
+index 1ce2fbc518a..ad11ad34d39 100644
+--- a/onnxruntime/core/providers/rocm/cu_inc/common.cuh
++++ b/onnxruntime/core/providers/rocm/cu_inc/common.cuh
+@@ -358,21 +358,25 @@ inline int GPU_WARP_SIZE_HOST= warpSizeDynamic();
+ 
+ template <typename T>
+ __device__ __forceinline__ T WARP_SHFL(T value, int srcLane, int width = GPU_WARP_SIZE, unsigned int mask = 0xffffffff) {
++  ORT_UNUSED_PARAMETER(mask);
+   return __shfl(value, srcLane, width);
+ }
+ 
+ template <typename T>
+ __device__ __forceinline__ T WARP_SHFL_XOR(T value, int laneMask, int width = GPU_WARP_SIZE, unsigned int mask = 0xffffffff) {
++  ORT_UNUSED_PARAMETER(mask);
+   return __shfl_xor(value, laneMask, width);
+ }
+ 
+ template <typename T>
+ __device__ __forceinline__ T WARP_SHFL_UP(T value, unsigned int delta, int width = GPU_WARP_SIZE, unsigned int mask = 0xffffffff) {
++  ORT_UNUSED_PARAMETER(mask);
+   return __shfl_up(value, delta, width);
+ }
+ 
+ template <typename T>
+ __device__ __forceinline__ T WARP_SHFL_DOWN(T value, unsigned int delta, int width = GPU_WARP_SIZE, unsigned int mask = 0xffffffff) {
++  ORT_UNUSED_PARAMETER(mask);
+   return __shfl_down(value, delta, width);
+ }
+ 
+diff --git a/onnxruntime/core/providers/rocm/integer_gemm.cc b/onnxruntime/core/providers/rocm/integer_gemm.cc
+index 86e457d7439..05607beebdb 100644
+--- a/onnxruntime/core/providers/rocm/integer_gemm.cc
++++ b/onnxruntime/core/providers/rocm/integer_gemm.cc
+@@ -3,7 +3,7 @@
+ 
+ 
+ #include <hip/hip_runtime.h>
+-#include <rocblas.h>
++#include <rocblas/rocblas.h>
+ #include "core/providers/rocm/shared_inc/integer_gemm.h"
+ 
+ #include "core/providers/rocm/rocm_common.h"
+diff --git a/onnxruntime/core/providers/rocm/miopen_common.cc b/onnxruntime/core/providers/rocm/miopen_common.cc
+index 10b71a22499..7a6afb4b92d 100644
+--- a/onnxruntime/core/providers/rocm/miopen_common.cc
++++ b/onnxruntime/core/providers/rocm/miopen_common.cc
+@@ -114,62 +114,5 @@ miopenDataType_t MiopenTensor::GetDataType<int8_t>() {
+   return miopenInt8;
+ }
+ 
+-template <>
+-const float Consts<float>::One = 1;
+-
+-template <>
+-const double Consts<double>::One = 1;
+-
+-template <>
+-const float Consts<float>::Zero = 0;
+-
+-template <>
+-const double Consts<double>::Zero = 0;
+-
+-const float Consts<half>::Zero = 0;
+-
+-const float Consts<half>::One = 1;
+-
+-const float Consts<BFloat16>::Zero = 0;
+-
+-const float Consts<BFloat16>::One = 1;
+-
+-#if ROCM_VERSION >= 40300
+-const float ReduceConsts<half>::One = 1;
+-
+-const float ReduceConsts<half>::Zero = 0;
+-
+-const float ReduceConsts<BFloat16>::One = 1;
+-
+-const float ReduceConsts<BFloat16>::Zero = 0;
+-#else
+-// Up until ROCm 4.2, miopenReduceTensor() required alpha/beta to be the same data
+-// type as the input type. This differs from cudnnReduceTensor() and other
+-// MIOpen/cuDNN APIs where alpha/beta are float when input type is half (float16).
+-template <>
+-const half ReduceConsts<half>::One = 1.f;
+-
+-template <>
+-const half ReduceConsts<half>::Zero = 0.f;
+-
+-template <>
+-const BFloat16 ReduceConsts<BFloat16>::One = 1.f;
+-
+-template <>
+-const BFloat16 ReduceConsts<BFloat16>::Zero = 0.f;
+-#endif
+-
+-template <>
+-const float ReduceConsts<float>::One = 1;
+-
+-template <>
+-const double ReduceConsts<double>::One = 1;
+-
+-template <>
+-const float ReduceConsts<float>::Zero = 0;
+-
+-template <>
+-const double ReduceConsts<double>::Zero = 0;
+-
+ }  // namespace rocm
+ }  // namespace onnxruntime
+diff --git a/onnxruntime/core/providers/rocm/miopen_common.h b/onnxruntime/core/providers/rocm/miopen_common.h
+index 003ebab9107..acfde787d01 100644
+--- a/onnxruntime/core/providers/rocm/miopen_common.h
++++ b/onnxruntime/core/providers/rocm/miopen_common.h
+@@ -54,26 +54,26 @@ class MiopenTensorDescriptor final {
+ 
+ template <typename ElemType>
+ struct Consts {
+-  static const ElemType Zero;
+-  static const ElemType One;
++  static const constexpr ElemType Zero{0};
++  static const constexpr ElemType One{1};
+ };
+ 
+ template <>
+ struct Consts<half> {
+-  static const float Zero;
+-  static const float One;
++  static const constexpr float Zero{0};
++  static const constexpr float One{1};
+ };
+ 
+ template <>
+ struct Consts<BFloat16> {
+-  static const float Zero;
+-  static const float One;
++  static const constexpr float Zero{0};
++  static const constexpr float One{1};
+ };
+ 
+ template <typename ElemType>
+ struct ReduceConsts {
+-  static const ElemType Zero;
+-  static const ElemType One;
++  static const constexpr ElemType Zero{0};
++  static const constexpr ElemType One{1};
+ };
+ 
+ #if ROCM_VERSION >= 40300
+@@ -82,14 +82,14 @@ struct ReduceConsts {
+ // MIOpen/cuDNN APIs where alpha/beta are float when input type is half (float16).
+ template <>
+ struct ReduceConsts<half> {
+-  static const float Zero;
+-  static const float One;
++  static const constexpr float Zero{0};
++  static const constexpr float One{1};
+ };
+ 
+ template <>
+ struct ReduceConsts<BFloat16> {
+-  static const float Zero;
+-  static const float One;
++  static const constexpr float Zero{0};
++  static const constexpr float One{1};
+ };
+ #endif
+ 
+diff --git a/onnxruntime/core/providers/rocm/rocm_pch.h b/onnxruntime/core/providers/rocm/rocm_pch.h
+index 59df0aaa234..ecaf7a2c558 100644
+--- a/onnxruntime/core/providers/rocm/rocm_pch.h
++++ b/onnxruntime/core/providers/rocm/rocm_pch.h
+@@ -9,14 +9,14 @@
+ #endif
+ 
+ #include <hip/hip_runtime.h>
+-#include <rocblas.h>
+-#include <hipsparse.h>
++#include <hipfft/hipfft.h>
+ #include <hiprand/hiprand.h>
++#include <hipsparse/hipsparse.h>
+ #include <miopen/miopen.h>
+-#include <hipfft.h>
++#include <rocblas/rocblas.h>
+ 
+ #ifdef ORT_USE_NCCL
+-#include <rccl.h>
++#include <rccl/rccl.h>
+ #endif
+ 
+ #if defined(_MSC_VER)
+diff --git a/onnxruntime/core/providers/rocm/rocm_profiler.cc b/onnxruntime/core/providers/rocm/rocm_profiler.cc
+index cb808c364ee..1b3b364d7f3 100644
+--- a/onnxruntime/core/providers/rocm/rocm_profiler.cc
++++ b/onnxruntime/core/providers/rocm/rocm_profiler.cc
+@@ -5,9 +5,9 @@
+ #include <chrono>
+ #include <time.h>
+ 
+-#include "rocm_profiler.h"
+-#include "RoctracerLogger.h"
+ #include "core/common/profiler_common.h"
++#include "core/providers/rocm/rocm_profiler.h"
++#include "core/providers/rocm/RoctracerLogger.h"
+ 
+ #define BSIZE 4096
+ 
+@@ -29,7 +29,7 @@ RocmProfiler::~RocmProfiler()
+ {
+ }
+ 
+-bool RocmProfiler::StartProfiling() 
++bool RocmProfiler::StartProfiling()
+ {
+     d->clearLogs();
+     d->startLogging();
+@@ -43,7 +43,7 @@ void RocmProfiler::EndProfiling(TimePoint start_time, Events& events)
+   std::map<uint64_t, std::vector<EventRecord>> event_map;
+   std::map<uint64_t, kernelRow*> kernelLaunches;   // correlation id -> kernel info
+   std::map<uint64_t, copyRow*> copyLaunches;     // correlation id -> copy info
+-    
++
+   // Generate EventRecords
+   int64_t profiling_start = std::chrono::duration_cast<std::chrono::nanoseconds>(start_time.time_since_epoch()).count();
+ 
+@@ -132,12 +132,12 @@ void RocmProfiler::EndProfiling(TimePoint start_time, Events& events)
+         auto &item = *(*kit).second;
+         snprintf(buff, BSIZE, "%p", item.stream);
+         args["stream"] = std::string(buff);
+-        args["grid_x"] = std::to_string(item.gridX); 
+-        args["grid_y"] = std::to_string(item.gridY); 
+-        args["grid_z"] = std::to_string(item.gridZ); 
+-        args["block_x"] = std::to_string(item.workgroupX); 
+-        args["block_y"] = std::to_string(item.workgroupY); 
+-        args["block_z"] = std::to_string(item.workgroupZ); 
++        args["grid_x"] = std::to_string(item.gridX);
++        args["grid_y"] = std::to_string(item.gridY);
++        args["grid_z"] = std::to_string(item.gridZ);
++        args["block_x"] = std::to_string(item.workgroupX);
++        args["block_y"] = std::to_string(item.workgroupY);
++        args["block_z"] = std::to_string(item.workgroupZ);
+         if (item.functionAddr != nullptr) {
+           name = demangle(hipKernelNameRefByPtr(item.functionAddr, item.stream)).c_str();
+         }
+@@ -182,7 +182,7 @@ void RocmProfiler::EndProfiling(TimePoint start_time, Events& events)
+     }
+   }
+ 
+-  // General 
++  // General
+   auto insert_iter = events.begin();
+   for (auto& map_iter : event_map) {
+     auto ts = static_cast<long long>(map_iter.first);
+diff --git a/onnxruntime/core/providers/rocm/rocm_utils.cu b/onnxruntime/core/providers/rocm/rocm_utils.cu
+index 8ed995808e8..6f54c119f25 100644
+--- a/onnxruntime/core/providers/rocm/rocm_utils.cu
++++ b/onnxruntime/core/providers/rocm/rocm_utils.cu
+@@ -39,13 +39,13 @@ class ConstantBufferImpl : public IConstantBuffer<T> {
+   }
+   ~ConstantBufferImpl() {
+     if (buffer_)
+-      hipFree(buffer_);
++      HIP_CALL_THROW(hipFree(buffer_));
+   }
+ 
+   virtual const T* GetBuffer(hipStream_t stream, size_t count) {
+     if (count > count_) {
+       if (buffer_) {
+-        hipFree(buffer_);
++        HIP_CALL_THROW(hipFree(buffer_));
+         buffer_ = nullptr;
+       }
+       HIP_CALL_THROW(hipMalloc(&buffer_, count * sizeof(T)));
+diff --git a/onnxruntime/core/session/provider_bridge_ort.cc b/onnxruntime/core/session/provider_bridge_ort.cc
+index 5820423392d..57ef88ee81a 100644
+--- a/onnxruntime/core/session/provider_bridge_ort.cc
++++ b/onnxruntime/core/session/provider_bridge_ort.cc
+@@ -992,7 +992,7 @@ struct ProviderHostImpl : ProviderHost {
+   }
+ 
+   void contrib__PythonOpGradBase__Init(contrib::PythonOpGradBase* p, const OpKernelInfo& info) override { return p->PythonOpGradBase::Init(info); }
+-  void contrib__PythonOpGradBase__RunBackward(const contrib::PythonOpGradBase* p, OpKernelContext* context, std::vector<OrtValue>& returned_ortvalues) {
++  void contrib__PythonOpGradBase__RunBackward(const contrib::PythonOpGradBase* p, OpKernelContext* context, std::vector<OrtValue>& returned_ortvalues) override {
+     return p->PythonOpGradBase::RunBackward(context, returned_ortvalues);
+   }
+   void contrib__PythonOpGradBase__SetOutputs(const contrib::PythonOpGradBase* p, OpKernelContext* context, std::vector<OrtValue>& returned_args) override { p->PythonOpGradBase::SetOutputs(context, returned_args); }
+diff --git a/tools/ci_build/github/azure-pipelines/linux-migraphx-ci-pipeline.yml b/tools/ci_build/github/azure-pipelines/linux-migraphx-ci-pipeline.yml
+index 9c7bd7aa967..610bff8e12d 100644
+--- a/tools/ci_build/github/azure-pipelines/linux-migraphx-ci-pipeline.yml
++++ b/tools/ci_build/github/azure-pipelines/linux-migraphx-ci-pipeline.yml
+@@ -52,7 +52,6 @@ jobs:
+               --config RelWithDebInfo \
+               --cmake_extra_defines \
+                 CMAKE_HIP_COMPILER=/opt/rocm/llvm/bin/clang++ \
+-                onnxruntime_DEV_MODE=OFF \
+               --mpi_home /opt/ompi \
+               --use_migraphx \
+               --rocm_version=5.2.3 \
+diff --git a/tools/ci_build/github/azure-pipelines/orttraining-pai-ci-pipeline.yml b/tools/ci_build/github/azure-pipelines/orttraining-pai-ci-pipeline.yml
+index 11ba7b2bae6..b6bd94a7f22 100644
+--- a/tools/ci_build/github/azure-pipelines/orttraining-pai-ci-pipeline.yml
++++ b/tools/ci_build/github/azure-pipelines/orttraining-pai-ci-pipeline.yml
+@@ -53,7 +53,6 @@ jobs:
+           --mpi_home /opt/ompi \
+           --cmake_extra_defines \
+               CMAKE_HIP_COMPILER=${ROCM_HOME}/llvm/bin/clang++ \
+-              onnxruntime_DEV_MODE=OFF \
+           --use_rocm \
+           --rocm_version=5.2.3 \
+           --rocm_home ${ROCM_HOME} \
+diff --git a/tools/ci_build/github/azure-pipelines/templates/rocm.yml b/tools/ci_build/github/azure-pipelines/templates/rocm.yml
+index 88220e75e85..3250fe50656 100644
+--- a/tools/ci_build/github/azure-pipelines/templates/rocm.yml
++++ b/tools/ci_build/github/azure-pipelines/templates/rocm.yml
+@@ -67,7 +67,6 @@ jobs:
+               --enable_training \
+               --cmake_extra_defines \
+                 CMAKE_HIP_COMPILER=/opt/rocm/llvm/bin/clang++ \
+-                onnxruntime_DEV_MODE=OFF \
+                 onnxruntime_BUILD_UNIT_TESTS=OFF \
+               --enable_training_torch_interop
+       workingDirectory: $(Build.SourcesDirectory)
