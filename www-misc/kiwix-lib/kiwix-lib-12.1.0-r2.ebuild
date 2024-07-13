@@ -8,7 +8,7 @@ inherit meson
 DESCRIPTION="Kiwix software suite core: code shared by all Kiwix ports"
 HOMEPAGE="https://kiwix.org/"
 SRC_URI="https://github.com/kiwix/$PN/archive/$PV.tar.gz -> $P.tar.gz"
-
+S="${WORKDIR}/libkiwix-${PV}"
 LICENSE="GPL-3"
 SLOT="0/12"
 KEYWORDS="~amd64"
@@ -27,8 +27,6 @@ DEPEND="
 	sys-libs/zlib
 "
 
-S="${WORKDIR}/libkiwix-${PV}"
-
 src_prepare() {
 	default
 
@@ -39,7 +37,9 @@ src_prepare() {
 }
 
 src_configure() {
+	# icu-75.1 requires C++17
 	local emesonargs=(
+		-Dcpp_std=c++17
 		-Dwerror=false
 	)
 
