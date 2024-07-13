@@ -1,7 +1,7 @@
-# Copyright 1999-2023 Gentoo Authors
+# Copyright 1999-2024 Gentoo Authors
 # Distributed under the terms of the GNU General Public License v2
 
-EAPI=7
+EAPI=8
 
 LUA_COMPAT=( luajit )
 LUA_REQ_USE="lua52compat"
@@ -13,18 +13,10 @@ inherit autotools flag-o-matic lua-single plocale wxwidgets xdg-utils vcs-snapsh
 
 DESCRIPTION="Advanced subtitle editor"
 HOMEPAGE="http://www.aegisub.org/ https://github.com/wangqr/Aegisub"
-
-if [[ ${PV} == *9999 ]]; then
-	EGIT_REPO_URI="https://github.com/wangqr/${PN^}.git"
-	# Submodules are used to pull bundled libraries.
-	EGIT_SUBMODULES=()
-	inherit git-r3
-else
-	SRC_URI="https://github.com/wangqr/Aegisub/archive/v${PV}.tar.gz -> ${P}.tar.gz"
-	KEYWORDS="~amd64 ~x86"
-fi
+SRC_URI="https://github.com/wangqr/Aegisub/archive/v${PV}.tar.gz -> ${P}.tar.gz"
 LICENSE="BSD MIT"
 SLOT="0"
+KEYWORDS="~amd64 ~x86"
 IUSE="+alsa debug +fftw openal oss portaudio pulseaudio spell test +uchardet"
 RESTRICT="test"
 
@@ -71,15 +63,16 @@ REQUIRED_USE="${LUA_REQUIRED_USE}
 	|| ( alsa openal oss portaudio pulseaudio )"
 
 PATCHES=(
-	"${FILESDIR}/3.2.2_p20160518/${PN}-3.2.2_p20160518-fix-system-luajit-build.patch"
-	"${FILESDIR}/3.3.3/${PN}-3.3.3-support-system-gtest.patch"
-	"${FILESDIR}/3.2.2_p20160518/${PN}-3.2.2_p20160518-tests_luarocks_lua_version.patch"
-	"${FILESDIR}/3.2.2_p20160518/${PN}-3.2.2_p20160518-fix-boost-181-build.patch"
+	"${FILESDIR}/${PN}-3.2.2_p20160518-fix-system-luajit-build.patch"
+	"${FILESDIR}/${PN}-3.3.3-support-system-gtest.patch"
+	"${FILESDIR}/${PN}-3.2.2_p20160518-tests_luarocks_lua_version.patch"
+	"${FILESDIR}/${PN}-3.2.2_p20160518-fix-boost-181-build.patch"
+	"${FILESDIR}/aegisub-3.3.3-c++17.patch"
 )
 
 aegisub_check_compiler() {
-	if [[ ${MERGE_TYPE} != "binary" ]] && ! test-flag-CXX -std=c++14; then
-		die "Your compiler lacks C++14 support."
+	if [[ ${MERGE_TYPE} != "binary" ]] && ! test-flag-CXX -std=c++17; then
+		die "Your compiler lacks C++17 support."
 	fi
 }
 

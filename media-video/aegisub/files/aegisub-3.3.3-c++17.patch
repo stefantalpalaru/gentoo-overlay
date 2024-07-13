@@ -1,0 +1,12 @@
+diff '--color=auto' -ur aegisub-3.3.3.orig/configure.ac aegisub-3.3.3/configure.ac
+--- aegisub-3.3.3.orig/configure.ac	2024-07-13 19:45:16.362985094 +0200
++++ aegisub-3.3.3/configure.ac	2024-07-13 19:46:54.162448391 +0200
+@@ -144,7 +144,7 @@
+   CXXFLAGS="$CXXFLAGS -Wall -Wextra -Wno-unused-parameter -fno-strict-aliasing"
+ 
+   # For mac compiler which still stuck on c++98
+-  AC_CXX_FLAG([-std=c++14])
++  AC_CXX_FLAG([-std=c++17])
+ 
+   # -O* messes with debugging.
+   AS_IF([test x$enable_debug = xyes], [
