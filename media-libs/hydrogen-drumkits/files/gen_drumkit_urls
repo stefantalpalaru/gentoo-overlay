@@ -1,4 +1,4 @@
 #!/bin/bash
 
-wget -qc https://sourceforge.net/projects/hydrogen/files/Sound%20Libraries/Main%20sound%20libraries/ -O - | sed -ne 's/.*href="\(https:[^"]*\.h2drumkit[^"]*\).*/\1/p' | sed -e 's@/download@@g' -e 's@/files@@' -e 's@https://sourceforge.net/projects@mirror://sourceforge@g'
+wget -qc https://sourceforge.net/projects/hydrogen/files/Sound%20Libraries/Main%20sound%20libraries/ -O - | sed -ne 's/.*href="\(https:[^"]*\.h2drumkit[^"]*\).*/\1/p' | sed -e 's@/download@@g' -e 's@/files@@' -e 's@https://sourceforge.net/projects@https://downloads.sourceforge.net@g'
 
