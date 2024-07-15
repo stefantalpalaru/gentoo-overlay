@@ -1,11 +1,11 @@
-# Copyright 2014-2022 Gentoo Authors
+# Copyright 2014-2024 Gentoo Authors
 # Distributed under the terms of the GNU General Public License v2
 
 EAPI=8
-
+LLVM_COMPAT=( 17 18 )
 CMAKE_IN_SOURCE_BUILD=1
 
-inherit cmake git-r3
+inherit cmake git-r3 llvm-r1
 
 DESCRIPTION="Compiler for the Pony language"
 HOMEPAGE="http://www.ponylang.org/"
@@ -15,7 +15,7 @@ EGIT_COMMIT="${PV}"
 LICENSE="BSD-2"
 SLOT="0"
 KEYWORDS="~amd64 ~x86"
-IUSE="test vim-syntax"
+IUSE="+lto test vim-syntax"
 RESTRICT="strip
 	network-sandbox
 	!test? ( test )"
@@ -25,10 +25,17 @@ RDEPEND="
 	vim-syntax? ( app-vim/pony-syntax )"
 DEPEND="${RDEPEND}"
 BDEPEND="
-	sys-devel/binutils[gold]
 	sys-devel/clang
 	virtual/pkgconfig
 "
+
+PATCHES=(
+	"${FILESDIR}/pony-0.58.5-lld.patch"
+)
+
+pkg_setup() {
+	llvm-r1_pkg_setup
+}
 
 src_prepare() {
 	default
@@ -53,7 +60,12 @@ common_make_args="config=release verbose=yes"
 
 src_configure() {
 	emake ${common_make_args} build_flags="${MAKEOPTS}" libs
-	emake ${common_make_args} build_flags="${MAKEOPTS}" configure
+
+	local extra_args=""
+	if use lto; then
+		extra_args="${extra_args} lto=yes"
+	fi
+	emake ${common_make_args} ${extra_args} build_flags="${MAKEOPTS}" configure
 }
 
 src_compile() {
