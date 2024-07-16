@@ -116,7 +116,7 @@ PATCHES=(
 	# Equivalent to previous versions
 	"${FILESDIR}/audacity-3.2.3-disable-ccache.patch"
 	# From Debian
-	"${FILESDIR}/audacity-3.3.3-fix-rpaths.patch"
+	"${FILESDIR}/audacity-3.6.0-fix-rpaths.patch"
 
 	# Disables some header-based detection
 	"${FILESDIR}/audacity-3.2.3-allow-overriding-alsa-jack.patch"
