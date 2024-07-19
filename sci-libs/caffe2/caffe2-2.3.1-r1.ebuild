@@ -47,8 +47,9 @@ RDEPEND="
 	sci-libs/onnx
 	sci-libs/foxi
 	cuda? (
-		=dev-libs/cudnn-8*
+		dev-libs/cudnn:=
 		>=dev-libs/cudnn-frontend-1.0.3:0/8
+		dev-libs/cudnn-frontend:=
 		dev-util/nvidia-cuda-toolkit:=[profiler]
 	)
 	fbgemm? ( >=dev-libs/FBGEMM-2023.12.01 )
