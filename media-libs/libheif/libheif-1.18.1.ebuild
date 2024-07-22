@@ -34,7 +34,7 @@ DEPEND="
 RDEPEND="${DEPEND}"
 
 PATCHES=(
-	"${FILESDIR}/libheif-1.18.0-symlink.patch"
+	"${FILESDIR}/libheif-1.18.1-symlink.patch"
 )
 
 src_prepare() {
