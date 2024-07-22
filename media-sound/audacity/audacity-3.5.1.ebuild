@@ -29,8 +29,7 @@ LICENSE="GPL-2+
 	audiocom? ( ZLIB )
 "
 SLOT="0"
-# 3.6 versions are too buggy
-#KEYWORDS="~amd64 ~arm64 ~ppc64 ~riscv ~x86"
+KEYWORDS="~amd64 ~arm64 ~ppc64 ~riscv ~x86"
 IUSE="alsa audiocom ffmpeg +flac id3tag +ladspa +lv2 mpg123 +ogg
 	opus +portmixer sbsms test twolame vamp +vorbis wavpack"
 REQUIRED_USE="
@@ -117,7 +116,7 @@ PATCHES=(
 	# Equivalent to previous versions
 	"${FILESDIR}/audacity-3.2.3-disable-ccache.patch"
 	# From Debian
-	"${FILESDIR}/audacity-3.6.0-fix-rpaths.patch"
+	"${FILESDIR}/audacity-3.3.3-fix-rpaths.patch"
 
 	# Disables some header-based detection
 	"${FILESDIR}/audacity-3.2.3-allow-overriding-alsa-jack.patch"
