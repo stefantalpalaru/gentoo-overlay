@@ -1,0 +1,12 @@
+diff '--color=auto' -ur pytorch-2.4.0.orig/torch/__init__.py pytorch-2.4.0/torch/__init__.py
+--- pytorch-2.4.0.orig/torch/__init__.py	2024-07-25 05:06:00.694938452 +0200
++++ pytorch-2.4.0/torch/__init__.py	2024-07-25 05:07:28.023440416 +0200
+@@ -1691,7 +1691,7 @@
+ py_int = int
+ 
+ # Shared memory manager needs to know the exact location of manager executable
+-_C._initExtension(_manager_path())
++_C._initExtension(b"/usr/bin/torch_shm_manager")
+ del _manager_path
+ 
+ # Appease the type checker: it can't deal with direct setting of globals().

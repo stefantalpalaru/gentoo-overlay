@@ -1,0 +1,52 @@
+diff '--color=auto' -ur pytorch-2.4.0.orig/c10/hip/CMakeLists.txt pytorch-2.4.0/c10/hip/CMakeLists.txt
+--- pytorch-2.4.0.orig/c10/hip/CMakeLists.txt	2024-07-25 03:41:51.659871993 +0200
++++ pytorch-2.4.0/c10/hip/CMakeLists.txt	2024-07-25 03:37:10.295465660 +0200
+@@ -36,6 +36,7 @@
+ 
+   # Propagate HIP_CXX_FLAGS that were set from Dependencies.cmake
+   target_compile_options(c10_hip PRIVATE ${HIP_CXX_FLAGS})
++  set_target_properties(c10_hip PROPERTIES CXX_STANDARD 17 CXX_EXTENSIONS OFF)
+ 
+   # caffe2_hip adds a bunch of dependencies like rocsparse, but c10/hip is supposed to be
+   # minimal.  I'm not sure if we need hip_hcc or not; for now leave it out
+diff '--color=auto' -ur pytorch-2.4.0.orig/caffe2/CMakeLists.txt pytorch-2.4.0/caffe2/CMakeLists.txt
+--- pytorch-2.4.0.orig/caffe2/CMakeLists.txt	2024-07-25 03:41:51.661871982 +0200
++++ pytorch-2.4.0/caffe2/CMakeLists.txt	2024-07-25 03:39:19.041736432 +0200
+@@ -1668,6 +1668,7 @@
+ 
+   # Since PyTorch files contain HIP headers, these flags are required for the necessary definitions to be added.
+   target_compile_options(torch_hip PUBLIC ${HIP_CXX_FLAGS})  # experiment
++  set_target_properties(torch_hip PROPERTIES CXX_STANDARD 17 CXX_EXTENSIONS OFF)
+ 
+   target_link_libraries(torch_hip PUBLIC c10_hip)
+ 
+@@ -1865,6 +1866,7 @@
+       target_include_directories(${test_name} PRIVATE $<INSTALL_INTERFACE:include>)
+       target_include_directories(${test_name} PRIVATE ${Caffe2_CPU_INCLUDE} ${Caffe2_HIP_INCLUDE})
+       target_compile_options(${test_name} PRIVATE ${HIP_CXX_FLAGS})
++      set_target_properties(${test_name} PROPERTIES CXX_STANDARD 17 CXX_EXTENSIONS OFF)
+       add_test(NAME ${test_name} COMMAND $<TARGET_FILE:${test_name}>)
+       if(INSTALL_TEST)
+         install(TARGETS ${test_name} DESTINATION test)
+diff '--color=auto' -ur pytorch-2.4.0.orig/cmake/Dependencies.cmake pytorch-2.4.0/cmake/Dependencies.cmake
+--- pytorch-2.4.0.orig/cmake/Dependencies.cmake	2024-07-25 03:41:51.568872509 +0200
++++ pytorch-2.4.0/cmake/Dependencies.cmake	2024-07-25 03:40:16.093413288 +0200
+@@ -1050,7 +1050,6 @@
+     list(APPEND HIP_CXX_FLAGS -Wno-duplicate-decl-specifier)
+     list(APPEND HIP_CXX_FLAGS -DCAFFE2_USE_MIOPEN)
+     list(APPEND HIP_CXX_FLAGS -DTHRUST_DEVICE_SYSTEM=THRUST_DEVICE_SYSTEM_HIP)
+-    list(APPEND HIP_CXX_FLAGS -std=c++17)
+     list(APPEND HIP_CXX_FLAGS -DHIPBLAS_V2)
+     if(HIP_NEW_TYPE_ENUMS)
+       list(APPEND HIP_CXX_FLAGS -DHIP_NEW_TYPE_ENUMS)
+diff '--color=auto' -ur pytorch-2.4.0.orig/cmake/public/utils.cmake pytorch-2.4.0/cmake/public/utils.cmake
+--- pytorch-2.4.0.orig/cmake/public/utils.cmake	2024-07-25 03:41:51.552872599 +0200
++++ pytorch-2.4.0/cmake/public/utils.cmake	2024-07-25 03:40:51.205214412 +0200
+@@ -332,6 +332,7 @@
+   caffe2_binary_target(${target_name_or_src})
+ 
+   target_compile_options(${__target} PRIVATE ${HIP_CXX_FLAGS})
++  set_target_properties(${__target} PROPERTIES CXX_STANDARD 17 CXX_EXTENSIONS OFF)
+   target_include_directories(${__target} PRIVATE ${Caffe2_HIP_INCLUDE})
+ endfunction()
+ 

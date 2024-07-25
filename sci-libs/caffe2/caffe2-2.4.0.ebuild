@@ -12,19 +12,18 @@ MYP=${MYPN}-${PV}
 
 DESCRIPTION="A deep learning framework"
 HOMEPAGE="https://pytorch.org/"
-SRC_URI="https://github.com/pytorch/${MYPN}/archive/refs/tags/v${PV}.tar.gz
-	-> ${MYP}.tar.gz"
+SRC_URI="https://github.com/pytorch/pytorch/releases/download/v${PV}/pytorch-v${PV}.tar.gz
+	-> ${MYP}-full.tar.gz"
 
-S="${WORKDIR}"/${MYP}
+S="${WORKDIR}"/pytorch-v${PV}
 
 LICENSE="BSD"
 SLOT="0"
 KEYWORDS="~amd64"
-IUSE="cuda distributed fbgemm ffmpeg flash gloo mkl mpi nnpack +numpy onednn openblas opencl opencv openmp qnnpack rocm xnnpack"
+IUSE="cuda distributed fbgemm flash gloo mkl mpi nnpack +numpy onednn openblas opencl openmp qnnpack rocm xnnpack"
 RESTRICT="test"
 REQUIRED_USE="
 	${PYTHON_REQUIRED_USE}
-	ffmpeg? ( opencv )
 	mpi? ( distributed )
 	gloo? ( distributed )
 	?? ( cuda rocm )
@@ -53,7 +52,6 @@ RDEPEND="
 		dev-util/nvidia-cuda-toolkit:=[profiler]
 	)
 	fbgemm? ( >=dev-libs/FBGEMM-2023.12.01 )
-	ffmpeg? ( media-video/ffmpeg:= )
 	gloo? ( sci-libs/gloo[cuda?] )
 	mpi? ( virtual/mpi )
 	nnpack? ( sci-libs/NNPACK )
@@ -62,8 +60,6 @@ RDEPEND="
 		') )
 	onednn? ( dev-libs/oneDNN )
 	opencl? ( virtual/opencl )
-	opencv? ( media-libs/opencv:= )
-	qnnpack? ( sci-libs/QNNPACK )
 	rocm? (
 		>=dev-util/hip-5.7
 		>=dev-libs/rccl-5.7[${ROCM_USEDEP}]
@@ -92,7 +88,6 @@ DEPEND="
 	dev-libs/FXdiv
 	dev-libs/pocketfft
 	dev-libs/flatbuffers
-	>=sci-libs/kineto-0.4.0_p20231031
 	$(python_gen_cond_dep '
 		dev-python/pyyaml[${PYTHON_USEDEP}]
 		dev-python/pybind11[${PYTHON_USEDEP}]
@@ -101,17 +96,14 @@ DEPEND="
 "
 
 PATCHES=(
-	"${FILESDIR}"/${PN}-2.2.1-gentoo.patch
-	"${FILESDIR}"/${PN}-1.13.0-install-dirs.patch
+	"${FILESDIR}"/${PN}-2.4.0-gentoo.patch
+	"${FILESDIR}"/${PN}-2.4.0-install-dirs.patch
 	"${FILESDIR}"/${PN}-1.12.0-glog-0.6.0.patch
 	"${FILESDIR}"/${PN}-1.13.1-tensorpipe.patch
 	"${FILESDIR}"/${PN}-2.3.0-cudnn_include_fix.patch
-	"${FILESDIR}"/caffe2-2.3.0-fix-cuda-12_4.patch
 	"${FILESDIR}"/${PN}-2.1.2-fix-rpath.patch
-	"${FILESDIR}"/${PN}-2.1.2-fix-openmp-link.patch
-	"${FILESDIR}"/${PN}-2.3.0-rocm-fix-std-cpp17.patch
+	"${FILESDIR}"/${PN}-2.4.0-rocm-fix-std-cpp17.patch
 	"${FILESDIR}"/caffe2-2.2.2-musl.patch
-	"${FILESDIR}"/caffe2-2.3.0-CMakeFix.patch
 )
 
 src_prepare() {
@@ -149,6 +141,8 @@ src_prepare() {
 		${EPYTHON} tools/amd_build/build_amd.py || die
 		eend $?
 	fi
+
+	rm -rf third_party/flatbuffers
 }
 
 src_configure() {
@@ -175,24 +169,20 @@ src_configure() {
 		-DUSE_MPI=$(usex mpi)
 		-DUSE_FAKELOWP=OFF
 		-DUSE_FBGEMM=$(usex fbgemm)
-		-DUSE_FFMPEG=$(usex ffmpeg)
 		-DUSE_FLASH_ATTENTION=$(usex flash)
 		-DUSE_GFLAGS=ON
 		-DUSE_GLOG=ON
 		-DUSE_GLOO=$(usex gloo)
 		-DUSE_KINETO=OFF # TODO
-		-DUSE_LEVELDB=OFF
 		-DUSE_MAGMA=OFF # TODO: In GURU as sci-libs/magma
 		-DUSE_MKLDNN=$(usex onednn)
 		-DUSE_NNPACK=$(usex nnpack)
-		-DUSE_QNNPACK=$(usex qnnpack)
 		-DUSE_XNNPACK=$(usex xnnpack)
 		-DUSE_SYSTEM_XNNPACK=$(usex xnnpack)
 		-DUSE_TENSORPIPE=$(usex distributed)
-		-DUSE_PYTORCH_QNNPACK=OFF
+		-DUSE_PYTORCH_QNNPACK=$(usex qnnpack)
 		-DUSE_NUMPY=$(usex numpy)
 		-DUSE_OPENCL=$(usex opencl)
-		-DUSE_OPENCV=$(usex opencv)
 		-DUSE_OPENMP=$(usex openmp)
 		-DUSE_ROCM=$(usex rocm)
 		-DUSE_SYSTEM_CPUINFO=ON
@@ -208,7 +198,6 @@ src_configure() {
 		-DUSE_SYSTEM_GLOO=ON
 		-DUSE_SYSTEM_ONNX=ON
 		-DUSE_SYSTEM_SLEEF=ON
-		-DUSE_METAL=OFF
 
 		-Wno-dev
 		-DTORCH_INSTALL_LIB_DIR="${EPREFIX}"/usr/$(get_libdir)

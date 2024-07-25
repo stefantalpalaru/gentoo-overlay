@@ -1,0 +1,64 @@
+diff '--color=auto' -ur pytorch-2.4.0.orig/c10/CMakeLists.txt pytorch-2.4.0/c10/CMakeLists.txt
+--- pytorch-2.4.0.orig/c10/CMakeLists.txt	2024-07-25 03:24:52.459644334 +0200
++++ pytorch-2.4.0/c10/CMakeLists.txt	2024-07-25 03:27:59.298586386 +0200
+@@ -157,7 +157,7 @@
+   # Note: for now, we will put all export path into one single Caffe2Targets group
+   # to deal with the cmake deployment need. Inside the Caffe2Targets set, the
+   # individual libraries like libc10.so and libcaffe2.so are still self-contained.
+-  install(TARGETS c10 EXPORT Caffe2Targets DESTINATION lib)
++  install(TARGETS c10 EXPORT Caffe2Targets DESTINATION ${CMAKE_INSTALL_LIBDIR})
+ endif()
+ 
+ install(DIRECTORY ${CMAKE_CURRENT_LIST_DIR}
+diff '--color=auto' -ur pytorch-2.4.0.orig/c10/cuda/CMakeLists.txt pytorch-2.4.0/c10/cuda/CMakeLists.txt
+--- pytorch-2.4.0.orig/c10/cuda/CMakeLists.txt	2024-07-25 03:24:52.458644339 +0200
++++ pytorch-2.4.0/c10/cuda/CMakeLists.txt	2024-07-25 03:28:59.962242887 +0200
+@@ -82,7 +82,7 @@
+ # Note: for now, we will put all export path into one single Caffe2Targets group
+ # to deal with the cmake deployment need. Inside the Caffe2Targets set, the
+ # individual libraries like libc10.so and libcaffe2.so are still self-contained.
+-install(TARGETS c10_cuda EXPORT Caffe2Targets DESTINATION lib)
++install(TARGETS c10_cuda EXPORT Caffe2Targets DESTINATION ${CMAKE_INSTALL_LIBDIR})
+ 
+ endif()
+ 
+diff '--color=auto' -ur pytorch-2.4.0.orig/c10/hip/CMakeLists.txt pytorch-2.4.0/c10/hip/CMakeLists.txt
+--- pytorch-2.4.0.orig/c10/hip/CMakeLists.txt	2024-07-25 03:24:52.458644339 +0200
++++ pytorch-2.4.0/c10/hip/CMakeLists.txt	2024-07-25 03:29:37.450030606 +0200
+@@ -57,7 +57,7 @@
+       $<BUILD_INTERFACE:${CMAKE_CURRENT_SOURCE_DIR}/../..>
+       $<BUILD_INTERFACE:${CMAKE_BINARY_DIR}>
+       $<INSTALL_INTERFACE:include>)
+-  install(TARGETS c10_hip EXPORT Caffe2Targets DESTINATION lib)
++  install(TARGETS c10_hip EXPORT Caffe2Targets DESTINATION ${CMAKE_INSTALL_LIBDIR})
+   set(C10_HIP_LIB c10_hip)
+ endif()
+ 
+diff '--color=auto' -ur pytorch-2.4.0.orig/test/cpp/c10d/CMakeLists.txt pytorch-2.4.0/test/cpp/c10d/CMakeLists.txt
+--- pytorch-2.4.0.orig/test/cpp/c10d/CMakeLists.txt	2024-07-25 03:24:52.460644328 +0200
++++ pytorch-2.4.0/test/cpp/c10d/CMakeLists.txt	2024-07-25 03:25:35.367401374 +0200
+@@ -51,7 +51,7 @@
+     if(INSTALL_TEST)
+       install(TARGETS ProcessGroupNCCLTest DESTINATION bin)
+       install(TARGETS ProcessGroupNCCLErrorsTest DESTINATION bin)
+-      install(TARGETS c10d_cuda_test DESTINATION lib)
++      install(TARGETS c10d_cuda_test DESTINATION ${CMAKE_INSTALL_LIBDIR})
+     endif()
+   endif()
+   if(USE_UCC AND USE_C10D_UCC)
+diff '--color=auto' -ur pytorch-2.4.0.orig/test/cpp/jit/CMakeLists.txt pytorch-2.4.0/test/cpp/jit/CMakeLists.txt
+--- pytorch-2.4.0.orig/test/cpp/jit/CMakeLists.txt	2024-07-25 03:24:52.461644322 +0200
++++ pytorch-2.4.0/test/cpp/jit/CMakeLists.txt	2024-07-25 03:25:35.367401374 +0200
+@@ -32,9 +32,9 @@
+ target_link_libraries(backend_with_compiler torch)
+ 
+ if(INSTALL_TEST)
+-  install(TARGETS torchbind_test DESTINATION lib)
+-  install(TARGETS jitbackend_test DESTINATION lib)
+-  install(TARGETS backend_with_compiler DESTINATION lib)
++  install(TARGETS torchbind_test DESTINATION ${CMAKE_INSTALL_LIBDIR})
++  install(TARGETS jitbackend_test DESTINATION ${CMAKE_INSTALL_LIBDIR})
++  install(TARGETS backend_with_compiler DESTINATION ${CMAKE_INSTALL_LIBDIR})
+ endif()
+ 
+ # Build the cpp gtest binary containing the cpp-only tests.
