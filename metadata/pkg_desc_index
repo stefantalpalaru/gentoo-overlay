@@ -540,7 +540,7 @@ dev-python/pysmi 0.3.4-r200: Python Lex & Yacc
 dev-python/pysnmp 4.4.12-r200: Python SNMP library
 dev-python/pystache 0.5.4-r200: Mustache for Python
 dev-python/pystatgrab 0.7-r1: pystatgrab is a set of Python bindings for the libstatgrab library
-dev-python/pysubs2 1.7.1: A library for editing subtitle files
+dev-python/pysubs2 1.7.3: A library for editing subtitle files
 dev-python/pysvn 1.9.11-r200: Object-oriented python bindings for subversion
 dev-python/pytables 3.4.4-r200: Hierarchical datasets for Python
 dev-python/pytest 3.10.1-r200: Simple powerful testing with Python
