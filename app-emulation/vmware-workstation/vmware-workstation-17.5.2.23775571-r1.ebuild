@@ -6,21 +6,27 @@ EAPI=7
 PYTHON_COMPAT=( python3_{10..13} )
 inherit readme.gentoo-r1 pam python-any-r1 systemd xdg-utils
 
-#MY_PN="VMware-Workstation-Full"
 MY_PN="VMware-Workstation"
 MY_PV=$(ver_cut 1-3)
 PV_MODULES="${MY_PV}"
 PV_BUILD=$(ver_cut 4)
 MY_P="${MY_PN}-${MY_PV}-${PV_BUILD}"
 VMWARE_FUSION_VER="13.5.2/23775688" # https://softwareupdate.vmware.com/cds/vmw-desktop/fusion/
+VMWARE_TOOLS_VER="12.4.0-23259341" # https://softwareupdate.vmware.com/cds/vmw-desktop/ws/${MY_PV}/${PV_BUILD}/linux/packages/
 SYSTEMD_UNITS_TAG="gentoo-02"
 UNLOCKER_VERSION="3.0.5"
 
 DESCRIPTION="Emulate a complete PC without the performance overhead of most emulators"
 HOMEPAGE="http://www.vmware.com/products/workstation/"
-	#https://download3.vmware.com/software/WKST-${MY_PV//./}-LX/${MY_P}.x86_64.bundle
 SRC_URI="
 	https://softwareupdate.vmware.com/cds/vmw-desktop/ws/${MY_PV}/${PV_BUILD}/linux/core/${MY_P}.x86_64.bundle.tar
+	vmware-tools-linux? ( https://softwareupdate.vmware.com/cds/vmw-desktop/ws/${MY_PV}/${PV_BUILD}/linux/packages/vmware-tools-linux-${VMWARE_TOOLS_VER}.x86_64.component.tar )
+	vmware-tools-linuxPreGlibc25? ( https://softwareupdate.vmware.com/cds/vmw-desktop/ws/${MY_PV}/${PV_BUILD}/linux/packages/vmware-tools-linuxPreGlibc25-${VMWARE_TOOLS_VER}.x86_64.component.tar )
+	vmware-tools-netware? ( https://softwareupdate.vmware.com/cds/vmw-desktop/ws/${MY_PV}/${PV_BUILD}/linux/packages/vmware-tools-netware-${VMWARE_TOOLS_VER}.x86_64.component.tar )
+	vmware-tools-solaris? ( https://softwareupdate.vmware.com/cds/vmw-desktop/ws/${MY_PV}/${PV_BUILD}/linux/packages/vmware-tools-solaris-${VMWARE_TOOLS_VER}.x86_64.component.tar )
+	vmware-tools-winPre2k? ( https://softwareupdate.vmware.com/cds/vmw-desktop/ws/${MY_PV}/${PV_BUILD}/linux/packages/vmware-tools-winPre2k-${VMWARE_TOOLS_VER}.x86_64.component.tar )
+	vmware-tools-winPreVista? ( https://softwareupdate.vmware.com/cds/vmw-desktop/ws/${MY_PV}/${PV_BUILD}/linux/packages/vmware-tools-winPreVista-${VMWARE_TOOLS_VER}.x86_64.component.tar )
+	vmware-tools-windows? ( https://softwareupdate.vmware.com/cds/vmw-desktop/ws/${MY_PV}/${PV_BUILD}/linux/packages/vmware-tools-windows-${VMWARE_TOOLS_VER}.x86_64.component.tar )
 	macos-guests? (
 		https://github.com/paolo-projects/unlocker/archive/${UNLOCKER_VERSION}.tar.gz -> unlocker-${UNLOCKER_VERSION}.tar.gz
 		vmware-tools-darwinPre15? ( https://softwareupdate.vmware.com/cds/vmw-desktop/fusion/${VMWARE_FUSION_VER}/universal/core/com.vmware.fusion.zip.tar -> com.vmware.fusion-${PV}.zip.tar )
@@ -127,6 +133,17 @@ src_unpack() {
 		done
 		rm -rf __MACOSX payload manifest.plist preflight postflight com.vmware.fusion.zip
 	fi
+
+	for guest in ${IUSE_VMWARE_GUESTS}; do
+		component=$(echo vmware-tools-${guest}-*.component)
+		if [[ -e "${component}" ]]; then
+			offset=$(grep -boa "</component>" "${component}" | cut -d ":" -f 1)
+			dd if="${component}" of="${guest}.iso.gz" bs=$(( ${offset} + 12 )) skip=1 status=none || die
+			gunzip "${guest}.iso.gz" || die
+			mkdir extracted/vmware-tools-${guest} || die
+			mv "${guest}.iso" extracted/vmware-tools-${guest}/ || die
+		fi
+	done
 }
 
 src_prepare() {
@@ -390,8 +407,13 @@ src_install() {
 				local version="$(grep -oPm1 '(?<=<version>)[^<]+' ${manifest})"
 				sqlite3 "${dbfile}" "INSERT INTO components(name,version,buildNumber,component_core_id,longName,description,type) VALUES('vmware-tools-${guest}','${version}','${PV_BUILD}',1,'${guest}','${guest}',1);"
 			else
-				sqlite3 "${dbfile}" "INSERT INTO components(name,version,buildNumber,component_core_id,longName,description,type) VALUES('vmware-tools-${guest}','${VMWARE_FUSION_VER%/*}','${VMWARE_FUSION_VER#*/}',1,'${guest}','${guest}',1);"
+				if [[ "${guest}" =~ "darwin" ]]; then
+					sqlite3 "${dbfile}" "INSERT INTO components(name,version,buildNumber,component_core_id,longName,description,type) VALUES('vmware-tools-${guest}','${VMWARE_FUSION_VER%/*}','${VMWARE_FUSION_VER#*/}',1,'${guest}','${guest}',1);"
+				else
+					sqlite3 "${dbfile}" "INSERT INTO components(name,version,buildNumber,component_core_id,longName,description,type) VALUES('vmware-tools-${guest}','${VMWARE_TOOLS_VER%-*}','${VMWARE_TOOLS_VER#*-}',1,'${guest}','${guest}',1);"
+				fi
 			fi
+
 			insinto "${VM_INSTALL_DIR}/lib/vmware/isoimages"
 			if [[ -e "vmware-tools-${guest}/${guest}.iso" ]]; then
 				doins "vmware-tools-${guest}/${guest}.iso"
