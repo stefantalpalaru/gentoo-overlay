@@ -51,7 +51,6 @@ BDEPEND="
 	app-admin/chrpath
 	dev-libs/date:=
 	dev-libs/nsync:=
-	dev-libs/flatbuffers:=
 	dev-libs/cpuinfo:=
 	dev-libs/clog:=
 	dev-libs/FP16
