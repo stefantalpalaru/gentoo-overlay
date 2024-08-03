@@ -4,7 +4,7 @@
 EAPI=8
 WX_GTK_VER="3.0-gtk3"
 
-inherit autotools elisp-common flag-o-matic java-pkg-opt-2 systemd toolchain-funcs wxwidgets
+inherit autotools flag-o-matic java-pkg-opt-2 systemd toolchain-funcs wxwidgets
 
 UPSTREAM_V="$(ver_cut 1-2)"
 
@@ -23,14 +23,13 @@ LICENSE="Apache-2.0"
 # http://erlang.org/doc/system_principles/misc.html for more information.
 SLOT="0/${PV}"
 KEYWORDS="~amd64 ~arm ~arm64 ~hppa ~ia64 ~ppc ~ppc64 ~riscv ~sparc ~x86 ~amd64-linux ~x86-linux ~ppc-macos ~x64-macos ~x64-solaris"
-IUSE="doc emacs java +kpoll odbc sctp ssl systemd tk wxwidgets"
+IUSE="doc java +kpoll odbc sctp ssl systemd tk wxwidgets"
 
 RDEPEND="
 	acct-group/epmd
 	acct-user/epmd
 	sys-libs/ncurses:0
 	sys-libs/zlib
-	emacs? ( >=app-editors/emacs-23.1:* )
 	java? ( >=virtual/jdk-1.8:* )
 	odbc? ( dev-db/unixODBC )
 	sctp? ( net-misc/lksctp-tools )
@@ -54,6 +53,11 @@ PATCHES=(
 )
 
 SITEFILE=50"${PN}"-gentoo.el
+
+QA_CONFIG_IMPL_DECL_SKIP=(
+	# FreeBSD & OpenBSD
+	pthread_set_name_np
+)
 
 src_prepare() {
 	default
@@ -96,16 +100,7 @@ src_configure() {
 
 src_compile() {
 	emake
-
-	if use doc ; then
-		emake docs DOC_TARGETS=chunks
-	fi
-
-	if use emacs ; then
-		pushd lib/tools/emacs &>/dev/null || die
-		elisp-compile *.el
-		popd &>/dev/null || die
-	fi
+	use doc && emake docs DOC_TARGETS=chunks
 }
 
 extract_version() {
@@ -163,13 +158,6 @@ src_install() {
 		MANPATH="${my_manpath}"
 	_EOF_
 
-	if use emacs ; then
-		elisp-install erlang lib/tools/emacs/*.{el,elc}
-		sed -e "s:/usr/share:${EPREFIX}/usr/share:g" \
-			"${FILESDIR}/${SITEFILE}" > "${T}/${SITEFILE}" || die
-		elisp-site-file-install "${T}/${SITEFILE}"
-	fi
-
 	newinitd "${FILESDIR}"/epmd.init-r3 epmd
 	use systemd && systemd_newunit "${FILESDIR}"/epmd.service-r1 epmd.service
 }
@@ -178,12 +166,4 @@ src_test() {
 	# Only run a subset of tests to test that everything was built
 	# successfully, otherwise we will be here for a long time.
 	emake kernel_test ARGS="-suite os_SUITE"
-}
-
-pkg_postinst() {
-	use emacs && elisp-site-regen
-}
-
-pkg_postrm() {
-	use emacs && elisp-site-regen
 }
