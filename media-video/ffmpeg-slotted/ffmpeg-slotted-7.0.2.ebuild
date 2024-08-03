@@ -50,8 +50,9 @@ KEYWORDS="~alpha ~amd64 ~arm ~arm64 ~hppa ~ia64 ~loong ~mips ~ppc ~ppc64 ~riscv 
 # foo is added to IUSE.
 FFMPEG_FLAG_MAP=(
 		+bzip2:bzlib cpudetection:runtime-cpudetect debug gcrypt +gnutls gmp
-		+gpl hardcoded-tables +iconv libxml2 lzma +network opencl
-		openssl +postproc samba:libsmbclient sdl:ffplay sdl:sdl2 vaapi vdpau vulkan
+		+gpl hardcoded-tables +iconv libxml2 libdvdnav libdvdread lzma +network
+		opencl openssl +postproc qrcode:libqrencode quirc:libquirc
+		samba:libsmbclient sdl:ffplay sdl:sdl2 vaapi vdpau vulkan
 		X:xlib X:libxcb X:libxcb-shm X:libxcb-xfixes +zlib
 		# libavdevice options
 		cdio:libcdio iec61883:libiec61883 ieee1394:libdc1394 libcaca openal
@@ -217,6 +218,8 @@ RDEPEND="
 	libass? ( >=media-libs/libass-0.11.0:=[${MULTILIB_USEDEP}] )
 	libcaca? ( >=media-libs/libcaca-0.99_beta18-r1[${MULTILIB_USEDEP}] )
 	libdrm? ( x11-libs/libdrm[${MULTILIB_USEDEP}] )
+	libdvdnav? ( media-libs/libdvdnav[${MULTILIB_USEDEP}] )
+	libdvdread? ( media-libs/libdvdread:=[${MULTILIB_USEDEP}] )
 	libilbc? ( >=media-libs/libilbc-2[${MULTILIB_USEDEP}] )
 	libplacebo? ( >=media-libs/libplacebo-4.192.0:=[$MULTILIB_USEDEP] )
 	librtmp? ( >=media-video/rtmpdump-2.4_p20131018[${MULTILIB_USEDEP}] )
@@ -231,8 +234,10 @@ RDEPEND="
 	opencl? ( virtual/opencl[${MULTILIB_USEDEP}] )
 	opengl? ( media-libs/libglvnd[X,${MULTILIB_USEDEP}] )
 	opus? ( >=media-libs/opus-1.0.2-r2[${MULTILIB_USEDEP}] )
-	pulseaudio? ( >=media-libs/libpulse-2.1-r1[${MULTILIB_USEDEP}] )
+	pulseaudio? ( media-libs/libpulse[${MULTILIB_USEDEP}] )
 	qsv? ( media-libs/libvpl[${MULTILIB_USEDEP}] )
+	qrcode? ( media-gfx/qrencode:=[${MULTILIB_USEDEP}] )
+	quirc? ( media-libs/quirc:=[${MULTILIB_USEDEP}] )
 	rubberband? ( >=media-libs/rubberband-1.8.1-r1[${MULTILIB_USEDEP}] )
 	samba? ( >=net-fs/samba-3.6.23-r1[client,${MULTILIB_USEDEP}] )
 	sdl? ( media-libs/libsdl2[sound,video,${MULTILIB_USEDEP}] )
@@ -254,13 +259,13 @@ RDEPEND="
 	vaapi? ( >=media-libs/libva-1.2.1-r1:0=[${MULTILIB_USEDEP}] )
 	vdpau? ( >=x11-libs/libvdpau-0.7[${MULTILIB_USEDEP}] )
 	vidstab? ( >=media-libs/vidstab-1.1.0[${MULTILIB_USEDEP}] )
-	vmaf? ( >=media-libs/libvmaf-2.0.0[${MULTILIB_USEDEP}] )
+	vmaf? ( >=media-libs/libvmaf-2.0.0:=[${MULTILIB_USEDEP}] )
 	vorbis? (
 		>=media-libs/libvorbis-1.3.3-r1[${MULTILIB_USEDEP}]
 		>=media-libs/libogg-1.3.0[${MULTILIB_USEDEP}]
 	)
 	vpx? ( >=media-libs/libvpx-1.4.0:=[${MULTILIB_USEDEP}] )
-	vulkan? ( >=media-libs/vulkan-loader-1.3.255:=[${MULTILIB_USEDEP}] )
+	vulkan? ( >=media-libs/vulkan-loader-1.3.277:=[${MULTILIB_USEDEP}] )
 	X? (
 		>=x11-libs/libX11-1.6.2[${MULTILIB_USEDEP}]
 		>=x11-libs/libXext-1.3.2[${MULTILIB_USEDEP}]
@@ -279,10 +284,10 @@ RDEPEND="${RDEPEND}
 "
 
 DEPEND="${RDEPEND}
-	amf? ( >=media-libs/amf-headers-1.4.28 )
+	amf? ( media-libs/amf-headers )
 	ladspa? ( >=media-libs/ladspa-sdk-1.13-r2[${MULTILIB_USEDEP}] )
 	v4l? ( sys-kernel/linux-headers )
-	vulkan? ( >=dev-util/vulkan-headers-1.3.255 )
+	vulkan? ( >=dev-util/vulkan-headers-1.3.277 )
 "
 
 # += for verify-sig above
@@ -326,7 +331,6 @@ RESTRICT="
 PATCHES=(
 	"${FILESDIR}"/ffmpeg-5.1.2-get_cabac_inline_x86-32-bit.patch
 	"${FILESDIR}"/ffmpeg-6.1-opencl-parallel-gmake-fix.patch
-	"${FILESDIR}"/ffmpeg-6.1-gcc-14.patch
 )
 
 MULTILIB_WRAPPED_HEADERS=(
@@ -353,6 +357,14 @@ src_prepare() {
 	# -fdiagnostics-color=auto gets appended after user flags which
 	# will ignore user's preference.
 	sed -i -e '/check_cflags -fdiagnostics-color=auto/d' configure || die
+
+	# We need to detect LTO usage before multilib stuff and filter-lto is called (bug #923491)
+	if tc-is-lto ; then
+		# Respect -flto value, e.g -flto=thin
+		local v="$(get-flag flto)"
+		[[ ${v} != -flto ]] && LTO_FLAG="--enable-lto=${v}" || LTO_FLAG="--enable-lto"
+	fi
+	filter-lto
 }
 
 multilib_src_configure() {
@@ -441,12 +453,16 @@ multilib_src_configure() {
 	done
 
 	# LTO support, bug #566282, bug #754654, bug #772854
-	[[ ${ABI} != x86 ]] && use lto && myconf+=( "--enable-lto=auto" )
-	filter-lto
+	if [[ ${ABI} != x86 && ! -z ${LTO_FLAG} ]]; then
+		myconf+=( ${LTO_FLAG} )
+	fi
 
 	# Mandatory configuration
 	myconf=(
 		--disable-libaribcaption # libaribcaption is not packaged (yet?)
+		--disable-libxeve
+		--disable-libxevd
+		--disable-d3d12va
 		--enable-avfilter
 		--disable-stripping
 		# This is only for hardcoded cflags; those are used in configure checks that may
@@ -532,5 +548,5 @@ multilib_src_install_all() {
 	dodoc Changelog README.md CREDITS doc/*.txt doc/APIchanges
 	[ -f "RELEASE_NOTES" ] && dodoc "RELEASE_NOTES"
 
-	use amf && elog "To use AMF, prefix the ffmpeg call with the 'vk_pro' wrapper script, e.g. `vk_pro ffmpeg -vcodec h264_amf [...]`"
+	use amf && newenvd "${FILESDIR}"/amf-env-vulkan-override 99amf-env-vulkan-override
 }
