@@ -3,7 +3,7 @@
 
 EAPI=8
 
-inherit cmake
+inherit cmake desktop
 
 DESCRIPTION="Head tracking software for MS Windows, Linux, and Apple OSX"
 HOMEPAGE="https://github.com/opentrack/opentrack"
@@ -51,7 +51,11 @@ src_prepare() {
 }
 
 src_configure() {
+	# https://github.com/gentoo/gentoo/pull/37646 :
+	# Installing in "/opt/opentrack" allows the Wine components to be visible in
+	# Valve's pressure-vessel which replaces "/usr" with the container runtime.
 	local mycmakeargs=(
+		-DCMAKE_INSTALL_PREFIX=/opt/opentrack
 		-DSDK_WINE=$(usex wine)
 	)
 
@@ -60,6 +64,11 @@ src_configure() {
 
 src_install() {
 	cmake_src_install
+
+	dosym -r /opt/opentrack/bin/opentrack /usr/bin/opentrack
+
+	newicon gui/images/opentrack.png opentrack.png
+	make_desktop_entry /usr/bin/opentrack OpenTrack /usr/share/pixmaps/opentrack.png Utility
 }
 
 pkg_postinst() {
