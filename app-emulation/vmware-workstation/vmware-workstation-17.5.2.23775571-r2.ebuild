@@ -134,14 +134,16 @@ src_unpack() {
 		rm -rf __MACOSX payload manifest.plist preflight postflight com.vmware.fusion.zip
 	fi
 
+	echo "VMWARE_INSTALLER=\"${WORKDIR}/extracted/vmware-installer\"" >> bootstrap
+	echo "VMISPYVERSION="310"" >> bootstrap
+	chmod +x extracted/vmware-installer/vmis-launcher
+
 	for guest in ${IUSE_VMWARE_GUESTS}; do
 		component=$(echo vmware-tools-${guest}-*.component)
 		if [[ -e "${component}" ]]; then
-			offset=$(grep -boa "</component>" "${component}" | cut -d ":" -f 1)
-			dd if="${component}" of="${guest}.iso.gz" bs=$(( ${offset} + 12 )) skip=1 status=none || die
-			gunzip "${guest}.iso.gz" || die
-			mkdir extracted/vmware-tools-${guest} || die
-			mv "${guest}.iso" extracted/vmware-tools-${guest}/ || die
+			VMWARE_BOOTSTRAP="bootstrap" bash extracted/vmware-installer/vmware-installer --install-component=${component} -x extracted/component-extracted/ || die
+			mv extracted/component-extracted/* extracted/ || die
+			rmdir extracted/component-extracted || die
 		fi
 	done
 }
@@ -196,7 +198,7 @@ src_install() {
 
 	# install the installer
 	insinto "${VM_INSTALL_DIR}"/lib/vmware-installer/${vmware_installer_version}
-	doins -r vmware-installer/{cdsHelper,vmis,vmis-launcher,vmware-cds-helper,vmware-installer,vmware-installer.py,python}
+	doins -r vmware-installer/{cdsHelper,vmis,vmis-launcher,vmware-cds-helper,vmware-installer,vmware-installer.py,python,sopython}
 	chrpath -k -r '/../lib:$ORIGIN/../lib' "${ED}${VM_INSTALL_DIR}"/lib/vmware-installer/${vmware_installer_version}/python/lib/lib-dynload/*.so >/dev/null || die
 	fperms 0755 "${VM_INSTALL_DIR}"/lib/vmware-installer/${vmware_installer_version}/{vmis-launcher,cdsHelper,vmware-installer}
 	dosym "${VM_INSTALL_DIR}"/lib/vmware-installer/${vmware_installer_version}/vmware-installer "${VM_INSTALL_DIR}"/bin/vmware-installer
