@@ -75,5 +75,7 @@ pkg_postinst() {
 	if use wine; then
 		elog "Make sure the version of Wine you want to target has been selected"
 		elog "with 'eselect wine ...' before building this package."
+		elog
+		elog "Useful configuration guide: https://markx86.github.io/opentrack-wine-guide/#setting-up-opentrack"
 	fi
 }
