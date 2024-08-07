@@ -33,10 +33,6 @@ DEPEND="
 "
 RDEPEND="${DEPEND}"
 
-PATCHES=(
-	"${FILESDIR}/libheif-1.18.1-symlink.patch"
-)
-
 src_prepare() {
 	cmake_src_prepare
 
@@ -84,8 +80,6 @@ multilib_src_test() {
 
 multilib_src_install() {
 	cmake_src_install
-
-	ln -s heif-dec "${ED}"/usr/bin/heif-convert || die
 }
 
 multilib_src_install_all() {
