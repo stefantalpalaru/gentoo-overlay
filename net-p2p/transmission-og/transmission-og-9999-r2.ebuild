@@ -1,4 +1,4 @@
-# Copyright 2006-2023 Gentoo Authors
+# Copyright 2006-2024 Gentoo Authors
 # Distributed under the terms of the GNU General Public License v2
 
 EAPI=8
@@ -50,7 +50,7 @@ COMMON_DEPEND="
 		>=dev-libs/dbus-glib-0.100
 		>=dev-libs/glib-2.32:2
 		>=x11-libs/gtk+-3.4:3
-		appindicator? ( >=dev-libs/libappindicator-0.4.90:3 )
+		appindicator? ( dev-libs/libayatana-appindicator )
 	)
 	qt5? (
 		dev-qt/qtcore:5
