@@ -144,6 +144,7 @@ PHP_MV="$(ver_cut 1)"
 PATCHES=(
 	"${FILESDIR}/php-iodbc-header-location.patch"
 	"${FILESDIR}/php80-firebird-warnings.patch"
+	"${FILESDIR}/php-8.0.30-icu-74.patch"
 )
 
 php_install_ini() {
