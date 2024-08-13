@@ -204,6 +204,8 @@ php_set_ini_dir() {
 src_prepare() {
 	default
 
+	append-cflags -fpermissive
+
 	# In php-7.x, the FPM pool configuration files have been split off
 	# of the main config. By default the pool config files go in
 	# e.g. /etc/php-fpm.d, which isn't slotted. So here we move the
@@ -232,7 +234,6 @@ src_prepare() {
 	   ext/curl/tests/curl_error_basic.phpt \
 	   ext/session/tests/bug74514.phpt \
 	   ext/session/tests/bug74936.phpt || die
-
 }
 
 src_configure() {
