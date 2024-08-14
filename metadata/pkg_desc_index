@@ -797,7 +797,7 @@ games-misc/bsd-games 2.17_p28-r2: Collection of games from NetBSD
 games-sports/trigger 0.6.6.1-r1: Free OpenGL rally car racing game
 games-util/new-lg4ff 0.4.0-r1 9999-r1: Experimental Logitech force feedback module
 games-util/opentrack 2024.1.1-r3: Head tracking software for MS Windows, Linux, and Apple OSX
-games-util/oversteer 0.8.2 9999-r1: Steering Wheel Manager for Linux
+games-util/oversteer 0.8.3 9999-r1: Steering Wheel Manager for Linux
 games-util/qzdl 3.1.1: Qt version of BioHazard's ZDoom Launcher (ZDL)
 gnome-base/libgnome-keyring 3.12.0-r5: Compatibility library for accessing secrets
 media-fonts/breeze-sans 20170821-r3: a humanist sans-serif typeface designed by Dalton Maag for Samsung
