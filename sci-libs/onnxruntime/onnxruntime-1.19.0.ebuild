@@ -49,31 +49,27 @@ RDEPEND="
 BDEPEND="
 	${PYTHON_DEPS}
 	app-admin/chrpath
-	dev-libs/date:=
-	dev-libs/nsync:=
-	dev-libs/cpuinfo:=
-	dev-libs/clog:=
-	dev-libs/FP16
-	dev-libs/FXdiv
-	sys-cluster/openmpi:=[cuda?]
-	dev-cpp/eigen:=[cuda?]
-	dev-cpp/ms-gsl:=
-	dev-cpp/nlohmann_json
-	sci-libs/pytorch
-	dev-libs/re2
-	dev-libs/protobuf:=
-	sci-libs/onnx:=[disableStaticReg]
 	benchmark? ( dev-cpp/benchmark )
 	cuda? ( dev-util/nvidia-cuda-toolkit:= )
 	cudnn? ( dev-libs/cudnn:= )
-	onednn? ( dev-libs/oneDNN:= )
+	>dev-cpp/eigen-3.4.0:=[cuda?]
+	dev-cpp/ms-gsl:=
+	dev-cpp/nlohmann_json
+	dev-libs/FP16
+	dev-libs/FXdiv
+	dev-libs/clog:=
+	dev-libs/cpuinfo:=
+	dev-libs/date:=
+	dev-libs/nsync:=
+	dev-libs/protobuf:=
+	dev-libs/re2
 	hip? (
 		sci-libs/hipFFT:=
 		sci-libs/hipCUB:=
 		>=dev-libs/rocr-runtime-${ROCM_VERSION}:=
 		>=dev-util/hip-${ROCM_VERSION}:=
 	)
-	xnnpack? ( sci-libs/XNNPACK )
+	onednn? ( dev-libs/oneDNN:= )
 	python? (
 		$(python_gen_cond_dep '
 			dev-python/cerberus[${PYTHON_USEDEP}]
@@ -86,14 +82,18 @@ BDEPEND="
 			dev-python/sympy[${PYTHON_USEDEP}]
 		')
 	)
+	sci-libs/onnx:=[disableStaticReg]
+	sci-libs/pytorch
+	sys-cluster/openmpi:=[cuda?]
+	xnnpack? ( sci-libs/XNNPACK )
 "
 
 PATCHES=(
 	"${FILESDIR}/${PN}-system-dnnl.patch"
 	"${FILESDIR}/re2-pkg-config-r2.patch"
-	"${FILESDIR}/system-onnx-r2.patch"
+	"${FILESDIR}/system-onnx-r3.patch"
 	"${FILESDIR}/system-nsync.patch"
-	"${FILESDIR}/system-composable_kernel-r1.patch"
+	"${FILESDIR}/system-composable_kernel-r2.patch"
 	"${FILESDIR}/system-protobuf.patch"
 	"${FILESDIR}/system-mp11.patch"
 	"${FILESDIR}/system-gsl-r2.patch"
@@ -104,8 +104,9 @@ PATCHES=(
 	"${FILESDIR}/contrib-ops.patch"
 	"${FILESDIR}/disabled_rules_and_transformers.patch"
 	"${FILESDIR}/Werror.patch"
-	"${FILESDIR}/mpi.patch"
 	"${FILESDIR}/onnxruntime-1.18.1-protobuf-27.patch"
+	"${FILESDIR}/onnxruntime-1.19.0-abseil.patch"
+	"${FILESDIR}/onnxruntime-1.19.0-eigen.patch"
 )
 
 pkg_setup() {
@@ -150,14 +151,12 @@ src_prepare() {
 
 	strip-unsupported-flags
 
-	append-cppflags "-I/usr/include/eigen3"
-
 	cmake_src_prepare
 }
 
 src_configure() {
 	export ROCM_PATH=/usr MIOPEN_PATH=/usr
-	export ROCM_VERSION="${ROCM_VERSION}"-
+	export ROCM_VERSION
 
 	python && python_setup
 	CMAKE_BUILD_TYPE=$(usex debug RelWithDebInfo Release)
@@ -246,7 +245,7 @@ src_configure() {
 		-Donnxruntime_ENABLE_TRAINING_APIS=OFF
 		-Donnxruntime_ENABLE_CPU_FP16_OPS=OFF
 		-Donnxruntime_USE_NCCL=OFF
-		-DOnnxruntime_GCOV_COVERAGE=OFF
+		-Donnxruntime_GCOV_COVERAGE=OFF
 		-Donnxruntime_ENABLE_MEMORY_PROFILE=OFF
 		-Donnxruntime_BUILD_WEBASSEMBLY_STATIC_LIB=OFF
 		-Donnxruntime_ENABLE_WEBASSEMBLY_EXCEPTION_CATCHING=ON

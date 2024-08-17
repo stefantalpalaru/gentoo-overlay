@@ -1,0 +1,31 @@
+diff '--color=auto' -ur onnxruntime-1.19.0.orig/onnxruntime/core/providers/cpu/math/element_wise_ops.cc onnxruntime-1.19.0/onnxruntime/core/providers/cpu/math/element_wise_ops.cc
+--- onnxruntime-1.19.0.orig/onnxruntime/core/providers/cpu/math/element_wise_ops.cc	2024-07-30 12:49:14.000000000 +0200
++++ onnxruntime-1.19.0/onnxruntime/core/providers/cpu/math/element_wise_ops.cc	2024-08-17 05:00:41.758313387 +0200
+@@ -828,7 +828,7 @@
+   for (int index = 1; index < inputCount; index++) {
+     auto& data_n = *ctx->Input<Tensor>(index);
+     ORT_ENFORCE(data_n.Shape() == shape, "All inputs must have the same shape");
+-    max = max.array().template max<Eigen::PropagateNaN>(EigenMap<float>(data_n).array());
++    max = max.array().template cwiseMax<Eigen::PropagateNaN>(EigenMap<float>(data_n).array());
+   }
+ 
+   return Status::OK();
+@@ -844,15 +844,15 @@
+     ProcessBroadcastSpanFuncs funcs{
+         [](BroadcastHelper& per_iter_bh) {
+           per_iter_bh.OutputEigen<T>() =
+-              per_iter_bh.EigenInput1<T>().array().template max<Eigen::PropagateNaN>(per_iter_bh.ScalarInput0<T>());
++              per_iter_bh.EigenInput1<T>().array().template cwiseMax<Eigen::PropagateNaN>(per_iter_bh.ScalarInput0<T>());
+         },
+         [](BroadcastHelper& per_iter_bh) {
+           per_iter_bh.OutputEigen<T>() =
+-              per_iter_bh.EigenInput0<T>().array().template max<Eigen::PropagateNaN>(per_iter_bh.ScalarInput1<T>());
++              per_iter_bh.EigenInput0<T>().array().template cwiseMax<Eigen::PropagateNaN>(per_iter_bh.ScalarInput1<T>());
+         },
+         [](BroadcastHelper& per_iter_bh) {
+           per_iter_bh.OutputEigen<T>() =
+-              per_iter_bh.EigenInput0<T>().array().template max<Eigen::PropagateNaN>(
++              per_iter_bh.EigenInput0<T>().array().template cwiseMax<Eigen::PropagateNaN>(
+                   per_iter_bh.EigenInput1<T>().array());
+         }};
+ 

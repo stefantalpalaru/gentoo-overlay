@@ -1,19 +1,18 @@
-diff '--color=auto' -ur onnxruntime-1.18.0.orig/cmake/CMakeLists.txt onnxruntime-1.18.0/cmake/CMakeLists.txt
---- onnxruntime-1.18.0.orig/cmake/CMakeLists.txt	2024-06-24 19:04:54.892843612 +0200
-+++ onnxruntime-1.18.0/cmake/CMakeLists.txt	2024-06-24 19:05:48.695519710 +0200
-@@ -428,6 +428,9 @@
+diff '--color=auto' -ur onnxruntime-1.19.0.orig/cmake/CMakeLists.txt onnxruntime-1.19.0/cmake/CMakeLists.txt
+--- onnxruntime-1.19.0.orig/cmake/CMakeLists.txt	2024-08-17 03:36:03.845038227 +0200
++++ onnxruntime-1.19.0/cmake/CMakeLists.txt	2024-08-17 03:39:48.761811775 +0200
+@@ -443,6 +443,8 @@
  endif()
  
  set(ONNX_ML 1)
 +add_definitions(-DONNX_ML=1)
 +add_definitions(-DONNX_NAMESPACE=onnx)
-+
- if (NOT onnxruntime_ENABLE_PYTHON)
-   set(onnxruntime_ENABLE_LANGUAGE_INTEROP_OPS OFF)
- endif()
-@@ -1405,6 +1408,15 @@
-   configure_file(../requirements.txt.in ${CMAKE_CURRENT_BINARY_DIR}/requirements.txt)
- endif()
+ 
+ if (NOT (UNIX AND onnxruntime_ENABLE_PYTHON AND onnxruntime_ENABLE_TRAINING AND (NOT onnxruntime_BUILD_SHARED_LIB)))
+   if (onnxruntime_ENABLE_TRAINING_TORCH_INTEROP)
+@@ -1438,6 +1440,15 @@
+ configure_file(onnxruntime_config.h.in ${CMAKE_CURRENT_BINARY_DIR}/onnxruntime_config.h)
+ get_property(onnxruntime_GENERATOR_IS_MULTI_CONFIG GLOBAL PROPERTY GENERATOR_IS_MULTI_CONFIG)
  
 +Find_Package(ONNX)
 +if (ONNX_FOUND)
@@ -27,10 +26,10 @@ diff '--color=auto' -ur onnxruntime-1.18.0.orig/cmake/CMakeLists.txt onnxruntime
  if (onnxruntime_USE_CUDA)
    set(CMAKE_CUDA_RUNTIME_LIBRARY Shared)
    set(CMAKE_CUDA_STANDARD 17)
-diff '--color=auto' -ur onnxruntime-1.18.0.orig/cmake/external/onnxruntime_external_deps.cmake onnxruntime-1.18.0/cmake/external/onnxruntime_external_deps.cmake
---- onnxruntime-1.18.0.orig/cmake/external/onnxruntime_external_deps.cmake	2024-06-24 19:04:54.841843919 +0200
-+++ onnxruntime-1.18.0/cmake/external/onnxruntime_external_deps.cmake	2024-06-24 19:05:13.424732046 +0200
-@@ -491,12 +491,6 @@
+diff '--color=auto' -ur onnxruntime-1.19.0.orig/cmake/external/onnxruntime_external_deps.cmake onnxruntime-1.19.0/cmake/external/onnxruntime_external_deps.cmake
+--- onnxruntime-1.19.0.orig/cmake/external/onnxruntime_external_deps.cmake	2024-08-17 03:36:03.779038587 +0200
++++ onnxruntime-1.19.0/cmake/external/onnxruntime_external_deps.cmake	2024-08-17 03:43:01.620760133 +0200
+@@ -508,12 +508,6 @@
  include(eigen)
  include(wil)
  
@@ -43,7 +42,7 @@ diff '--color=auto' -ur onnxruntime-1.18.0.orig/cmake/external/onnxruntime_exter
  set(GSL_TARGET "Microsoft.GSL::GSL")
  set(GSL_INCLUDE_DIR "$<TARGET_PROPERTY:${GSL_TARGET},INTERFACE_INCLUDE_DIRECTORIES>")
  
-@@ -525,19 +519,10 @@
+@@ -542,19 +536,10 @@
  #onnxruntime_EXTERNAL_LIBRARIES could contain onnx, onnx_proto,libprotobuf, cuda/cudnn,
  # dnnl/mklml, onnxruntime_codegen_tvm, tvm and pthread
  # pthread is always at the last
@@ -65,9 +64,9 @@ diff '--color=auto' -ur onnxruntime-1.18.0.orig/cmake/external/onnxruntime_exter
  
  
  if(onnxruntime_ENABLE_ATEN)
-diff '--color=auto' -ur onnxruntime-1.18.0.orig/cmake/onnxruntime_graph.cmake onnxruntime-1.18.0/cmake/onnxruntime_graph.cmake
---- onnxruntime-1.18.0.orig/cmake/onnxruntime_graph.cmake	2024-05-15 09:14:29.000000000 +0200
-+++ onnxruntime-1.18.0/cmake/onnxruntime_graph.cmake	2024-06-24 19:05:13.424732046 +0200
+diff '--color=auto' -ur onnxruntime-1.19.0.orig/cmake/onnxruntime_graph.cmake onnxruntime-1.19.0/cmake/onnxruntime_graph.cmake
+--- onnxruntime-1.19.0.orig/cmake/onnxruntime_graph.cmake	2024-07-30 12:49:14.000000000 +0200
++++ onnxruntime-1.19.0/cmake/onnxruntime_graph.cmake	2024-08-17 03:44:03.548422446 +0200
 @@ -95,8 +95,8 @@
  endif()
  
@@ -79,9 +78,9 @@ diff '--color=auto' -ur onnxruntime-1.18.0.orig/cmake/onnxruntime_graph.cmake on
  
  if (MSVC)
    set(ONNX_PROTOBUF_NATVIS_FILE "onnx_protobuf.natvis")
-diff '--color=auto' -ur onnxruntime-1.18.0.orig/cmake/onnxruntime_providers_cpu.cmake onnxruntime-1.18.0/cmake/onnxruntime_providers_cpu.cmake
---- onnxruntime-1.18.0.orig/cmake/onnxruntime_providers_cpu.cmake	2024-05-15 09:14:29.000000000 +0200
-+++ onnxruntime-1.18.0/cmake/onnxruntime_providers_cpu.cmake	2024-06-24 19:05:13.424732046 +0200
+diff '--color=auto' -ur onnxruntime-1.19.0.orig/cmake/onnxruntime_providers_cpu.cmake onnxruntime-1.19.0/cmake/onnxruntime_providers_cpu.cmake
+--- onnxruntime-1.19.0.orig/cmake/onnxruntime_providers_cpu.cmake	2024-07-30 12:49:14.000000000 +0200
++++ onnxruntime-1.19.0/cmake/onnxruntime_providers_cpu.cmake	2024-08-17 03:45:25.541975343 +0200
 @@ -165,7 +165,7 @@
  #      target_compile_options(onnxruntime_providers PRIVATE "/wd4244")
  #   endif()

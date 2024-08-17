@@ -37,6 +37,22 @@ app-emulation/vmware-workstation:vmware-tools-solaris - Install VMware Tools for
 app-emulation/vmware-workstation:vmware-tools-winPre2k - Install VMware Tools for Windows (before 2000) guests.
 app-emulation/vmware-workstation:vmware-tools-winPreVista - Install VMware Tools for Windows (after 2000, before Vista) guests.
 app-emulation/vmware-workstation:vmware-tools-windows - Install VMware Tools for Windows (Vista and later) guests.
+dev-cpp/eigen:adolc - Add test support for Adolc (sci-libs/adolc)
+dev-cpp/eigen:benchmark - Build benchmark suite
+dev-cpp/eigen:boost - Add test support for Boost.Multiprecision (dev-libs/boost)
+dev-cpp/eigen:cholmod - Add test support for CHOLMOD (sci-libs/cholmod)
+dev-cpp/eigen:clang - Use clang for cuda units compilation
+dev-cpp/eigen:fftw - Add test support for fftw (sci-libs/fftw)
+dev-cpp/eigen:hip - Enable HIP GPU computing support
+dev-cpp/eigen:klu - Add test support for KLU (sci-libs/klu)
+dev-cpp/eigen:mathjax - Use MathJax for rendering math in HTML docs (dev-libs/mathjax)
+dev-cpp/eigen:opengl - Add test support for OpenGL
+dev-cpp/eigen:openmp - Add test support for the OpenMP (support parallel computing)
+dev-cpp/eigen:pastix - Add test support for PaStiX (sci-libs/pastix)
+dev-cpp/eigen:sparsehash - Add test support for GoogleHash (dev-cpp/sparsehash)
+dev-cpp/eigen:spqr - Add test support for SPQR (sci-libs/spqr)
+dev-cpp/eigen:superlu - Add test support for SuperLU (sci-libs/superlu)
+dev-cpp/eigen:umfpack - Add test support for UMFPACK (sci-libs/umfpack)
 dev-debug/valgrind:lto - Build with link time optimization (LTO)
 dev-lang/erlang:kpoll - Enable kernel polling support
 dev-lang/nim:boehm-gc - Enable Hans Boehm's garbage collector (dev-libs/boehm-gc).
