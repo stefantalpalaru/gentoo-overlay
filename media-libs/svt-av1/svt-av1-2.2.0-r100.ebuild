@@ -23,7 +23,6 @@ BDEPEND="
 
 PATCHES=(
 	"${FILESDIR}"/svt-av1-1.5.0-fortify-no-override.patch
-	"${FILESDIR}"/svt-av1-2.1.1-PGO.patch
 )
 
 src_unpack() {
