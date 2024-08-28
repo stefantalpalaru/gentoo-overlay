@@ -3,7 +3,7 @@ app-admin/conky 1.21.6: An advanced, highly configurable system monitor for X
 app-admin/zenmonitor3 2.0.0-r1: Zen monitor is monitoring software for AMD Zen-based CPUs
 app-alternatives/yacc 0: Virtual for yacc (yet another compiler compiler)
 app-arch/libdeflate 1.14: Heavily optimized DEFLATE/zlib/gzip (de)compression
-app-arch/libzim 9.1.0: reference implementation for the ZIM archive format
+app-arch/libzim 9.2.3: reference implementation for the ZIM archive format
 app-crypt/acme 1.8.0-r200 1.32.0: An implementation of the ACME protocol
 app-crypt/certbot 1.8.0-r201 1.32.0-r2: Let’s Encrypt client to automate deployment of X.509 certificates
 app-crypt/certbot-dns-linode 1.32.0-r2 2.10.0 2.11.0: Linode DNS Authenticator plugin for Certbot
