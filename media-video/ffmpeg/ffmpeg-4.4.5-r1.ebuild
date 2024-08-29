@@ -33,7 +33,6 @@ else # Release
 	VERIFY_SIG_OPENPGP_KEY_PATH=/usr/share/openpgp-keys/ffmpeg.asc
 	inherit verify-sig
 	SRC_URI="https://ffmpeg.org/releases/${P/_/-}.tar.xz"
-	SRC_URI+=" https://dev.gentoo.org/~sam/distfiles/${CATEGORY}/${PN}/${P}-texinfo.patch.xz"
 	SRC_URI+=" verify-sig? ( https://ffmpeg.org/releases/${P/_/-}.tar.xz.asc )"
 
 	BDEPEND=" verify-sig? ( sec-keys/openpgp-keys-ffmpeg )"
@@ -65,7 +64,7 @@ LICENSE="
 	samba? ( GPL-3 )
 "
 if [ "${PV#9999}" = "${PV}" ] ; then
-	KEYWORDS="~alpha amd64 arm arm64 ~hppa ~ia64 ~loong ~mips ppc ppc64 ~riscv sparc x86 ~amd64-linux ~x86-linux ~x64-macos"
+	KEYWORDS="~alpha ~amd64 ~arm ~arm64 ~hppa ~ia64 ~loong ~mips ~ppc ~ppc64 ~riscv ~sparc ~x86 ~amd64-linux ~x86-linux ~x64-macos"
 fi
 
 # Options to use as use_enable in the foo[:bar] form.
@@ -266,7 +265,7 @@ RDEPEND="
 		x11-libs/cairo[${MULTILIB_USEDEP}]
 	)
 	nvenc? ( <media-libs/nv-codec-headers-12 )
-	svt-av1? ( >=media-libs/svt-av1-0.8.4:0/1[${MULTILIB_USEDEP}] )
+	svt-av1? ( >=media-libs/svt-av1-0.8.4[${MULTILIB_USEDEP}] )
 	truetype? ( >=media-libs/freetype-2.5.0.1:2[${MULTILIB_USEDEP}] )
 	vaapi? ( >=media-libs/libva-1.2.1-r1:0=[${MULTILIB_USEDEP}] )
 	vdpau? ( >=x11-libs/libvdpau-0.7[${MULTILIB_USEDEP}] )
@@ -343,16 +342,13 @@ S=${WORKDIR}/${P/_/-}
 PATCHES=(
 	"${FILESDIR}"/chromium-r1.patch
 	"${FILESDIR}"/${PN}-5.0-backport-ranlib-build-fix.patch
-	"${FILESDIR}"/${PN}-4.4.3-clang-14-ff_seek_frame_binary-crash.patch
 	"${FILESDIR}"/${PN}-4.4.3-get_cabac_inline_x86-32-bit.patch
 	"${FILESDIR}"/${PN}-4.4.4-wint-conversion-vulkan.patch
-	"${FILESDIR}"/${P}-fix-build-svt-av1-1.5.0.patch
-	"${FILESDIR}"/${PN}-5.1.3-binutils-2.41.patch
 	"${FILESDIR}"/${PN}-4.4.4-opencl-parallel-gmake-fix.patch
 	"${FILESDIR}"/${PN}-4.4.4-glslang.patch
-	"${WORKDIR}"/${PN}-4.4.4-texinfo.patch
 	"${FILESDIR}"/${PN}-4.4.4-amd-av1-vaapi.patch
 	"${FILESDIR}"/ffmpeg-4.4.4-libvmaf-2.0.0.patch
+	"${FILESDIR}"/${PN}-4.4.5-incmptbl-pntr-types.patch
 )
 
 MULTILIB_WRAPPED_HEADERS=(
