@@ -104,6 +104,7 @@ PATCHES=(
 	"${FILESDIR}"/${PN}-2.1.2-fix-rpath.patch
 	"${FILESDIR}"/${PN}-2.4.0-rocm-fix-std-cpp17.patch
 	"${FILESDIR}"/caffe2-2.2.2-musl.patch
+	"${FILESDIR}"/caffe2-2.4.0-kineto.patch
 )
 
 src_prepare() {
