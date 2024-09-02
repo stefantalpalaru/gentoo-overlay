@@ -1,18 +1,18 @@
-# Copyright 2023 Gentoo Authors
+# Copyright 2023-2024 Gentoo Authors
 # Distributed under the terms of the GNU General Public License v2
 
 EAPI=8
 
-inherit qmake-utils toolchain-funcs
+inherit flag-o-matic qmake-utils toolchain-funcs
 
 DESCRIPTION="Magic Lantern Video (MLV) processing suite"
 HOMEPAGE="https://github.com/ilia3101/MLV-App"
 SRC_URI="https://github.com/ilia3101/MLV-App/archive/refs/tags/QTv${PV}.tar.gz -> ${P}.tar.gz"
-
+S="${WORKDIR}/MLV-App-QTv${PV}"
 LICENSE="GPL-3"
 SLOT="0"
 KEYWORDS="~amd64 ~x86"
-IUSE="+qt5 qt6"
+IUSE="qt5 +qt6"
 REQUIRED_USE="^^ ( qt5 qt6 )"
 
 DEPEND="
@@ -30,9 +30,6 @@ DEPEND="
 RDEPEND="${DEPEND}
 	media-video/ffmpeg
 "
-BDEPEND=""
-
-S="${WORKDIR}/MLV-App-QTv${PV}"
 
 PATCHES=(
 	"${FILESDIR}/mlvapp-1.14-flags.patch"
@@ -46,6 +43,12 @@ pkg_pretend() {
 
 pkg_setup() {
 	[[ ${MERGE_TYPE} != binary ]] && tc-check-openmp
+}
+
+src_prepare() {
+	default
+
+	append-cflags -fpermissive
 }
 
 src_configure() {

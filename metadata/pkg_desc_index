@@ -845,7 +845,7 @@ media-tv/w_scan2 1.0.15-r1 9999-r2: Scan for DVB-C/DVB-T/DVB-S channels (w_scan 
 media-video/aegisub 3.3.3-r2: Advanced subtitle editor
 media-video/ffmpeg 4.4.5-r1: Complete solution to record/convert/stream audio and video. Includes libavcodec
 media-video/ffmpeg-slotted 7.0.2: slotted FFmpeg
-media-video/mlvapp 1.14 9999: Magic Lantern Video (MLV) processing suite
+media-video/mlvapp 1.14-r1 9999-r1: Magic Lantern Video (MLV) processing suite
 media-video/smplayer 24.5.0: Great Qt GUI front-end for mplayer/mpv
 media-video/subliminal 2.2.1 9999-r9: Python library to search and download subtitles
 media-video/vobsub2srt 1.0_pre20171219-r2: Converts VobSub subtitles (.sub/.idx) to .srt text subtitles using tesseract
