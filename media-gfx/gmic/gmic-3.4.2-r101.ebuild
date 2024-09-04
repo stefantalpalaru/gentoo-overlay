@@ -21,7 +21,7 @@ S="${WORKDIR}/${PN}-v.${PV}"
 LICENSE="CeCILL-2 GPL-3"
 SLOT="0"
 KEYWORDS="~amd64 ~x86"
-IUSE="bash-completion +cli ffmpeg +fftw gimp graphicsmagick gui jpeg opencv openexr openmp png static-libs tiff X"
+IUSE="bash-completion +cli ffmpeg +fftw gimp graphicsmagick gui jpeg opencv openexr +openmp png static-libs tiff X"
 REQUIRED_USE="
 	|| ( cli gimp gui )
 	gimp? ( png fftw X )
@@ -71,12 +71,8 @@ DEPEND="${COMMON_DEPEND}
 GMIC_QT_DIR="gmic-qt-v.${PV}"
 
 pkg_pretend() {
-	if use openmp ; then
+	if use openmp; then
 		tc-check-openmp
-	fi
-
-	if ! test-flag-CXX -std=c++11 ; then
-		die "You need at least GCC 4.7.x or Clang >= 3.3 for C++11-specific compiler flags"
 	fi
 }
 
