@@ -4,8 +4,8 @@
 EAPI=8
 
 PYTHON_COMPAT=( python3_{10..12} )
-ROCM_VERSION=5.7
-inherit python-single-r1 cmake cuda flag-o-matic prefix rocm
+ROCM_VERSION=6.1
+inherit python-single-r1 cmake cuda flag-o-matic prefix rocm toolchain-funcs
 
 MYPN=pytorch
 MYP=${MYPN}-${PV}
@@ -37,6 +37,7 @@ RDEPEND="
 	${PYTHON_DEPS}
 	dev-cpp/gflags:=
 	>=dev-cpp/glog-0.5.0
+	dev-cpp/opentelemetry-cpp
 	dev-libs/cpuinfo
 	dev-libs/libfmt
 	dev-libs/protobuf:=
@@ -60,22 +61,35 @@ RDEPEND="
 		') )
 	onednn? ( dev-libs/oneDNN )
 	opencl? ( virtual/opencl )
-	rocm? (
-		>=dev-util/hip-5.7
-		>=dev-libs/rccl-5.7[${ROCM_USEDEP}]
-		>=sci-libs/rocThrust-5.7[${ROCM_USEDEP}]
-		>=sci-libs/rocPRIM-5.7[${ROCM_USEDEP}]
-		>=sci-libs/hipBLAS-5.7[${ROCM_USEDEP}]
-		>=sci-libs/hipFFT-5.7[${ROCM_USEDEP}]
-		>=sci-libs/hipSPARSE-5.7[${ROCM_USEDEP}]
-		>=sci-libs/hipRAND-5.7[${ROCM_USEDEP}]
-		>=sci-libs/hipCUB-5.7[${ROCM_USEDEP}]
-		>=sci-libs/hipSOLVER-5.7[${ROCM_USEDEP}]
-		>=sci-libs/miopen-5.7[${ROCM_USEDEP}]
-		>=dev-util/roctracer-5.7[${ROCM_USEDEP}]
+	qnnpack? (
+		sci-libs/QNNPACK
+		dev-cpp/gemmlowp
 	)
-	distributed? ( sci-libs/tensorpipe[cuda?] )
-	xnnpack? ( >=sci-libs/XNNPACK-2022.12.22 )
+	rocm? (
+		=dev-util/hip-6.1*
+		=dev-libs/rccl-6.1*[${ROCM_USEDEP}]
+		=sci-libs/rocThrust-6.1*[${ROCM_USEDEP}]
+		=sci-libs/rocPRIM-6.1*[${ROCM_USEDEP}]
+		=sci-libs/hipBLAS-6.1*[${ROCM_USEDEP}]
+		=sci-libs/hipFFT-6.1*[${ROCM_USEDEP}]
+		=sci-libs/hipSPARSE-6.1*[${ROCM_USEDEP}]
+		=sci-libs/hipRAND-6.1*[${ROCM_USEDEP}]
+		=sci-libs/hipCUB-6.1*[${ROCM_USEDEP}]
+		=sci-libs/hipSOLVER-6.1*[${ROCM_USEDEP}]
+		=sci-libs/miopen-6.1*[${ROCM_USEDEP}]
+		=dev-util/roctracer-6.1*[${ROCM_USEDEP}]
+
+		=sci-libs/hipBLASLt-6.1*
+		amdgpu_targets_gfx90a? ( =sci-libs/hipBLASLt-6.1*[amdgpu_targets_gfx90a] )
+		amdgpu_targets_gfx940? ( =sci-libs/hipBLASLt-6.1*[amdgpu_targets_gfx940] )
+		amdgpu_targets_gfx941? ( =sci-libs/hipBLASLt-6.1*[amdgpu_targets_gfx941] )
+		amdgpu_targets_gfx942? ( =sci-libs/hipBLASLt-6.1*[amdgpu_targets_gfx942] )
+	)
+	distributed? (
+		sci-libs/tensorpipe[cuda?]
+		dev-cpp/cpp-httplib
+	)
+	xnnpack? ( >=sci-libs/XNNPACK-2024.02.29 )
 	mkl? ( sci-libs/mkl )
 	openblas? ( sci-libs/openblas )
 "
@@ -96,14 +110,20 @@ DEPEND="
 "
 
 PATCHES=(
-	"${FILESDIR}"/${PN}-2.4.0-gentoo.patch
-	"${FILESDIR}"/${PN}-2.4.0-install-dirs.patch
-	"${FILESDIR}"/${PN}-1.12.0-glog-0.6.0.patch
-	"${FILESDIR}"/${PN}-1.13.1-tensorpipe.patch
-	"${FILESDIR}"/${PN}-2.3.0-cudnn_include_fix.patch
-	"${FILESDIR}"/${PN}-2.1.2-fix-rpath.patch
-	"${FILESDIR}"/${PN}-2.4.0-rocm-fix-std-cpp17.patch
+	"${FILESDIR}"/caffe2-2.4.0-gentoo.patch
+	"${FILESDIR}"/caffe2-2.4.0-install-dirs.patch
+	"${FILESDIR}"/caffe2-1.12.0-glog-0.6.0.patch
+	"${FILESDIR}"/caffe2-1.13.1-tensorpipe.patch
+	"${FILESDIR}"/caffe2-2.3.0-cudnn_include_fix.patch
+	"${FILESDIR}"/caffe2-2.1.2-fix-rpath.patch
+	"${FILESDIR}"/caffe2-2.4.0-fix-openmp-link.patch
+	"${FILESDIR}"/caffe2-2.4.0-rocm-fix-std-cpp17.patch
 	"${FILESDIR}"/caffe2-2.2.2-musl.patch
+	"${FILESDIR}"/caffe2-2.4.0-exclude-aotriton.patch
+	"${FILESDIR}"/caffe2-2.3.0-fix-rocm-gcc14-clamp.patch
+	"${FILESDIR}"/caffe2-2.3.0-fix-libcpp.patch
+	"${FILESDIR}"/caffe2-2.4.0-libfmt-11.patch
+	"${FILESDIR}"/caffe2-2.4.0-cpp-httplib.patch
 	"${FILESDIR}"/caffe2-2.4.0-kineto.patch
 )
 
@@ -171,6 +191,7 @@ src_configure() {
 		-DUSE_FAKELOWP=OFF
 		-DUSE_FBGEMM=$(usex fbgemm)
 		-DUSE_FLASH_ATTENTION=$(usex flash)
+		-DUSE_MEM_EFF_ATTENTION=OFF
 		-DUSE_GFLAGS=ON
 		-DUSE_GLOG=ON
 		-DUSE_GLOO=$(usex gloo)
@@ -190,15 +211,17 @@ src_configure() {
 		-DUSE_SYSTEM_PYBIND11=ON
 		-DUSE_UCC=OFF
 		-DUSE_VALGRIND=OFF
-		-DPYBIND11_PYTHON_VERSION="${EPYTHON#python}"
-		-DPYTHON_EXECUTABLE="${PYTHON}"
+		-DPython_EXECUTABLE="${PYTHON}"
 		-DUSE_ITT=OFF
 		-DUSE_SYSTEM_PTHREADPOOL=ON
+		-DUSE_SYSTEM_PSIMD=ON
 		-DUSE_SYSTEM_FXDIV=ON
 		-DUSE_SYSTEM_FP16=ON
 		-DUSE_SYSTEM_GLOO=ON
 		-DUSE_SYSTEM_ONNX=ON
 		-DUSE_SYSTEM_SLEEF=ON
+		-DUSE_PYTORCH_METAL=OFF
+		-DUSE_XPU=OFF
 
 		-Wno-dev
 		-DTORCH_INSTALL_LIB_DIR="${EPREFIX}"/usr/$(get_libdir)
@@ -231,6 +254,14 @@ src_configure() {
 			-DUSE_NCCL=ON
 			-DUSE_SYSTEM_NCCL=ON
 		)
+
+		# ROCm libraries produce too much warnings
+		append-cxxflags -Wno-deprecated-declarations -Wno-unused-result
+
+		if tc-is-clang; then
+			# fix mangling in LLVM: https://github.com/llvm/llvm-project/issues/85656
+			append-cxxflags -fclang-abi-compat=17
+		fi
 	fi
 
 	if use onednn; then
