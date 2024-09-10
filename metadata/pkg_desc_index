@@ -20,11 +20,11 @@ app-office/upwork 5.8.0.33: Project collaboration and tracking software for upwo
 app-text/pinfo 0.6.13-r2: Hypertext info and man viewer based on (n)curses
 app-text/zettlr-bin 3.2.0: A Markdown Editor for the 21st century.
 app-vim/airline 9999-r1: vim plugin: lean & mean statusline for vim that's light as air
-app-vim/ale 3.3.0 99999999-r1: Asynchronous Lint Engine for vim
+app-vim/ale 3.3.0 99999999-r2: Asynchronous Lint Engine for vim
 app-vim/chapel-syntax 2.1.0: vim plugin:
-app-vim/neocomplete 9999: vim plugin: Next generation completion framework after neocomplcache
-app-vim/nim-syntax 1.2_pre20211111 9999: Nim language support
-app-vim/pony-syntax 0.1_pre20170926 9999: vim plugin: Pony language support
+app-vim/neocomplete 9999-r1: vim plugin: Next generation completion framework after neocomplcache
+app-vim/nim-syntax 1.2_pre20211111 9999-r1: Nim language support
+app-vim/pony-syntax 0.1_pre20170926 9999-r1: vim plugin: Pony language support
 app-vim/vim-linux-coding-style 0.4_p20200610: Vim plugin to respect the Linux kernel coding style
 dev-cpp/eigen 3.4.0_p20240816: C++ template library for linear algebra
 dev-cpp/mustache 4.1: Mustache implementation for modern C++
@@ -39,10 +39,10 @@ dev-lang/pony 0.58.5-r1: Compiler for the Pony language
 dev-lang/python 2.7.18_p113: An interpreted, interactive, object-oriented programming language
 dev-lang/tauthon 2.8.5-r4 9999-r4: Python 2.7 fork with new syntax, builtins, and libraries backported from Python3
 dev-libs/boost 1.85.0-r1: Boost Libraries for C++
-dev-libs/cudnn 8.9.7.29-r1100 8.9.7.29-r1200 9.3.0.75-r1100 9.3.0.75-r1200: NVIDIA Accelerated Deep Learning on GPU library
+dev-libs/cudnn 8.9.7.29-r1100 8.9.7.29-r1200 9.4.0.58-r1100 9.4.0.58-r1200: NVIDIA Accelerated Deep Learning on GPU library
 dev-libs/cudnn-frontend 1.6.1: A c++ wrapper for the cudnn backend API
 dev-libs/dht 0.27: BitTorrent DHT library
-dev-libs/golib 0.0.1_pre20180515 9999: a library exposing Go's channels and goroutines to plain C
+dev-libs/golib 0.0.1_pre20180515-r1 9999-r1: a library exposing Go's channels and goroutines to plain C
 dev-libs/icu 64.2-r1: International Components for Unicode
 dev-libs/keybinder 0.3.1-r201: A library for registering global keyboard shortcuts
 dev-libs/libb64 2.0.0.1_p20200910-r1: Fast Base64 encoding/decoding routines
@@ -51,25 +51,9 @@ dev-libs/libxml2 2.11.4: XML C parser and toolkit
 dev-libs/lthread 1.0_pre20150617-r2 9999-r2: multicore enabled coroutine library written in C
 dev-libs/openssl 1.1.1w: Full-strength general purpose cryptography library (including SSL and TLS)
 dev-libs/protobuf 3.13.0: Google's Protocol Buffers - Extensible mechanism for serializing structured data
-dev-nim/bcrypt-nim 0.2.1_pre20150221 9999: Nim bindings for bcrypt
-dev-nim/c2nim 0.9.19 9999-r2: a tool to translate ANSI C code to Nim
-dev-nim/cairo-nim 1.0_pre20161029 9999: Nim bindings for cairo
-dev-nim/dialogs 1.1.1 9999: portable dialogs for Nim
-dev-nim/einheit 0.1.7_p20170620: Nim unit test library
-dev-nim/golib-nim 0.0.1_pre20181005 9999: Nim bindings for golib
-dev-nim/gtk2-nim 1.3-r1 9999: Nim bindings for GTK+ 2
-dev-nim/irc 0.1.0_pre20170117 9999: IRC client module for Nim
-dev-nim/jester 0.1.1 9999: sinatra-like web framework for Nim
-dev-nim/lthread-nim 0.1_pre20150405 9999: Nim bindings for lthread
-dev-nim/mongo-nim 0.3_pre20150701 9999: Nim bindings for MongoDB
+dev-nim/c2nim 0.9.19-r1 9999-r3: a tool to translate ANSI C code to Nim
 dev-nim/nimble 0.13.1 9999-r2: Nim package manager
-dev-nim/nimforum 0.1.0_pre20170301 9999: Nim forum
 dev-nim/ntags 0.5.0: tool that generates tags for Nim files, similar to ctags
-dev-nim/opencl-nim 1.0_pre20160731 9999: Nim bindings for OpenCL
-dev-nim/opengl-nim 1.1.0 9999: Nim bindings for OpenGL
-dev-nim/sdl2-nim 1.1_pre20170319 9999: Nim bindings for SDL 2
-dev-nim/x11-nim 0.1_pre20161106 9999: Nim bindings for X11
-dev-nim/zmq-nim 0.1_pre20161028 9999: Nim bindings for ZeroMQ
 dev-php/pecl-apcu 5.1.23: Stripped down version of APC supporting only user cache
 dev-php/pecl-imagick 3.7.0-r1: PHP wrapper for the ImageMagick library
 dev-php/xdebug 3.1.6: A PHP debugging and profiling extension
@@ -808,7 +792,7 @@ media-gfx/ansel 4.0.0_pre20240813 9999-r3: Darktable 4.0 fork
 media-gfx/displaycal 3.8.9.3-r4: Display calibration and characterization powered by Argyll CMS
 media-gfx/displaycal-py3 3.9.12-r3: Display calibration and characterization powered by Argyll CMS - Python3 fork
 media-gfx/fbcat 0.5.2: utility that takes a screenshot using the framebuffer device
-media-gfx/gifsicle 9999-r1: Create, manipulate, and optimize GIF images and animations
+media-gfx/gifsicle 9999-r2: Create, manipulate, and optimize GIF images and animations
 media-gfx/gmic 3.4.2-r101: GREYC's Magic Image Converter
 media-gfx/zart 3.2.2_p20220629: G'MIC GUI for video streams
 media-libs/chromaprint 1.5.1-r4: Library implementing a custom algorithm for extracting audio fingerprints
@@ -829,7 +813,7 @@ media-plugins/refocus-it 2.0.0-r2: Refocus-It plugin for The Gimp
 media-radio/fmreceiver 3.16: SDR-J FM receiver for RTL2832-based USB sticks
 media-radio/qt-dab 6.5: software DAB decoder for use with a dabstick, airspy or sdrplay for RPI and PC
 media-radio/swreceiver 0.8: SDR-J SW receiver for RTL2832-based USB sticks
-media-sound/audacity 3.5.1 3.6.2: Free crossplatform audio editor
+media-sound/audacity 3.5.1 3.6.3: Free crossplatform audio editor
 media-sound/carla 2.5.4 9999: Fully-featured audio plugin host, supports many audio drivers and plugin formats
 media-sound/dcue 1.5: generate CUE sheets from Discogs data
 media-sound/fmit 1.2.14: Free Music Instrument Tuner
@@ -841,7 +825,7 @@ media-sound/lmms 1.2.2-r100 9999-r2: Cross-platform music production software
 media-sound/setbfree 0.8.11-r2 99999999-r3: MIDI controlled DSP tonewheel organ
 media-sound/tg 0.5.0-r2 9999-r2: a program for timing mechanical watches
 media-tv/dvb-firmware 1.4.0 9999-r3: DVB firmware from the LibreELEC project
-media-tv/w_scan2 1.0.15-r1 9999-r2: Scan for DVB-C/DVB-T/DVB-S channels (w_scan fork)
+media-tv/w_scan2 1.0.15-r2 9999-r3: Scan for DVB-C/DVB-T/DVB-S channels (w_scan fork)
 media-video/aegisub 3.3.3-r2: Advanced subtitle editor
 media-video/ffmpeg 4.4.5-r1: Complete solution to record/convert/stream audio and video. Includes libavcodec
 media-video/ffmpeg-slotted 7.0.2: slotted FFmpeg
@@ -852,7 +836,7 @@ media-video/vobsub2srt 1.0_pre20171219-r2: Converts VobSub subtitles (.sub/.idx)
 net-analyzer/namebench 1.3.1-r4: DNS Benchmark Utility
 net-fs/tahoe-lafs 1.13.0: Secure, decentralized, data store
 net-libs/libutp 20180515-r1: uTorrent Transport Protocol library
-net-libs/liquid-dsp 1.6.0-r100 9999-r3: digital signal processing library for software-defined radios
+net-libs/liquid-dsp 1.6.0-r101 9999-r4: digital signal processing library for software-defined radios
 net-misc/magic-wormhole 0.11.2-r200: Securely and simply transfer data between computers
 net-misc/magic-wormhole-mailbox-server 0.4.1-r200: Rendezvous / mailbox server for Magic-Wormhole
 net-misc/magic-wormhole-transit-relay 0.2.1-r200: Transit Relay server for Magic-Wormhole
@@ -894,8 +878,8 @@ sci-mathematics/xmds 2.2.3-r3: XMDS - The eXtensible Multi-Dimensional Simulator
 sci-misc/openfst 1.8.2: Finite State Transducer tools by Google et al
 sci-misc/opengrm-ngram 1.3.14: n-gram language models encoded as weighted finite-state transducers
 sys-cluster/heartbeat 3.0.6-r2: Heartbeat high availability cluster manager
-sys-devel/bison 2.7.1-r2: A general-purpose (yacc-compatible) parser generator
-sys-devel/flamegraph 1.0-r1: stack trace visualizer
+sys-devel/bison 2.7.1-r3: A general-purpose (yacc-compatible) parser generator
+sys-devel/flamegraph 1.0-r2: stack trace visualizer
 sys-devel/pyflame 1.6.6-r2: a ptracing profiler for Python
 sys-kernel/zenpower3 0.2.0-r1: Linux kernel driver for reading sensors of AMD Zen family CPUs
 virtual/python-cffi 1-r3: A virtual for the Python cffi package
@@ -918,4 +902,4 @@ x11-misc/magick-rotation 1.6.2-r5: Application that rotates tablet pc's screen a
 x11-misc/obmenu2 1.1-r1: Openbox menu editor
 x11-misc/slim 1.4.1-r1: Simple Login Manager resurrected
 x11-themes/chameleon-xcursors 0.5-r3: Style neutral scalable cursor theme
-x11-themes/numix-solarized 9999-r1: solarized version of Numix
+x11-themes/numix-solarized 9999-r2: solarized version of Numix
