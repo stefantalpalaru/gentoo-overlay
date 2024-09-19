@@ -1,0 +1,56 @@
+diff '--color=auto' -ur valkey-8.0.0.orig/valkey.conf valkey-8.0.0/valkey.conf
+--- valkey-8.0.0.orig/valkey.conf	2024-09-15 22:08:04.000000000 +0200
++++ valkey-8.0.0/valkey.conf	2024-09-19 20:21:25.663691750 +0200
+@@ -337,7 +337,7 @@
+ #
+ # Note that on modern Linux systems "/run/valkey.pid" is more conforming
+ # and should be used instead.
+-pidfile /var/run/valkey_6379.pid
++pidfile /run/valkey/valkey.pid
+ 
+ # Specify the server verbosity level.
+ # This can be one of:
+@@ -351,7 +351,7 @@
+ # Specify the log file name. Also the empty string can be used to force
+ # the server to log on the standard output. Note that if you use standard
+ # output for logging but daemonize, logs will be sent to /dev/null
+-logfile ""
++logfile /var/log/valkey/valkey.log
+ 
+ # To enable logging to the system logger, just set 'syslog-enabled' to yes,
+ # and optionally update the other syslog parameters to suit your needs.
+@@ -526,7 +526,7 @@
+ # 'cluster-config-file' configuration directive is a relative path.
+ #
+ # Note that you must specify a directory here, not a file name.
+-dir ./
++dir /var/lib/valkey/
+ 
+ ################################# REPLICATION #################################
+ 
+@@ -1158,7 +1158,7 @@
+ # limit for maxmemory so that there is some free RAM on the system for replica
+ # output buffers (but this is not needed if the policy is 'noeviction').
+ #
+-# maxmemory <bytes>
++maxmemory 64MB
+ 
+ # MAXMEMORY POLICY: how the server will select what to remove when maxmemory
+ # is reached. You can select one from the following behaviors:
+@@ -1188,6 +1188,7 @@
+ # The default is:
+ #
+ # maxmemory-policy noeviction
++maxmemory-policy allkeys-lru
+ 
+ # LRU, LFU and minimal TTL algorithms are not precise algorithms but approximated
+ # algorithms (in order to save memory), so you can tune it for speed or
+@@ -2330,6 +2331,7 @@
+ 
+ # Active defragmentation is disabled by default
+ # activedefrag no
++activedefrag yes
+ 
+ # Minimum amount of fragmentation waste to start active defrag
+ # active-defrag-ignore-bytes 100mb
+Only in valkey-8.0.0: valkey.conf.orig
