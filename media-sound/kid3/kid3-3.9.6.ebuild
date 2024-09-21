@@ -1,9 +1,9 @@
-# Copyright 1999-2023 Gentoo Authors
+# Copyright 1999-2024 Gentoo Authors
 # Distributed under the terms of the GNU General Public License v2
 
 EAPI=8
 
-PYTHON_COMPAT=( python3_{10..11} )
+PYTHON_COMPAT=( python3_{10..13} )
 inherit cmake kde.org python-any-r1 xdg
 
 DESCRIPTION="Simple tag editor based on Qt"
@@ -22,13 +22,9 @@ REQUIRED_USE="flac? ( vorbis )"
 RESTRICT="!test? ( test )"
 
 RDEPEND="
-	dev-qt/qtcore:5
-	dev-qt/qtdeclarative:5
-	dev-qt/qtgui:5
-	dev-qt/qtmultimedia:5
-	dev-qt/qtnetwork:5
-	dev-qt/qtwidgets:5
-	dev-qt/qtxml:5
+	dev-qt/qtbase:6[gui,network,widgets,xml]
+	dev-qt/qtdeclarative:6
+	dev-qt/qtmultimedia:6
 	sys-libs/readline:=
 	acoustid? (
 		media-libs/chromaprint:=
@@ -39,27 +35,25 @@ RDEPEND="
 		media-libs/libvorbis
 	)
 	kde? (
-		kde-frameworks/kconfig:5
-		kde-frameworks/kconfigwidgets:5
-		kde-frameworks/kcoreaddons:5
-		kde-frameworks/kio:5
-		kde-frameworks/kwidgetsaddons:5
-		kde-frameworks/kxmlgui:5
+		kde-frameworks/kconfig:6
+		kde-frameworks/kconfigwidgets:6
+		kde-frameworks/kcoreaddons:6
+		kde-frameworks/kio:6
+		kde-frameworks/kwidgetsaddons:6
+		kde-frameworks/kxmlgui:6
 	)
 	mp3? ( media-libs/id3lib )
 	mp4? ( media-libs/libmp4v2 )
-	mpris? ( dev-qt/qtdbus:5 )
+	mpris? ( dev-qt/qtbase:6[dbus] )
 	taglib? ( >=media-libs/taglib-1.9.1 )
 	vorbis? (
 		media-libs/libogg
 		media-libs/libvorbis
 	)
 "
-DEPEND="${RDEPEND}
-	test? ( dev-qt/qttest:5 )
-"
+DEPEND="${RDEPEND}"
 BDEPEND="${PYTHON_DEPS}
-	dev-qt/linguist-tools:5
+	dev-qt/qttools:6[linguist]
 	kde? ( kde-frameworks/extra-cmake-modules:0 )
 "
 
@@ -72,14 +66,11 @@ src_prepare() {
 	cmake_src_prepare
 	# applies broken python hacks, bug #614950
 	cmake_comment_add_subdirectory doc
-
-	sed -e "/^ *find_package.*QT NAMES/s/Qt6 //" \
-		-i CMakeLists.txt || die # ensure Qt5 build
 }
 
 src_configure() {
 	local mycmakeargs=(
-		-DBUILD_WITH_QT6=OFF
+		-DBUILD_WITH_QT6=ON
 		-DWITH_QAUDIODECODER=ON # bug 855281
 		-DWITH_CHROMAPRINT=$(usex acoustid)
 		-DWITH_DBUS=$(usex mpris)
