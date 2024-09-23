@@ -4,7 +4,7 @@
 EAPI=8
 
 LUA_COMPAT=( lua5-1 )
-PYTHON_COMPAT=( python2_7 python3_{10..12} )
+PYTHON_COMPAT=( python2_7 python3_{10..13} )
 PYTHON_REQ_USE="threads(+)"
 
 RUBY_OPTIONAL="yes"
