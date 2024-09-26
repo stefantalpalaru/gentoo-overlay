@@ -2,10 +2,10 @@
 # Distributed under the terms of the GNU General Public License v2
 
 EAPI=8
-LLVM_MAX_SLOT=18
+LLVM_COMPAT=( 17 18 )
 PYTHON_COMPAT=( python3_{10..12} )
 
-inherit llvm multiprocessing python-any-r1
+inherit llvm-r1 multiprocessing python-any-r1
 
 DESCRIPTION="Chapel programming language compiler"
 HOMEPAGE="https://chapel-lang.org/
@@ -33,6 +33,10 @@ RDEPEND="${DEPEND}"
 PATCHES=(
 	"${FILESDIR}"/chapel-2.0.0-no-default-config.patch
 )
+
+pkg_setup() {
+	llvm-r1_pkg_setup
+}
 
 src_prepare() {
 	default
@@ -82,7 +86,7 @@ src_install() {
 	local envd="${T}/90chapel"
 	cat > "${envd}" <<-EOF
 		CHPL_HOME="${EPREFIX}/usr/share/chapel/$(ver_cut 1-2)"
-		CHPL_LLVM_CONFIG="$(get_llvm_prefix ${LLVM_MAX_SLOT})/bin/llvm-config"
+		CHPL_LLVM_CONFIG="$(get_llvm_prefix)/bin/llvm-config"
 		CHPL_RE2=bundled
 		CHPL_GMP=system
 		CHPL_HWLOC=bundled
