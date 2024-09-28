@@ -151,10 +151,6 @@ RDEPEND="
 "
 BDEPEND="virtual/pkgconfig"
 
-PATCHES=(
-	"${FILESDIR}"/uwsgi-2.0.21-libphp-version.patch
-)
-
 src_unpack() {
 	default
 }
