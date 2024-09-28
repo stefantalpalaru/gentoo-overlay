@@ -7,20 +7,12 @@ inherit cmake
 
 DESCRIPTION="SoapySDR Airspyhf-SDR Support Module"
 HOMEPAGE="https://github.com/pothosware/SoapyAirspyHF"
-
-if [ "${PV}" = "9999" ]; then
-	EGIT_REPO_URI="https://github.com/pothosware/SoapyAirspyHF.git"
-	inherit git-r3
-else
-	KEYWORDS="amd64 ~arm ~riscv ~x86"
-	SRC_URI="https://github.com/pothosware/SoapyAirspyHF/archive/soapy-airspyhf-${PV}.tar.gz -> ${P}.tar.gz"
-	S="${WORKDIR}"/SoapyAirspyHF-soapy-airspyhf-"${PV}"
-fi
-
+SRC_URI="https://github.com/pothosware/SoapyAirspyHF/archive/soapy-airspyhf-${PV}.tar.gz -> ${P}.tar.gz"
+S="${WORKDIR}"/SoapyAirspyHF-soapy-airspyhf-"${PV}"
 LICENSE="MIT"
 SLOT="0"
+KEYWORDS="amd64 ~arm ~riscv ~x86"
 
 RDEPEND="net-wireless/soapysdr:=
 		net-wireless/airspyhf:="
 DEPEND="${RDEPEND}"
-BDEPEND=""

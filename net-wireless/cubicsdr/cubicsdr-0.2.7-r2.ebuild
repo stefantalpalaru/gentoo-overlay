@@ -1,4 +1,4 @@
-# Copyright 1999-2022 Gentoo Authors
+# Copyright 1999-2024 Gentoo Authors
 # Distributed under the terms of the GNU General Public License v2
 
 EAPI=7
@@ -9,7 +9,7 @@ inherit cmake wxwidgets
 DESCRIPTION="Cross-Platform Software-Defined Radio Application"
 HOMEPAGE="http://cubicsdr.com/"
 SRC_URI="https://github.com/cjcliffe/CubicSDR/archive/${PV}.tar.gz -> ${P}.tar.gz"
-
+S="${WORKDIR}/CubicSDR-${PV}"
 LICENSE="GPL-2"
 SLOT="0"
 KEYWORDS="~amd64 ~x86"
@@ -19,11 +19,10 @@ DEPEND="media-libs/rtaudio
 	>=net-libs/liquid-dsp-1.4.0
 	>=net-wireless/soapysdr-0.4.0[bladerf?,hackrf?,plutosdr?,rtlsdr?,uhd?,airspyhf?]
 	virtual/opengl
-	x11-libs/wxGTK:${WX_GTK_VER}=[opengl,-egl]
+	x11-libs/wxGTK:${WX_GTK_VER}=[opengl]
 	hamlib? ( media-libs/hamlib )
 "
 RDEPEND="${DEPEND}"
-S="${WORKDIR}/CubicSDR-${PV}"
 
 src_prepare() {
 	rm -rf external/liquid-dsp external/rtaudio

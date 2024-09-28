@@ -5,10 +5,6 @@
 		<email>stefantalpalaru@yahoo.com</email>
 		<name>Ștefan Talpalaru</name>
 	</maintainer>
-	<maintainer type="project">
-		<email>radio@gentoo.org</email>
-		<name>Radio</name>
-	</maintainer>
 	<upstream>
 		<remote-id type="github">pothosware/SoapyAirspyHF</remote-id>
 	</upstream>
