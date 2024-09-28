@@ -9,7 +9,7 @@ available](https://github.com/gentoo/api-gentoo-org/commit/7c46900a7c4cd57b11091
 in the official Gentoo list, because core Gentoo devs are as petty as they
 are incompetent. Add it with:
 
-```bash
+```text
 eselect repository enable guru
 eselect repository add stefantalpalaru git https://github.com/stefantalpalaru/gentoo-overlay
 emaint sync
