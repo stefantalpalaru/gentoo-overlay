@@ -13,11 +13,11 @@ SRC_URI="https://github.com/cjcliffe/CubicSDR/archive/${PV}.tar.gz -> ${P}.tar.g
 LICENSE="GPL-2"
 SLOT="0"
 KEYWORDS="~amd64 ~x86"
-IUSE="bladerf hackrf plutosdr +rtlsdr uhd hamlib"
+IUSE="bladerf hackrf plutosdr +rtlsdr uhd hamlib airspyhf"
 
 DEPEND="media-libs/rtaudio
 	>=net-libs/liquid-dsp-1.4.0
-	>=net-wireless/soapysdr-0.4.0[bladerf?,hackrf?,plutosdr?,rtlsdr?,uhd?]
+	>=net-wireless/soapysdr-0.4.0[bladerf?,hackrf?,plutosdr?,rtlsdr?,uhd?,airspyhf?]
 	virtual/opengl
 	x11-libs/wxGTK:${WX_GTK_VER}=[opengl,-egl]
 	hamlib? ( media-libs/hamlib )
