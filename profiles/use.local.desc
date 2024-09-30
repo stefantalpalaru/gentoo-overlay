@@ -355,6 +355,7 @@ media-video/ffmpeg-slotted:libdrm - Enables x11-libs/libdrm support for better s
 media-video/ffmpeg-slotted:libdvdnav - Uses media-libs/libdvdnav to enable DVD demuxing
 media-video/ffmpeg-slotted:libdvdread - Uses media-libs/libdvdread to enable DVD demuxing
 media-video/ffmpeg-slotted:libilbc - Enables iLBC de/encoding via media-libs/libilbc.
+media-video/ffmpeg-slotted:liblc3 - Enables LC3 de/encoding via media-sound/liblc3.
 media-video/ffmpeg-slotted:libplacebo - Adds flexible GPU-accelerated processing filter based on media-libs/libplacebo.
 media-video/ffmpeg-slotted:librtmp - Enables Real Time Messaging Protocol using librtmp (media-video/rtmpdump) in addition to FFmpeg's native implementation.
 media-video/ffmpeg-slotted:libsoxr - Enables audio resampling through media-libs/soxr.
