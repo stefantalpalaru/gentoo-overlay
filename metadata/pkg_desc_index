@@ -868,6 +868,7 @@ sci-astronomy/kapteyn 2.3.1-r200: Collection of python tools for astronomy
 sci-astronomy/montage 5.0-r1: Toolkit for assembling FITS images into mosaics
 sci-geosciences/mkgmap-bin 4918: Tool to create garmin maps
 sci-geosciences/qgis 3.38.3: User friendly Geographic Information System
+sci-geosciences/qmapshack 1.17.1_p600-r3: GPS mapping utility
 sci-geosciences/splitter-bin 653: Tile splitter for mkgmap
 sci-libs/caffe2 2.4.1: A deep learning framework
 sci-libs/cfitsio 3.410-r1: C and Fortran library for manipulating FITS files
