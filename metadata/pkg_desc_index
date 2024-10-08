@@ -4,7 +4,6 @@ acct-user/valkey 0: Valkey program user
 app-admin/conky 1.21.7: An advanced, highly configurable system monitor for X
 app-admin/zenmonitor3 2.0.0-r1: Zen monitor is monitoring software for AMD Zen-based CPUs
 app-alternatives/yacc 0: Virtual for yacc (yet another compiler compiler)
-app-arch/libdeflate 1.14: Heavily optimized DEFLATE/zlib/gzip (de)compression
 app-arch/libzim 9.2.3: reference implementation for the ZIM archive format
 app-crypt/acme 1.8.0-r200 1.32.0: An implementation of the ACME protocol
 app-crypt/certbot 1.8.0-r201 1.32.0-r2: Let’s Encrypt client to automate deployment of X.509 certificates
@@ -33,7 +32,6 @@ dev-cpp/mustache 4.1: Mustache implementation for modern C++
 dev-db/metakit 2.4.9.7_p20110819: Embedded database library
 dev-db/valkey 8.0.1: Redis fork
 dev-debug/valgrind 3.23.0-r100: An open-source memory debugger for GNU/Linux
-dev-java/java-service-wrapper 3.5.50-r1: A wrapper that makes it possible to install a Java Application as daemon
 dev-lang/chapel 2.2.0: Chapel programming language compiler
 dev-lang/erlang 27.0.1-r1: Erlang programming language, runtime environment and libraries (OTP)
 dev-lang/nim 1.0.10-r100 1.2.18-r100 1.4.8-r100 1.6.20-r100 2.0.10-r100 2.2.0-r100 9999-r15: compiled, garbage-collected systems programming language
