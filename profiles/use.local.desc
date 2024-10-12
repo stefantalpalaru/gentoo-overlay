@@ -243,6 +243,8 @@ media-libs/libheif:svt-av1 - Use media-libs/svt-av1 for AVIF encoding
 media-libs/libheif:x265 - Use media-libs/x265 for HEIF encoding
 media-libs/svt-av1:lto - Build with link-time optimizations (LTO)
 media-libs/svt-av1:pgo - Build with profile guided optimizations (PGO)
+media-libs/zmusic:fluidsynth - Enable support for MIDI via media-sound/fluidsynth
+media-libs/zmusic:mpg123 - Enable support for MPEG audio playback via media-sound/mpg123
 media-sound/audacity:audiocom - Enable integrated uploading to audio.com
 media-sound/audacity:id3tag - Enables ID3 tagging with id3tag library
 media-sound/audacity:lv2 - Add support for Ladspa V2

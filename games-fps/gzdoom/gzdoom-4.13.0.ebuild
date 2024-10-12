@@ -23,7 +23,7 @@ DEPEND="
 	media-libs/libvpx:=
 	media-libs/libwebp:=
 	media-libs/openal
-	media-libs/zmusic
+	>=media-libs/zmusic-1.1.14
 	sys-libs/zlib
 	gtk? ( x11-libs/gtk+:3 )"
 RDEPEND="${DEPEND}"
