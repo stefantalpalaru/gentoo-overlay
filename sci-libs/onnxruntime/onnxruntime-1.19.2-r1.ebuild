@@ -3,7 +3,7 @@
 
 EAPI=8
 CMAKE_IN_SOURCE_BUILD=1
-PYTHON_COMPAT=( python3_{10..12} )
+PYTHON_COMPAT=( python3_{10..13} )
 DISTUTILS_USE_PEP517=setuptools
 DISTUTILS_SINGLE_IMPL=1
 DISTUTILS_EXT=1
@@ -31,7 +31,7 @@ SRC_URI="
 LICENSE="MIT"
 SLOT="0"
 KEYWORDS="~amd64"
-CPU_FLAGS="cpu_flags_x86_avx cpu_flags_x86_avx2 cpu_flags_x86_avx512"
+CPU_FLAGS="cpu_flags_x86_avx cpu_flags_x86_avx2 cpu_flags_x86_avx512f"
 IUSE="benchmark cuda onednn cudnn debug hip +python migraphx +mpi mimalloc lto test tensorrt llvm xnnpack
 ${CPU_FLAGS}
 ${CUDA_TARGETS_COMPAT[@]/#/cuda_targets_}
@@ -186,7 +186,7 @@ src_configure() {
 		-Donnxruntime_USE_ROCM=$(usex hip)
 		-Donnxruntime_USE_AVX=$(usex cpu_flags_x86_avx)
 		-Donnxruntime_USE_AVX2=$(usex cpu_flags_x86_avx2)
-		-Donnxruntime_USE_AVX512=$(usex cpu_flags_x86_avx512)
+		-Donnxruntime_USE_AVX512=$(usex cpu_flags_x86_avx512f)
 		-Donnxruntime_USE_MIMALLOC=$(usex mimalloc)
 		-Donnxruntime_USE_XNNPACK=$(usex xnnpack)
 		-Donnxruntime_ENABLE_LTO=$(usex lto)
