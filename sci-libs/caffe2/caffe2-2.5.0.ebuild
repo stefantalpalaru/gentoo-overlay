@@ -20,7 +20,7 @@ S="${WORKDIR}"/pytorch-v${PV}
 LICENSE="BSD"
 SLOT="0"
 KEYWORDS="~amd64"
-IUSE="cuda distributed fbgemm flash gloo mkl mpi nnpack +numpy onednn openblas opencl openmp qnnpack rocm xnnpack"
+IUSE="cuda distributed fbgemm flash gloo mkl mpi nnpack +numpy onednn openblas opencl openmp qnnpack rocm xnnpack cpu_flags_x86_avx cpu_flags_x86_avx2 cpu_flags_x86_avx512f"
 RESTRICT="test"
 REQUIRED_USE="
 	${PYTHON_REQUIRED_USE}
@@ -110,7 +110,7 @@ DEPEND="
 "
 
 PATCHES=(
-	"${FILESDIR}"/caffe2-2.4.0-gentoo.patch
+	"${FILESDIR}"/caffe2-2.5.0-gentoo.patch
 	"${FILESDIR}"/caffe2-2.4.0-install-dirs.patch
 	"${FILESDIR}"/caffe2-1.12.0-glog-0.6.0.patch
 	"${FILESDIR}"/caffe2-1.13.1-tensorpipe.patch
@@ -119,10 +119,7 @@ PATCHES=(
 	"${FILESDIR}"/caffe2-2.4.0-fix-openmp-link.patch
 	"${FILESDIR}"/caffe2-2.4.0-rocm-fix-std-cpp17.patch
 	"${FILESDIR}"/caffe2-2.2.2-musl.patch
-	"${FILESDIR}"/caffe2-2.4.0-exclude-aotriton.patch
-	"${FILESDIR}"/caffe2-2.3.0-fix-rocm-gcc14-clamp.patch
 	"${FILESDIR}"/caffe2-2.3.0-fix-libcpp.patch
-	"${FILESDIR}"/caffe2-2.4.0-libfmt-11.patch
 	"${FILESDIR}"/caffe2-2.4.0-cpp-httplib.patch
 	"${FILESDIR}"/caffe2-2.4.0-kineto.patch
 )
@@ -222,6 +219,12 @@ src_configure() {
 		-DUSE_SYSTEM_SLEEF=ON
 		-DUSE_PYTORCH_METAL=OFF
 		-DUSE_XPU=OFF
+		-DC_AVX_FOUND=$(usex cpu_flags_x86_avx)
+		-DC_AVX2_FOUND=$(usex cpu_flags_x86_avx2)
+		-DC_AVX512_FOUND=$(usex cpu_flags_x86_avx512f)
+		-DCXX_AVX_FOUND=$(usex cpu_flags_x86_avx)
+		-DCXX_AVX2_FOUND=$(usex cpu_flags_x86_avx2)
+		-DCXX_AVX512_FOUND=$(usex cpu_flags_x86_avx512f)
 
 		-Wno-dev
 		-DTORCH_INSTALL_LIB_DIR="${EPREFIX}"/usr/$(get_libdir)
@@ -287,9 +290,7 @@ src_install() {
 
 	rm -rf python
 	mkdir -p python/torch/include || die
-	mv "${ED}"/usr/lib/python*/site-packages/caffe2 python/ || die
 	cp torch/version.py python/torch/ || die
-	python_domodule python/caffe2
 	python_domodule python/torch
 	ln -s ../../../../../include/torch \
 		"${D}$(python_get_sitedir)"/torch/include/torch || die # bug 923269

@@ -1,0 +1,12 @@
+diff '--color=auto' -ur pytorch-2.5.0.orig/torch/__init__.py pytorch-2.5.0/torch/__init__.py
+--- pytorch-2.5.0.orig/torch/__init__.py	2024-10-18 01:59:50.196796783 +0200
++++ pytorch-2.5.0/torch/__init__.py	2024-10-18 02:03:38.556146016 +0200
+@@ -1945,7 +1945,7 @@
+ def _manager_path():
+     if _running_with_deploy() or platform.system() == "Windows":
+         return b""
+-    path = get_file_path("torch", "bin", "torch_shm_manager")
++    path = "/usr/bin/torch_shm_manager"
+     prepare_multiprocessing_environment(get_file_path("torch"))
+     if not os.path.exists(path):
+         raise RuntimeError("Unable to find torch_shm_manager at " + path)

@@ -39,6 +39,10 @@ BDEPEND="
 		')
 	)"
 
+PATCHES=(
+	"${FILESDIR}"/torchvision-0.20.0-cuda.patch
+)
+
 distutils_enable_tests pytest
 
 src_prepare() {

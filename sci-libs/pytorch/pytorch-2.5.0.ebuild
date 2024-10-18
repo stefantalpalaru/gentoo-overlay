@@ -35,11 +35,11 @@ DEPEND="${RDEPEND}
 "
 
 PATCHES=(
-	"${FILESDIR}"/${PN}-2.4.0-dontbuildagain.patch
+	"${FILESDIR}"/${PN}-2.5.0-dontbuildagain.patch
 	"${FILESDIR}"/pytorch-1.9.0-Change-library-directory-according-to-CMake-build.patch
 	"${FILESDIR}"/${PN}-2.4.0-global-dlopen.patch
-	"${FILESDIR}"/pytorch-2.4.0-torch_shm_manager.patch
-	"${FILESDIR}"/${PN}-1.13.0-setup.patch
+	"${FILESDIR}"/pytorch-2.5.0-torch_shm_manager.patch
+	"${FILESDIR}"/${PN}-2.5.0-setup.patch
 	"${FILESDIR}"/${PN}-2.2.1-emptyso.patch
 )
 

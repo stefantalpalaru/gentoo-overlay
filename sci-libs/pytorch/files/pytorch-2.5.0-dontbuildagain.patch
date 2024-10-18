@@ -1,10 +1,10 @@
-diff '--color=auto' -ur pytorch-2.4.0.orig/setup.py pytorch-2.4.0/setup.py
---- pytorch-2.4.0.orig/setup.py	2024-07-09 20:17:43.000000000 +0200
-+++ pytorch-2.4.0/setup.py	2024-07-25 05:00:32.386766957 +0200
-@@ -473,14 +473,6 @@
+diff '--color=auto' -ur pytorch-2.5.0.orig/setup.py pytorch-2.5.0/setup.py
+--- pytorch-2.5.0.orig/setup.py	2024-10-14 19:48:44.000000000 +0200
++++ pytorch-2.5.0/setup.py	2024-10-18 01:58:11.850507709 +0200
+@@ -470,14 +470,6 @@
+     check_submodules()
      check_pydep("yaml", "pyyaml")
      build_python = not BUILD_LIBTORCH_WHL
- 
 -    build_caffe2(
 -        version=version,
 -        cmake_python_library=cmake_python_library,
