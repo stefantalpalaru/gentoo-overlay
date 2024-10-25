@@ -14,7 +14,7 @@ SRC_URI="https://qgis.org/downloads/${P}.tar.bz2
 	examples? ( https://qgis.org/downloads/data/qgis_sample_data.tar.gz -> qgis_sample_data-2.8.14.tar.gz )"
 LICENSE="GPL-2+ GPL-3+"
 SLOT="0"
-KEYWORDS="~amd64 ~x86"
+KEYWORDS="~amd64"
 IUSE="3d doc examples +georeferencer grass hdf5 mapserver netcdf opencl oracle pdal postgres python qml serial test"
 
 REQUIRED_USE="${PYTHON_REQUIRED_USE}
