@@ -15,6 +15,17 @@ eselect repository add stefantalpalaru git https://github.com/stefantalpalaru/ge
 emaint sync
 ```
 
+If, at some point in the past, you added this overlay using `eselect
+repository enable stefantalpalaru` you are stuck with a Gentoo-controlled
+overlay mirror that stopped mirroring on July 21, 2024. You need to remove
+the overlay and add it again:
+
+```text
+eselect repository remove stefantalpalaru
+eselect repository add stefantalpalaru git https://github.com/stefantalpalaru/gentoo-overlay
+emaint sync --repo stefantalpalaru
+```
+
 ## Counting packages
 
 `ls -Fd */* | grep '/$' | grep -Ev '^(profiles|metadata|acct-)' | wc -l`
