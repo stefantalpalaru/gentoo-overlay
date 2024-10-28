@@ -1,0 +1,15 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE pkgmetadata SYSTEM "http://www.gentoo.org/dtd/metadata.dtd">
+<pkgmetadata>
+	<maintainer type="person">
+		<email>stefantalpalaru@yahoo.com</email>
+		<name>Ștefan Talpalaru</name>
+	</maintainer>
+	<use>
+		<flag name='airspy'>Airspy support</flag>
+		<flag name='hackrf'>Hackrf support</flag>
+		<flag name='limesdr'>Limesdr support</flag>
+		<flag name='rtlsdr'>rtlsdr support</flag>
+		<flag name='sdrplay'>SDRplay support</flag>
+	</use>
+</pkgmetadata>
