@@ -248,6 +248,7 @@ media-libs/zmusic:mpg123 - Enable support for MPEG audio playback via media-soun
 media-radio/guglielmo:airspy - Airspy support
 media-radio/guglielmo:hackrf - Hackrf support
 media-radio/guglielmo:limesdr - Limesdr support
+media-radio/guglielmo:plutosdr - Plutosdr support
 media-radio/guglielmo:rtlsdr - rtlsdr support
 media-radio/guglielmo:sdrplay - SDRplay support
 media-sound/audacity:audiocom - Enable integrated uploading to audio.com

@@ -11,7 +11,7 @@ SRC_URI="https://github.com/marcogrecopriolo/guglielmo/archive/refs/tags/${PV}.t
 LICENSE="GPL-2"
 SLOT="6"
 KEYWORDS="~amd64 ~x86"
-IUSE="airspy cpu_flags_x86_sse hackrf limesdr sdrplay +rtlsdr"
+IUSE="airspy cpu_flags_x86_sse hackrf limesdr lto plutosdr sdrplay +rtlsdr"
 
 DEPEND="
 	airspy? ( net-wireless/airspy )
@@ -24,6 +24,10 @@ DEPEND="
 	media-libs/libsamplerate
 	media-libs/libsndfile
 	media-libs/portaudio
+	plutosdr? (
+		net-libs/libiio
+		net-libs/libad9361-iio
+	)
 	rtlsdr? ( net-wireless/rtl-sdr )
 	sci-libs/fftw:3.0
 	sdrplay? ( net-wireless/sdrplay )
@@ -36,42 +40,26 @@ DEPEND="
 RDEPEND="${DEPEND}"
 
 PATCHES=(
-	"${FILESDIR}"/guglielmo-0.6-gentoo.patch
+	"${FILESDIR}"/guglielmo-0.6-cmake.patch
 )
 
 src_configure() {
 	local mycmakeargs=(
+		-DLTO=$(usex lto)
+		-DVITERBI_NEON=OFF
+		-DVITERBI_SSE=$(usex cpu_flags_x86_sse)
+		-DAIRSPY=$(usex airspy)
+		-DFDK_AAC=OFF
+		-DHACKRF=$(usex hackrf)
+		-DLIMESDR=$(usex limesdr)
+		-DMPRIS=OFF
+		-DPLUTO=$(usex plutosdr)
+		-DRPI=OFF
+		-DRTLSDR=$(usex rtlsdr)
+		-DSDRPLAY=$(usex sdrplay)
+		-DSDRPLAY_V3=OFF
+		-DTRY_EPG=OFF
 	)
-	if use cpu_flags_x86_sse; then
-		mycmakeargs+=(
-			-DVITERBI_SSE=ON
-		)
-	fi
-	if use airspy; then
-		mycmakeargs+=(
-			-DAIRSPY=ON
-		)
-	fi
-	if use hackrf; then
-		mycmakeargs+=(
-			-DHACKRF=ON
-		)
-	fi
-	if use limesdr; then
-		mycmakeargs+=(
-			-DLIMESDR=ON
-		)
-	fi
-	if use rtlsdr; then
-		mycmakeargs+=(
-			-DRTLSDR=ON
-		)
-	fi
-	if use sdrplay; then
-		mycmakeargs+=(
-			-DSDRPLAY=ON
-		)
-	fi
 	cmake_src_configure
 }
 
