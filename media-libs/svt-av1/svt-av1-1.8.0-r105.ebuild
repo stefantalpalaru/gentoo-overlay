@@ -14,7 +14,7 @@ S="${WORKDIR}/SVT-AV1-v${PV}"
 # Also see "Alliance for Open Media Patent License 1.0"
 LICENSE="BSD-2 Apache-2.0 BSD ISC LGPL-2.1+ MIT"
 SLOT="0/1"
-KEYWORDS="~amd64 ~arm64 ~hppa ~ia64 ~loong ~ppc ~ppc64 ~riscv ~sparc ~x86"
+KEYWORDS="~amd64 ~arm64 ~hppa ~loong ~ppc ~ppc64 ~riscv ~sparc ~x86"
 IUSE="+lto +pgo cpu_flags_x86_avx512f"
 
 BDEPEND="
