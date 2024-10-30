@@ -29,7 +29,7 @@ LICENSE="GPL-2+
 	audiocom? ( ZLIB )
 "
 SLOT="0"
-# 3.6 versions are too buggy
+# >=3.6 versions are too buggy
 #KEYWORDS="~amd64 ~arm64 ~ppc64 ~riscv ~x86"
 IUSE="alsa audiocom ffmpeg +flac id3tag +ladspa +lv2 mpg123 +ogg
 	opus +portmixer sbsms test twolame vamp +vorbis wavpack"
