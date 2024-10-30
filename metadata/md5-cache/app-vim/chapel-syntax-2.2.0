@@ -1,0 +1,13 @@
+DEFINED_PHASES=install postinst postrm prepare
+DEPEND=|| ( >=app-editors/vim-7.3 >=app-editors/gvim-7.3 )
+DESCRIPTION=vim plugin:
+EAPI=8
+HOMEPAGE=https://github.com/chapel-lang/chapel
+INHERIT=vim-plugin
+KEYWORDS=~amd64
+LICENSE=vim
+RDEPEND=|| ( >=app-editors/vim-7.3 >=app-editors/gvim-7.3 )
+SLOT=0
+SRC_URI=https://github.com/chapel-lang/chapel/releases/download/2.2.0/chapel-2.2.0.tar.gz
+_eclasses_=vim-doc	bea02829eae182f569e6e9a5dc2fe08f	vim-plugin	4acc7611306b8fdbeac907d572ccac21
+_md5_=c40feac3bbae4fc0120f0c9021a7e09f

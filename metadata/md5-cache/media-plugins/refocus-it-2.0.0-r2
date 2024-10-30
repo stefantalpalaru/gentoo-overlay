@@ -1,0 +1,11 @@
+DEFINED_PHASES=-
+DEPEND=media-gfx/gimp:0/2 x11-libs/gtk+:2
+DESCRIPTION=Refocus-It plugin for The Gimp
+EAPI=8
+HOMEPAGE=http://refocus-it.sf.net/
+KEYWORDS=~amd64 ~x86
+LICENSE=GPL-2
+RDEPEND=media-gfx/gimp:0/2 x11-libs/gtk+:2
+SLOT=0
+SRC_URI=https://downloads.sourceforge.net/refocus-it/refocus-it-2.0.0.tar.gz
+_md5_=58479a7b5e1adb90e76b76db998a28a4

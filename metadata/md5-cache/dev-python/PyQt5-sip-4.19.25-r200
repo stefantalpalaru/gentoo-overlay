@@ -1,0 +1,15 @@
+DEFINED_PHASES=compile configure install prepare
+DEPEND=python_targets_python2_7? ( dev-lang/python:2.7 )
+DESCRIPTION=Private sip module for PyQt5
+EAPI=8
+HOMEPAGE=https://www.riverbankcomputing.com/software/sip/intro
+INHERIT=python-r1 toolchain-funcs
+IUSE=python_targets_python2_7
+KEYWORDS=~amd64 ~arm ~arm64 ~ppc ~ppc64 ~x86
+LICENSE=|| ( GPL-2 GPL-3 SIP )
+RDEPEND=python_targets_python2_7? ( dev-lang/python:2.7 ) !<dev-python/PyQt5-5.12.2 !<dev-python/PyQt5-sip-4.19.24-r200[python_targets_python2_7(-)?]
+REQUIRED_USE=|| ( python_targets_python2_7 )
+SLOT=python2/12
+SRC_URI=https://www.riverbankcomputing.com/static/Downloads/sip/4.19.25/sip-4.19.25.tar.gz
+_eclasses_=out-of-source-utils	dbf9e34ee8964084651e25907fa8f52c	multibuild	4650a65187015567b4e041bb9bfdb364	multiprocessing	1e32df7deee68372153dca65f4a7c21f	toolchain-funcs	d3d42b22a610ce81c267b644bcec9b87	multilib	b2a329026f2e404e9e371097dda47f96	python-utils-r1	b24c23a99f98c30dd8e68ec73ece42ef	python-r1	2d51fd03931e743811ce30d198e4dcfd
+_md5_=7b92780aa2730beed24329ad674f7875

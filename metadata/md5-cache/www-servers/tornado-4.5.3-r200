@@ -1,0 +1,17 @@
+BDEPEND=doc? ( || ( ( dev-lang/python:2.7[threads(+)] >=dev-python/sphinx-4.5.0-r1[python_targets_python2_7(-)] dev-python/sphinx_rtd_theme[python_targets_python2_7(-)] ) ) ) python_targets_python2_7? ( dev-lang/python:2.7[threads(+)] ) >=dev-python/setuptools-42.0.2[python_targets_python2_7(-)?]
+DEFINED_PHASES=compile configure install prepare test
+DEPEND=dev-python/setuptools[python_targets_python2_7(-)?] test? ( dev-python/certifi:python2[python_targets_python2_7(-)?] >=dev-python/pycurl-7.19.3.1:python2[python_targets_python2_7(-)?] >=dev-python/backports-ssl-match-hostname-3.5[python_targets_python2_7(-)?] || ( >=dev-python/twisted-16.0.0:python2[python_targets_python2_7(-)?] ( dev-python/twisted-names[python_targets_python2_7(-)?] dev-python/twisted-web[python_targets_python2_7(-)?] ) ) dev-python/backports-abc[python_targets_python2_7(-)?] dev-python/futures[python_targets_python2_7(-)?] dev-python/singledispatch[python_targets_python2_7(-)?] dev-python/mock[python_targets_python2_7(-)?] ) !<www-servers/tornado-4.5.3-r200[python_targets_python2_7(-)?]
+DESCRIPTION=Python web framework and asynchronous networking library
+EAPI=7
+HOMEPAGE=http://www.tornadoweb.org/
+INHERIT=distutils-r1
+IUSE=examples test doc python_targets_python2_7
+KEYWORDS=~alpha amd64 arm ~arm64 hppa ia64 ppc ppc64 s390 sparc x86 ~amd64-linux ~x86-linux
+LICENSE=Apache-2.0
+RDEPEND=dev-python/certifi:python2[python_targets_python2_7(-)?] >=dev-python/pycurl-7.19.3.1:python2[python_targets_python2_7(-)?] >=dev-python/backports-ssl-match-hostname-3.5[python_targets_python2_7(-)?] || ( >=dev-python/twisted-16.0.0:python2[python_targets_python2_7(-)?] ( dev-python/twisted-names[python_targets_python2_7(-)?] dev-python/twisted-web[python_targets_python2_7(-)?] ) ) dev-python/backports-abc[python_targets_python2_7(-)?] dev-python/futures[python_targets_python2_7(-)?] dev-python/singledispatch[python_targets_python2_7(-)?] python_targets_python2_7? ( dev-lang/python:2.7[threads(+)] )
+REQUIRED_USE=|| ( python_targets_python2_7 )
+RESTRICT=!test? ( test )
+SLOT=python2
+SRC_URI=mirror://pypi/t/tornado/tornado-4.5.3.tar.gz
+_eclasses_=out-of-source-utils	dbf9e34ee8964084651e25907fa8f52c	multibuild	4650a65187015567b4e041bb9bfdb364	multiprocessing	1e32df7deee68372153dca65f4a7c21f	toolchain-funcs	d3d42b22a610ce81c267b644bcec9b87	multilib	b2a329026f2e404e9e371097dda47f96	eapi8-dosym	5ac4857ad078256d939c44f7c64197a9	python-utils-r1	b24c23a99f98c30dd8e68ec73ece42ef	python-r1	2d51fd03931e743811ce30d198e4dcfd	distutils-r1	e58d3ed262e4b32d6d1966bd66e941cc
+_md5_=b54af150b556a3495852d4960e94b208

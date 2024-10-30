@@ -1,0 +1,16 @@
+BDEPEND=python_targets_python2_7? ( dev-lang/python:2.7[sqlite] ) >=dev-python/setuptools-42.0.2[python_targets_python2_7(-)?]
+DEFINED_PHASES=compile configure install prepare test
+DEPEND=dev-python/setuptools[python_targets_python2_7(-)?]
+DESCRIPTION=Secure, decentralized, data store
+EAPI=7
+HOMEPAGE=https://tahoe-lafs.org/trac/tahoe-lafs
+INHERIT=distutils-r1
+IUSE=doc python_targets_python2_7
+KEYWORDS=~amd64 ~x86
+LICENSE=GPL-2
+RDEPEND=>=dev-python/characteristic-14.0.0[python_targets_python2_7(-)?] >=dev-python/foolscap-0.12.6[python_targets_python2_7(-)?] dev-python/nevow[python_targets_python2_7(-)?] >=dev-python/pyasn1-0.1.8[python_targets_python2_7(-)?] dev-python/pyasn1-modules[python_targets_python2_7(-)?] dev-python/pycryptopp[python_targets_python2_7(-)?] dev-python/pycrypto[python_targets_python2_7(-)?] >=dev-python/pyopenssl-0.14[python_targets_python2_7(-)?] dev-python/pyutil[python_targets_python2_7(-)?] dev-python/pyyaml[python_targets_python2_7(-)?] dev-python/service_identity[python_targets_python2_7(-)?] dev-python/simplejson[python_targets_python2_7(-)?] dev-python/six[python_targets_python2_7(-)?] >=dev-python/twisted-16.4.0[crypt,python_targets_python2_7(-)?] dev-python/zbase32[python_targets_python2_7(-)?] dev-python/zfec[python_targets_python2_7(-)?] dev-python/zope-interface[python_targets_python2_7(-)?] net-misc/magic-wormhole[python_targets_python2_7(-)?] python_targets_python2_7? ( dev-lang/python:2.7[sqlite] )
+REQUIRED_USE=|| ( python_targets_python2_7 )
+SLOT=0
+SRC_URI=https://github.com/tahoe-lafs/tahoe-lafs/archive/tahoe-lafs-1.13.0.tar.gz
+_eclasses_=out-of-source-utils	dbf9e34ee8964084651e25907fa8f52c	multibuild	4650a65187015567b4e041bb9bfdb364	multiprocessing	1e32df7deee68372153dca65f4a7c21f	toolchain-funcs	d3d42b22a610ce81c267b644bcec9b87	multilib	b2a329026f2e404e9e371097dda47f96	eapi8-dosym	5ac4857ad078256d939c44f7c64197a9	python-utils-r1	b24c23a99f98c30dd8e68ec73ece42ef	python-r1	2d51fd03931e743811ce30d198e4dcfd	distutils-r1	e58d3ed262e4b32d6d1966bd66e941cc
+_md5_=f18d44a5adfabbd219128ab147127884

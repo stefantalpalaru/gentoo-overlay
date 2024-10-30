@@ -1,0 +1,15 @@
+BDEPEND=python_targets_python2_7? ( dev-lang/python:2.7[xml(+)] ) >=dev-python/setuptools-42.0.2[python_targets_python2_7(-)?]
+DEFINED_PHASES=compile configure install prepare test
+DESCRIPTION=Lightweight SOAP client
+EAPI=7
+HOMEPAGE=https://github.com/suds-community/suds
+INHERIT=distutils-r1
+IUSE=python_targets_python2_7
+KEYWORDS=~amd64 ~arm64 ~x86 ~amd64-linux ~x86-linux
+LICENSE=LGPL-3
+RDEPEND=!<dev-python/suds-0.8.4-r200[python_targets_python2_7(-)?] python_targets_python2_7? ( dev-lang/python:2.7[xml(+)] )
+REQUIRED_USE=|| ( python_targets_python2_7 )
+SLOT=python2
+SRC_URI=mirror://pypi/s/suds-community/suds-community-0.8.4.tar.gz
+_eclasses_=out-of-source-utils	dbf9e34ee8964084651e25907fa8f52c	multibuild	4650a65187015567b4e041bb9bfdb364	multiprocessing	1e32df7deee68372153dca65f4a7c21f	toolchain-funcs	d3d42b22a610ce81c267b644bcec9b87	multilib	b2a329026f2e404e9e371097dda47f96	eapi8-dosym	5ac4857ad078256d939c44f7c64197a9	python-utils-r1	b24c23a99f98c30dd8e68ec73ece42ef	python-r1	2d51fd03931e743811ce30d198e4dcfd	distutils-r1	e58d3ed262e4b32d6d1966bd66e941cc
+_md5_=84992ddc2c314881b38b0cadb331ba20

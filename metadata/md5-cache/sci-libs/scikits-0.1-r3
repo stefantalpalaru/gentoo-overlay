@@ -1,0 +1,14 @@
+DEFINED_PHASES=install
+DESCRIPTION=Common files for python scikits
+EAPI=7
+HOMEPAGE=http://projects.scipy.org/scipy/scikits
+INHERIT=pypi python-r1
+IUSE=examples python_targets_python2_7 python_targets_python3_10 python_targets_python3_11 python_targets_python3_12
+KEYWORDS=~amd64 ~x86 ~amd64-linux ~x86-linux
+LICENSE=BSD
+RDEPEND=python_targets_python2_7? ( dev-lang/python:2.7 ) python_targets_python3_10? ( dev-lang/python:3.10 ) python_targets_python3_11? ( dev-lang/python:3.11 ) python_targets_python3_12? ( dev-lang/python:3.12 )
+REQUIRED_USE=|| ( python_targets_python2_7 python_targets_python3_10 python_targets_python3_11 python_targets_python3_12 )
+SLOT=0
+SRC_URI=https://files.pythonhosted.org/packages/source/s/scikits.example/scikits.example-0.1.tar.gz
+_eclasses_=pypi	ad1b21f87d117ae9bb089bdb65b8f013	out-of-source-utils	dbf9e34ee8964084651e25907fa8f52c	multibuild	4650a65187015567b4e041bb9bfdb364	eapi8-dosym	5ac4857ad078256d939c44f7c64197a9	multiprocessing	1e32df7deee68372153dca65f4a7c21f	toolchain-funcs	d3d42b22a610ce81c267b644bcec9b87	multilib	b2a329026f2e404e9e371097dda47f96	python-utils-r1	b24c23a99f98c30dd8e68ec73ece42ef	python-r1	2d51fd03931e743811ce30d198e4dcfd
+_md5_=9442ce863741fbdfcee884d917d6bb96

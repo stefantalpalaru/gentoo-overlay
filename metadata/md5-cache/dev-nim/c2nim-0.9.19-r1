@@ -1,0 +1,13 @@
+DEFINED_PHASES=compile install test
+DEPEND=>=dev-lang/nim-1.2.0
+DESCRIPTION=a tool to translate ANSI C code to Nim
+EAPI=8
+HOMEPAGE=https://github.com/nim-lang/c2nim
+IUSE=doc test
+KEYWORDS=~amd64 ~x86
+LICENSE=MIT
+RDEPEND=>=dev-lang/nim-1.2.0
+RESTRICT=!test? ( test )
+SLOT=0
+SRC_URI=https://github.com/nim-lang/c2nim/archive/refs/tags/0.9.19.tar.gz -> c2nim-0.9.19.tar.gz
+_md5_=5bd94866acef7c60d10ccfa37ea99684

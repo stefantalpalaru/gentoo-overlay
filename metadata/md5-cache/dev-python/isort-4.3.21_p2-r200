@@ -1,0 +1,15 @@
+BDEPEND=dev-python/pipfile[python_targets_python2_7(-)?] dev-python/backports-functools-lru-cache[python_targets_python2_7(-)?] dev-python/futures[python_targets_python2_7(-)?] !<dev-python/isort-4.3.21_p2-r200[python_targets_python2_7(-)?] python_targets_python2_7? ( dev-lang/python:2.7 ) >=dev-python/setuptools-42.0.2[python_targets_python2_7(-)?]
+DEFINED_PHASES=compile configure install prepare test
+DESCRIPTION=A python utility/library to sort imports
+EAPI=7
+HOMEPAGE=https://pypi.org/project/isort/ https://github.com/timothycrosley/isort
+INHERIT=distutils-r1
+IUSE=python_targets_python2_7
+KEYWORDS=~alpha ~amd64 ~arm ~arm64 ~ia64 ~sparc ~x86
+LICENSE=MIT
+RDEPEND=dev-python/pipfile[python_targets_python2_7(-)?] dev-python/backports-functools-lru-cache[python_targets_python2_7(-)?] dev-python/futures[python_targets_python2_7(-)?] !<dev-python/isort-4.3.21_p2-r200[python_targets_python2_7(-)?] python_targets_python2_7? ( dev-lang/python:2.7 ) >=dev-python/setuptools-42.0.2[python_targets_python2_7(-)?]
+REQUIRED_USE=|| ( python_targets_python2_7 )
+SLOT=python2
+SRC_URI=https://github.com/timothycrosley/isort/archive/4.3.21-2.tar.gz -> isort-4.3.21_p2.tar.gz
+_eclasses_=out-of-source-utils	dbf9e34ee8964084651e25907fa8f52c	multibuild	4650a65187015567b4e041bb9bfdb364	multiprocessing	1e32df7deee68372153dca65f4a7c21f	toolchain-funcs	d3d42b22a610ce81c267b644bcec9b87	multilib	b2a329026f2e404e9e371097dda47f96	eapi8-dosym	5ac4857ad078256d939c44f7c64197a9	python-utils-r1	b24c23a99f98c30dd8e68ec73ece42ef	python-r1	2d51fd03931e743811ce30d198e4dcfd	distutils-r1	e58d3ed262e4b32d6d1966bd66e941cc
+_md5_=dba3e97b03f0e4e8e9c76f54b12f59c2

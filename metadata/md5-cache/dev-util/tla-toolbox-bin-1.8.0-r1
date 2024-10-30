@@ -1,0 +1,11 @@
+BDEPEND=app-arch/unzip
+DEFINED_PHASES=install
+DESCRIPTION=IDE for TLA+
+EAPI=8
+HOMEPAGE=https://lamport.azurewebsites.net/tla/toolbox.html https://github.com/tlaplus/tlaplus
+KEYWORDS=~amd64
+LICENSE=MIT
+RDEPEND=x11-libs/gtk+:3
+SLOT=0
+SRC_URI=https://github.com/tlaplus/tlaplus/releases/download/v1.8.0/TLAToolbox-1.8.0-linux.gtk.x86_64.zip
+_md5_=eb56c08f668007ce84092aa83026d875

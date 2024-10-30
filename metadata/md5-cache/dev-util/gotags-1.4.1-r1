@@ -1,0 +1,13 @@
+BDEPEND=>=dev-lang/go-1.10
+DEFINED_PHASES=compile install test unpack
+DESCRIPTION=ctags-compatible tag generator for Go
+EAPI=7
+HOMEPAGE=https://github.com/jstemmer/gotags
+INHERIT=golang-build
+KEYWORDS=~amd64 ~x86
+LICENSE=MIT
+RESTRICT=strip
+SLOT=0
+SRC_URI=https://github.com/jstemmer/gotags/archive/v1.4.1.tar.gz -> gotags-1.4.1.tar.gz
+_eclasses_=golang-base	33e0f9ff6c6f053a3df2d38992afeb58	golang-build	20e04694f8bbaef2664220cebb994a48
+_md5_=7fbadbb5d3d1fee9b86095c15bb4521e

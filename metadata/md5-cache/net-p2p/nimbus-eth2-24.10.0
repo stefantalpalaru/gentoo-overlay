@@ -1,0 +1,14 @@
+BDEPEND=dev-vcs/git-lfs >=dev-vcs/git-1.8.2.1[curl]
+DEFINED_PHASES=compile install unpack
+DESCRIPTION=Nim implementation of the Ethereum 2.0 blockchain
+EAPI=7
+HOMEPAGE=https://github.com/status-im/nimbus-eth2
+INHERIT=git-r3
+IUSE=lto
+KEYWORDS=~amd64 ~x86
+LICENSE=MIT-with-advertising Apache-2.0
+PROPERTIES=live
+RESTRICT=strip network-sandbox
+SLOT=0
+_eclasses_=git-r3	875eb471682d3e1f18da124be97dcc81
+_md5_=bf03af069f33f868f06bd815bb1a686c

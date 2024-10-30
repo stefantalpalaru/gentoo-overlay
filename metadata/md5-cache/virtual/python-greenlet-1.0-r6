@@ -1,0 +1,11 @@
+DEFINED_PHASES=-
+DESCRIPTION=A virtual for Python greenlet module
+EAPI=8
+INHERIT=python-r1
+IUSE=python_targets_python2_7 python_targets_python3_10 python_targets_python3_11 python_targets_python3_12 python_targets_python3_13
+KEYWORDS=~alpha amd64 arm arm64 ~mips ppc ppc64 ~s390 ~sparc x86 ~amd64-linux ~x86-linux
+RDEPEND=python_targets_python2_7? ( dev-lang/python:2.7 ) python_targets_python3_10? ( dev-lang/python:3.10 ) python_targets_python3_11? ( dev-lang/python:3.11 ) python_targets_python3_12? ( dev-lang/python:3.12 ) python_targets_python3_13? ( dev-lang/python:3.13 ) python_targets_python2_7? ( dev-python/greenlet:python2[python_targets_python2_7(-)?] ) python_targets_python3_10? ( dev-python/greenlet:0[python_targets_python3_10(-)?,python_targets_python3_11(-)?,python_targets_python3_12(-)?,python_targets_python3_13(-)?] ) python_targets_python3_11? ( dev-python/greenlet:0[python_targets_python3_10(-)?,python_targets_python3_11(-)?,python_targets_python3_12(-)?,python_targets_python3_13(-)?] ) python_targets_python3_12? ( dev-python/greenlet:0[python_targets_python3_10(-)?,python_targets_python3_11(-)?,python_targets_python3_12(-)?,python_targets_python3_13(-)?] ) python_targets_python3_13? ( dev-python/greenlet:0[python_targets_python3_10(-)?,python_targets_python3_11(-)?,python_targets_python3_12(-)?,python_targets_python3_13(-)?] )
+REQUIRED_USE=|| ( python_targets_python2_7 python_targets_python3_10 python_targets_python3_11 python_targets_python3_12 python_targets_python3_13 )
+SLOT=0
+_eclasses_=out-of-source-utils	dbf9e34ee8964084651e25907fa8f52c	multibuild	4650a65187015567b4e041bb9bfdb364	multiprocessing	1e32df7deee68372153dca65f4a7c21f	toolchain-funcs	d3d42b22a610ce81c267b644bcec9b87	multilib	b2a329026f2e404e9e371097dda47f96	python-utils-r1	b24c23a99f98c30dd8e68ec73ece42ef	python-r1	2d51fd03931e743811ce30d198e4dcfd
+_md5_=0ef9aac39c0e43140a34b8a9c2fc6663

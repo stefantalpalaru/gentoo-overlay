@@ -1,0 +1,15 @@
+DEFINED_PHASES=compile install prepare setup test
+DEPEND=python_single_target_python2_7? ( dev-python/astropy[python_targets_python2_7(-)] dev-python/fitsio[python_targets_python2_7(-)] dev-python/numpy-python2[python_targets_python2_7(-)] ) media-libs/libpng:0 media-libs/netpbm sci-astronomy/wcslib:0= sci-libs/cfitsio:0= sci-libs/gsl:0= sys-libs/zlib:0= virtual/jpeg:0 x11-libs/cairo python_single_target_python2_7? ( dev-lang/python:2.7 ) dev-lang/swig:0 virtual/pkgconfig
+DESCRIPTION=Automated astrometric calibration programs and service
+EAPI=7
+HOMEPAGE=http://astrometry.net/
+INHERIT=eutils toolchain-funcs python-single-r1
+IUSE=examples +python_single_target_python2_7
+KEYWORDS=~amd64 ~x86 ~amd64-linux ~x86-linux
+LICENSE=BSD GPL-2 GPL-3
+RDEPEND=python_single_target_python2_7? ( dev-python/astropy[python_targets_python2_7(-)] dev-python/fitsio[python_targets_python2_7(-)] dev-python/numpy-python2[python_targets_python2_7(-)] ) media-libs/libpng:0 media-libs/netpbm sci-astronomy/wcslib:0= sci-libs/cfitsio:0= sci-libs/gsl:0= sys-libs/zlib:0= virtual/jpeg:0 x11-libs/cairo python_single_target_python2_7? ( dev-lang/python:2.7 )
+REQUIRED_USE=^^ ( python_single_target_python2_7 )
+SLOT=0
+SRC_URI=https://github.com/dstndstn/astrometry.net/releases/download/0.78/astrometry.net-0.78.tar.gz
+_eclasses_=edos2unix	33e347e171066657f91f8b0c72ec8773	strip-linguas	9d8d529d8082ec56dd495636df194d64	wrapper	11a2a3bd712784986679b60a0cab34a0	eutils	8f942ebdcf04334697649d4a0bf65a32	toolchain-funcs	d3d42b22a610ce81c267b644bcec9b87	multilib	b2a329026f2e404e9e371097dda47f96	eapi8-dosym	5ac4857ad078256d939c44f7c64197a9	multiprocessing	1e32df7deee68372153dca65f4a7c21f	python-utils-r1	b24c23a99f98c30dd8e68ec73ece42ef	python-single-r1	a5747fe6dc0651d95cb78eddd5e160a8
+_md5_=6e5387394b7462d5fb026aef208e7aaa

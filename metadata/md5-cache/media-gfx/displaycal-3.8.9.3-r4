@@ -1,0 +1,16 @@
+BDEPEND=python_targets_python2_7? ( dev-lang/python:2.7 ) >=dev-python/setuptools-42.0.2[python_targets_python2_7(-)?]
+DEFINED_PHASES=compile configure install postinst postrm preinst prepare test
+DEPEND=>=media-gfx/argyllcms-1.1.0 dev-python/wxpython[python_targets_python2_7(-)?] >=x11-libs/libX11-1.3.3 >=x11-apps/xrandr-1.3.2 >=x11-libs/libXxf86vm-1.1.0 >=x11-libs/libXinerama-1.1 dev-util/desktop-file-utils x11-misc/shared-mime-info
+DESCRIPTION=Display calibration and characterization powered by Argyll CMS
+EAPI=7
+HOMEPAGE=https://displaycal.net/
+INHERIT=distutils-r1 flag-o-matic xdg
+IUSE=python_targets_python2_7
+KEYWORDS=~amd64 ~x86
+LICENSE=GPL-3
+RDEPEND=>=media-gfx/argyllcms-1.1.0 dev-python/wxpython[python_targets_python2_7(-)?] >=x11-libs/libX11-1.3.3 >=x11-apps/xrandr-1.3.2 >=x11-libs/libXxf86vm-1.1.0 >=x11-libs/libXinerama-1.1 dev-python/faulthandler[python_targets_python2_7(-)?] dev-python/numpy-python2[python_targets_python2_7(-)?] || ( dev-python/pygobject:3[python_targets_python2_7(-)?] dev-python/dbus-python[python_targets_python2_7(-)?] ) python_targets_python2_7? ( dev-lang/python:2.7 )
+REQUIRED_USE=|| ( python_targets_python2_7 )
+SLOT=0
+SRC_URI=https://downloads.sourceforge.net/dispcalgui/DisplayCAL-3.8.9.3.tar.gz
+_eclasses_=out-of-source-utils	dbf9e34ee8964084651e25907fa8f52c	multibuild	4650a65187015567b4e041bb9bfdb364	multiprocessing	1e32df7deee68372153dca65f4a7c21f	toolchain-funcs	d3d42b22a610ce81c267b644bcec9b87	multilib	b2a329026f2e404e9e371097dda47f96	eapi8-dosym	5ac4857ad078256d939c44f7c64197a9	python-utils-r1	b24c23a99f98c30dd8e68ec73ece42ef	python-r1	2d51fd03931e743811ce30d198e4dcfd	distutils-r1	e58d3ed262e4b32d6d1966bd66e941cc	flag-o-matic	f14aba975c94ccaa9f357a27e3b17ffe	xdg-utils	42869b3c8d86a70ef3cf75165a395e09	xdg	3ef49a87c52c8b77c476351195dfe575
+_md5_=3cbec60a6bc850d95a35a3da5070e1e7

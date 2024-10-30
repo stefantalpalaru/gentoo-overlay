@@ -1,0 +1,16 @@
+BDEPEND=python_targets_python2_7? ( dev-lang/python:2.7 ) >=dev-python/setuptools-42.0.2[python_targets_python2_7(-)?]
+DEFINED_PHASES=compile configure install prepare test
+DESCRIPTION=Python binding to the Brotli library
+EAPI=8
+HOMEPAGE=https://github.com/python-hyper/brotlipy/ https://pypi.python.org/pypi/brotlipy
+INHERIT=distutils-r1
+IUSE=python_targets_python2_7
+KEYWORDS=~alpha amd64 arm arm64 hppa ~ia64 ppc ppc64 ~riscv ~s390 sparc x86
+LICENSE=MIT
+RDEPEND=virtual/python-cffi[python_targets_python2_7(-)?] !app-arch/brotli[python] !<dev-python/brotlipy-0.7.0-r5[python_targets_python2_7(-)?] python_targets_python2_7? ( dev-lang/python:2.7 )
+REQUIRED_USE=|| ( python_targets_python2_7 )
+RESTRICT=test
+SLOT=python2
+SRC_URI=https://github.com/python-hyper/brotlipy/archive/v0.7.0.tar.gz -> brotlipy-0.7.0.tar.gz https://github.com/google/brotli/archive/46c1a881b41bb638c76247558aa04b1591af3aa7.tar.gz -> brotli-46c1a881b41bb638c76247558aa04b1591af3aa7.tar.gz
+_eclasses_=out-of-source-utils	dbf9e34ee8964084651e25907fa8f52c	multibuild	4650a65187015567b4e041bb9bfdb364	multiprocessing	1e32df7deee68372153dca65f4a7c21f	toolchain-funcs	d3d42b22a610ce81c267b644bcec9b87	multilib	b2a329026f2e404e9e371097dda47f96	python-utils-r1	b24c23a99f98c30dd8e68ec73ece42ef	python-r1	2d51fd03931e743811ce30d198e4dcfd	distutils-r1	e58d3ed262e4b32d6d1966bd66e941cc
+_md5_=f185dd793d0c3cb61bc559e6fdb9235b

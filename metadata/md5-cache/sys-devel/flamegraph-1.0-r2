@@ -1,0 +1,10 @@
+DEFINED_PHASES=install
+DESCRIPTION=stack trace visualizer
+EAPI=8
+HOMEPAGE=http://www.brendangregg.com/flamegraphs.html
+KEYWORDS=~amd64 ~x86
+LICENSE=CDDL
+RDEPEND=dev-lang/perl app-alternatives/awk
+SLOT=0
+SRC_URI=https://github.com/brendangregg/FlameGraph/archive/v1.0.tar.gz -> flamegraph-1.0.tar.gz
+_md5_=bd0668112f269c8d139016df5b9088e9

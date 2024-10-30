@@ -1,0 +1,11 @@
+DEFINED_PHASES=install postinst
+DEPEND=dev-games/physfs dev-libs/tinyxml media-libs/freealut media-libs/libsdl[joystick] media-libs/openal media-libs/sdl-image[jpeg,png] media-libs/sdl-mixer virtual/glu virtual/opengl
+DESCRIPTION=Free OpenGL rally car racing game
+EAPI=8
+HOMEPAGE=http://trigger-rally.sourceforge.net/
+KEYWORDS=~amd64 ~x86
+LICENSE=GPL-2
+RDEPEND=dev-games/physfs dev-libs/tinyxml media-libs/freealut media-libs/libsdl[joystick] media-libs/openal media-libs/sdl-image[jpeg,png] media-libs/sdl-mixer virtual/glu virtual/opengl
+SLOT=0
+SRC_URI=https://downloads.sourceforge.net/trigger-rally/trigger-rally-0.6.6.1.tar.gz
+_md5_=e534b159f78447baa61b0dee934c232a
