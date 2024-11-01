@@ -1,0 +1,12 @@
+diff '--color=auto' -ur onnxruntime-1.20.0.orig/cmake/onnxruntime_providers_cuda.cmake onnxruntime-1.20.0/cmake/onnxruntime_providers_cuda.cmake
+--- onnxruntime-1.20.0.orig/cmake/onnxruntime_providers_cuda.cmake	2024-10-29 22:00:00.000000000 +0100
++++ onnxruntime-1.20.0/cmake/onnxruntime_providers_cuda.cmake	2024-11-01 22:06:06.658953873 +0100
+@@ -205,7 +205,7 @@
+           message( WARNING "To compile with NHWC ops enabled please compile against cuDNN 9 or newer." )
+         endif()
+       endif()
+-      target_link_libraries(${target} PRIVATE CUDA::cublasLt CUDA::cublas CUDNN::cudnn_all cudnn_frontend CUDA::curand CUDA::cufft CUDA::cudart
++      target_link_libraries(${target} PRIVATE CUDA::cublasLt CUDA::cublas CUDNN::cudnn_all CUDA::curand CUDA::cufft CUDA::cudart
+               ${ABSEIL_LIBS} ${ONNXRUNTIME_PROVIDERS_SHARED} Boost::mp11 safeint_interface)
+     endif()
+ 

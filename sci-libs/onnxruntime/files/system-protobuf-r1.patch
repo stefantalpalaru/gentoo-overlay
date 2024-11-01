@@ -1,0 +1,15 @@
+diff '--color=auto' -ur onnxruntime-1.20.0.orig/cmake/CMakeLists.txt onnxruntime-1.20.0/cmake/CMakeLists.txt
+--- onnxruntime-1.20.0.orig/cmake/CMakeLists.txt	2024-11-01 21:37:29.283856644 +0100
++++ onnxruntime-1.20.0/cmake/CMakeLists.txt	2024-11-01 21:41:39.509560827 +0100
+@@ -612,6 +612,11 @@
+ get_filename_component(REPO_ROOT "${REPO_ROOT}" ABSOLUTE)
+ set(ONNXRUNTIME_INCLUDE_DIR ${REPO_ROOT}/include/onnxruntime)
+ 
++Find_Package(Protobuf CONFIG REQUIRED)
++if(protobuf_VERBOSE)
++  message(STATUS "Using Protocol Buffers ${Protobuf_VERSION}")
++endif()
++
+ list(APPEND CMAKE_MODULE_PATH ${PROJECT_SOURCE_DIR}/external)
+ include(external/onnxruntime_external_deps.cmake)
+ 

@@ -90,13 +90,13 @@ BDEPEND="
 
 PATCHES=(
 	"${FILESDIR}/${PN}-system-dnnl.patch"
-	"${FILESDIR}/re2-pkg-config-r2.patch"
-	"${FILESDIR}/system-onnx-r3.patch"
-	"${FILESDIR}/system-nsync.patch"
-	"${FILESDIR}/system-composable_kernel-r2.patch"
-	"${FILESDIR}/system-protobuf.patch"
+	"${FILESDIR}/re2-pkg-config-r3.patch"
+	"${FILESDIR}/system-onnx-r4.patch"
+	"${FILESDIR}/system-nsync-r1.patch"
+	"${FILESDIR}/system-composable_kernel-r3.patch"
+	"${FILESDIR}/system-protobuf-r1.patch"
 	"${FILESDIR}/system-mp11.patch"
-	"${FILESDIR}/system-gsl-r2.patch"
+	"${FILESDIR}/system-gsl-r3.patch"
 	#"${FILESDIR}/rocm-version-override-r2.patch"
 	"${FILESDIR}/hip-gentoo.patch"
 	"${FILESDIR}/shared-build-fix.patch"
@@ -107,6 +107,7 @@ PATCHES=(
 	"${FILESDIR}/onnxruntime-1.18.1-protobuf-27.patch"
 	"${FILESDIR}/onnxruntime-1.19.0-abseil.patch"
 	"${FILESDIR}/onnxruntime-1.19.0-eigen.patch"
+	"${FILESDIR}/onnxruntime-1.20.0-cudnn_frontend.patch"
 )
 
 pkg_setup() {
