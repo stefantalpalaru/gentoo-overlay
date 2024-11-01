@@ -238,6 +238,7 @@ media-libs/libheif:aom - Use media-libs/libaom for AVIF encoding/decoding
 media-libs/libheif:dav1d - Use media-libs/dav1d for AVIF decoding
 media-libs/libheif:ffmpeg - Use media-video/ffmpeg for HEIC decoding
 media-libs/libheif:gdk-pixbuf - Enable x11-libs/gdk-pixbuf plugin
+media-libs/libheif:openh264 - USE media-libs/openh264 for AVC decoding
 media-libs/libheif:rav1e - Use media-video/rav1e for AVIF encoding
 media-libs/libheif:svt-av1 - Use media-libs/svt-av1 for AVIF encoding
 media-libs/libheif:x265 - Use media-libs/x265 for HEIF encoding

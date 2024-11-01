@@ -7,6 +7,7 @@
 	<flag name="dav1d">Use <pkg>media-libs/dav1d</pkg> for AVIF decoding</flag>
 	<flag name="ffmpeg">Use <pkg>media-video/ffmpeg</pkg> for HEIC decoding</flag>
 	<flag name="gdk-pixbuf">Enable <pkg>x11-libs/gdk-pixbuf</pkg> plugin</flag>
+	<flag name="openh264">USE <pkg>media-libs/openh264</pkg> for AVC decoding</flag>
 	<flag name="rav1e">Use <pkg>media-video/rav1e</pkg> for AVIF encoding</flag>
 	<flag name="svt-av1">Use <pkg>media-libs/svt-av1</pkg> for AVIF encoding</flag>
 	<flag name="x265">Use <pkg> media-libs/x265</pkg> for HEIF encoding</flag>

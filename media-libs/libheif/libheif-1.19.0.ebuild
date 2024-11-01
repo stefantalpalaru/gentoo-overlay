@@ -11,7 +11,7 @@ SRC_URI="https://github.com/strukturag/libheif/releases/download/v${PV}/${P}.tar
 LICENSE="GPL-3"
 SLOT="0/$(ver_cut 1-2)"
 KEYWORDS="~amd64 ~arm ~arm64 ~loong ~ppc64 ~riscv ~x86"
-IUSE="aom +dav1d ffmpeg gdk-pixbuf rav1e +svt-av1 test +x265"
+IUSE="aom +dav1d ffmpeg gdk-pixbuf openh264 rav1e +svt-av1 test +x265"
 RESTRICT="!test? ( test )"
 
 DEPEND="
@@ -56,6 +56,7 @@ multilib_src_configure() {
 		-DWITH_KVAZAAR=OFF
 		-DWITH_LIBDE265=$(usex x265)
 		-DWITH_LIBSHARPYUV=ON
+		-DWITH_OpenH264_DECODER=$(usex openh264)
 		-DWITH_OPENJPH_DECODER=OFF
 		-DWITH_OPENJPH_ENCODER=OFF
 		-DWITH_OpenJPEG_DECODER=ON
