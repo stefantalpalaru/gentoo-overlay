@@ -1,7 +1,7 @@
 acct-group/valkey 0: Valkey program group
 acct-group/vmware 0: Group for VMware
 acct-user/valkey 0: Valkey program user
-app-admin/conky 1.21.7: An advanced, highly configurable system monitor for X
+app-admin/conky 1.21.8: An advanced, highly configurable system monitor for X
 app-admin/zenmonitor3 2.0.0-r1: Zen monitor is monitoring software for AMD Zen-based CPUs
 app-alternatives/yacc 0: Virtual for yacc (yet another compiler compiler)
 app-arch/libzim 9.2.3: reference implementation for the ZIM archive format
