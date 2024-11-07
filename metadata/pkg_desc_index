@@ -318,6 +318,7 @@ dev-python/jsonpointer 2.0-r200: Identify specific nodes in a JSON document (acc
 dev-python/jsonschema 3.2.0-r200: An implementation of JSON-Schema validation for Python
 dev-python/jupyter_client 5.3.4-r200: Jupyter protocol implementation and client libraries
 dev-python/jupyter_core 4.6.3-r200: Core common functionality of Jupyter projects
+dev-python/key-mon 1.20_p20240509: screencast utility that displays your keyboard and mouse status
 dev-python/keyczar 0.715-r200: Toolkit for safe and simple cryptography
 dev-python/keyring 18.0.1-r3: Provides access to the system keyring service
 dev-python/keyrings_alt 2.4-r200: Alternate keyring implementations
