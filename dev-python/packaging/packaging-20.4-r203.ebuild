@@ -3,7 +3,6 @@
 
 EAPI=8
 
-#DISTUTILS_USE_PEP517=setuptools
 PYTHON_COMPAT=( python2_7 )
 
 inherit distutils-r1 pypi
@@ -14,7 +13,7 @@ HOMEPAGE="https://github.com/pypa/packaging
 
 LICENSE="|| ( Apache-2.0 BSD-2 )"
 SLOT="python2"
-KEYWORDS="amd64 arm arm64 hppa ~ia64 ~m68k ~mips ppc ppc64 ~riscv sparc x86 ~amd64-linux ~x86-linux ~ppc-macos ~x64-macos ~x64-solaris"
+KEYWORDS="amd64 arm arm64 hppa ~m68k ~mips ppc ppc64 ~riscv sparc x86 ~amd64-linux ~x86-linux ~ppc-macos ~x64-macos ~x64-solaris"
 IUSE="test"
 RESTRICT="!test? ( test )"
 
