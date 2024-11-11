@@ -1,0 +1,12 @@
+diff '--color=auto' -ur ansel-4.0.0_pre20241028.orig/src/external/rawspeed/cmake/build-type.cmake ansel-4.0.0_pre20241028/src/external/rawspeed/cmake/build-type.cmake
+--- ansel-4.0.0_pre20241028.orig/src/external/rawspeed/cmake/build-type.cmake	2024-11-11 19:06:24.831844387 +0100
++++ ansel-4.0.0_pre20241028/src/external/rawspeed/cmake/build-type.cmake	2024-11-11 19:07:32.511476973 +0100
+@@ -20,7 +20,7 @@
+ # is this one of the known build types?
+ list (FIND CMAKE_CONFIGURATION_TYPES_UPPERCASE ${CMAKE_BUILD_TYPE_UPPERCASE} BUILD_TYPE_IS_KNOWN)
+ if (${BUILD_TYPE_IS_KNOWN} EQUAL -1)
+- message(SEND_ERROR "Unknown build type: ${CMAKE_BUILD_TYPE_UPPERCASE}. Please specify one of: ${CMAKE_CONFIGURATION_TYPES}")
++ #message(SEND_ERROR "Unknown build type: ${CMAKE_BUILD_TYPE_UPPERCASE}. Please specify one of: ${CMAKE_CONFIGURATION_TYPES}")
+ endif()
+ 
+ # is this a special build?

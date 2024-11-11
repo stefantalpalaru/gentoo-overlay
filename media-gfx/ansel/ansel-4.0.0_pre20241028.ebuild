@@ -14,7 +14,7 @@ LICENSE="GPL-3 CC-BY-3.0"
 SLOT="0"
 
 if [[ ${PV} != *9999* ]]; then
-	EGIT_COMMIT="85f2b8b15fe2081634c6f2c3f96b5d430e045bf0"
+	EGIT_COMMIT="7f23d9d38630629e559e76073ec4dbe71733c225"
 	KEYWORDS="~amd64 ~arm64 -x86"
 fi
 
@@ -81,6 +81,7 @@ PATCHES=(
 	"${FILESDIR}"/ansel-4.0.0_libxcf-cmake.patch
 	"${FILESDIR}"/ansel-4.0.0_cmake-musl.patch
 	"${FILESDIR}"/ansel-4.0.0_portmidi.patch
+	"${FILESDIR}"/ansel-4.0.0_rawspeed-cmake.patch
 )
 
 pkg_pretend() {
