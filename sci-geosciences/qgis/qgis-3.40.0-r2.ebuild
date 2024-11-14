@@ -22,7 +22,6 @@ REQUIRED_USE="${PYTHON_REQUIRED_USE}
 	test? ( postgres )
 "
 
-# Disabling test suite because upstream disallow running from install path
 RESTRICT="!test? ( test )"
 
 COMMON_DEPEND="
@@ -45,7 +44,7 @@ COMMON_DEPEND="
 	dev-qt/qtwidgets:5
 	dev-qt/qtxml:5
 	media-gfx/exiv2:=
-	>=sci-libs/gdal-3.0.4:=[geos]
+	>=sci-libs/gdal-3.2.0:=[geos,spatialite,sqlite]
 	sci-libs/geos
 	sci-libs/libspatialindex:=
 	>=sci-libs/proj-4.9.3:=
@@ -69,13 +68,18 @@ COMMON_DEPEND="
 		${PYTHON_DEPS}
 		>=sci-libs/gdal-2.2.3[python,${PYTHON_SINGLE_USEDEP}]
 		$(python_gen_cond_dep '
+			dev-python/httplib2[${PYTHON_USEDEP}]
 			dev-python/jinja2[${PYTHON_USEDEP}]
+			dev-python/markupsafe[${PYTHON_USEDEP}]
 			dev-python/numpy[${PYTHON_USEDEP}]
 			dev-python/owslib[${PYTHON_USEDEP}]
 			dev-python/pygments[${PYTHON_USEDEP}]
-			dev-python/PyQt5[designer,gui,network,positioning,printsupport,sql,svg,widgets,${PYTHON_USEDEP}]
+			dev-python/PyQt5[designer,gui,multimedia,network,positioning,printsupport,sql,svg,widgets,${PYTHON_USEDEP}]
+			dev-python/python-dateutil[${PYTHON_USEDEP}]
+			dev-python/pytz[${PYTHON_USEDEP}]
 			dev-python/pyyaml[${PYTHON_USEDEP}]
-			>=dev-python/qscintilla-python-2.10.1[qt5(+),${PYTHON_USEDEP}]
+			dev-python/requests[${PYTHON_USEDEP}]
+			>=dev-python/qscintilla-2.10.1[qt5(+),${PYTHON_USEDEP}]
 			dev-python/sip:=[${PYTHON_USEDEP}]
 			postgres? ( dev-python/psycopg:2[${PYTHON_USEDEP}] )
 		')
@@ -99,15 +103,17 @@ RDEPEND="${COMMON_DEPEND}
 BDEPEND="
 	${PYTHON_DEPS}
 	dev-qt/linguist-tools:5
-	sys-devel/bison
-	sys-devel/flex
+	app-alternatives/yacc
+	app-alternatives/lex
 	doc? ( app-text/doxygen )
 	test? (
-		$(python_gen_cond_dep '
-			dev-python/PyQt5[${PYTHON_USEDEP},testlib]
-			dev-python/nose2[${PYTHON_USEDEP}]
-			dev-python/mock[${PYTHON_USEDEP}]
-		')
+		python? (
+			$(python_gen_cond_dep '
+				dev-python/PyQt5[${PYTHON_USEDEP},testlib]
+				dev-python/nose2[${PYTHON_USEDEP}]
+				dev-python/mock[${PYTHON_USEDEP}]
+			')
+		)
 	)
 "
 
@@ -145,6 +151,7 @@ src_configure() {
 		$(cmake_use_find_package netcdf NetCDF)
 		-DUSE_OPENCL=$(usex opencl)
 		-DWITH_ORACLE=$(usex oracle)
+		-DWITH_QWTPOLAR=ON
 		-DWITH_PDAL=$(usex pdal)
 		-DWITH_POSTGRESQL=$(usex postgres)
 		-DWITH_BINDINGS=$(usex python)
@@ -171,7 +178,7 @@ src_configure() {
 
 		GRASSDIR=/usr/$(get_libdir)/${grassdir}
 
-		einfo "Supported versions: ${supported_grass_versions[@]}"
+		einfo "Supported versions: ${supported_grass_versions[*]}"
 		einfo "Found GRASS version: ${v[0]}*"
 
 		local known_grass_version
@@ -234,7 +241,7 @@ src_install() {
 	if use examples; then
 		docinto examples
 		dodoc -r "${WORKDIR}"/qgis_sample_data/.
-		docompress -x /usr/share/doc/${PF}/examples
+		docompress -x "/usr/share/doc/${PF}/examples"
 	fi
 
 	if use python; then
