@@ -6,21 +6,15 @@ EAPI=8
 inherit flag-o-matic linux-mod-r1 udev
 
 DESCRIPTION="VMware kernel modules"
-HOMEPAGE="https://github.com/mkubecek/vmware-host-modules"
+HOMEPAGE="https://github.com/bytium/vm-host-modules"
 
 # Highest kernel version known to work:
-MY_KERNEL_VERSION="6.9"
+MY_KERNEL_VERSION="6.11"
 
-# Upstream does not want to tag versions or anything that looks like properly
-# releasing the software, so we need to just pick a commit from
-# https://github.com/mkubecek/vmware-host-modules/commits/workstation-${PV}
-# and test it ourselves.
-#
-# Details: https://github.com/mkubecek/vmware-host-modules/issues/158#issuecomment-1228341760
-MY_COMMIT="2c6d66f3f1947384038b765c897b102ecdb18298"
+MY_COMMIT="f3f2ae61203f683cc108096753686fc33d5f82c3"
 
-SRC_URI=" https://github.com/mkubecek/vmware-host-modules/archive/${MY_COMMIT}.tar.gz -> ${P}-${MY_COMMIT}.tar.gz"
-S="${WORKDIR}/vmware-host-modules-${MY_COMMIT}"
+SRC_URI=" https://github.com/bytium/vm-host-modules/archive/${MY_COMMIT}.tar.gz -> ${P}-${MY_COMMIT}.tar.gz"
+S="${WORKDIR}/vm-host-modules-${MY_COMMIT}"
 LICENSE="GPL-2"
 SLOT="0"
 KEYWORDS="~amd64"
@@ -29,10 +23,6 @@ RESTRICT="mirror"
 RDEPEND="
 	acct-group/vmware
 "
-
-PATCHES=(
-	"${FILESDIR}/vmware-modules-17.5.2-kernel-6.9.patch"
-)
 
 pkg_setup() {
 	CONFIG_CHECK="~HIGH_RES_TIMERS"

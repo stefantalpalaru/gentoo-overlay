@@ -1,9 +1,9 @@
 # Copyright 1999-2024 Gentoo Authors
 # Distributed under the terms of the GNU General Public License v2
 
-EAPI=7
+EAPI=8
 
-PYTHON_COMPAT=( python3_{10..13} )
+PYTHON_COMPAT=( python3_{10..13} python3_13t )
 inherit readme.gentoo-r1 pam python-any-r1 systemd xdg-utils
 
 MY_PN="VMware-Workstation"
@@ -11,8 +11,10 @@ MY_PV=$(ver_cut 1-3)
 PV_MODULES="${MY_PV}"
 PV_BUILD=$(ver_cut 4)
 MY_P="${MY_PN}-${MY_PV}-${PV_BUILD}"
+# Only Windows tools are present for Workstation 17.6.x, so we need to get the rest from older versions.
 VMWARE_FUSION_VER="13.5.2/23775688" # https://softwareupdate.vmware.com/cds/vmw-desktop/fusion/
 VMWARE_TOOLS_VER="12.4.0-23259341" # https://softwareupdate.vmware.com/cds/vmw-desktop/ws/${MY_PV}/${PV_BUILD}/linux/packages/
+VMWARE_TOOLS_VER_NEW="12.4.5-23787635" # https://softwareupdate.vmware.com/cds/vmw-desktop/ws/${MY_PV}/${PV_BUILD}/linux/packages/
 SYSTEMD_UNITS_TAG="gentoo-02"
 UNLOCKER_VERSION="3.0.5"
 
@@ -26,7 +28,7 @@ SRC_URI="
 	vmware-tools-solaris? ( https://softwareupdate.vmware.com/cds/vmw-desktop/ws/${MY_PV}/${PV_BUILD}/linux/packages/vmware-tools-solaris-${VMWARE_TOOLS_VER}.x86_64.component.tar )
 	vmware-tools-winPre2k? ( https://softwareupdate.vmware.com/cds/vmw-desktop/ws/${MY_PV}/${PV_BUILD}/linux/packages/vmware-tools-winPre2k-${VMWARE_TOOLS_VER}.x86_64.component.tar )
 	vmware-tools-winPreVista? ( https://softwareupdate.vmware.com/cds/vmw-desktop/ws/${MY_PV}/${PV_BUILD}/linux/packages/vmware-tools-winPreVista-${VMWARE_TOOLS_VER}.x86_64.component.tar )
-	vmware-tools-windows? ( https://softwareupdate.vmware.com/cds/vmw-desktop/ws/${MY_PV}/${PV_BUILD}/linux/packages/vmware-tools-windows-${VMWARE_TOOLS_VER}.x86_64.component.tar )
+	vmware-tools-windows? ( https://softwareupdate.vmware.com/cds/vmw-desktop/ws/${MY_PV}/${PV_BUILD}/linux/packages/vmware-tools-windows-${VMWARE_TOOLS_VER_NEW}.x86_64.component.tar )
 	macos-guests? (
 		https://github.com/paolo-projects/unlocker/archive/${UNLOCKER_VERSION}.tar.gz -> unlocker-${UNLOCKER_VERSION}.tar.gz
 		vmware-tools-darwinPre15? ( https://softwareupdate.vmware.com/cds/vmw-desktop/fusion/${VMWARE_FUSION_VER}/universal/core/com.vmware.fusion.zip.tar -> com.vmware.fusion-${PV}.zip.tar )
@@ -208,6 +210,10 @@ src_install() {
 		-e "s/@@VERSION@@/${vmware_installer_version}/" \
 		-e "s,@@VMWARE_INSTALLER@@,${VM_INSTALL_DIR}/lib/vmware-installer/${vmware_installer_version}," \
 		"${ED}/etc/vmware-installer/bootstrap" || die
+
+	# fix libxcb incompatibility
+	rm -rf "${ED}${VM_INSTALL_DIR}"/lib/vmware/lib/libxcb.so.1
+	rm -rf "${ED}${VM_INSTALL_DIR}"/lib/vmware-installer/${vmware_installer_version}/cdsHelper/lib/libxcb.so.1
 
 	# install the ancillaries
 	insinto /usr
