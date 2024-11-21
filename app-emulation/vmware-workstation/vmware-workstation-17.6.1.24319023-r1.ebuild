@@ -8,12 +8,14 @@ inherit readme.gentoo-r1 pam python-any-r1 systemd xdg-utils
 
 MY_PN="VMware-Workstation"
 MY_PV=$(ver_cut 1-3)
+MY_PV_OLD="17.5.2"
 PV_MODULES="${MY_PV}"
 PV_BUILD=$(ver_cut 4)
+PV_BUILD_OLD="23775571"
 MY_P="${MY_PN}-${MY_PV}-${PV_BUILD}"
 # Only Windows tools are present for Workstation 17.6.x, so we need to get the rest from older versions.
 VMWARE_FUSION_VER="13.5.2/23775688" # https://softwareupdate.vmware.com/cds/vmw-desktop/fusion/
-VMWARE_TOOLS_VER="12.4.0-23259341" # https://softwareupdate.vmware.com/cds/vmw-desktop/ws/${MY_PV}/${PV_BUILD}/linux/packages/
+VMWARE_TOOLS_VER="12.4.0-23259341" # https://softwareupdate.vmware.com/cds/vmw-desktop/ws/${MY_PV_OLD}/${PV_BUILD_OLD}/linux/packages/
 VMWARE_TOOLS_VER_NEW="12.4.5-23787635" # https://softwareupdate.vmware.com/cds/vmw-desktop/ws/${MY_PV}/${PV_BUILD}/linux/packages/
 SYSTEMD_UNITS_TAG="gentoo-02"
 UNLOCKER_VERSION="3.0.5"
@@ -22,12 +24,12 @@ DESCRIPTION="Emulate a complete PC without the performance overhead of most emul
 HOMEPAGE="http://www.vmware.com/products/workstation/"
 SRC_URI="
 	https://softwareupdate.vmware.com/cds/vmw-desktop/ws/${MY_PV}/${PV_BUILD}/linux/core/${MY_P}.x86_64.bundle.tar
-	vmware-tools-linux? ( https://softwareupdate.vmware.com/cds/vmw-desktop/ws/${MY_PV}/${PV_BUILD}/linux/packages/vmware-tools-linux-${VMWARE_TOOLS_VER}.x86_64.component.tar )
-	vmware-tools-linuxPreGlibc25? ( https://softwareupdate.vmware.com/cds/vmw-desktop/ws/${MY_PV}/${PV_BUILD}/linux/packages/vmware-tools-linuxPreGlibc25-${VMWARE_TOOLS_VER}.x86_64.component.tar )
-	vmware-tools-netware? ( https://softwareupdate.vmware.com/cds/vmw-desktop/ws/${MY_PV}/${PV_BUILD}/linux/packages/vmware-tools-netware-${VMWARE_TOOLS_VER}.x86_64.component.tar )
-	vmware-tools-solaris? ( https://softwareupdate.vmware.com/cds/vmw-desktop/ws/${MY_PV}/${PV_BUILD}/linux/packages/vmware-tools-solaris-${VMWARE_TOOLS_VER}.x86_64.component.tar )
-	vmware-tools-winPre2k? ( https://softwareupdate.vmware.com/cds/vmw-desktop/ws/${MY_PV}/${PV_BUILD}/linux/packages/vmware-tools-winPre2k-${VMWARE_TOOLS_VER}.x86_64.component.tar )
-	vmware-tools-winPreVista? ( https://softwareupdate.vmware.com/cds/vmw-desktop/ws/${MY_PV}/${PV_BUILD}/linux/packages/vmware-tools-winPreVista-${VMWARE_TOOLS_VER}.x86_64.component.tar )
+	vmware-tools-linux? ( https://softwareupdate.vmware.com/cds/vmw-desktop/ws/${MY_PV_OLD}/${PV_BUILD_OLD}/linux/packages/vmware-tools-linux-${VMWARE_TOOLS_VER}.x86_64.component.tar )
+	vmware-tools-linuxPreGlibc25? ( https://softwareupdate.vmware.com/cds/vmw-desktop/ws/${MY_PV_OLD}/${PV_BUILD_OLD}/linux/packages/vmware-tools-linuxPreGlibc25-${VMWARE_TOOLS_VER}.x86_64.component.tar )
+	vmware-tools-netware? ( https://softwareupdate.vmware.com/cds/vmw-desktop/ws/${MY_PV_OLD}/${PV_BUILD_OLD}/linux/packages/vmware-tools-netware-${VMWARE_TOOLS_VER}.x86_64.component.tar )
+	vmware-tools-solaris? ( https://softwareupdate.vmware.com/cds/vmw-desktop/ws/${MY_PV_OLD}/${PV_BUILD_OLD}/linux/packages/vmware-tools-solaris-${VMWARE_TOOLS_VER}.x86_64.component.tar )
+	vmware-tools-winPre2k? ( https://softwareupdate.vmware.com/cds/vmw-desktop/ws/${MY_PV_OLD}/${PV_BUILD_OLD}/linux/packages/vmware-tools-winPre2k-${VMWARE_TOOLS_VER}.x86_64.component.tar )
+	vmware-tools-winPreVista? ( https://softwareupdate.vmware.com/cds/vmw-desktop/ws/${MY_PV_OLD}/${PV_BUILD_OLD}/linux/packages/vmware-tools-winPreVista-${VMWARE_TOOLS_VER}.x86_64.component.tar )
 	vmware-tools-windows? ( https://softwareupdate.vmware.com/cds/vmw-desktop/ws/${MY_PV}/${PV_BUILD}/linux/packages/vmware-tools-windows-${VMWARE_TOOLS_VER_NEW}.x86_64.component.tar )
 	macos-guests? (
 		https://github.com/paolo-projects/unlocker/archive/${UNLOCKER_VERSION}.tar.gz -> unlocker-${UNLOCKER_VERSION}.tar.gz
