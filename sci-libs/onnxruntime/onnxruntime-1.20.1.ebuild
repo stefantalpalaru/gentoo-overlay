@@ -29,7 +29,7 @@ SRC_URI="
 "
 
 LICENSE="MIT"
-SLOT="0"
+SLOT="0/${PV}"
 KEYWORDS="~amd64"
 CPU_FLAGS="cpu_flags_x86_avx cpu_flags_x86_avx2 cpu_flags_x86_avx512f"
 IUSE="benchmark cuda onednn cudnn debug hip +python migraphx +mpi mimalloc lto test tensorrt llvm xnnpack
@@ -108,6 +108,7 @@ PATCHES=(
 	"${FILESDIR}/onnxruntime-1.19.0-abseil.patch"
 	"${FILESDIR}/onnxruntime-1.19.0-eigen.patch"
 	"${FILESDIR}/onnxruntime-1.20.0-cudnn_frontend.patch"
+	"${FILESDIR}/onnxruntime-1.20.1-memcpy.patch"
 )
 
 pkg_setup() {
