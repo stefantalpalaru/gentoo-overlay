@@ -1,13 +1,12 @@
 app-admin/conky
-app-emulation/playonlinux
 app-misc/yworklog
 app-office/upwork
 app-text/calibre
 dev-db/metakit
 dev-lang/php
 dev-libs/openssl
-dev-python/PyZilla
-dev-python/RecSQL
+dev-python/pyzilla
+dev-python/recsql
 dev-python/amqplib
 dev-python/anyjson
 dev-python/anyvc
@@ -84,7 +83,7 @@ dev-python/lp_solve
 dev-python/lupy
 dev-python/m2r
 dev-python/m2secret
-dev-python/matplotlib-python2
+dev-python/matplotlib
 dev-python/mocker
 dev-python/mwlib-ext
 dev-python/mysql-python
@@ -93,8 +92,7 @@ dev-python/newt_syrup
 dev-python/nose
 dev-python/nose-cover3
 dev-python/nose-testconfig
-dev-python/numdisplay
-dev-python/numpy-python2
+dev-python/numpy
 dev-python/optcomplete
 dev-python/os-networksv2-python-novaclient-ext
 dev-python/os-virtual-interfacesv2-python-novaclient-ext
@@ -106,7 +104,7 @@ dev-python/pkipplib
 dev-python/pp
 dev-python/py-notify
 dev-python/py-smbpasswd
-dev-python/pyPdf
+dev-python/pypdf
 dev-python/pyamf
 dev-python/pyao
 dev-python/pycdf
@@ -158,7 +156,7 @@ dev-python/ropeide
 dev-python/ropemacs
 dev-python/sancho
 dev-python/scandir
-dev-python/scipy-python2
+dev-python/scipy
 dev-python/sclapp
 dev-python/simples3
 dev-python/simplesettings
@@ -205,7 +203,6 @@ net-misc/ssvnc
 net-p2p/pybitmessage
 net-print/pykota
 sci-astronomy/casacore
-sci-libs/scikits
 sci-mathematics/xmds
 x11-libs/pangox-compat
 x11-misc/magick-rotation

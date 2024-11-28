@@ -1,2 +1,2 @@
 # doesn't work with pygtk:2
-dev-python/matplotlib-python2 gtk2
+dev-python/matplotlib gtk2

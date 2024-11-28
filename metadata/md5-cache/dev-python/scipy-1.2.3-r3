@@ -1,0 +1,17 @@
+BDEPEND=virtual/fortran python_targets_python2_7? ( dev-lang/python:2.7[threads(+)] ) >=dev-python/setuptools-42.0.2[python_targets_python2_7(-)?]
+DEFINED_PHASES=compile configure install postinst prepare setup test
+DEPEND=|| ( >=dev-python/numpy-1.10:python2[lapack,python_targets_python2_7(-)?] >=dev-python/numpy-1.10[lapack,python_targets_python2_7(-)?] ) sci-libs/arpack:0= virtual/cblas virtual/lapack sparse? ( sci-libs/umfpack:0= ) dev-lang/swig >=dev-python/cython-0.22[python_targets_python2_7(-)?] >=dev-python/setuptools-36[python_targets_python2_7(-)?] virtual/pkgconfig test? ( dev-python/nose[python_targets_python2_7(-)?] dev-python/pytest[python_targets_python2_7(-)?] ) virtual/fortran
+DESCRIPTION=Scientific algorithms library for Python (py2 version)
+EAPI=8
+HOMEPAGE=https://www.scipy.org/
+INHERIT=fortran-2 distutils-r1 flag-o-matic pypi toolchain-funcs
+IUSE=sparse test python_targets_python2_7
+KEYWORDS=~amd64 ~arm ~ppc ~ppc64 ~x86 ~amd64-linux ~x86-linux ~ppc-macos
+LICENSE=BSD LGPL-2
+RDEPEND=|| ( >=dev-python/numpy-1.10:python2[lapack,python_targets_python2_7(-)?] >=dev-python/numpy-1.10[lapack,python_targets_python2_7(-)?] ) sci-libs/arpack:0= virtual/cblas virtual/lapack sparse? ( sci-libs/umfpack:0= ) dev-python/pillow[python_targets_python2_7(-)?] virtual/fortran python_targets_python2_7? ( dev-lang/python:2.7[threads(+)] )
+REQUIRED_USE=|| ( python_targets_python2_7 )
+RESTRICT=!test? ( test )
+SLOT=python2
+SRC_URI=https://files.pythonhosted.org/packages/source/s/scipy/scipy-1.2.3.tar.gz
+_eclasses_=toolchain-funcs	d3d42b22a610ce81c267b644bcec9b87	multilib	b2a329026f2e404e9e371097dda47f96	fortran-2	54fcb693257134adae26819685891ecc	out-of-source-utils	dbf9e34ee8964084651e25907fa8f52c	multibuild	4650a65187015567b4e041bb9bfdb364	multiprocessing	1e32df7deee68372153dca65f4a7c21f	python-utils-r1	2005a06234063e6815028c5db214aa3f	python-r1	2d51fd03931e743811ce30d198e4dcfd	distutils-r1	e58d3ed262e4b32d6d1966bd66e941cc	flag-o-matic	f14aba975c94ccaa9f357a27e3b17ffe	pypi	ad1b21f87d117ae9bb089bdb65b8f013
+_md5_=dd7773b0e087be99000d6f35a1d4bb00

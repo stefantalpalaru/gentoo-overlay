@@ -1,0 +1,17 @@
+BDEPEND=python_targets_python2_7? ( dev-lang/python:2.7 ) >=dev-python/setuptools-42.0.2[python_targets_python2_7(-)?]
+DEFINED_PHASES=compile configure install prepare test
+DEPEND=dev-python/setuptools[python_targets_python2_7(-)?] >=dev-python/pbr-2.0.0:python2[python_targets_python2_7(-)?] !~dev-python/pbr-2.1.0:python2
+DESCRIPTION=Client Library for OpenStack Identity
+EAPI=8
+HOMEPAGE=https://www.openstack.org/ https://github.com/openstack/python-keystoneclient
+INHERIT=distutils-r1 pypi
+IUSE=python_targets_python2_7
+KEYWORDS=amd64 ~arm64 x86 ~amd64-linux ~x86-linux
+LICENSE=Apache-2.0
+RDEPEND=>=dev-python/pbr-2.0.0:python2[python_targets_python2_7(-)?] !~dev-python/pbr-2.1.0:python2 >=dev-python/debtcollector-1.2.0[python_targets_python2_7(-)?] >=dev-python/keystoneauth1-3.4.0[python_targets_python2_7(-)?] >=dev-python/oslo-config-5.2.0[python_targets_python2_7(-)?] >=dev-python/oslo-i18n-3.15.3[python_targets_python2_7(-)?] >=dev-python/oslo-serialization-1.18.0[python_targets_python2_7(-)?] !~dev-python/oslo-serialization-2.19.1[python_targets_python2_7(-)?] >=dev-python/oslo-utils-3.33.0[python_targets_python2_7(-)?] >=dev-python/requests-2.14.2[python_targets_python2_7(-)?] >=dev-python/six-1.10.0[python_targets_python2_7(-)?] >=dev-python/stevedore-1.20.0[python_targets_python2_7(-)?] !<dev-python/python-keystoneclient-3.22.0-r200[python_targets_python2_7(-)?] python_targets_python2_7? ( dev-lang/python:2.7 )
+REQUIRED_USE=|| ( python_targets_python2_7 )
+RESTRICT=test
+SLOT=python2
+SRC_URI=https://files.pythonhosted.org/packages/source/p/python-keystoneclient/python-keystoneclient-3.22.0.tar.gz
+_eclasses_=out-of-source-utils	dbf9e34ee8964084651e25907fa8f52c	multibuild	4650a65187015567b4e041bb9bfdb364	multiprocessing	1e32df7deee68372153dca65f4a7c21f	toolchain-funcs	d3d42b22a610ce81c267b644bcec9b87	multilib	b2a329026f2e404e9e371097dda47f96	python-utils-r1	2005a06234063e6815028c5db214aa3f	python-r1	2d51fd03931e743811ce30d198e4dcfd	distutils-r1	e58d3ed262e4b32d6d1966bd66e941cc	pypi	ad1b21f87d117ae9bb089bdb65b8f013
+_md5_=f5c00b47c047a803396099cdf220dd98

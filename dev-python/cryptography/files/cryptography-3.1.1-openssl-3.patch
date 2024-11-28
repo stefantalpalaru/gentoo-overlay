@@ -1,0 +1,358 @@
+diff '--color=auto' -urN cryptography-3.1.1.orig/src/_cffi_src/build_openssl.py cryptography-3.1.1/src/_cffi_src/build_openssl.py
+--- cryptography-3.1.1.orig/src/_cffi_src/build_openssl.py	2020-09-22 18:54:27.000000000 +0200
++++ cryptography-3.1.1/src/_cffi_src/build_openssl.py	2024-11-28 16:08:12.100840310 +0100
+@@ -108,6 +108,7 @@
+         "osrandom_engine",
+         "pem",
+         "pkcs12",
++        "provider",
+         "rand",
+         "rsa",
+         "ssl",
+diff '--color=auto' -urN cryptography-3.1.1.orig/src/_cffi_src/openssl/cryptography.py cryptography-3.1.1/src/_cffi_src/openssl/cryptography.py
+--- cryptography-3.1.1.orig/src/_cffi_src/openssl/cryptography.py	2020-09-22 18:54:27.000000000 +0200
++++ cryptography-3.1.1/src/_cffi_src/openssl/cryptography.py	2024-11-28 16:08:12.100840310 +0100
+@@ -41,6 +41,8 @@
+     (OPENSSL_VERSION_NUMBER >= 0x10100000 && !CRYPTOGRAPHY_IS_LIBRESSL)
+ #define CRYPTOGRAPHY_OPENSSL_110F_OR_GREATER \
+     (OPENSSL_VERSION_NUMBER >= 0x1010006f && !CRYPTOGRAPHY_IS_LIBRESSL)
++#define CRYPTOGRAPHY_OPENSSL_300_OR_GREATER \
++    (OPENSSL_VERSION_NUMBER >= 0x30000000 && !CRYPTOGRAPHY_IS_LIBRESSL)
+ 
+ #define CRYPTOGRAPHY_OPENSSL_LESS_THAN_102I \
+     (OPENSSL_VERSION_NUMBER < 0x1000209f || CRYPTOGRAPHY_IS_LIBRESSL)
+@@ -67,6 +69,7 @@
+ static const int CRYPTOGRAPHY_OPENSSL_102U_OR_GREATER;
+ static const int CRYPTOGRAPHY_OPENSSL_110_OR_GREATER;
+ static const int CRYPTOGRAPHY_OPENSSL_110F_OR_GREATER;
++static const int CRYPTOGRAPHY_OPENSSL_300_OR_GREATER;
+ 
+ static const int CRYPTOGRAPHY_OPENSSL_LESS_THAN_102I;
+ static const int CRYPTOGRAPHY_OPENSSL_LESS_THAN_110;
+diff '--color=auto' -urN cryptography-3.1.1.orig/src/_cffi_src/openssl/err.py cryptography-3.1.1/src/_cffi_src/openssl/err.py
+--- cryptography-3.1.1.orig/src/_cffi_src/openssl/err.py	2020-09-22 18:54:27.000000000 +0200
++++ cryptography-3.1.1/src/_cffi_src/openssl/err.py	2024-11-28 16:08:12.100840310 +0100
+@@ -19,6 +19,7 @@
+ 
+ static const int ERR_LIB_EVP;
+ static const int ERR_LIB_PEM;
++static const int ERR_LIB_PROV;
+ static const int ERR_LIB_ASN1;
+ static const int ERR_LIB_PKCS12;
+ 
+@@ -46,4 +47,9 @@
+ """
+ 
+ CUSTOMIZATIONS = """
++/* This define is tied to provider support and is conditionally
++   removed if Cryptography_HAS_PROVIDERS is false */
++#ifndef ERR_LIB_PROV
++#define ERR_LIB_PROV 0
++#endif
+ """
+diff '--color=auto' -urN cryptography-3.1.1.orig/src/_cffi_src/openssl/fips.py cryptography-3.1.1/src/_cffi_src/openssl/fips.py
+--- cryptography-3.1.1.orig/src/_cffi_src/openssl/fips.py	2020-09-22 18:54:27.000000000 +0200
++++ cryptography-3.1.1/src/_cffi_src/openssl/fips.py	2024-11-28 16:08:12.100840310 +0100
+@@ -18,7 +18,7 @@
+ """
+ 
+ CUSTOMIZATIONS = """
+-#if CRYPTOGRAPHY_IS_LIBRESSL
++#if CRYPTOGRAPHY_IS_LIBRESSL || CRYPTOGRAPHY_OPENSSL_300_OR_GREATER
+ static const long Cryptography_HAS_FIPS = 0;
+ int (*FIPS_mode_set)(int) = NULL;
+ int (*FIPS_mode)(void) = NULL;
+diff '--color=auto' -urN cryptography-3.1.1.orig/src/_cffi_src/openssl/provider.py cryptography-3.1.1/src/_cffi_src/openssl/provider.py
+--- cryptography-3.1.1.orig/src/_cffi_src/openssl/provider.py	1970-01-01 01:00:00.000000000 +0100
++++ cryptography-3.1.1/src/_cffi_src/openssl/provider.py	2024-11-28 16:08:12.100840310 +0100
+@@ -0,0 +1,40 @@
++# This file is dual licensed under the terms of the Apache License, Version
++# 2.0, and the BSD License. See the LICENSE file in the root of this repository
++# for complete details.
++
++
++INCLUDES = """
++#if CRYPTOGRAPHY_OPENSSL_300_OR_GREATER
++#include <openssl/provider.h>
++#include <openssl/proverr.h>
++#endif
++"""
++
++TYPES = """
++static const long Cryptography_HAS_PROVIDERS;
++
++typedef ... OSSL_PROVIDER;
++typedef ... OSSL_LIB_CTX;
++
++static const long PROV_R_BAD_DECRYPT;
++static const long PROV_R_WRONG_FINAL_BLOCK_LENGTH;
++"""
++
++FUNCTIONS = """
++OSSL_PROVIDER *OSSL_PROVIDER_load(OSSL_LIB_CTX *, const char *);
++int OSSL_PROVIDER_unload(OSSL_PROVIDER *prov);
++"""
++
++CUSTOMIZATIONS = """
++#if CRYPTOGRAPHY_OPENSSL_300_OR_GREATER
++static const long Cryptography_HAS_PROVIDERS = 1;
++#else
++static const long Cryptography_HAS_PROVIDERS = 0;
++typedef void OSSL_PROVIDER;
++typedef void OSSL_LIB_CTX;
++static const long PROV_R_BAD_DECRYPT = 0;
++static const long PROV_R_WRONG_FINAL_BLOCK_LENGTH = 0;
++OSSL_PROVIDER *(*OSSL_PROVIDER_load)(OSSL_LIB_CTX *, const char *) = NULL;
++int (*OSSL_PROVIDER_unload)(OSSL_PROVIDER *) = NULL;
++#endif
++"""
+diff '--color=auto' -urN cryptography-3.1.1.orig/src/_cffi_src/openssl/rsa.py cryptography-3.1.1/src/_cffi_src/openssl/rsa.py
+--- cryptography-3.1.1.orig/src/_cffi_src/openssl/rsa.py	2020-09-22 18:54:27.000000000 +0200
++++ cryptography-3.1.1/src/_cffi_src/openssl/rsa.py	2024-11-28 16:09:09.330553039 +0100
+@@ -50,21 +50,8 @@
+ 
+ CUSTOMIZATIONS = """
+ static const long Cryptography_HAS_PSS_PADDING = 1;
+-
+-#if defined(EVP_PKEY_CTX_set_rsa_oaep_md)
+ static const long Cryptography_HAS_RSA_OAEP_MD = 1;
+-#else
+-static const long Cryptography_HAS_RSA_OAEP_MD = 0;
+-int (*EVP_PKEY_CTX_set_rsa_oaep_md)(EVP_PKEY_CTX *, EVP_MD *) = NULL;
+-#endif
+-
+-#if defined(EVP_PKEY_CTX_set0_rsa_oaep_label)
+ static const long Cryptography_HAS_RSA_OAEP_LABEL = 1;
+-#else
+-static const long Cryptography_HAS_RSA_OAEP_LABEL = 0;
+-int (*EVP_PKEY_CTX_set0_rsa_oaep_label)(EVP_PKEY_CTX *, unsigned char *,
+-                                        int) = NULL;
+-#endif
+ 
+ /* These functions were added in OpenSSL 1.1.0 */
+ #if CRYPTOGRAPHY_OPENSSL_LESS_THAN_110 && !CRYPTOGRAPHY_IS_LIBRESSL
+diff '--color=auto' -urN cryptography-3.1.1.orig/src/cryptography/hazmat/backends/openssl/backend.py cryptography-3.1.1/src/cryptography/hazmat/backends/openssl/backend.py
+--- cryptography-3.1.1.orig/src/cryptography/hazmat/backends/openssl/backend.py	2020-09-22 18:54:32.000000000 +0200
++++ cryptography-3.1.1/src/cryptography/hazmat/backends/openssl/backend.py	2024-11-28 16:08:12.100840310 +0100
+@@ -1308,6 +1308,11 @@
+     def _evp_pkey_from_der_traditional_key(self, bio_data, password):
+         key = self._lib.d2i_PrivateKey_bio(bio_data.bio, self._ffi.NULL)
+         if key != self._ffi.NULL:
++            # In OpenSSL 3.0.0-alpha15 there exist scenarios where the key will
++            # successfully load but errors are still put on the stack. Tracked
++            # as https://github.com/openssl/openssl/issues/14996
++            self._consume_errors()
++
+             key = self._ffi.gc(key, self._lib.EVP_PKEY_free)
+             if password is not None:
+                 raise TypeError(
+@@ -1473,6 +1478,11 @@
+             else:
+                 self._handle_key_loading_error()
+ 
++        # In OpenSSL 3.0.0-alpha15 there exist scenarios where the key will
++        # successfully load but errors are still put on the stack. Tracked
++        # as https://github.com/openssl/openssl/issues/14996
++        self._consume_errors()
++
+         evp_pkey = self._ffi.gc(evp_pkey, self._lib.EVP_PKEY_free)
+ 
+         if password is not None and userdata.called == 0:
+@@ -1492,11 +1502,21 @@
+         if not errors:
+             raise ValueError("Could not deserialize key data.")
+ 
+-        elif errors[0]._lib_reason_match(
+-            self._lib.ERR_LIB_EVP, self._lib.EVP_R_BAD_DECRYPT
+-        ) or errors[0]._lib_reason_match(
+-            self._lib.ERR_LIB_PKCS12,
+-            self._lib.PKCS12_R_PKCS12_CIPHERFINAL_ERROR,
++        elif (
++            errors[0]._lib_reason_match(
++                self._lib.ERR_LIB_EVP, self._lib.EVP_R_BAD_DECRYPT
++            )
++            or errors[0]._lib_reason_match(
++                self._lib.ERR_LIB_PKCS12,
++                self._lib.PKCS12_R_PKCS12_CIPHERFINAL_ERROR,
++            )
++            or (
++                self._lib.Cryptography_HAS_PROVIDERS
++                and errors[0]._lib_reason_match(
++                    self._lib.ERR_LIB_PROV,
++                    self._lib.PROV_R_BAD_DECRYPT,
++                )
++            )
+         ):
+             raise ValueError("Bad decrypt. Incorrect password?")
+ 
+@@ -2557,7 +2577,13 @@
+         if sk_x509_ptr[0] != self._ffi.NULL:
+             sk_x509 = self._ffi.gc(sk_x509_ptr[0], self._lib.sk_X509_free)
+             num = self._lib.sk_X509_num(sk_x509_ptr[0])
+-            for i in range(num):
++
++            if self._lib.CRYPTOGRAPHY_OPENSSL_300_OR_GREATER:
++                indices = range(num)
++            else:
++                indices = reversed(range(num))
++
++            for i in indices:
+                 x509 = self._lib.sk_X509_value(sk_x509, i)
+                 self.openssl_assert(x509 != self._ffi.NULL)
+                 x509 = self._ffi.gc(x509, self._lib.X509_free)
+diff '--color=auto' -urN cryptography-3.1.1.orig/src/cryptography/hazmat/backends/openssl/ciphers.py cryptography-3.1.1/src/cryptography/hazmat/backends/openssl/ciphers.py
+--- cryptography-3.1.1.orig/src/cryptography/hazmat/backends/openssl/ciphers.py	2020-09-22 18:54:27.000000000 +0200
++++ cryptography-3.1.1/src/cryptography/hazmat/backends/openssl/ciphers.py	2024-11-28 16:08:12.100840310 +0100
+@@ -146,6 +146,10 @@
+             res = self._backend._lib.EVP_CipherUpdate(
+                 self._ctx, outbuf, outlen, inbuf, inlen
+             )
++
++            if res == 0:
++                self._backend._consume_errors()
++
+             self._backend.openssl_assert(res != 0)
+             data_processed += inlen
+             total_out += outlen[0]
+@@ -175,6 +179,13 @@
+                 errors[0]._lib_reason_match(
+                     self._backend._lib.ERR_LIB_EVP,
+                     self._backend._lib.EVP_R_DATA_NOT_MULTIPLE_OF_BLOCK_LENGTH,
++                )
++                or (
++                    self._backend._lib.Cryptography_HAS_PROVIDERS
++                    and errors[0]._lib_reason_match(
++                        self._backend._lib.ERR_LIB_PROV,
++                        self._backend._lib.PROV_R_WRONG_FINAL_BLOCK_LENGTH,
++                    )
+                 ),
+                 errors=errors,
+             )
+diff '--color=auto' -urN cryptography-3.1.1.orig/src/cryptography/hazmat/bindings/openssl/binding.py cryptography-3.1.1/src/cryptography/hazmat/bindings/openssl/binding.py
+--- cryptography-3.1.1.orig/src/cryptography/hazmat/bindings/openssl/binding.py	2020-09-22 18:54:32.000000000 +0200
++++ cryptography-3.1.1/src/cryptography/hazmat/bindings/openssl/binding.py	2024-11-28 16:08:12.100840310 +0100
+@@ -115,6 +115,8 @@
+     _lib_loaded = False
+     _init_lock = threading.Lock()
+     _lock_init_lock = threading.Lock()
++    _legacy_provider = None
++    _default_provider = None
+ 
+     def __init__(self):
+         self._ensure_ffi_initialized()
+@@ -144,6 +146,24 @@
+                 # loads error strings for libcrypto and libssl functions
+                 cls.lib.SSL_load_error_strings()
+                 cls._register_osrandom_engine()
++                # As of OpenSSL 3.0.0 we must register a legacy cipher provider
++                # to get RC2 (needed for junk asymmetric private key
++                # serialization), RC4, Blowfish, IDEA, SEED, etc. These things
++                # are ugly legacy, but we aren't going to get rid of them
++                # any time soon.
++                if cls.lib.CRYPTOGRAPHY_OPENSSL_300_OR_GREATER:
++                    cls._legacy_provider = cls.lib.OSSL_PROVIDER_load(
++                        cls.ffi.NULL, b"legacy"
++                    )
++                    _openssl_assert(
++                        cls.lib, cls._legacy_provider != cls.ffi.NULL
++                    )
++                    cls._default_provider = cls.lib.OSSL_PROVIDER_load(
++                        cls.ffi.NULL, b"default"
++                    )
++                    _openssl_assert(
++                        cls.lib, cls._default_provider != cls.ffi.NULL
++                    )
+ 
+     @classmethod
+     def init_static_locks(cls):
+diff '--color=auto' -urN cryptography-3.1.1.orig/src/cryptography/hazmat/bindings/openssl/_conditional.py cryptography-3.1.1/src/cryptography/hazmat/bindings/openssl/_conditional.py
+--- cryptography-3.1.1.orig/src/cryptography/hazmat/bindings/openssl/_conditional.py	2020-09-22 18:54:32.000000000 +0200
++++ cryptography-3.1.1/src/cryptography/hazmat/bindings/openssl/_conditional.py	2024-11-28 16:08:12.100840310 +0100
+@@ -287,6 +287,16 @@
+     ]
+ 
+ 
++def cryptography_has_providers():
++    return [
++        "OSSL_PROVIDER_load",
++        "OSSL_PROVIDER_unload",
++        "ERR_LIB_PROV",
++        "PROV_R_WRONG_FINAL_BLOCK_LENGTH",
++        "PROV_R_BAD_DECRYPT",
++    ]
++
++
+ # This is a mapping of
+ # {condition: function-returning-names-dependent-on-that-condition} so we can
+ # loop over them and delete unsupported names at runtime. It will be removed
+@@ -338,4 +348,5 @@
+     "Cryptography_HAS_ENGINE": cryptography_has_engine,
+     "Cryptography_HAS_VERIFIED_CHAIN": cryptography_has_verified_chain,
+     "Cryptography_HAS_SRTP": cryptography_has_srtp,
++    "Cryptography_HAS_PROVIDERS": cryptography_has_providers,
+ }
+diff '--color=auto' -urN cryptography-3.1.1.orig/tests/hazmat/backends/test_openssl_memleak.py cryptography-3.1.1/tests/hazmat/backends/test_openssl_memleak.py
+--- cryptography-3.1.1.orig/tests/hazmat/backends/test_openssl_memleak.py	2020-09-22 18:54:27.000000000 +0200
++++ cryptography-3.1.1/tests/hazmat/backends/test_openssl_memleak.py	2024-11-28 16:08:12.100840310 +0100
+@@ -83,7 +83,7 @@
+     assert result == 1
+ 
+     # Trigger a bunch of initialization stuff.
+-    import cryptography.hazmat.backends.openssl
++    from cryptography.hazmat.backends.openssl.backend import backend
+ 
+     start_heap = set(heap)
+ 
+@@ -92,6 +92,10 @@
+     gc.collect()
+     gc.collect()
+ 
++    if lib.CRYPTOGRAPHY_OPENSSL_300_OR_GREATER:
++        lib.OSSL_PROVIDER_unload(backend._binding._legacy_provider)
++        lib.OSSL_PROVIDER_unload(backend._binding._default_provider)
++
+     if lib.Cryptography_HAS_OPENSSL_CLEANUP:
+         lib.OPENSSL_cleanup()
+ 
+diff '--color=auto' -urN cryptography-3.1.1.orig/tests/hazmat/bindings/test_openssl.py cryptography-3.1.1/tests/hazmat/bindings/test_openssl.py
+--- cryptography-3.1.1.orig/tests/hazmat/bindings/test_openssl.py	2020-09-22 18:54:32.000000000 +0200
++++ cryptography-3.1.1/tests/hazmat/bindings/test_openssl.py	2024-11-28 16:08:12.100840310 +0100
+@@ -104,7 +104,9 @@
+             _openssl_assert(b.lib, False)
+ 
+         error = exc_info.value.err_code[0]
+-        assert error.code == 101183626
++        # As of 3.0.0 OpenSSL sets func codes to 0, so the combined
++        # code is a different value
++        assert error.code in (101183626, 50331786)
+         assert error.lib == b.lib.ERR_LIB_EVP
+         assert error.func == b.lib.EVP_F_EVP_ENCRYPTFINAL_EX
+         assert error.reason == b.lib.EVP_R_DATA_NOT_MULTIPLE_OF_BLOCK_LENGTH
+diff '--color=auto' -urN cryptography-3.1.1.orig/tests/hazmat/primitives/test_dh.py cryptography-3.1.1/tests/hazmat/primitives/test_dh.py
+--- cryptography-3.1.1.orig/tests/hazmat/primitives/test_dh.py	2020-09-22 18:54:27.000000000 +0200
++++ cryptography-3.1.1/tests/hazmat/primitives/test_dh.py	2024-11-28 16:08:12.100840310 +0100
+@@ -155,6 +155,24 @@
+         params = dh.DHParameterNumbers(p, int(vector["g"]))
+         param = params.parameters(backend)
+         key = param.generate_private_key()
++        # In OpenSSL 3.0.0 OpenSSL maps to known groups. This results in
++        # a scenario where loading a known group with p and g returns a
++        # re-serialized form that has q as well (the Sophie Germain prime of
++        # that group). This makes a naive comparison of the parameter numbers
++        # objects fail, so we have to be a bit smarter
++        serialized_params = (
++            key.private_numbers().public_numbers.parameter_numbers
++        )
++        if serialized_params.q is None:
++            # This is the path OpenSSL < 3.0 takes
++            assert serialized_params == params
++        else:
++            assert serialized_params.p == params.p
++            assert serialized_params.g == params.g
++            # p = 2q + 1 since it is a Sophie Germain prime, so we can compute
++            # what we expect OpenSSL to have done here.
++            assert serialized_params.q == (params.p - 1) // 2
++
+         # This confirms that a key generated with this group
+         # will pass DH_check when we serialize and de-serialize it via
+         # the Numbers path.

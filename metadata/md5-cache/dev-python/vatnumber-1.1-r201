@@ -1,0 +1,17 @@
+BDEPEND=python_targets_python2_7? ( dev-lang/python:2.7 ) >=dev-python/setuptools-42.0.2[python_targets_python2_7(-)?]
+DEFINED_PHASES=compile configure install prepare test
+DEPEND=vies? ( dev-python/suds-community:python2[python_targets_python2_7(-)?] ) !<dev-python/vatnumber-1.1-r200[python_targets_python2_7(-)?] dev-python/setuptools[python_targets_python2_7(-)?] test? ( dev-python/suds-community[python_targets_python2_7(-)?] )
+DESCRIPTION=Module to validate VAT numbers
+EAPI=8
+HOMEPAGE=https://pypi.org/project/vatnumber/
+INHERIT=distutils-r1 pypi
+IUSE=test vies python_targets_python2_7
+KEYWORDS=~amd64 ~x86
+LICENSE=GPL-3
+RDEPEND=vies? ( dev-python/suds-community:python2[python_targets_python2_7(-)?] ) !<dev-python/vatnumber-1.1-r200[python_targets_python2_7(-)?] python_targets_python2_7? ( dev-lang/python:2.7 )
+REQUIRED_USE=|| ( python_targets_python2_7 )
+RESTRICT=!test? ( test )
+SLOT=python2
+SRC_URI=https://files.pythonhosted.org/packages/source/v/vatnumber/vatnumber-1.1.tar.gz
+_eclasses_=out-of-source-utils	dbf9e34ee8964084651e25907fa8f52c	multibuild	4650a65187015567b4e041bb9bfdb364	multiprocessing	1e32df7deee68372153dca65f4a7c21f	toolchain-funcs	d3d42b22a610ce81c267b644bcec9b87	multilib	b2a329026f2e404e9e371097dda47f96	python-utils-r1	2005a06234063e6815028c5db214aa3f	python-r1	2d51fd03931e743811ce30d198e4dcfd	distutils-r1	e58d3ed262e4b32d6d1966bd66e941cc	pypi	ad1b21f87d117ae9bb089bdb65b8f013
+_md5_=e789579253ea2e0fdb9e2963ebe4d21d

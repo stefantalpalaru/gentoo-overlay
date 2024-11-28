@@ -1,0 +1,17 @@
+BDEPEND=python_targets_python2_7? ( dev-lang/python:2.7 ) >=dev-python/setuptools-42.0.2[python_targets_python2_7(-)?]
+DEFINED_PHASES=compile configure install postinst postrm prepare test
+DEPEND=>=dev-python/cbor-1.0.0:python2[python_targets_python2_7(-)?] >=dev-python/lz4-0.7.0:python2[python_targets_python2_7(-)?] >=dev-python/py-ubjson-0.8.4:python2[python_targets_python2_7(-)?] >=dev-python/six-1.10.0:python2[python_targets_python2_7(-)?] >=dev-python/python-snappy-0.5:python2[python_targets_python2_7(-)?] >=dev-python/twisted-16.6.0-r2:python2[python_targets_python2_7(-)?] >=dev-python/txaio-2.7.0:python2[python_targets_python2_7(-)?] >=dev-python/u-msgpack-python-2.1:python2[python_targets_python2_7(-)?] >=dev-python/wsaccel-0.6.2:python2[python_targets_python2_7(-)?] >=dev-python/zope-interface-3.6:python2[python_targets_python2_7(-)?] crypt? ( >=dev-python/pyopenssl-16.2.0:python2[python_targets_python2_7(-)?] >=dev-python/pynacl-1.0.1:python2[python_targets_python2_7(-)?] >=dev-python/pytrie-0.2:python2[python_targets_python2_7(-)?] >=dev-python/pyqrcode-1.1.0:python2[python_targets_python2_7(-)?] >=dev-python/service-identity-16.0.0:python2[python_targets_python2_7(-)?] ) !<dev-python/autobahn-19.11.2-r200[python_targets_python2_7(-)?] test? ( dev-python/mock[python_targets_python2_7(-)?] dev-python/pytest[python_targets_python2_7(-)?] )
+DESCRIPTION=WebSocket and WAMP for Twisted and Asyncio
+EAPI=8
+HOMEPAGE=https://pypi.org/project/autobahn/ https://crossbar.io/autobahn/ https://github.com/crossbario/autobahn-python
+INHERIT=distutils-r1 pypi
+IUSE=crypt test python_targets_python2_7
+KEYWORDS=~amd64 ~arm ~arm64 ~x86 ~amd64-linux ~x86-linux
+LICENSE=MIT
+RDEPEND=>=dev-python/cbor-1.0.0:python2[python_targets_python2_7(-)?] >=dev-python/lz4-0.7.0:python2[python_targets_python2_7(-)?] >=dev-python/py-ubjson-0.8.4:python2[python_targets_python2_7(-)?] >=dev-python/six-1.10.0:python2[python_targets_python2_7(-)?] >=dev-python/python-snappy-0.5:python2[python_targets_python2_7(-)?] >=dev-python/twisted-16.6.0-r2:python2[python_targets_python2_7(-)?] >=dev-python/txaio-2.7.0:python2[python_targets_python2_7(-)?] >=dev-python/u-msgpack-python-2.1:python2[python_targets_python2_7(-)?] >=dev-python/wsaccel-0.6.2:python2[python_targets_python2_7(-)?] >=dev-python/zope-interface-3.6:python2[python_targets_python2_7(-)?] crypt? ( >=dev-python/pyopenssl-16.2.0:python2[python_targets_python2_7(-)?] >=dev-python/pynacl-1.0.1:python2[python_targets_python2_7(-)?] >=dev-python/pytrie-0.2:python2[python_targets_python2_7(-)?] >=dev-python/pyqrcode-1.1.0:python2[python_targets_python2_7(-)?] >=dev-python/service-identity-16.0.0:python2[python_targets_python2_7(-)?] ) !<dev-python/autobahn-19.11.2-r200[python_targets_python2_7(-)?] python_targets_python2_7? ( dev-lang/python:2.7 )
+REQUIRED_USE=|| ( python_targets_python2_7 )
+RESTRICT=!test? ( test )
+SLOT=python2
+SRC_URI=https://files.pythonhosted.org/packages/source/a/autobahn/autobahn-19.11.2.tar.gz
+_eclasses_=out-of-source-utils	dbf9e34ee8964084651e25907fa8f52c	multibuild	4650a65187015567b4e041bb9bfdb364	multiprocessing	1e32df7deee68372153dca65f4a7c21f	toolchain-funcs	d3d42b22a610ce81c267b644bcec9b87	multilib	b2a329026f2e404e9e371097dda47f96	python-utils-r1	2005a06234063e6815028c5db214aa3f	python-r1	2d51fd03931e743811ce30d198e4dcfd	distutils-r1	e58d3ed262e4b32d6d1966bd66e941cc	pypi	ad1b21f87d117ae9bb089bdb65b8f013
+_md5_=23686503f487dcd272ad76a373af12c3

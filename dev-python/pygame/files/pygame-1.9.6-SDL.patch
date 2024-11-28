@@ -1,0 +1,98 @@
+diff '--color=auto' -ur pygame-1.9.6.orig/src_c/scrap_x11.c pygame-1.9.6/src_c/scrap_x11.c
+--- pygame-1.9.6.orig/src_c/scrap_x11.c	2019-04-25 08:14:17.000000000 +0200
++++ pygame-1.9.6/src_c/scrap_x11.c	2024-11-28 13:12:09.663638668 +0100
+@@ -22,7 +22,7 @@
+ #include <X11/Xutil.h>
+ 
+ static Display *SDL_Display;
+-static Window SDL_Window;
++static Window my_SDL_Window;
+ static void (*Lock_Display)(void);
+ static void (*Unlock_Display)(void);
+ 
+@@ -148,7 +148,7 @@
+     tmp = Bytes_FromStringAndSize(data, srclen);
+     PyDict_SetItemString(dict, key, tmp);
+     Py_DECREF(tmp);
+-    XChangeProperty(SDL_Display, SDL_Window, clip, cliptype, 8,
++    XChangeProperty(SDL_Display, my_SDL_Window, clip, cliptype, 8,
+                     PropModeReplace, (unsigned char *)data, srclen);
+     free(key);
+ }
+@@ -465,7 +465,7 @@
+      * Flush afterwards, so we have an immediate effect and do not receive
+      * the old buffer anymore.
+      */
+-    XConvertSelection(SDL_Display, source, format, _atom_SDL, SDL_Window,
++    XConvertSelection(SDL_Display, source, format, _atom_SDL, my_SDL_Window,
+                       timestamp);
+     XSync(SDL_Display, False);
+ 
+@@ -473,7 +473,7 @@
+      * react upon it as soon as it is received.
+      */
+     for (start = time(0);;) {
+-        if (XCheckTypedWindowEvent(SDL_Display, SDL_Window, SelectionNotify,
++        if (XCheckTypedWindowEvent(SDL_Display, my_SDL_Window, SelectionNotify,
+                                    &ev))
+             break;
+         if (time(0) - start >= 5) {
+@@ -628,7 +628,7 @@
+             newattrs.event_mask = PropertyChangeMask;
+ 
+             SDL_Display = info.info.x11.display;
+-            SDL_Window = info.info.x11.window;
++            my_SDL_Window = info.info.x11.window;
+             Lock_Display = info.info.x11.lock_func;
+             Unlock_Display = info.info.x11.unlock_func;
+ 
+@@ -637,9 +637,9 @@
+             /* We need the PropertyNotify event for the timestap, so
+              * modify the event attributes.
+              */
+-            XGetWindowAttributes(SDL_Display, SDL_Window, &setattrs);
++            XGetWindowAttributes(SDL_Display, my_SDL_Window, &setattrs);
+             newattrs.event_mask |= setattrs.all_event_masks;
+-            XChangeWindowAttributes(SDL_Display, SDL_Window, CWEventMask,
++            XChangeWindowAttributes(SDL_Display, my_SDL_Window, CWEventMask,
+                                     &newattrs);
+ 
+             Unlock_Display();
+@@ -674,7 +674,7 @@
+ 
+     Lock_Display();
+     retval = (XGetSelectionOwner(SDL_Display, GET_CLIPATOM(_currentmode)) !=
+-              SDL_Window);
++              my_SDL_Window);
+     Unlock_Display();
+ 
+     return retval;
+@@ -708,7 +708,7 @@
+     }
+ 
+     /* Update the clipboard property with the buffer. */
+-    XChangeProperty(SDL_Display, SDL_Window, clip, cliptype, 8,
++    XChangeProperty(SDL_Display, my_SDL_Window, clip, cliptype, 8,
+                     PropModeReplace, (unsigned char *)src, srclen);
+ 
+     if (cliptype == _atom_MIME_PLAIN) {
+@@ -723,7 +723,7 @@
+ 
+     /* Update the timestamp */
+     for (start = time(0);;) {
+-        if (XCheckTypedWindowEvent(SDL_Display, SDL_Window, PropertyNotify,
++        if (XCheckTypedWindowEvent(SDL_Display, my_SDL_Window, PropertyNotify,
+                                    &ev))
+             break;
+         if (time(0) - start >= 5) {
+@@ -745,8 +745,8 @@
+ 
+ SETSELECTIONOWNER:
+     /* Set the selection owner to the own window. */
+-    XSetSelectionOwner(SDL_Display, clip, SDL_Window, timestamp);
+-    if (XGetSelectionOwner(SDL_Display, clip) != SDL_Window) {
++    XSetSelectionOwner(SDL_Display, clip, my_SDL_Window, timestamp);
++    if (XGetSelectionOwner(SDL_Display, clip) != my_SDL_Window) {
+         /* Ouch, we could not toggle the selection owner. Raise an
+          * error, as it's not guaranteed, that the clipboard
+          * contains valid data.

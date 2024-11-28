@@ -1,0 +1,17 @@
+BDEPEND=python_targets_python2_7? ( dev-lang/python:2.7 ) >=dev-python/setuptools-42.0.2[python_targets_python2_7(-)?] test? ( x11-base/xorg-server[xvfb] x11-apps/xhost )
+DEFINED_PHASES=compile configure install prepare test
+DEPEND=dev-python/astropy[python_targets_python2_7(-)?] dev-python/matplotlib:python2[python_targets_python2_7(-)?] dev-python/numpy:python2[python_targets_python2_7(-)?] dev-python/scipy:python2[python_targets_python2_7(-)?] dev-python/scikit-learn[python_targets_python2_7(-)?] test? ( dev-python/nose[python_targets_python2_7(-)?] )
+DESCRIPTION=Python Machine Learning library for astronomy
+EAPI=8
+HOMEPAGE=http://www.astroml.org/
+INHERIT=distutils-r1 pypi virtualx
+IUSE=examples test python_targets_python2_7 test
+KEYWORDS=~amd64 ~x86 ~amd64-linux ~x86-linux
+LICENSE=BSD
+RDEPEND=dev-python/astropy[python_targets_python2_7(-)?] dev-python/matplotlib:python2[python_targets_python2_7(-)?] dev-python/numpy:python2[python_targets_python2_7(-)?] dev-python/scipy:python2[python_targets_python2_7(-)?] dev-python/scikit-learn[python_targets_python2_7(-)?] python_targets_python2_7? ( dev-lang/python:2.7 )
+REQUIRED_USE=|| ( python_targets_python2_7 )
+RESTRICT=!test? ( test )
+SLOT=0
+SRC_URI=https://files.pythonhosted.org/packages/source/a/astroML/astroML-0.3.tar.gz
+_eclasses_=out-of-source-utils	dbf9e34ee8964084651e25907fa8f52c	multibuild	4650a65187015567b4e041bb9bfdb364	multiprocessing	1e32df7deee68372153dca65f4a7c21f	toolchain-funcs	d3d42b22a610ce81c267b644bcec9b87	multilib	b2a329026f2e404e9e371097dda47f96	python-utils-r1	2005a06234063e6815028c5db214aa3f	python-r1	2d51fd03931e743811ce30d198e4dcfd	distutils-r1	e58d3ed262e4b32d6d1966bd66e941cc	pypi	ad1b21f87d117ae9bb089bdb65b8f013	virtualx	9741d451eb64ea8bb9faee90d68a9b68
+_md5_=c086a52b6259abb1f4b626f89ca1b67c

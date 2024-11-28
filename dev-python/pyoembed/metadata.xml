@@ -5,9 +5,6 @@
 		<email>rafaelmartins@gentoo.org</email>
 		<name>Rafael G. Martins</name>
 	</maintainer>
-	<longdescription lang="en">
-		A Python library for oEmbed that supports auto-discovered and manually included providers.
-	</longdescription>
 	<upstream>
 		<maintainer status="active">
 			<email>rafaelmartins@gentoo.org</email>

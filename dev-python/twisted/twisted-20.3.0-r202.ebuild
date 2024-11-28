@@ -1,0 +1,197 @@
+# Copyright 1999-2024 Gentoo Authors
+# Distributed under the terms of the GNU General Public License v2
+
+EAPI=8
+
+PYTHON_COMPAT=( python2_7 )
+PYTHON_REQ_USE="threads(+)"
+
+inherit distutils-r1 virtualx
+
+DESCRIPTION="An asynchronous networking framework written in Python"
+HOMEPAGE="https://www.twisted.org/
+	https://github.com/twisted/twisted"
+SRC_URI="https://github.com/twisted/twisted/archive/refs/tags/${P}.tar.gz -> ${P}.gh.tar.gz
+	https://dev.gentoo.org/~mgorny/dist/twisted-regen-cache.gz"
+S="${WORKDIR}/twisted-${P}"
+LICENSE="MIT"
+SLOT="python2"
+KEYWORDS="~alpha amd64 arm arm64 ~mips ppc ppc64 s390 sparc x86 ~amd64-linux ~x86-linux"
+IUSE="conch crypt http2 serial test"
+RESTRICT="!test? ( test )"
+
+RDEPEND="
+	>=dev-python/attrs-19.2.0[${PYTHON_USEDEP}]
+	>=dev-python/automat-0.3.0[${PYTHON_USEDEP}]
+	>=dev-python/constantly-15.1.0:python2[${PYTHON_USEDEP}]
+	>=dev-python/hyperlink-17.1.1[${PYTHON_USEDEP}]
+	>=dev-python/incremental-16.10.1:python2[${PYTHON_USEDEP}]
+	>=dev-python/pyhamcrest-1.9.0[${PYTHON_USEDEP}]
+	>=dev-python/zope-interface-4.4.2[${PYTHON_USEDEP}]
+	conch? (
+		dev-python/pyasn1:python2[${PYTHON_USEDEP}]
+		>=dev-python/cryptography-1.5.0[${PYTHON_USEDEP}]
+		>=dev-python/appdirs-1.4.0:python2[${PYTHON_USEDEP}]
+	)
+	crypt? (
+		>=dev-python/pyopenssl-16.0.0[${PYTHON_USEDEP}]
+		dev-python/service-identity:python2[${PYTHON_USEDEP}]
+		>=dev-python/idna-0.6[${PYTHON_USEDEP}]
+	)
+	serial? ( >=dev-python/pyserial-3.0[${PYTHON_USEDEP}] )
+	http2? (
+		>=dev-python/h2-3.0.0[${PYTHON_USEDEP}]
+		<dev-python/h2-4.0.0[${PYTHON_USEDEP}]
+		>=dev-python/priority-1.1.0[${PYTHON_USEDEP}]
+		<dev-python/priority-2.0[${PYTHON_USEDEP}]
+	)
+	!dev-python/twisted-core
+	!dev-python/twisted-conch
+	!dev-python/twisted-lore
+	!dev-python/twisted-mail
+	!dev-python/twisted-names
+	!dev-python/twisted-news
+	!dev-python/twisted-pair
+	!dev-python/twisted-runner
+	!dev-python/twisted-words
+	!dev-python/twisted-web
+	!<dev-python/twisted-20.3.0-r2[${PYTHON_USEDEP}]
+"
+DEPEND="
+	dev-python/bcrypt
+	>=dev-python/incremental-16.10.1[${PYTHON_USEDEP}]
+	test? (
+		dev-python/gmpy2[${PYTHON_USEDEP}]
+		dev-python/pyasn1[${PYTHON_USEDEP}]
+		>=dev-python/cryptography-0.9.1[${PYTHON_USEDEP}]
+		>=dev-python/appdirs-1.4.0[${PYTHON_USEDEP}]
+		>=dev-python/pyopenssl-0.13[${PYTHON_USEDEP}]
+		dev-python/service-identity[${PYTHON_USEDEP}]
+		dev-python/idna[${PYTHON_USEDEP}]
+		dev-python/pyserial[${PYTHON_USEDEP}]
+		>=dev-python/constantly-15.1.0[${PYTHON_USEDEP}]
+		net-misc/openssh
+	)
+"
+
+python_prepare_all() {
+	local PATCHES=(
+		"${FILESDIR}"/twisted-20.3.0-py38-cgi.patch
+		"${FILESDIR}"/twisted-20.3.0-py38-hmac.patch
+		"${FILESDIR}"/twisted-20.3.0-py39-b64.patch
+		"${FILESDIR}"/twisted-20.3.0-py39-combined.patch
+	)
+
+	# upstream test for making releases; not very useful and requires
+	# sphinx (including on py2)
+	rm src/twisted/python/test/test_release.py || die
+
+	# Conch doesn't work with latest >=OpenSSH 7.6
+	#   - https://twistedmatrix.com/trac/ticket/9311
+	#   - https://twistedmatrix.com/trac/ticket/9515
+	rm src/twisted/conch/test/test_ckeygen.py || die
+	rm src/twisted/conch/test/test_conch.py || die
+	rm src/twisted/conch/test/test_cftp.py || die
+
+	# puts system in EMFILE state, then the exception handler may fail
+	# trying to open more files due to some gi magic
+	sed -e '/SKIP_EMFILE/s:None:"Fails on non-pristine systems":' \
+		-i src/twisted/internet/test/test_tcp.py || die
+
+	# multicast tests fail within network-sandbox
+	sed -e 's:test_joinLeave:_&:' \
+		-e 's:test_loopback:_&:' \
+		-e 's:test_multiListen:_&:' \
+		-e 's:test_multicast:_&:' \
+		-i src/twisted/test/test_udp.py || die
+
+	# accesses /dev/net/tun
+	sed -e '/class RealDeviceTestsMixin/a\
+    skip = "Requires extra permissions"' \
+		-i src/twisted/pair/test/test_tuntap.py || die
+
+	# TODO: figure it out, probably doesn't accept DST date here
+	sed -e 's:test_getTimezoneOffsetWithoutDaylightSavingTime:_&:' \
+		-i src/twisted/test/test_log.py || die
+
+	# TODO: failures specific to Python 2
+	sed -e 's:testLookupProcNetTcp:_&:' \
+		-i src/twisted/test/test_ident.py || die
+	sed -e 's:test_loggingFactoryOpensLogfileAutomatically:_&:' \
+		-i src/twisted/test/test_policies.py || die
+
+	sed -i \
+		-e 's/ckeygen = twisted.conch.scripts.ckeygen:run/ckeygen_py2 = twisted.conch.scripts.ckeygen:run/' \
+		-e 's/cftp = twisted.conch.scripts.cftp:run/cftp_py2 = twisted.conch.scripts.cftp:run/' \
+		-e 's/conch = twisted.conch.scripts.conch:run/conch_py2 = twisted.conch.scripts.conch:run/' \
+		-e 's/mailmail = twisted.mail.scripts.mailmail:run/mailmail_py2 = twisted.mail.scripts.mailmail:run/' \
+		-e 's/pyhtmlizer = twisted.scripts.htmlizer:run/pyhtmlizer_py2 = twisted.scripts.htmlizer:run/' \
+		-e 's/tkconch = twisted.conch.scripts.tkconch:run/tkconch_py2 = twisted.conch.scripts.tkconch:run/' \
+		-e 's/trial = twisted.scripts.trial:run/trial_py2 = twisted.scripts.trial:run/' \
+		-e 's/twist = twisted.application.twist._twist:Twist.main/twist_py2 = twisted.application.twist._twist:Twist.main/' \
+		-e 's/twistd = twisted.scripts.twistd:run/twistd_py2 = twisted.scripts.twistd:run/' \
+		src/twisted/python/_setup.py || die
+
+	distutils-r1_python_prepare_all
+}
+
+src_test() {
+	virtx distutils-r1_src_test
+}
+
+python_test() {
+	# TODO: upstream seems to override our build paths
+	distutils_install_for_testing
+
+	"${EPYTHON}" -m twisted.trial twisted ||
+		die "Tests failed with ${EPYTHON}"
+}
+
+python_install() {
+	distutils-r1_python_install
+
+	cd "${D}$(python_get_sitedir)" || die
+
+	# own the dropin.cache so we don't leave orphans
+	touch twisted/plugins/dropin.cache || die
+
+	python_newscript "${WORKDIR}"/twisted-regen-cache twisted-regen-cache_py2
+}
+
+python_install_all() {
+	distutils-r1_python_install_all
+
+	newconfd "${FILESDIR}/twistd.conf" twistd_py2
+	newinitd "${FILESDIR}/twistd.init" twistd_py2
+}
+
+python_postinst() {
+	twisted-regen-cache_py2 || die
+}
+
+pkg_postinst() {
+	# no longer works:
+	#python_foreach_impl python_postinst
+
+	einfo "Install complete"
+	if use test ; then
+		einfo ""
+		einfo "Some tests have been disabled during testing due to"
+		einfo "known incompatibilities with the emerge sandboxes and/or"
+		einfo "not runnable as the root user."
+		einfo "For a complete test suite run on the code."
+		einfo "Run the tests as a normal user for each python it is installed to."
+		einfo "  ie:  $ python3.6 /usr/bin/trial twisted"
+	fi
+}
+
+python_postrm() {
+	rm -f "${ROOT}$(python_get_sitedir)/twisted/plugins/dropin.cache" || die
+}
+
+pkg_postrm() {
+	# if we're removing the last version, remove the cache file
+	if [[ ! ${REPLACING_VERSIONS} ]]; then
+		python_foreach_impl python_postrm
+	fi
+}

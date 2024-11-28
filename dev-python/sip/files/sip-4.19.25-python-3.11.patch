@@ -1,0 +1,49 @@
+diff '--color=auto' -ur sip-4.19.25.orig/siplib/sip.h sip-4.19.25/siplib/sip.h
+--- sip-4.19.25.orig/siplib/sip.h	2021-02-26 16:28:41.641785000 +0100
++++ sip-4.19.25/siplib/sip.h	2024-11-27 14:15:57.548230892 +0100
+@@ -30,6 +30,7 @@
+ 
+ 
+ #include <Python.h>
++#include <frameobject.h>
+ 
+ /*
+  * There is a mis-feature somewhere with the Borland compiler.  This works
+@@ -1799,7 +1800,7 @@
+     int (*api_get_time)(PyObject *, sipTimeDef *);
+     PyObject *(*api_from_time)(const sipTimeDef *);
+     int (*api_is_user_type)(const sipWrapperType *);
+-    struct _frame *(*api_get_frame)(int);
++    PyFrameObject *(*api_get_frame)(int);
+     int (*api_check_plugin_for_type)(const sipTypeDef *, const char *);
+     PyObject *(*api_unicode_new)(SIP_SSIZE_T, unsigned, int *, void **);
+     void (*api_unicode_write)(int, void *, int, unsigned);
+diff '--color=auto' -ur sip-4.19.25.orig/siplib/siplib.c sip-4.19.25/siplib/siplib.c
+--- sip-4.19.25.orig/siplib/siplib.c	2021-02-26 16:17:35.147922000 +0100
++++ sip-4.19.25/siplib/siplib.c	2024-11-27 14:15:01.600507878 +0100
+@@ -448,7 +448,7 @@
+ static int sip_api_get_time(PyObject *obj, sipTimeDef *time);
+ static PyObject *sip_api_from_time(const sipTimeDef *time);
+ static int sip_api_is_user_type(const sipWrapperType *wt);
+-static struct _frame *sip_api_get_frame(int);
++static PyFrameObject *sip_api_get_frame(int);
+ static int sip_api_check_plugin_for_type(const sipTypeDef *td,
+         const char *name);
+ static PyObject *sip_api_unicode_new(SIP_SSIZE_T len, unsigned maxchar,
+@@ -13741,13 +13741,13 @@
+ /*
+  * Return a frame from the execution stack.
+  */
+-static struct _frame *sip_api_get_frame(int depth)
++static PyFrameObject *sip_api_get_frame(int depth)
+ {
+-    struct _frame *frame = PyEval_GetFrame();
++    PyFrameObject *frame = PyEval_GetFrame();
+ 
+     while (frame != NULL && depth > 0)
+     {
+-        frame = frame->f_back;
++        frame = PyFrame_GetBack(frame);
+         --depth;
+     }
+ 

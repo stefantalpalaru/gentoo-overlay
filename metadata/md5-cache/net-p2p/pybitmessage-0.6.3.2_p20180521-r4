@@ -1,0 +1,16 @@
+BDEPEND=python_targets_python2_7? ( dev-lang/python:2.7[sqlite] ) >=dev-python/setuptools-42.0.2[python_targets_python2_7(-)?]
+DEFINED_PHASES=compile configure install postinst postrm prepare test
+DEPEND=python_targets_python2_7? ( dev-lang/python:2.7[sqlite] )
+DESCRIPTION=Reference client for Bitmessage: a P2P communications protocol
+EAPI=8
+HOMEPAGE=https://bitmessage.org
+INHERIT=distutils-r1 xdg-utils
+IUSE=debug libnotify ncurses opencl qrcode sound python_targets_python2_7
+KEYWORDS=~amd64 ~x86
+LICENSE=MIT
+RDEPEND=python_targets_python2_7? ( dev-lang/python:2.7[sqlite] ) || ( dev-python/msgpack[python_targets_python2_7(-)?] dev-python/u-msgpack-python[python_targets_python2_7(-)?] ) dev-python/pyqt5[python_targets_python2_7(-)?] >=dev-python/qtpy-1.3.1[gui,pyqt5(+),python_targets_python2_7(-)?] debug? ( dev-python/python-prctl[python_targets_python2_7(-)?] ) libnotify? ( dev-python/pygobject[python_targets_python2_7(-)?] dev-python/notify2[python_targets_python2_7(-)?] x11-themes/hicolor-icon-theme ) dev-libs/openssl:0 ncurses? ( dev-python/pythondialog[python_targets_python2_7(-)?] ) opencl? ( dev-python/numpy:python2[python_targets_python2_7(-)?] dev-python/pyopencl[python_targets_python2_7(-)?] ) qrcode? ( dev-python/qrcode[python_targets_python2_7(-)?] ) sound? ( || ( dev-python/gst-python:1.0[python_targets_python2_7(-)?] media-sound/gst123 media-libs/gst-plugins-base:1.0 media-sound/mpg123 media-sound/alsa-utils ) ) python_targets_python2_7? ( dev-lang/python:2.7[sqlite] )
+REQUIRED_USE=|| ( python_targets_python2_7 ) || ( python_targets_python2_7 )
+SLOT=0
+SRC_URI=https://github.com/g1itch/PyBitmessage/archive/30e211367003bafa67834ffff3f31e6b5a897f4b.tar.gz -> pybitmessage-0.6.3.2_p20180521.gh.tar.gz
+_eclasses_=out-of-source-utils	dbf9e34ee8964084651e25907fa8f52c	multibuild	4650a65187015567b4e041bb9bfdb364	multiprocessing	1e32df7deee68372153dca65f4a7c21f	toolchain-funcs	d3d42b22a610ce81c267b644bcec9b87	multilib	b2a329026f2e404e9e371097dda47f96	python-utils-r1	2005a06234063e6815028c5db214aa3f	python-r1	2d51fd03931e743811ce30d198e4dcfd	distutils-r1	e58d3ed262e4b32d6d1966bd66e941cc	xdg-utils	42869b3c8d86a70ef3cf75165a395e09
+_md5_=df034a4b35a11700ae5155ec39d355ca

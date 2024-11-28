@@ -1,0 +1,12 @@
+diff '--color=auto' -ur pybind11-2.4.3.orig/include/pybind11/attr.h pybind11-2.4.3/include/pybind11/attr.h
+--- pybind11-2.4.3.orig/include/pybind11/attr.h	2019-06-17 23:58:26.000000000 +0200
++++ pybind11-2.4.3/include/pybind11/attr.h	2024-11-27 14:50:34.623947702 +0100
+@@ -10,6 +10,8 @@
+ 
+ #pragma once
+ 
++#include <cstdint>
++
+ #include "cast.h"
+ 
+ NAMESPACE_BEGIN(PYBIND11_NAMESPACE)

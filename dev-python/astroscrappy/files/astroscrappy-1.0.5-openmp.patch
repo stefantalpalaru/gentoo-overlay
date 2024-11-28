@@ -1,0 +1,22 @@
+diff '--color=auto' -ur astroscrappy-1.0.5.orig/astroscrappy/utils/setup_package.py astroscrappy-1.0.5/astroscrappy/utils/setup_package.py
+--- astroscrappy-1.0.5.orig/astroscrappy/utils/setup_package.py	2024-11-27 15:06:33.979198124 +0100
++++ astroscrappy-1.0.5/astroscrappy/utils/setup_package.py	2024-11-27 15:20:16.261101691 +0100
+@@ -18,8 +18,6 @@
+ from distutils.sysconfig import customize_compiler
+ ccompiler = new_compiler()
+ customize_compiler(ccompiler)
+-ccompiler.add_library('gomp')
+-has_omp_functions = ccompiler.has_function('omp_get_num_threads')
+ with open('openmp_check.c', 'w') as f:
+     f.write('#include<stdio.h>\n')
+     f.write('int main()\n')
+@@ -34,7 +32,7 @@
+ os.remove('openmp_check.c')
+ if os.path.exists('openmp_check.o'):
+     os.remove('openmp_check.o')
+-sys.exit(int(has_omp_functions & fopenmp_flag_works))
++sys.exit(int(fopenmp_flag_works))
+ """
+ 
+ 
+Only in astroscrappy-1.0.5: tmp
