@@ -3,6 +3,9 @@ move dev-python/PyPDF2 dev-python/pypdf2
 move dev-python/PySensors dev-python/pysensors
 move dev-python/PyZilla dev-python/pyzilla
 move dev-python/RecSQL dev-python/recsql
+move dev-python/importlib_metadata dev-python/importlib-metadata
+move dev-python/importlib_resources dev-python/importlib-resources
+move dev-python/keyrings_alt dev-python/keyrings-alt
 move dev-python/matplotlib-python2 dev-python/matplotlib
 move dev-python/nose_warnings_filters dev-python/nose-warnings-filters
 move dev-python/numpy-python2 dev-python/numpy
