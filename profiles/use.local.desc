@@ -124,6 +124,7 @@ dev-php/pecl-apcu:lock-pthreadmutex - Enable pthread mutex locking
 dev-php/pecl-apcu:lock-pthreadrw - Enable pthread read/write locking
 dev-php/pecl-apcu:lock-semaphore - Enable semaphore locks instead of fcntl
 dev-php/pecl-apcu:lock-spinlock - Enable spin locks (EXPERIMENTAL)
+dev-python/amqp:extras - Install extra tools to generate initial Python mod from an AMQP XML file
 dev-python/amqplib:extras - Install extra tools to generate initial Python mod from an AMQP XML file
 dev-python/anyvc:bazaar - Add support for Bazaar
 dev-python/anyvc:mercurial - Add support for Mercurial
@@ -154,7 +155,6 @@ dev-python/numexpr:mkl - Enable support for Intel Vector Math Library, part of s
 dev-python/pandas:full-support - Pull all packages to give pandas full support
 dev-python/paramiko:server - Enable server feature
 dev-python/pillow:imagequant - Build with Image Quantization Library support
-dev-python/py-amqp:extras - Install extra tools to generate initial Python mod from an AMQP XML file
 dev-python/pygame:midi - Enable midi support using media-libs/portmidi
 dev-python/pyglet:image - Enable support for image formats other than PNG and BMP
 dev-python/pyqt5:bluetooth - Build bindings for the QtBluetooth module

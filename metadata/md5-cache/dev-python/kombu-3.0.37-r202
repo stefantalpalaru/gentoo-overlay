@@ -1,0 +1,17 @@
+BDEPEND=python_targets_python2_7? ( dev-lang/python:2.7 ) >=dev-python/setuptools-42.0.2[python_targets_python2_7(-)?]
+DEFINED_PHASES=compile configure install prepare test
+DEPEND=>=dev-python/anyjson-0.3.3[python_targets_python2_7(-)?] >=dev-python/amqp-1.4.9:python2[python_targets_python2_7(-)?] <dev-python/amqp-2.0:python2[python_targets_python2_7(-)?] dev-python/pyro:python2[python_targets_python2_7(-)?] >=dev-python/pyzmq-13.1.0:python2[python_targets_python2_7(-)?] amqplib? ( >=dev-python/amqplib-1.0.2[python_targets_python2_7(-)?] ) sqs? ( >=dev-python/boto-2.13.3:python2[python_targets_python2_7(-)?] ) msgpack? ( >=dev-python/msgpack-0.3.0:python2[python_targets_python2_7(-)?] ) !<dev-python/kombu-3.0.37-r2[python_targets_python2_7(-)?] >=dev-python/setuptools-0.7[python_targets_python2_7(-)?] test? ( >=dev-python/unittest2-0.5.0[python_targets_python2_7(-)?] dev-python/nose[python_targets_python2_7(-)?] dev-python/nose-cover3[python_targets_python2_7(-)?] >=dev-python/coverage-3.0[python_targets_python2_7(-)?] >=dev-python/mock-0.7.0[python_targets_python2_7(-)?] dev-python/django[python_targets_python2_7(-)?] >=dev-python/redis-2.10.3[python_targets_python2_7(-)?] >=dev-python/pymongo-3.0.2[python_targets_python2_7(-)?] >=dev-python/pyyaml-3.10[python_targets_python2_7(-)?] ) doc? ( dev-python/sphinx[python_targets_python2_7(-)?] dev-python/django[python_targets_python2_7(-)?] dev-python/beanstalkc[python_targets_python2_7(-)?] dev-python/couchdb-python[python_targets_python2_7(-)?] >=dev-python/sphinxcontrib-issuetracker-0.9[python_targets_python2_7(-)?] )
+DESCRIPTION=AMQP Messaging Framework for Python
+EAPI=8
+HOMEPAGE=https://pypi.org/project/kombu/ https://github.com/celery/kombu
+INHERIT=distutils-r1 pypi
+IUSE=amqplib doc examples msgpack sqs test python_targets_python2_7
+KEYWORDS=amd64 ~arm64 x86
+LICENSE=BSD
+RDEPEND=>=dev-python/anyjson-0.3.3[python_targets_python2_7(-)?] >=dev-python/amqp-1.4.9:python2[python_targets_python2_7(-)?] <dev-python/amqp-2.0:python2[python_targets_python2_7(-)?] dev-python/pyro:python2[python_targets_python2_7(-)?] >=dev-python/pyzmq-13.1.0:python2[python_targets_python2_7(-)?] amqplib? ( >=dev-python/amqplib-1.0.2[python_targets_python2_7(-)?] ) sqs? ( >=dev-python/boto-2.13.3:python2[python_targets_python2_7(-)?] ) msgpack? ( >=dev-python/msgpack-0.3.0:python2[python_targets_python2_7(-)?] ) !<dev-python/kombu-3.0.37-r2[python_targets_python2_7(-)?] python_targets_python2_7? ( dev-lang/python:2.7 )
+REQUIRED_USE=sqs? ( python_targets_python2_7 ) doc? ( python_targets_python2_7 amqplib sqs ) || ( python_targets_python2_7 )
+RESTRICT=!test? ( test )
+SLOT=python2
+SRC_URI=https://files.pythonhosted.org/packages/source/k/kombu/kombu-3.0.37.tar.gz
+_eclasses_=out-of-source-utils	dbf9e34ee8964084651e25907fa8f52c	multibuild	4650a65187015567b4e041bb9bfdb364	multiprocessing	1e32df7deee68372153dca65f4a7c21f	toolchain-funcs	d3d42b22a610ce81c267b644bcec9b87	multilib	b2a329026f2e404e9e371097dda47f96	python-utils-r1	2005a06234063e6815028c5db214aa3f	python-r1	2d51fd03931e743811ce30d198e4dcfd	distutils-r1	e58d3ed262e4b32d6d1966bd66e941cc	pypi	ad1b21f87d117ae9bb089bdb65b8f013
+_md5_=80d4e8afad935c65a58d86ad498f2f12

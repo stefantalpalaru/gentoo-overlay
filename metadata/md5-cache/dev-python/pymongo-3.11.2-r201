@@ -1,0 +1,16 @@
+BDEPEND=test? ( >=dev-db/mongodb-2.6.0 dev-python/nose[python_targets_python2_7(-)?] ) doc? ( || ( ( dev-lang/python:2.7 >=dev-python/sphinx-4.5.0-r1[python_targets_python2_7(-)] ) ) ) python_targets_python2_7? ( dev-lang/python:2.7 ) >=dev-python/setuptools-42.0.2[python_targets_python2_7(-)?]
+DEFINED_PHASES=compile configure install prepare pretend setup test
+DESCRIPTION=Python driver for MongoDB
+EAPI=8
+HOMEPAGE=https://github.com/mongodb/mongo-python-driver https://pypi.org/project/pymongo/
+INHERIT=check-reqs distutils-r1
+IUSE=doc kerberos test doc python_targets_python2_7
+KEYWORDS=~amd64 ~arm64 ~hppa ~x86
+LICENSE=Apache-2.0
+RDEPEND=kerberos? ( dev-python/kerberos[python_targets_python2_7(-)?] ) !<dev-python/pymongo-3.11.2-r1[python_targets_python2_7(-)?] python_targets_python2_7? ( dev-lang/python:2.7 )
+REQUIRED_USE=|| ( python_targets_python2_7 )
+RESTRICT=!test? ( test )
+SLOT=python2
+SRC_URI=https://github.com/mongodb/mongo-python-driver/archive/3.11.2.tar.gz -> mongo-python-driver-3.11.2.gh.tar.gz
+_eclasses_=check-reqs	2a9731073c152554078a9a8df8fc0f1b	out-of-source-utils	dbf9e34ee8964084651e25907fa8f52c	multibuild	4650a65187015567b4e041bb9bfdb364	multiprocessing	1e32df7deee68372153dca65f4a7c21f	toolchain-funcs	d3d42b22a610ce81c267b644bcec9b87	multilib	b2a329026f2e404e9e371097dda47f96	python-utils-r1	2005a06234063e6815028c5db214aa3f	python-r1	2d51fd03931e743811ce30d198e4dcfd	distutils-r1	e58d3ed262e4b32d6d1966bd66e941cc
+_md5_=edc52fc655fe16992a497f659be8c1d3

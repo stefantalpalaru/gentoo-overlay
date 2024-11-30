@@ -71,7 +71,7 @@ dev-python/ipaddress
 dev-python/jonpy
 dev-python/jplephem
 dev-python/keyczar
-dev-python/keyrings_alt
+dev-python/keyrings-alt
 dev-python/libextractor-python
 dev-python/libiscsi-python
 dev-python/libnatpmp
