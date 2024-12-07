@@ -55,7 +55,6 @@ DOCS=( AUTHORS ChangeLog DEVELOPERS README.md )
 PATCHES=(
 	"${FILESDIR}/hydrogen-1.2.3-gnuinstalldirs.patch"
 	"${FILESDIR}/hydrogen-1.2.3-cflags.patch"
-	"${FILESDIR}/hydrogen-1.2.2-includes.patch"
 )
 
 src_prepare() {
