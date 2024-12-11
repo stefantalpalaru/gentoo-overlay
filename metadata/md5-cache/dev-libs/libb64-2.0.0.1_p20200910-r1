@@ -8,5 +8,5 @@ KEYWORDS=~amd64 ~arm ~arm64 ~mips ~ppc ~ppc64 ~x86
 LICENSE=CC-PD
 SLOT=0
 SRC_URI=https://github.com/libb64/libb64/archive/ce864b17ea0e24a91e77c7dd3eb2d1ac4175b3f0.tar.gz -> libb64-2.0.0.1_p20200910.tar.gz
-_eclasses_=toolchain-funcs	d3d42b22a610ce81c267b644bcec9b87	multilib	b2a329026f2e404e9e371097dda47f96
+_eclasses_=toolchain-funcs	fa554cc3cff825d21dfe3f24841e29cf	multilib	b2a329026f2e404e9e371097dda47f96
 _md5_=eed90d9c9317a0384159f6278e60a2ba

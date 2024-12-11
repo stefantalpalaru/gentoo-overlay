@@ -1,16 +1,16 @@
-# Copyright 1999-2023 Gentoo Authors
+# Copyright 1999-2024 Gentoo Authors
 # Distributed under the terms of the GNU General Public License v2
 
 EAPI=8
 
-PYTHON_COMPAT=( python3_{10..11} )
+PYTHON_COMPAT=( python3_{10..12} )
 
 inherit python-r1
 
 DESCRIPTION="mercurial to git converter using git-fast-import"
 HOMEPAGE="https://github.com/frej/fast-export"
-SRC_URI="https://github.com/frej/fast-export/archive/refs/tags/v${PV}.tar.gz -> ${P}.tar.gz"
-
+SRC_URI="https://github.com/frej/fast-export/archive/refs/tags/v${PV}.tar.gz -> ${P}.gh.tar.gz"
+S="${WORKDIR}/fast-export-${PV}"
 LICENSE="MIT"
 SLOT="0"
 KEYWORDS="~amd64 ~x86"
@@ -22,8 +22,6 @@ RDEPEND="${DEPEND}
 	dev-vcs/mercurial[${PYTHON_USEDEP}]
 	dev-python/python-pluginloader[${PYTHON_USEDEP}]
 "
-
-S="${WORKDIR}/fast-export-${PV}"
 
 src_prepare() {
 	default

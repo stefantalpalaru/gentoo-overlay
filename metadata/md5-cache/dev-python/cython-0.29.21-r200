@@ -12,5 +12,5 @@ REQUIRED_USE=|| ( python_targets_python2_7 )
 RESTRICT=!test? ( test )
 SLOT=python2
 SRC_URI=https://github.com/cython/cython/archive/0.29.21.tar.gz -> cython-0.29.21.gh.tar.gz
-_eclasses_=out-of-source-utils	dbf9e34ee8964084651e25907fa8f52c	multibuild	4650a65187015567b4e041bb9bfdb364	multiprocessing	1e32df7deee68372153dca65f4a7c21f	toolchain-funcs	d3d42b22a610ce81c267b644bcec9b87	multilib	b2a329026f2e404e9e371097dda47f96	eapi8-dosym	5ac4857ad078256d939c44f7c64197a9	python-utils-r1	2005a06234063e6815028c5db214aa3f	python-r1	2d51fd03931e743811ce30d198e4dcfd	distutils-r1	e58d3ed262e4b32d6d1966bd66e941cc	elisp-common	abb2dda42f680fce87602c8273f832c7
+_eclasses_=out-of-source-utils	dbf9e34ee8964084651e25907fa8f52c	multibuild	4650a65187015567b4e041bb9bfdb364	multiprocessing	1e32df7deee68372153dca65f4a7c21f	toolchain-funcs	fa554cc3cff825d21dfe3f24841e29cf	multilib	b2a329026f2e404e9e371097dda47f96	eapi8-dosym	5ac4857ad078256d939c44f7c64197a9	python-utils-r1	2005a06234063e6815028c5db214aa3f	python-r1	2d51fd03931e743811ce30d198e4dcfd	distutils-r1	e58d3ed262e4b32d6d1966bd66e941cc	elisp-common	abb2dda42f680fce87602c8273f832c7
 _md5_=b25fd74bd63b20c797fbeb861c17e6db
