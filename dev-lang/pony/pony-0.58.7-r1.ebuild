@@ -25,7 +25,7 @@ RDEPEND="
 	vim-syntax? ( app-vim/pony-syntax )"
 DEPEND="${RDEPEND}"
 BDEPEND="
-	sys-devel/clang
+	llvm-core/clang
 	virtual/pkgconfig
 "
 
