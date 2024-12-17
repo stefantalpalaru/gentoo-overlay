@@ -889,6 +889,7 @@ sci-misc/openfst 1.8.2: Finite State Transducer tools by Google et al
 sci-misc/opengrm-ngram 1.3.14: n-gram language models encoded as weighted finite-state transducers
 sys-apps/cpuid 20241023-r1: Linux tool to dump x86 CPUID information about the CPUs
 sys-cluster/heartbeat 3.0.6-r2: Heartbeat high availability cluster manager
+sys-cluster/openmpi 5.0.6-r1: A high-performance message passing library (MPI)
 sys-devel/bison 2.7.1-r3: A general-purpose (yacc-compatible) parser generator
 sys-devel/flamegraph 1.0-r2: stack trace visualizer
 sys-devel/pyflame 1.6.6-r2: a ptracing profiler for Python

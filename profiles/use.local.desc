@@ -492,6 +492,9 @@ sci-libs/gdal:opencl - Enable OpenCL support
 sci-libs/gdal:spatialite - Enable Spatial DBMS over sqlite dev-db/spatialite
 sci-libs/gdal:xls - Add the dev-libs/freexl library for xls import support
 sci-libs/torchvision:cuda - Add support for CUDA processing
+sys-cluster/openmpi:cma - Enable the CMA (Cross Memory Attach) MCA
+sys-cluster/openmpi:peruse - Enable PERUSE interface
+sys-cluster/openmpi:romio - Build the ROMIO MPI-IO component
 www-servers/uwsgi:embedded - Embed plugins instead of building them as real plugins. When disabling this USE flag make sure you specify all used plugins in your uWSGI configuration. Note: Language plugins will always be built as real plugins.
 www-servers/uwsgi:go - Build the gccgo plugin to run Go applications.
 www-servers/uwsgi:json - Support json as a configuration file format.
