@@ -1,0 +1,25 @@
+diff '--color=auto' -ur zenmonitor3-07572e66d432877955139d1e9e81fd9e9abc5d0f.orig/makefile zenmonitor3-07572e66d432877955139d1e9e81fd9e9abc5d0f/makefile
+--- zenmonitor3-07572e66d432877955139d1e9e81fd9e9abc5d0f.orig/makefile	2022-08-12 23:16:26.000000000 +0200
++++ zenmonitor3-07572e66d432877955139d1e9e81fd9e9abc5d0f/makefile	2024-12-19 13:05:37.676743269 +0100
+@@ -1,7 +1,7 @@
+ CC := cc
+ 
+ ifeq ($(PREFIX),)
+-	PREFIX := /usr/local
++	PREFIX := /usr
+ endif
+ 
+ BUILD_FILES_COMMON := \
+@@ -19,10 +19,10 @@
+ 	src/zenmonitor-cli.c
+ 
+ build:
+-	$(CC) -Isrc/include `pkg-config --cflags gtk+-3.0` $(BUILD_FILES_GUI) -o zenmonitor `pkg-config --libs gtk+-3.0` -lm -no-pie -Wall $(CFLAGS)
++	$(CC) -Isrc/include `pkg-config --cflags gtk+-3.0` $(BUILD_FILES_GUI) -o zenmonitor `pkg-config --libs gtk+-3.0` -lm -Wall $(CFLAGS) $(LDFLAGS)
+ 
+ build-cli:
+-	$(CC) -Isrc/include `pkg-config --cflags glib-2.0` $(BUILD_FILES_CLI) -o zenmonitor-cli `pkg-config --libs glib-2.0` -lm -lncurses -ltinfo -no-pie -Wall $(CFLAGS)
++	$(CC) -Isrc/include `pkg-config --cflags glib-2.0` $(BUILD_FILES_CLI) -o zenmonitor-cli `pkg-config --libs glib-2.0` -lm -lncurses -ltinfo -Wall $(CFLAGS) $(LDFLAGS)
+ 
+ install:
+ 	mkdir -p $(DESTDIR)$(PREFIX)/bin

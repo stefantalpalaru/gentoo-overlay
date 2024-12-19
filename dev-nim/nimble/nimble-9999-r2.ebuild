@@ -1,4 +1,4 @@
-# Copyright 1999-2022 Gentoo Authors
+# Copyright 1999-2024 Gentoo Authors
 # Distributed under the terms of the GNU General Public License v2
 
 EAPI=8
@@ -18,7 +18,10 @@ RESTRICT="!test? ( test )"
 DEPEND="
 	>=dev-lang/nim-0.13.0
 "
-RDEPEND=""
+
+PATCHES=(
+	"${FILESDIR}"/nimble-0.16.4-import.patch
+)
 
 src_compile() {
 	nim c -d:release -p:"\$lib/packages/compiler" --verbosity:2 src/${PN}.nim || die "compile failed"

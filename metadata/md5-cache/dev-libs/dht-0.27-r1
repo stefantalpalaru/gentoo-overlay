@@ -1,0 +1,12 @@
+DEFINED_PHASES=compile install prepare
+DESCRIPTION=BitTorrent DHT library
+EAPI=8
+HOMEPAGE=https://github.com/jech/dht
+INHERIT=toolchain-funcs
+IUSE=static-libs
+KEYWORDS=~amd64 ~arm ~arm64 ~mips ~ppc ~ppc64 ~x86
+LICENSE=MIT
+SLOT=0
+SRC_URI=https://github.com/jech/dht/archive/refs/tags/dht-0.27.tar.gz -> dht-0.27.gh.tar.gz
+_eclasses_=toolchain-funcs	14648d8795f7779e11e1bc7cf08b7536	multilib	b2a329026f2e404e9e371097dda47f96
+_md5_=ce1be3306219a72926db76453c68ca8e

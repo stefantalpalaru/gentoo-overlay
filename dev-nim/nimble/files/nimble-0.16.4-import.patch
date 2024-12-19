@@ -1,0 +1,12 @@
+diff '--color=auto' -ur nimble-0.16.4.orig/src/nimblepkg/tools.nim nimble-0.16.4/src/nimblepkg/tools.nim
+--- nimble-0.16.4.orig/src/nimblepkg/tools.nim	2024-12-19 17:34:26.131823166 +0100
++++ nimble-0.16.4/src/nimblepkg/tools.nim	2024-12-19 17:35:01.657641518 +0100
+@@ -8,7 +8,7 @@
+ from net import SslCVerifyMode, newContext, SslContext
+ 
+ import version, cli, common, packageinfotypes, options, sha1hashes
+-from "$nim" / compiler/nimblecmd import getPathVersionChecksum
++from compiler/nimblecmd import getPathVersionChecksum
+ 
+ proc extractBin(cmd: string): string =
+   if cmd[0] == '"':

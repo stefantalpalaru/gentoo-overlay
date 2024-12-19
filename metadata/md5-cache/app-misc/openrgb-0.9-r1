@@ -1,0 +1,14 @@
+BDEPEND=virtual/pkgconfig virtual/pkgconfig
+DEFINED_PHASES=configure install postinst postrm prepare
+DEPEND=dev-libs/hidapi dev-qt/qtcore:5 dev-qt/qtgui:5 dev-qt/qtwidgets:5 net-libs/mbedtls:= virtual/libusb:1 dev-cpp/nlohmann_json
+DESCRIPTION=Open source RGB lighting control that doesn't depend on manufacturer software
+EAPI=8
+HOMEPAGE=https://openrgb.org https://gitlab.com/CalcProgrammer1/OpenRGB/
+INHERIT=flag-o-matic qmake-utils udev
+KEYWORDS=~amd64 ~x86
+LICENSE=GPL-2
+RDEPEND=dev-libs/hidapi dev-qt/qtcore:5 dev-qt/qtgui:5 dev-qt/qtwidgets:5 net-libs/mbedtls:= virtual/libusb:1
+SLOT=0/2
+SRC_URI=https://gitlab.com/CalcProgrammer1/OpenRGB/-/archive/release_0.9/OpenRGB-release_0.9.tar.bz2
+_eclasses_=toolchain-funcs	14648d8795f7779e11e1bc7cf08b7536	multilib	b2a329026f2e404e9e371097dda47f96	flag-o-matic	f14aba975c94ccaa9f357a27e3b17ffe	qmake-utils	a8dd17b1d94586164f5e3fc12b1c6b81	udev	f3d9a4376ebd22131726a68e1a0a058f
+_md5_=5856ff6229ae0bf60ade7733a3204fd1
