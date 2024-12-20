@@ -6,19 +6,20 @@ EAPI=8
 LUA_COMPAT=( luajit )
 LUA_REQ_USE="lua52compat"
 
-WX_GTK_VER=3.0-gtk3
+WX_GTK_VER=3.2-gtk3
 PLOCALES="ar be bg ca cs da de el es eu fa fi fr_FR gl hu id it ja ko nl pl pt_BR pt_PT ru sr_RS sr_RS@latin uk_UA vi zh_CN zh_TW"
 
-inherit autotools flag-o-matic lua-single plocale wxwidgets xdg-utils vcs-snapshot toolchain-funcs
+inherit flag-o-matic lua-single meson plocale wxwidgets xdg-utils vcs-snapshot toolchain-funcs
 
 DESCRIPTION="Advanced subtitle editor"
-HOMEPAGE="http://www.aegisub.org/ https://github.com/wangqr/Aegisub"
-SRC_URI="https://github.com/wangqr/Aegisub/archive/v${PV}.tar.gz -> ${P}.tar.gz"
+HOMEPAGE="http://www.aegisub.org/
+	https://github.com/TypesettingTools/Aegisub"
+SRC_URI="https://github.com/TypesettingTools/Aegisub/archive/v${PV}.tar.gz -> ${P}.tar.gz"
 LICENSE="BSD MIT"
 SLOT="0"
 KEYWORDS="~amd64 ~x86"
-IUSE="+alsa debug +fftw openal oss portaudio pulseaudio spell test +uchardet"
-RESTRICT="test"
+IUSE="+alsa debug +fftw openal portaudio pulseaudio spell test +uchardet"
+RESTRICT="!test? ( test )"
 
 # aegisub bundles luabins (https://github.com/agladysh/luabins).
 # Unfortunately, luabins upstream is practically dead since 2010.
@@ -60,14 +61,12 @@ BDEPEND="dev-util/intltool
 "
 
 REQUIRED_USE="${LUA_REQUIRED_USE}
-	|| ( alsa openal oss portaudio pulseaudio )"
+	|| ( alsa openal portaudio pulseaudio )"
 
 PATCHES=(
-	"${FILESDIR}/${PN}-3.2.2_p20160518-fix-system-luajit-build.patch"
-	"${FILESDIR}/${PN}-3.3.3-support-system-gtest.patch"
-	"${FILESDIR}/${PN}-3.2.2_p20160518-tests_luarocks_lua_version.patch"
-	"${FILESDIR}/${PN}-3.2.2_p20160518-fix-boost-181-build.patch"
-	"${FILESDIR}/aegisub-3.3.3-c++17.patch"
+	"${FILESDIR}"/aegisub-3.4.0-system-gtest.patch
+	"${FILESDIR}"/aegisub-3.4.0-includes.patch
+	"${FILESDIR}"/aegisub-3.4.0-wxWidgets-3.2.patch
 )
 
 aegisub_check_compiler() {
@@ -86,22 +85,22 @@ pkg_setup() {
 }
 
 src_prepare() {
-	default_src_prepare
+	default
 
-	# Remove tests that require unavailable uuid Lua module.
-	rm automation/tests/modules/lfs.moon || die
-
-	remove_locale() {
-		rm "po/${1}.po" || die
+	plocale_find_changes po '' '.po'
+	rm_locale() {
+		rm -f po/${1}.po
+		sed -e "/^${1}/d" -i po/LINGUAS
 	}
+	plocale_for_each_disabled_locale rm_locale
 
-	plocale_find_changes 'po' '' '.po'
-	plocale_for_each_disabled_locale remove_locale
+	filter-lto
 
-	# See http://devel.aegisub.org/ticket/1914
-	config_rpath_update "${S}"/config.rpath
-
-	eautoreconf
+	mkdir "${WORKDIR}/${P}-build"
+	cat <<-EOF > "${WORKDIR}/${P}-build"/git_version.h || die
+	#define BUILD_GIT_VERSION_NUMBER 0
+	#define BUILD_GIT_VERSION_STRING "${PV}"
+	EOF
 }
 
 src_configure() {
@@ -110,31 +109,26 @@ src_configure() {
 	use openal && export agi_cv_with_openal="yes"
 
 	setup-wxwidgets
-	local myeconfargs=(
-		--disable-update-checker
-		--with-ffms2
-		--with-system-luajit
-		$(use_enable debug)
-		$(use_with alsa)
-		$(use_with fftw fftw3)
-		$(use_with openal)
-		$(use_with oss)
-		$(use_with portaudio)
-		$(use_with pulseaudio libpulse)
-		$(use_with spell hunspell)
-		$(use_with uchardet)
+	local emesonargs=(
+		-Denable_update_checker=false
+		-Dffms2=enabled
+		-Dsystem_luajit=true
+		$(meson_use debug)
+		$(meson_use test tests)
+		$(meson_feature alsa)
+		$(meson_feature fftw fftw3)
+		$(meson_feature openal)
+		$(meson_feature portaudio)
+		$(meson_feature pulseaudio libpulse)
+		$(meson_feature spell hunspell)
+		$(meson_feature uchardet)
 	)
 	export FORCE_GIT_VERSION="v${PV}"
-	econf "${myeconfargs[@]}"
-}
-
-src_compile() {
-	emake WITH_SYSTEM_GTEST=$(usex test)
+	meson_src_configure
 }
 
 src_test() {
-	emake test-automation
-	emake test-libaegisub
+	meson_src_test --verbose "gtest main"
 }
 
 pkg_postinst() {
