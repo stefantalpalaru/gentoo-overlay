@@ -44,7 +44,7 @@ dev-libs/FBGEMM 2024.10.08: Facebook GEneral Matrix Multiplication
 dev-libs/boost 1.86.0-r2: Boost Libraries for C++
 dev-libs/cpuinfo 2024.09.26: CPU INFOrmation library
 dev-libs/cudnn 8.9.7.29-r1100 8.9.7.29-r1200 9.6.0.74-r1100 9.6.0.74-r1200: NVIDIA Accelerated Deep Learning on GPU library
-dev-libs/cudnn-frontend 1.8.0: A c++ wrapper for the cudnn backend API
+dev-libs/cudnn-frontend 1.9.0: A c++ wrapper for the cudnn backend API
 dev-libs/dht 0.27-r1: BitTorrent DHT library
 dev-libs/golib 0.0.1_pre20180515-r1 9999-r1: a library exposing Go's channels and goroutines to plain C
 dev-libs/icu 64.2-r1: International Components for Unicode
@@ -877,7 +877,7 @@ sci-astronomy/montage 5.0-r1: Toolkit for assembling FITS images into mosaics
 sci-geosciences/mkgmap-bin 4918: Tool to create garmin maps
 sci-geosciences/qgis 3.40.2: User friendly Geographic Information System
 sci-geosciences/splitter-bin 653: Tile splitter for mkgmap
-sci-libs/caffe2 2.5.1: A deep learning framework
+sci-libs/caffe2 2.5.1-r1: A deep learning framework
 sci-libs/cfitsio 3.410-r1: C and Fortran library for manipulating FITS files
 sci-libs/cholmod 3.0.14-r1: Sparse Cholesky factorization and update/downdate library
 sci-libs/gdal 3.0.4-r204: Translator library for raster geospatial data formats (includes OGR support)

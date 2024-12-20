@@ -62,7 +62,6 @@ RDEPEND="
 	onednn? ( dev-libs/oneDNN )
 	opencl? ( virtual/opencl )
 	qnnpack? (
-		sci-libs/QNNPACK
 		dev-cpp/gemmlowp
 	)
 	rocm? (
