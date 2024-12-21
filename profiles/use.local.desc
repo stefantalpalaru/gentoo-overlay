@@ -124,6 +124,10 @@ dev-php/pecl-apcu:lock-pthreadmutex - Enable pthread mutex locking
 dev-php/pecl-apcu:lock-pthreadrw - Enable pthread read/write locking
 dev-php/pecl-apcu:lock-semaphore - Enable semaphore locks instead of fcntl
 dev-php/pecl-apcu:lock-spinlock - Enable spin locks (EXPERIMENTAL)
+dev-php/pecl-apcu:php_targets_php7-4 - Build against PHP 7.4
+dev-php/pecl-apcu:php_targets_php8-0 - Build against PHP 8.0
+dev-php/xdebug:php_targets_php7-4 - Build against PHP 7.4
+dev-php/xdebug:php_targets_php8-0 - Build against PHP 8.0
 dev-python/amqp:extras - Install extra tools to generate initial Python mod from an AMQP XML file
 dev-python/amqplib:extras - Install extra tools to generate initial Python mod from an AMQP XML file
 dev-python/anyvc:bazaar - Add support for Bazaar

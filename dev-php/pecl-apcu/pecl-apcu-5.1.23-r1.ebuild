@@ -11,10 +11,9 @@ USE_PHP="php7-4 php8-0 php8-1 php8-2 php8-3"
 inherit php-ext-pecl-r3
 
 DESCRIPTION="Stripped down version of APC supporting only user cache"
-
 LICENSE="PHP-3.01"
 SLOT="7"
-KEYWORDS="amd64 ~arm ~arm64 ~x86"
+KEYWORDS="~amd64 ~arm ~arm64 ~x86"
 
 LOCKS="pthreadmutex pthreadrw spinlock semaphore"
 LUSE=""

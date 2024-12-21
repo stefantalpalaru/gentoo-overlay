@@ -8,7 +8,7 @@ app-arch/libzim 9.2.3: reference implementation for the ZIM archive format
 app-crypt/acme 1.8.0-r201 1.32.0-r1: An implementation of the ACME protocol
 app-crypt/certbot 1.8.0-r202 1.32.0-r3: Let’s Encrypt client to automate deployment of X.509 certificates
 app-crypt/certbot-dns-linode 1.32.0-r2 2.10.0 2.11.0 3.0.1: Linode DNS Authenticator plugin for Certbot
-app-crypt/certbot-s3front 0.4.2_p20201118-r3: S3/CloudFront plugin for Let's Encrypt client
+app-crypt/certbot-s3front 0.4.2_p20201118-r4: S3/CloudFront plugin for Let's Encrypt client
 app-editors/gedit 3.32.2-r4: A text editor for the GNOME desktop
 app-emacs/pymacs 0.26-r201: A tool that allows both-side communication beetween Python and Emacs Lisp
 app-emulation/vmware-modules 17.6.1: VMware kernel modules
@@ -16,7 +16,7 @@ app-emulation/vmware-workstation 17.6.1.24319023-r1: Emulate a complete PC witho
 app-misc/electricsheep 3.0.2_p20240213-r1 9999-r9: realize the collective dream of sleeping computers from all over the internet
 app-misc/iccloader 0.5-r1 9999-r2: systray widget used to load ICC color profiles with different color temperatures
 app-misc/openrgb 0.9-r1: Open source RGB lighting control that doesn't depend on manufacturer software
-app-misc/yworklog 0.0.7-r200: Stack based utility with CLI interface helping to monitor time spent on tasks
+app-misc/yworklog 0.0.7-r201: Stack based utility with CLI interface helping to monitor time spent on tasks
 app-office/upwork 5.8.0.33: Project collaboration and tracking software for upwork.com
 app-text/multitail 7.1.5-r1: Tail with multiple windows
 app-text/pinfo 0.6.13-r3: Hypertext info and man viewer based on (n)curses
@@ -34,7 +34,7 @@ dev-db/metakit 2.4.9.7_p20110819-r1: Embedded database library
 dev-db/valkey 8.0.1: Redis fork
 dev-debug/valgrind 3.24.0-r100: An open-source memory debugger for GNU/Linux
 dev-lang/chapel 2.3.0: Chapel programming language compiler
-dev-lang/erlang 27.0.1-r1: Erlang programming language, runtime environment and libraries (OTP)
+dev-lang/erlang 27.0.1-r2: Erlang programming language, runtime environment and libraries (OTP)
 dev-lang/nim 1.0.10-r101 1.2.18-r101 1.4.8-r101 1.6.20-r100 2.0.12-r100 2.2.0-r101 9999-r16: compiled, garbage-collected systems programming language
 dev-lang/php 5.3.29-r7 7.4.33-r7 8.0.30-r3: The PHP language runtime engine
 dev-lang/pony 0.58.7-r1: Compiler for the Pony language
@@ -52,20 +52,20 @@ dev-libs/keybinder 0.3.1-r201: A library for registering global keyboard shortcu
 dev-libs/libb64 2.0.0.1_p20200910-r2: Fast Base64 encoding/decoding routines
 dev-libs/libpeas 1.22.0-r8: A GObject plugins library
 dev-libs/libxml2 2.11.4: XML C parser and toolkit
-dev-libs/lthread 1.0_pre20150617-r2 9999-r2: multicore enabled coroutine library written in C
+dev-libs/lthread 1.0_pre20150617-r3 9999-r3: multicore enabled coroutine library written in C
 dev-libs/openssl 1.1.1w: Full-strength general purpose cryptography library (including SSL and TLS)
 dev-libs/protobuf 3.13.0: Google's Protocol Buffers - Extensible mechanism for serializing structured data
 dev-libs/sleef 3.7-r100: Implements vectorized versions of C standard math functions
 dev-nim/c2nim 0.9.19-r1 9999-r3: a tool to translate ANSI C code to Nim
 dev-nim/nimble 0.16.4 9999-r2: Nim package manager
 dev-nim/ntags 0.5.0-r1: tool that generates tags for Nim files, similar to ctags
-dev-php/pecl-apcu 5.1.23: Stripped down version of APC supporting only user cache
+dev-php/pecl-apcu 5.1.23-r1: Stripped down version of APC supporting only user cache
 dev-php/pecl-imagick 3.7.0-r1: PHP wrapper for the ImageMagick library
-dev-php/xdebug 3.1.6: A PHP debugging and profiling extension
+dev-php/xdebug 3.1.6-r1: A PHP debugging and profiling extension
 dev-python/alabaster 0.7.12-r2: A configurable sidebar-enabled Sphinx theme
 dev-python/alembic 1.4.2-r200: database migrations tool, written by the author of SQLAlchemy
 dev-python/amqp 1.4.9-r3: Low-level AMQP client for Python (fork of amqplib)
-dev-python/amqplib 1.0.2-r200: Python client for the Advanced Message Queuing Procotol (AMQP)
+dev-python/amqplib 1.0.2-r201: Python client for the Advanced Message Queuing Procotol (AMQP)
 dev-python/anyjson 0.3.3-r5: Wraps the best available JSON implementation available in a common interface
 dev-python/anyvc 0.3.7.1-r2: Library to access any version control system
 dev-python/apache-libcloud 1.5.0-r202 2.8.3-r202: Unified Interface to the Cloud - python support libs

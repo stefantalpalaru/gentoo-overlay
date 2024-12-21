@@ -10,5 +10,7 @@
 		<flag name="lock-pthreadmutex">Enable pthread mutex locking</flag>
 		<flag name="lock-pthreadrw">Enable pthread read/write locking</flag>
 		<flag name="lock-spinlock">Enable spin locks (EXPERIMENTAL)</flag>
+		<flag name="php_targets_php7-4">Build against PHP 7.4</flag>
+		<flag name="php_targets_php8-0">Build against PHP 8.0</flag>
 	</use>
 </pkgmetadata>

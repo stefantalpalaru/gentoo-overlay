@@ -8,4 +8,8 @@
 	<upstream>
 		<remote-id type="github">xdebug/xdebug</remote-id>
 	</upstream>
+	<use>
+		<flag name="php_targets_php7-4">Build against PHP 7.4</flag>
+		<flag name="php_targets_php8-0">Build against PHP 8.0</flag>
+	</use>
 </pkgmetadata>
