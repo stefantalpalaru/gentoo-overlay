@@ -1,4 +1,4 @@
-# Copyright 1999-2022 Gentoo Authors
+# Copyright 1999-2024 Gentoo Authors
 # Distributed under the terms of the GNU General Public License v2
 
 EAPI=8
@@ -7,13 +7,12 @@ inherit flag-o-matic qmake-utils toolchain-funcs
 
 DESCRIPTION="G'MIC GUI for video streams"
 HOMEPAGE="https://github.com/c-koi/zart"
-ZART_COMMIT="34ebf6cce0bafb98abe57cec83c4a02cd1abeca0"
+ZART_COMMIT="d014169343f835381ad232ee11e077326561c9eb"
 SRC_URI="https://github.com/c-koi/zart/archive/${ZART_COMMIT}.tar.gz -> ${P}.tar.gz"
-
+S="${WORKDIR}/${PN}-${ZART_COMMIT}"
 LICENSE="CeCILL-2"
 SLOT="0"
-KEYWORDS="~amd64 ~x86"
-IUSE=""
+KEYWORDS="~amd64 ~arm64 ~x86"
 
 RDEPEND="
 	dev-qt/qtcore:5
@@ -32,8 +31,6 @@ DEPEND="${RDEPEND}
 PATCHES=(
 	"${FILESDIR}"/${PN}-3.2.2-dynamic-linking-r2.patch
 )
-
-S="${WORKDIR}/${PN}-${ZART_COMMIT}"
 
 pkg_pretend() {
 	tc-check-openmp

@@ -10,8 +10,9 @@ inherit bash-completion-r1 cmake flag-o-matic qmake-utils toolchain-funcs
 DESCRIPTION="GREYC's Magic Image Converter"
 HOMEPAGE="http://gmic.eu/
 	https://github.com/GreycLab/gmic
-	https://framagit.org/dtschump/gmic"
-GMIC_QT_URI="https://github.com/c-koi/gmic-qt/archive/v.${PV}.tar.gz -> gmic-qt-${PV}.tar.gz"
+	https://framagit.org/dtschump/gmic
+	https://github.com/GreycLab/gmic-qt"
+GMIC_QT_URI="https://github.com/GreycLab/gmic-qt/archive/v.${PV}.tar.gz -> gmic-qt-${PV}.tar.gz"
 SRC_URI="https://github.com/GreycLab/gmic/archive/v.${PV}.tar.gz -> ${P}.tar.gz
 	https://gmic.eu/gmic_stdlib_community$(ver_rs 1- '').h
 	gimp? ( ${GMIC_QT_URI} )
@@ -20,7 +21,7 @@ SRC_URI="https://github.com/GreycLab/gmic/archive/v.${PV}.tar.gz -> ${P}.tar.gz
 S="${WORKDIR}/${PN}-v.${PV}"
 LICENSE="CeCILL-2 GPL-3"
 SLOT="0"
-KEYWORDS="~amd64 ~x86"
+KEYWORDS="~amd64 ~arm64 ~x86"
 IUSE="bash-completion +cli ffmpeg +fftw gimp graphicsmagick gui jpeg opencv openexr +openmp png static-libs tiff X"
 REQUIRED_USE="
 	|| ( cli gimp gui )

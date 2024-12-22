@@ -11,7 +11,7 @@ SRC_URI="https://github.com/GreycLab/CImg/archive/v.${PV}.tar.gz -> ${P}.tar.gz"
 S="${WORKDIR}/CImg-v.${PV}"
 LICENSE="CeCILL-2 CeCILL-C"
 SLOT="0"
-KEYWORDS="~amd64 ~x86"
+KEYWORDS="~amd64 ~arm64 ~x86"
 IUSE="doc"
 
 src_install() {
