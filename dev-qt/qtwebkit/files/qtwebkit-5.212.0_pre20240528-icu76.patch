@@ -1,0 +1,11 @@
+diff '--color=auto' -ur qtwebkit-756e1c8f23dc2720471298281c421c0076d02df8.orig/Source/WTF/wtf/Platform.h qtwebkit-756e1c8f23dc2720471298281c421c0076d02df8/Source/WTF/wtf/Platform.h
+--- qtwebkit-756e1c8f23dc2720471298281c421c0076d02df8.orig/Source/WTF/wtf/Platform.h	2024-05-28 01:27:58.000000000 +0200
++++ qtwebkit-756e1c8f23dc2720471298281c421c0076d02df8/Source/WTF/wtf/Platform.h	2024-12-23 21:25:17.688583651 +0100
+@@ -1141,6 +1141,7 @@
+ /* FIXME: This does not belong in Platform.h and should instead be included in another mechanism (compiler option, prefix header, config.h, etc) */
+ /* ICU configuration. Some of these match ICU defaults on some platforms, but we would like them consistently set everywhere we build WebKit. */
+ #define U_SHOW_CPLUSPLUS_API 0
++#define U_SHOW_CPLUSPLUS_HEADER_API 0
+ #ifdef __cplusplus
+ #define UCHAR_TYPE char16_t
+ #endif

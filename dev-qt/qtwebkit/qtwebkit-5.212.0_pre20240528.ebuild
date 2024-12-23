@@ -3,18 +3,19 @@
 
 EAPI=8
 
-PYTHON_COMPAT=( python3_{10..12} )
+PYTHON_COMPAT=( python3_{10..13} python3_13t )
 USE_RUBY="ruby27 ruby30 ruby31 ruby32"
-MY_P="${PN}-${PV/_pre20200309/-alpha4}" # present as upgrade over previous snapshot
+MY_COMMIT="756e1c8f23dc2720471298281c421c0076d02df8"
 
 inherit check-reqs cmake flag-o-matic python-any-r1 qmake-utils ruby-single toolchain-funcs
 
 DESCRIPTION="WebKit rendering library for the Qt5 framework (deprecated)"
 HOMEPAGE="https://www.qt.io/"
-SRC_URI="https://github.com/annulen/webkit/releases/download/${MY_P}/${MY_P}.tar.xz"
-KEYWORDS="amd64 arm arm64 ppc64 x86"
+SRC_URI="https://github.com/qtwebkit/qtwebkit/archive/${MY_COMMIT}.tar.gz -> ${P}.gh.tar.gz"
+S="${WORKDIR}/qtwebkit-${MY_COMMIT}"
 LICENSE="BSD LGPL-2+"
 SLOT="5/5.212"
+KEYWORDS="amd64 arm arm64 ppc64 x86"
 IUSE="geolocation gles2-only +gstreamer +hyphen +jit multimedia nsplugin opengl orientation +printsupport qml webp X"
 
 REQUIRED_USE="
@@ -74,16 +75,11 @@ DEPEND="
 "
 RDEPEND="${DEPEND}"
 
-S="${WORKDIR}/${MY_P}"
-
 CHECKREQS_DISK_BUILD="16G" # bug 417307
 
 PATCHES=(
-	"${FILESDIR}/${P}-bison-3.7.patch" # bug 736499
-	"${FILESDIR}/${P}-icu-68.patch" # bug 753260
-	"${FILESDIR}/${P}-python-3.9.patch" # bug 766303
-	"${FILESDIR}/${P}-glib-2.68.patch" # bug 777759
-	"${FILESDIR}/qtwebkit-5.212.0_pre20200309-includes.patch"
+	"${FILESDIR}"/qtwebkit-5.212.0_pre20240528-gcc14.patch
+	"${FILESDIR}"/qtwebkit-5.212.0_pre20240528-icu76.patch
 )
 
 _check_reqs() {
