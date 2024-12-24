@@ -80,6 +80,7 @@ CHECKREQS_DISK_BUILD="16G" # bug 417307
 PATCHES=(
 	"${FILESDIR}"/qtwebkit-5.212.0_pre20240528-gcc14.patch
 	"${FILESDIR}"/qtwebkit-5.212.0_pre20240528-icu76.patch
+	"${FILESDIR}"/qtwebkit-5.212.0_pre20240528-ruby.patch
 )
 
 _check_reqs() {
