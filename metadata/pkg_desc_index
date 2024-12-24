@@ -529,7 +529,7 @@ dev-python/pysnmp 4.4.12-r200: Python SNMP library
 dev-python/pysocks 1.7.1-r4: SOCKS client module
 dev-python/pystache 0.5.4-r200: Mustache for Python
 dev-python/pystatgrab 0.7-r1: pystatgrab is a set of Python bindings for the libstatgrab library
-dev-python/pysubs2 1.7.3: A library for editing subtitle files
+dev-python/pysubs2 1.8.0: A library for editing subtitle files
 dev-python/pysvn 1.9.11-r200: Object-oriented python bindings for subversion
 dev-python/pytest 3.10.1-r201: Simple powerful testing with Python
 dev-python/pytest-arraydiff 0.1-r201: pytest plugin to facilitate comparison of arrays
