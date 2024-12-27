@@ -7,10 +7,10 @@ inherit linux-mod-r1
 
 DESCRIPTION="Experimental Logitech force feedback module"
 HOMEPAGE="https://github.com/berarma/new-lg4ff"
-SRC_URI="https://github.com/berarma/${PN}/archive/${PV}.tar.gz -> ${P}.tar.gz"
+SRC_URI="https://github.com/berarma/${PN}/archive/v${PV}.tar.gz -> ${P}.tar.gz"
 LICENSE="GPL-2"
 SLOT="0"
-KEYWORDS="~alpha ~amd64 ~arm ~arm64 ~hppa ~ia64 ~m68k ~mips ~ppc ~ppc64 ~s390 ~sparc ~x86"
+KEYWORDS="~alpha ~amd64 ~arm ~arm64 ~hppa ~m68k ~mips ~ppc ~ppc64 ~s390 ~sparc ~x86"
 RESTRICT="mirror"
 
 # https://github.com/berarma/new-lg4ff/issues/57#issuecomment-1019325204
@@ -21,7 +21,7 @@ src_prepare() {
 
 	sed -i \
 		-e "s%KDIR := .*%KDIR := ${KERNEL_DIR}%g" \
-		Makefile
+		Makefile || die
 }
 
 src_compile() {
