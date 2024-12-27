@@ -20,21 +20,32 @@ RESTRICT="strip
 	network-sandbox
 	!test? ( test )"
 
+COMMON_DEPEND="
+$(llvm_gen_dep '
+	llvm-core/clang:${LLVM_SLOT}=
+	llvm-core/lld:${LLVM_SLOT}=
+')
+"
 RDEPEND="
+	${COMMON_DEPEND}
 	sys-libs/zlib
-	vim-syntax? ( app-vim/pony-syntax )"
+	vim-syntax? ( app-vim/pony-syntax )
+"
 DEPEND="${RDEPEND}"
 BDEPEND="
-	llvm-core/clang
+	${COMMON_DEPEND}
 	virtual/pkgconfig
 "
 
 PATCHES=(
-	"${FILESDIR}/pony-0.58.5-lld.patch"
+	"${FILESDIR}/pony-0.58.8-lld.patch"
 )
 
 pkg_setup() {
 	llvm-r1_pkg_setup
+
+	export LD="ld.lld"
+	llvm_fix_tool_path LD
 }
 
 src_prepare() {
@@ -49,14 +60,9 @@ src_prepare() {
 		-e "s/-DCMAKE_CXX_FLAGS=\"-march=\$(arch) -mtune=\$(tune)\"/-DCMAKE_CXX_FLAGS=\"${CXXFLAGS}\"/g" \
 		-e 's/ln -s/ln -sr/g' \
 		Makefile || die
-
-	gcc_lib_dir="$(gcc-config -L | cut -d ':' -f 1)"
-	sed -i \
-		-e "s#/lib/x86_64-linux-gnu#${gcc_lib_dir}#" \
-		src/libponyc/codegen/genexe.c || die
 }
 
-common_make_args="config=release verbose=yes"
+common_make_args="config=release verbose=yes PONY_USES=\"-DPONY_LINKER=\${LD}\""
 
 src_configure() {
 	emake ${common_make_args} build_flags="${MAKEOPTS}" libs
