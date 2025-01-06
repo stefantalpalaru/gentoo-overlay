@@ -247,6 +247,7 @@ media-libs/libheif:openh264 - USE media-libs/openh264 for AVC decoding
 media-libs/libheif:rav1e - Use media-video/rav1e for AVIF encoding
 media-libs/libheif:svt-av1 - Use media-libs/svt-av1 for AVIF encoding
 media-libs/libheif:x265 - Use media-libs/x265 for HEIF encoding
+media-libs/libtgvoip:dsp - Enable signal processing (echo cancellation, noise suppression, and automatic gain control)
 media-libs/svt-av1:lto - Build with link-time optimizations (LTO)
 media-libs/svt-av1:pgo - Build with profile guided optimizations (PGO)
 media-libs/zmusic:fluidsynth - Enable support for MIDI via media-sound/fluidsynth
