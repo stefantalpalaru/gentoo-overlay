@@ -9,9 +9,9 @@ DESCRIPTION="VMware kernel modules"
 HOMEPAGE="https://github.com/bytium/vm-host-modules"
 
 # Highest kernel version known to work:
-MY_KERNEL_VERSION="6.11"
+MY_KERNEL_VERSION="6.12"
 
-MY_COMMIT="f3f2ae61203f683cc108096753686fc33d5f82c3"
+MY_COMMIT="7bab658ccb4ba783b984e800a30925eea46448ff"
 
 SRC_URI=" https://github.com/bytium/vm-host-modules/archive/${MY_COMMIT}.tar.gz -> ${P}-${MY_COMMIT}.tar.gz"
 S="${WORKDIR}/vm-host-modules-${MY_COMMIT}"
