@@ -15,7 +15,7 @@ app-emulation/vmware-modules 17.6.2: VMware kernel modules
 app-emulation/vmware-workstation 17.6.2.24409262: Emulate a complete PC without the performance overhead of most emulators
 app-misc/electricsheep 3.0.2_p20240213-r1 9999-r9: realize the collective dream of sleeping computers from all over the internet
 app-misc/iccloader 0.5-r1 9999-r2: systray widget used to load ICC color profiles with different color temperatures
-app-misc/openrgb 0.9-r1: Open source RGB lighting control that doesn't depend on manufacturer software
+app-misc/openrgb 0.9 0.9-r2: Open source RGB lighting control
 app-misc/yworklog 0.0.7-r201: Stack based utility with CLI interface helping to monitor time spent on tasks
 app-office/upwork 5.8.0.33: Project collaboration and tracking software for upwork.com
 app-text/multitail 7.1.5-r1: Tail with multiple windows
