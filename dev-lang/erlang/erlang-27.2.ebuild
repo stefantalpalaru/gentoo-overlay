@@ -1,4 +1,4 @@
-# Copyright 1999-2024 Gentoo Authors
+# Copyright 1999-2025 Gentoo Authors
 # Distributed under the terms of the GNU General Public License v2
 
 EAPI=8
@@ -49,7 +49,6 @@ PATCHES=(
 	"${FILESDIR}"/${PN}-27.0-dont-ignore-LDFLAGS.patch
 	"${FILESDIR}"/${PN}-24.0.2-serial-configure.patch
 	"${FILESDIR}"/${PN}-25.1.2-c99.patch # Bug #882887
-	"${FILESDIR}"/${PN}-26.2.4-test-errorinfo.patch
 )
 
 SITEFILE=50"${PN}"-gentoo.el
