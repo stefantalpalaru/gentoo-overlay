@@ -1,4 +1,4 @@
-# Copyright 1999-2024 Gentoo Authors
+# Copyright 1999-2025 Gentoo Authors
 # Distributed under the terms of the GNU General Public License v2
 
 EAPI=8
@@ -7,7 +7,7 @@ LUA_COMPAT=( luajit )
 LUA_REQ_USE="lua52compat"
 
 WX_GTK_VER=3.2-gtk3
-PLOCALES="ar be bg ca cs da de el es eu fa fi fr_FR gl hu id it ja ko nl pl pt_BR pt_PT ru sr_RS sr_RS@latin uk_UA vi zh_CN zh_TW"
+PLOCALES="ar be bg ca cs da de el es eu fa fi fr_FR gl hu id it ja ko nl pl pt_BR pt_PT ru sr_RS sr_RS@latin tr uk_UA vi zh_CN zh_TW"
 
 inherit flag-o-matic lua-single meson plocale wxwidgets xdg-utils vcs-snapshot toolchain-funcs
 
@@ -64,14 +64,12 @@ REQUIRED_USE="${LUA_REQUIRED_USE}
 	|| ( alsa openal portaudio pulseaudio )"
 
 PATCHES=(
-	"${FILESDIR}"/aegisub-3.4.0-system-gtest.patch
-	"${FILESDIR}"/aegisub-3.4.0-includes.patch
-	"${FILESDIR}"/aegisub-3.4.0-wxWidgets-3.2.patch
+	"${FILESDIR}"/aegisub-3.4.2-gtest.patch
 )
 
 aegisub_check_compiler() {
-	if [[ ${MERGE_TYPE} != "binary" ]] && ! test-flag-CXX -std=c++17; then
-		die "Your compiler lacks C++17 support."
+	if [[ ${MERGE_TYPE} != "binary" ]] && ! test-flag-CXX -std=c++20; then
+		die "Your compiler lacks C++20 support."
 	fi
 }
 
@@ -100,6 +98,9 @@ src_prepare() {
 	cat <<-EOF > "${WORKDIR}/${P}-build"/git_version.h || die
 	#define BUILD_GIT_VERSION_NUMBER 0
 	#define BUILD_GIT_VERSION_STRING "${PV}"
+	#define TAGGED_RELEASE 1
+	#define INSTALLER_VERSION "${PV}"
+	#define RESOURCE_BASE_VERSION $(ver_rs 1-3 ', ')
 	EOF
 }
 
@@ -109,7 +110,13 @@ src_configure() {
 	use openal && export agi_cv_with_openal="yes"
 
 	setup-wxwidgets
+
+	# Upstream only supports PCH builds, by leaving out many header includes.
+	# Most of them will cause errors during compilation, when PCH is disabled,
+	# but others - like "acconf.h" - will silently fail, resulting in a build
+	# that assumes FFMS2 and other optional deps are disabled.
 	local emesonargs=(
+		-Db_pch=true
 		-Denable_update_checker=false
 		-Dffms2=enabled
 		-Dsystem_luajit=true
