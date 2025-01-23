@@ -1,0 +1,35 @@
+From bb1910ff4c696502d3d518a0cd36c7bd2795554f Mon Sep 17 00:00:00 2001
+From: Ralph Sennhauser <ralph.sennhauser@gmail.com>
+Date: Tue, 19 Nov 2024 18:31:13 +0100
+Subject: [PATCH] Fix segfault with openal-1.24.0
+
+With version 1.24.0 alcIsExtensionPresent() has dropped case insensitive
+string comparison [1], use upper case names.
+
+The internal strings are uppercase since the first git commit importing
+openal 17 years ago.
+
+[1] upstream commit 785f794141d62a4c308db26aa4a4819e6a92525e
+
+Report: https://wildfiregames.com/forum/topic/125203-crash-on-start-due-to-soundmanager
+Signed-off-by: Ralph Sennhauser <ralph.sennhauser@gmail.com>
+---
+ source/soundmanager/SoundManager.cpp | 4 ++--
+ 1 file changed, 2 insertions(+), 2 deletions(-)
+
+diff --git a/source/soundmanager/SoundManager.cpp b/source/soundmanager/SoundManager.cpp
+index 1822a9e89d..6cd34f19ac 100644
+--- a/source/soundmanager/SoundManager.cpp
++++ b/source/soundmanager/SoundManager.cpp
+@@ -831,9 +831,9 @@ void CSoundManager::RunHardwareDetection()
+ 	// Sound cards
+ 
+ 	const ALCchar* devices = nullptr;
+-	if (alcIsExtensionPresent(nullptr, "ALC_enumeration_EXT") == AL_TRUE)
++	if (alcIsExtensionPresent(nullptr, "ALC_ENUMERATION_EXT") == AL_TRUE)
+ 	{
+-		if (alcIsExtensionPresent(nullptr, "ALC_enumerate_all_EXT") == AL_TRUE)
++		if (alcIsExtensionPresent(nullptr, "ALC_ENUMERATE_ALL_EXT") == AL_TRUE)
+ 			devices = alcGetString(nullptr, ALC_ALL_DEVICES_SPECIFIER);
+ 		else
+ 			devices = alcGetString(nullptr, ALC_DEVICE_SPECIFIER);

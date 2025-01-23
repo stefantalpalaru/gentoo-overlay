@@ -1,0 +1,10 @@
+--- 0ad/libraries/source/spidermonkey/build.sh	2024-01-03 19:06:41.243317782 -0600
++++ 0ad/libraries/source/spidermonkey/build.sh	2024-01-03 19:11:53.229976759 -0600
+@@ -119,6 +119,7 @@
+   # Apply patches
+   cd "$FOLDER"
+   . ../patch.sh
++  sed -i "s/if enabled and compiler\.version >= '9\.0\.0'/& and compiler.version < '13.0.0'/" build/moz.configure/flags.configure 
+   # Copy a more recent autoconf config.guess to handle ARM macs properly.
+   cp -f ../config.guess build/autoconf/
+   # Prevent complaining that configure is outdated.
