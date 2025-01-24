@@ -7,5 +7,5 @@ LICENSE=NVIDIA-cuDNN
 RDEPEND==dev-util/nvidia-cuda-toolkit-11*
 RESTRICT=mirror
 SLOT=0/9
-SRC_URI=https://developer.download.nvidia.com/compute/cudnn/redist/cudnn/linux-x86_64/cudnn-linux-x86_64-9.6.0.74_cuda11-archive.tar.xz
+SRC_URI=https://developer.download.nvidia.com/compute/cudnn/redist/cudnn/linux-x86_64/cudnn-linux-x86_64-9.7.0.66_cuda11-archive.tar.xz
 _md5_=02dcabf7aaa5585b962ff327c96d2010
