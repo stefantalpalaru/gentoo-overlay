@@ -1,0 +1,21 @@
+diff '--color=auto' -ur pytorch-2.6.0.orig/torch/__init__.py pytorch-2.6.0/torch/__init__.py
+--- pytorch-2.6.0.orig/torch/__init__.py	2025-01-29 01:09:34.000000000 +0100
++++ pytorch-2.6.0/torch/__init__.py	2025-01-29 19:50:37.367976150 +0100
+@@ -315,7 +315,7 @@
+     global_deps_lib_path = os.path.join(os.path.dirname(here), "lib", lib_name)
+ 
+     try:
+-        ctypes.CDLL(global_deps_lib_path, mode=ctypes.RTLD_GLOBAL)
++        ctypes.CDLL(lib_name, mode=ctypes.RTLD_GLOBAL)
+         # Workaround slim-wheel CUDA dependency bugs in cusparse and cudnn by preloading nvjitlink
+         # and nvrtc. In CUDA-12.4+ cusparse depends on nvjitlink, but does not have rpath when
+         # shipped as wheel, which results in OS picking wrong/older version of nvjitlink library
+@@ -360,7 +360,7 @@
+             raise err
+         for lib_folder, lib_name in cuda_libs.items():
+             _preload_cuda_deps(lib_folder, lib_name)
+-        ctypes.CDLL(global_deps_lib_path, mode=ctypes.RTLD_GLOBAL)
++        ctypes.CDLL(lib_name, mode=ctypes.RTLD_GLOBAL)
+ 
+ 
+ if (USE_RTLD_GLOBAL_WITH_LIBTORCH or os.getenv("TORCH_USE_RTLD_GLOBAL")) and (

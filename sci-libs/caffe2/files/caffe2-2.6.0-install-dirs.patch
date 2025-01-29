@@ -1,7 +1,7 @@
-diff '--color=auto' -ur pytorch-2.4.0.orig/c10/CMakeLists.txt pytorch-2.4.0/c10/CMakeLists.txt
---- pytorch-2.4.0.orig/c10/CMakeLists.txt	2024-07-25 03:24:52.459644334 +0200
-+++ pytorch-2.4.0/c10/CMakeLists.txt	2024-07-25 03:27:59.298586386 +0200
-@@ -157,7 +157,7 @@
+diff '--color=auto' -ur pytorch-v2.6.0.orig/c10/CMakeLists.txt pytorch-v2.6.0/c10/CMakeLists.txt
+--- pytorch-v2.6.0.orig/c10/CMakeLists.txt	2025-01-29 18:50:29.165886622 +0100
++++ pytorch-v2.6.0/c10/CMakeLists.txt	2025-01-29 18:51:32.517611116 +0100
+@@ -163,7 +163,7 @@
    # Note: for now, we will put all export path into one single Caffe2Targets group
    # to deal with the cmake deployment need. Inside the Caffe2Targets set, the
    # individual libraries like libc10.so and libcaffe2.so are still self-contained.
@@ -10,9 +10,9 @@ diff '--color=auto' -ur pytorch-2.4.0.orig/c10/CMakeLists.txt pytorch-2.4.0/c10/
  endif()
  
  install(DIRECTORY ${CMAKE_CURRENT_LIST_DIR}
-diff '--color=auto' -ur pytorch-2.4.0.orig/c10/cuda/CMakeLists.txt pytorch-2.4.0/c10/cuda/CMakeLists.txt
---- pytorch-2.4.0.orig/c10/cuda/CMakeLists.txt	2024-07-25 03:24:52.458644339 +0200
-+++ pytorch-2.4.0/c10/cuda/CMakeLists.txt	2024-07-25 03:28:59.962242887 +0200
+diff '--color=auto' -ur pytorch-v2.6.0.orig/c10/cuda/CMakeLists.txt pytorch-v2.6.0/c10/cuda/CMakeLists.txt
+--- pytorch-v2.6.0.orig/c10/cuda/CMakeLists.txt	2025-01-29 18:50:29.165886622 +0100
++++ pytorch-v2.6.0/c10/cuda/CMakeLists.txt	2025-01-29 18:52:04.485472094 +0100
 @@ -82,7 +82,7 @@
  # Note: for now, we will put all export path into one single Caffe2Targets group
  # to deal with the cmake deployment need. Inside the Caffe2Targets set, the
@@ -22,10 +22,10 @@ diff '--color=auto' -ur pytorch-2.4.0.orig/c10/cuda/CMakeLists.txt pytorch-2.4.0
  
  endif()
  
-diff '--color=auto' -ur pytorch-2.4.0.orig/c10/hip/CMakeLists.txt pytorch-2.4.0/c10/hip/CMakeLists.txt
---- pytorch-2.4.0.orig/c10/hip/CMakeLists.txt	2024-07-25 03:24:52.458644339 +0200
-+++ pytorch-2.4.0/c10/hip/CMakeLists.txt	2024-07-25 03:29:37.450030606 +0200
-@@ -57,7 +57,7 @@
+diff '--color=auto' -ur pytorch-v2.6.0.orig/c10/hip/CMakeLists.txt pytorch-v2.6.0/c10/hip/CMakeLists.txt
+--- pytorch-v2.6.0.orig/c10/hip/CMakeLists.txt	2025-01-29 18:50:29.165886622 +0100
++++ pytorch-v2.6.0/c10/hip/CMakeLists.txt	2025-01-29 18:52:38.493324200 +0100
+@@ -55,7 +55,7 @@
        $<BUILD_INTERFACE:${CMAKE_CURRENT_SOURCE_DIR}/../..>
        $<BUILD_INTERFACE:${CMAKE_BINARY_DIR}>
        $<INSTALL_INTERFACE:include>)
@@ -34,21 +34,21 @@ diff '--color=auto' -ur pytorch-2.4.0.orig/c10/hip/CMakeLists.txt pytorch-2.4.0/
    set(C10_HIP_LIB c10_hip)
  endif()
  
-diff '--color=auto' -ur pytorch-2.4.0.orig/test/cpp/c10d/CMakeLists.txt pytorch-2.4.0/test/cpp/c10d/CMakeLists.txt
---- pytorch-2.4.0.orig/test/cpp/c10d/CMakeLists.txt	2024-07-25 03:24:52.460644328 +0200
-+++ pytorch-2.4.0/test/cpp/c10d/CMakeLists.txt	2024-07-25 03:25:35.367401374 +0200
-@@ -51,7 +51,7 @@
+diff '--color=auto' -ur pytorch-v2.6.0.orig/test/cpp/c10d/CMakeLists.txt pytorch-v2.6.0/test/cpp/c10d/CMakeLists.txt
+--- pytorch-v2.6.0.orig/test/cpp/c10d/CMakeLists.txt	2025-01-29 18:50:29.169886605 +0100
++++ pytorch-v2.6.0/test/cpp/c10d/CMakeLists.txt	2025-01-29 18:53:13.925170113 +0100
+@@ -50,7 +50,7 @@
+       ProcessGroupNCCLErrorsTest.cpp
+       LINK_LIBRARIES torch_cpu c10d_cuda_test gtest_main __caffe2_nccl INSTALL_TEST ${INSTALL_TEST})
      if(INSTALL_TEST)
-       install(TARGETS ProcessGroupNCCLTest DESTINATION bin)
-       install(TARGETS ProcessGroupNCCLErrorsTest DESTINATION bin)
 -      install(TARGETS c10d_cuda_test DESTINATION lib)
 +      install(TARGETS c10d_cuda_test DESTINATION ${CMAKE_INSTALL_LIBDIR})
      endif()
    endif()
    if(USE_UCC AND USE_C10D_UCC)
-diff '--color=auto' -ur pytorch-2.4.0.orig/test/cpp/jit/CMakeLists.txt pytorch-2.4.0/test/cpp/jit/CMakeLists.txt
---- pytorch-2.4.0.orig/test/cpp/jit/CMakeLists.txt	2024-07-25 03:24:52.461644322 +0200
-+++ pytorch-2.4.0/test/cpp/jit/CMakeLists.txt	2024-07-25 03:25:35.367401374 +0200
+diff '--color=auto' -ur pytorch-v2.6.0.orig/test/cpp/jit/CMakeLists.txt pytorch-v2.6.0/test/cpp/jit/CMakeLists.txt
+--- pytorch-v2.6.0.orig/test/cpp/jit/CMakeLists.txt	2025-01-29 18:50:29.169886605 +0100
++++ pytorch-v2.6.0/test/cpp/jit/CMakeLists.txt	2025-01-29 18:53:56.998982792 +0100
 @@ -32,9 +32,9 @@
  target_link_libraries(backend_with_compiler torch)
  

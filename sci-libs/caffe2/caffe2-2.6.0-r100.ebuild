@@ -1,9 +1,9 @@
-# Copyright 2022-2024 Gentoo Authors
+# Copyright 2022-2025 Gentoo Authors
 # Distributed under the terms of the GNU General Public License v2
 
 EAPI=8
 
-PYTHON_COMPAT=( python3_{10..12} )
+PYTHON_COMPAT=( python3_{10..13} )
 ROCM_VERSION=6.1
 inherit python-single-r1 cmake cuda flag-o-matic prefix rocm toolchain-funcs
 
@@ -109,15 +109,14 @@ DEPEND="
 "
 
 PATCHES=(
-	"${FILESDIR}"/caffe2-2.5.0-gentoo.patch
-	"${FILESDIR}"/caffe2-2.4.0-install-dirs.patch
+	"${FILESDIR}"/caffe2-2.6.0-gentoo.patch
+	"${FILESDIR}"/caffe2-2.6.0-install-dirs.patch
 	"${FILESDIR}"/caffe2-1.12.0-glog-0.6.0.patch
 	"${FILESDIR}"/caffe2-1.13.1-tensorpipe.patch
 	"${FILESDIR}"/caffe2-2.3.0-cudnn_include_fix.patch
 	"${FILESDIR}"/caffe2-2.1.2-fix-rpath.patch
 	"${FILESDIR}"/caffe2-2.4.0-fix-openmp-link.patch
 	"${FILESDIR}"/caffe2-2.4.0-rocm-fix-std-cpp17.patch
-	"${FILESDIR}"/caffe2-2.2.2-musl.patch
 	"${FILESDIR}"/caffe2-2.3.0-fix-libcpp.patch
 	"${FILESDIR}"/caffe2-2.4.0-cpp-httplib.patch
 	"${FILESDIR}"/caffe2-2.4.0-kineto.patch

@@ -1,10 +1,10 @@
-# Copyright 2022-2024 Gentoo Authors
+# Copyright 2022-2025 Gentoo Authors
 # Distributed under the terms of the GNU General Public License v2
 
 EAPI=8
 
 DISTUTILS_USE_PEP517=setuptools
-PYTHON_COMPAT=( python3_{10..12} )
+PYTHON_COMPAT=( python3_{10..13} )
 DISTUTILS_SINGLE_IMPL=1
 DISTUTILS_EXT=1
 inherit distutils-r1 prefix
@@ -35,12 +35,12 @@ DEPEND="${RDEPEND}
 "
 
 PATCHES=(
-	"${FILESDIR}"/${PN}-2.5.0-dontbuildagain.patch
-	"${FILESDIR}"/pytorch-1.9.0-Change-library-directory-according-to-CMake-build.patch
-	"${FILESDIR}"/${PN}-2.4.0-global-dlopen.patch
+	"${FILESDIR}"/${PN}-2.6.0-dontbuildagain.patch
+	"${FILESDIR}"/pytorch-2.6.0-Change-library-directory-according-to-CMake-build.patch
+	"${FILESDIR}"/${PN}-2.6.0-global-dlopen.patch
 	"${FILESDIR}"/pytorch-2.5.0-torch_shm_manager.patch
-	"${FILESDIR}"/${PN}-2.5.0-setup.patch
-	"${FILESDIR}"/${PN}-2.2.1-emptyso.patch
+	"${FILESDIR}"/${PN}-2.6.0-setup.patch
+	"${FILESDIR}"/${PN}-2.6.0-emptyso.patch
 )
 
 src_prepare() {
