@@ -12,6 +12,6 @@ RDEPEND=>=dev-libs/asmjit-2022.07.02:= dev-libs/cpuinfo
 REQUIRED_USE=cpu_flags_x86_avx2
 RESTRICT=!test? ( test )
 SLOT=0
-SRC_URI=https://github.com/pytorch/FBGEMM/archive/73a64e75ff31be7ece6f68929ee5682b0bf9eb10.tar.gz -> FBGEMM-2024.10.08.tar.gz
+SRC_URI=https://github.com/pytorch/FBGEMM/archive/refs/tags/v1.1.0.tar.gz -> FBGEMM-2025.01.29.tar.gz
 _eclasses_=multiprocessing	1e32df7deee68372153dca65f4a7c21f	toolchain-funcs	14648d8795f7779e11e1bc7cf08b7536	multilib	b2a329026f2e404e9e371097dda47f96	python-utils-r1	2005a06234063e6815028c5db214aa3f	python-any-r1	a3e9c0524a795d7f2767a2cf12a2e8c0	flag-o-matic	357f1a896fbedcd06e5ce55419c49eb9	ninja-utils	2df4e452cea39a9ec8fb543ce059f8d6	xdg-utils	42869b3c8d86a70ef3cf75165a395e09	cmake	10a50dfaf728b802fcfd37f8d0da9056
-_md5_=2ba21fb8b0aac8c8c3380204f00791ce
+_md5_=6931727b2c6e896d8fa2666510ad2492
