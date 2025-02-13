@@ -885,7 +885,7 @@ sci-libs/caffe2 2.6.0-r100: A deep learning framework
 sci-libs/cfitsio 3.410-r1: C and Fortran library for manipulating FITS files
 sci-libs/cholmod 3.0.14-r1: Sparse Cholesky factorization and update/downdate library
 sci-libs/gdal 3.0.4-r204: Translator library for raster geospatial data formats (includes OGR support)
-sci-libs/onnxruntime 1.20.1: Cross-platform inference and training machine-learning accelerator.
+sci-libs/onnxruntime 1.20.2: Cross-platform inference and training machine-learning accelerator.
 sci-libs/pytorch 2.6.0-r100: Tensors and Dynamic neural networks in Python
 sci-libs/torchvision 0.21.0: Datasets, transforms and models to specific to computer vision
 sci-mathematics/xmds 2.2.3-r4: XMDS - The eXtensible Multi-Dimensional Simulator
