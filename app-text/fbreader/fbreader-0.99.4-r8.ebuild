@@ -7,8 +7,7 @@ inherit qmake-utils toolchain-funcs xdg
 
 DESCRIPTION="E-Book Reader. Supports many e-book formats"
 HOMEPAGE="https://www.fbreader.org/"
-SRC_URI="https://www.fbreader.org/files/desktop/${PN}-sources-${PV}.tgz
-	https://dev.gentoo.org/~juippis/distfiles/tmp/${P}-combined.patch"
+SRC_URI="https://www.fbreader.org/files/desktop/${PN}-sources-${PV}.tgz"
 
 LICENSE="GPL-2"
 SLOT="0"
@@ -34,7 +33,9 @@ BDEPEND="
 "
 
 # bugs #452636, #515698, #516794, #437262, #592588
-PATCHES=( "${DISTDIR}"/${P}-combined.patch )
+PATCHES=(
+	"${FILESDIR}"/${P}-combined.patch
+)
 
 src_prepare() {
 	default
