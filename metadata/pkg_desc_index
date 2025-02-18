@@ -56,6 +56,7 @@ dev-libs/libxml2 2.11.4: XML C parser and toolkit
 dev-libs/lthread 1.0_pre20150617-r3 9999-r3: multicore enabled coroutine library written in C
 dev-libs/openssl 1.1.1w: Full-strength general purpose cryptography library (including SSL and TLS)
 dev-libs/protobuf 3.13.0: Google's Protocol Buffers - Extensible mechanism for serializing structured data
+dev-libs/qtkeychain 0.14.3 0.15.0: Qt API for storing passwords securely
 dev-libs/sleef 3.8-r100: Implements vectorized versions of C standard math functions
 dev-nim/c2nim 0.9.19-r1 9999-r3: a tool to translate ANSI C code to Nim
 dev-nim/nimble 0.16.4 9999-r2: Nim package manager
@@ -512,8 +513,8 @@ dev-python/pyperclip 1.8.0-r201: A cross-platform clipboard module for Python.
 dev-python/pypng 0.0.20-r200: Pure Python PNG image encoder/decoder
 dev-python/pyptlib 0.0.6-r1: Python library for tor's pluggable transport managed-proxy protocol
 dev-python/pyqrcode 1.2.1-r200: A pure Python QR code generator with SVG, EPS, PNG and terminal output
-dev-python/pyqt5 5.15.4-r203: Python bindings for the Qt framework
-dev-python/pyqt5-sip 4.19.25-r201: Private sip module for PyQt5
+dev-python/pyqt5 5.15.4-r203 5.15.11: Python bindings for the Qt framework
+dev-python/pyqt5-sip 4.19.25-r201 12.17.0: sip extension module for PyQt5
 dev-python/pyqtwebengine 5.15.4-r3: Python bindings for QtWebEngine
 dev-python/pyquery 1.4.1-r201: A jQuery-like library for python
 dev-python/pyrax 1.9.7-r200: Python language bindings for OpenStack Clouds
@@ -592,8 +593,8 @@ dev-python/pyzilla 0.1.0-r3: Python wrapper for the BugZilla XML-RPC API
 dev-python/pyzmq 17.1.0-r201: Lightweight and super-fast messaging library built on top of the ZeroMQ library
 dev-python/qrcode 6.1-r200: QR Code generator on top of PIL
 dev-python/qserve 0.2.8-r200: A job queue server
-dev-python/qtconsole 4.6.0-r201: Qt-based console for Jupyter with support for rich media output
-dev-python/qtpy 1.9.0-r201: Abstraction layer for PyQt5/PySide
+dev-python/qtconsole 4.6.0-r201 5.6.1: Qt-based console for Jupyter with support for rich media output
+dev-python/qtpy 1.9.0-r201 2.4.2: Abstraction layer on top of PyQt and PySide with additional custom QWidgets
 dev-python/quixote 2.9.1: Python HTML templating framework for developing web applications
 dev-python/rackspace-auth-openstack 1.3-r200: Rackspace Auth Plugin for OpenStack Clients
 dev-python/rackspace-monitoring 0.8.1-r201: Client library for Rackspace Cloud Monitoring
@@ -779,7 +780,43 @@ dev-python/zope-component 4.4.1-r201: Zope Component Architecture
 dev-python/zope-event 4.5.0-r201: Event publishing / dispatch, used by Zope Component Architecture
 dev-python/zope-interface 5.1.2-r201: Interfaces for Python
 dev-python/zope-testing 4.7-r201: Zope testing helpers
+dev-qt/designer 5.15.16: WYSIWYG tool for designing and building graphical user interfaces with QtWidgets
+dev-qt/linguist-tools 5.15.16: Tools for working with Qt translation data files
+dev-qt/qt5compat 6.8.1 6.8.2 6.8.9999 6.9.9999 6.9999: Qt module containing the unsupported Qt 5 APIs
+dev-qt/qtconcurrent 5.15.16: Multi-threading concurrence support library for the Qt5 framework
+dev-qt/qtcore 5.15.16: Cross-platform application development framework
+dev-qt/qtdbus 5.15.16: Qt5 module for inter-process communication over the D-Bus protocol
+dev-qt/qtdeclarative 5.15.16: The QML and Quick modules for the Qt5 framework
+dev-qt/qtgraphicaleffects 5.15.16: Set of QML types for adding visual effects to user interfaces
+dev-qt/qtgui 5.15.16: The GUI module and platform plugins for the Qt5 framework
+dev-qt/qthelp 5.15.16: Qt5 module for integrating online documentation into applications
+dev-qt/qtimageformats 5.15.16: Additional format plugins for the Qt image I/O system
+dev-qt/qtlockedfile 2.4.1_p20171024: QFile extension with advisory locking functions
+dev-qt/qtmultimedia 5.15.16: Multimedia (audio, video, radio, camera) library for the Qt5 framework
+dev-qt/qtnetwork 5.15.16: Network abstraction library for the Qt5 framework
+dev-qt/qtnetworkauth 5.15.16: Network authorization library for the Qt5 framework
+dev-qt/qtopengl 5.15.16: OpenGL support library for the Qt5 framework (deprecated)
+dev-qt/qtpaths 5.15.16: Command line client to QStandardPaths
+dev-qt/qtpositioning 5.15.16: Physical position determination library for the Qt5 framework
+dev-qt/qtprintsupport 5.15.16: Printing support library for the Qt5 framework
+dev-qt/qtquickcontrols 5.15.16: Set of Qt Quick controls to create complete user interfaces (deprecated)
+dev-qt/qtquickcontrols2 5.15.16: Set of next generation Qt Quick controls for the Qt5 framework
+dev-qt/qtquicktimeline 5.15.16: Qt module for keyframe-based timeline construction
+dev-qt/qtscxml 5.15.16: State Chart XML (SCXML) support library for the Qt5 framework
+dev-qt/qtserialport 5.15.16: Serial port abstraction library for the Qt5 framework
+dev-qt/qtsingleapplication 2.6.1_p20171024: Qt library to start applications only once per user
+dev-qt/qtsql 5.15.16: SQL abstraction library for the Qt5 framework
+dev-qt/qtsvg 5.15.16: SVG rendering library for the Qt5 framework
+dev-qt/qttest 5.15.16: Unit testing library for the Qt5 framework
+dev-qt/qttranslations 5.15.16: Translation files for the Qt5 framework
+dev-qt/qtwebchannel 5.15.16: Qt5 module for integrating C++ and QML applications with HTML/JavaScript clients
+dev-qt/qtwebengine 5.15.16_p20241115: Library for rendering dynamic web content in Qt5 C++ and QML applications
 dev-qt/qtwebkit 5.212.0_pre20240528-r1: WebKit rendering library for the Qt5 framework (deprecated)
+dev-qt/qtwebview 5.15.16: Module for displaying web content in a QML application using the Qt5 framework
+dev-qt/qtwidgets 5.15.16: Set of components for creating classic desktop-style UIs for the Qt5 framework
+dev-qt/qtx11extras 5.15.16: Linux/X11-specific support library for the Qt5 framework
+dev-qt/qtxml 5.15.16: Implementation of SAX and DOM for the Qt5 framework
+dev-qt/qtxmlpatterns 5.15.16: XPath, XQuery, XSLT, and XML Schema validation library for the Qt5 framework
 dev-util/gotags 1.4.1-r1: ctags-compatible tag generator for Go
 dev-util/nvidia-cuda-toolkit 12.6.1-r100 12.8.0-r100: NVIDIA CUDA Toolkit (compiler and friends)
 dev-util/tla-toolbox-bin 1.8.0-r1: IDE for TLA+
@@ -894,6 +931,7 @@ sci-mathematics/xmds 2.2.3-r4: XMDS - The eXtensible Multi-Dimensional Simulator
 sci-misc/openfst 1.8.2: Finite State Transducer tools by Google et al
 sci-misc/opengrm-ngram 1.3.14: n-gram language models encoded as weighted finite-state transducers
 sys-apps/cpuid 20241023-r1: Linux tool to dump x86 CPUID information about the CPUs
+sys-auth/polkit-qt 0.200.0: Qt wrapper around polkit-1 client libraries
 sys-cluster/heartbeat 3.0.6-r2: Heartbeat high availability cluster manager
 sys-cluster/openmpi 5.0.6-r1: A high-performance message passing library (MPI)
 sys-devel/bison 2.7.1-r3: A general-purpose (yacc-compatible) parser generator
@@ -918,6 +956,8 @@ x11-libs/pangox-compat 0.0.2-r4: PangoX compatibility library
 x11-libs/wxGTK 3.2.6-r300: GTK+ version of wxWidgets, a cross-platform C++ GUI toolkit
 x11-misc/magick-rotation 1.6.2-r5: Application that rotates tablet pc's screen automatically, based on orientation
 x11-misc/obmenu2 1.1-r1: Openbox menu editor
+x11-misc/qt5ct 1.8 1.9: Qt5 configuration tool, similar to qtconfig for Qt4
 x11-misc/slim 1.4.1-r1: Simple Login Manager resurrected
+x11-themes/adwaita-qt 1.4.2 1.4.2-r1: A style to bend Qt applications to look like they belong into GNOME Shell
 x11-themes/chameleon-xcursors 0.5-r3: Style neutral scalable cursor theme
 x11-themes/numix-solarized 9999-r2: solarized version of Numix
