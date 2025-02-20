@@ -19,6 +19,7 @@ app-misc/openrgb 0.9-r2: Open source RGB lighting control
 app-misc/yworklog 0.0.7-r201: Stack based utility with CLI interface helping to monitor time spent on tasks
 app-office/upwork 5.8.0.33: Project collaboration and tracking software for upwork.com
 app-text/fbreader 0.99.4-r8: E-Book Reader. Supports many e-book formats
+app-text/koreader-bin 2024.11: ebook reader application
 app-text/multitail 7.1.5-r1: Tail with multiple windows
 app-text/pinfo 0.6.13-r3: Hypertext info and man viewer based on (n)curses
 app-text/zettlr-bin 3.4.1: A Markdown Editor for the 21st century.
@@ -513,7 +514,7 @@ dev-python/pyperclip 1.8.0-r201: A cross-platform clipboard module for Python.
 dev-python/pypng 0.0.20-r200: Pure Python PNG image encoder/decoder
 dev-python/pyptlib 0.0.6-r1: Python library for tor's pluggable transport managed-proxy protocol
 dev-python/pyqrcode 1.2.1-r200: A pure Python QR code generator with SVG, EPS, PNG and terminal output
-dev-python/pyqt5 5.15.4-r203 5.15.11: Python bindings for the Qt framework
+dev-python/pyqt5 5.15.4-r203 5.15.11-r1: Python bindings for the Qt framework
 dev-python/pyqt5-sip 4.19.25-r201 12.17.0: sip extension module for PyQt5
 dev-python/pyqtwebengine 5.15.4-r3: Python bindings for QtWebEngine
 dev-python/pyquery 1.4.1-r201: A jQuery-like library for python
