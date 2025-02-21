@@ -25,13 +25,13 @@ REQUIRED_USE="${PYTHON_REQUIRED_USE}
 RESTRICT="!test? ( test )"
 
 COMMON_DEPEND="
-	app-crypt/qca:2[qt5(+),ssl]
+	app-crypt/qca:2[qt5,ssl]
 	>=dev-db/spatialite-4.2.0
 	dev-db/sqlite:3
 	dev-libs/expat
 	dev-libs/libzip:=
 	dev-libs/protobuf:=
-	dev-libs/qtkeychain[qt5(+)]
+	dev-libs/qtkeychain[qt5]
 	dev-qt/designer:5
 	dev-qt/qtconcurrent:5
 	dev-qt/qtcore:5
@@ -49,8 +49,8 @@ COMMON_DEPEND="
 	sci-libs/libspatialindex:=
 	>=sci-libs/proj-4.9.3:=
 	sys-libs/zlib
-	>=x11-libs/qscintilla-2.10.1:=[qt5(+)]
-	>=x11-libs/qwt-6.2.0:6=[polar,qt5(+),svg]
+	>=x11-libs/qscintilla-2.10.1:=[qt5]
+	>=x11-libs/qwt-6.2.0:6=[polar,qt5,svg]
 	3d? ( dev-qt/qt3d:5 )
 	georeferencer? ( sci-libs/gsl:= )
 	grass? ( sci-geosciences/grass:= )
@@ -79,7 +79,7 @@ COMMON_DEPEND="
 			dev-python/pytz[${PYTHON_USEDEP}]
 			dev-python/pyyaml[${PYTHON_USEDEP}]
 			dev-python/requests[${PYTHON_USEDEP}]
-			>=dev-python/qscintilla-2.10.1[qt5(+),${PYTHON_USEDEP}]
+			>=dev-python/qscintilla-2.10.1[qt5,${PYTHON_USEDEP}]
 			dev-python/sip:=[${PYTHON_USEDEP}]
 			postgres? ( dev-python/psycopg:2[${PYTHON_USEDEP}] )
 		')
