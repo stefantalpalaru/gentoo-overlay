@@ -16,9 +16,13 @@ LICENSE="BSD-2 Apache-2.0 BSD ISC LGPL-2.1+ MIT"
 SLOT="0/3"
 KEYWORDS="~amd64 ~arm64 ~hppa ~loong ~ppc ~ppc64 ~riscv ~sparc ~x86"
 IUSE="+lto +pgo cpu_flags_x86_avx512f"
+RESTRICT="mirror"
 
 BDEPEND="
 	amd64? ( dev-lang/nasm )
+"
+RDEPEND="
+	dev-libs/cpuinfo
 "
 
 PATCHES=(
@@ -59,8 +63,7 @@ multilib_src_configure() {
 		-DCMAKE_OUTPUT_DIRECTORY="${BUILD_DIR}"
 		-DENABLE_AVX512=$(usex cpu_flags_x86_avx512f)
 		-DEXCLUDE_HASH=ON
-		# no multilib support for system "cpuinfo"
-		-DUSE_EXTERNAL_CPUINFO=OFF
+		-DUSE_CPUINFO=SYSTEM
 	)
 
 	cmake_src_configure

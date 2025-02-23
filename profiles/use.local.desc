@@ -294,6 +294,12 @@ media-gfx/gmic:gimp - Build the Qt5 GIMP plugin
 media-gfx/gmic:gui - Build the standalone Qt5 GUI
 media-gfx/gmic:opencv - Enable support for webcams using the OpenCV library
 media-libs/chromaprint:tools - Build and install fpcalc and fpcollect tools
+media-libs/libavif:aom - Enable support for the AOM codec encoding and decoding
+media-libs/libavif:dav1d - Enable support for the dav1d codec decoding
+media-libs/libavif:extras - Build extra apps (avifenc, avifdec) and test files
+media-libs/libavif:gdk-pixbuf - Build a gdk-pixbuf loader
+media-libs/libavif:rav1e - Enable support for the rav1e codec encoding
+media-libs/libavif:svt-av1 - Enable support for the SVT-AV1 encoder
 media-libs/libheif:aom - Use media-libs/libaom for AVIF encoding/decoding
 media-libs/libheif:dav1d - Use media-libs/dav1d for AVIF decoding
 media-libs/libheif:ffmpeg - Use media-video/ffmpeg for HEIC decoding

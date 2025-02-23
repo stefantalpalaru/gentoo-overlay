@@ -254,7 +254,7 @@ RDEPEND="
 	nvenc? ( >=media-libs/nv-codec-headers-11.1.5.3 )
 	svt-av1? (
 		>=media-libs/svt-av1-0.9.0:0[${MULTILIB_USEDEP}]
-		<media-libs/svt-av1-3.0.0:0[${MULTILIB_USEDEP}]
+		<media-libs/svt-av1-4.0.0:0[${MULTILIB_USEDEP}]
 	)
 	truetype? (
 		>=media-libs/freetype-2.5.0.1:2[${MULTILIB_USEDEP}]
@@ -335,6 +335,7 @@ RESTRICT="
 PATCHES=(
 	"${FILESDIR}"/ffmpeg-5.1.2-get_cabac_inline_x86-32-bit.patch
 	"${FILESDIR}"/ffmpeg-6.1-opencl-parallel-gmake-fix.patch
+	"${FILESDIR}"/ffmpeg-7.1-svt-av1-3.patch
 )
 
 MULTILIB_WRAPPED_HEADERS=(
