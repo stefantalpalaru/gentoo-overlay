@@ -844,6 +844,7 @@ media-gfx/displaycal 3.8.9.3-r5: Display calibration and characterization powere
 media-gfx/fbcat 0.5.2: utility that takes a screenshot using the framebuffer device
 media-gfx/gifsicle 9999-r2: Create, manipulate, and optimize GIF images and animations
 media-gfx/gmic 3.5.0-r100: GREYC's Magic Image Converter
+media-gfx/opencomic-bin 1.4.1: Comic and Manga reader, written with Node.js and using Electron
 media-gfx/zart 3.2.2_p20231127: G'MIC GUI for video streams
 media-libs/chromaprint 1.5.1-r4: Library implementing a custom algorithm for extracting audio fingerprints
 media-libs/cimg 3.5.0-r100: C++ template image processing toolkit
