@@ -45,10 +45,6 @@ BDEPEND="
 	virtual/pkgconfig
 "
 
-PATCHES=(
-	"${FILESDIR}"/libavif-1.1.1-svt-av1-3.patch
-)
-
 multilib_src_configure() {
 	local mycmakeargs=(
 		-DBUILD_SHARED_LIBS=ON
@@ -76,7 +72,6 @@ multilib_src_configure() {
 			-DAVIF_BUILD_EXAMPLES=$(usex examples ON OFF)
 			-DAVIF_BUILD_APPS=$(usex extras ON OFF)
 			-DAVIF_BUILD_TESTS=$(usex test ON OFF)
-			-DAVIF_ENABLE_GTEST=$(usex extras $(usex test ON OFF) OFF)
 			-DAVIF_GTEST=$(usex extras $(usex test SYSTEM OFF) OFF)
 		)
 	else
