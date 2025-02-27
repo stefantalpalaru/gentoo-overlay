@@ -37,6 +37,9 @@ app-emulation/vmware-workstation:vmware-tools-solaris - Install VMware Tools for
 app-emulation/vmware-workstation:vmware-tools-winPre2k - Install VMware Tools for Windows (before 2000) guests.
 app-emulation/vmware-workstation:vmware-tools-winPreVista - Install VMware Tools for Windows (after 2000, before Vista) guests.
 app-emulation/vmware-workstation:vmware-tools-windows - Install VMware Tools for Windows (Vista and later) guests.
+app-text/calibre:font-subsetting - Enable font subsetting support
+app-text/calibre:system-mathjax - Use a system copy of mathjax
+app-text/calibre:unrar - Enable support for comic books compressed with the non-free Rar format
 dev-cpp/eigen:adolc - Add test support for Adolc (sci-libs/adolc)
 dev-cpp/eigen:benchmark - Build benchmark suite
 dev-cpp/eigen:boost - Add test support for Boost.Multiprecision (dev-libs/boost)
