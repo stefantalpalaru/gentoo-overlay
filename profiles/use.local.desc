@@ -467,6 +467,23 @@ media-video/ffmpeg-slotted:x265 - Enables HEVC encoding with media-libs/x265.
 media-video/ffmpeg-slotted:zeromq - Enables net-libs/zeromq support with the zmq/azmq filters.
 media-video/ffmpeg-slotted:zimg - Enables media-libs/zimg based scale filter.
 media-video/ffmpeg-slotted:zvbi - Enables media-libs/zvbi based teletext decoder.
+media-video/mpv:archive - Enable support for various archive formats via app-arch/libarchive
+media-video/mpv:bluray - Enable playback of Blu-ray filesystems
+media-video/mpv:cli - Enable the command-line player
+media-video/mpv:drm - Enable Kernel Mode Setting / Direct Rendering Manager based video outputs
+media-video/mpv:gamepad - Enable gamepad input support
+media-video/mpv:libmpv - Enable the shared library and headers (used by frontends / plugins)
+media-video/mpv:lua - Enable Lua scripting, OSC (On Screen Controller) GUI, and net-misc/yt-dlp support
+media-video/mpv:opengl - Enable support for OpenGL-based video backends (Note: deprecated for X11, USE=egl provides the newer support for -gpu-api=opengl)
+media-video/mpv:pipewire - Enable sound support via native PipeWire backend
+media-video/mpv:rubberband - Enable high quality pitch correction via media-libs/rubberband
+media-video/mpv:sdl - Enable media-libs/libsdl2 based video and audio outputs (Note: these outputs exist for compatibility reasons only, avoid if possible)
+media-video/mpv:sixel - Enable support for the sixel video backend using media-libs/libsixel
+media-video/mpv:sndio - Enable sound support via media-sound/sndio
+media-video/mpv:soc - Use additional media-video/ffmpeg patches for efficient playback on some SoCs (e.g. ARM, RISC-V)
+media-video/mpv:tools - Install extra tools: mpv_identify.sh, mpv_idet.sh, and umpv
+media-video/mpv:uchardet - Enable subtitles charset discovery via app-i18n/uchardet
+media-video/mpv:zimg - Enable libzimg support (for vf_fingerprint)
 media-video/smplayer:autoshutdown - Enable the option to shutdown your computer after finishing the playlist. This requires dev-qt/qtdbus as dependency.
 media-video/smplayer:mpris - Enable support for MPRIS2 (Media Player Remote Interfacing Specification, version 2), a DBus interface for remote control, which requires dev-qt/qtdbus as dependency.
 net-im/telegram-desktop:enchant - Use the app-text/enchant spell-checking backend instead of app-text/hunspell
