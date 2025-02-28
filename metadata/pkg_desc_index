@@ -23,7 +23,7 @@ app-text/fbreader 0.99.4-r8: E-Book Reader. Supports many e-book formats
 app-text/koreader-bin 2024.11: ebook reader application
 app-text/multitail 7.1.5-r1: Tail with multiple windows
 app-text/pinfo 0.6.13-r3: Hypertext info and man viewer based on (n)curses
-app-text/zettlr-bin 3.4.2: A Markdown Editor for the 21st century.
+app-text/zettlr-bin 3.4.3: A Markdown Editor for the 21st century.
 app-vim/airline 9999-r1: vim plugin: lean & mean statusline for vim that's light as air
 app-vim/ale 3.3.0-r1 99999999-r2: Asynchronous Lint Engine for vim
 app-vim/chapel-syntax 2.2.0: vim plugin:
