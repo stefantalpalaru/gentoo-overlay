@@ -1,9 +1,9 @@
-# Copyright 1999-2024 Gentoo Authors
+# Copyright 1999-2025 Gentoo Authors
 # Distributed under the terms of the GNU General Public License v2
 
 EAPI=8
 
-PYTHON_COMPAT=( python3_{10..12} )
+PYTHON_COMPAT=( python3_{10..13} )
 
 inherit git-r3 meson python-single-r1 udev
 
@@ -13,6 +13,7 @@ EGIT_REPO_URI="https://github.com/berarma/${PN}.git"
 LICENSE="GPL-3"
 SLOT="0"
 REQUIRED_USE="${PYTHON_REQUIRED_USE}"
+PROPERTIES="test_network" # disable network-sandbox during testing
 
 RDEPEND="
 	${PYTHON_DEPS}
