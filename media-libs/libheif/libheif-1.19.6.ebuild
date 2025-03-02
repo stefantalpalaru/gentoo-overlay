@@ -1,4 +1,4 @@
-# Copyright 1999-2024 Gentoo Authors
+# Copyright 1999-2025 Gentoo Authors
 # Distributed under the terms of the GNU General Public License v2
 
 EAPI=8
@@ -8,7 +8,7 @@ inherit cmake xdg multilib-minimal
 DESCRIPTION="ISO/IEC 23008-12:2017 HEIF and AVIF file format decoder and encoder"
 HOMEPAGE="https://github.com/strukturag/libheif"
 SRC_URI="https://github.com/strukturag/libheif/releases/download/v${PV}/${P}.tar.gz"
-LICENSE="GPL-3"
+LICENSE="GPL-3 MIT"
 SLOT="0/$(ver_cut 1-2)"
 KEYWORDS="~amd64 ~arm ~arm64 ~loong ~ppc64 ~riscv ~x86"
 IUSE="aom +dav1d ffmpeg gdk-pixbuf openh264 rav1e +svt-av1 test +x265"
@@ -32,10 +32,6 @@ DEPEND="
 	)
 "
 RDEPEND="${DEPEND}"
-
-PATCHES=(
-	"${FILESDIR}"/libheif-1.19.5-svt-av1-3.patch
-)
 
 src_prepare() {
 	cmake_src_prepare
