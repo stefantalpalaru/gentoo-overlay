@@ -3,7 +3,7 @@
 
 EAPI=8
 
-inherit cmake xdg multilib-minimal
+inherit cmake gnome2-utils multilib-minimal
 
 DESCRIPTION="ISO/IEC 23008-12:2017 HEIF and AVIF file format decoder and encoder"
 HOMEPAGE="https://github.com/strukturag/libheif"
@@ -85,4 +85,12 @@ multilib_src_install() {
 
 multilib_src_install_all() {
 	einstalldocs
+}
+
+pkg_postinst() {
+	use gdk-pixbuf && multilib_foreach_abi gnome2_gdk_pixbuf_update
+}
+
+pkg_postrm() {
+	use gdk-pixbuf && multilib_foreach_abi gnome2_gdk_pixbuf_update
 }
