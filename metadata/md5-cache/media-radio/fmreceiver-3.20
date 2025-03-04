@@ -1,13 +1,13 @@
 DEFINED_PHASES=configure install prepare
 DEPEND=dev-qt/qtcore:5 dev-qt/qtgui:5 media-libs/faad2 media-libs/libsamplerate media-libs/libsndfile media-libs/portaudio net-wireless/rtl-sdr sci-libs/fftw:3.0 virtual/libusb:1 x11-libs/qwt:6
 DESCRIPTION=SDR-J FM receiver for RTL2832-based USB sticks
-EAPI=7
+EAPI=8
 HOMEPAGE=http://www.sdr-j.tk/ https://github.com/JvanKatwijk/sdr-j-fm
 INHERIT=qmake-utils
 KEYWORDS=~amd64 ~x86
 LICENSE=GPL-2
 RDEPEND=dev-qt/qtcore:5 dev-qt/qtgui:5 media-libs/faad2 media-libs/libsamplerate media-libs/libsndfile media-libs/portaudio net-wireless/rtl-sdr sci-libs/fftw:3.0 virtual/libusb:1 x11-libs/qwt:6
 SLOT=0
-SRC_URI=https://github.com/JvanKatwijk/sdr-j-fm/archive/refs/tags/V3.16.tar.gz -> fmreceiver-3.16.tar.gz
+SRC_URI=https://github.com/JvanKatwijk/sdr-j-fm/archive/refs/tags/3.20.tar.gz -> fmreceiver-3.20.tar.gz
 _eclasses_=toolchain-funcs	6afdb6107430c1832ca7e16aacbf8fa1	multilib	b2a329026f2e404e9e371097dda47f96	qmake-utils	a8dd17b1d94586164f5e3fc12b1c6b81
-_md5_=8da51f9c9d3277a9095389e01e16637a
+_md5_=668899fe6371a8ed8aa9c3836735ec75

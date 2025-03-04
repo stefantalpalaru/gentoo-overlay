@@ -1,14 +1,14 @@
-# Copyright 1999-2023 Gentoo Authors
+# Copyright 1999-2025 Gentoo Authors
 # Distributed under the terms of the GNU General Public License v2
 
-EAPI=7
+EAPI=8
 
 inherit qmake-utils
 
 DESCRIPTION="SDR-J FM receiver for RTL2832-based USB sticks"
 HOMEPAGE="http://www.sdr-j.tk/ https://github.com/JvanKatwijk/sdr-j-fm"
-SRC_URI="https://github.com/JvanKatwijk/sdr-j-fm/archive/refs/tags/V${PV}.tar.gz -> ${P}.tar.gz"
-
+SRC_URI="https://github.com/JvanKatwijk/sdr-j-fm/archive/refs/tags/${PV}.tar.gz -> ${P}.tar.gz"
+S="${WORKDIR}/sdr-j-fm-${PV}"
 LICENSE="GPL-2"
 SLOT="0"
 KEYWORDS="~amd64 ~x86"
@@ -25,8 +25,6 @@ DEPEND="
 	virtual/libusb:1
 	x11-libs/qwt:6"
 RDEPEND="${DEPEND}"
-
-S="${WORKDIR}/sdr-j-fm-${PV}"
 
 src_prepare() {
 	default
