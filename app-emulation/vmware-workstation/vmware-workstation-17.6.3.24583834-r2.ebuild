@@ -447,9 +447,6 @@ pkg_postinst() {
 	xdg_mimeinfo_database_update
 	xdg_icon_cache_update
 	elog "${DOC_CONTENTS}"
-	elog "---"
-	elog "If inserting your license key in the GUI fails, you can do it from the command line, as root:"
-	elog "/opt/vmware/lib/vmware/bin/vmware-vmx-debug --new-sn  XXXXX-XXXXX-XXXXX-XXXXX-XXXXX"
 }
 
 pkg_postrm() {
