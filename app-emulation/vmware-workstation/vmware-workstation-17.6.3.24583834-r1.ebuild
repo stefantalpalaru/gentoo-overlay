@@ -16,7 +16,7 @@ MY_P="${MY_PN}-${MY_PV}-${PV_BUILD}"
 # Only Windows tools are present for Workstation 17.6.x, so we need to get the rest from older versions.
 VMWARE_FUSION_VER="13.5.2/23775688" # https://softwareupdate.vmware.com/cds/vmw-desktop/fusion/
 VMWARE_TOOLS_VER="12.4.0-23259341" # https://softwareupdate.vmware.com/cds/vmw-desktop/ws/${MY_PV_OLD}/${PV_BUILD_OLD}/linux/packages/
-VMWARE_TOOLS_VER_NEW="12.4.5-23787635" # https://softwareupdate.vmware.com/cds/vmw-desktop/ws/${MY_PV}/${PV_BUILD}/linux/packages/
+VMWARE_TOOLS_VER_NEW="12.5.0-24276846" # https://softwareupdate.vmware.com/cds/vmw-desktop/ws/${MY_PV}/${PV_BUILD}/linux/packages/
 SYSTEMD_UNITS_TAG="gentoo-02"
 UNLOCKER_VERSION="3.0.5"
 
