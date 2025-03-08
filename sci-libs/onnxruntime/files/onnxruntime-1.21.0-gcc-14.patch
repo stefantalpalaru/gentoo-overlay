@@ -1,0 +1,22 @@
+diff '--color=auto' -ur onnxruntime-1.21.0.orig/onnxruntime/core/framework/resource_accountant.cc onnxruntime-1.21.0/onnxruntime/core/framework/resource_accountant.cc
+--- onnxruntime-1.21.0.orig/onnxruntime/core/framework/resource_accountant.cc	2025-03-06 01:37:52.000000000 +0100
++++ onnxruntime-1.21.0/onnxruntime/core/framework/resource_accountant.cc	2025-03-08 19:27:49.686421618 +0100
+@@ -147,8 +147,9 @@
+     size_t initializers_sizes = SafeInt<size_t>(std::stoull(std::string{splits[2]}));
+     size_t total_dynamic_sizes = SafeInt<size_t>(std::stoull(std::string{splits[3]}));
+     size_t total_temp_allocations = SafeInt<size_t>(std::stoull(std::string{splits[4]}));
+-    node_stats.insert_or_assign(std::move(node_name), {input_sizes, initializers_sizes,
+-                                                       total_dynamic_sizes, total_temp_allocations});
++    const NodeAllocationStats stats = {input_sizes, initializers_sizes,
++        total_dynamic_sizes, total_temp_allocations};
++    node_stats.insert_or_assign(std::move(node_name), stats);
+   }
+ 
+   result.swap(node_stats);
+@@ -224,4 +225,4 @@
+   return result;
+ }
+ 
+-}  // namespace onnxruntime
+\ No newline at end of file
++}  // namespace onnxruntime

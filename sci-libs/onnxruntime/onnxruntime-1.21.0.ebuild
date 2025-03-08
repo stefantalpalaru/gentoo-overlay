@@ -21,11 +21,13 @@ HOMEPAGE="https://onnxruntime.ai
 SAFEINT_COMMIT=3.0.28a
 FLATBUFFERS_PV=23.5.26
 DATE_PV=3.0.1
+DLPACK_PV=0.6
 SRC_URI="
 	https://github.com/microsoft/${PN}/archive/refs/tags/v${PV}.tar.gz -> ${P}.tar.gz
 	https://github.com/dcleblanc/SafeInt/archive/${SAFEINT_COMMIT}.tar.gz -> SafeInt-${SAFEINT_COMMIT:0:10}.tar.gz
 	https://github.com/google/flatbuffers/archive/v${FLATBUFFERS_PV}.tar.gz -> flatbuffers-${FLATBUFFERS_PV}.tar.gz
 	https://github.com/HowardHinnant/date/archive/v${DATE_PV}.tar.gz -> hhdate-${DATE_PV}.tar.gz
+	https://github.com/dmlc/dlpack/archive/refs/tags/v${DLPACK_PV}.tar.gz -> dlpack-${DLPACK_PV}.tar.gz
 "
 
 LICENSE="MIT"
@@ -50,8 +52,14 @@ BDEPEND="
 	${PYTHON_DEPS}
 	app-admin/chrpath
 	benchmark? ( dev-cpp/benchmark )
-	cuda? ( dev-util/nvidia-cuda-toolkit:= )
-	cudnn? ( dev-libs/cudnn:= )
+	cuda? (
+		dev-libs/cutlass:=
+		dev-util/nvidia-cuda-toolkit:=
+	)
+	cudnn? (
+		dev-libs/cudnn:=
+		dev-libs/cudnn-frontend:=
+	)
 	>dev-cpp/eigen-3.4.0:=[cuda?]
 	dev-cpp/ms-gsl:=
 	dev-cpp/nlohmann_json
@@ -60,7 +68,6 @@ BDEPEND="
 	dev-libs/clog:=
 	dev-libs/cpuinfo:=
 	dev-libs/date:=
-	dev-libs/nsync:=
 	dev-libs/protobuf:=
 	dev-libs/re2
 	hip? (
@@ -90,13 +97,12 @@ BDEPEND="
 
 PATCHES=(
 	"${FILESDIR}/${PN}-system-dnnl.patch"
-	"${FILESDIR}/re2-pkg-config-r3.patch"
-	"${FILESDIR}/system-onnx-r4.patch"
-	"${FILESDIR}/system-nsync-r1.patch"
-	"${FILESDIR}/system-composable_kernel-r3.patch"
+	"${FILESDIR}/re2-pkg-config-r4.patch"
+	"${FILESDIR}/system-onnx-r5.patch"
+	"${FILESDIR}/system-composable_kernel-r4.patch"
 	"${FILESDIR}/system-protobuf-r1.patch"
 	"${FILESDIR}/system-mp11.patch"
-	"${FILESDIR}/system-gsl-r3.patch"
+	"${FILESDIR}/system-gsl-r4.patch"
 	#"${FILESDIR}/rocm-version-override-r2.patch"
 	"${FILESDIR}/hip-gentoo.patch"
 	"${FILESDIR}/shared-build-fix.patch"
@@ -104,11 +110,12 @@ PATCHES=(
 	"${FILESDIR}/contrib-ops.patch"
 	"${FILESDIR}/disabled_rules_and_transformers.patch"
 	"${FILESDIR}/Werror.patch"
-	"${FILESDIR}/onnxruntime-1.18.1-protobuf-27.patch"
 	"${FILESDIR}/onnxruntime-1.19.0-abseil.patch"
 	"${FILESDIR}/onnxruntime-1.19.0-eigen.patch"
+	"${FILESDIR}/onnxruntime-1.21.0-system-eigen.patch"
 	"${FILESDIR}/onnxruntime-1.20.0-cudnn_frontend.patch"
-	"${FILESDIR}/onnxruntime-1.20.1-memcpy.patch"
+	"${FILESDIR}/onnxruntime-1.21.0-gcc-14.patch"
+	"${FILESDIR}/onnxruntime-1.21.0-external-downloads.patch"
 )
 
 pkg_setup() {
@@ -119,7 +126,10 @@ pkg_setup() {
 src_prepare() {
 	CMAKE_USE_DIR="${S}/cmake"
 
-	python && python_setup
+	if use python; then
+		export PYTHONPATH="${S}/onnxruntime/python:${PYTHONPATH}"
+		python_setup
+	fi
 
 	use cuda && cuda_src_prepare
 
@@ -152,6 +162,7 @@ src_prepare() {
 	#fi
 
 	strip-unsupported-flags
+	append-flags -Wa,--noexecstack
 
 	cmake_src_prepare
 }
@@ -160,7 +171,7 @@ src_configure() {
 	export ROCM_PATH=/usr MIOPEN_PATH=/usr
 	export ROCM_VERSION
 
-	python && python_setup
+	use python && python_setup
 	CMAKE_BUILD_TYPE=$(usex debug RelWithDebInfo Release)
 	CMAKE_INSTALL_PREFIX="${EPREFIX}/usr"
 	CMAKE_TLS_VERIFY=ON
@@ -192,13 +203,13 @@ src_configure() {
 		-Donnxruntime_USE_MIMALLOC=$(usex mimalloc)
 		-Donnxruntime_USE_XNNPACK=$(usex xnnpack)
 		-Donnxruntime_ENABLE_LTO=$(usex lto)
-		-Deigen_SOURCE_PATH=/usr/include/eigen3
 		-DFETCHCONTENT_TRY_FIND_PACKAGE_MODE=ALWAYS
 		-DFETCHCONTENT_FULLY_DISCONNECTED=ON
 		-DFETCHCONTENT_QUIET=OFF
 		-DFETCHCONTENT_SOURCE_DIR_SAFEINT="${WORKDIR}/SafeInt-${SAFEINT_COMMIT}"
 		-DFETCHCONTENT_SOURCE_DIR_FLATBUFFERS="${WORKDIR}/flatbuffers-${FLATBUFFERS_PV}"
 		-DFETCHCONTENT_SOURCE_DIR_DATE="${WORKDIR}/date-${DATE_PV}"
+		-DFETCHCONTENT_SOURCE_DIR_DLPACK="${WORKDIR}/dlpack-${DLPACK_PV}"
 		-Donnxruntime_USE_TENSORRT=$(usex tensorrt)
 		-Donnxruntime_USE_JSEP=OFF
 		-Donnxruntime_ENABLE_MEMORY_PROFILE=OFF
@@ -212,12 +223,9 @@ src_configure() {
 		-Donnxruntime_BUILD_APPLE_FRAMEWORK=OFF
 		-Donnxruntime_USE_NNAPI_BUILTIN=OFF
 		-Donnxruntime_USE_RKNPU=OFF
-		-Donnxruntime_USE_LLVM=$(usex llvm)
 		-Donnxruntime_ENABLE_MICROSOFT_INTERNAL=OFF
 		-Donnxruntime_USE_VITISAI=OFF
 		-Donnxruntime_USE_TENSORRT_BUILTIN_PARSER=OFF
-		-Donnxruntime_USE_TVM=OFF
-		-Donnxruntime_TVM_USE_HASH=OFF
 		-Donnxruntime_USE_MIGRAPHX=$(usex migraphx)
 		-Donnxruntime_CROSS_COMPILING=$(tc-is-cross-compiler && echo ON || echo OFF)
 		-Donnxruntime_DISABLE_CONTRIB_OPS=ON
@@ -234,10 +242,6 @@ src_configure() {
 		-Donnxruntime_BUILD_MS_EXPERIMENTAL_OPS=OFF
 		-Donnxruntime_USE_TELEMETRY=OFF
 		-Donnxruntime_USE_ACL=OFF
-		-Donnxruntime_USE_ACL_1902=OFF
-		-Donnxruntime_USE_ACL_1905=OFF
-		-Donnxruntime_USE_ACL_1908=OFF
-		-Donnxruntime_USE_ACL_2002=OFF
 		-Donnxruntime_USE_ARMNN=OFF
 		-Donnxruntime_ARMNN_RELU_USE_CPU=ON
 		-Donnxruntime_ARMNN_BN_USE_CPU=ON
@@ -280,7 +284,6 @@ src_configure() {
 			-DCMAKE_CXX_STANDARD_REQUIRED=ON
 			-Donnxruntime_ENABLE_CUDA_LINE_NUMBER_INFO=OFF
 			-Donnxruntime_ENABLE_CUDA_PROFILING=OFF
-			-Donnxruntime_TVM_CUDA_RUNTIME=OFF
 			-Donnxruntime_USE_NCCL=OFF # Multi GPU CUDA
 			-Donnxruntime_NVCC_THREADS=1
 		)

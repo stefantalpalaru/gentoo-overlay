@@ -1,0 +1,42 @@
+diff '--color=auto' -ur onnxruntime-1.21.0.orig/cmake/external/onnxruntime_external_deps.cmake onnxruntime-1.21.0/cmake/external/onnxruntime_external_deps.cmake
+--- onnxruntime-1.21.0.orig/cmake/external/onnxruntime_external_deps.cmake	2025-03-08 13:59:53.366048221 +0100
++++ onnxruntime-1.21.0/cmake/external/onnxruntime_external_deps.cmake	2025-03-08 14:47:09.433647797 +0100
+@@ -581,24 +581,13 @@
+ endif()
+ 
+ set(onnxruntime_EXTERNAL_LIBRARIES ${onnxruntime_EXTERNAL_LIBRARIES_XNNPACK} ${WIL_TARGET} nlohmann_json::nlohmann_json
+-                                   onnx onnx_proto ${PROTOBUF_LIB} re2::re2 Boost::mp11 safeint_interface
++                                   ONNX::onnx ONNX::onnx_proto ${PROTOBUF_LIB} re2::re2 Boost::mp11 safeint_interface
+                                    flatbuffers::flatbuffers ${GSL_TARGET} ${ABSEIL_LIBS} date::date
+                                    ${ONNXRUNTIME_CLOG_TARGET_NAME} Eigen3::Eigen)
+ 
+ # The source code of onnx_proto is generated, we must build this lib first before starting to compile the other source code that uses ONNX protobuf types.
+ # The other libs do not have the problem. All the sources are already there. We can compile them in any order.
+-set(onnxruntime_EXTERNAL_DEPENDENCIES onnx_proto flatbuffers::flatbuffers)
+-
+-if(NOT (onnx_FOUND OR ONNX_FOUND)) # building ONNX from source
+-  target_compile_definitions(onnx PUBLIC $<TARGET_PROPERTY:onnx_proto,INTERFACE_COMPILE_DEFINITIONS> PRIVATE "__ONNX_DISABLE_STATIC_REGISTRATION")
+-  if (NOT onnxruntime_USE_FULL_PROTOBUF)
+-    target_compile_definitions(onnx PUBLIC "__ONNX_NO_DOC_STRINGS")
+-  endif()
+-endif()
+-
+-if (onnxruntime_RUN_ONNX_TESTS)
+-  add_definitions(-DORT_RUN_EXTERNAL_ONNX_TESTS)
+-endif()
++set(onnxruntime_EXTERNAL_DEPENDENCIES ONNX::onnx_proto flatbuffers::flatbuffers)
+ 
+ if(onnxruntime_ENABLE_DLPACK)
+   message(STATUS "dlpack is enabled.")
+diff '--color=auto' -ur onnxruntime-1.21.0.orig/cmake/onnxruntime_providers_cpu.cmake onnxruntime-1.21.0/cmake/onnxruntime_providers_cpu.cmake
+--- onnxruntime-1.21.0.orig/cmake/onnxruntime_providers_cpu.cmake	2025-03-08 13:59:53.366048221 +0100
++++ onnxruntime-1.21.0/cmake/onnxruntime_providers_cpu.cmake	2025-03-08 14:49:03.311069573 +0100
+@@ -183,7 +183,7 @@
+ 
+ target_include_directories(onnxruntime_providers PRIVATE ${ONNXRUNTIME_ROOT})
+ onnxruntime_add_include_to_target(onnxruntime_providers re2::re2 Eigen3::Eigen)
+-add_dependencies(onnxruntime_providers onnx ${onnxruntime_EXTERNAL_DEPENDENCIES})
++add_dependencies(onnxruntime_providers ONNX::onnx ${onnxruntime_EXTERNAL_DEPENDENCIES})
+ 
+ if (onnxruntime_ENABLE_TRAINING_OPS)
+   target_include_directories(onnxruntime_providers PRIVATE ${ORTTRAINING_ROOT})

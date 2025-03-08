@@ -1,4 +1,4 @@
-# Copyright 1999-2024 Gentoo Authors
+# Copyright 1999-2025 Gentoo Authors
 # Distributed under the terms of the GNU General Public License v2
 
 EAPI=8
@@ -6,7 +6,7 @@ EAPI=8
 FORTRAN_NEEDED="test"
 LLVM_COMPAT=( 17 18 )
 LLVM_OPTIONAL=1
-MY_COMMIT="cc240eea2f9a33cdd105a91e5a01ea183aee279a"
+MY_COMMIT="4dda5b927a3d5cfedad812ba7c1a966dd983e624"
 inherit cmake cuda fortran-2 llvm-r1 toolchain-funcs
 
 DESCRIPTION="C++ template library for linear algebra"

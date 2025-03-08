@@ -1,0 +1,41 @@
+diff '--color=auto' -ur onnxruntime-1.21.0.orig/cmake/external/onnxruntime_external_deps.cmake onnxruntime-1.21.0/cmake/external/onnxruntime_external_deps.cmake
+--- onnxruntime-1.21.0.orig/cmake/external/onnxruntime_external_deps.cmake	2025-03-08 14:53:14.685793191 +0100
++++ onnxruntime-1.21.0/cmake/external/onnxruntime_external_deps.cmake	2025-03-08 14:57:12.258586891 +0100
+@@ -408,28 +408,6 @@
+   endif()
+ endif()
+ 
+-if(onnxruntime_USE_CUDA)
+-  onnxruntime_fetchcontent_declare(
+-    GSL
+-    URL ${DEP_URL_microsoft_gsl}
+-    URL_HASH SHA1=${DEP_SHA1_microsoft_gsl}
+-    PATCH_COMMAND ${Patch_EXECUTABLE} --binary --ignore-whitespace -p1 < ${PROJECT_SOURCE_DIR}/patches/gsl/1064.patch
+-    EXCLUDE_FROM_ALL
+-    FIND_PACKAGE_ARGS 4.0 NAMES Microsoft.GSL
+-  )
+-else()
+-  onnxruntime_fetchcontent_declare(
+-    GSL
+-    URL ${DEP_URL_microsoft_gsl}
+-    URL_HASH SHA1=${DEP_SHA1_microsoft_gsl}
+-    EXCLUDE_FROM_ALL
+-    FIND_PACKAGE_ARGS 4.0 NAMES Microsoft.GSL
+-  )
+-endif()
+-set(GSL_TARGET "Microsoft.GSL::GSL")
+-set(GSL_INCLUDE_DIR "$<TARGET_PROPERTY:${GSL_TARGET},INTERFACE_INCLUDE_DIRECTORIES>")
+-onnxruntime_fetchcontent_makeavailable(GSL)
+-
+ find_path(safeint_SOURCE_DIR NAMES "SafeInt.hpp")
+ if(NOT safeint_SOURCE_DIR)
+   unset(safeint_SOURCE_DIR)
+@@ -590,7 +568,7 @@
+ 
+ set(onnxruntime_EXTERNAL_LIBRARIES ${onnxruntime_EXTERNAL_LIBRARIES_XNNPACK} ${WIL_TARGET} nlohmann_json::nlohmann_json
+                                    ONNX::onnx ONNX::onnx_proto ${PROTOBUF_LIB} re2::re2 Boost::mp11 safeint_interface
+-                                   flatbuffers::flatbuffers ${GSL_TARGET} ${ABSEIL_LIBS} date::date
++                                   flatbuffers::flatbuffers ${ABSEIL_LIBS} date::date
+                                    ${ONNXRUNTIME_CLOG_TARGET_NAME} Eigen3::Eigen)
+ 
+ # The source code of onnx_proto is generated, we must build this lib first before starting to compile the other source code that uses ONNX protobuf types.
