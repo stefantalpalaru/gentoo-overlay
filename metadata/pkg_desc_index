@@ -7,7 +7,6 @@ app-alternatives/yacc 0-r1: Virtual for yacc (yet another compiler compiler)
 app-arch/libzim 9.2.3: reference implementation for the ZIM archive format
 app-crypt/acme 1.8.0-r201 1.32.0-r1: An implementation of the ACME protocol
 app-crypt/certbot 1.8.0-r202 1.32.0-r3: Let’s Encrypt client to automate deployment of X.509 certificates
-app-crypt/certbot-dns-linode 1.32.0-r2 2.10.0 2.11.0 3.0.1 3.1.0 3.2.0: Linode DNS Authenticator plugin for Certbot
 app-crypt/certbot-s3front 0.4.2_p20201118-r4: S3/CloudFront plugin for Let's Encrypt client
 app-editors/gedit 3.32.2-r4: A text editor for the GNOME desktop
 app-emacs/pymacs 0.26-r201: A tool that allows both-side communication beetween Python and Emacs Lisp
