@@ -1,9 +1,9 @@
-# Copyright 1999-2024 Gentoo Authors
+# Copyright 1999-2025 Gentoo Authors
 # Distributed under the terms of the GNU General Public License v2
 
 EAPI=8
 
-inherit desktop flag-o-matic git-r3 qmake-utils xdg
+inherit desktop ffmpeg-compat flag-o-matic git-r3 qmake-utils xdg
 
 DESCRIPTION="Decentralized, private and secure communication and sharing platform"
 HOMEPAGE="https://retroshare.cc"
@@ -47,7 +47,7 @@ RDEPEND="
 	!sqlcipher? ( dev-db/sqlite:3 )
 	plugins? (
 			media-libs/speex
-			<media-video/ffmpeg-5
+			media-video/ffmpeg-compat:4=
 	)"
 
 DEPEND="${RDEPEND}
@@ -63,6 +63,11 @@ PATCHES=(
 )
 
 src_configure() {
+	if use plugins; then
+		ffmpeg_compat_setup 4
+		ffmpeg_compat_add_flags
+	fi
+
 	local qconfigs=(
 		$(usex cli '' 'no_')rs_service_terminal_login
 		$(usex keyring '' 'no_')rs_autologin

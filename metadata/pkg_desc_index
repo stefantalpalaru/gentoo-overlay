@@ -57,6 +57,7 @@ dev-libs/libxml2 2.11.4: XML C parser and toolkit
 dev-libs/lthread 1.0_pre20150617-r3 9999-r3: multicore enabled coroutine library written in C
 dev-libs/openssl 1.1.1w: Full-strength general purpose cryptography library (including SSL and TLS)
 dev-libs/protobuf 3.13.0: Google's Protocol Buffers - Extensible mechanism for serializing structured data
+dev-libs/pugixml 1.15: Light-weight, simple, and fast XML parser for C++ with XPath support
 dev-libs/qtkeychain 0.14.3 0.15.0: Qt API for storing passwords securely
 dev-libs/sleef 3.8-r100: Implements vectorized versions of C standard math functions
 dev-nim/c2nim 0.9.19-r1 9999-r3: a tool to translate ANSI C code to Nim
@@ -825,7 +826,7 @@ dev-util/tla-toolbox-bin 1.8.0-r1: IDE for TLA+
 dev-vcs/bzr 2.7.1_pre-r4: Bazaar is a next generation distributed version control system
 dev-vcs/hg-fast-export 231118-r1: mercurial to git converter using git-fast-import
 games-emulation/dbgl-bin 0.97: DOSBox Game Launcher
-games-emulation/rpcs3 0.0.29-r3 9999-r13: PlayStation 3 emulator
+games-emulation/rpcs3 0.0.29-r4 9999-r14: PlayStation 3 emulator
 games-fps/gzdoom 4.14.1: A modder-friendly OpenGL source port based on the DOOM engine
 games-misc/bsd-games 2.17_p28-r2: Collection of games from NetBSD
 games-sports/trigger 0.6.6.1-r1: Free OpenGL rally car racing game
@@ -846,7 +847,7 @@ media-gfx/gifsicle 9999-r2: Create, manipulate, and optimize GIF images and anim
 media-gfx/gmic 3.5.0-r100: GREYC's Magic Image Converter
 media-gfx/opencomic-bin 1.4.1: Comic and Manga reader, written with Node.js and using Electron
 media-gfx/zart 3.2.2_p20231127: G'MIC GUI for video streams
-media-libs/chromaprint 1.5.1-r4: Library implementing a custom algorithm for extracting audio fingerprints
+media-libs/chromaprint 1.5.1-r5: Library implementing a custom algorithm for extracting audio fingerprints
 media-libs/cimg 3.5.0-r100: C++ template image processing toolkit
 media-libs/hydrogen-drumkits 1.2.3-r1: free drumkits for hydrogen
 media-libs/jasper 2.0.33-r1 3.0.6-r1 4.2.4 9999-r3: Implementation of the codec specified in the JPEG-2000 Part-1 standard
@@ -869,10 +870,11 @@ media-radio/swreceiver 0.8: SDR-J SW receiver for RTL2832-based USB sticks
 media-sound/audacity 3.5.1 3.7.2: Free crossplatform audio editor
 media-sound/carla 2.5.4-r1 9999-r1: Fully-featured audio plugin host, supports many audio drivers and plugin formats
 media-sound/dcue 1.5: generate CUE sheets from Discogs data
+media-sound/deadbeef 1.9.6-r3: DeaDBeeF is a modular audio player similar to foobar2000
 media-sound/fmit 1.2.14: Free Music Instrument Tuner
 media-sound/gwc 0.22.6: Gtk (formerly Gnome) Wave Cleaner
 media-sound/hydrogen 1.2.4: Advanced drum machine
-media-sound/keyfinder-cli 1.1.1: Musical key detection software (libkeyfinder CLI)
+media-sound/keyfinder-cli 1.1.1-r1: Musical key detection software (libkeyfinder CLI)
 media-sound/kid3 3.9.6: Simple tag editor based on Qt
 media-sound/lmms 1.2.2-r100 9999-r2: Cross-platform music production software
 media-sound/setbfree 0.8.11-r2 99999999-r3: MIDI controlled DSP tonewheel organ
@@ -881,10 +883,9 @@ media-sound/yabridge-bin 5.1.1: A modern and transparent way to use Windows VST2
 media-tv/dvb-firmware 1.4.0 9999-r3: DVB firmware from the LibreELEC project
 media-tv/w_scan2 1.0.16 9999-r3: Scan for DVB-C/DVB-T/DVB-S channels (w_scan fork)
 media-video/aegisub 3.4.2: Advanced subtitle editor
-media-video/ffmpeg 4.4.5-r3: Complete solution to record/convert/stream audio and video. Includes libavcodec
-media-video/ffmpeg-slotted 7.1.1: slotted FFmpeg
+media-video/ffmpeg 4.4.5-r4: Complete solution to record/convert/stream audio and video. Includes libavcodec
 media-video/mlvapp 1.14-r1 9999-r1: Magic Lantern Video (MLV) processing suite
-media-video/mpv 0.38.0-r1: Media player for the command line
+media-video/mpv 0.38.0-r2: Media player for the command line
 media-video/smplayer 24.5.0: Great Qt GUI front-end for mplayer/mpv
 media-video/subliminal 2.2.1 9999-r11: Python library to search and download subtitles
 media-video/vobsub2srt 1.0_pre20171219-r2: Converts VobSub subtitles (.sub/.idx) to .srt text subtitles using tesseract
@@ -894,6 +895,7 @@ net-im/telegram-desktop 5.11.1-r1: Official desktop client for Telegram
 net-libs/libtorrent-rasterbar 1.2.19-r1: C++ BitTorrent implementation focusing on efficiency and scalability
 net-libs/libutp 20180515-r1: uTorrent Transport Protocol library
 net-libs/liquid-dsp 1.7.0-r100 9999-r5: digital signal processing library for software-defined radios
+net-misc/freerdp 3.13.0: Free implementation of the Remote Desktop Protocol
 net-misc/magic-wormhole 0.11.2-r201: Securely and simply transfer data between computers
 net-misc/magic-wormhole-mailbox-server 0.4.1-r200: Rendezvous / mailbox server for Magic-Wormhole
 net-misc/magic-wormhole-transit-relay 0.2.1-r200: Transit Relay server for Magic-Wormhole
@@ -904,7 +906,7 @@ net-p2p/go-ethereum 1.15.5: Official golang implementation of the Ethereum proto
 net-p2p/nicotine+ 3.3.10 9999-r1: A fork of nicotine, a Soulseek client in Python
 net-p2p/nimbus-eth2 25.3.0 9999-r19: Nim implementation of the Ethereum 2.0 blockchain
 net-p2p/pybitmessage 0.6.3.2_p20180521-r4: Reference client for Bitmessage: a P2P communications protocol
-net-p2p/retroshare 0.6.7-r1: Decentralized, private and secure communication and sharing platform
+net-p2p/retroshare 0.6.7-r2: Decentralized, private and secure communication and sharing platform
 net-p2p/transmission-og 3.06 9999-r2: Transmission 3.00 fork (BitTorrent client)
 net-p2p/transmission-remote-gtk 1.6.0_p20230618: GTK+ client for management of the Transmission BitTorrent client, over HTTP RPC
 net-print/pkpgcounter 3.50-r200: Generic PDL (Page Description Language) parser in Python

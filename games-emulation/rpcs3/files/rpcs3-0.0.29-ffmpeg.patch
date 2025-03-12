@@ -1,0 +1,41 @@
+diff '--color=auto' -ur rpcs3-0.0.29.orig/buildfiles/cmake/FindFFMPEG.cmake rpcs3-0.0.29/buildfiles/cmake/FindFFMPEG.cmake
+--- rpcs3-0.0.29.orig/buildfiles/cmake/FindFFMPEG.cmake	2025-03-12 23:45:59.833708911 +0100
++++ rpcs3-0.0.29/buildfiles/cmake/FindFFMPEG.cmake	2025-03-13 00:04:49.634515131 +0100
+@@ -37,31 +37,37 @@
+     NAMES libavcodec/avcodec.h
+     PATHS ${_FFMPEG_AVCODEC_INCLUDE_DIRS} /usr/include /usr/local/include /opt/local/include /sw/include
+     PATH_SUFFIXES ffmpeg libav
++    NO_DEFAULT_PATH
+   )
+ 
+   find_library(FFMPEG_LIBAVCODEC
+     NAMES avcodec
+     PATHS ${_FFMPEG_AVCODEC_LIBRARY_DIRS} /usr/lib /usr/local/lib /opt/local/lib /sw/lib
++    NO_DEFAULT_PATH
+   )
+ 
+   find_library(FFMPEG_LIBAVFORMAT
+     NAMES avformat
+     PATHS ${_FFMPEG_AVFORMAT_LIBRARY_DIRS} /usr/lib /usr/local/lib /opt/local/lib /sw/lib
++    NO_DEFAULT_PATH
+   )
+ 
+   find_library(FFMPEG_LIBAVUTIL
+     NAMES avutil
+     PATHS ${_FFMPEG_AVUTIL_LIBRARY_DIRS} /usr/lib /usr/local/lib /opt/local/lib /sw/lib
++    NO_DEFAULT_PATH
+   )
+ 
+   find_library(FFMPEG_LIBSWSCALE
+     NAMES swscale
+     PATHS ${_FFMPEG_SWSCALE_LIBRARY_DIRS} /usr/lib /usr/local/lib /opt/local/lib /sw/lib
++    NO_DEFAULT_PATH
+   )
+ 
+   find_library(FFMPEG_LIBSWRESAMPLE
+     NAMES swresample
+     PATHS ${_FFMPEG_SWRESAMPLE_LIBRARY_DIRS} /usr/lib /usr/local/lib /opt/local/lib /sw/lib
++    NO_DEFAULT_PATH
+   )
+ 
+   if (FFMPEG_LIBAVCODEC AND FFMPEG_LIBAVFORMAT AND FFMPEG_LIBSWSCALE AND FFMPEG_LIBSWRESAMPLE)

@@ -1,0 +1,17 @@
+BDEPEND=app-alternatives/ninja >=dev-build/cmake-3.20.5 >=dev-vcs/git-1.8.2.1[curl]
+DEFINED_PHASES=compile configure install prepare setup test unpack
+DEPEND=python_single_target_python3_10? ( dev-lang/python:3.10 ) python_single_target_python3_11? ( dev-lang/python:3.11 ) python_single_target_python3_12? ( dev-lang/python:3.12 ) python_single_target_python3_13? ( dev-lang/python:3.13 ) python_single_target_python3_13t? ( dev-lang/python:3.13t ) >=dev-libs/pugixml-1.11 >=dev-qt/qtbase-6.5.2[dbus,gui,widgets] >=dev-qt/qtdeclarative-6.5.2:6 >=dev-qt/qtmultimedia-6.5.2:6 >=dev-qt/qtsvg-6.5.2:6 alsa? ( media-libs/alsa-lib ) dev-debug/gdb dev-libs/flatbuffers dev-libs/libusb dev-libs/xxhash joystick? ( dev-libs/libevdev ) media-libs/glew:0 media-libs/libpng:* media-libs/openal media-video/ffmpeg-compat:4= pulseaudio? ( media-libs/libpulse ) sys-libs/zlib virtual/opengl vulkan? ( media-libs/vulkan-loader ) x11-libs/libX11 >=sys-devel/gcc-9
+DESCRIPTION=PlayStation 3 emulator
+EAPI=8
+HOMEPAGE=https://rpcs3.net/
+INHERIT=cmake ffmpeg-compat git-r3 python-single-r1
+IUSE=alsa joystick +llvm pulseaudio sdl vulkan python_single_target_python3_10 python_single_target_python3_11 python_single_target_python3_12 python_single_target_python3_13 python_single_target_python3_13t
+KEYWORDS=~amd64 ~x86
+LICENSE=GPL-2
+PROPERTIES=live
+RDEPEND=python_single_target_python3_10? ( dev-lang/python:3.10 ) python_single_target_python3_11? ( dev-lang/python:3.11 ) python_single_target_python3_12? ( dev-lang/python:3.12 ) python_single_target_python3_13? ( dev-lang/python:3.13 ) python_single_target_python3_13t? ( dev-lang/python:3.13t ) >=dev-libs/pugixml-1.11 >=dev-qt/qtbase-6.5.2[dbus,gui,widgets] >=dev-qt/qtdeclarative-6.5.2:6 >=dev-qt/qtmultimedia-6.5.2:6 >=dev-qt/qtsvg-6.5.2:6 alsa? ( media-libs/alsa-lib ) dev-debug/gdb dev-libs/flatbuffers dev-libs/libusb dev-libs/xxhash joystick? ( dev-libs/libevdev ) media-libs/glew:0 media-libs/libpng:* media-libs/openal media-video/ffmpeg-compat:4= pulseaudio? ( media-libs/libpulse ) sys-libs/zlib virtual/opengl vulkan? ( media-libs/vulkan-loader ) x11-libs/libX11
+REQUIRED_USE=^^ ( python_single_target_python3_10 python_single_target_python3_11 python_single_target_python3_12 python_single_target_python3_13 python_single_target_python3_13t )
+RESTRICT=network-sandbox
+SLOT=0
+_eclasses_=cmake	10a50dfaf728b802fcfd37f8d0da9056	ffmpeg-compat	ee96007ab30e22b707385add3b01e1a9	flag-o-matic	357f1a896fbedcd06e5ce55419c49eb9	git-r3	875eb471682d3e1f18da124be97dcc81	multilib	b2a329026f2e404e9e371097dda47f96	multiprocessing	1e32df7deee68372153dca65f4a7c21f	ninja-utils	2df4e452cea39a9ec8fb543ce059f8d6	python-single-r1	a5747fe6dc0651d95cb78eddd5e160a8	python-utils-r1	2005a06234063e6815028c5db214aa3f	toolchain-funcs	6afdb6107430c1832ca7e16aacbf8fa1	xdg-utils	42869b3c8d86a70ef3cf75165a395e09
+_md5_=90cec31b845e30f1fc54e44cfca22f7a

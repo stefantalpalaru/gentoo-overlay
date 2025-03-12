@@ -332,6 +332,18 @@ media-sound/audacity:vamp - Enables vamp plugins support (Audio analysing plugin
 media-sound/carla:gtk2 - Use gtk-2 instead of gtk-3
 media-sound/carla:rdf - Enable LADSPA-RDF support
 media-sound/carla:sf2 - Enable builtin SF2 sample support using media-sound/fluidsynth
+media-sound/deadbeef:converter - File format converter
+media-sound/deadbeef:cover - Support for cover art
+media-sound/deadbeef:hotkeys - Keyboard shortcuts support
+media-sound/deadbeef:lastfm - last.fm/AudioScrobbler protocol support
+media-sound/deadbeef:libretro - libretro resampling plugin
+media-sound/deadbeef:libsamplerate - Support the Secret Rabbit Code resampler
+media-sound/deadbeef:notify - Desktop notifications support
+media-sound/deadbeef:nullout - Dummy output driver
+media-sound/deadbeef:pipewire - Pipewire output plugin
+media-sound/deadbeef:sc68 - Atari ST and Amiga music player
+media-sound/deadbeef:shellexec - Define custom shell commands that can be called on tracks
+media-sound/deadbeef:supereq - Enable equalizer
 media-sound/hydrogen:archive - Use libarchive instead of libtar
 media-sound/hydrogen:portmidi - Add portmidi support
 media-sound/kid3:acoustid - Build acoustic fingerprinting plugin using media-libs/chromaprint
@@ -403,73 +415,6 @@ media-video/ffmpeg:x265 - Enables HEVC encoding with media-libs/x265.
 media-video/ffmpeg:zeromq - Enables net-libs/zeromq support with the zmq/azmq filters.
 media-video/ffmpeg:zimg - Enables media-libs/zimg based scale filter.
 media-video/ffmpeg:zvbi - Enables media-libs/zvbi based teletext decoder.
-media-video/ffmpeg-slotted:amf - Enables support for AMD's Advanced Media Framework (AMF)
-media-video/ffmpeg-slotted:amr - Enables Adaptive Multi-Rate Audio support
-media-video/ffmpeg-slotted:amrenc - Enables Adaptive Multi-Rate Audio encoding support with media-libs/vo-amrwbenc.
-media-video/ffmpeg-slotted:appkit - Enables Apple AppKit framework
-media-video/ffmpeg-slotted:bluray - Enable playback of Blu-ray filesystems
-media-video/ffmpeg-slotted:bs2b - Enables media-libs/libbs2b based Bauer stereo-to-binaural filter.
-media-video/ffmpeg-slotted:cdio - Enables audio CD grabbing with dev-libs/libcdio.
-media-video/ffmpeg-slotted:chromaprint - Enables audio fingerprinting support with media-libs/chromaprint.
-media-video/ffmpeg-slotted:codec2 - Enables codec2 low bit rate speech codec support via media-libs/codec2.
-media-video/ffmpeg-slotted:cpudetection - Enables runtime CPU detection (useful for bindist, compatibility on other CPUs)
-media-video/ffmpeg-slotted:cuda - Enables CUDA-based acceleration. Mostly used for specific filters.
-media-video/ffmpeg-slotted:dav1d - Enables AV1 decoding via media-libs/dav1d.
-media-video/ffmpeg-slotted:fdk - Use external fdk-aac library for AAC encoding
-media-video/ffmpeg-slotted:flite - Adds a text-to-speech filter based on app-accessibility/flite.
-media-video/ffmpeg-slotted:frei0r - Enable frei0r wrapping in libavfilter
-media-video/ffmpeg-slotted:fribidi - Enables fribidi support in the drawtext filter.
-media-video/ffmpeg-slotted:gcrypt - Enables gcrypt support: Needed for rtmp(t)e support if openssl, librtmp or gmp is not used.
-media-video/ffmpeg-slotted:glslang - Use dev-util/glslang to compile GLSL
-media-video/ffmpeg-slotted:gme - Enables support for media-libs/game-music-emu for playing various video game music formats.
-media-video/ffmpeg-slotted:gpl - Build GPL code. Should be enabled unless you require LGPL binaries.
-media-video/ffmpeg-slotted:hardcoded-tables - Use pre-calculated tables rather than calculating them on the fly. It results in an increase of approximately 15% in the size of libavcodec, the main library impacted by this change. It enables savings in table generation time, done once at codec initialization, since by hardcoding the tables, they do not need to be computed at runtime. However, the savings are often negligible (~100k cycles is a typical number) especially when amortized over the entire encoding/decoding operation. Improvements are being made to the runtime initialization, and so over time, this option will have an impact on fewer and fewer codecs.
-media-video/ffmpeg-slotted:iec61883 - Support for FireWire DV/HDV input device using media-libs/libiec61883.
-media-video/ffmpeg-slotted:kvazaar - Enables media-libs/kvazaar based HEVC encoder.
-media-video/ffmpeg-slotted:lcms - Enable ICC profile support via media-libs/lcms.
-media-video/ffmpeg-slotted:libaom - Enables media-libs/libaom based AV1 codec support.
-media-video/ffmpeg-slotted:libaribb24 - Enables ARIB text and caption decoding via media-libs/aribb24.
-media-video/ffmpeg-slotted:libdrm - Enables x11-libs/libdrm support for better screen grabbing and hardware accelerated codecs.
-media-video/ffmpeg-slotted:libdvdnav - Uses media-libs/libdvdnav to enable DVD demuxing
-media-video/ffmpeg-slotted:libdvdread - Uses media-libs/libdvdread to enable DVD demuxing
-media-video/ffmpeg-slotted:libilbc - Enables iLBC de/encoding via media-libs/libilbc.
-media-video/ffmpeg-slotted:liblc3 - Enables LC3 de/encoding via media-sound/liblc3.
-media-video/ffmpeg-slotted:libplacebo - Adds flexible GPU-accelerated processing filter based on media-libs/libplacebo.
-media-video/ffmpeg-slotted:librtmp - Enables Real Time Messaging Protocol using librtmp (media-video/rtmpdump) in addition to FFmpeg's native implementation.
-media-video/ffmpeg-slotted:libsoxr - Enables audio resampling through media-libs/soxr.
-media-video/ffmpeg-slotted:libtesseract - Enables the OCR filter via app-text/tesseract.
-media-video/ffmpeg-slotted:libv4l - Uses media-libs/libv4l for video4linux instead of direct calls. Adds support for more devices via the userspace library.
-media-video/ffmpeg-slotted:libxml2 - Uses dev-libs/libxml2 to enable dash demuxing support.
-media-video/ffmpeg-slotted:lto - Enable Link Time Optimization (LTO).
-media-video/ffmpeg-slotted:lv2 - Enables lv2 audio filter wrapper.
-media-video/ffmpeg-slotted:mipsdspr1 - Enables MIPS DSP ASE R1 optimizations.
-media-video/ffmpeg-slotted:mipsdspr2 - Enables MIPS DSP ASE R2 optimizations.
-media-video/ffmpeg-slotted:mipsfpu - Enables floating point MIPS optimizations.
-media-video/ffmpeg-slotted:network - Enables network streaming support
-media-video/ffmpeg-slotted:opencl - Enable OpenCL support
-media-video/ffmpeg-slotted:openh264 - Enables H.264 encoding suppoprt via media-libs/openh264.
-media-video/ffmpeg-slotted:openssl - Enables dev-libs/openssl support. Adds support for encrypted network protocols (TLS/HTTPS).
-media-video/ffmpeg-slotted:pic - Force shared libraries to be built as PIC (this is slower)
-media-video/ffmpeg-slotted:postproc - Build and install libpostproc.
-media-video/ffmpeg-slotted:qrcode - Enables QR encode generation via media-gfx/qrencode
-media-video/ffmpeg-slotted:qsv - Enable Intel Quick Sync Video via media-libs/intel-mediasdk (ffmpeg versions older than, and including, 5.1) or media-libs/libvpl (ffmpeg version newer than 5.1).
-media-video/ffmpeg-slotted:quirc - Enables QR decoding via media-libs/quirc
-media-video/ffmpeg-slotted:rav1e - Enables AV1 encoding support via media-video/rav1e.
-media-video/ffmpeg-slotted:rubberband - Adds time-stretching and pitch-shifting audio filter based on media-libs/rubberband.
-media-video/ffmpeg-slotted:shaderc - Use media-libs/shaderc to compile GLSL
-media-video/ffmpeg-slotted:snappy - Enable app-arch/snappy support. Required for e.g. Vidvox Hap encoder.
-media-video/ffmpeg-slotted:sndio - Enable support for the media-sound/sndio backend
-media-video/ffmpeg-slotted:srt - Enable support for Secure Reliable Transport (SRT) via net-libs/srt
-media-video/ffmpeg-slotted:ssh - Enable SSH/sftp support via net-libs/libssh.
-media-video/ffmpeg-slotted:svt-av1 - Enables AV1 encoding support via media-libs/svt-av1.
-media-video/ffmpeg-slotted:twolame - Enables MP2 encoding via media-sound/twolame as an alternative to the internal encoder.
-media-video/ffmpeg-slotted:vidstab - Enables video stabilization filter using vid.stab library (media-libs/vidstab).
-media-video/ffmpeg-slotted:vmaf - Enables Netflix's perceptual video quality assessment filter using the library (media-libs/libvmaf).
-media-video/ffmpeg-slotted:vpx - Enables VP8 and VP9 codec support using libvpx: Decoding does not require this to be enabled but libvpx can also be used for decoding; encoding requires this useflag to be enabled though.
-media-video/ffmpeg-slotted:x265 - Enables HEVC encoding with media-libs/x265.
-media-video/ffmpeg-slotted:zeromq - Enables net-libs/zeromq support with the zmq/azmq filters.
-media-video/ffmpeg-slotted:zimg - Enables media-libs/zimg based scale filter.
-media-video/ffmpeg-slotted:zvbi - Enables media-libs/zvbi based teletext decoder.
 media-video/mpv:archive - Enable support for various archive formats via app-arch/libarchive
 media-video/mpv:bluray - Enable playback of Blu-ray filesystems
 media-video/mpv:cli - Enable the command-line player
@@ -495,6 +440,11 @@ net-im/telegram-desktop:libdispatch - Use dev-libs/libdispatch to speed up concu
 net-im/telegram-desktop:qt6 - Build with Qt6 support
 net-libs/libtorrent-rasterbar:dht - Enable DHT (distributed hash table) support
 net-libs/libutp:tools - Build "ucat".
+net-misc/freerdp:aad - Enable login via Azure AD
+net-misc/freerdp:client - Build client binaries
+net-misc/freerdp:fuse - Clipboard with FUSE file copy support
+net-misc/freerdp:openh264 - Enable H.264 support using media-libs/openh264
+net-misc/freerdp:server - Build server binaries
 net-p2p/go-ethereum:devtools - Build Ethereum development tools (evm, abigen, puppeth, ...)
 net-p2p/nimbus-eth2:lto - Enable Link Time Optimization (LTO)
 net-p2p/pybitmessage:opencl - Enable dev-python/pyopencl for GPU acceleration

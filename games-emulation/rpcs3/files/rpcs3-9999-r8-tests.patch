@@ -1,0 +1,11 @@
+diff '--color=auto' -ur rpcs3-9999.orig/rpcs3/CMakeLists.txt rpcs3-9999/rpcs3/CMakeLists.txt
+--- rpcs3-9999.orig/rpcs3/CMakeLists.txt	2025-03-12 21:09:33.387503822 +0100
++++ rpcs3-9999/rpcs3/CMakeLists.txt	2025-03-12 21:10:48.249132923 +0100
+@@ -197,7 +197,5 @@
+             DESTINATION ${CMAKE_INSTALL_DATADIR}/rpcs3)
+         install(DIRECTORY ../bin/git
+             DESTINATION ${CMAKE_INSTALL_DATADIR}/rpcs3)
+-        install(DIRECTORY ../bin/test
+-            DESTINATION ${CMAKE_INSTALL_DATADIR}/rpcs3)
+     endif()
+ endif()

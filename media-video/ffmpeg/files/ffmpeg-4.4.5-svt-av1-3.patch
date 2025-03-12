@@ -1,12 +1,7 @@
- libavcodec/libsvtav1.c | 4 ++++
- 1 file changed, 4 insertions(+)
-
-diff --git a/libavcodec/libsvtav1.c b/libavcodec/libsvtav1.c
-index 79b28eb4df..43fe531fde 100644
+https://github.com/FFmpeg/FFmpeg/commit/d1ed5c06e
 --- a/libavcodec/libsvtav1.c
 +++ b/libavcodec/libsvtav1.c
-@@ -435,7 +435,11 @@ static av_cold int eb_enc_init(AVCodecContext *avctx)
- 
+@@ -436,5 +436,9 @@
      svt_enc->eos_flag = EOS_NOT_REACHED;
  
 +#if SVT_AV1_CHECK_VERSION(3, 0, 0)
@@ -16,4 +11,3 @@ index 79b28eb4df..43fe531fde 100644
 +#endif
      if (svt_ret != EB_ErrorNone) {
          return svt_print_error(avctx, svt_ret, "Error initializing encoder handle");
-     }

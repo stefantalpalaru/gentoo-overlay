@@ -1,16 +1,18 @@
-# Copyright 1999-2024 Gentoo Authors
+# Copyright 1999-2025 Gentoo Authors
 # Distributed under the terms of the GNU General Public License v2
 
 EAPI=8
-PYTHON_COMPAT=( python3_{10..12} )
+PYTHON_COMPAT=( python3_{10..13} python3_13t )
 
-inherit cmake git-r3 python-single-r1
+inherit cmake ffmpeg-compat git-r3 python-single-r1
 
 DESCRIPTION="PlayStation 3 emulator"
 HOMEPAGE="https://rpcs3.net/"
 EGIT_REPO_URI="https://github.com/RPCS3/rpcs3"
+EGIT_COMMIT="v0.0.29"
 LICENSE="GPL-2"
 SLOT="0"
+KEYWORDS="~amd64 ~x86"
 IUSE="alsa joystick +llvm pulseaudio sdl vulkan"
 RESTRICT="network-sandbox"
 
@@ -30,6 +32,7 @@ RDEPEND="
 	media-libs/glew:0
 	media-libs/libpng:*
 	media-libs/openal
+	media-video/ffmpeg-compat:4=
 	pulseaudio? ( media-libs/libpulse )
 	sys-libs/zlib
 	virtual/opengl
@@ -54,10 +57,12 @@ EGIT_SUBMODULES=(
 	"-3rdparty/pugixml"
 	"-3rdparty/xxHash"
 	"-3rdparty/zlib"
+	"-rpcs3-ffmpeg"
 )
 
 PATCHES=(
 	"${FILESDIR}/rpcs3-9999-r7-tests.patch"
+	"${FILESDIR}/rpcs3-0.0.29-ffmpeg.patch"
 )
 
 src_prepare() {
@@ -72,6 +77,9 @@ src_prepare() {
 }
 
 src_configure() {
+	ffmpeg_compat_setup 4
+	ffmpeg_compat_add_flags
+
 	local mycmakeargs=(
 		-DBUILD_LLVM=ON
 		-DBUILD_SHARED_LIBS=OFF
@@ -86,7 +94,7 @@ src_configure() {
 		-DUSE_PULSE=$(usex pulseaudio ON OFF)
 		-DUSE_SDL=$(usex sdl)
 		-DUSE_SYSTEM_CURL=ON
-		-DUSE_SYSTEM_FFMPEG=OFF
+		-DUSE_SYSTEM_FFMPEG=ON
 		-DUSE_SYSTEM_FLATBUFFERS=ON
 		-DUSE_SYSTEM_LIBPNG=ON
 		-DUSE_SYSTEM_LIBUSB=ON

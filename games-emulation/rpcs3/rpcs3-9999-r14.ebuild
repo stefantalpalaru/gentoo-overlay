@@ -1,16 +1,14 @@
-# Copyright 1999-2024 Gentoo Authors
+# Copyright 1999-2025 Gentoo Authors
 # Distributed under the terms of the GNU General Public License v2
 
 EAPI=8
-PYTHON_COMPAT=( python3_{10..12} )
+PYTHON_COMPAT=( python3_{10..13} python3_13t )
 
 inherit cmake git-r3 python-single-r1
 
 DESCRIPTION="PlayStation 3 emulator"
 HOMEPAGE="https://rpcs3.net/"
 EGIT_REPO_URI="https://github.com/RPCS3/rpcs3"
-EGIT_COMMIT="v0.0.29"
-KEYWORDS="~amd64 ~x86"
 LICENSE="GPL-2"
 SLOT="0"
 IUSE="alsa joystick +llvm pulseaudio sdl vulkan"
@@ -18,7 +16,7 @@ RESTRICT="network-sandbox"
 
 RDEPEND="
 	${PYTHON_DEPS}
-	>=dev-libs/pugixml-1.11
+	>=dev-libs/pugixml-1.15
 	>=dev-qt/qtbase-6.5.2[dbus,gui,widgets]
 	>=dev-qt/qtdeclarative-6.5.2:6
 	>=dev-qt/qtmultimedia-6.5.2:6
@@ -32,8 +30,8 @@ RDEPEND="
 	media-libs/glew:0
 	media-libs/libpng:*
 	media-libs/openal
-	media-video/ffmpeg:0/56.58.58
 	pulseaudio? ( media-libs/libpulse )
+	sdl? ( media-libs/libsdl3 )
 	sys-libs/zlib
 	virtual/opengl
 	vulkan? ( media-libs/vulkan-loader )
@@ -57,11 +55,10 @@ EGIT_SUBMODULES=(
 	"-3rdparty/pugixml"
 	"-3rdparty/xxHash"
 	"-3rdparty/zlib"
-	"-rpcs3-ffmpeg"
 )
 
 PATCHES=(
-	"${FILESDIR}/rpcs3-9999-r7-tests.patch"
+	"${FILESDIR}/rpcs3-9999-r8-tests.patch"
 )
 
 src_prepare() {
@@ -90,13 +87,12 @@ src_configure() {
 		-DUSE_PULSE=$(usex pulseaudio ON OFF)
 		-DUSE_SDL=$(usex sdl)
 		-DUSE_SYSTEM_CURL=ON
-		-DUSE_SYSTEM_FFMPEG=ON
+		-DUSE_SYSTEM_FFMPEG=OFF
 		-DUSE_SYSTEM_FLATBUFFERS=ON
 		-DUSE_SYSTEM_LIBPNG=ON
 		-DUSE_SYSTEM_LIBUSB=ON
 		-DUSE_SYSTEM_PUGIXML=ON
 		-DUSE_SYSTEM_SDL=ON
-		-DUSE_SYSTEM_XXHASH=ON
 		-DUSE_SYSTEM_ZLIB=ON
 		-DUSE_VULKAN=$(usex vulkan ON OFF)
 		-DWITH_LLVM=$(usex llvm ON OFF)

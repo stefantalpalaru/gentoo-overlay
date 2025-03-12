@@ -1,11 +1,11 @@
-# Copyright 1999-2024 Gentoo Authors
+# Copyright 1999-2025 Gentoo Authors
 # Distributed under the terms of the GNU General Public License v2
 
 EAPI=8
 
 GTEST_VERSION="1.10.0"
 GTEST_DIR_VERSION="1.10.x"
-inherit cmake-multilib
+inherit cmake-multilib ffmpeg-compat
 
 DESCRIPTION="Library implementing a custom algorithm for extracting audio fingerprints"
 HOMEPAGE="https://acoustid.org/chromaprint"
@@ -15,13 +15,13 @@ SRC_URI="https://github.com/acoustid/${PN}/releases/download/v${PV}/${P}.tar.gz
 
 LICENSE="LGPL-2.1"
 SLOT="0/1"
-KEYWORDS="~alpha amd64 arm arm64 ~hppa ~ia64 ~mips ppc ppc64 ~riscv sparc x86"
+KEYWORDS="~alpha amd64 arm arm64 ~hppa ~mips ppc ppc64 ~riscv sparc x86"
 IUSE="test tools"
 RESTRICT="!test? ( test )"
 
 # - Default to fftw to avoid awkward circular dependency w/ ffmpeg
 # See bug #833821 for an example
-RDEPEND="tools? ( <media-video/ffmpeg-5:=[${MULTILIB_USEDEP}] )
+RDEPEND="tools? ( media-video/ffmpeg-compat:4=[${MULTILIB_USEDEP}] )
 	!tools? ( sci-libs/fftw:=[${MULTILIB_USEDEP}] )"
 DEPEND="${RDEPEND}
 	test? ( dev-cpp/gtest[${MULTILIB_USEDEP}] )"
@@ -30,6 +30,9 @@ DOCS=( NEWS.txt README.md )
 
 multilib_src_configure() {
 	export GTEST_ROOT="${WORKDIR}/googletest-${GTEST_DIR_VERSION}/googletest/"
+	ffmpeg_compat_setup 4
+	ffmpeg_compat_add_flags
+	export FFMPEG_DIR="$(ffmpeg_compat_get_prefix 4)"
 
 	local mycmakeargs=(
 		-DBUILD_TESTS=$(usex test)
