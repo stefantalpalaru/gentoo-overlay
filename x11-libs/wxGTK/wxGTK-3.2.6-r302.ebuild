@@ -28,10 +28,10 @@ RESTRICT="!test? ( test )"
 RDEPEND="
 	>=app-eselect/eselect-wxwidgets-20131230
 	dev-libs/expat[${MULTILIB_USEDEP}]
-	dev-libs/libpcre2[pcre16,pcre32,unicode]
+	dev-libs/libpcre2[pcre16,pcre32,unicode,${MULTILIB_USEDEP}]
 	sdl? ( media-libs/libsdl2[${MULTILIB_USEDEP}] )
-	curl? ( net-misc/curl )
-	lzma? ( app-arch/xz-utils )
+	curl? ( net-misc/curl[${MULTILIB_USEDEP}] )
+	lzma? ( app-arch/xz-utils[${MULTILIB_USEDEP}] )
 	X? (
 		>=dev-libs/glib-2.22:2[${MULTILIB_USEDEP}]
 		media-libs/libjpeg-turbo:=[${MULTILIB_USEDEP}]
@@ -42,11 +42,12 @@ RDEPEND="
 		x11-libs/gdk-pixbuf:2[${MULTILIB_USEDEP}]
 		x11-libs/libSM[${MULTILIB_USEDEP}]
 		x11-libs/libX11[${MULTILIB_USEDEP}]
-		x11-libs/libXtst
+		x11-libs/libxkbcommon[${MULTILIB_USEDEP}]
+		x11-libs/libXtst[${MULTILIB_USEDEP}]
 		x11-libs/libXxf86vm[${MULTILIB_USEDEP}]
-		media-libs/fontconfig
+		media-libs/fontconfig[${MULTILIB_USEDEP}]
 		x11-libs/pango[${MULTILIB_USEDEP}]
-		keyring? ( app-crypt/libsecret )
+		keyring? ( app-crypt/libsecret[${MULTILIB_USEDEP}] )
 		gstreamer? (
 			media-libs/gstreamer:1.0[${MULTILIB_USEDEP}]
 			media-libs/gst-plugins-base:1.0[${MULTILIB_USEDEP}]
@@ -55,7 +56,7 @@ RDEPEND="
 		libnotify? ( x11-libs/libnotify[${MULTILIB_USEDEP}] )
 		opengl? (
 			virtual/opengl[${MULTILIB_USEDEP}]
-			wayland? ( dev-libs/wayland )
+			wayland? ( dev-libs/wayland[${MULTILIB_USEDEP}] )
 		)
 		spell? ( app-text/gspell:= )
 		tiff? ( media-libs/tiff:=[${MULTILIB_USEDEP}] )
