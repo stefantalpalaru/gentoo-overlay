@@ -9,14 +9,14 @@ MY_P=${P/_/-}
 
 DESCRIPTION="Free implementation of the Remote Desktop Protocol"
 HOMEPAGE="https://www.freerdp.com/"
-S="${WORKDIR}/${MY_P}"
 SRC_URI="https://pub.freerdp.com/releases/${MY_P}.tar.gz
 	verify-sig? ( https://pub.freerdp.com/releases/${MY_P}.tar.gz.asc )"
-KEYWORDS="~alpha ~amd64 ~arm ~arm64 ~loong ~ppc ~ppc64 ~riscv ~x86"
+S="${WORKDIR}/${MY_P}"
 BDEPEND="verify-sig? ( sec-keys/openpgp-keys-akallabeth )"
 VERIFY_SIG_OPENPGP_KEY_PATH="/usr/share/openpgp-keys/akallabeth.asc"
 LICENSE="Apache-2.0"
 SLOT="3"
+KEYWORDS="~alpha ~amd64 ~arm ~arm64 ~loong ~ppc ~ppc64 ~riscv ~x86"
 IUSE="aad alsa cpu_flags_arm_neon +client cups debug +ffmpeg +fuse gstreamer +icu jpeg kerberos openh264 pulseaudio sdl server smartcard systemd test usb valgrind wayland X xinerama xv"
 RESTRICT="!test? ( test )"
 
