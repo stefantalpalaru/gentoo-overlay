@@ -10,7 +10,7 @@ app-crypt/certbot 1.8.0-r202 1.32.0-r3: Let’s Encrypt client to automate deplo
 app-crypt/certbot-s3front 0.4.2_p20201118-r4: S3/CloudFront plugin for Let's Encrypt client
 app-editors/gedit 3.32.2-r4: A text editor for the GNOME desktop
 app-emacs/pymacs 0.26-r201: A tool that allows both-side communication beetween Python and Emacs Lisp
-app-emulation/vmware-modules 17.6.3: VMware kernel modules
+app-emulation/vmware-modules 17.6.3-r1: VMware kernel modules
 app-emulation/vmware-workstation 17.6.3.24583834-r2: Emulate a complete PC without the performance overhead of most emulators
 app-misc/electricsheep 3.0.2_p20240213-r1 9999-r9: realize the collective dream of sleeping computers from all over the internet
 app-misc/iccloader 0.5-r1 9999-r2: systray widget used to load ICC color profiles with different color temperatures

@@ -1,4 +1,4 @@
-# Copyright 1999-2024 Gentoo Authors
+# Copyright 1999-2025 Gentoo Authors
 # Distributed under the terms of the GNU General Public License v2
 
 EAPI=8
@@ -9,7 +9,7 @@ DESCRIPTION="VMware kernel modules"
 HOMEPAGE="https://github.com/bytium/vm-host-modules"
 
 # Highest kernel version known to work:
-MY_KERNEL_VERSION="6.12"
+MY_KERNEL_VERSION="6.13"
 
 MY_COMMIT="7bab658ccb4ba783b984e800a30925eea46448ff"
 
