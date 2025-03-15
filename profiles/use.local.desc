@@ -499,19 +499,6 @@ sci-geosciences/qgis:opencl - Enable OpenCL support
 sci-geosciences/qgis:pdal - Enable support for PDAL for point clouds via sci-libs/pdal
 sci-geosciences/qgis:qml - Enable support Qml-based plugins using dev-qt/qtdeclarative
 sci-geosciences/qgis:serial - Enable support for serial GPS using dev-qt/qtserialport
-sci-libs/caffe2:distributed - Support distributed applications
-sci-libs/caffe2:fbgemm - Use FBGEMM
-sci-libs/caffe2:flash - Enable flash attention
-sci-libs/caffe2:gloo - Use sci-libs/gloo
-sci-libs/caffe2:mkl - Use sci-libs/mkl for blas, lapack and sparse blas routines
-sci-libs/caffe2:nnpack - Use NNPACK
-sci-libs/caffe2:numpy - Add support for math operations through numpy
-sci-libs/caffe2:onednn - Use oneDNN
-sci-libs/caffe2:openblas - Use sci-libs/openblas for blas routines
-sci-libs/caffe2:openmp - Use OpenMP for parallel code
-sci-libs/caffe2:qnnpack - Use QNNPACK
-sci-libs/caffe2:rocm - Enable ROCm gpu computing support
-sci-libs/caffe2:xnnpack - Use XNNPACK
 sci-libs/cfitsio:tools - Build execs fpack, funpack, imcopy, fitscopy, listhead
 sci-libs/cholmod:cuda - Use nvidia cuda toolkit for speeding up computations
 sci-libs/cholmod:matrixops - Support basic sparse and dense matrix operations (add, multiply, scale, et cetera)
@@ -527,7 +514,20 @@ sci-libs/gdal:ogdi - Enable support for the open geographic datastore interface 
 sci-libs/gdal:opencl - Enable OpenCL support
 sci-libs/gdal:spatialite - Enable Spatial DBMS over sqlite dev-db/spatialite
 sci-libs/gdal:xls - Add the dev-libs/freexl library for xls import support
-sci-libs/torchvision:cuda - Add support for CUDA processing
+sci-ml/caffe2:distributed - Support distributed applications
+sci-ml/caffe2:fbgemm - Use FBGEMM
+sci-ml/caffe2:flash - Enable flash attention
+sci-ml/caffe2:gloo - Use sci-libs/gloo
+sci-ml/caffe2:mkl - Use sci-libs/mkl for blas, lapack and sparse blas routines
+sci-ml/caffe2:nnpack - Use NNPACK
+sci-ml/caffe2:numpy - Add support for math operations through numpy
+sci-ml/caffe2:onednn - Use oneDNN
+sci-ml/caffe2:openblas - Use sci-libs/openblas for blas routines
+sci-ml/caffe2:openmp - Use OpenMP for parallel code
+sci-ml/caffe2:qnnpack - Use QNNPACK
+sci-ml/caffe2:rocm - Enable ROCm gpu computing support
+sci-ml/caffe2:xnnpack - Use XNNPACK
+sci-ml/torchvision:cuda - Add support for CUDA processing
 sys-cluster/openmpi:cma - Enable the CMA (Cross Memory Attach) MCA
 sys-cluster/openmpi:peruse - Enable PERUSE interface
 sys-cluster/openmpi:romio - Build the ROMIO MPI-IO component

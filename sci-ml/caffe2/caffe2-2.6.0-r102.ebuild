@@ -45,7 +45,7 @@ RDEPEND="
 	dev-libs/sleef
 	virtual/lapack
 	sci-libs/onnx
-	sci-libs/foxi
+	sci-ml/foxi
 	cuda? (
 		dev-libs/cudnn:=
 		>=dev-libs/cudnn-frontend-1.0.3:0/8
@@ -53,7 +53,7 @@ RDEPEND="
 		dev-util/nvidia-cuda-toolkit:=[profiler]
 	)
 	fbgemm? ( >=dev-libs/FBGEMM-2023.12.01 )
-	gloo? ( sci-libs/gloo[cuda?] )
+	gloo? ( sci-ml/gloo[cuda?] )
 	mpi? ( virtual/mpi )
 	nnpack? ( sci-libs/NNPACK )
 	numpy? ( $(python_gen_cond_dep '
@@ -95,7 +95,7 @@ RDEPEND="
 DEPEND="
 	${RDEPEND}
 	cuda? ( >=dev-libs/cutlass-3.4.1 )
-	onednn? ( sci-libs/ideep )
+	onednn? ( sci-ml/ideep )
 	dev-libs/psimd
 	dev-libs/FP16
 	dev-libs/FXdiv

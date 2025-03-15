@@ -59,7 +59,7 @@ DEPEND="
 		app-arch/xz-utils
 		app-arch/lzma
 	) )
-	mdb? ( dev-java/jackcess:1 )
+	mdb? ( dev-java/jackcess )
 	mysql? ( virtual/mysql )
 	netcdf? ( sci-libs/netcdf:= )
 	odbc? ( dev-db/unixODBC )

@@ -27,7 +27,7 @@ RDEPEND="
 		dev-python/requests[${PYTHON_USEDEP}]
 		dev-python/scipy[${PYTHON_USEDEP}]
 	')
-	sci-libs/pytorch[${PYTHON_SINGLE_USEDEP}]
+	sci-ml/pytorch[${PYTHON_SINGLE_USEDEP}]
 	media-video/ffmpeg
 	dev-qt/qtcore:5
 "

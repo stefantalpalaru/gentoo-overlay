@@ -90,7 +90,7 @@ BDEPEND="
 		')
 	)
 	sci-libs/onnx:=[disableStaticReg]
-	sci-libs/pytorch
+	sci-ml/pytorch
 	sys-cluster/openmpi:=[cuda?]
 	xnnpack? ( sci-libs/XNNPACK )
 "
