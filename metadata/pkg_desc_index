@@ -917,7 +917,7 @@ net-wireless/sdrpp 1.1.0_pre20230907: a cross-platform SDR software with the aim
 net-wireless/soapyairspyhf 0.2.0: SoapySDR Airspyhf-SDR Support Module
 net-wireless/soapysdr 0.8.1-r2: vendor and platform neutral SDR support library
 sci-astronomy/astrometry 0.78-r3: Automated astrometric calibration programs and service
-sci-astronomy/calcmysky 0.3.3: Simulator of light scattering by planetary atmospheres
+sci-astronomy/calcmysky 0.3.4: Simulator of light scattering by planetary atmospheres
 sci-astronomy/casa-data 20241126: Data and tables for the CASA software
 sci-astronomy/casacore 3.4.0-r2: Core libraries for the Common Astronomy Software Applications
 sci-astronomy/healpix 3.31-r3: Hierarchical Equal Area isoLatitude Pixelization of a sphere
