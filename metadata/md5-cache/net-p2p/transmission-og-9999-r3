@@ -5,7 +5,7 @@ DESCRIPTION=Transmission 3.00 fork (BitTorrent client)
 EAPI=8
 HOMEPAGE=https://github.com/stefantalpalaru/transmission-og
 INHERIT=flag-o-matic git-r3 systemd xdg-utils
-IUSE=appindicator doc gtk lightweight nls mbedtls qt5 static-libs systemd test
+IUSE=appindicator cli +daemon doc +gtk lightweight nls mbedtls qt5 static-libs systemd test
 LICENSE=|| ( GPL-2 GPL-3 Transmission-OpenSSL-exception ) GPL-2 MIT
 PROPERTIES=live
 RDEPEND=>=dev-libs/libevent-2.0.10:= !mbedtls? ( dev-libs/openssl:0= ) mbedtls? ( net-libs/mbedtls:0= ) dev-libs/dht dev-libs/libb64 net-libs/libnatpmp net-libs/libutp >=net-libs/miniupnpc-1.7:= >=net-misc/curl-7.15.4[ssl] sys-libs/zlib:= nls? ( virtual/libintl ) gtk? ( >=dev-libs/dbus-glib-0.100 >=dev-libs/glib-2.32:2 >=x11-libs/gtk+-3.4:3 appindicator? ( dev-libs/libayatana-appindicator ) ) qt5? ( dev-qt/qtcore:5 dev-qt/qtdbus:5 dev-qt/qtgui:5 dev-qt/qtnetwork:5 dev-qt/qtwidgets:5 ) systemd? ( >=sys-apps/systemd-209:= ) acct-group/transmission acct-user/transmission
@@ -13,4 +13,4 @@ REQUIRED_USE=appindicator? ( gtk )
 RESTRICT=!test? ( test )
 SLOT=0
 _eclasses_=toolchain-funcs	6afdb6107430c1832ca7e16aacbf8fa1	multilib	b2a329026f2e404e9e371097dda47f96	flag-o-matic	357f1a896fbedcd06e5ce55419c49eb9	git-r3	875eb471682d3e1f18da124be97dcc81	systemd	54bd206bb5c4efac6ae28b6b006713b0	xdg-utils	42869b3c8d86a70ef3cf75165a395e09
-_md5_=3b01e48e38c05d27336657bc8aa31467
+_md5_=45c036c4aecc7989bf198faec5cef0f8

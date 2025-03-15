@@ -6,6 +6,8 @@
 		<name>Ștefan Talpalaru</name>
 	</maintainer>
 	<use>
+		<flag name="cli">Build old command-line client - transmission-og-cli (deprecated, use transmission-og-remote instead</flag>
+		<flag name="daemon">Build the daemon</flag>
 		<flag name="lightweight">Optimize Transmission OG for low-resource systems (smaller cache size, prefer unencrypted peer connections, etc.)</flag>
 		<flag name="mbedtls">Use mbed TLS instead of OpenSSL</flag>
 	</use>
