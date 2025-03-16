@@ -63,7 +63,7 @@ BDEPEND="
 	>dev-cpp/eigen-3.4.0:=[cuda?]
 	dev-cpp/ms-gsl:=
 	dev-cpp/nlohmann_json
-	dev-libs/FP16
+	sci-ml/FP16
 	dev-libs/FXdiv
 	dev-libs/clog:=
 	dev-libs/cpuinfo:=
@@ -76,7 +76,7 @@ BDEPEND="
 		>=dev-libs/rocr-runtime-${ROCM_VERSION}:=
 		>=dev-util/hip-${ROCM_VERSION}:=
 	)
-	onednn? ( dev-libs/oneDNN:= )
+	onednn? ( sci-ml/oneDNN:= )
 	python? (
 		$(python_gen_cond_dep '
 			dev-python/cerberus[${PYTHON_USEDEP}]
@@ -89,10 +89,10 @@ BDEPEND="
 			dev-python/sympy[${PYTHON_USEDEP}]
 		')
 	)
-	sci-libs/onnx:=[disableStaticReg]
+	sci-ml/onnx:=[disableStaticReg]
 	sci-ml/pytorch
 	sys-cluster/openmpi:=[cuda?]
-	xnnpack? ( sci-libs/XNNPACK )
+	xnnpack? ( sci-ml/XNNPACK )
 "
 
 PATCHES=(

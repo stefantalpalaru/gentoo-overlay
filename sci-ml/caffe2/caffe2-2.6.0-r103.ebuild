@@ -44,7 +44,7 @@ RDEPEND="
 	dev-libs/pthreadpool
 	dev-libs/sleef
 	virtual/lapack
-	sci-libs/onnx
+	sci-ml/onnx
 	sci-ml/foxi
 	cuda? (
 		dev-libs/cudnn:=
@@ -52,14 +52,14 @@ RDEPEND="
 		dev-libs/cudnn-frontend:=
 		dev-util/nvidia-cuda-toolkit:=[profiler]
 	)
-	fbgemm? ( >=dev-libs/FBGEMM-2023.12.01 )
+	fbgemm? ( >=sci-ml/FBGEMM-2023.12.01 )
 	gloo? ( sci-ml/gloo[cuda?] )
 	mpi? ( virtual/mpi )
-	nnpack? ( sci-libs/NNPACK )
+	nnpack? ( sci-ml/NNPACK )
 	numpy? ( $(python_gen_cond_dep '
 		dev-python/numpy[${PYTHON_USEDEP}]
 		') )
-	onednn? ( dev-libs/oneDNN )
+	onednn? ( sci-ml/oneDNN )
 	opencl? ( virtual/opencl )
 	qnnpack? (
 		dev-cpp/gemmlowp
@@ -85,10 +85,10 @@ RDEPEND="
 		amdgpu_targets_gfx942? ( =sci-libs/hipBLASLt-6.1*[amdgpu_targets_gfx942] )
 	)
 	distributed? (
-		sci-libs/tensorpipe[cuda?]
+		sci-ml/tensorpipe[cuda?]
 		dev-cpp/cpp-httplib
 	)
-	xnnpack? ( >=sci-libs/XNNPACK-2024.02.29 )
+	xnnpack? ( >=sci-ml/XNNPACK-2024.02.29 )
 	mkl? ( sci-libs/mkl )
 	openblas? ( sci-libs/openblas )
 "
@@ -97,7 +97,7 @@ DEPEND="
 	cuda? ( >=dev-libs/cutlass-3.4.1 )
 	onednn? ( sci-ml/ideep )
 	dev-libs/psimd
-	dev-libs/FP16
+	sci-ml/FP16
 	dev-libs/FXdiv
 	dev-libs/pocketfft
 	dev-libs/flatbuffers
