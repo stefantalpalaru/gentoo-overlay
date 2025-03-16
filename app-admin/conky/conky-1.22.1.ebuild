@@ -202,7 +202,7 @@ src_configure() {
 		-DBUILD_PORT_MONITORS=$(usex portmon)
 		-DBUILD_PULSEAUDIO=$(usex pulseaudio)
 		-DBUILD_RSS=$(usex rss)
-		-DBUILD_TESTS=$(usex test)
+		-DBUILD_TESTING=$(usex test)
 		-DBUILD_WAYLAND=$(usex wayland)
 		-DBUILD_WLAN=$(usex wifi)
 		-DBUILD_XFT=$(usex truetype)
