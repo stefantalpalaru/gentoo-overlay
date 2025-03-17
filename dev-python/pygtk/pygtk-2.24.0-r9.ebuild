@@ -48,6 +48,7 @@ PATCHES=(
 	"${FILESDIR}/${PN}-2.24.0-quartz-objc.patch"
 	# x11-libs/pango-1.44
 	"${FILESDIR}/${PN}-2.24.0-pango-1.44.patch"
+	"${FILESDIR}/pygtk-2.24.0-pango-1.54.patch"
 	"${FILESDIR}/pygtk-2.24.0-python2.patch"
 )
 
@@ -70,7 +71,9 @@ src_prepare() {
 }
 
 src_configure() {
+	append-cflags -fpermissive
 	use hppa && append-flags -ffunction-sections
+
 	configure_pygtk() {
 		ECONF_SOURCE="${S}" gnome2_src_configure \
 			$(use_enable doc docs) \

@@ -1,11 +1,11 @@
-# Copyright 1999-2021 Gentoo Authors
+# Copyright 1999-2025 Gentoo Authors
 # Distributed under the terms of the GNU General Public License v2
 
-EAPI=7
+EAPI=8
 
 PYTHON_COMPAT=( python2_7 )
 LUA_COMPAT=( lua5-1 )
-inherit autotools lua-single python-r1
+inherit lua-single python-r1
 
 DESCRIPTION="A library for registering global keyboard shortcuts"
 HOMEPAGE="https://github.com/engla/keybinder"
@@ -13,7 +13,7 @@ SRC_URI="https://github.com/engla/keybinder/releases/download/v${PV}/${P}.tar.gz
 
 LICENSE="GPL-2"
 SLOT="0"
-KEYWORDS="~alpha amd64 arm ~arm64 ~hppa ~ia64 ~mips ppc ppc64 x86"
+KEYWORDS="~alpha amd64 arm ~arm64 ~hppa ~mips ppc ppc64 x86"
 IUSE="+introspection lua python"
 REQUIRED_USE="python? ( ${PYTHON_REQUIRED_USE} )"
 

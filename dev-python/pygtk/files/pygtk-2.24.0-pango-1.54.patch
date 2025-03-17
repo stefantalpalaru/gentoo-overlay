@@ -1,0 +1,32 @@
+diff '--color=auto' -ur pygtk-2.24.0.orig/pango.defs pygtk-2.24.0/pango.defs
+--- pygtk-2.24.0.orig/pango.defs	2025-03-17 06:14:43.471220172 +0100
++++ pygtk-2.24.0/pango.defs	2025-03-17 06:16:26.464818714 +0100
+@@ -1217,15 +1217,6 @@
+   (return-type "int")
+ )
+ 
+-(ifdef PANGO_ENABLE_BACKEND
+-
+-(define-function font_metrics_new
+-  (c-name "pango_font_metrics_new")
+-  (is-constructor-of "PangoFontMetrics")
+-  (return-type "PangoFontMetrics*")
+-)
+-) ;; PANGO_ENABLE_BACKEND
+-
+ (define-function pango_font_family_get_type
+   (c-name "pango_font_family_get_type")
+   (return-type "GType")
+@@ -1458,12 +1449,6 @@
+   )
+ )
+ 
+-(define-method get_shape_engine_type
+-  (of-object "PangoFontMap")
+-  (c-name "pango_font_map_get_shape_engine_type")
+-  (return-type "const-char*")
+-)
+-
+ (define-method create_context
+   (of-object "PangoFontMap")
+   (c-name "pango_font_map_create_context")

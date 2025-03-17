@@ -11,5 +11,5 @@ RDEPEND=python_single_target_python2_7? ( dev-python/astropy[python_targets_pyth
 REQUIRED_USE=^^ ( python_single_target_python2_7 )
 SLOT=0
 SRC_URI=https://github.com/dstndstn/astrometry.net/releases/download/0.78/astrometry.net-0.78.tar.gz -> astrometry-0.78.gh.tar.gz
-_eclasses_=toolchain-funcs	6afdb6107430c1832ca7e16aacbf8fa1	multilib	b2a329026f2e404e9e371097dda47f96	flag-o-matic	357f1a896fbedcd06e5ce55419c49eb9	multiprocessing	1e32df7deee68372153dca65f4a7c21f	python-utils-r1	2005a06234063e6815028c5db214aa3f	python-single-r1	a5747fe6dc0651d95cb78eddd5e160a8
+_eclasses_=toolchain-funcs	6afdb6107430c1832ca7e16aacbf8fa1	multilib	b2a329026f2e404e9e371097dda47f96	flag-o-matic	357f1a896fbedcd06e5ce55419c49eb9	multiprocessing	1e32df7deee68372153dca65f4a7c21f	python-utils-r1	0ce52f3000cc5d5586888153a0c18d0b	python-single-r1	a5747fe6dc0651d95cb78eddd5e160a8
 _md5_=0e4d11b81ac56240ecfc0f0fbf435549

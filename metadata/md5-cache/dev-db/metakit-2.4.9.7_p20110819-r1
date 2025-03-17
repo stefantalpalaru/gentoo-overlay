@@ -12,5 +12,5 @@ REQUIRED_USE=python? ( ^^ ( python_single_target_python2_7 ) )
 RESTRICT=test
 SLOT=0
 SRC_URI=https://github.com/jnorthrup/metakit/archive/ab38c5340d8bb6f88fd0339b65cf33a66c4b9400.tar.gz -> metakit-2.4.9.7_p20110819.gh.tar.gz
-_eclasses_=toolchain-funcs	6afdb6107430c1832ca7e16aacbf8fa1	multilib	b2a329026f2e404e9e371097dda47f96	flag-o-matic	357f1a896fbedcd06e5ce55419c49eb9	multiprocessing	1e32df7deee68372153dca65f4a7c21f	python-utils-r1	2005a06234063e6815028c5db214aa3f	python-single-r1	a5747fe6dc0651d95cb78eddd5e160a8
+_eclasses_=toolchain-funcs	6afdb6107430c1832ca7e16aacbf8fa1	multilib	b2a329026f2e404e9e371097dda47f96	flag-o-matic	357f1a896fbedcd06e5ce55419c49eb9	multiprocessing	1e32df7deee68372153dca65f4a7c21f	python-utils-r1	0ce52f3000cc5d5586888153a0c18d0b	python-single-r1	a5747fe6dc0651d95cb78eddd5e160a8
 _md5_=448454af2f3126b8bc1eec62ca7dea9f
