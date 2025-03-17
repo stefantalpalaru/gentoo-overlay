@@ -14,7 +14,7 @@ SRC_URI="
 
 LICENSE="BSD-2"
 # See bug #822336 re subslot
-SLOT="0/16.2.0"
+SLOT="0/16.2.1"
 KEYWORDS="~alpha amd64 arm arm64 ~hppa ~loong ~mips ppc64 ~riscv sparc x86"
 IUSE="+aom dav1d examples extras gdk-pixbuf rav1e svt-av1 test"
 RESTRICT="
