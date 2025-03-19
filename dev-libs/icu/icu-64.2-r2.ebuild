@@ -1,20 +1,19 @@
-# Copyright 1999-2024 Gentoo Authors
+# Copyright 1999-2025 Gentoo Authors
 # Distributed under the terms of the GNU General Public License v2
 
-EAPI=7
+EAPI=8
 
+# It doesn't support newer Python versions.
 PYTHON_COMPAT=( python3_{9..11} )
 inherit autotools flag-o-matic multilib-minimal python-any-r1 toolchain-funcs
 
 DESCRIPTION="International Components for Unicode"
 HOMEPAGE="http://www.icu-project.org/"
 SRC_URI="https://github.com/unicode-org/icu/releases/download/release-${PV/./-}/icu4c-${PV//./_}-src.tgz"
-
+S="${WORKDIR}/${PN}/source"
 LICENSE="BSD"
-
 SLOT="0/${PV}"
-
-KEYWORDS="alpha amd64 arm arm64 hppa ~ia64 ~m68k ~mips ppc ppc64 ~riscv ~s390 sparc x86 ~amd64-linux ~x86-linux ~ppc-macos ~x64-macos ~x64-solaris"
+KEYWORDS="~alpha amd64 arm arm64 hppa ~m68k ~mips ppc ppc64 ~riscv ~s390 sparc x86 ~amd64-linux ~x86-linux ~ppc-macos ~x64-macos ~x64-solaris"
 IUSE="debug doc examples static-libs"
 
 BDEPEND="
@@ -22,8 +21,6 @@ BDEPEND="
 	virtual/pkgconfig
 	doc? ( app-text/doxygen[dot] )
 "
-
-S="${WORKDIR}/${PN}/source"
 
 MULTILIB_CHOST_TOOLS=(
 	/usr/bin/icu-config

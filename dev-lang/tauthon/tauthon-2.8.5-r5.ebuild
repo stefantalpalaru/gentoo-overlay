@@ -1,24 +1,22 @@
-# Copyright 1999-2024 Gentoo Authors
+# Copyright 1999-2025 Gentoo Authors
 # Distributed under the terms of the GNU General Public License v2
 
-EAPI=7
+EAPI=8
 WANT_LIBTOOL="none"
 
 inherit autotools flag-o-matic pax-utils python-utils-r1 toolchain-funcs
 
-MY_P="Python-${PV%_p*}"
 PYVER=$(ver_cut 1-2)
 
-DESCRIPTION="An interpreted, interactive, object-oriented programming language"
-HOMEPAGE="https://www.python.org/"
-SRC_URI="https://www.python.org/ftp/python/${PV%_*}/${MY_P}.tar.xz"
-S="${WORKDIR}/${MY_P}"
+DESCRIPTION="Python 2.7 fork with new syntax, builtins, and libraries backported from Python3"
+HOMEPAGE="https://github.com/naftaliharris/tauthon"
+SRC_URI="https://github.com/naftaliharris/tauthon/archive/v${PV}.tar.gz -> ${P}.tar.gz"
 
 LICENSE="PSF-2"
 SLOT="${PYVER}"
-KEYWORDS="~alpha amd64 arm arm64 hppa ~ia64 ~loong ~m68k ~mips ppc ppc64 ~riscv ~s390 sparc x86"
+KEYWORDS="~alpha amd64 arm arm64 hppa ~loong ~m68k ~mips ppc ppc64 ~riscv ~s390 sparc x86"
 IUSE="berkdb bluetooth build doc examples gdbm hardened ipv6 +lto +ncurses +pgo +readline +sqlite +ssl test +threads tk +wide-unicode wininst +xml"
-RESTRICT="!test? ( test ) network-sandbox"
+RESTRICT="!test? ( test ) network-sandbox mirror"
 
 # Do not add a dependency on dev-lang/python to this ebuild.
 # If you need to apply a patch which requires python for bootstrapping, please
@@ -60,7 +58,8 @@ BDEPEND="
 "
 RDEPEND+="
 	!build? ( app-misc/mime-types )
-	doc? ( app-doc/python-docs:${PYVER} )"
+"
+	#doc? ( app-doc/python-docs:${PYVER} )"
 
 QA_PKGCONFIG_VERSION=${PYVER}
 QA_CONFIG_IMPL_DECL_SKIP=(
@@ -71,7 +70,7 @@ QA_CONFIG_IMPL_DECL_SKIP=(
 pkg_setup() {
 	if use berkdb; then
 		ewarn "'bsddb' module is out-of-date and no longer maintained inside"
-		ewarn "dev-lang/python. 'bsddb' and 'dbhash' modules have been additionally"
+		ewarn "dev-lang/tauthon. 'bsddb' and 'dbhash' modules have been additionally"
 		ewarn "removed in Python 3. A maintained alternative of 'bsddb3' module"
 		ewarn "is provided by dev-python/bsddb3."
 	else
@@ -89,15 +88,12 @@ src_prepare() {
 	rm -r Modules/_ctypes/libffi* || die
 	rm -r Modules/zlib || die
 
-	if tc-is-cross-compiler; then
-		local EPATCH_EXCLUDE="*_regenerate_platform-specific_modules*.patch"
-	fi
-
 	local PATCHES=(
-		"${FILESDIR}/patches" # from https://dev.gentoo.org/~mgorny/dist/python/python-gentoo-patches-2.7.18_p16.tar.xz
-		"${FILESDIR}/python-2.7.18-PGO.patch"
-		"${FILESDIR}/python-2.7.18-configure-implicit.patch"
-		"${FILESDIR}/python-2.7.18-gcc-14.patch"
+		"${FILESDIR}/patches/0002-Disable-modules-and-SSL.patch"
+		"${FILESDIR}/patches/0003_all_libdir-r1.patch"
+		"${FILESDIR}/patches/0010-use_pyxml.patch"
+		"${FILESDIR}/tauthon-2.8.5-configure-implicit.patch"
+		"${FILESDIR}/tauthon-2.8.5-gcc-14.patch"
 	)
 
 	default
@@ -138,7 +134,7 @@ src_configure() {
 	export PYTHON_DISABLE_MODULES="${disable}"
 
 	if ! use xml; then
-		ewarn "You have configured Python without XML support."
+		ewarn "You have configured Tauthon without XML support."
 		ewarn "This is NOT a recommended configuration as you"
 		ewarn "may face problems parsing any XML documents."
 	fi
@@ -150,12 +146,6 @@ src_configure() {
 	if tc-is-gcc; then
 		if [[ "$(gcc-major-version)" -ge 4 ]]; then
 			append-flags -fwrapv
-		fi
-
-		# https://developers.redhat.com/blog/2020/06/25/red-hat-enterprise-linux-8-2-brings-faster-python-3-8-run-speeds
-		if ver_test $(gcc-fullversion) -ge 5.3 ; then
-			append-flags -fno-semantic-interposition
-			append-ldflags -fno-semantic-interposition
 		fi
 	fi
 
@@ -173,15 +163,10 @@ src_configure() {
 	# http://bugs.python.org/issue15506
 	export ac_cv_path_PKG_CONFIG=$(tc-getPKG_CONFIG)
 
-	# Set LDFLAGS so we link modules with -lpython2.7 correctly.
-	# Needed on FreeBSD unless Python 2.7 is already installed.
+	# Set LDFLAGS so we link modules with -ltauthon correctly.
+	# Needed on FreeBSD unless Tauthon is already installed.
 	# Please query BSD team before removing this!
 	append-ldflags "-L."
-
-	# LTO needs this
-	if use lto; then
-		append-ldflags "${CFLAGS}"
-	fi
 
 	local dbmliborder=
 	if use gdbm; then
@@ -196,15 +181,6 @@ src_configure() {
 	cd "${BUILD_DIR}" || die
 
 	local myeconfargs=(
-		# The check is broken on clang, and gives false positive:
-		# https://bugs.gentoo.org/596798
-		# (upstream dropped this flag in 3.2a4 anyway)
-		ac_cv_opt_olimit_ok=no
-		# glibc-2.30 removes it; since we can't cleanly force-rebuild
-		# Python on glibc upgrade, remove it proactively to give
-		# a chance for users rebuilding python before glibc
-		ac_cv_header_stropts_h=no
-
 		--with-fpectl
 		--enable-shared
 		$(use_enable ipv6)
@@ -255,7 +231,7 @@ src_compile() {
 		local -x COLUMNS=80
 		local -x PYTHONDONTWRITEBYTECODE=
 
-		addpredict /usr/lib/python2.7/site-packages
+		addpredict /usr/lib/tauthon2.8/site-packages
 	fi
 
 	# Avoid invoking pgen for cross-compiles.
@@ -272,16 +248,16 @@ src_compile() {
 	fi
 	export par_arg
 
-	emake EXTRATESTOPTS="${par_arg} -uall,-audio -x test_distutils -x test_ftplib -x test_bdb -x test_runpy -x test_test_support -x test_socket"
+	emake EXTRATESTOPTS="${par_arg} -uall,-audio -x test_bdb -x test_distutils -x test_ftplib -x test_runpy -x test_test_support -x test_socket"
 
 	# Restore saved value from above.
 	local -x PYTHONDONTWRITEBYTECODE=${_PYTHONDONTWRITEBYTECODE}
 
 	# Work around bug 329499. See also bug 413751 and 457194.
 	if has_version dev-libs/libffi[pax-kernel]; then
-		pax-mark E python
+		pax-mark E tauthon
 	else
-		pax-mark m python
+		pax-mark m tauthon
 	fi
 }
 
@@ -295,9 +271,7 @@ src_test() {
 	cd "${BUILD_DIR}" || die
 
 	# Skip failing tests.
-	# A security patch in the Gentoo patchset broke test.test_codecmaps_jp.TestEUCJISX0213Map and test.test_codecmaps_jp.TestEUCJPCOMPATMap.
-	# Another security patch broke urllib2 tests by assuming that dicts are ordered by default, as in Python-3.7
-	local skipped_tests="distutils gdb curses xpickle bdb runpy minidom xml_etree xml_etree_c codecmaps_jp urllib2 urllib2net urllibnet"
+	local skipped_tests="distutils gdb curses xpickle bdb runpy minidom xml_etree xml_etree_c"
 
 	for test in ${skipped_tests}; do
 		mv "${S}"/Lib/test/test_${test}.py "${T}"
@@ -325,7 +299,7 @@ src_test() {
 	done
 
 	elog "If you would like to run them, you may:"
-	elog "cd '${EPREFIX}/usr/$(get_libdir)/python${PYVER}/test'"
+	elog "cd '${EPREFIX}/usr/$(get_libdir)/tauthon${PYVER}/test'"
 	elog "and run the tests separately."
 
 	if [[ "${result}" -ne 0 ]]; then
@@ -334,10 +308,16 @@ src_test() {
 }
 
 src_install() {
-	local libdir=${ED}/usr/$(get_libdir)/python${PYVER}
+	local libdir=${ED}/usr/$(get_libdir)/tauthon${PYVER}
 
 	cd "${BUILD_DIR}" || die
 	emake DESTDIR="${D}" altinstall
+
+	# symlinks for autotools
+	ln -s tauthon${PYVER} "${ED}/usr/$(get_libdir)/python${PYVER}"
+	ln -s libtauthon${PYVER}.a "${ED}/usr/$(get_libdir)/libpython${PYVER}.a"
+	ln -s libtauthon${PYVER}.so "${ED}/usr/$(get_libdir)/libpython${PYVER}.so"
+	ln -s python${PYVER}-config "${ED}/usr/bin/tauthon${PYVER}-config"
 
 	sed -e "s/\(LDFLAGS=\).*/\1/" -i "${libdir}/config/Makefile" || die
 
@@ -371,16 +351,16 @@ src_install() {
 		-i "${ED}/etc/conf.d/pydoc-${PYVER}" \
 		"${ED}/etc/init.d/pydoc-${PYVER}" || die "sed failed"
 
-	local -x EPYTHON=python${PYVER}
+	local -x EPYTHON=tauthon${PYVER}
 	# if not using a cross-compiler, use the fresh binary
 	if ! tc-is-cross-compiler; then
-		cat > python.wrap <<-EOF || die
+		cat > tauthon.wrap <<-EOF || die
 			#!/bin/sh
 			export LD_LIBRARY_PATH=\${PWD}\${LD_LIBRARY_PATH+:\${LD_LIBRARY_PATH}}
-			exec ./python "\${@}"
+			exec ./tauthon "\${@}"
 		EOF
-		chmod +x python.wrap || die
-		local -x PYTHON=./python.wrap
+		chmod +x tauthon.wrap || die
+		local -x PYTHON=./tauthon.wrap
 	else
 		local -x PYTHON=${EPREFIX}/usr/bin/${EPYTHON}
 	fi
@@ -388,8 +368,6 @@ src_install() {
 	echo "EPYTHON='${EPYTHON}'" > epython.py || die
 	python_domodule epython.py
 
-	# python2* is no longer wrapped, so just symlink it
-	local pymajor=${PYVER%.*}
-	dosym "python${PYVER}" "/usr/bin/python${pymajor}"
-	dosym "python${PYVER}-config" "/usr/bin/python${pymajor}-config"
+	dosym "tauthon${PYVER}" "/usr/bin/tauthon"
+	dosym "tauthon${PYVER}-config" "/usr/bin/tauthon-config"
 }

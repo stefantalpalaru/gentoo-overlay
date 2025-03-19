@@ -1,20 +1,19 @@
-# Copyright 1999-2021 Gentoo Authors
+# Copyright 1999-2025 Gentoo Authors
 # Distributed under the terms of the GNU General Public License v2
 
-EAPI=7
+EAPI=8
 
 PYTHON_COMPAT=( python2_7 )
 
-inherit distutils-r1
+inherit distutils-r1 pypi
 
 DESCRIPTION="Library to access any version control system"
 HOMEPAGE="https://pypi.org/project/anyvc/"
-SRC_URI="mirror://pypi/${PN:0:1}/${PN}/${P}.tar.gz"
-
 LICENSE="GPL-2"
 SLOT="0"
 KEYWORDS="amd64 x86"
 IUSE="bazaar doc git mercurial subversion"
+RESTRICT="mirror"
 
 RDEPEND="dev-python/apipkg[${PYTHON_USEDEP}]
 	dev-python/execnet[${PYTHON_USEDEP}]
@@ -46,7 +45,7 @@ python_install_all() {
 	if use doc; then
 		pushd docs_output > /dev/null
 		docinto html
-		cp -R [a-z]* _static "${ED}usr/share/doc/${PF}/html" || die "Installation of documentation failed"
+		cp -R [a-z]* _static "${ED}/usr/share/doc/${PF}/html" || die "Installation of documentation failed"
 		popd > /dev/null
 	fi
 	distutils-r1_python_install_all

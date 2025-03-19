@@ -1,7 +1,7 @@
-# Copyright 2008-2021 Gentoo Authors
+# Copyright 2008-2025 Gentoo Authors
 # Distributed under the terms of the GNU General Public License v2
 
-EAPI="7"
+EAPI=8
 
 inherit autotools elisp-common flag-o-matic multilib-minimal toolchain-funcs
 
@@ -11,7 +11,7 @@ SRC_URI="https://github.com/protocolbuffers/${PN}/archive/v${PV}.tar.gz -> ${P}.
 
 LICENSE="BSD"
 SLOT="0/24"
-KEYWORDS="~alpha amd64 arm arm64 ~hppa ~ia64 ~mips ppc ppc64 ~s390 sparc x86 ~amd64-linux ~x86-linux ~x64-macos"
+KEYWORDS="~alpha amd64 arm arm64 ~hppa ~mips ppc ppc64 ~s390 sparc x86 ~amd64-linux ~x86-linux ~x64-macos"
 IUSE="emacs examples static-libs test zlib"
 RESTRICT="!test? ( test )"
 
@@ -46,7 +46,7 @@ src_configure() {
 
 	if tc-ld-is-gold; then
 		# https://sourceware.org/bugzilla/show_bug.cgi?id=24527
-		tc-ld-disable-gold
+		tc-ld-force-bfd
 	fi
 
 	multilib-minimal_src_configure

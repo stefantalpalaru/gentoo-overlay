@@ -1,4 +1,4 @@
-# Copyright 1999-2024 Gentoo Authors
+# Copyright 1999-2025 Gentoo Authors
 # Distributed under the terms of the GNU General Public License v2
 
 EAPI=8
@@ -15,7 +15,7 @@ HOMEPAGE="https://developer.gnome.org/libpeas/stable/"
 
 LICENSE="LGPL-2+"
 SLOT="0"
-KEYWORDS="~alpha amd64 ~arm ~arm64 ~ia64 ~ppc ~ppc64 ~sparc x86 ~amd64-linux ~x86-linux"
+KEYWORDS="~alpha amd64 ~arm ~arm64 ~ppc ~ppc64 ~sparc x86 ~amd64-linux ~x86-linux"
 
 IUSE="+gtk glade lua +python"
 REQUIRED_USE="python? ( ${PYTHON_REQUIRED_USE} )"
@@ -72,10 +72,12 @@ src_configure() {
 	if python_is_python3; then
 		myconf+=(
 			$(use_enable python python3)
+			--disable-python2
 		)
 	else
 		myconf+=(
 			$(use_enable python python2)
+			--disable-python3
 		)
 	fi
 

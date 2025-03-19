@@ -40,23 +40,23 @@ dev-lang/erlang 27.2: Erlang programming language, runtime environment and libra
 dev-lang/nim 1.0.10-r101 1.2.18-r101 1.4.8-r101 1.6.20-r100 2.0.14-r100 2.2.2-r100 9999-r16: compiled, garbage-collected systems programming language
 dev-lang/php 5.3.29-r7 7.4.33-r7 8.0.30-r3: The PHP language runtime engine
 dev-lang/pony 0.58.13: Compiler for the Pony language
-dev-lang/python 2.7.18_p113: An interpreted, interactive, object-oriented programming language
+dev-lang/python 2.7.18_p114: An interpreted, interactive, object-oriented programming language
 dev-lang/python-exec 2.4.10-r100: Python script wrapper
-dev-lang/tauthon 2.8.5-r4 9999-r4: Python 2.7 fork with new syntax, builtins, and libraries backported from Python3
+dev-lang/tauthon 2.8.5-r5 9999-r5: Python 2.7 fork with new syntax, builtins, and libraries backported from Python3
 dev-libs/boost 1.86.0-r2: Boost Libraries for C++
 dev-libs/cpuinfo 2025.02.19: CPU INFOrmation library
 dev-libs/cudnn 8.9.7.29-r1100 8.9.7.29-r1200 9.7.1.26-r1100 9.7.1.26-r1200: NVIDIA Accelerated Deep Learning on GPU library
 dev-libs/cudnn-frontend 1.10.0: A c++ wrapper for the cudnn backend API
 dev-libs/dht 0.27-r1: BitTorrent DHT library
 dev-libs/golib 0.0.1_pre20180515-r1 9999-r1: a library exposing Go's channels and goroutines to plain C
-dev-libs/icu 64.2-r1: International Components for Unicode
+dev-libs/icu 64.2-r2: International Components for Unicode
 dev-libs/keybinder 0.3.1-r202: A library for registering global keyboard shortcuts
 dev-libs/libb64 2.0.0.1_p20200910-r2: Fast Base64 encoding/decoding routines
-dev-libs/libpeas 1.22.0-r8: A GObject plugins library
+dev-libs/libpeas 1.22.0-r9: A GObject plugins library
 dev-libs/libxml2 2.11.4: XML C parser and toolkit
 dev-libs/lthread 1.0_pre20150617-r3 9999-r3: multicore enabled coroutine library written in C
-dev-libs/openssl 1.1.1w: Full-strength general purpose cryptography library (including SSL and TLS)
-dev-libs/protobuf 3.13.0: Google's Protocol Buffers - Extensible mechanism for serializing structured data
+dev-libs/openssl 1.1.1w-r1: Full-strength general purpose cryptography library (including SSL and TLS)
+dev-libs/protobuf 3.13.0-r1: Google's Protocol Buffers - Extensible mechanism for serializing structured data
 dev-libs/pugixml 1.15: Light-weight, simple, and fast XML parser for C++ with XPath support
 dev-libs/qtkeychain 0.14.3 0.15.0: Qt API for storing passwords securely
 dev-libs/sleef 3.8-r100: Implements vectorized versions of C standard math functions
@@ -64,22 +64,22 @@ dev-nim/c2nim 0.9.19-r1 9999-r3: a tool to translate ANSI C code to Nim
 dev-nim/nimble 0.16.4 9999-r2: Nim package manager
 dev-nim/ntags 0.5.0-r1: tool that generates tags for Nim files, similar to ctags
 dev-php/pecl-apcu 5.1.23-r1: Stripped down version of APC supporting only user cache
-dev-php/pecl-imagick 3.7.0-r1: PHP wrapper for the ImageMagick library
+dev-php/pecl-imagick 3.7.0-r2: PHP wrapper for the ImageMagick library
 dev-php/xdebug 3.1.6-r1: A PHP debugging and profiling extension
-dev-python/alabaster 0.7.12-r2: A configurable sidebar-enabled Sphinx theme
-dev-python/alembic 1.4.2-r200: database migrations tool, written by the author of SQLAlchemy
+dev-python/alabaster 0.7.12-r3: A configurable sidebar-enabled Sphinx theme
+dev-python/alembic 1.4.2-r201: database migrations tool, written by the author of SQLAlchemy
 dev-python/amqp 1.4.9-r3: Low-level AMQP client for Python (fork of amqplib)
 dev-python/amqplib 1.0.2-r201: Python client for the Advanced Message Queuing Procotol (AMQP)
 dev-python/anyjson 0.3.3-r5: Wraps the best available JSON implementation available in a common interface
-dev-python/anyvc 0.3.7.1-r2: Library to access any version control system
+dev-python/anyvc 0.3.7.1-r3: Library to access any version control system
 dev-python/apache-libcloud 1.5.0-r202 2.8.3-r202: Unified Interface to the Cloud - python support libs
 dev-python/apipkg 1.5-r4: Namespace control and lazy-import mechanism
 dev-python/aplpy 1.1.1-r3: Astronomical Plotting Library in Python
-dev-python/appdirs 1.4.4-r3: Module for determining appropriate platform-specific dirs
+dev-python/appdirs 1.4.4-r4: Module for determining appropriate platform-specific dirs
 dev-python/arrayterator 1.0.1-r4: A buffered iterator for reading big arrays in small contiguous blocks
 dev-python/asdf 1.3.3-r201: Python library for the Advanced Scientific Data Format
 dev-python/astlib 0.8.0-r4: Python astronomy modules for image and coordinate manipulation
-dev-python/astor 0.8.0-r200: Read/rewrite/write Python ASTs
+dev-python/astor 0.8.0-r201: Read/rewrite/write Python ASTs
 dev-python/astrodendro 0.2.0-r201: Python package for computation of astronomical dendrograms
 dev-python/astroid 1.6.6-r200: Abstract Syntax Tree for logilab packages
 dev-python/astroml 0.3-r4: Python Machine Learning library for astronomy
@@ -99,7 +99,7 @@ dev-python/automat 20.2.0-r3: Self-service finite-state machines for the program
 dev-python/aws-sam-translator 1.21.0-r200: A library that transform SAM templates into AWS CloudFormation templates
 dev-python/aws-xray-sdk 2.4.3-r201: AWS X-Ray SDK for Python
 dev-python/babel 2.8.0-r5: Collection of tools for internationalizing Python applications
-dev-python/babelfish 0.5.5-r200: Python library to work with countries and languages
+dev-python/babelfish 0.5.5-r201: Python library to work with countries and languages
 dev-python/backports 1.0-r4: Namespace for backported Python features
 dev-python/backports-abc 0.5-r1: Backport of Python 3.5's 'collections.abc' module
 dev-python/backports-functools-lru-cache 1.6.1-r3: Backport of functools.lru_cache from Python 3.3

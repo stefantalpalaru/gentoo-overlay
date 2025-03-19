@@ -1,20 +1,18 @@
-# Copyright 1999-2021 Gentoo Authors
+# Copyright 1999-2025 Gentoo Authors
 # Distributed under the terms of the GNU General Public License v2
 
-EAPI=7
+EAPI=8
 
 PYTHON_COMPAT=( python2_7 )
-inherit distutils-r1
+inherit distutils-r1 pypi
 
 DESCRIPTION="database migrations tool, written by the author of SQLAlchemy"
 HOMEPAGE="https://bitbucket.org/zzzeek/alembic"
-SRC_URI="mirror://pypi/${PN:0:1}/${PN}/${P}.tar.gz"
-
 LICENSE="MIT"
 SLOT="python2"
 KEYWORDS="amd64 ~arm64 x86"
 IUSE="test doc"
-RESTRICT="!test? ( test )"
+RESTRICT="!test? ( test ) mirror"
 
 RDEPEND=">=dev-python/sqlalchemy-1.1.0:python2[${PYTHON_USEDEP}]
 	dev-python/mako:python2[${PYTHON_USEDEP}]
