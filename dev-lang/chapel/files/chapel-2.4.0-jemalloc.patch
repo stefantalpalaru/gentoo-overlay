@@ -1,0 +1,14 @@
+diff '--color=auto' -ur chapel-2.4.0.orig/util/chplenv/chpl_jemalloc.py chapel-2.4.0/util/chplenv/chpl_jemalloc.py
+--- chapel-2.4.0.orig/util/chplenv/chpl_jemalloc.py	2025-03-14 03:17:49.000000000 +0100
++++ chapel-2.4.0/util/chplenv/chpl_jemalloc.py	2025-03-20 14:30:06.586130965 +0100
+@@ -48,9 +48,7 @@
+         error("Invalid flag: '{0}'".format(flag), ValueError)
+ 
+     if flag == 'host':
+-        if linux and mem_val == 'jemalloc' and jemalloc_val == 'system':
+-            error("CHPL_HOST_JEMALLOC=system is not supported on Linux for host builds")
+-        elif darwin and mem_val == 'jemalloc' and jemalloc_val == 'bundled':
++        if darwin and mem_val == 'jemalloc' and jemalloc_val == 'bundled':
+             error("CHPL_HOST_JEMALLOC=bundled is not supported on Mac for host builds")
+ 
+     if mem_val == 'jemalloc' and jemalloc_val == 'none':

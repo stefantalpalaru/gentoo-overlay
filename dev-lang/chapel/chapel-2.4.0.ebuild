@@ -1,8 +1,8 @@
-# Copyright 2024 Gentoo Authors
+# Copyright 2024-2025 Gentoo Authors
 # Distributed under the terms of the GNU General Public License v2
 
 EAPI=8
-LLVM_COMPAT=( 17 18 )
+LLVM_COMPAT=( 17 18 19 )
 PYTHON_COMPAT=( python3_{10..12} )
 
 inherit llvm-r1 multiprocessing python-any-r1
@@ -21,10 +21,12 @@ RESTRICT="
 	strip
 	test? ( network-sandbox )
 	!test? ( test )
+	mirror
 "
 DEPEND="
 	dev-lang/perl
 	dev-libs/gmp
+	dev-libs/jemalloc
 	sys-libs/libunwind
 	vim-syntax? ( app-vim/chapel-syntax )
 "
@@ -32,6 +34,7 @@ RDEPEND="${DEPEND}"
 
 PATCHES=(
 	"${FILESDIR}"/chapel-2.0.0-no-default-config.patch
+	"${FILESDIR}"/chapel-2.4.0-jemalloc.patch
 )
 
 pkg_setup() {
@@ -45,6 +48,8 @@ src_prepare() {
 	export CHPL_TARGET_COMPILER=llvm
 	export CHPL_HOST_COMPILER=llvm
 	export CHPL_LLVM=system
+	export CHPL_LLVM_CONFIG="$(get_llvm_prefix)/bin/llvm-config"
+	export CHPL_LLVM_GCC_INSTALL_DIR=none
 	export CHPL_RE2=bundled
 	export CHPL_GMP=system
 	# System hwloc is usually linked to libudev which tries to access the
@@ -53,6 +58,8 @@ src_prepare() {
 	# This bundled version is built without libudev support.
 	export CHPL_HWLOC=bundled
 	export CHPL_UNWIND=system
+	export CHPL_HOST_JEMALLOC=system
+	export CHPL_TARGET_JEMALLOC=system
 
 	export XAUTHORITY=~/.Xauthority
 }
