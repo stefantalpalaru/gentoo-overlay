@@ -1,0 +1,14 @@
+diff '--color=auto' -ur MLV-App-QTv1.15.orig/platform/qt/MLVApp.pro MLV-App-QTv1.15/platform/qt/MLVApp.pro
+--- MLV-App-QTv1.15.orig/platform/qt/MLVApp.pro	2025-03-19 19:39:10.000000000 +0100
++++ MLV-App-QTv1.15/platform/qt/MLVApp.pro	2025-03-20 06:09:08.396951733 +0100
+@@ -126,8 +126,8 @@
+     } else {
+         QMAKE_CFLAGS += -std=c99
+     }
+-    QMAKE_CFLAGS += -O3 -fopenmp -msse4.1 -mssse3 -msse3 -msse2 -msse -ftree-vectorize
+-    QMAKE_CXXFLAGS += -fopenmp -std=c++11 -ftree-vectorize
++    QMAKE_CFLAGS += -fopenmp
++    QMAKE_CXXFLAGS += -fopenmp
+     LIBS += -lgomp
+ }
+ 

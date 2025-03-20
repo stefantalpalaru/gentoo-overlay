@@ -1,17 +1,20 @@
-# Copyright 2023-2024 Gentoo Authors
+# Copyright 2023-2025 Gentoo Authors
 # Distributed under the terms of the GNU General Public License v2
 
 EAPI=8
 
-inherit flag-o-matic desktop git-r3 qmake-utils toolchain-funcs xdg-utils
+inherit flag-o-matic qmake-utils toolchain-funcs
 
 DESCRIPTION="Magic Lantern Video (MLV) processing suite"
 HOMEPAGE="https://github.com/ilia3101/MLV-App"
-EGIT_REPO_URI="https://github.com/ilia3101/MLV-App"
+SRC_URI="https://github.com/ilia3101/MLV-App/archive/refs/tags/QTv${PV}.tar.gz -> ${P}.tar.gz"
+S="${WORKDIR}/MLV-App-QTv${PV}"
 LICENSE="GPL-3"
 SLOT="0"
+KEYWORDS="~amd64 ~x86"
 IUSE="qt5 +qt6"
 REQUIRED_USE="^^ ( qt5 qt6 )"
+RESTRICT="mirror"
 
 DEPEND="
 	qt5? (
@@ -30,7 +33,7 @@ RDEPEND="${DEPEND}
 "
 
 PATCHES=(
-	"${FILESDIR}/mlvapp-1.14-flags.patch"
+	"${FILESDIR}/mlvapp-1.15-flags.patch"
 )
 
 pkg_pretend() {
@@ -68,17 +71,5 @@ src_compile() {
 }
 
 src_install() {
-	cd platform/qt
-
-	dobin mlvapp
-	doicon RetinaIMG/MLVAPP.png
-	domenu mlvapp.desktop
-}
-
-pkg_postinst() {
-	xdg_desktop_database_update
-}
-
-pkg_postrm() {
-	xdg_desktop_database_update
+	dobin platform/qt/mlvapp
 }
