@@ -1,0 +1,11 @@
+DEFINED_PHASES=install
+DEPEND=>=dev-libs/cudnn-9:0
+DESCRIPTION=A c++ wrapper for the cudnn backend API
+EAPI=8
+HOMEPAGE=https://github.com/NVIDIA/cudnn-frontend
+KEYWORDS=~amd64
+LICENSE=MIT
+RDEPEND=>=dev-libs/cudnn-9:0
+SLOT=0/9
+SRC_URI=https://github.com/NVIDIA/cudnn-frontend/archive/refs/tags/v1.11.0.tar.gz -> cudnn-frontend-1.11.0.tar.gz
+_md5_=86182c249538c16f444b4e7a8e7c6053
