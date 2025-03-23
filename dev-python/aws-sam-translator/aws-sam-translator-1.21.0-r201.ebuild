@@ -1,20 +1,21 @@
-# Copyright 1999-2021 Gentoo Authors
+# Copyright 1999-2025 Gentoo Authors
 # Distributed under the terms of the GNU General Public License v2
 
-EAPI=7
+EAPI=8
 PYTHON_COMPAT=( python2_7 )
+PYPI_NO_NORMALIZE=1
 
-inherit distutils-r1
+inherit distutils-r1 pypi
 
 DESCRIPTION="A library that transform SAM templates into AWS CloudFormation templates"
 HOMEPAGE="https://github.com/awslabs/serverless-application-model
 		https://pypi.org/project/aws-sam-translator/"
 SRC_URI="mirror://pypi/${P:0:1}/${PN}/${P}.tar.gz"
-
 LICENSE="Apache-2.0"
 SLOT="python2"
 KEYWORDS="amd64 x86 ~amd64-linux ~x86-linux"
-IUSE=""
+RESTRICT="mirror test"
+
 RDEPEND="virtual/python-enum34[${PYTHON_USEDEP}]
 	>=dev-python/boto3-1.5:python2[${PYTHON_USEDEP}]
 	>=dev-python/jsonschema-3.0:python2[${PYTHON_USEDEP}]
@@ -23,7 +24,6 @@ RDEPEND="virtual/python-enum34[${PYTHON_USEDEP}]
 "
 DEPEND="${RDEPEND}
 	dev-python/setuptools[${PYTHON_USEDEP}]"
-RESTRICT="test"
 
 python_test() {
 	PYTHONPATH=${BUILD_DIR}/lib \

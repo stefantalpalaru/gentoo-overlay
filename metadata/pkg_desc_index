@@ -8,7 +8,6 @@ app-arch/libzim 9.2.3: reference implementation for the ZIM archive format
 app-crypt/acme 1.8.0-r201 1.32.0-r1: An implementation of the ACME protocol
 app-crypt/certbot 1.8.0-r202 1.32.0-r3: Let’s Encrypt client to automate deployment of X.509 certificates
 app-crypt/certbot-s3front 0.4.2_p20201118-r4: S3/CloudFront plugin for Let's Encrypt client
-app-editors/gedit 3.32.2-r4: A text editor for the GNOME desktop
 app-emacs/pymacs 0.26-r201: A tool that allows both-side communication beetween Python and Emacs Lisp
 app-emulation/vmware-modules 17.6.3-r1: VMware kernel modules
 app-emulation/vmware-workstation 17.6.3.24583834-r2: Emulate a complete PC without the performance overhead of most emulators
@@ -53,7 +52,7 @@ dev-libs/icu 64.2-r2: International Components for Unicode
 dev-libs/keybinder 0.3.1-r202: A library for registering global keyboard shortcuts
 dev-libs/libb64 2.0.0.1_p20200910-r2: Fast Base64 encoding/decoding routines
 dev-libs/libpeas 1.22.0-r9: A GObject plugins library
-dev-libs/libxml2 2.11.4: XML C parser and toolkit
+dev-libs/libxml2 2.11.4-r1: XML C parser and toolkit
 dev-libs/lthread 1.0_pre20150617-r3 9999-r3: multicore enabled coroutine library written in C
 dev-libs/openssl 1.1.1w-r1: Full-strength general purpose cryptography library (including SSL and TLS)
 dev-libs/protobuf 3.13.0-r1: Google's Protocol Buffers - Extensible mechanism for serializing structured data
@@ -81,7 +80,7 @@ dev-python/asdf 1.3.3-r201: Python library for the Advanced Scientific Data Form
 dev-python/astlib 0.8.0-r4: Python astronomy modules for image and coordinate manipulation
 dev-python/astor 0.8.0-r201: Read/rewrite/write Python ASTs
 dev-python/astrodendro 0.2.0-r201: Python package for computation of astronomical dendrograms
-dev-python/astroid 1.6.6-r200: Abstract Syntax Tree for logilab packages
+dev-python/astroid 1.6.6-r201: Abstract Syntax Tree for logilab packages
 dev-python/astroml 0.3-r4: Python Machine Learning library for astronomy
 dev-python/astroml-addons 0.2.2-r3: Performance add-ons for the astroML package
 dev-python/astroplan 0.2.1-r201: Observation planning package for astronomers
@@ -92,28 +91,28 @@ dev-python/astroquery 0.3.6-r201: Collection of packages to access online astron
 dev-python/astroscrappy 1.0.5-r4: Optimized cosmic ray annihilation astropy python module
 dev-python/atomicwrites 1.4.0-r201: Atomic file writes
 dev-python/atpy 0.9.7-r3: Astronomical tables support for Python
-dev-python/attrdict3 2.0.2-r1: access Python object elements as both keys and attributes
+dev-python/attrdict3 2.0.2-r2: access Python object elements as both keys and attributes
 dev-python/attrs 20.2.0-r3: Attributes without boilerplate
 dev-python/autobahn 19.11.2-r201: WebSocket and WAMP for Twisted and Asyncio
 dev-python/automat 20.2.0-r3: Self-service finite-state machines for the programmer on the go
-dev-python/aws-sam-translator 1.21.0-r200: A library that transform SAM templates into AWS CloudFormation templates
+dev-python/aws-sam-translator 1.21.0-r201: A library that transform SAM templates into AWS CloudFormation templates
 dev-python/aws-xray-sdk 2.4.3-r201: AWS X-Ray SDK for Python
 dev-python/babel 2.8.0-r5: Collection of tools for internationalizing Python applications
 dev-python/babelfish 0.5.5-r201: Python library to work with countries and languages
-dev-python/backports 1.0-r4: Namespace for backported Python features
-dev-python/backports-abc 0.5-r1: Backport of Python 3.5's 'collections.abc' module
+dev-python/backports 1.0-r5: Namespace for backported Python features
+dev-python/backports-abc 0.5-r2: Backport of Python 3.5's 'collections.abc' module
 dev-python/backports-functools-lru-cache 1.6.1-r3: Backport of functools.lru_cache from Python 3.3
 dev-python/backports-shutil_get_terminal_size 1.0.0-r3: A backport of the get_terminal_size function from Python 3.3's shutil
 dev-python/backports-ssl-match-hostname 3.5.0.1-r3: Backport of the ssl.match_hostname function
-dev-python/backports-tempfile 1.0-r200: Backport of new features in Python's tempfile module
-dev-python/backports-weakref 1.0_p1-r3: Backport of new features in Python's weakref module
+dev-python/backports-tempfile 1.0-r201: Backport of new features in Python's tempfile module
+dev-python/backports-weakref 1.0_p1-r4: Backport of new features in Python's weakref module
 dev-python/bandit 1.5.1-r201: A security linter from OpenStack Security
 dev-python/bcrypt 3.1.7-r200: Modern password hashing for software and servers
-dev-python/beanstalkc 0.4.0-r200: A simple beanstalkd client library
+dev-python/beanstalkc 0.4.0-r201: A simple beanstalkd client library
 dev-python/beautifulsoup4 4.8.2-r201: Pythonic idioms for iterating, searching, and modifying an HTML/XML parse tree
 dev-python/betamax 0.8.1-r3: python-requests HTTP exchanges recorder
 dev-python/billiard 3.3.0.23-r200 3.5.0.2-r200: Python multiprocessing fork
-dev-python/bjoern 1.4.3-r1: A screamingly fast Python WSGI server written in C
+dev-python/bjoern 1.4.3-r2: A screamingly fast Python WSGI server written in C
 dev-python/bleach 3.2.1-r2: an easy whitelist-based HTML-sanitizing tool
 dev-python/blinker 1.4-r4: Fast, simple object-to-object and broadcast signaling
 dev-python/blosc 1.5.1-r200: High performance compressor optimized for binary data
