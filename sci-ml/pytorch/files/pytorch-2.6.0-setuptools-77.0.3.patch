@@ -1,0 +1,53 @@
+From 5ab974bb66d232c530544aa996f43c3f5e0c2b59 Mon Sep 17 00:00:00 2001
+From: "Jane (Yuan) Xu" <31798555+janeyx99@users.noreply.github.com>
+Date: Thu, 20 Mar 2025 10:11:23 -0700
+Subject: [PATCH 1/2] Conform to new setuptools update 77.0.3
+
+Remove custom kwargs before calling BuildExtension.__init__(...)
+---
+ torch/utils/cpp_extension.py | 6 ++++--
+ 1 file changed, 4 insertions(+), 2 deletions(-)
+
+diff --git a/torch/utils/cpp_extension.py b/torch/utils/cpp_extension.py
+index a6a2925fcd746..4840778a74899 100644
+--- a/torch/utils/cpp_extension.py
++++ b/torch/utils/cpp_extension.py
+@@ -575,10 +575,12 @@ def __init__(self, *args, **kwargs):
+         return cls_with_options
+ 
+     def __init__(self, *args, **kwargs) -> None:
+-        super().__init__(*args, **kwargs)
+         self.no_python_abi_suffix = kwargs.get("no_python_abi_suffix", False)
+-
+         self.use_ninja = kwargs.get('use_ninja', True)
++
++        filtered_kwargs = [kw for kw in kwargs if kw not in ["no_python_abi_suffix", "use_ninja"]]
++        super().__init__(*args, **filtered_kwargs)
++
+         if self.use_ninja:
+             # Test if we can use ninja. Fallback otherwise.
+             msg = ('Attempted to use ninja as the BuildExtension backend but '
+
+From 6e4a5cb94c17da178ed2f1ec641f95a3d889859c Mon Sep 17 00:00:00 2001
+From: "Jane (Yuan) Xu" <31798555+janeyx99@users.noreply.github.com>
+Date: Thu, 20 Mar 2025 18:52:01 -0700
+Subject: [PATCH 2/2] Update torch/utils/cpp_extension.py
+
+Co-authored-by: Vincent Moens <vmoens@meta.com>
+---
+ torch/utils/cpp_extension.py | 2 +-
+ 1 file changed, 1 insertion(+), 1 deletion(-)
+
+diff --git a/torch/utils/cpp_extension.py b/torch/utils/cpp_extension.py
+index 4840778a74899..f10a98bd66caf 100644
+--- a/torch/utils/cpp_extension.py
++++ b/torch/utils/cpp_extension.py
+@@ -578,7 +578,7 @@ def __init__(self, *args, **kwargs) -> None:
+         self.no_python_abi_suffix = kwargs.get("no_python_abi_suffix", False)
+         self.use_ninja = kwargs.get('use_ninja', True)
+ 
+-        filtered_kwargs = [kw for kw in kwargs if kw not in ["no_python_abi_suffix", "use_ninja"]]
++        filtered_kwargs = {kw: val for kw, val in kwargs.items() if kw not in ["no_python_abi_suffix", "use_ninja"]}
+         super().__init__(*args, **filtered_kwargs)
+ 
+         if self.use_ninja:

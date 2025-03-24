@@ -14,4 +14,4 @@ RESTRICT=test
 SLOT=0
 SRC_URI=https://github.com/pytorch/pytorch/archive/refs/tags/v2.6.0.tar.gz -> pytorch-2.6.0.tar.gz
 _eclasses_=out-of-source-utils	dbf9e34ee8964084651e25907fa8f52c	multibuild	4650a65187015567b4e041bb9bfdb364	multiprocessing	1e32df7deee68372153dca65f4a7c21f	toolchain-funcs	6afdb6107430c1832ca7e16aacbf8fa1	multilib	b2a329026f2e404e9e371097dda47f96	python-utils-r1	0ce52f3000cc5d5586888153a0c18d0b	python-single-r1	a5747fe6dc0651d95cb78eddd5e160a8	distutils-r1	e58d3ed262e4b32d6d1966bd66e941cc	prefix	c3c4c93ebda319c0fa7ed6f942ba1010
-_md5_=dce1a3284fa8a3736f54be3277801b45
+_md5_=85335c4c8cd6feb706cb7f888a7e3afb

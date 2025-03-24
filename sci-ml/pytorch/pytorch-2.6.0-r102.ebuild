@@ -41,6 +41,7 @@ PATCHES=(
 	"${FILESDIR}"/pytorch-2.5.0-torch_shm_manager.patch
 	"${FILESDIR}"/${PN}-2.6.0-setup.patch
 	"${FILESDIR}"/${PN}-2.6.0-emptyso.patch
+	"${FILESDIR}"/pytorch-2.6.0-setuptools-77.0.3.patch
 )
 
 src_prepare() {
