@@ -894,7 +894,7 @@ net-im/telegram-desktop 5.11.1-r1: Official desktop client for Telegram
 net-libs/libtorrent-rasterbar 1.2.19-r1: C++ BitTorrent implementation focusing on efficiency and scalability
 net-libs/libutp 20180515-r1: uTorrent Transport Protocol library
 net-libs/liquid-dsp 1.7.0-r100 9999-r5: digital signal processing library for software-defined radios
-net-misc/freerdp 3.14.0: Free implementation of the Remote Desktop Protocol
+net-misc/freerdp 3.14.1: Free implementation of the Remote Desktop Protocol
 net-misc/magic-wormhole 0.11.2-r201: Securely and simply transfer data between computers
 net-misc/magic-wormhole-mailbox-server 0.4.1-r200: Rendezvous / mailbox server for Magic-Wormhole
 net-misc/magic-wormhole-transit-relay 0.2.1-r200: Transit Relay server for Magic-Wormhole
