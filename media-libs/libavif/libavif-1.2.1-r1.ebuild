@@ -12,11 +12,14 @@ SRC_URI="
 		-> ${P}.tar.gz
 "
 
-LICENSE="BSD-2"
+LICENSE="
+	BSD-2
+	extras? ( MIT )
+"
 # See bug #822336 re subslot
 SLOT="0/16.2.1"
-KEYWORDS="~alpha amd64 arm arm64 ~hppa ~loong ~mips ppc64 ~riscv sparc x86"
-IUSE="+aom dav1d examples extras gdk-pixbuf rav1e svt-av1 test"
+KEYWORDS="~alpha ~amd64 ~arm ~arm64 ~hppa ~loong ~mips ~ppc64 ~riscv ~sparc ~x86"
+IUSE="+aom dav1d examples extras gdk-pixbuf libyuv rav1e svt-av1 test"
 RESTRICT="
 	extras? ( network-sandbox )
 	!test? ( test )
@@ -40,6 +43,7 @@ DEPEND="
 	)
 	rav1e? ( >=media-video/rav1e-0.5.1:=[capi] )
 	svt-av1? ( <media-libs/svt-av1-4:= )
+	libyuv? ( media-libs/libyuv:= )
 "
 RDEPEND="
 	${DEPEND}
@@ -52,9 +56,6 @@ multilib_src_configure() {
 	local mycmakeargs=(
 		-DBUILD_SHARED_LIBS=ON
 		-DAVIF_CODEC_LIBGAV1=OFF
-
-		# bug 916948
-		-DAVIF_LIBYUV=OFF
 
 		# Use system libraries.
 		-DAVIF_CODEC_AOM=$(usex aom SYSTEM OFF)
@@ -71,6 +72,7 @@ multilib_src_configure() {
 		mycmakeargs+=(
 			-DAVIF_CODEC_RAV1E=$(usex rav1e SYSTEM OFF)
 			-DAVIF_CODEC_SVT=$(usex svt-av1 SYSTEM OFF)
+			-DAVIF_LIBYUV=$(usex libyuv SYSTEM OFF)
 
 			-DAVIF_BUILD_EXAMPLES=$(usex examples ON OFF)
 			-DAVIF_BUILD_APPS=$(usex extras ON OFF)
@@ -81,11 +83,11 @@ multilib_src_configure() {
 		mycmakeargs+=(
 			-DAVIF_CODEC_RAV1E=OFF
 			-DAVIF_CODEC_SVT=OFF
+			-DAVIF_LIBYUV=OFF
 
 			-DAVIF_BUILD_EXAMPLES=OFF
 			-DAVIF_BUILD_APPS=OFF
 			-DAVIF_BUILD_TESTS=OFF
-			-DAVIF_ENABLE_GTEST=OFF
 			-DAVIF_GTEST=OFF
 		)
 

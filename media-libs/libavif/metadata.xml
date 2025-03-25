@@ -14,6 +14,7 @@
     <flag name="dav1d">Enable support for the dav1d codec decoding</flag>
     <flag name="extras">Build extra apps (avifenc, avifdec) and test files</flag>
     <flag name="gdk-pixbuf">Build a gdk-pixbuf loader</flag>
+    <flag name="libyuv">Enable fast YUV conversion via libyuv</flag>
     <flag name="rav1e">Enable support for the rav1e codec encoding</flag>
     <flag name="svt-av1">Enable support for the SVT-AV1 encoder</flag>
   </use>
