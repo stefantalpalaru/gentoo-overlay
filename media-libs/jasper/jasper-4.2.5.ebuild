@@ -1,7 +1,7 @@
-# Copyright 1999-2022 Gentoo Authors
+# Copyright 1999-2025 Gentoo Authors
 # Distributed under the terms of the GNU General Public License v2
 
-EAPI=7
+EAPI=8
 
 inherit cmake multilib-minimal
 
@@ -9,10 +9,11 @@ DESCRIPTION="Implementation of the codec specified in the JPEG-2000 Part-1 stand
 HOMEPAGE="https://www.ece.uvic.ca/~frodo/jasper/
 	https://github.com/jasper-software/jasper"
 SRC_URI="https://github.com/jasper-software/jasper/archive/refs/tags/version-${PV}.tar.gz -> ${P}.tar.gz"
-KEYWORDS="alpha amd64 arm arm64 hppa ~ia64 ~mips ppc ppc64 ~s390 sparc x86 ~amd64-linux ~x86-linux ~ppc-macos ~x64-macos ~x64-solaris"
-
+S="${WORKDIR}/jasper-version-${PV}"
 LICENSE="JasPer2.0"
-SLOT="0/6"
+
+SLOT="0/7"
+KEYWORDS="alpha amd64 arm arm64 hppa ~mips ppc ppc64 ~s390 sparc x86 ~amd64-linux ~x86-linux ~ppc-macos ~x64-macos ~x64-solaris"
 IUSE="jpeg opengl"
 
 RDEPEND="
@@ -30,12 +31,11 @@ MULTILIB_WRAPPED_HEADERS=(
 	"/usr/include/jasper/jas_config.h"
 )
 
-S="${WORKDIR}/jasper-version-${PV}"
-
 multilib_src_configure() {
 	local mycmakeargs=(
 		-DALLOW_IN_SOURCE_BUILD=OFF
 		-DBASH_PROGRAM="${EPREFIX}"/bin/bash
+		-DJAS_PACKAGING=ON
 		-DJAS_ENABLE_ASAN=OFF
 		-DJAS_ENABLE_LSAN=OFF
 		-DJAS_ENABLE_MSAN=OFF
