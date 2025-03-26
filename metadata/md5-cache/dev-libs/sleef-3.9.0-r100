@@ -1,4 +1,4 @@
-BDEPEND=test? ( >=dev-libs/mpfr-4.2 ) app-alternatives/ninja >=dev-build/cmake-3.20.5
+BDEPEND=app-alternatives/ninja >=dev-build/cmake-3.20.5
 DEFINED_PHASES=compile configure install prepare test
 DESCRIPTION=Implements vectorized versions of C standard math functions
 EAPI=8
@@ -7,8 +7,8 @@ INHERIT=cmake
 IUSE=cpu_flags_x86_avx cpu_flags_x86_avx2 cpu_flags_x86_avx512f cpu_flags_x86_fma4 cpu_flags_x86_sse2 cpu_flags_x86_sse4_1 test
 KEYWORDS=~amd64 ~riscv ~x86
 LICENSE=Boost-1.0
-RESTRICT=!test? ( test )
+RESTRICT=!test? ( test ) test? ( network-sandbox )
 SLOT=0
-SRC_URI=https://github.com/shibatch/sleef/archive/refs/tags/3.8.tar.gz -> sleef-3.8.tar.gz
+SRC_URI=https://github.com/shibatch/sleef/archive/refs/tags/3.9.0.tar.gz -> sleef-3.9.0.tar.gz
 _eclasses_=toolchain-funcs	6afdb6107430c1832ca7e16aacbf8fa1	multilib	b2a329026f2e404e9e371097dda47f96	flag-o-matic	357f1a896fbedcd06e5ce55419c49eb9	multiprocessing	1e32df7deee68372153dca65f4a7c21f	ninja-utils	2df4e452cea39a9ec8fb543ce059f8d6	xdg-utils	42869b3c8d86a70ef3cf75165a395e09	cmake	10a50dfaf728b802fcfd37f8d0da9056
-_md5_=04a58cc5e5604fc25e699fb2b96eb91e
+_md5_=9b766c1343a742d8d40acdaf8f49c73c

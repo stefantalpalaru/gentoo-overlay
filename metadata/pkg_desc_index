@@ -58,7 +58,7 @@ dev-libs/openssl 1.1.1w-r1: Full-strength general purpose cryptography library (
 dev-libs/protobuf 3.13.0-r1: Google's Protocol Buffers - Extensible mechanism for serializing structured data
 dev-libs/pugixml 1.15: Light-weight, simple, and fast XML parser for C++ with XPath support
 dev-libs/qtkeychain 0.14.3 0.15.0: Qt API for storing passwords securely
-dev-libs/sleef 3.8-r100: Implements vectorized versions of C standard math functions
+dev-libs/sleef 3.9.0-r100: Implements vectorized versions of C standard math functions
 dev-nim/c2nim 0.9.19-r1 9999-r3: a tool to translate ANSI C code to Nim
 dev-nim/nimble 0.16.4 9999-r2: Nim package manager
 dev-nim/ntags 0.5.0-r1: tool that generates tags for Nim files, similar to ctags
