@@ -24,19 +24,6 @@ app-admin/conky:webserver - Enable support to act as a webserver serving conkys 
 app-admin/conky:xinput - Enable Xinput support
 app-admin/conky:xmms2 - Enable monitoring of music played by media-sound/xmms2
 app-admin/zenmonitor3:cli - Build zenmonitor-cli
-app-emulation/vmware-workstation:macos-guests - Support macOS guests.
-app-emulation/vmware-workstation:modules - Install app-emulation/vmware-modules in order to run VMs locally.
-app-emulation/vmware-workstation:ovftool - Install OVF tool.
-app-emulation/vmware-workstation:vix - Install VIX. The VIX API allows you to write programs and scripts that automate virtual machine operations, and run programs or manipulate files within guest operating systems.
-app-emulation/vmware-workstation:vmware-tools-darwin - Install VMware Tools for OS X (El Capitan and later) guests.
-app-emulation/vmware-workstation:vmware-tools-darwinPre15 - Install VMware Tools for OS X (up to Yosemite) guests.
-app-emulation/vmware-workstation:vmware-tools-linux - Install VMware Tools for Linux guests.
-app-emulation/vmware-workstation:vmware-tools-linuxPreGlibc25 - Install VMware Tools for Linux (glibc older than 2.5) guests.
-app-emulation/vmware-workstation:vmware-tools-netware - Install VMware Tools for Netware guests.
-app-emulation/vmware-workstation:vmware-tools-solaris - Install VMware Tools for Solaris guests.
-app-emulation/vmware-workstation:vmware-tools-winPre2k - Install VMware Tools for Windows (before 2000) guests.
-app-emulation/vmware-workstation:vmware-tools-winPreVista - Install VMware Tools for Windows (after 2000, before Vista) guests.
-app-emulation/vmware-workstation:vmware-tools-windows - Install VMware Tools for Windows (Vista and later) guests.
 app-text/calibre:font-subsetting - Enable font subsetting support
 app-text/calibre:system-mathjax - Use a system copy of mathjax
 app-text/calibre:unrar - Enable support for comic books compressed with the non-free Rar format
