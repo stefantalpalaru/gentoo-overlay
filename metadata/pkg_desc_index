@@ -91,7 +91,7 @@ dev-python/astroscrappy 1.0.5-r4: Optimized cosmic ray annihilation astropy pyth
 dev-python/atomicwrites 1.4.0-r201: Atomic file writes
 dev-python/atpy 0.9.7-r3: Astronomical tables support for Python
 dev-python/attrdict3 2.0.2-r2: access Python object elements as both keys and attributes
-dev-python/attrs 20.2.0-r3: Attributes without boilerplate
+dev-python/attrs 20.2.0-r4: Attributes without boilerplate
 dev-python/autobahn 19.11.2-r201: WebSocket and WAMP for Twisted and Asyncio
 dev-python/automat 20.2.0-r4: Self-service finite-state machines for the programmer on the go
 dev-python/aws-sam-translator 1.21.0-r201: A library that transform SAM templates into AWS CloudFormation templates
@@ -109,10 +109,10 @@ dev-python/bandit 1.5.1-r201: A security linter from OpenStack Security
 dev-python/bcrypt 3.1.7-r201: Modern password hashing for software and servers
 dev-python/beanstalkc 0.4.0-r201: A simple beanstalkd client library
 dev-python/beautifulsoup4 4.8.2-r201: Pythonic idioms for iterating, searching, and modifying an HTML/XML parse tree
-dev-python/betamax 0.8.1-r3: python-requests HTTP exchanges recorder
+dev-python/betamax 0.8.1-r4: python-requests HTTP exchanges recorder
 dev-python/billiard 3.3.0.23-r201 3.5.0.2-r201: Python multiprocessing fork
 dev-python/bjoern 1.4.3-r2: A screamingly fast Python WSGI server written in C
-dev-python/bleach 3.2.1-r2: an easy whitelist-based HTML-sanitizing tool
+dev-python/bleach 3.2.1-r3: an easy whitelist-based HTML-sanitizing tool
 dev-python/blinker 1.4-r5: Fast, simple object-to-object and broadcast signaling
 dev-python/blosc 1.5.1-r201: High performance compressor optimized for binary data
 dev-python/boto 2.49.0-r201: Amazon Web Services API
@@ -120,10 +120,10 @@ dev-python/boto3 1.10.2-r202: The AWS SDK for Python
 dev-python/botocore 1.14.17-r201: Low-level, data-driven core of boto 3.
 dev-python/bottle 0.12.18-r4: A fast and simple micro-framework for small web-applications
 dev-python/bottleneck 1.3.1-r5: Fast NumPy array functions written in Cython
-dev-python/brotlipy 0.7.0-r6: Python binding to the Brotli library
+dev-python/brotlipy 0.7.0-r7: Python binding to the Brotli library
 dev-python/buzhug 1.8-r3: Fast, pure-Python database engine
 dev-python/cachetools 3.1.1-r4: Extensible memoizing collections and decorators
-dev-python/cairocffi 0.9.0-r200: CFFI-based drop-in replacement for Pycairo
+dev-python/cairocffi 0.9.0-r201: CFFI-based drop-in replacement for Pycairo
 dev-python/carrot 0.10.7-r3: AMQP Messaging Framework for Python
 dev-python/case 1.5.3-r3: Python unittest Utilities
 dev-python/cbor 1.0.0-r201: RFC 7049 - Concise Binary Object Representation
@@ -137,27 +137,27 @@ dev-python/cfgparse 1.3-r3: Config File parser for Python
 dev-python/cfn-lint 0.28.2-r202: CloudFormation Linter
 dev-python/characteristic 14.3.0-r6: Python attributes without the boilerplate
 dev-python/chardet 3.0.4-r4: Universal encoding detector
-dev-python/cheetah 2.4.4-r1: Python-powered template engine and code generator
+dev-python/cheetah 2.4.4-r2: Python-powered template engine and code generator
 dev-python/cherrytemplate 1.0.0-r4: Easy and powerful templating module for Python
 dev-python/click 7.1.2-r3: A Python package for creating beautiful command line interfaces
-dev-python/click-default-group 1.2.2-r200: Extends click. Group to invoke a command without explicit subcommand name
-dev-python/clientcookie 1.3.0-r2: Python module for handling HTTP cookies on the client side
+dev-python/click-default-group 1.2.2-r201: Extends click. Group to invoke a command without explicit subcommand name
+dev-python/clientcookie 1.3.0-r3: Python module for handling HTTP cookies on the client side
 dev-python/cliff 2.18.0-r201: Command Line Interface Formulation Framework
-dev-python/cloudlib 0.5.0-r2: Cloud middleware for in application use.
-dev-python/cloudpickle 1.3.0-r3: Extended pickling support for Python objects
+dev-python/cloudlib 0.5.0-r3: Cloud middleware for in application use.
+dev-python/cloudpickle 1.3.0-r4: Extended pickling support for Python objects
 dev-python/cmd2 0.8.9-r3: Extra features for standard library's cmd module
 dev-python/colorama 0.4.3-r3: ANSI escape character sequences for colored terminal text & cursor positioning
-dev-python/colorlog 3.1.4-r1: Log formatting with colors
-dev-python/commonmark 0.9.1-r3: Python parser for the CommonMark Markdown spec
+dev-python/colorlog 3.1.4-r2: Log formatting with colors
+dev-python/commonmark 0.9.1-r4: Python parser for the CommonMark Markdown spec
 dev-python/configargparse 1.0-r202: Drop-in replacement for argparse supporting config files and env variables
-dev-python/configobj 5.0.6-r4: Simple config file reader and writer
+dev-python/configobj 5.0.6-r5: Simple config file reader and writer
 dev-python/configparser 4.0.2-r1: Backport of Python-3 built-in configparser
-dev-python/constantly 15.1.0-r3: Symbolic constants in Python
-dev-python/contextlib2 0.6.0_p1-r200: Backports and enhancements for the contextlib module
-dev-python/cookies 2.2.1-r3: Friendlier RFC 6265-compliant cookie parser/renderer
+dev-python/constantly 15.1.0-r4: Symbolic constants in Python
+dev-python/contextlib2 0.6.0_p1-r201: Backports and enhancements for the contextlib module
+dev-python/cookies 2.2.1-r4: Friendlier RFC 6265-compliant cookie parser/renderer
 dev-python/corner 2.0.1-r2: Make scatter matrix corner plots
-dev-python/couchdb-python 1.1-r1: Python library for working with CouchDB
-dev-python/coverage 5.4-r1: Code coverage measurement for Python
+dev-python/couchdb-python 1.1-r2: Python library for working with CouchDB
+dev-python/coverage 5.4-r2: Code coverage measurement for Python
 dev-python/cryptography 3.1.1-r202: Library providing cryptographic recipes and primitives
 dev-python/cssselect 1.1.0-r200: parses CSS3 Selectors and translates them to XPath 1.0
 dev-python/csv23 0.3.2-r2: Python 2/3 unicode CSV compatibility layer
@@ -166,17 +166,17 @@ dev-python/cython 0.29.21-r200: A Python to C compiler
 dev-python/d2to1 0.2.12_p1-r200: Allows using distutils2-like setup.cfg files for a package metadata
 dev-python/dask 0.18.2-r201: Task scheduling and blocked algorithms for parallel processing
 dev-python/dbus-python 1.2.16-r3: Python bindings for the D-Bus messagebus
-dev-python/dbutils 1.1-r2: Database connections for multi-threaded environments
+dev-python/dbutils 1.1-r3: Database connections for multi-threaded environments
 dev-python/ddt 1.4.1-r2: A library to multiply test cases
 dev-python/debtcollector 1.22.0-r201: Python deprecation patterns and strategies that collect technical debt
 dev-python/decorator 4.4.2-r3: Simplifies the usage of decorators for the average programmer
-dev-python/defusedxml 0.7.0_rc1-r2: XML bomb protection for Python stdlib modules, an xml serialiser
+dev-python/defusedxml 0.7.0_rc1-r3: XML bomb protection for Python stdlib modules, an xml serialiser
 dev-python/dexml 0.5.1-r3: Dead-simple Object-XML mapper for Python
 dev-python/dib-utils 0.0.10-r200: Standalone tools related to diskimage-builder.
-dev-python/dicttoxml 1.7.4-r3: Converts a Python dictionary or other data type to a valid XML string
-dev-python/dill 0.3.1.1-r1: Serialize all of python (almost)
+dev-python/dicttoxml 1.7.4-r4: Converts a Python dictionary or other data type to a valid XML string
+dev-python/dill 0.3.1.1-r2: Serialize all of python (almost)
 dev-python/dingus 0.3.4-r2: A record-then-assert mocking library
-dev-python/dirq 1.7.1-r1: Python port of Perl module Directory::Queue
+dev-python/dirq 1.7.1-r2: Python port of Perl module Directory::Queue
 dev-python/disqus-python 0.4.2-r1: Python client library for accessing the disqus.com API
 dev-python/distlib 0.3.1-r3: Low-level components of distutils2/packaging
 dev-python/distributed 1.18.0-r201: Python library for distributed computation
