@@ -1,0 +1,17 @@
+BDEPEND=python_targets_python2_7? ( dev-lang/python:2.7 ) >=dev-python/setuptools-42.0.2[python_targets_python2_7(-)?]
+DEFINED_PHASES=compile configure install prepare test
+DEPEND=doc? ( dev-python/sphinx[python_targets_python2_7(-)?] )
+DESCRIPTION=AMQP Messaging Framework for Python
+EAPI=8
+HOMEPAGE=https://github.com/ask/carrot/
+INHERIT=distutils-r1 pypi
+IUSE=doc python_targets_python2_7
+KEYWORDS=amd64 x86
+LICENSE=BSD
+RDEPEND=dev-python/anyjson[python_targets_python2_7(-)?] >=dev-python/amqplib-0.6[python_targets_python2_7(-)?] python_targets_python2_7? ( dev-lang/python:2.7 )
+REQUIRED_USE=|| ( python_targets_python2_7 )
+RESTRICT=mirror test
+SLOT=0
+SRC_URI=https://files.pythonhosted.org/packages/source/c/carrot/carrot-0.10.7.tar.gz
+_eclasses_=out-of-source-utils	dbf9e34ee8964084651e25907fa8f52c	multibuild	4650a65187015567b4e041bb9bfdb364	multiprocessing	1e32df7deee68372153dca65f4a7c21f	toolchain-funcs	6afdb6107430c1832ca7e16aacbf8fa1	multilib	b2a329026f2e404e9e371097dda47f96	python-utils-r1	0ce52f3000cc5d5586888153a0c18d0b	python-r1	2d51fd03931e743811ce30d198e4dcfd	distutils-r1	e58d3ed262e4b32d6d1966bd66e941cc	pypi	ad1b21f87d117ae9bb089bdb65b8f013
+_md5_=38365d77a3b116f87f4740b7d8c5e17a

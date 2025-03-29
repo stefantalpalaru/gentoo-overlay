@@ -321,18 +321,6 @@ media-sound/audacity:vamp - Enables vamp plugins support (Audio analysing plugin
 media-sound/carla:gtk2 - Use gtk-2 instead of gtk-3
 media-sound/carla:rdf - Enable LADSPA-RDF support
 media-sound/carla:sf2 - Enable builtin SF2 sample support using media-sound/fluidsynth
-media-sound/deadbeef:converter - File format converter
-media-sound/deadbeef:cover - Support for cover art
-media-sound/deadbeef:hotkeys - Keyboard shortcuts support
-media-sound/deadbeef:lastfm - last.fm/AudioScrobbler protocol support
-media-sound/deadbeef:libretro - libretro resampling plugin
-media-sound/deadbeef:libsamplerate - Support the Secret Rabbit Code resampler
-media-sound/deadbeef:notify - Desktop notifications support
-media-sound/deadbeef:nullout - Dummy output driver
-media-sound/deadbeef:pipewire - Pipewire output plugin
-media-sound/deadbeef:sc68 - Atari ST and Amiga music player
-media-sound/deadbeef:shellexec - Define custom shell commands that can be called on tracks
-media-sound/deadbeef:supereq - Enable equalizer
 media-sound/hydrogen:archive - Use libarchive instead of libtar
 media-sound/hydrogen:portmidi - Add portmidi support
 media-sound/kid3:acoustid - Build acoustic fingerprinting plugin using media-libs/chromaprint
