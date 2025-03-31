@@ -1,4 +1,4 @@
-# Copyright 1999-2024 Gentoo Authors
+# Copyright 1999-2025 Gentoo Authors
 # Distributed under the terms of the GNU General Public License v2
 
 EAPI=8
@@ -19,7 +19,7 @@ LICENSE="BSD Boost-1.0"
 SLOT="0/$(ver_cut 1-2)"
 KEYWORDS="amd64 ~arm arm64 ~hppa ~loong ppc ppc64 ~riscv ~s390 ~sparc x86 ~amd64-linux ~x86-linux"
 IUSE="ssl systemd tcmalloc test"
-RESTRICT="!test? ( test )"
+RESTRICT="mirror !test? ( test )"
 
 # We use the bundled jemalloc because it has been modified to support active defragmentation.
 
@@ -46,7 +46,7 @@ BDEPEND="
 "
 
 PATCHES=(
-	"${FILESDIR}"/valkey-8.0.0-config.patch
+	"${FILESDIR}"/valkey-8.1.0-config.patch
 	"${FILESDIR}"/valkey-8.0.0-ppc-atomic.patch
 	"${FILESDIR}"/valkey-sentinel-8.0.0-config.patch
 	"${FILESDIR}"/valkey-8.0.0-no-which.patch

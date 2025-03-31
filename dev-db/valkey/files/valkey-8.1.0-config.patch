@@ -1,7 +1,7 @@
-diff '--color=auto' -ur valkey-8.0.0.orig/valkey.conf valkey-8.0.0/valkey.conf
---- valkey-8.0.0.orig/valkey.conf	2024-09-15 22:08:04.000000000 +0200
-+++ valkey-8.0.0/valkey.conf	2024-09-19 20:21:25.663691750 +0200
-@@ -337,7 +337,7 @@
+diff '--color=auto' -ur valkey-8.1.0.orig/valkey.conf valkey-8.1.0/valkey.conf
+--- valkey-8.1.0.orig/valkey.conf	2025-03-31 16:56:45.000000000 +0200
++++ valkey-8.1.0/valkey.conf	2025-03-31 17:54:21.222396300 +0200
+@@ -385,7 +385,7 @@
  #
  # Note that on modern Linux systems "/run/valkey.pid" is more conforming
  # and should be used instead.
@@ -10,7 +10,7 @@ diff '--color=auto' -ur valkey-8.0.0.orig/valkey.conf valkey-8.0.0/valkey.conf
  
  # Specify the server verbosity level.
  # This can be one of:
-@@ -351,7 +351,7 @@
+@@ -416,7 +416,7 @@
  # Specify the log file name. Also the empty string can be used to force
  # the server to log on the standard output. Note that if you use standard
  # output for logging but daemonize, logs will be sent to /dev/null
@@ -19,25 +19,24 @@ diff '--color=auto' -ur valkey-8.0.0.orig/valkey.conf valkey-8.0.0/valkey.conf
  
  # To enable logging to the system logger, just set 'syslog-enabled' to yes,
  # and optionally update the other syslog parameters to suit your needs.
-@@ -526,7 +526,7 @@
- # 'cluster-config-file' configuration directive is a relative path.
- #
- # Note that you must specify a directory here, not a file name.
+@@ -606,7 +606,7 @@
+ # Note that modifying 'dir' during runtime may have unexpected behavior,
+ # for example when a child process is running, related file operations may
+ # have unexpected effects.
 -dir ./
 +dir /var/lib/valkey/
  
  ################################# REPLICATION #################################
  
-@@ -1158,7 +1158,7 @@
- # limit for maxmemory so that there is some free RAM on the system for replica
+@@ -1249,6 +1249,7 @@
  # output buffers (but this is not needed if the policy is 'noeviction').
  #
--# maxmemory <bytes>
+ # maxmemory <bytes>
 +maxmemory 64MB
  
  # MAXMEMORY POLICY: how the server will select what to remove when maxmemory
  # is reached. You can select one from the following behaviors:
-@@ -1188,6 +1188,7 @@
+@@ -1278,6 +1279,7 @@
  # The default is:
  #
  # maxmemory-policy noeviction
@@ -45,7 +44,7 @@ diff '--color=auto' -ur valkey-8.0.0.orig/valkey.conf valkey-8.0.0/valkey.conf
  
  # LRU, LFU and minimal TTL algorithms are not precise algorithms but approximated
  # algorithms (in order to save memory), so you can tune it for speed or
-@@ -2330,6 +2331,7 @@
+@@ -2468,6 +2470,7 @@
  
  # Active defragmentation is disabled by default
  # activedefrag no
@@ -53,4 +52,3 @@ diff '--color=auto' -ur valkey-8.0.0.orig/valkey.conf valkey-8.0.0/valkey.conf
  
  # Minimum amount of fragmentation waste to start active defrag
  # active-defrag-ignore-bytes 100mb
-Only in valkey-8.0.0: valkey.conf.orig
