@@ -35,7 +35,7 @@ dev-debug/valgrind 3.24.0-r100: An open-source memory debugger for GNU/Linux
 dev-lang/chapel 2.4.0: Chapel programming language compiler
 dev-lang/erlang 27.2: Erlang programming language, runtime environment and libraries (OTP)
 dev-lang/nim 1.0.10-r101 1.2.18-r101 1.4.8-r101 1.6.20-r100 2.0.14-r100 2.2.2-r100 9999-r16: compiled, garbage-collected systems programming language
-dev-lang/php 5.3.29-r7 7.4.33-r7 8.0.30-r3: The PHP language runtime engine
+dev-lang/php 5.3.29-r8 7.4.33-r8 8.0.30-r4: The PHP language runtime engine
 dev-lang/pony 0.58.13: Compiler for the Pony language
 dev-lang/python 2.7.18_p114: An interpreted, interactive, object-oriented programming language
 dev-lang/python-exec 2.4.10-r100: Python script wrapper
@@ -134,8 +134,8 @@ dev-python/certifi 10001-r3: Thin replacement for certifi using system certifica
 dev-python/cffi 1.14.3-r1: Foreign Function Interface for Python calling C code
 dev-python/cfgparse 1.3-r3: Config File parser for Python
 dev-python/cfn-lint 0.28.2-r202: CloudFormation Linter
-dev-python/characteristic 14.3.0-r6: Python attributes without the boilerplate
-dev-python/chardet 3.0.4-r4: Universal encoding detector
+dev-python/characteristic 14.3.0-r7: Python attributes without the boilerplate
+dev-python/chardet 3.0.4-r5: Universal encoding detector
 dev-python/cheetah 2.4.4-r2: Python-powered template engine and code generator
 dev-python/cherrytemplate 1.0.0-r4: Easy and powerful templating module for Python
 dev-python/click 7.1.2-r3: A Python package for creating beautiful command line interfaces
@@ -145,12 +145,12 @@ dev-python/cliff 2.18.0-r201: Command Line Interface Formulation Framework
 dev-python/cloudlib 0.5.0-r3: Cloud middleware for in application use.
 dev-python/cloudpickle 1.3.0-r4: Extended pickling support for Python objects
 dev-python/cmd2 0.8.9-r3: Extra features for standard library's cmd module
-dev-python/colorama 0.4.3-r3: ANSI escape character sequences for colored terminal text & cursor positioning
+dev-python/colorama 0.4.3-r4: ANSI escape character sequences for colored terminal text & cursor positioning
 dev-python/colorlog 3.1.4-r2: Log formatting with colors
 dev-python/commonmark 0.9.1-r4: Python parser for the CommonMark Markdown spec
 dev-python/configargparse 1.0-r202: Drop-in replacement for argparse supporting config files and env variables
 dev-python/configobj 5.0.6-r5: Simple config file reader and writer
-dev-python/configparser 4.0.2-r1: Backport of Python-3 built-in configparser
+dev-python/configparser 4.0.2-r2: Backport of Python-3 built-in configparser
 dev-python/constantly 15.1.0-r4: Symbolic constants in Python
 dev-python/contextlib2 0.6.0_p1-r201: Backports and enhancements for the contextlib module
 dev-python/cookies 2.2.1-r4: Friendlier RFC 6265-compliant cookie parser/renderer
@@ -159,33 +159,33 @@ dev-python/couchdb-python 1.1-r2: Python library for working with CouchDB
 dev-python/coverage 5.4-r2: Code coverage measurement for Python
 dev-python/cryptography 3.1.1-r202: Library providing cryptographic recipes and primitives
 dev-python/cssselect 1.1.0-r200: parses CSS3 Selectors and translates them to XPath 1.0
-dev-python/csv23 0.3.2-r2: Python 2/3 unicode CSV compatibility layer
-dev-python/cycler 0.10.0-r200: Composable style cycles
-dev-python/cython 0.29.21-r200: A Python to C compiler
-dev-python/d2to1 0.2.12_p1-r200: Allows using distutils2-like setup.cfg files for a package metadata
+dev-python/csv23 0.3.2-r3: Python 2/3 unicode CSV compatibility layer
+dev-python/cycler 0.10.0-r201: Composable style cycles
+dev-python/cython 0.29.21-r201: A Python to C compiler
+dev-python/d2to1 0.2.12_p1-r201: Allows using distutils2-like setup.cfg files for a package metadata
 dev-python/dask 0.18.2-r201: Task scheduling and blocked algorithms for parallel processing
 dev-python/dbus-python 1.2.16-r3: Python bindings for the D-Bus messagebus
 dev-python/dbutils 1.1-r3: Database connections for multi-threaded environments
-dev-python/ddt 1.4.1-r2: A library to multiply test cases
+dev-python/ddt 1.4.1-r3: A library to multiply test cases
 dev-python/debtcollector 1.22.0-r201: Python deprecation patterns and strategies that collect technical debt
-dev-python/decorator 4.4.2-r3: Simplifies the usage of decorators for the average programmer
+dev-python/decorator 4.4.2-r4: Simplifies the usage of decorators for the average programmer
 dev-python/defusedxml 0.7.0_rc1-r3: XML bomb protection for Python stdlib modules, an xml serialiser
-dev-python/dexml 0.5.1-r3: Dead-simple Object-XML mapper for Python
-dev-python/dib-utils 0.0.10-r200: Standalone tools related to diskimage-builder.
+dev-python/dexml 0.5.1-r4: Dead-simple Object-XML mapper for Python
+dev-python/dib-utils 0.0.10-r201: Standalone tools related to diskimage-builder.
 dev-python/dicttoxml 1.7.4-r4: Converts a Python dictionary or other data type to a valid XML string
 dev-python/dill 0.3.1.1-r2: Serialize all of python (almost)
-dev-python/dingus 0.3.4-r2: A record-then-assert mocking library
+dev-python/dingus 0.3.4-r3: A record-then-assert mocking library
 dev-python/dirq 1.7.1-r2: Python port of Perl module Directory::Queue
-dev-python/disqus-python 0.4.2-r1: Python client library for accessing the disqus.com API
-dev-python/distlib 0.3.1-r3: Low-level components of distutils2/packaging
+dev-python/disqus-python 0.4.2-r2: Python client library for accessing the disqus.com API
+dev-python/distlib 0.3.1-r4: Low-level components of distutils2/packaging
 dev-python/distributed 1.18.0-r201: Python library for distributed computation
 dev-python/distro 1.5.0-r3: Reliable machine-readable Linux distribution information for Python
 dev-python/django 1.6.11-r3 1.7.11-r3 1.8.18-r3 1.9.13-r3 1.10.7-r3: High-level Python web framework
-dev-python/dns-lexicon 3.3.17-r3: Manipulate DNS records on various DNS providers in a standardized/agnostic way
+dev-python/dns-lexicon 3.3.17-r4: Manipulate DNS records on various DNS providers in a standardized/agnostic way
 dev-python/dnspython 1.16.0-r3: DNS toolkit for Python
 dev-python/doc8 0.8.0-r200: Style checker for Sphinx (or other) RST documentation
 dev-python/docker 4.2.0-r201: Python client for Docker
-dev-python/doctest-ignore-unicode 0.1.2-r1: Add flag to ignore unicode literal prefixes in doctests
+dev-python/doctest-ignore-unicode 0.1.2-r2: Add flag to ignore unicode literal prefixes in doctests
 dev-python/docutils 0.16-r3: Python Documentation Utilities
 dev-python/dogpile-cache 0.7.1-r3: A locking API for expiring values while a single thread generates a new value.
 dev-python/dulwich 0.19.15-r5: Pure-Python implementation of the Git file formats and protocols
