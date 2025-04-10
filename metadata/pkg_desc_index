@@ -131,14 +131,14 @@ dev-python/cddb-py 1.4-r5: CDDB Module for Python
 dev-python/celery 3.1.25-r201: Asynchronous task queue/job queue based on distributed message passing
 dev-python/cement 2.10.0-r201: CLI Application Framework for Python
 dev-python/certifi 10001-r3: Thin replacement for certifi using system certificate store
-dev-python/cffi 1.14.3-r1: Foreign Function Interface for Python calling C code
+dev-python/cffi 1.14.3-r2: Foreign Function Interface for Python calling C code
 dev-python/cfgparse 1.3-r3: Config File parser for Python
 dev-python/cfn-lint 0.28.2-r202: CloudFormation Linter
 dev-python/characteristic 14.3.0-r7: Python attributes without the boilerplate
 dev-python/chardet 3.0.4-r5: Universal encoding detector
 dev-python/cheetah 2.4.4-r2: Python-powered template engine and code generator
 dev-python/cherrytemplate 1.0.0-r4: Easy and powerful templating module for Python
-dev-python/click 7.1.2-r3: A Python package for creating beautiful command line interfaces
+dev-python/click 7.1.2-r4: A Python package for creating beautiful command line interfaces
 dev-python/click-default-group 1.2.2-r201: Extends click. Group to invoke a command without explicit subcommand name
 dev-python/clientcookie 1.3.0-r3: Python module for handling HTTP cookies on the client side
 dev-python/cliff 2.18.0-r201: Command Line Interface Formulation Framework
@@ -158,7 +158,7 @@ dev-python/corner 2.0.1-r2: Make scatter matrix corner plots
 dev-python/couchdb-python 1.1-r2: Python library for working with CouchDB
 dev-python/coverage 5.4-r2: Code coverage measurement for Python
 dev-python/cryptography 3.1.1-r202: Library providing cryptographic recipes and primitives
-dev-python/cssselect 1.1.0-r200: parses CSS3 Selectors and translates them to XPath 1.0
+dev-python/cssselect 1.1.0-r201: parses CSS3 Selectors and translates them to XPath 1.0
 dev-python/csv23 0.3.2-r3: Python 2/3 unicode CSV compatibility layer
 dev-python/cycler 0.10.0-r201: Composable style cycles
 dev-python/cython 0.29.21-r201: A Python to C compiler
@@ -179,43 +179,43 @@ dev-python/dirq 1.7.1-r2: Python port of Perl module Directory::Queue
 dev-python/disqus-python 0.4.2-r2: Python client library for accessing the disqus.com API
 dev-python/distlib 0.3.1-r4: Low-level components of distutils2/packaging
 dev-python/distributed 1.18.0-r201: Python library for distributed computation
-dev-python/distro 1.5.0-r3: Reliable machine-readable Linux distribution information for Python
+dev-python/distro 1.5.0-r4: Reliable machine-readable Linux distribution information for Python
 dev-python/django 1.6.11-r3 1.7.11-r3 1.8.18-r3 1.9.13-r3 1.10.7-r3: High-level Python web framework
 dev-python/dns-lexicon 3.3.17-r4: Manipulate DNS records on various DNS providers in a standardized/agnostic way
 dev-python/dnspython 1.16.0-r3: DNS toolkit for Python
-dev-python/doc8 0.8.0-r200: Style checker for Sphinx (or other) RST documentation
+dev-python/doc8 0.8.0-r201: Style checker for Sphinx (or other) RST documentation
 dev-python/docker 4.2.0-r201: Python client for Docker
 dev-python/doctest-ignore-unicode 0.1.2-r2: Add flag to ignore unicode literal prefixes in doctests
-dev-python/docutils 0.16-r3: Python Documentation Utilities
-dev-python/dogpile-cache 0.7.1-r3: A locking API for expiring values while a single thread generates a new value.
+dev-python/docutils 0.16-r4: Python Documentation Utilities
+dev-python/dogpile-cache 0.7.1-r4: A locking API for expiring values while a single thread generates a new value.
 dev-python/dulwich 0.19.15-r5: Pure-Python implementation of the Git file formats and protocols
 dev-python/ecdsa 0.16.0-r4: ECDSA cryptographic signature library in pure Python
-dev-python/ed25519ll 0.6-r1: A low-level ctypes wrapper for Ed25519 digital signatures.
-dev-python/egenix-mx-base 3.2.9-r200: eGenix utils for Python
+dev-python/ed25519ll 0.6-r2: A low-level ctypes wrapper for Ed25519 digital signatures.
+dev-python/egenix-mx-base 3.2.9-r201: eGenix utils for Python
 dev-python/email-validator 1.1.1-r4: A robust email syntax and deliverability validation library
 dev-python/emcee 2.1.0-r2 2.2.1-r2: Python ensemble sampling toolkit for affine-invariant MCMC
-dev-python/entrypoints 0.3-r4: Discover and load entry points from installed packages
-dev-python/enum34 1.1.6-r3: Python 3.4 Enum backported
+dev-python/entrypoints 0.3-r5: Discover and load entry points from installed packages
+dev-python/enum34 1.1.6-r4: Python 3.4 Enum backported
 dev-python/epydoc 3.0.1-r5: Tool for generating API documentation for Python modules from docstrings
 dev-python/et-xmlfile 1.0.1-r201: An implementation of lxml.xmlfile for the standard library
-dev-python/eventlet 0.25.1-r201: Highly concurrent networking library
+dev-python/eventlet 0.25.1-r202: Highly concurrent networking library
 dev-python/execnet 1.7.1-r3: Rapid multi-Python deployment
 dev-python/extras 1.0.0-r3: Useful extra bits for Python that should be in the standard library
-dev-python/fabric 2.5.0-r1: A simple pythonic tool for remote execution and deployment
-dev-python/fasteners 0.15-r200: Python package that provides useful locks
+dev-python/fabric 2.5.0-r2: A simple pythonic tool for remote execution and deployment
+dev-python/fasteners 0.15-r201: Python package that provides useful locks
 dev-python/fastimport 0.9.8-r201: Library for parsing the fastimport VCS serialization format
-dev-python/faulthandler 3.2-r2: functions to dump Python tracebacks explicitly (on fault, user signal, timeout)
-dev-python/feedparser 5.2.1-r200: Parse RSS and Atom feeds in Python
-dev-python/fields 5.0.0-r5: Container class boilerplate killer
-dev-python/filelock 3.0.12-r200: A platform independent file lock for Python
+dev-python/faulthandler 3.2-r3: functions to dump Python tracebacks explicitly (on fault, user signal, timeout)
+dev-python/feedparser 5.2.1-r201: Parse RSS and Atom feeds in Python
+dev-python/fields 5.0.0-r6: Container class boilerplate killer
+dev-python/filelock 3.0.12-r201: A platform independent file lock for Python
 dev-python/fitsio 0.9.11-r201: Python library to read from and write to FITS files
 dev-python/fixtures 3.0.0-r200: Fixtures, reusable state for writing clean tests and more
 dev-python/flake8 3.7.9-r3: A wrapper around PyFlakes, pep8 & mccabe
 dev-python/flaky 3.6.1-r2: Plugin for nose or py.test that automatically reruns flaky tests
 dev-python/flask 1.1.2-r201: A microframework based on Werkzeug, Jinja2 and good intentions
 dev-python/flask-babel 1.0.0-r3: i18n and l10n support for Flask based on Babel and pytz
-dev-python/flask-dashed 0.1b_p2-r200: Admin app framework for flask
-dev-python/flask-evolution 0.6-r200: Simple migrations for Flask/SQLAlchemy projects
+dev-python/flask-dashed 0.1b_p2-r201: Admin app framework for flask
+dev-python/flask-evolution 0.6-r201: Simple migrations for Flask/SQLAlchemy projects
 dev-python/flask-script 2.0.6-r3: Flask support for writing external scripts
 dev-python/flask-sphinx-themes 1.0.2-r3: Sphinx Themes for Flask related projects and Flask itself
 dev-python/flask-sqlalchemy 2.4.1-r4: SQLAlchemy support for Flask applications
