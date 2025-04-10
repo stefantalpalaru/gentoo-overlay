@@ -7,5 +7,5 @@ LICENSE=NVIDIA-cuDNN
 RDEPEND==dev-util/nvidia-cuda-toolkit-12*
 RESTRICT=mirror
 SLOT=0/9
-SRC_URI=https://developer.download.nvidia.com/compute/cudnn/redist/cudnn/linux-x86_64/cudnn-linux-x86_64-9.7.1.26_cuda12-archive.tar.xz
+SRC_URI=https://developer.download.nvidia.com/compute/cudnn/redist/cudnn/linux-x86_64/cudnn-linux-x86_64-9.8.0.87_cuda12-archive.tar.xz
 _md5_=bbaff9106ba13ca40f1bcdaa9203af6f
