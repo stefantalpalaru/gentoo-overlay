@@ -1,4 +1,4 @@
-# Copyright 1999-2024 Gentoo Authors
+# Copyright 1999-2025 Gentoo Authors
 # Distributed under the terms of the GNU General Public License v2
 
 EAPI=8
@@ -8,12 +8,12 @@ PYTHON_COMPAT=( python2_7 python3_{10..13} )
 PYTHON_REQ_USE="threads(+)"
 
 RUBY_OPTIONAL="yes"
-USE_RUBY="ruby31 ruby32 ruby33"
+USE_RUBY="ruby31 ruby32 ruby33 ruby34"
 
 PHP_EXT_INI="no"
 PHP_EXT_NAME="dummy"
 PHP_EXT_OPTIONAL_USE="php"
-USE_PHP="php7-4 php8-0 php8-1 php8-2 php8-3" # deps must be registered separately below
+USE_PHP="php7-4 php8-0 php8-2 php8-3 php8-4" # deps must be registered separately below
 
 POSTGRES_COMPAT=( 13 14 15 16 )
 
@@ -134,9 +134,9 @@ CDEPEND="
 	php? (
 		php_targets_php7-4? ( dev-lang/php:7.4[embed] )
 		php_targets_php8-0? ( dev-lang/php:8.0[embed] )
-		php_targets_php8-1? ( dev-lang/php:8.1[embed] )
 		php_targets_php8-2? ( dev-lang/php:8.2[embed] )
 		php_targets_php8-3? ( dev-lang/php:8.3[embed] )
+		php_targets_php8-4? ( dev-lang/php:8.4[embed] )
 	)
 	python? ( ${PYTHON_DEPS} )
 	python-asyncio? ( virtual/python-greenlet[${PYTHON_USEDEP}] )
