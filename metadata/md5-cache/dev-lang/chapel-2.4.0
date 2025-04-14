@@ -12,5 +12,5 @@ REQUIRED_USE=^^ ( llvm_slot_17 llvm_slot_18 llvm_slot_19 )
 RESTRICT=strip test? ( network-sandbox ) !test? ( test ) mirror
 SLOT=0
 SRC_URI=https://github.com/chapel-lang/chapel/releases/download/2.4.0/chapel-2.4.0.tar.gz
-_eclasses_=llvm-utils	846280a994c1843d9c21248c188bd147	llvm-r1	0bd586d3786517cd63802a520b404dda	multiprocessing	1e32df7deee68372153dca65f4a7c21f	toolchain-funcs	6afdb6107430c1832ca7e16aacbf8fa1	multilib	b2a329026f2e404e9e371097dda47f96	python-utils-r1	0ce52f3000cc5d5586888153a0c18d0b	python-any-r1	a3e9c0524a795d7f2767a2cf12a2e8c0
+_eclasses_=llvm-utils	846280a994c1843d9c21248c188bd147	llvm-r1	0bd586d3786517cd63802a520b404dda	multiprocessing	1e32df7deee68372153dca65f4a7c21f	toolchain-funcs	f9d71a6efe9d083aec750dd13968e169	python-utils-r1	0ce52f3000cc5d5586888153a0c18d0b	python-any-r1	a3e9c0524a795d7f2767a2cf12a2e8c0
 _md5_=61c0163a9cdad008e852a78846261f32

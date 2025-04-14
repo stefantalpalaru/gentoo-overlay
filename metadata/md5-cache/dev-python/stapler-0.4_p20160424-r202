@@ -12,5 +12,5 @@ RDEPEND=dev-python/pypdf2:python2[python_targets_python2_7(-)?] dev-python/more-
 REQUIRED_USE=|| ( python_targets_python2_7 )
 SLOT=python2
 SRC_URI=https://github.com/hellerbarde/stapler/archive/7c153e6a8f52573ff886ebf0786b64e17699443a.tar.gz -> stapler-0.4_p20160424.gh.tar.gz
-_eclasses_=out-of-source-utils	dbf9e34ee8964084651e25907fa8f52c	multibuild	4650a65187015567b4e041bb9bfdb364	multiprocessing	1e32df7deee68372153dca65f4a7c21f	toolchain-funcs	6afdb6107430c1832ca7e16aacbf8fa1	multilib	b2a329026f2e404e9e371097dda47f96	python-utils-r1	0ce52f3000cc5d5586888153a0c18d0b	python-r1	2d51fd03931e743811ce30d198e4dcfd	distutils-r1	e58d3ed262e4b32d6d1966bd66e941cc	vcs-snapshot	bd69bf57fd2c34e99964a03b1d968177
+_eclasses_=out-of-source-utils	dbf9e34ee8964084651e25907fa8f52c	multibuild	4650a65187015567b4e041bb9bfdb364	multiprocessing	1e32df7deee68372153dca65f4a7c21f	toolchain-funcs	f9d71a6efe9d083aec750dd13968e169	python-utils-r1	0ce52f3000cc5d5586888153a0c18d0b	python-r1	2d51fd03931e743811ce30d198e4dcfd	distutils-r1	e58d3ed262e4b32d6d1966bd66e941cc	vcs-snapshot	bd69bf57fd2c34e99964a03b1d968177
 _md5_=5aad220c1093cc91cf9dfcefed0f7c7b
