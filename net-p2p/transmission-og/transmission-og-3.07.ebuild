@@ -16,7 +16,7 @@ LICENSE="|| ( GPL-2 GPL-3 Transmission-OpenSSL-exception ) GPL-2 MIT"
 SLOT="0"
 KEYWORDS="~amd64 ~arm ~arm64 ~ppc ~ppc64 ~x86"
 IUSE="appindicator cli +daemon doc +gtk lightweight nls mbedtls qt5 static-libs systemd test"
-RESTRICT="!test? ( test )"
+RESTRICT="mirror !test? ( test )"
 REQUIRED_USE="appindicator? ( gtk )"
 
 ACCT_DEPEND="
