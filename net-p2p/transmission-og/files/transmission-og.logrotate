@@ -1,0 +1,6 @@
+/var/log/transmission-og/transmission-og.log {
+	su transmission transmission
+	missingok
+	copytruncate
+}
+

@@ -3,20 +3,19 @@
 
 EAPI=8
 
-inherit flag-o-matic systemd xdg-utils
+inherit flag-o-matic git-r3 systemd xdg-utils
 
 DESCRIPTION="Transmission 3.00 fork (BitTorrent client)"
 HOMEPAGE="https://github.com/stefantalpalaru/transmission-og"
-SRC_URI="https://github.com/stefantalpalaru/transmission-og/releases/download/${PV}/${P}.tar.xz"
+EGIT_REPO_URI="https://github.com/stefantalpalaru/transmission-og"
 
 # web/LICENSE is always GPL-2 whereas COPYING allows either GPL-2 or GPL-3 for the rest.
 # "Transmission-..." in licenses/ is for mentioning an OpenSSL linking exception.
 # MIT is in several libtransmission/ headers.
 LICENSE="|| ( GPL-2 GPL-3 Transmission-OpenSSL-exception ) GPL-2 MIT"
 SLOT="0"
-KEYWORDS="~amd64 ~arm ~arm64 ~ppc ~ppc64 ~x86"
 IUSE="appindicator cli +daemon doc +gtk lightweight nls mbedtls qt5 static-libs systemd test"
-RESTRICT="mirror !test? ( test )"
+RESTRICT="!test? ( test )"
 REQUIRED_USE="appindicator? ( gtk )"
 
 ACCT_DEPEND="
@@ -115,6 +114,11 @@ src_install() {
 	if use systemd; then
 		systemd_dounit daemon/transmission-og-daemon.service
 		systemd_install_serviced "${FILESDIR}"/transmission-og-daemon.service.conf
+	fi
+
+	if use daemon; then
+		insinto /etc/logrotate.d/
+		newins "${FILESDIR}/${PN}.logrotate" ${PN}
 	fi
 
 	insinto /usr/lib/sysctl.d
