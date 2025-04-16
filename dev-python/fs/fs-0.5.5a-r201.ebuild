@@ -1,24 +1,27 @@
-# Copyright 1999-2021 Gentoo Authors
+# Copyright 1999-2025 Gentoo Authors
 # Distributed under the terms of the GNU General Public License v2
 
-EAPI=7
+EAPI=8
 
 PYTHON_COMPAT=( python2_7 )
+MY_PV="${PV}1"
+MY_P="${PN}-${MY_PV}"
 
-inherit distutils-r1 eutils
+inherit distutils-r1 optfeature pypi
 
 DESCRIPTION="Filesystem abstraction layer"
 HOMEPAGE="
 	https://pypi.org/project/fs/
 	https://docs.pyfilesystem.org
 	https://www.willmcgugan.com/tag/fs/"
-MY_PV="${PV}1"
-MY_P="${PN}-${MY_PV}"
-SRC_URI="mirror://pypi/${MY_P:0:1}/${PN}/${MY_P}.tar.gz"
+SRC_URI="$(pypi_sdist_url "${PN}" "${MY_PV}")"
+S="${WORKDIR}/${MY_P}"
 LICENSE="BSD"
 SLOT="python2"
-KEYWORDS="~alpha ~amd64 ~arm ~hppa ~ia64 ~ppc ~ppc64 ~sparc ~x86 ~amd64-linux ~x86-linux"
+KEYWORDS="~alpha ~amd64 ~arm ~hppa ~ppc ~ppc64 ~sparc ~x86 ~amd64-linux ~x86-linux"
 IUSE="test"
+# Tries to access FUSE
+RESTRICT="mirror test"
 
 RDEPEND="
 	dev-python/dexml[${PYTHON_USEDEP}]
@@ -31,11 +34,6 @@ DEPEND="${RDEPEND}
 		dev-python/mako[${PYTHON_USEDEP}]
 		dev-python/nose[${PYTHON_USEDEP}]
 	)"
-
-# Tries to access FUSE
-RESTRICT=test
-
-S="${WORKDIR}/${MY_P}"
 
 python_prepare_all() {
 	sed -i \

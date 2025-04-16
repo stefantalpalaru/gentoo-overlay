@@ -1,4 +1,4 @@
-# Copyright 1999-2024 Gentoo Authors
+# Copyright 1999-2025 Gentoo Authors
 # Distributed under the terms of the GNU General Public License v2
 
 EAPI=8
@@ -14,7 +14,9 @@ HOMEPAGE="http://chaco.bst.rochester.edu:8080/statcomp/projects/RStatServer/fpco
 SRC_URI="https://downloads.sourceforge.net/rsoap/${P}.tar.gz"
 LICENSE="GPL-2"
 SLOT="0"
-KEYWORDS="alpha amd64 arm hppa ia64 ppc ppc64 s390 sparc x86 ~amd64-linux ~x86-linux ~ppc-macos ~x64-macos"
+KEYWORDS="alpha amd64 arm hppa ppc ppc64 s390 sparc x86 ~amd64-linux ~x86-linux ~ppc-macos ~x64-macos"
+RESTRICT="mirror"
+
 DOCS=( CHANGELOG README pep-0754.txt )
 
 python_test() {

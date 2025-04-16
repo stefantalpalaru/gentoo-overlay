@@ -1,7 +1,7 @@
-# Copyright 1999-2020 Gentoo Authors
+# Copyright 1999-2025 Gentoo Authors
 # Distributed under the terms of the GNU General Public License v2
 
-EAPI=7
+EAPI=8
 
 PYTHON_COMPAT=( python2_7 )
 
@@ -11,12 +11,13 @@ DESCRIPTION="DNS toolkit for Python"
 HOMEPAGE="http://www.dnspython.org/
 		https://github.com/rthalley/dnspython
 		https://pypi.org/project/dnspython/"
-SRC_URI="https://github.com/rthalley/dnspython/archive/v${PV}.tar.gz -> ${P}.tar.gz"
+SRC_URI="https://github.com/rthalley/dnspython/archive/v${PV}.tar.gz -> ${P}.gh.tar.gz"
 
 LICENSE="ISC"
 SLOT="python2"
-KEYWORDS="~alpha amd64 arm arm64 hppa ~ia64 ppc ppc64 ~s390 sparc x86 ~amd64-linux ~x86-linux ~ppc-macos ~x64-macos ~x86-solaris"
+KEYWORDS="~alpha amd64 arm arm64 hppa ppc ppc64 ~s390 sparc x86 ~amd64-linux ~x86-linux ~ppc-macos ~x64-macos"
 IUSE="examples"
+RESTRICT="mirror"
 
 RDEPEND="dev-python/pycryptodome[${PYTHON_USEDEP}]
 	>=dev-python/ecdsa-0.13[${PYTHON_USEDEP}]
