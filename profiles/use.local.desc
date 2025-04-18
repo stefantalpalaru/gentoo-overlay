@@ -270,6 +270,8 @@ media-gfx/ansel:lto - Enable link-time optimisations in the RawSpeed library
 media-gfx/ansel:midi - Support using MIDI input devices such as Behringer X-Touch Mini, Arturia Beatstep or Korg nanoKONTROL2, as input devices
 media-gfx/ansel:opencl - Enable opencl support
 media-gfx/ansel:tools - Install tools for generating base curves and noise profiles
+media-gfx/exiv2:bmff - Add support for the ISOBMFF format
+media-gfx/exiv2:webready - Support reading metadata over the internet
 media-gfx/fbcat:fbgrab - Install a 'fbgrab' wrapper script around fbcat that mimics media-gfx/fbgrab
 media-gfx/gmic:cli - Build the CLI interface
 media-gfx/gmic:gimp - Build the Qt5 GIMP plugin
@@ -283,6 +285,9 @@ media-libs/libavif:gdk-pixbuf - Build a gdk-pixbuf loader
 media-libs/libavif:libyuv - Enable fast YUV conversion via libyuv
 media-libs/libavif:rav1e - Enable support for the rav1e codec encoding
 media-libs/libavif:svt-av1 - Enable support for the SVT-AV1 encoder
+media-libs/libextractor:archive - Enable archive support using app-arch/libarchive
+media-libs/libextractor:gsf - Enable OLE2 (MS Office) plug-in support using gnome-extra/libgsf
+media-libs/libextractor:midi - Enable MIDI support through media-libs/libsmf
 media-libs/libheif:aom - Use media-libs/libaom for AVIF encoding/decoding
 media-libs/libheif:dav1d - Use media-libs/dav1d for AVIF decoding
 media-libs/libheif:ffmpeg - Use media-video/ffmpeg for HEIC decoding

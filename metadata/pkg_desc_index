@@ -267,94 +267,94 @@ dev-python/hcluster 0.2.0-r4: Python hierarchical clustering package for Scipy
 dev-python/hcs-utils 2.0-r2: A library containing some useful snippets
 dev-python/healpy 1.13.0-r4: Python wrapper for healpix
 dev-python/heapdict 1.0.0-r5: Heap with decrease-key and increase-key operations
-dev-python/hgdistver 0.25-r2: utility lib to generate python package version infos from mercurial tags
+dev-python/hgdistver 0.25-r3: utility lib to generate python package version infos from mercurial tags
 dev-python/hiredis 1.0.1-r201: Python extension that wraps hiredis
 dev-python/hkdf 20150724-r201: Python implementation of HKDF
 dev-python/hp3parclient 3.0.0-r2: A python interface to sendfile(2) system call
-dev-python/hpack 3.0.0-r3: Pure-Python HPACK header compression
-dev-python/html5lib 1.1-r200: HTML parser based on the HTML5 specification
+dev-python/hpack 3.0.0-r4: Pure-Python HPACK header compression
+dev-python/html5lib 1.1-r201: HTML parser based on the HTML5 specification
 dev-python/htmlgen 2.2.2-r202: HTMLgen - Python modules for the generation of HTML documents
-dev-python/http-parser 0.8.3-r200: HTTP request/response parser for python in C
-dev-python/httpbin 0.7.0-r200: HTTP Request and Response Service
-dev-python/httplib2 0.18.1-r3: A comprehensive HTTP client library
+dev-python/http-parser 0.8.3-r201: HTTP request/response parser for python in C
+dev-python/httpbin 0.7.0-r201: HTTP Request and Response Service
+dev-python/httplib2 0.18.1-r4: A comprehensive HTTP client library
 dev-python/humanize 1.0.0-r201: Common humanization utilities
 dev-python/hyperframe 5.2.0-r4: HTTP/2 framing layer for Python
 dev-python/hyperlink 20.0.1-r3: A featureful, correct URL for Python
-dev-python/hypothesis 4.57.1-r200: A library for property based testing
+dev-python/hypothesis 4.57.1-r201: A library for property based testing
 dev-python/idna 2.10-r201: Internationalized Domain Names in Applications (IDNA)
 dev-python/imagesize 1.1.0-r4: Getting image size from png/jpeg/jpeg2000/gif file
 dev-python/imexam 0.8.1-r3: Simple interactive astronomical image examination and plotting
 dev-python/importlib-metadata 1.7.0-r201: Read metadata from Python packages
 dev-python/importlib-resources 3.0.0-r201: Read resources from Python packages
-dev-python/incremental 17.5.0-r200: Incremental is a small library that versions your Python projects
+dev-python/incremental 17.5.0-r201: Incremental is a small library that versions your Python projects
 dev-python/inotifyx 0.2.2-r2: Python bindings to the Linux inotify file system event monitoring API
 dev-python/invoke 1.4.1-r3: Pythonic task execution
 dev-python/ip-associations-python-novaclient-ext 0.2-r201: Disk Config extension for python-novaclient
 dev-python/ipaddr 2.2.0-r201: Python IP address manipulation library
-dev-python/ipaddress 1.0.23-r1: IPv4/IPv6 manipulation library, backport of the ipaddress module
+dev-python/ipaddress 1.0.23-r2: IPv4/IPv6 manipulation library, backport of the ipaddress module
 dev-python/ipykernel 4.10.0-r201: IPython Kernel for Jupyter
 dev-python/ipyparallel 6.2.4-r201: Interactive Parallel Computing with IPython
 dev-python/ipython 5.9.0-r201: Advanced interactive shell for Python
 dev-python/ipython-genutils 0.2.0-r201: Vestigial utilities from IPython
 dev-python/ipywidgets 7.4.2-r201: IPython HTML widgets for Jupyter
-dev-python/iso8601 0.1.13-r200: Simple module to parse ISO 8601 dates
-dev-python/isort 4.3.21_p2-r200: A python utility/library to sort imports
-dev-python/itsdangerous 1.1.0-r200: Various helpers to pass trusted data to untrusted environments and back
+dev-python/iso8601 0.1.13-r201: Simple module to parse ISO 8601 dates
+dev-python/isort 4.3.21_p2-r201: A python utility/library to sort imports
+dev-python/itsdangerous 1.1.0-r201: Various helpers to pass trusted data to untrusted environments and back
 dev-python/jaraco-packaging 6.2-r201: Tools to supplement packaging Python releases
-dev-python/jaxml 3.02-r200: XML generator written in Python
-dev-python/jdcal 1.4.1-r3: Julian dates from proleptic Gregorian and Julian calendars
+dev-python/jaxml 3.02-r201: XML generator written in Python
+dev-python/jdcal 1.4.1-r4: Julian dates from proleptic Gregorian and Julian calendars
 dev-python/jedi 0.17.2-r202: Autocompletion library for Python
 dev-python/jinja2 2.11.2-r201: A full-featured template engine for Python
-dev-python/jmespath 0.9.3-r200: JSON Matching Expressions
-dev-python/joblib 0.14.1-r200: Tools to provide lightweight pipelining in Python
-dev-python/jonpy 0.13-r200: CGI/FastCGI/mod_python/html-templating facilities
-dev-python/josepy 1.3.0-r200: JOSE protocol implementation in Python
+dev-python/jmespath 0.9.3-r201: JSON Matching Expressions
+dev-python/joblib 0.14.1-r201: Tools to provide lightweight pipelining in Python
+dev-python/jonpy 0.13-r201: CGI/FastCGI/mod_python/html-templating facilities
+dev-python/josepy 1.3.0-r201: JOSE protocol implementation in Python
 dev-python/jplephem 2.6-r2: Python version of NASA DE4xx ephemerides for Astronomical Alamanac
-dev-python/jsondiff 1.2.0-r200: Diff JSON and JSON-like structures in Python
-dev-python/jsonpatch 1.25-r200: Apply JSON-Patches like http://tools.ietf.org/html/draft-pbryan-json-patch-04
-dev-python/jsonpickle 1.3-r200: Python library for serializing any arbitrary object graph into JSON
-dev-python/jsonpointer 2.0-r200: Identify specific nodes in a JSON document (according to draft 08)
+dev-python/jsondiff 1.2.0-r201: Diff JSON and JSON-like structures in Python
+dev-python/jsonpatch 1.25-r201: Apply JSON-Patches like http://tools.ietf.org/html/draft-pbryan-json-patch-04
+dev-python/jsonpickle 1.3-r201: Python library for serializing any arbitrary object graph into JSON
+dev-python/jsonpointer 2.0-r201: Identify specific nodes in a JSON document (according to draft 08)
 dev-python/jsonschema 3.2.0-r201: An implementation of JSON-Schema validation for Python
 dev-python/jupyter-client 5.3.4-r201: Jupyter protocol implementation and client libraries
 dev-python/jupyter-core 4.6.3-r201: Core common functionality of Jupyter projects
 dev-python/kerberos 1.3.1-r201: A high-level Python wrapper for Kerberos/GSSAPI operations
 dev-python/key-mon 1.20_p20240509: screencast utility that displays your keyboard and mouse status
-dev-python/keyczar 0.715-r200: Toolkit for safe and simple cryptography
+dev-python/keyczar 0.715-r201: Toolkit for safe and simple cryptography
 dev-python/keyring 18.0.1-r4: Provides access to the system keyring service
 dev-python/keyrings-alt 2.4-r201: Alternate keyring implementations
 dev-python/keystoneauth1 3.18.0-r201: This package contains tools for authenticating to an OpenStack-based cloud.
-dev-python/kiwisolver 1.1.0-r200: An efficient C++ implementation of the Cassowary constraint solving algorithm
+dev-python/kiwisolver 1.1.0-r201: An efficient C++ implementation of the Cassowary constraint solving algorithm
 dev-python/kombu 3.0.37-r202: AMQP Messaging Framework for Python
 dev-python/lazy-object-proxy 1.4.3-r201: A fast and thorough lazy object proxy
-dev-python/libextractor-python 0.6-r2: A library used to extract metadata from files of arbitrary type
-dev-python/libiscsi-python 0_pre160211-r1: Python bindings for libiscsi
-dev-python/libnatpmp 20150609-r1: Python module for libnatpmp, an alternative protocol to UPnP IGD
-dev-python/librharris 0.1.14-r2: Python Internet Programming Library
+dev-python/libextractor-python 0.6-r3: A library used to extract metadata from files of arbitrary type
+dev-python/libiscsi-python 0_pre160211-r2: Python bindings for libiscsi
+dev-python/libnatpmp 20150609-r2: Python module for libnatpmp, an alternative protocol to UPnP IGD
+dev-python/librharris 0.1.14-r3: Python Internet Programming Library
 dev-python/linecache2 1.0.0-r200: Backports of the linecache module
-dev-python/linode_api4 2.0.0-r1: The official python SDK for Linode API v4
-dev-python/lmdb 0.92-r200: Python bindings for the Lightning Database
-dev-python/locket 0.2.0-r200: File-based locks for Python
+dev-python/linode_api4 2.0.0-r2: The official python SDK for Linode API v4
+dev-python/lmdb 0.92-r201: Python bindings for the Lightning Database
+dev-python/locket 0.2.0-r201: File-based locks for Python
 dev-python/lockfile 0.12.2-r200: Platform-independent file locking module
-dev-python/log4py 1.3-r4: A python logging module similar to log4j
-dev-python/louie 1.1-r2: Signal dispatching mechanism for Python
+dev-python/log4py 1.3-r5: A python logging module similar to log4j
+dev-python/louie 1.1-r3: Signal dispatching mechanism for Python
 dev-python/lp_solve 5.5.2.0-r5: Python wrappers for lpsolve linear programming library
-dev-python/lupy 0.2.1-r4: Lupy is a is a full-text indexer and search engine written in Python
+dev-python/lupy 0.2.1-r5: Lupy is a is a full-text indexer and search engine written in Python
 dev-python/lxml 4.5.2-r201: A Pythonic binding for the libxml2 and libxslt libraries
 dev-python/lz4 2.2.1-r201: LZ4 Bindings for Python
-dev-python/m2crypto 0.35.2-r200: A Python crypto and SSL toolkit
+dev-python/m2crypto 0.35.2-r201: A Python crypto and SSL toolkit
 dev-python/m2r 0.2.1-r200: Markdown to reStructuredText converter
-dev-python/m2secret 0.1.1-r200: Encryption and decryption module and CLI utility
+dev-python/m2secret 0.1.1-r201: Encryption and decryption module and CLI utility
 dev-python/mako 1.1.3-r200: A Python templating language
 dev-python/markdown 3.1.1-r200: Python implementation of the markdown markup language
 dev-python/markupsafe 1.1.1-r200: Implements a XML/HTML/XHTML Markup safe string for Python
 dev-python/matplotlib 2.2.5-r102: Pure python plotting library with matlab like syntax (py2 version)
 dev-python/mccabe 0.6.1-r200: flake8 plugin: McCabe complexity checker
-dev-python/messaging 0.5.12_p20151120-r200: SMS/MMS encoder/decoder
+dev-python/messaging 0.5.12_p20151120-r201: SMS/MMS encoder/decoder
 dev-python/mistune 0.8.4-r200: The fastest markdown parser in pure Python
 dev-python/mock 3.0.5-r200: Rolling backport of unittest.mock for all Pythons
-dev-python/mocker 1.1.1-r3: Platform for Python test doubles: mocks, stubs, fakes, and dummies
+dev-python/mocker 1.1.1-r4: Platform for Python test doubles: mocks, stubs, fakes, and dummies
 dev-python/monotonic 1.5-r200: An implementation of time.monotonic() for Python 2 & < 3.3
-dev-python/montage-wrapper 0.9.9-r1: Python wrapper for the Montage mosaicking toolkit
+dev-python/montage-wrapper 0.9.9-r2: Python wrapper for the Montage mosaicking toolkit
 dev-python/more-itertools 5.0.0-r201: More routines for operating on iterables, beyond itertools
 dev-python/moto 1.3.14-r201: Mock library for boto
 dev-python/mox3 0.28.0-r201: Mock object framework for Python
@@ -838,6 +838,7 @@ media-fonts/ipamonafont 1.0.8-r1: Hacked version of IPA fonts, which is suitable
 media-gfx/GTS 2.5.1: scanning tool developed by Studio Ghibli
 media-gfx/ansel 4.0.0_pre20241219 9999-r4: Darktable 4.0 fork
 media-gfx/displaycal 3.8.9.3-r5: Display calibration and characterization powered by Argyll CMS
+media-gfx/exiv2 0.27.6-r1: EXIF, IPTC and XMP metadata C++ library and command line utility
 media-gfx/fbcat 0.5.2: utility that takes a screenshot using the framebuffer device
 media-gfx/gifsicle 9999-r2: Create, manipulate, and optimize GIF images and animations
 media-gfx/gmic 3.5.0-r101 3.5.2-r100: GREYC's Magic Image Converter
@@ -848,6 +849,7 @@ media-libs/cimg 3.5.0-r100 3.5.2-r100: C++ template image processing toolkit
 media-libs/hydrogen-drumkits 1.2.3-r1: free drumkits for hydrogen
 media-libs/jasper 2.0.33-r2 3.0.6-r2 4.2.5 9999-r4: Implementation of the codec specified in the JPEG-2000 Part-1 standard
 media-libs/libavif 1.2.1-r1: Library for encoding and decoding .avif files
+media-libs/libextractor 1.9-r6: Library to extract metadata from files of arbitrary type
 media-libs/libheif 1.19.7-r1: ISO/IEC 23008-12:2017 HEIF and AVIF file format decoder and encoder
 media-libs/libmysofa 1.3.3: Reader for AES SOFA files to get better HRTFs
 media-libs/libspatialaudio 0.3.0-r3: Ambisonic encoding / decoding and binauralization library in C++
@@ -883,6 +885,7 @@ media-video/subliminal 2.2.1 9999-r11: Python library to search and download sub
 media-video/vobsub2srt 1.0_pre20171219-r2: Converts VobSub subtitles (.sub/.idx) to .srt text subtitles using tesseract
 net-analyzer/namebench 1.3.1-r5: DNS Benchmark Utility
 net-fs/tahoe-lafs 1.13.0-r1: Secure, decentralized, data store
+net-libs/libnatpmp 20150609-r1: An alternative protocol to UPnP IGD specification
 net-libs/libtorrent-rasterbar 1.2.19-r1: C++ BitTorrent implementation focusing on efficiency and scalability
 net-libs/libutp 20180515-r1: uTorrent Transport Protocol library
 net-libs/liquid-dsp 1.7.0-r100 9999-r5: digital signal processing library for software-defined radios

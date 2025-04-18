@@ -1,0 +1,17 @@
+BDEPEND=python_targets_python2_7? ( dev-lang/python:2.7 ) >=dev-vcs/git-1.8.2.1[curl]
+DEFINED_PHASES=compile configure install prepare test unpack
+DEPEND=dev-python/setuptools:python2[python_targets_python2_7(-)?] !<dev-python/messaging-0.5.12_p20151120-r200[python_targets_python2_7(-)?] test? ( dev-python/nose[python_targets_python2_7(-)?] )
+DESCRIPTION=SMS/MMS encoder/decoder
+EAPI=8
+HOMEPAGE=https://github.com/pmarti/python-messaging
+INHERIT=distutils-r1 git-r3
+IUSE=test python_targets_python2_7
+KEYWORDS=~amd64 ~x86
+LICENSE=GPL-2
+PROPERTIES=live
+RDEPEND=dev-python/setuptools:python2[python_targets_python2_7(-)?] !<dev-python/messaging-0.5.12_p20151120-r200[python_targets_python2_7(-)?] python_targets_python2_7? ( dev-lang/python:2.7 )
+REQUIRED_USE=|| ( python_targets_python2_7 )
+RESTRICT=mirror !test? ( test )
+SLOT=python2
+_eclasses_=out-of-source-utils	dbf9e34ee8964084651e25907fa8f52c	multibuild	4650a65187015567b4e041bb9bfdb364	multiprocessing	1e32df7deee68372153dca65f4a7c21f	toolchain-funcs	f9d71a6efe9d083aec750dd13968e169	python-utils-r1	0ce52f3000cc5d5586888153a0c18d0b	python-r1	2d51fd03931e743811ce30d198e4dcfd	distutils-r1	e58d3ed262e4b32d6d1966bd66e941cc	git-r3	875eb471682d3e1f18da124be97dcc81
+_md5_=b497449c2b6389ef79d2769689e0e8ea
