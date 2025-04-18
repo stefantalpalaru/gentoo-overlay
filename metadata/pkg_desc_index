@@ -100,7 +100,7 @@ dev-python/babelfish 0.5.5-r201: Python library to work with countries and langu
 dev-python/backports 1.0-r5: Namespace for backported Python features
 dev-python/backports-abc 0.5-r2: Backport of Python 3.5's 'collections.abc' module
 dev-python/backports-functools-lru-cache 1.6.1-r3: Backport of functools.lru_cache from Python 3.3
-dev-python/backports-shutil_get_terminal_size 1.0.0-r4: A backport of the get_terminal_size function from Python 3.3's shutil
+dev-python/backports-shutil_get_terminal_size 1.0.0-r5: A backport of the get_terminal_size function from Python 3.3's shutil
 dev-python/backports-ssl-match-hostname 3.5.0.1-r4: Backport of the ssl.match_hostname function
 dev-python/backports-tempfile 1.0-r201: Backport of new features in Python's tempfile module
 dev-python/backports-weakref 1.0_p1-r4: Backport of new features in Python's weakref module
@@ -209,34 +209,34 @@ dev-python/feedparser 5.2.1-r201: Parse RSS and Atom feeds in Python
 dev-python/fields 5.0.0-r6: Container class boilerplate killer
 dev-python/filelock 3.0.12-r201: A platform independent file lock for Python
 dev-python/fitsio 0.9.11-r201: Python library to read from and write to FITS files
-dev-python/fixtures 3.0.0-r200: Fixtures, reusable state for writing clean tests and more
-dev-python/flake8 3.7.9-r3: A wrapper around PyFlakes, pep8 & mccabe
-dev-python/flaky 3.6.1-r2: Plugin for nose or py.test that automatically reruns flaky tests
+dev-python/fixtures 3.0.0-r201: Fixtures, reusable state for writing clean tests and more
+dev-python/flake8 3.7.9-r4: A wrapper around PyFlakes, pep8 & mccabe
+dev-python/flaky 3.6.1-r3: Plugin for nose or py.test that automatically reruns flaky tests
 dev-python/flask 1.1.2-r201: A microframework based on Werkzeug, Jinja2 and good intentions
 dev-python/flask-babel 1.0.0-r3: i18n and l10n support for Flask based on Babel and pytz
 dev-python/flask-dashed 0.1b_p2-r201: Admin app framework for flask
 dev-python/flask-evolution 0.6-r201: Simple migrations for Flask/SQLAlchemy projects
 dev-python/flask-script 2.0.6-r4: Flask support for writing external scripts
 dev-python/flask-sphinx-themes 1.0.2-r4: Sphinx Themes for Flask related projects and Flask itself
-dev-python/flask-sqlalchemy 2.4.1-r4: SQLAlchemy support for Flask applications
+dev-python/flask-sqlalchemy 2.4.1-r5: SQLAlchemy support for Flask applications
 dev-python/flask-wtf 0.14.2-r201: Simple integration of Flask and WTForms
 dev-python/flup 1.0.2-r4: Random assortment of WSGI servers
 dev-python/foolscap 0.13.1-r201: RPC protocol for Twisted
 dev-python/fpconst 0.7.3-r4: Python Module for handling IEEE 754 floating point special values
-dev-python/freezegun 0.3.15-r200: Let your Python tests travel through time
+dev-python/freezegun 0.3.15-r201: Let your Python tests travel through time
 dev-python/fs 0.5.5a-r201: Filesystem abstraction layer
 dev-python/funcsigs 1.0.2-r4: Python function signatures backport from PEP362 for Python 2.7
 dev-python/functest 0.8.8-r3: Functest is a test tool/framework for testing in Python
 dev-python/functools32 3.2.3-r2: Backport of the functools module from Python 3
-dev-python/future 0.18.2-r3: Easy, clean, reliable Python 2/3 compatibility
-dev-python/futures 3.3.0: Backport of the concurrent.futures package from Python 3.2
+dev-python/future 0.18.2-r4: Easy, clean, reliable Python 2/3 compatibility
+dev-python/futures 3.3.0-r1: Backport of the concurrent.futures package from Python 3.2
 dev-python/gammapy 0.6-r201: Python package for gamma-ray astronomy
 dev-python/gdata 2.0.18-r2: Python client library for Google data APIs
 dev-python/gdmodule 0.56-r3: Python extensions for gd
 dev-python/genshi 0.7.3-r201: Python toolkit for stream-based generation of output for the web
-dev-python/genty 1.3.2-r200: Allows you to run a test with multiple data sets
-dev-python/gevent 20.9.0-r200: Coroutine-based network library
-dev-python/geventhttpclient 1.4.4-r3: A high performance, concurrent HTTP client library for Python using gevent
+dev-python/genty 1.3.2-r201: Allows you to run a test with multiple data sets
+dev-python/gevent 20.9.0-r201: Coroutine-based network library
+dev-python/geventhttpclient 1.4.4-r4: A high performance, concurrent HTTP client library for Python using gevent
 dev-python/ginga 2.7.2-r201: Astronomical image toolkit for Python
 dev-python/gitdb2 2.0.6-r202: GitDB is a pure-Python git object database
 dev-python/gitpython 2.1.15-r201: Library used to interact with Git repositories
@@ -244,59 +244,59 @@ dev-python/glue-vispy-viewers 0.7.2-r201: Vispy-based viewers for Glue
 dev-python/glueviz 0.10.4-r201: Python library to explore relationships within and among related datasets
 dev-python/glymur 0.8.10-r201: Python tools for accessing JPEG2000 files
 dev-python/gmpy2 2.0.8-r201: Python bindings for GMP, MPC and MPFR libraries
-dev-python/gnome-python-base 2.28.1-r3: Provides the base files for the gnome-python bindings
-dev-python/gnome-python-extras-base 2.25.3-r2: Provides python the base files for the Gnome Python Desktop bindings
+dev-python/gnome-python-base 2.28.1-r4: Provides the base files for the gnome-python bindings
+dev-python/gnome-python-extras-base 2.25.3-r3: Provides python the base files for the Gnome Python Desktop bindings
 dev-python/google-api-core 1.17.0-r5: Core Library for Google Client Libraries
 dev-python/google-api-python-client 1.8.4-r200: Google API Client for Python
-dev-python/google-auth 1.16.0-r201: Google Authentication Library
-dev-python/google-auth-httplib2 0.0.3-r200: httplib2 Transport for Google Auth
+dev-python/google-auth 1.16.0-r202: Google Authentication Library
+dev-python/google-auth-httplib2 0.0.3-r201: httplib2 Transport for Google Auth
 dev-python/googleapis-common-protos 1.51.0-r202: python classes generated from the common protos in the googleapis repository
-dev-python/graphy 1.0-r2: Simple Chart Library for Python
-dev-python/greenlet 0.4.17-r200: Lightweight in-process concurrent programming
+dev-python/graphy 1.0-r3: Simple Chart Library for Python
+dev-python/greenlet 0.4.17-r201: Lightweight in-process concurrent programming
 dev-python/grpcio 1.26.0-r201: High-performance RPC framework (python libraries)
-dev-python/gtkspell-python 2.25.3-r2: GtkSpell bindings for Python
-dev-python/guessit 3.1.0-r200: Python library for guessing information from video filenames
-dev-python/guppy 0.1.10-r2: Guppy-PE -- A Python Programming Environment
-dev-python/guzzle_sphinx_theme 0.7.11-r200: Sphinx theme used by Guzzle
-dev-python/gwcs 0.8.0: Python for managing the World Coordinate System
+dev-python/gtkspell-python 2.25.3-r3: GtkSpell bindings for Python
+dev-python/guessit 3.1.0-r201: Python library for guessing information from video filenames
+dev-python/guppy 0.1.10-r3: Guppy-PE -- A Python Programming Environment
+dev-python/guzzle_sphinx_theme 0.7.11-r201: Sphinx theme used by Guzzle
+dev-python/gwcs 0.8.0-r1: Python for managing the World Coordinate System
 dev-python/h2 3.2.0-r202: HTTP/2 State-Machine based protocol implementation
 dev-python/h5py 2.10.0-r202: Simple Python interface to HDF5 files
 dev-python/hacking 2.0.0-r201: A client for the OpenStack Nova API
-dev-python/happydoc 3.1-r5: Tool for extracting documentation from Python source code
+dev-python/happydoc 3.1-r6: Tool for extracting documentation from Python source code
 dev-python/hcluster 0.2.0-r4: Python hierarchical clustering package for Scipy
-dev-python/hcs-utils 2.0-r1: A library containing some useful snippets
+dev-python/hcs-utils 2.0-r2: A library containing some useful snippets
 dev-python/healpy 1.13.0-r4: Python wrapper for healpix
 dev-python/heapdict 1.0.0-r5: Heap with decrease-key and increase-key operations
 dev-python/hgdistver 0.25-r2: utility lib to generate python package version infos from mercurial tags
-dev-python/hiredis 1.0.1-r200: Python extension that wraps hiredis
-dev-python/hkdf 20150724-r200: Python implementation of HKDF
-dev-python/hp3parclient 3.0.0-r1: A python interface to sendfile(2) system call
+dev-python/hiredis 1.0.1-r201: Python extension that wraps hiredis
+dev-python/hkdf 20150724-r201: Python implementation of HKDF
+dev-python/hp3parclient 3.0.0-r2: A python interface to sendfile(2) system call
 dev-python/hpack 3.0.0-r3: Pure-Python HPACK header compression
 dev-python/html5lib 1.1-r200: HTML parser based on the HTML5 specification
-dev-python/htmlgen 2.2.2-r201: HTMLgen - Python modules for the generation of HTML documents
+dev-python/htmlgen 2.2.2-r202: HTMLgen - Python modules for the generation of HTML documents
 dev-python/http-parser 0.8.3-r200: HTTP request/response parser for python in C
 dev-python/httpbin 0.7.0-r200: HTTP Request and Response Service
 dev-python/httplib2 0.18.1-r3: A comprehensive HTTP client library
-dev-python/humanize 1.0.0-r200: Common humanization utilities
-dev-python/hyperframe 5.2.0-r3: HTTP/2 framing layer for Python
-dev-python/hyperlink 20.0.1-r2: A featureful, correct URL for Python
+dev-python/humanize 1.0.0-r201: Common humanization utilities
+dev-python/hyperframe 5.2.0-r4: HTTP/2 framing layer for Python
+dev-python/hyperlink 20.0.1-r3: A featureful, correct URL for Python
 dev-python/hypothesis 4.57.1-r200: A library for property based testing
-dev-python/idna 2.10-r200: Internationalized Domain Names in Applications (IDNA)
-dev-python/imagesize 1.1.0-r3: Getting image size from png/jpeg/jpeg2000/gif file
+dev-python/idna 2.10-r201: Internationalized Domain Names in Applications (IDNA)
+dev-python/imagesize 1.1.0-r4: Getting image size from png/jpeg/jpeg2000/gif file
 dev-python/imexam 0.8.1-r3: Simple interactive astronomical image examination and plotting
 dev-python/importlib-metadata 1.7.0-r201: Read metadata from Python packages
 dev-python/importlib-resources 3.0.0-r201: Read resources from Python packages
 dev-python/incremental 17.5.0-r200: Incremental is a small library that versions your Python projects
-dev-python/inotifyx 0.2.2-r1: Python bindings to the Linux inotify file system event monitoring API
-dev-python/invoke 1.4.1-r2: Pythonic task execution
-dev-python/ip-associations-python-novaclient-ext 0.2-r200: Disk Config extension for python-novaclient
-dev-python/ipaddr 2.2.0-r200: Python IP address manipulation library
+dev-python/inotifyx 0.2.2-r2: Python bindings to the Linux inotify file system event monitoring API
+dev-python/invoke 1.4.1-r3: Pythonic task execution
+dev-python/ip-associations-python-novaclient-ext 0.2-r201: Disk Config extension for python-novaclient
+dev-python/ipaddr 2.2.0-r201: Python IP address manipulation library
 dev-python/ipaddress 1.0.23-r1: IPv4/IPv6 manipulation library, backport of the ipaddress module
 dev-python/ipykernel 4.10.0-r201: IPython Kernel for Jupyter
 dev-python/ipyparallel 6.2.4-r201: Interactive Parallel Computing with IPython
 dev-python/ipython 5.9.0-r201: Advanced interactive shell for Python
 dev-python/ipython-genutils 0.2.0-r201: Vestigial utilities from IPython
-dev-python/ipywidgets 7.4.2-r200: IPython HTML widgets for Jupyter
+dev-python/ipywidgets 7.4.2-r201: IPython HTML widgets for Jupyter
 dev-python/iso8601 0.1.13-r200: Simple module to parse ISO 8601 dates
 dev-python/isort 4.3.21_p2-r200: A python utility/library to sort imports
 dev-python/itsdangerous 1.1.0-r200: Various helpers to pass trusted data to untrusted environments and back

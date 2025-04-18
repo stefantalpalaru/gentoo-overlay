@@ -1,0 +1,16 @@
+BDEPEND=doc? ( || ( ( dev-lang/python:2.7 >=dev-python/sphinx-4.5.0-r1[python_targets_python2_7(-)] dev-python/sphinx-bootstrap-theme[python_targets_python2_7(-)] ) ) ) python_targets_python2_7? ( dev-lang/python:2.7 ) >=dev-python/setuptools-42.0.2[python_targets_python2_7(-)?]
+DEFINED_PHASES=compile configure install prepare test
+DESCRIPTION=Easy, clean, reliable Python 2/3 compatibility
+EAPI=8
+HOMEPAGE=https://python-future.org/ https://github.com/PythonCharmers/python-future
+INHERIT=distutils-r1 pypi
+IUSE=doc doc python_targets_python2_7
+KEYWORDS=~alpha amd64 arm arm64 hppa ~mips ppc ppc64 s390 sparc x86 ~amd64-linux ~x86-linux
+LICENSE=MIT
+RDEPEND=!<dev-python/future-0.18.2-r3[python_targets_python2_7(-)?] python_targets_python2_7? ( dev-lang/python:2.7 ) >=dev-python/setuptools-42.0.2[python_targets_python2_7(-)?]
+REQUIRED_USE=|| ( python_targets_python2_7 )
+RESTRICT=mirror
+SLOT=python2
+SRC_URI=https://files.pythonhosted.org/packages/source/f/future/future-0.18.2.tar.gz
+_eclasses_=out-of-source-utils	dbf9e34ee8964084651e25907fa8f52c	multibuild	4650a65187015567b4e041bb9bfdb364	multiprocessing	1e32df7deee68372153dca65f4a7c21f	toolchain-funcs	f9d71a6efe9d083aec750dd13968e169	python-utils-r1	0ce52f3000cc5d5586888153a0c18d0b	python-r1	2d51fd03931e743811ce30d198e4dcfd	distutils-r1	e58d3ed262e4b32d6d1966bd66e941cc	pypi	ad1b21f87d117ae9bb089bdb65b8f013
+_md5_=c253a556ee010a800c4fe413ff565670

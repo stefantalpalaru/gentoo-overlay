@@ -5,9 +5,6 @@
     <email>sci-astronomy@gentoo.org</email>
     <name>Gentoo Astronomy Project</name>
   </maintainer>
-  <longdescription lang="en">
-    Plugin to view 3D in Glue visualization toolkit.
-  </longdescription>
   <upstream>
     <remote-id type="pypi">glue-vispy-viewers</remote-id>
     <remote-id type="github">glue-viz/glue-vispy-viewers</remote-id>
