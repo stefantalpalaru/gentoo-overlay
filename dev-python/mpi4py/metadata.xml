@@ -18,7 +18,6 @@
   </longdescription>
   <upstream>
     <remote-id type="google-code">mpi4py</remote-id>
-    <remote-id type="bitbucket">mpi4py</remote-id>
     <remote-id type="pypi">mpi4py</remote-id>
   </upstream>
 </pkgmetadata>
