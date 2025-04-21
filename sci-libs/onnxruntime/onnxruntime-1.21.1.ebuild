@@ -1,4 +1,4 @@
-# Copyright 2022-2024 Gentoo Authors
+# Copyright 2022-2025 Gentoo Authors
 # Distributed under the terms of the GNU General Public License v2
 
 EAPI=8
@@ -18,7 +18,7 @@ inherit cmake cuda distutils-r1 flag-o-matic llvm-r1 rocm toolchain-funcs
 DESCRIPTION="Cross-platform inference and training machine-learning accelerator."
 HOMEPAGE="https://onnxruntime.ai
 		https://github.com/microsoft/onnxruntime"
-SAFEINT_COMMIT=3.0.28a
+SAFEINT_COMMIT=3.0.28
 FLATBUFFERS_PV=23.5.26
 DATE_PV=3.0.1
 DLPACK_PV=0.6
@@ -29,12 +29,11 @@ SRC_URI="
 	https://github.com/HowardHinnant/date/archive/v${DATE_PV}.tar.gz -> hhdate-${DATE_PV}.tar.gz
 	https://github.com/dmlc/dlpack/archive/refs/tags/v${DLPACK_PV}.tar.gz -> dlpack-${DLPACK_PV}.tar.gz
 "
-
 LICENSE="MIT"
 SLOT="0/${PV}"
 KEYWORDS="~amd64"
 CPU_FLAGS="cpu_flags_x86_avx cpu_flags_x86_avx2 cpu_flags_x86_avx512f"
-IUSE="benchmark cuda onednn cudnn debug hip +python migraphx +mpi mimalloc lto test tensorrt llvm xnnpack
+IUSE="benchmark cuda onednn cudnn debug hip +python migraphx mimalloc lto test tensorrt llvm xnnpack
 ${CPU_FLAGS}
 ${CUDA_TARGETS_COMPAT[@]/#/cuda_targets_}
 ${AMDGPU_TARGETS_COMPAT[@]/#/amdgpu_targets_}"
@@ -91,7 +90,6 @@ BDEPEND="
 	)
 	sci-ml/onnx:=[disableStaticReg]
 	sci-ml/pytorch
-	sys-cluster/openmpi:=[cuda?]
 	xnnpack? ( sci-ml/XNNPACK )
 "
 
@@ -114,7 +112,6 @@ PATCHES=(
 	"${FILESDIR}/onnxruntime-1.19.0-eigen.patch"
 	"${FILESDIR}/onnxruntime-1.21.0-system-eigen.patch"
 	"${FILESDIR}/onnxruntime-1.20.0-cudnn_frontend.patch"
-	"${FILESDIR}/onnxruntime-1.21.0-gcc-14.patch"
 	"${FILESDIR}/onnxruntime-1.21.0-external-downloads.patch"
 )
 
@@ -192,7 +189,6 @@ src_configure() {
 		-Donnxruntime_BUILD_UNIT_TESTS=$(usex test)
 		-Donnxruntime_RUN_ONNX_TESTS=$(usex test)
 		-Donnxruntime_ENABLE_LAZY_TENSOR=OFF
-		-Donnxruntime_USE_MPI=$(usex mpi)
 		-Donnxruntime_USE_PREINSTALLED_EIGEN=ON
 		-Donnxruntime_USE_DNNL=$(usex onednn)
 		-Donnxruntime_USE_CUDA=$(usex cuda)
