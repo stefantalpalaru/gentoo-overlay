@@ -1,0 +1,17 @@
+BDEPEND=python_targets_python2_7? ( dev-lang/python:2.7 ) >=dev-python/setuptools-42.0.2[python_targets_python2_7(-)?]
+DEFINED_PHASES=compile configure install postinst postrm prepare test
+DEPEND=dev-python/twisted:python2[python_targets_python2_7(-)?] dev-python/zope-interface:python2[python_targets_python2_7(-)?] !<dev-python/nevow-0.14.3-r200[python_targets_python2_7(-)?] test? ( dev-lang/spidermonkey dev-python/python-subunit[python_targets_python2_7(-)?] )
+DESCRIPTION=A web templating framework that provides LivePage, an automatic AJAX toolkit
+EAPI=8
+HOMEPAGE=https://github.com/twisted/nevow https://pypi.org/project/Nevow/
+INHERIT=distutils-r1 twisted-r1 pypi
+IUSE=doc test python_targets_python2_7
+KEYWORDS=~alpha amd64 ppc ppc64 sparc x86 ~x86-linux
+LICENSE=MIT
+RDEPEND=dev-python/twisted:python2[python_targets_python2_7(-)?] dev-python/zope-interface:python2[python_targets_python2_7(-)?] !<dev-python/nevow-0.14.3-r200[python_targets_python2_7(-)?] python_targets_python2_7? ( dev-lang/python:2.7 )
+REQUIRED_USE=|| ( python_targets_python2_7 )
+RESTRICT=mirror !test? ( test )
+SLOT=python2
+SRC_URI=https://files.pythonhosted.org/packages/source/N/Nevow/Nevow-0.14.3.tar.gz
+_eclasses_=out-of-source-utils	dbf9e34ee8964084651e25907fa8f52c	multibuild	4650a65187015567b4e041bb9bfdb364	multiprocessing	1e32df7deee68372153dca65f4a7c21f	toolchain-funcs	f9d71a6efe9d083aec750dd13968e169	python-utils-r1	0ce52f3000cc5d5586888153a0c18d0b	python-r1	2d51fd03931e743811ce30d198e4dcfd	distutils-r1	e58d3ed262e4b32d6d1966bd66e941cc	twisted-r1	e85fc8deef4a83b8170d1c29bd16cbf1	pypi	ad1b21f87d117ae9bb089bdb65b8f013
+_md5_=56ebb6f6832e4be7954bdabfe150afcb
