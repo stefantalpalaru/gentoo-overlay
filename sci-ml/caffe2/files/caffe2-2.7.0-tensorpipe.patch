@@ -1,0 +1,11 @@
+diff '--color=auto' -ur pytorch-v2.7.0.orig/cmake/Dependencies.cmake pytorch-v2.7.0/cmake/Dependencies.cmake
+--- pytorch-v2.7.0.orig/cmake/Dependencies.cmake	2025-04-23 19:56:06.149911219 +0200
++++ pytorch-v2.7.0/cmake/Dependencies.cmake	2025-04-23 19:57:48.830144995 +0200
+@@ -1171,7 +1171,6 @@
+       message(WARNING "Archived TensorPipe forces CMake compatibility mode")
+       set(CMAKE_POLICY_VERSION_MINIMUM 3.5)
+     endif()
+-    add_subdirectory(${PROJECT_SOURCE_DIR}/third_party/tensorpipe)
+     if(CMAKE_VERSION VERSION_GREATER_EQUAL "4.0.0")
+       unset(CMAKE_POLICY_VERSION_MINIMUM)
+     endif()

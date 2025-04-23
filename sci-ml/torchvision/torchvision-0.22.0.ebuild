@@ -3,9 +3,10 @@
 
 EAPI=8
 
-PYTHON_COMPAT=( python3_{10..13} )
+PYTHON_COMPAT=( python3_{10..13} python3_13t )
 DISTUTILS_SINGLE_IMPL=1
 DISTUTILS_USE_PEP517=setuptools
+DISTUTILS_EXT=1
 
 inherit cuda distutils-r1
 
@@ -13,7 +14,6 @@ DESCRIPTION="Datasets, transforms and models to specific to computer vision"
 HOMEPAGE="https://github.com/pytorch/vision"
 SRC_URI="https://github.com/pytorch/vision/archive/v${PV}.tar.gz -> ${P}.tar.gz"
 S="${WORKDIR}/vision-${PV}"
-
 LICENSE="BSD"
 SLOT="0"
 KEYWORDS="~amd64"
