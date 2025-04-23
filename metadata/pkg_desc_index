@@ -406,7 +406,7 @@ dev-python/oslo-i18n 3.25.1-r201: Oslo i18n library
 dev-python/oslo-log 3.45.2-r201: OpenStack logging config library, configuration for all openstack projects.
 dev-python/oslo-serialization 2.29.2-r201: Oslo Serialization library
 dev-python/oslo-sphinx 4.18.0-r201: OpenStack Sphinx Extensions and Theme
-dev-python/oslo-utils 3.41.4-r200: Oslo Utility library
+dev-python/oslo-utils 3.41.4-r201: Oslo Utility library
 dev-python/oslotest 3.9.0-r201: Oslo test framework
 dev-python/osprofiler 2.9.0-r201: OpenStack Profiler Library
 dev-python/packaging 20.4-r203 25.0-r100: Core utilities for Python packages
@@ -424,81 +424,81 @@ dev-python/path 11.5.2-r201: A module wrapper for os.path
 dev-python/pathlib 1.0.1-r4: Object-oriented filesystem paths
 dev-python/pathlib2 2.3.5-r201: Fork of pathlib aiming to support the full stdlib Python API
 dev-python/patsy 0.5.1-r201: Python module to describe statistical models and design matrices
-dev-python/pbr 5.5.0-r200: Inject some useful and sensible default behaviors into setuptools
+dev-python/pbr 5.5.0-r201: Inject some useful and sensible default behaviors into setuptools
 dev-python/pep8 1.7.1-r201: Python style guide checker
-dev-python/pexpect 4.8.0-r200: Python module for spawning child apps and responding to expected patterns
+dev-python/pexpect 4.8.0-r201: Python module for spawning child apps and responding to expected patterns
 dev-python/pgmagick 0.7.5-r201: Yet another boost.python based wrapper for GraphicsMagick
 dev-python/photutils 0.4.1-r4: Python package for image astronomical photometry
 dev-python/pickleshare 0.7.5-r201: A small 'shelve' like datastore with concurrency support
 dev-python/piddle 1.0.15-r4: Cross-media, cross-platform 2D graphics package
 dev-python/pillow 6.1.0-r201: Python Imaging Library (fork)
-dev-python/pip 20.3.4-r200: Installs python packages -- replacement for easy_install
+dev-python/pip 20.3.4-r201: Installs python packages -- replacement for easy_install
 dev-python/pipfile 0.0.2-r201: Replacement for the existing standard pip's requirements.txt file
 dev-python/pkgconfig 1.5.2-r201: Interface Python with pkg-config
-dev-python/pkginfo 1.5.0.1-r200: Provides an API for querying the distutils metadata written in a PKG-INFO file
+dev-python/pkginfo 1.5.0.1-r201: Provides an API for querying the distutils metadata written in a PKG-INFO file
 dev-python/pkipplib 0.07-r201: Pkipplib is a Python module which parses IPP requests
 dev-python/pluggy 0.13.1-r201: plugin and hook calling mechanisms for python
-dev-python/ply 3.11-r200: Python Lex-Yacc library
+dev-python/ply 3.11-r201: Python Lex-Yacc library
 dev-python/pp 1.6.5-r1 1.6.6-r1: Parallel and distributed programming for Python
-dev-python/pretend 1.0.9-r200: A library for stubbing in Python
+dev-python/pretend 1.0.9-r201: A library for stubbing in Python
 dev-python/prettytable 0.7.2-r201: Easily displaying tabular data in a visually appealing ASCII table format
-dev-python/priority 1.3.0-r200: A pure-Python implementation of the HTTP/2 priority tree
+dev-python/priority 1.3.0-r201: A pure-Python implementation of the HTTP/2 priority tree
 dev-python/process-tests 2.1.1-r201: Tools for testing processes
 dev-python/prometheus-client 0.7.1-r201: Python client for the Prometheus monitoring system
 dev-python/prompt-toolkit 1.0.18-r4 2.0.10-r4: Building powerful interactive command lines in Python
 dev-python/protobuf 3.13.0-r202: Google's Protocol Buffers - Python bindings
-dev-python/psutil 5.7.2-r200: Retrieve information on running processes and system utilization
-dev-python/psycopg 2.8.6-r200: PostgreSQL database adapter for Python
-dev-python/ptyprocess 0.6.0-r200: Run a subprocess in a pseudo terminal
+dev-python/psutil 5.7.2-r201: Retrieve information on running processes and system utilization
+dev-python/psycopg 2.8.6-r201: PostgreSQL database adapter for Python
+dev-python/ptyprocess 0.6.0-r201: Run a subprocess in a pseudo terminal
 dev-python/py 1.9.0-r201: library with cross-python path, ini-parsing, io, code, log facilities
-dev-python/py-notify 0.3.1-r2: Tools for implementing the Observer programming pattern in Python
-dev-python/py-smbpasswd 1.0.2-r1: Module capable of generating both LANMAN and NT password hashes, for e.g. Samba
-dev-python/py-ubjson 0.16.1-r200: Universal Binary JSON encoder/decoder
-dev-python/pyamf 0.8.0-r200: Action Message Format (AMF) support for Python
+dev-python/py-notify 0.3.1-r3: Tools for implementing the Observer programming pattern in Python
+dev-python/py-smbpasswd 1.0.2-r2: Module capable of generating both LANMAN and NT password hashes, for e.g. Samba
+dev-python/py-ubjson 0.16.1-r201: Universal Binary JSON encoder/decoder
+dev-python/pyamf 0.8.0-r201: Action Message Format (AMF) support for Python
 dev-python/pyamg 4.0.0-r201: Algebraic multigrid solvers in Python
 dev-python/pyaml 19.12.0-r4: PyYAML-based module to produce pretty and readable YAML-serialized data
-dev-python/pyao 0.82-r5: Python bindings for the libao library
-dev-python/pyasn1 0.4.8-r200: ASN.1 library for Python
-dev-python/pyasn1-modules 0.2.8-r200: pyasn1 modules
-dev-python/pyavm 0.9.4-r1: Python module for Astronomy Visualization Metadata i/o
+dev-python/pyao 0.82-r6: Python bindings for the libao library
+dev-python/pyasn1 0.4.8-r201: ASN.1 library for Python
+dev-python/pyasn1-modules 0.2.8-r201: pyasn1 modules
+dev-python/pyavm 0.9.4-r2: Python module for Astronomy Visualization Metadata i/o
 dev-python/pybind11 2.4.3-r201: AST-based Python refactoring library
 dev-python/pycairo 1.18.2-r202: Python bindings for the cairo library
 dev-python/pycdf 0.6.3-r5: Python interface to scientific netCDF library
-dev-python/pychecker 0.8.19-r4: Python source code checking tool
-dev-python/pychef 0.2.3-r1: A Python API for interacting with a Chef server
+dev-python/pychecker 0.8.19-r5: Python source code checking tool
+dev-python/pychef 0.2.3-r2: A Python API for interacting with a Chef server
 dev-python/pycodestyle 2.5.0-r200 2.6.0-r200: Python style guide checker (fka pep8)
-dev-python/pycparser 2.20-r201: C parser and AST generator written in Python
-dev-python/pycrypto 2.6.1-r200: Python Cryptography Toolkit
-dev-python/pycryptodome 3.9.8-r200: A self-contained cryptographic library for Python
-dev-python/pycryptopp 0.7.1-r2: Python wrappers for a few algorithms from the Crypto++ library
+dev-python/pycparser 2.20-r202: C parser and AST generator written in Python
+dev-python/pycrypto 2.6.1-r201: Python Cryptography Toolkit
+dev-python/pycryptodome 3.9.8-r201: A self-contained cryptographic library for Python
+dev-python/pycryptopp 0.7.1-r3: Python wrappers for a few algorithms from the Crypto++ library
 dev-python/pycurl 7.43.0.4-r200: python binding for curl/libcurl
 dev-python/pycxx 7.1.3-r201: Set of facilities to extend Python with C++
 dev-python/pydl 0.7.0-r3: Library of IDL astronomy routines converted to Python
-dev-python/pydot 1.4.1-r200: Python interface to Graphviz's Dot language
-dev-python/pyenchant 2.0.0-r200: Python bindings for the Enchant spellchecking system
-dev-python/pyfakefs 3.7.2-r200: a fake file system that mocks the Python file system modules
+dev-python/pydot 1.4.1-r201: Python interface to Graphviz's Dot language
+dev-python/pyenchant 2.0.0-r201: Python bindings for the Enchant spellchecking system
+dev-python/pyfakefs 3.7.2-r201: a fake file system that mocks the Python file system modules
 dev-python/pyfits 3.5-r3: Provides an interface to FITS formatted files under python
 dev-python/pyflakes 2.1.1-r200 2.2.0-r200: Passive checker for Python programs
 dev-python/pyftpdlib 1.5.6-r201: Python FTP server library
 dev-python/pygame 1.9.6-r201: Python bindings for SDL multimedia library
-dev-python/pyglet 1.4.11-r2: Cross-platform windowing and multimedia library for Python
-dev-python/pygments 2.5.2-r200: Pygments is a syntax highlighting package written in Python
+dev-python/pyglet 1.4.11-r3: Cross-platform windowing and multimedia library for Python
+dev-python/pygments 2.5.2-r201: Pygments is a syntax highlighting package written in Python
 dev-python/pygobject 2.28.6-r59 3.36.1-r5: Python bindings for GObject Introspection
-dev-python/pygraphviz 1.5-r200: Python wrapper for the Graphviz Agraph data structure
-dev-python/pygresql 5.2.1-r200: A Python interface for the PostgreSQL database
+dev-python/pygraphviz 1.5-r201: Python wrapper for the Graphviz Agraph data structure
+dev-python/pygresql 5.2.1-r201: A Python interface for the PostgreSQL database
 dev-python/pygtk 2.24.0-r9: GTK+2 bindings for Python
 dev-python/pyhamcrest 1.10.1-r201: Hamcrest framework for matcher objects
-dev-python/pyifp 0.2.2-r3: Python bindings for libifp library for accessing iRiver iFP devices
+dev-python/pyifp 0.2.2-r4: Python bindings for libifp library for accessing iRiver iFP devices
 dev-python/pyinotify 0.9.6-r200: Python module used for monitoring filesystems events
-dev-python/pylibmc 1.6.1-r200: Libmemcached wrapper written as a Python extension
-dev-python/pylibpcap 0.6.4-r3: Python interface to libpcap
+dev-python/pylibmc 1.6.1-r201: Libmemcached wrapper written as a Python extension
+dev-python/pylibpcap 0.6.4-r4: Python interface to libpcap
 dev-python/pylint 1.9.5-r200: Python code static checker
 dev-python/pyml 0.7.13.3-r3: Python machine learning package
-dev-python/pymoc 0.5.0-r1: Python Multi-Order Coverage maps for Virtual Observatory
+dev-python/pymoc 0.5.0-r2: Python Multi-Order Coverage maps for Virtual Observatory
 dev-python/pymongo 3.11.2-r201: Python driver for MongoDB
 dev-python/pymysql 0.9.3-r200: Pure-Python MySQL Driver
 dev-python/pynacl 1.4.0-r200: Python binding to the Networking and Cryptography (NaCl) library
-dev-python/pynag 0.9.1-r1: Python modules for Nagios plugins and configuration
+dev-python/pynag 0.9.1-r2: Python modules for Nagios plugins and configuration
 dev-python/pyndex 0.3.2a-r3: Simple and fast Python full-text indexer using Metakit as its back-end
 dev-python/pyoembed 0.1.1-r2: Python library for oEmbed with auto-discovered and manually added providers
 dev-python/pyopencl 2019.1.2-r201: Python wrapper for OpenCL
@@ -733,6 +733,7 @@ dev-python/u-msgpack-python 2.7.0-r201: A portable, lightweight MessagePack seri
 dev-python/ujson 1.35-r200: Ultra fast JSON encoder and decoder for Python
 dev-python/unicodecsv 0.14.1-r200: Drop-in replacement for python stdlib csv module supporting unicode
 dev-python/unidecode 1.1.1-r200: Module providing ASCII transliterations of Unicode text
+dev-python/unittest-or-fail 2-r1: Run unittests or fail if no tests were found
 dev-python/unittest2 1.1.0-r200: The new features in unittest backported to Python 2.4+
 dev-python/uritemplate 3.0.1-r200: Python implementation of RFC6570, URI Template
 dev-python/urllib3 1.25.10-r201: HTTP library with thread-safe connection pooling, file post, and more

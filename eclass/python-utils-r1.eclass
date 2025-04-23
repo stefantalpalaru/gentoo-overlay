@@ -1,4 +1,4 @@
-# Copyright 1999-2024 Gentoo Authors
+# Copyright 1999-2025 Gentoo Authors
 # Distributed under the terms of the GNU General Public License v2
 
 # @ECLASS: python-utils-r1.eclass
@@ -229,7 +229,8 @@ _python_impl_matches() {
 					return 0
 				;;
 			3.8|3.9|3.1[1-3])
-				[[ ${impl%t} == python${pattern/./_} ]] && return 0
+				[[ ${impl%t} == python${pattern/./_} || ${impl} == pypy${pattern/./_} ]] &&
+					return 0
 				;;
 			*)
 				# unify value style to allow lax matching
@@ -300,12 +301,8 @@ _python_export() {
 	local impl var
 
 	case "${1}" in
-		python*|jython*|tauthon*)
+		python*|jython*|tauthon*|pypy|pypy3*)
 			impl=${1/_/.}
-			shift
-			;;
-		pypy|pypy3*)
-			impl=${1}
 			shift
 			;;
 		*)
@@ -450,10 +447,10 @@ _python_export() {
 				local d
 				case ${impl} in
 					python*)
-						PYTHON_PKG_DEP="dev-lang/python:${impl#python}"
+						PYTHON_PKG_DEP="dev-lang/python:${impl#python}${PYTHON_REQ_USE:+[${PYTHON_REQ_USE}]}"
 						;;
 					tauthon*)
-						PYTHON_PKG_DEP="dev-lang/tauthon:${impl#tauthon}"
+						PYTHON_PKG_DEP="dev-lang/tauthon:${impl#tauthon}${PYTHON_REQ_USE:+[${PYTHON_REQ_USE}]}"
 						;;
 					pypy)
 						PYTHON_PKG_DEP="dev-lang/python:${impl#python}${PYTHON_REQ_USE:+[${PYTHON_REQ_USE}]}"
@@ -461,17 +458,12 @@ _python_export() {
 					pypy3)
 						PYTHON_PKG_DEP="dev-lang/pypy:3.10=[symlink${PYTHON_REQ_USE:+,${PYTHON_REQ_USE}}]"
 						;;
-					pypy3*)
+					pypy3.*)
 						PYTHON_PKG_DEP="dev-lang/pypy:${impl#pypy}=${PYTHON_REQ_USE:+[${PYTHON_REQ_USE}]}"
 						;;
 					*)
 						die "Invalid implementation: ${impl}"
 				esac
-
-				# use-dep
-				if [[ ${PYTHON_REQ_USE} ]]; then
-					PYTHON_PKG_DEP+=[${PYTHON_REQ_USE}]
-				fi
 
 				export PYTHON_PKG_DEP
 				debug-print "${FUNCNAME}: PYTHON_PKG_DEP = ${PYTHON_PKG_DEP}"

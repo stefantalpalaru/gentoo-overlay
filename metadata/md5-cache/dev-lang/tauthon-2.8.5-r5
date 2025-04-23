@@ -12,5 +12,5 @@ RDEPEND=app-arch/bzip2:= dev-libs/libffi:= >=sys-libs/zlib-1.1.3:= virtual/libcr
 RESTRICT=!test? ( test ) network-sandbox mirror
 SLOT=2.8
 SRC_URI=https://github.com/naftaliharris/tauthon/archive/v2.8.5.tar.gz -> tauthon-2.8.5.tar.gz
-_eclasses_=gnuconfig	ddeb9f8caff1b5f71a09c75b7534df79	toolchain-funcs	f9d71a6efe9d083aec750dd13968e169	libtool	c81bd096be5f4c82f4e8f156ef112402	autotools	f20ecf7ab0a7c34e83238b3ed4aaf6d6	flag-o-matic	e8de74bac929ba17427e740e95707d00	pax-utils	5555f2e75744739fe100ee62c22d28fe	multiprocessing	1e32df7deee68372153dca65f4a7c21f	python-utils-r1	0ce52f3000cc5d5586888153a0c18d0b
+_eclasses_=gnuconfig	ddeb9f8caff1b5f71a09c75b7534df79	toolchain-funcs	f9d71a6efe9d083aec750dd13968e169	libtool	c81bd096be5f4c82f4e8f156ef112402	autotools	f20ecf7ab0a7c34e83238b3ed4aaf6d6	flag-o-matic	e8de74bac929ba17427e740e95707d00	pax-utils	5555f2e75744739fe100ee62c22d28fe	multiprocessing	1e32df7deee68372153dca65f4a7c21f	python-utils-r1	88eb06b8443067388061ece9164b09e6
 _md5_=4c020c0771bfe59438d3e7e021866af5

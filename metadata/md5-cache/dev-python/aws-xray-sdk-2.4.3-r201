@@ -1,4 +1,4 @@
-BDEPEND=python_targets_python2_7? ( dev-lang/python:2.7 ) >=dev-python/setuptools-42.0.2[python_targets_python2_7(-)?]
+BDEPEND=python_targets_python2_7? ( dev-lang/python:2.7 ) >=dev-python/setuptools-78.1.0[python_targets_python2_7(-)?]
 DEFINED_PHASES=compile configure install prepare test
 DEPEND=>=dev-python/botocore-1.11.3:python2[python_targets_python2_7(-)?] dev-python/future:python2[python_targets_python2_7(-)?] dev-python/jsonpickle:python2[python_targets_python2_7(-)?] dev-python/wrapt:python2[python_targets_python2_7(-)?] virtual/python-enum34[python_targets_python2_7(-)?] !<dev-python/aws-xray-sdk-2.4.3-r4[python_targets_python2_7(-)?] dev-python/setuptools[python_targets_python2_7(-)?]
 DESCRIPTION=AWS X-Ray SDK for Python
@@ -13,5 +13,5 @@ REQUIRED_USE=|| ( python_targets_python2_7 )
 RESTRICT=test
 SLOT=python2
 SRC_URI=https://files.pythonhosted.org/packages/source/a/aws-xray-sdk/aws-xray-sdk-2.4.3.tar.gz
-_eclasses_=out-of-source-utils	dbf9e34ee8964084651e25907fa8f52c	multibuild	4650a65187015567b4e041bb9bfdb364	multiprocessing	1e32df7deee68372153dca65f4a7c21f	toolchain-funcs	f9d71a6efe9d083aec750dd13968e169	python-utils-r1	0ce52f3000cc5d5586888153a0c18d0b	python-r1	2d51fd03931e743811ce30d198e4dcfd	distutils-r1	e58d3ed262e4b32d6d1966bd66e941cc	pypi	ad1b21f87d117ae9bb089bdb65b8f013
+_eclasses_=toolchain-funcs	f9d71a6efe9d083aec750dd13968e169	flag-o-matic	e8de74bac929ba17427e740e95707d00	out-of-source-utils	dbf9e34ee8964084651e25907fa8f52c	multibuild	4650a65187015567b4e041bb9bfdb364	multilib	b2a329026f2e404e9e371097dda47f96	multiprocessing	1e32df7deee68372153dca65f4a7c21f	ninja-utils	2df4e452cea39a9ec8fb543ce059f8d6	python-utils-r1	88eb06b8443067388061ece9164b09e6	python-r1	2d51fd03931e743811ce30d198e4dcfd	distutils-r1	ed60fe06012d326e6cdd021ffcd87654	pypi	ad1b21f87d117ae9bb089bdb65b8f013
 _md5_=a9400ab0c3ded82fd442b121dbc2aea3
