@@ -1,4 +1,4 @@
-# Copyright 1999-2024 Gentoo Authors
+# Copyright 1999-2025 Gentoo Authors
 # Distributed under the terms of the GNU General Public License v2
 
 EAPI=8
@@ -29,6 +29,15 @@ PATCHES=(
 	"${FILESDIR}"/valgrind-3.17.0-bextr.patch
 )
 
+QA_CONFIG_IMPL_DECL_SKIP+=(
+	# "checking if gcc accepts nested functions" but clang cannot handle good
+	# errors and reports both "function definition is not allowed here" and
+	# -Wimplicit-function-declaration. bug #900396
+	foo
+	# FreeBSD function, bug #932822
+	aio_readv
+)
+
 src_prepare() {
 	# Correct hard coded doc location
 	sed -i -e "s:doc/valgrind:doc/${PF}:" docs/Makefile.am || die
@@ -54,7 +63,10 @@ src_prepare() {
 src_configure() {
 	local myconf=(
 		$(use_enable lto)
+		--with-gdbscripts-dir="${EPREFIX}"/usr/share/gdb/auto-load
 	)
+
+	tc-is-lto && myconf+=( --enable-lto )
 
 	# Respect ar, bug #468114
 	tc-export AR
@@ -67,14 +79,16 @@ src_configure() {
 	#                          Note: -fstack-protector-explicit is a no-op for Valgrind, no need to strip it
 	# -fstack-protector-strong See -fstack-protector (bug #620402)
 	# -m64 -mx32			for multilib-portage, bug #398825
-	# -ggdb3                segmentation fault on startup
+	# -fharden-control-flow-redundancy: breaks runtime ('jump to the invalid address stated on the next line')
 	filter-flags -fomit-frame-pointer
 	filter-flags -fstack-protector
 	filter-flags -fstack-protector-all
 	filter-flags -fstack-protector-strong
 	filter-flags -m64 -mx32
 	filter-flags -fsanitize -fsanitize=*
-	replace-flags -ggdb3 -ggdb2
+	filter-flags -fharden-control-flow-redundancy
+	append-cflags $(test-flags-CC -fno-harden-control-flow-redundancy)
+	filter-lto
 
 	if use amd64 || use ppc64; then
 		! has_multilib_profile && myconf+=("--enable-only64bit")
@@ -89,6 +103,12 @@ src_configure() {
 	fi
 
 	econf "${myconf[@]}"
+}
+
+src_test() {
+	# fxsave.o, tronical.o have textrels
+	# -fno-strict-aliasing: https://bugs.kde.org/show_bug.cgi?id=486093
+	emake CFLAGS="${CFLAGS} -fno-strict-aliasing" LDFLAGS="${LDFLAGS} -Wl,-z,notext" check
 }
 
 src_install() {
