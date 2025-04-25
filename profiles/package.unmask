@@ -121,6 +121,7 @@ dev-python/pyndex
 dev-python/pyoembed
 dev-python/pyosd
 dev-python/pyptlib
+dev-python/pyqtwebengine
 dev-python/pyrax
 dev-python/pysctp
 dev-python/pystache
