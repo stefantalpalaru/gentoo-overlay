@@ -812,7 +812,7 @@ dev-qt/qtsvg 5.15.16: SVG rendering library for the Qt5 framework
 dev-qt/qttest 5.15.16: Unit testing library for the Qt5 framework
 dev-qt/qttranslations 5.15.16: Translation files for the Qt5 framework
 dev-qt/qtwebchannel 5.15.16: Qt5 module for integrating C++ and QML applications with HTML/JavaScript clients
-dev-qt/qtwebengine 5.15.16_p20241115: Library for rendering dynamic web content in Qt5 C++ and QML applications
+dev-qt/qtwebengine 5.15.16_p20241115-r1: Library for rendering dynamic web content in Qt5 C++ and QML applications
 dev-qt/qtwebkit 5.212.0_pre20240528-r1: WebKit rendering library for the Qt5 framework (deprecated)
 dev-qt/qtwebview 5.15.16: Module for displaying web content in a QML application using the Qt5 framework
 dev-qt/qtwidgets 5.15.16: Set of components for creating classic desktop-style UIs for the Qt5 framework

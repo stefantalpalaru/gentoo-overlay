@@ -1,0 +1,13 @@
+001-disable-fatal-warnings.patch	# downstream, bug 695446
+002-extra-gn.patch	# downstream, bug 774186
+003-chromium-87-v8-icu68.patch	# downstream, bug 757606
+004-disable-git.patch	# downstream snapshot fix
+005-pdfium-system-lcms2.patch	# by Debian, QTBUG-61746
+006-clang14.patch	# by FreeBSD, bug 836604
+007-gcc12-includes.patch	# by openSUSE, bug 840326
+008-jumbo-build.patch	# bug 813957
+009-port-to-pipewire-0.3.patch	# bug 698988, pipewire-3
+010-widevine.patch	# bug 888783
+011-clang16.patch	# bug 903573
+012-python3.12-dubious-imp.patch	# bug 925718, py3.12
+013-python3.12-fix-six.patch	# bug 925718, py3.12

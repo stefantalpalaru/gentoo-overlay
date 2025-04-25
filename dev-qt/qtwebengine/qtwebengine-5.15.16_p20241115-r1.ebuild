@@ -1,4 +1,4 @@
-# Copyright 1999-2024 Gentoo Authors
+# Copyright 1999-2025 Gentoo Authors
 # Distributed under the terms of the GNU General Public License v2
 
 EAPI=8
@@ -14,7 +14,7 @@ HOMEPAGE="https://www.qt.io/"
 if [[ ${QT5_BUILD_TYPE} == release ]]; then
 	KEYWORDS="amd64 arm64"
 	if [[ ${PV} == ${QT5_PV}_p* ]]; then
-		SRC_URI="https://dev.gentoo.org/~asturm/distfiles/${P}.tar.xz"
+		SRC_URI="https://github.com/stefantalpalaru/qtwebengine/archive/refs/tags/${PV}.tar.gz -> ${P}.gh.tar.gz"
 		S="${WORKDIR}/${P}"
 		QT5_BUILD_DIR="${S}_build"
 	fi
@@ -27,10 +27,9 @@ else
 	inherit git-r3
 fi
 
-SRC_URI+=" https://dev.gentoo.org/~asturm/distfiles/${PATCHSET}.tar.xz"
-
 IUSE="alsa bindist designer geolocation +jumbo-build kerberos pulseaudio screencast +system-icu widgets"
 REQUIRED_USE="designer? ( widgets )"
+RESTRICT="mirror"
 
 RDEPEND="
 	app-arch/snappy:=
@@ -99,7 +98,7 @@ BDEPEND="${PYTHON_DEPS}
 "
 
 PATCHES=(
-	"${WORKDIR}/${PATCHSET}"
+	"${FILESDIR}/${PATCHSET}"
 	"${FILESDIR}/${PN}-5.15.14_p20240510-re2.patch" # bug 913923
 	"${FILESDIR}/${PN}-5.15.14_p20240510-gcc15-cstdint.patch"
 	"${FILESDIR}/${PN}-5.15.14_p20240510-gcc15-template-id-cdtor.patch"
