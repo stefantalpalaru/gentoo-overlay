@@ -1,0 +1,119 @@
+From 777483ca8dccfcd033f5e3583f020685cc75e8e6 Mon Sep 17 00:00:00 2001
+From: Jens Jorgensen <jens@consiliumb.sg>
+Date: Wed, 17 Jan 2024 11:46:41 -0600
+Subject: [PATCH 1/2] update to work with certbot 2.8.0 (requires different
+ command-line args)
+
+---
+ README.md                        | 12 ++++++------
+ certbot_s3front/authenticator.py |  2 +-
+ certbot_s3front/installer.py     |  2 +-
+ docker-entrypoint.sh             |  2 +-
+ setup.py                         |  6 +++---
+ 5 files changed, 12 insertions(+), 12 deletions(-)
+
+diff --git a/README.md b/README.md
+index 95350fa..0350a3b 100644
+--- a/README.md
++++ b/README.md
+@@ -51,12 +51,12 @@ To generate a certificate and install it in a CloudFront distribution:
+ ```bash
+ AWS_ACCESS_KEY_ID="REPLACE_WITH_YOUR_KEY" \
+ AWS_SECRET_ACCESS_KEY="REPLACE_WITH_YOUR_SECRET" \
+-certbot --agree-tos -a certbot-s3front:auth \
+---certbot-s3front:auth-s3-bucket REPLACE_WITH_YOUR_BUCKET_NAME \
+-[ --certbot-s3front:auth-s3-region your-bucket-region-name ] #(the default is us-east-1, unless you want to set it to something else, you can delete this line) \
+-[ --certbot-s3front:auth-s3-directory your-bucket-directory ] # (default is "") \
+--i certbot-s3front:installer \
+---certbot-s3front:installer-cf-distribution-id REPLACE_WITH_YOUR_CF_DISTRIBUTION_ID \
++certbot --agree-tos -a s3front_auth \
++--s3front_auth-s3-bucket REPLACE_WITH_YOUR_BUCKET_NAME \
++[ --s3front_auth-s3-region your-bucket-region-name ] #(the default is us-east-1, unless you want to set it to something else, you can delete this line) \
++[ --s3front_auth-s3-directory your-bucket-directory ] # (default is "") \
++-i s3front_installer \
++--s3front_installer-cf-distribution-id REPLACE_WITH_YOUR_CF_DISTRIBUTION_ID \
+ -d REPLACE_WITH_YOUR_DOMAIN
+ ```
+ 
+diff --git a/certbot_s3front/authenticator.py b/certbot_s3front/authenticator.py
+index 69dec03..05444ff 100644
+--- a/certbot_s3front/authenticator.py
++++ b/certbot_s3front/authenticator.py
+@@ -20,7 +20,7 @@
+ 
+ @zope.interface.implementer(interfaces.IAuthenticator)
+ @zope.interface.provider(interfaces.IPluginFactory)
+-class Authenticator(common.Plugin):
++class Authenticator(common.Plugin, interfaces.Authenticator):
+     description = "S3/CloudFront Authenticator"
+ 
+     @classmethod
+diff --git a/certbot_s3front/installer.py b/certbot_s3front/installer.py
+index 405f01a..bb10fcc 100644
+--- a/certbot_s3front/installer.py
++++ b/certbot_s3front/installer.py
+@@ -21,7 +21,7 @@
+ 
+ @zope.interface.implementer(interfaces.IInstaller)
+ @zope.interface.provider(interfaces.IPluginFactory)
+-class Installer(common.Plugin):
++class Installer(common.Installer):
+     description = "S3/CloudFront Installer"
+ 
+     @classmethod
+diff --git a/docker-entrypoint.sh b/docker-entrypoint.sh
+index a0fc65e..45a63cb 100644
+--- a/docker-entrypoint.sh
++++ b/docker-entrypoint.sh
+@@ -1,3 +1,3 @@
+ #!/bin/sh
+ 
+-/usr/local/bin/certbot -n --init --agree-tos -a certbot-s3front:auth -i certbot-s3front:installer --certbot-s3front:auth-s3-bucket $AWS_S3_BUCKET --certbot-s3front:installer-cf-distribution-id $AWS_DISTRIBUTION_ID --email $EMAIL -d $DOMAIN
++/usr/local/bin/certbot -n --init --agree-tos -a s3front_auth -i s3front_installer --s3front_auth-s3-bucket $AWS_S3_BUCKET --s3front_installer-cf-distribution-id $AWS_DISTRIBUTION_ID --email $EMAIL -d $DOMAIN
+diff --git a/setup.py b/setup.py
+index 31a16c2..9e6d861 100644
+--- a/setup.py
++++ b/setup.py
+@@ -7,7 +7,7 @@
+ 
+ install_requires = [
+     'acme>=0.1.1',
+-    'certbot>=0.9.3',
++    'certbot>=2.8.0',
+     'PyOpenSSL',
+     'setuptools',  # pkg_resources
+     'zope.interface',
+@@ -55,8 +55,8 @@
+     keywords = ['certbot', 'cloudfront', 's3'],
+     entry_points={
+         'certbot.plugins': [
+-            'auth = certbot_s3front.authenticator:Authenticator',
+-            'installer = certbot_s3front.installer:Installer',
++            's3front_auth = certbot_s3front.authenticator:Authenticator',
++            's3front_installer = certbot_s3front.installer:Installer',
+         ],
+     },
+ )
+
+From 7e77a47df29edc10a0821c79b24af1fdf1fd394b Mon Sep 17 00:00:00 2001
+From: Jens Jorgensen <jbj1@ultraemail.net>
+Date: Thu, 14 Nov 2024 14:08:15 -0600
+Subject: [PATCH 2/2] bump version to 0.4.3
+
+---
+ setup.py | 2 +-
+ 1 file changed, 1 insertion(+), 1 deletion(-)
+
+diff --git a/setup.py b/setup.py
+index 9e6d861..76498b1 100644
+--- a/setup.py
++++ b/setup.py
+@@ -3,7 +3,7 @@
+ from distutils.core import setup
+ from setuptools import find_packages
+ 
+-version = '0.4.2'
++version = '0.4.3'
+ 
+ install_requires = [
+     'acme>=0.1.1',
