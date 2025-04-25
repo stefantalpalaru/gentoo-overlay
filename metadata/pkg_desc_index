@@ -879,7 +879,7 @@ media-sound/setbfree 0.8.11-r2 99999999-r3: MIDI controlled DSP tonewheel organ
 media-sound/tg 0.5.0-r2 9999-r2: a program for timing mechanical watches
 media-sound/yabridge-bin 5.1.1: A modern and transparent way to use Windows VST2, VST3 and CLAP plugins on Linux
 media-tv/dvb-firmware 1.4.0 9999-r3: DVB firmware from the LibreELEC project
-media-tv/w_scan2 1.0.16 9999-r3: Scan for DVB-C/DVB-T/DVB-S channels (w_scan fork)
+media-tv/w_scan2 1.0.17 9999-r3: Scan for DVB-C/DVB-T/DVB-S channels (w_scan fork)
 media-video/aegisub 3.4.2: Advanced subtitle editor
 media-video/ffmpeg 4.4.5-r4: Complete solution to record/convert/stream audio and video. Includes libavcodec
 media-video/mlvapp 1.15 9999-r2: Magic Lantern Video (MLV) processing suite
