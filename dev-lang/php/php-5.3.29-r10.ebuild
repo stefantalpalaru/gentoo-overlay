@@ -254,7 +254,7 @@ php_set_ini_dir() {
 src_prepare() {
 	default
 
-	append-cflags -fpermissive
+	append-cflags -fpermissive -std=gnu17
 
 	patch -p1 -i "${FILESDIR}/php-5.5.14-remove-randegd.diff" || die
 	# USE=sharedmem (session/mod_mm to be exact) tries to mmap() this path
