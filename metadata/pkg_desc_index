@@ -35,7 +35,7 @@ dev-debug/valgrind 3.25.0-r100: An open-source memory debugger for GNU/Linux
 dev-lang/chapel 2.4.0: Chapel programming language compiler
 dev-lang/erlang 27.2: Erlang programming language, runtime environment and libraries (OTP)
 dev-lang/nim 1.0.10-r101 1.2.18-r101 1.4.8-r101 1.6.20-r100 2.0.16-r100 2.2.4-r100 9999-r16: compiled, garbage-collected systems programming language
-dev-lang/php 5.3.29-r10 7.4.33-r10 8.0.30-r5: The PHP language runtime engine
+dev-lang/php 5.3.29-r11 7.4.33-r11 8.0.30-r6: The PHP language runtime engine
 dev-lang/pony 0.59.0: Compiler for the Pony language
 dev-lang/python 2.7.18_p114: An interpreted, interactive, object-oriented programming language
 dev-lang/python-exec 2.4.10-r100: Python script wrapper

@@ -207,7 +207,7 @@ php_set_ini_dir() {
 src_prepare() {
 	default
 
-	append-cflags -fpermissive -std=gnu17
+	append-cflags -fpermissive -std=gnu17 -fno-strict-aliasing
 
 	# In php-7.x, the FPM pool configuration files have been split off
 	# of the main config. By default the pool config files go in
