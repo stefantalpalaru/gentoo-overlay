@@ -190,6 +190,7 @@ dev-python/yolk-portage
 dev-python/zbase32
 dev-python/zfec
 dev-python/zict
+dev-qt/qtpaths
 dev-qt/qtwebengine
 dev-qt/qtwebkit
 dev-vcs/bzr
