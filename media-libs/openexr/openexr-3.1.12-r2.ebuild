@@ -36,6 +36,8 @@ src_prepare() {
 		eapply "${FILESDIR}"/${PN}-3.1.5-drop-failing-testDwaLookups.patch
 	fi
 
+	append-cflags -fpermissive
+
 	cmake_src_prepare
 }
 
