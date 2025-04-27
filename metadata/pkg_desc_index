@@ -928,7 +928,7 @@ sci-libs/onnxruntime 1.21.1: Cross-platform inference and training machine-learn
 sci-mathematics/xmds 2.2.3-r4: XMDS - The eXtensible Multi-Dimensional Simulator
 sci-misc/openfst 1.8.2: Finite State Transducer tools by Google et al
 sci-misc/opengrm-ngram 1.3.14: n-gram language models encoded as weighted finite-state transducers
-sci-ml/FBGEMM 2025.01.29: Facebook GEneral Matrix Multiplication
+sci-ml/FBGEMM 2025.04.27: Facebook GEneral Matrix Multiplication
 sci-ml/caffe2 2.7.0-r100: A deep learning framework
 sci-ml/pytorch 2.7.0-r100: Tensors and Dynamic neural networks in Python
 sci-ml/torchvision 0.22.0: Datasets, transforms and models to specific to computer vision

@@ -3,7 +3,7 @@
 
 EAPI=8
 PYTHON_COMPAT=( python3_{10..13} )
-MY_PV="1.1.0"
+MY_PV="1.2.0"
 
 inherit python-any-r1 flag-o-matic cmake
 
