@@ -55,7 +55,7 @@ RDEPEND="
 	sci-ml/foxi
 	cuda? (
 		dev-libs/cudnn:=
-		>=dev-libs/cudnn-frontend-1.0.3:0=
+		>=sci-ml/cudnn-frontend-1.0.3:0=
 		dev-libs/cudss
 		dev-libs/cusparselt
 		dev-util/nvidia-cuda-toolkit:=[profiler]

@@ -57,7 +57,7 @@ BDEPEND="
 	)
 	cudnn? (
 		dev-libs/cudnn:=
-		dev-libs/cudnn-frontend:=
+		sci-ml/cudnn-frontend:=
 	)
 	>dev-cpp/eigen-3.4.0:=[cuda?]
 	dev-cpp/ms-gsl:=
