@@ -113,6 +113,7 @@ PATCHES=(
 	"${FILESDIR}/onnxruntime-1.21.0-system-eigen.patch"
 	"${FILESDIR}/onnxruntime-1.20.0-cudnn_frontend.patch"
 	"${FILESDIR}/onnxruntime-1.21.0-external-downloads.patch"
+	"${FILESDIR}/onnxruntime-1.21.1-gcc-15.patch"
 )
 
 pkg_setup() {
