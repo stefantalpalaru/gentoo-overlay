@@ -6,21 +6,29 @@ PYTHON_COMPAT=( python3_{10..13} python3_13t )
 ROCM_VERSION=6.1
 MYPN=pytorch
 MYP=${MYPN}-${PV}
+# caffe2-2.6.0 depends on future version of composable kernel
+# TODO: replace it with RDEPEND in the future
+CK_COMMIT=50ee4267e27b875d149e642f4cebd47be1dc3b57
+CK_P=composable_kernel-${CK_COMMIT:0:8}
 
 inherit python-single-r1 cmake cuda flag-o-matic prefix rocm toolchain-funcs
 
 DESCRIPTION="A deep learning framework"
 HOMEPAGE="https://pytorch.org/"
 SRC_URI="https://github.com/pytorch/pytorch/releases/download/v${PV}/pytorch-v${PV}.tar.gz
-	-> ${MYP}-full.tar.gz"
+	-> ${MYP}-full.tar.gz
+	rocm? ( https://github.com/ROCm/composable_kernel/archive/${CK_COMMIT}.tar.gz -> ${CK_P}.tar.gz )
+"
 S="${WORKDIR}"/pytorch-v${PV}
 LICENSE="BSD"
 SLOT="0"
 KEYWORDS="~amd64"
-IUSE="cuda distributed fbgemm flash gloo mkl mpi nnpack +numpy onednn openblas opencl openmp qnnpack rocm xnnpack cpu_flags_x86_avx cpu_flags_x86_avx2 cpu_flags_x86_avx512f"
+IUSE="cuda distributed fbgemm flash gloo memefficient mkl mpi nnpack +numpy onednn openblas opencl openmp qnnpack rocm xnnpack cpu_flags_x86_avx cpu_flags_x86_avx2 cpu_flags_x86_avx512f"
 RESTRICT="test"
 REQUIRED_USE="
 	${PYTHON_REQUIRED_USE}
+	flash? ( || ( cuda rocm ) )
+	memefficient? ( || ( cuda rocm ) )
 	mpi? ( distributed )
 	gloo? ( distributed )
 	?? ( cuda rocm )
@@ -32,11 +40,13 @@ REQUIRED_USE="
 
 RDEPEND="
 	${PYTHON_DEPS}
+	dev-cpp/abseil-cpp:=
 	dev-cpp/gflags:=
 	>=dev-cpp/glog-0.5.0
+	dev-cpp/nlohmann_json
 	dev-cpp/opentelemetry-cpp
 	dev-libs/cpuinfo
-	dev-libs/libfmt
+	dev-libs/libfmt:=
 	dev-libs/protobuf:=
 	dev-libs/pthreadpool
 	dev-libs/sleef
@@ -63,47 +73,43 @@ RDEPEND="
 		sci-ml/gemmlowp
 	)
 	rocm? (
-		=dev-util/hip-6.1*
-		=dev-libs/rccl-6.1*[${ROCM_USEDEP}]
-		=sci-libs/rocThrust-6.1*[${ROCM_USEDEP}]
-		=sci-libs/rocPRIM-6.1*[${ROCM_USEDEP}]
-		=sci-libs/hipBLAS-6.1*[${ROCM_USEDEP}]
-		=sci-libs/hipFFT-6.1*[${ROCM_USEDEP}]
-		=sci-libs/hipSPARSE-6.1*[${ROCM_USEDEP}]
-		=sci-libs/hipRAND-6.1*[${ROCM_USEDEP}]
-		=sci-libs/hipCUB-6.1*[${ROCM_USEDEP}]
-		=sci-libs/hipSOLVER-6.1*[${ROCM_USEDEP}]
-		=sci-libs/miopen-6.1*[${ROCM_USEDEP}]
-		=dev-util/roctracer-6.1*[${ROCM_USEDEP}]
-
-		=sci-libs/hipBLASLt-6.1*
-		amdgpu_targets_gfx90a? ( =sci-libs/hipBLASLt-6.1*[amdgpu_targets_gfx90a] )
-		amdgpu_targets_gfx940? ( =sci-libs/hipBLASLt-6.1*[amdgpu_targets_gfx940] )
-		amdgpu_targets_gfx941? ( =sci-libs/hipBLASLt-6.1*[amdgpu_targets_gfx941] )
-		amdgpu_targets_gfx942? ( =sci-libs/hipBLASLt-6.1*[amdgpu_targets_gfx942] )
+		>=dev-libs/rccl-6.1      <dev-libs/rccl-6.4
+		>=dev-util/hip-6.1       <dev-util/hip-6.4
+		>=dev-util/roctracer-6.1 <dev-util/roctracer-6.4
+		>=sci-libs/hipBLAS-6.1   <sci-libs/hipBLAS-6.4
+		>=sci-libs/hipBLASLt-6.1 <sci-libs/hipBLASLt-6.4
+		>=sci-libs/hipCUB-6.1    <sci-libs/hipCUB-6.4
+		>=sci-libs/hipFFT-6.1    <sci-libs/hipFFT-6.4
+		>=sci-libs/hipRAND-6.1   <sci-libs/hipRAND-6.4
+		>=sci-libs/hipSOLVER-6.1 <sci-libs/hipSOLVER-6.4
+		>=sci-libs/hipSPARSE-6.1 <sci-libs/hipSPARSE-6.4
+		>=sci-libs/miopen-6.1    <sci-libs/miopen-6.4
+		>=sci-libs/rocPRIM-6.1   <sci-libs/rocPRIM-6.4
+		>=sci-libs/rocThrust-6.1 <sci-libs/rocThrust-6.4
 	)
 	distributed? (
 		sci-ml/tensorpipe[cuda?]
 		dev-cpp/cpp-httplib
 	)
-	xnnpack? ( >=sci-ml/XNNPACK-2024.02.29 )
+	xnnpack? ( >=sci-ml/XNNPACK-2024.11 )
 	mkl? ( sci-libs/mkl )
 	openblas? ( sci-libs/openblas )
 "
 DEPEND="
 	${RDEPEND}
-	cuda? ( >=dev-libs/cutlass-3.4.1 )
-	onednn? ( sci-ml/ideep )
-	dev-libs/psimd
-	sci-ml/FP16
+	dev-libs/flatbuffers
 	dev-libs/FXdiv
 	dev-libs/pocketfft
-	dev-libs/flatbuffers
+	dev-libs/psimd
+	sci-ml/FP16
 	$(python_gen_cond_dep '
 		dev-python/pyyaml[${PYTHON_USEDEP}]
 		dev-python/pybind11[${PYTHON_USEDEP}]
 		dev-python/typing-extensions[${PYTHON_USEDEP}]
 	')
+	cuda? ( >=dev-libs/cutlass-3.8.0 )
+	onednn? ( sci-ml/ideep )
+	qnnpack? ( dev-libs/clog )
 "
 
 PATCHES=(
@@ -118,7 +124,7 @@ PATCHES=(
 	"${FILESDIR}"/caffe2-2.7.0-fix-libcpp.patch
 	"${FILESDIR}"/caffe2-2.4.0-cpp-httplib.patch
 	"${FILESDIR}"/caffe2-2.4.0-kineto.patch
-	"${FILESDIR}"/caffe2-2.7.0-functorch.patch
+	"${FILESDIR}"/caffe2-2.5.1-newfix-functorch-install.patch
 )
 
 src_prepare() {
@@ -149,8 +155,21 @@ src_prepare() {
 	if use rocm; then
 		sed -e "s:/opt/rocm:/usr:" \
 			-e "s:lib/cmake:$(get_libdir)/cmake:g" \
-			-e "s/HIP 1.0/HIP 1.0 REQUIRED/" \
 			-i cmake/public/LoadHIP.cmake || die
+
+		# TODO: delete, when caffe2 depends on systemwide composable_kernel
+		sed -e "s:third_party/composable_kernel:../composable_kernel-${CK_COMMIT}:g" \
+			-i aten/src/ATen/CMakeLists.txt || die
+
+		if tc-is-clang; then
+			# Systemwide gcc (for absl and at::TensorBase) + hipcc (llvm>=18) need abi-compat=17.
+			# But systemwide clang>=18 + hipcc (>=llvm-18) need opposite!
+			# See also: https://github.com/llvm/llvm-project/issues/102443#issuecomment-2329726287
+			sed '/-fclang-abi-compat=17/d' -i cmake/Dependencies.cmake || die
+		fi
+
+		# Workaround for libc++ issue https://github.com/llvm/llvm-project/issues/100802
+		sed 's/std::memcpy/memcpy/g' -i c10/util/Half.h || die
 
 		ebegin "HIPifying cuda sources"
 		${EPYTHON} tools/amd_build/build_amd.py || die
@@ -177,6 +196,9 @@ src_configure() {
 	local mycmakeargs=(
 		-DBUILD_CUSTOM_PROTOBUF=OFF
 		-DBUILD_SHARED_LIBS=ON
+		-DLIBSHM_INSTALL_LIB_SUBDIR="${EPREFIX}"/usr/$(get_libdir)
+		-DPython_EXECUTABLE="${PYTHON}"
+		-DTORCH_INSTALL_LIB_DIR="${EPREFIX}"/usr/$(get_libdir)
 
 		-DUSE_CCACHE=OFF
 		-DUSE_CUDA=$(usex cuda)
@@ -187,14 +209,17 @@ src_configure() {
 		-DUSE_FAKELOWP=OFF
 		-DUSE_FBGEMM=$(usex fbgemm)
 		-DUSE_FLASH_ATTENTION=$(usex flash)
-		-DUSE_MEM_EFF_ATTENTION=OFF
+		-DUSE_MEM_EFF_ATTENTION=$(usex memefficient)
 		-DUSE_GFLAGS=ON
 		-DUSE_GLOG=ON
 		-DUSE_GLOO=$(usex gloo)
+		-DUSE_ITT=OFF
 		-DUSE_KINETO=OFF # TODO
 		-DUSE_MAGMA=OFF # TODO: In GURU as sci-libs/magma
 		-DUSE_MKLDNN=$(usex onednn)
+		-DUSE_NCCL=OFF
 		-DUSE_NNPACK=$(usex nnpack)
+		-DUSE_NUMA=OFF
 		-DUSE_XNNPACK=$(usex xnnpack)
 		-DUSE_SYSTEM_XNNPACK=$(usex xnnpack)
 		-DUSE_TENSORPIPE=$(usex distributed)
@@ -207,8 +232,6 @@ src_configure() {
 		-DUSE_SYSTEM_PYBIND11=ON
 		-DUSE_UCC=OFF
 		-DUSE_VALGRIND=OFF
-		-DPython_EXECUTABLE="${PYTHON}"
-		-DUSE_ITT=OFF
 		-DUSE_SYSTEM_PTHREADPOOL=ON
 		-DUSE_SYSTEM_PSIMD=ON
 		-DUSE_SYSTEM_FXDIV=ON
@@ -226,8 +249,6 @@ src_configure() {
 		-DCXX_AVX512_FOUND=$(usex cpu_flags_x86_avx512f)
 
 		-Wno-dev
-		-DTORCH_INSTALL_LIB_DIR="${EPREFIX}"/usr/$(get_libdir)
-		-DLIBSHM_INSTALL_LIB_SUBDIR="${EPREFIX}"/usr/$(get_libdir)
 	)
 
 	if use mkl; then
@@ -255,20 +276,15 @@ src_configure() {
 		mycmakeargs+=(
 			-DUSE_NCCL=ON
 			-DUSE_SYSTEM_NCCL=ON
+			-DCMAKE_REQUIRE_FIND_PACKAGE_HIP=ON
 		)
 
 		# ROCm libraries produce too much warnings
 		append-cxxflags -Wno-deprecated-declarations -Wno-unused-result
-
-		if tc-is-clang; then
-			# fix mangling in LLVM: https://github.com/llvm/llvm-project/issues/85656
-			append-cxxflags -fclang-abi-compat=17
-		fi
 	fi
 
 	if use onednn; then
 		mycmakeargs+=(
-			-DUSE_MKLDNN=ON
 			-DMKLDNN_FOUND=ON
 			-DMKLDNN_LIBRARIES=dnnl
 			-DMKLDNN_INCLUDE_DIR="${ESYSROOT}/usr/include/oneapi/dnnl"
@@ -281,16 +297,35 @@ src_configure() {
 	sed '/RERUN/,+1d' -i "${BUILD_DIR}"/build.ninja || die
 }
 
+src_compile() {
+	PYTORCH_BUILD_VERSION=${PV} \
+	PYTORCH_BUILD_NUMBER=0 \
+	cmake_src_compile
+}
+
+python_install() {
+	python_domodule python/torch
+	mkdir "${D}"$(python_get_sitedir)/torch/bin || die
+	mkdir "${D}"$(python_get_sitedir)/torch/lib || die
+	mkdir "${D}"$(python_get_sitedir)/torch/include || die
+	ln -s ../../../../../include/torch \
+		"${D}$(python_get_sitedir)"/torch/include/torch || die # bug 923269
+	ln -s ../../../../../bin/torch_shm_manager \
+		"${D}"/$(python_get_sitedir)/torch/bin/torch_shm_manager || die
+	ln -s ../../../../../$(get_libdir)/libtorch_global_deps.so \
+		"${D}"/$(python_get_sitedir)/torch/lib/libtorch_global_deps.so || die
+}
+
 src_install() {
 	cmake_src_install
 
+	# Used by pytorch ebuild
 	insinto "/var/lib/${PN}"
 	doins "${BUILD_DIR}"/CMakeCache.txt
+	dostrip -x /var/lib/${PN}/functorch.so
 
 	rm -rf python
-	mkdir -p python/torch/include || die
+	mkdir -p python/torch || die
 	cp torch/version.py python/torch/ || die
-	python_domodule python/torch
-	ln -s ../../../../../include/torch \
-		"${D}$(python_get_sitedir)"/torch/include/torch || die # bug 923269
+	python_install
 }

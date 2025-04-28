@@ -34,13 +34,11 @@ DEPEND="${RDEPEND}
 "
 
 PATCHES=(
-	"${FILESDIR}"/${PN}-2.6.0-dontbuildagain.patch
+	"${FILESDIR}"/pytorch-2.6.0-dontbuildagain.patch
 	"${FILESDIR}"/pytorch-2.6.0-Change-library-directory-according-to-CMake-build.patch
-	"${FILESDIR}"/${PN}-2.6.0-global-dlopen.patch
+	"${FILESDIR}"/pytorch-2.6.0-global-dlopen.patch
 	"${FILESDIR}"/pytorch-2.5.0-torch_shm_manager.patch
-	"${FILESDIR}"/${PN}-2.6.0-setup.patch
-	"${FILESDIR}"/${PN}-2.6.0-emptyso.patch
-	"${FILESDIR}"/pytorch-2.6.0-setuptools-77.0.3.patch
+	"${FILESDIR}"/pytorch-2.6.0-setup.patch
 )
 
 src_prepare() {
@@ -50,7 +48,16 @@ src_prepare() {
 		tools/setup_helpers/env.py \
 		|| die
 
+	# Drop legacy from pyproject.toml
+	sed -i \
+		-e "/build-backend/s|:__legacy__||" \
+		pyproject.toml \
+		|| die
+
 	distutils-r1_src_prepare
+
+	# Get object file from caffe2
+	cp -a "${ESYSROOT}"/var/lib/caffe2/functorch.so functorch/ || die
 
 	hprefixify tools/setup_helpers/env.py
 }

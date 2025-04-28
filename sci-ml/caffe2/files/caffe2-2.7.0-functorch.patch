@@ -1,9 +1,0 @@
-diff '--color=auto' -ur pytorch-v2.7.0.orig/functorch/CMakeLists.txt pytorch-v2.7.0/functorch/CMakeLists.txt
---- pytorch-v2.7.0.orig/functorch/CMakeLists.txt	2025-04-23 20:03:48.756655933 +0200
-+++ pytorch-v2.7.0/functorch/CMakeLists.txt	2025-04-23 20:56:50.211189322 +0200
-@@ -42,4 +42,4 @@
- if(NOT ${TORCH_PYTHON_LINK_FLAGS} STREQUAL "")
-   set_target_properties(${PROJECT_NAME} PROPERTIES LINK_FLAGS ${TORCH_PYTHON_LINK_FLAGS})
- endif()
--install(TARGETS ${PROJECT_NAME} DESTINATION "${CMAKE_CURRENT_SOURCE_DIR}")
-+install(TARGETS ${PROJECT_NAME} DESTINATION "${CMAKE_INSTALL_LIBDIR}")
