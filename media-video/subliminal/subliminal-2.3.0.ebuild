@@ -1,11 +1,11 @@
-# Copyright 1999-2024 Gentoo Authors
+# Copyright 1999-2025 Gentoo Authors
 # Distributed under the terms of the GNU General Public License v2
 
 EAPI=8
 
-PYTHON_COMPAT=( python3_{10..12} )
+PYTHON_COMPAT=( python3_{10..13} python3_13t )
 PYTHON_REQ_USE='xml(+)'
-DISTUTILS_USE_PEP517=setuptools
+DISTUTILS_USE_PEP517=hatchling
 DISTUTILS_SINGLE_IMPL=1
 
 inherit distutils-r1
@@ -44,5 +44,17 @@ DEPEND="
 	${RDEPEND}
 "
 
+PATCHES=(
+	"${FILESDIR}"/subliminal-2.3.0-version.patch
+)
+
 # Tests don't work in 2.0.5. Recheck in later versions. See Gentoo bug 630114.
 RESTRICT=test
+
+src_prepare() {
+	default
+
+	sed -i \
+		-e "s/^version =/version = \"${PV}\"/" \
+		pyproject.toml || die
+}
