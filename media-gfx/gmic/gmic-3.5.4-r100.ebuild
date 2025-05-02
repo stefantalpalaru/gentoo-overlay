@@ -11,8 +11,8 @@ DESCRIPTION="GREYC's Magic Image Converter"
 HOMEPAGE="http://gmic.eu/
 	https://github.com/GreycLab/gmic
 	https://framagit.org/dtschump/gmic"
-GMIC_QT_URI="https://github.com/GreycLab/gmic-qt/archive/v.${PV}.tar.gz -> gmic-qt-${PV}.tar.gz"
-SRC_URI="https://github.com/GreycLab/gmic/archive/v.${PV}.tar.gz -> ${P}.tar.gz
+GMIC_QT_URI="https://github.com/GreycLab/gmic-qt/archive/v.${PV}.tar.gz -> gmic-qt-${PV}.gh.tar.gz"
+SRC_URI="https://github.com/GreycLab/gmic/archive/v.${PV}.tar.gz -> ${P}.gh.tar.gz
 	https://gmic.eu/gmic_stdlib_community$(ver_rs 1- '').h
 "
 S="${WORKDIR}/${PN}-v.${PV}"
@@ -20,7 +20,7 @@ LICENSE="CeCILL-2 GPL-3"
 SLOT="0"
 KEYWORDS="~amd64 ~arm64 ~x86"
 IUSE="bash-completion ffmpeg +fftw graphicsmagick jpeg opencv openexr +openmp png static-libs tiff X"
-RESTRICT="network-sandbox mirror"
+RESTRICT="mirror network-sandbox"
 
 COMMON_DEPEND="
 	fftw? ( sci-libs/fftw:3.0=[threads] )

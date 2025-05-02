@@ -1,4 +1,4 @@
-# Copyright 1999-2024 Gentoo Authors
+# Copyright 1999-2025 Gentoo Authors
 # Distributed under the terms of the GNU General Public License v2
 
 EAPI=8
@@ -12,8 +12,8 @@ HOMEPAGE="http://gmic.eu/
 	https://github.com/GreycLab/gmic
 	https://framagit.org/dtschump/gmic
 	https://github.com/GreycLab/gmic-qt"
-GMIC_QT_URI="https://github.com/GreycLab/gmic-qt/archive/v.${PV}.tar.gz -> gmic-qt-${PV}.tar.gz"
-SRC_URI="https://github.com/GreycLab/gmic/archive/v.${PV}.tar.gz -> ${P}.tar.gz
+GMIC_QT_URI="https://github.com/GreycLab/gmic-qt/archive/v.${PV}.tar.gz -> gmic-qt-${PV}.gh.tar.gz"
+SRC_URI="https://github.com/GreycLab/gmic/archive/v.${PV}.tar.gz -> ${P}.gh.tar.gz
 	https://gmic.eu/gmic_stdlib_community$(ver_rs 1- '').h
 	gimp? ( ${GMIC_QT_URI} )
 	gui? ( ${GMIC_QT_URI} )
@@ -28,7 +28,7 @@ REQUIRED_USE="
 	gimp? ( png fftw X )
 	gui? ( png fftw X )
 "
-RESTRICT="network-sandbox"
+RESTRICT="mirror network-sandbox"
 
 QT_DEPS="
 	dev-qt/qtcore:5=
