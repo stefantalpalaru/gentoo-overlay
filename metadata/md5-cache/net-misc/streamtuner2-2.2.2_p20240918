@@ -12,5 +12,5 @@ REQUIRED_USE=^^ ( python_single_target_python3_11 python_single_target_python3_1
 RESTRICT=mirror
 SLOT=0
 SRC_URI=https://fossil.include-once.org/streamtuner2/tarball/d0455c7d41/streamtuner2-d0455c7d41.tar.gz -> streamtuner2-2.2.2_p20240918.tar.gz
-_eclasses_=multiprocessing	1e32df7deee68372153dca65f4a7c21f	toolchain-funcs	f9d71a6efe9d083aec750dd13968e169	python-utils-r1	88eb06b8443067388061ece9164b09e6	python-single-r1	a5747fe6dc0651d95cb78eddd5e160a8
+_eclasses_=multiprocessing	1e32df7deee68372153dca65f4a7c21f	toolchain-funcs	f9d71a6efe9d083aec750dd13968e169	python-utils-r1	74b764492af5303ed067d49a35359009	python-single-r1	a5747fe6dc0651d95cb78eddd5e160a8
 _md5_=5dc12746e67a4f1551d51b43d9980016

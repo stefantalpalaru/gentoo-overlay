@@ -7,5 +7,5 @@ KEYWORDS=~alpha amd64 arm arm64 hppa ia64 ~m68k ~mips ppc ppc64 s390 sparc x86 ~
 RDEPEND=python_targets_python2_7? ( dev-lang/python:2.7 ) python_targets_python3_10? ( dev-lang/python:3.10 ) python_targets_python3_11? ( dev-lang/python:3.11 ) python_targets_python3_12? ( dev-lang/python:3.12 ) python_targets_python2_7? ( >=dev-python/funcsigs-1[python_targets_python2_7(-)?] )
 REQUIRED_USE=|| ( python_targets_python2_7 python_targets_python3_10 python_targets_python3_11 python_targets_python3_12 )
 SLOT=0
-_eclasses_=out-of-source-utils	dbf9e34ee8964084651e25907fa8f52c	multibuild	4650a65187015567b4e041bb9bfdb364	multiprocessing	1e32df7deee68372153dca65f4a7c21f	toolchain-funcs	f9d71a6efe9d083aec750dd13968e169	python-utils-r1	88eb06b8443067388061ece9164b09e6	python-r1	2d51fd03931e743811ce30d198e4dcfd
+_eclasses_=out-of-source-utils	dbf9e34ee8964084651e25907fa8f52c	multibuild	4650a65187015567b4e041bb9bfdb364	multiprocessing	1e32df7deee68372153dca65f4a7c21f	toolchain-funcs	f9d71a6efe9d083aec750dd13968e169	python-utils-r1	74b764492af5303ed067d49a35359009	python-r1	2d51fd03931e743811ce30d198e4dcfd
 _md5_=24d951ce8c80605e2054957e880b04ae

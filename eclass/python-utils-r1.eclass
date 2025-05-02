@@ -216,6 +216,8 @@ _python_impl_matches() {
 	local impl=${1/./_} pattern
 	shift
 
+	# note: do not add "return 1" below, the function is supposed
+	# to iterate until it matches something
 	for pattern; do
 		case ${pattern} in
 			-2|python2*)

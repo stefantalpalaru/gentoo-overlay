@@ -200,6 +200,8 @@ dev-python/urllib3:brotli - Enable support for brotli compression
 dev-python/vatnumber:vies - Enable VIES
 dev-qt/designer:declarative - Build the qdeclarativeview plugin
 dev-qt/linguist-tools:qml - Enable QML support in lupdate
+dev-qt/qt3d:gamepad - Add support for gamepad hardware via dev-qt/qtgamepad
+dev-qt/qt3d:qml - Build QML/QtQuick bindings
 dev-qt/qt5compat:qml - Build QML/QtQuick bindings and imports
 dev-qt/qtcore:old-kernel - Disable syscalls not available on Linux kernels older than 4.11
 dev-qt/qtdeclarative:localstorage - Build the LocalStorage import for QtQuick (requires QtSql)
@@ -208,6 +210,8 @@ dev-qt/qtdeclarative:opengl - Enable OpenGL support
 dev-qt/qtdeclarative:qmlls - Build the qmlls tool using dev-qt/qtlanguageserver
 dev-qt/qtdeclarative:sql - Enable QtSQL support
 dev-qt/qtdeclarative:widgets - Enable QtWidgets support
+dev-qt/qtgamepad:evdev - Enable support for input devices via evdev
+dev-qt/qtgamepad:qml - Build QML bindings
 dev-qt/qtgui:X - Build the XCB platform plugin and enable X11 integration
 dev-qt/qtgui:eglfs - Build the EGL Full Screen/Single Surface platform plugin
 dev-qt/qtgui:evdev - Enable support for input devices via evdev
@@ -483,5 +487,6 @@ www-servers/uwsgi:routing - Enable routing support
 www-servers/uwsgi:yajl - Use dev-libs/yajl instead of dev-libs/jansson for parsing JSON configuration files (if USe=json is set)
 www-servers/uwsgi:yaml - Support yaml as a configuration file format.
 www-servers/uwsgi:zeromq - Enable logging and deployment via ZeroMQ.
+x11-libs/qscintilla:designer - Build plugin for Qt Designer
 x11-libs/wxGTK:gstreamer - Enable the wxMediaCtrl class for playing audio and video through gstreamer.
 x11-libs/wxGTK:sdl - Use Simple Directmedia Layer (media-libs/libsdl2) for audio.

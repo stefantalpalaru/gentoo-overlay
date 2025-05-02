@@ -13,5 +13,5 @@ REQUIRED_USE=^^ ( python_single_target_python3_13t python_single_target_python3_
 RESTRICT=!test? ( test )
 SLOT=0
 SRC_URI=https://github.com/pytorch/vision/archive/v0.22.0.tar.gz -> torchvision-0.22.0.tar.gz
-_eclasses_=toolchain-funcs	f9d71a6efe9d083aec750dd13968e169	flag-o-matic	e8de74bac929ba17427e740e95707d00	cuda	283d0f298f6c196c755a0f8d50daca85	out-of-source-utils	dbf9e34ee8964084651e25907fa8f52c	multibuild	4650a65187015567b4e041bb9bfdb364	multilib	b2a329026f2e404e9e371097dda47f96	multiprocessing	1e32df7deee68372153dca65f4a7c21f	ninja-utils	2df4e452cea39a9ec8fb543ce059f8d6	python-utils-r1	88eb06b8443067388061ece9164b09e6	python-single-r1	a5747fe6dc0651d95cb78eddd5e160a8	distutils-r1	a88fcc6d59ba642f513c2412157c2d08
+_eclasses_=toolchain-funcs	f9d71a6efe9d083aec750dd13968e169	flag-o-matic	e8de74bac929ba17427e740e95707d00	cuda	283d0f298f6c196c755a0f8d50daca85	out-of-source-utils	dbf9e34ee8964084651e25907fa8f52c	multibuild	4650a65187015567b4e041bb9bfdb364	multilib	b2a329026f2e404e9e371097dda47f96	multiprocessing	1e32df7deee68372153dca65f4a7c21f	ninja-utils	2df4e452cea39a9ec8fb543ce059f8d6	python-utils-r1	74b764492af5303ed067d49a35359009	python-single-r1	a5747fe6dc0651d95cb78eddd5e160a8	distutils-r1	a88fcc6d59ba642f513c2412157c2d08
 _md5_=ed5c5ba6ccf7e58206825a37a0eeb1e6
