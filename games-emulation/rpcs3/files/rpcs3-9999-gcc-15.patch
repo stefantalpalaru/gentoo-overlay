@@ -1,0 +1,11 @@
+diff '--color=auto' -ur rpcs3-9999.orig/3rdparty/glslang/glslang/SPIRV/SpvBuilder.h rpcs3-9999/3rdparty/glslang/glslang/SPIRV/SpvBuilder.h
+--- rpcs3-9999.orig/3rdparty/glslang/glslang/SPIRV/SpvBuilder.h	2025-05-02 04:00:15.001138935 +0200
++++ rpcs3-9999/3rdparty/glslang/glslang/SPIRV/SpvBuilder.h	2025-05-02 04:08:09.204673615 +0200
+@@ -61,6 +61,7 @@
+ #include <set>
+ #include <sstream>
+ #include <stack>
++#include <cstdint>
+ #include <unordered_map>
+ #include <map>
+ 

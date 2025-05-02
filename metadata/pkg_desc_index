@@ -478,7 +478,7 @@ dev-python/pydot 1.4.1-r201: Python interface to Graphviz's Dot language
 dev-python/pyenchant 2.0.0-r201: Python bindings for the Enchant spellchecking system
 dev-python/pyfakefs 3.7.2-r201: a fake file system that mocks the Python file system modules
 dev-python/pyfits 3.5-r3: Provides an interface to FITS formatted files under python
-dev-python/pyflakes 2.1.1-r200 2.2.0-r200: Passive checker for Python programs
+dev-python/pyflakes 2.1.1-r201 2.2.0-r201: Passive checker for Python programs
 dev-python/pyftpdlib 1.5.6-r201: Python FTP server library
 dev-python/pygame 1.9.6-r201: Python bindings for SDL multimedia library
 dev-python/pyglet 1.4.11-r3: Cross-platform windowing and multimedia library for Python
@@ -489,7 +489,7 @@ dev-python/pygresql 5.2.1-r201: A Python interface for the PostgreSQL database
 dev-python/pygtk 2.24.0-r9: GTK+2 bindings for Python
 dev-python/pyhamcrest 1.10.1-r201: Hamcrest framework for matcher objects
 dev-python/pyifp 0.2.2-r4: Python bindings for libifp library for accessing iRiver iFP devices
-dev-python/pyinotify 0.9.6-r200: Python module used for monitoring filesystems events
+dev-python/pyinotify 0.9.6-r201: Python module used for monitoring filesystems events
 dev-python/pylibmc 1.6.1-r201: Libmemcached wrapper written as a Python extension
 dev-python/pylibpcap 0.6.4-r4: Python interface to libpcap
 dev-python/pylint 1.9.5-r200: Python code static checker
@@ -504,13 +504,13 @@ dev-python/pyoembed 0.1.1-r2: Python library for oEmbed with auto-discovered and
 dev-python/pyopencl 2019.1.2-r201: Python wrapper for OpenCL
 dev-python/pyopengl 3.1.5-r202: Python OpenGL bindings
 dev-python/pyopenssl 19.1.0-r201: Python interface to the OpenSSL library
-dev-python/pyosd 0.2.14-r201: displaying text on your X display, like the 'On Screen Displays' used on TVs
-dev-python/pyparsing 2.4.7-r200: Easy-to-use Python module for text parsing
+dev-python/pyosd 0.2.14-r202: displaying text on your X display, like the 'On Screen Displays' used on TVs
+dev-python/pyparsing 2.4.7-r201: Easy-to-use Python module for text parsing
 dev-python/pypdf 1.13-r3: Python library to work with pdf files
 dev-python/pypdf2 1.26.0-r201: Python library to work with pdf files
 dev-python/pyperclip 1.8.0-r201: A cross-platform clipboard module for Python.
-dev-python/pypng 0.0.20-r200: Pure Python PNG image encoder/decoder
-dev-python/pyptlib 0.0.6-r1: Python library for tor's pluggable transport managed-proxy protocol
+dev-python/pypng 0.0.20-r201: Pure Python PNG image encoder/decoder
+dev-python/pyptlib 0.0.6-r2: Python library for tor's pluggable transport managed-proxy protocol
 dev-python/pyqrcode 1.2.1-r200: A pure Python QR code generator with SVG, EPS, PNG and terminal output
 dev-python/pyqt5 5.15.4-r203 5.15.11-r1: Python bindings for the Qt framework
 dev-python/pyqt5-sip 4.19.25-r201 12.17.0: sip extension module for PyQt5
@@ -522,7 +522,7 @@ dev-python/pyrex 0.9.9-r4: A language for writing Python extension modules
 dev-python/pyrfc3339 1.1-r200: Generates and parses RFC 3339 timestamps
 dev-python/pyro 4.79-r200: Distributed object middleware for Python (RPC)
 dev-python/pyrsistent 0.16.1-r200: Persistent/Functional/Immutable data structures
-dev-python/pysctp 0.6-r1: PySCTP gives access to the SCTP transport protocol from Python
+dev-python/pysctp 0.6-r2: PySCTP gives access to the SCTP transport protocol from Python
 dev-python/pysensors 0.0.3-r201: Python bindings to libsensors (via ctypes)
 dev-python/pyserial 3.4-r200: Python Serial Port extension
 dev-python/pysmi 0.3.4-r200: Python Lex & Yacc
@@ -743,7 +743,7 @@ dev-python/vatnumber 1.1-r201: Module to validate VAT numbers
 dev-python/versioneer 0.18-r200: Easy VCS-based management of project version strings
 dev-python/versiontools 1.9.1-r200: Smart replacement for plain tuple used in __version__
 dev-python/virtualenv 20.0.33-r202: Virtual Python Environment builder
-dev-python/virtualenv-tauthon 0.0.2-r1: external Virtualenv plugin that adds Tauthon support
+dev-python/virtualenv-tauthon 0.0.2-r2: external Virtualenv plugin that adds Tauthon support
 dev-python/voluptuous 0.12.0-r200: A Python data validation library.
 dev-python/waitress 1.4.4-r200: A pure-Python WSGI server
 dev-python/warlock 1.3.3-r200: Python object model built on JSON schema and JSON patch
@@ -823,7 +823,7 @@ dev-util/tla-toolbox-bin 1.8.0-r1: IDE for TLA+
 dev-vcs/bzr 2.7.1_pre-r4: Bazaar is a next generation distributed version control system
 dev-vcs/hg-fast-export 250330: mercurial to git converter using git-fast-import
 games-emulation/dbgl-bin 0.97: DOSBox Game Launcher
-games-emulation/rpcs3 0.0.29-r4 9999-r14: PlayStation 3 emulator
+games-emulation/rpcs3 9999-r15: PlayStation 3 emulator
 games-fps/gzdoom 4.14.1: A modder-friendly OpenGL source port based on the DOOM engine
 games-misc/bsd-games 2.17_p28-r2: Collection of games from NetBSD
 games-sports/trigger 0.6.6.1-r1: Free OpenGL rally car racing game
@@ -888,7 +888,7 @@ media-video/vobsub2srt 1.0_pre20171219-r2: Converts VobSub subtitles (.sub/.idx)
 net-analyzer/namebench 1.3.1-r5: DNS Benchmark Utility
 net-fs/tahoe-lafs 1.13.0-r1: Secure, decentralized, data store
 net-libs/libnatpmp 20150609-r1: An alternative protocol to UPnP IGD specification
-net-libs/libtorrent-rasterbar 1.2.19-r1: C++ BitTorrent implementation focusing on efficiency and scalability
+net-libs/libtorrent-rasterbar 1.2.19-r2: C++ BitTorrent implementation focusing on efficiency and scalability
 net-libs/libutp 20180515-r1: uTorrent Transport Protocol library
 net-libs/liquid-dsp 1.7.0-r100 9999-r5: digital signal processing library for software-defined radios
 net-misc/freerdp 3.15.0: Free implementation of the Remote Desktop Protocol
@@ -897,7 +897,7 @@ net-misc/magic-wormhole-mailbox-server 0.4.1-r200: Rendezvous / mailbox server f
 net-misc/magic-wormhole-transit-relay 0.2.1-r200: Transit Relay server for Magic-Wormhole
 net-misc/pycnb 0.0.4-r200: Access cnb.cz daily rates with the comfort of your command line
 net-misc/ssvnc 1.0.29-r4: VNC viewer that adds encryption security to VNC connections
-net-misc/streamtuner2 2.2.2-r2: Internet radio browser
+net-misc/streamtuner2 2.2.2_p20240918: Internet radio browser
 net-p2p/go-ethereum 1.15.10: Official golang implementation of the Ethereum protocol
 net-p2p/nicotine+ 3.3.10 9999-r1: A fork of nicotine, a Soulseek client in Python
 net-p2p/nimbus-eth2 25.4.1 9999-r19: Nim implementation of the Ethereum 2.0 blockchain
@@ -919,7 +919,7 @@ sci-astronomy/healpix 3.31-r3: Hierarchical Equal Area isoLatitude Pixelization 
 sci-astronomy/kapteyn 2.3.1-r201: Collection of python tools for astronomy
 sci-astronomy/montage 5.0-r1: Toolkit for assembling FITS images into mosaics
 sci-geosciences/mkgmap-bin 4918: Tool to create garmin maps
-sci-geosciences/qgis 3.42.2: User friendly Geographic Information System
+sci-geosciences/qgis 3.42.2-r1: User friendly Geographic Information System
 sci-geosciences/splitter-bin 653: Tile splitter for mkgmap
 sci-libs/cfitsio 3.410-r1: C and Fortran library for manipulating FITS files
 sci-libs/cholmod 3.0.14-r1: Sparse Cholesky factorization and update/downdate library
@@ -957,7 +957,7 @@ x11-libs/dotherside 0.9.0_p20221109-r1: C language library for creating bindings
 x11-libs/pangox-compat 0.0.2-r4: PangoX compatibility library
 x11-libs/wxGTK 3.2.8-r300: GTK version of wxWidgets, a cross-platform C++ GUI toolkit
 x11-misc/magick-rotation 1.6.2-r5: Application that rotates tablet pc's screen automatically, based on orientation
-x11-misc/obmenu2 1.1-r1: Openbox menu editor
+x11-misc/obmenu2 1.1-r2: Openbox menu editor
 x11-misc/qt5ct 1.8 1.9: Qt5 configuration tool, similar to qtconfig for Qt4
 x11-misc/slim 1.4.1-r1: Simple Login Manager resurrected
 x11-themes/adwaita-qt 1.4.2 1.4.2-r1: A style to bend Qt applications to look like they belong into GNOME Shell

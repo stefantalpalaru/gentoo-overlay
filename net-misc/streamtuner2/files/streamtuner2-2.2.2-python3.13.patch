@@ -1,0 +1,21 @@
+diff '--color=auto' -ur streamtuner2-d0455c7d41.orig/action.py streamtuner2-d0455c7d41/action.py
+--- streamtuner2-d0455c7d41.orig/action.py	2024-09-18 21:50:16.000000000 +0200
++++ streamtuner2-d0455c7d41/action.py	2025-05-01 23:41:54.476253657 +0200
+@@ -37,7 +37,7 @@
+ import platform
+ import copy
+ import json
+-import subprocess, pipes
++import subprocess, shlex
+ from datetime import datetime
+ from xml.sax.saxutils import escape as xmlentities, unescape as xmlunescape
+ 
+@@ -206,7 +206,7 @@
+         if re.match("^\w[\w.:/\-]+$", ins):
+             return ins
+         else:
+-            return pipes.quote(ins)
++            return shlex.quote(ins)
+     #return "%r" % ins
+ 
+ 

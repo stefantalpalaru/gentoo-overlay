@@ -1,0 +1,17 @@
+BDEPEND=python? ( python_single_target_python3_13t? ( dev-python/setuptools[python_targets_python3_13t(-)] ) python_single_target_python3_11? ( dev-python/setuptools[python_targets_python3_11(-)] ) python_single_target_python3_12? ( dev-python/setuptools[python_targets_python3_12(-)] ) python_single_target_python3_13? ( dev-python/setuptools[python_targets_python3_13(-)] ) ) app-alternatives/ninja >=dev-build/cmake-3.20.5
+DEFINED_PHASES=compile configure install prepare setup test
+DEPEND=dev-libs/boost:= python? ( python_single_target_python3_13t? ( dev-lang/python:3.13t ) python_single_target_python3_11? ( dev-lang/python:3.11 ) python_single_target_python3_12? ( dev-lang/python:3.12 ) python_single_target_python3_13? ( dev-lang/python:3.13 ) python_single_target_python3_13t? ( dev-libs/boost[python,python_targets_python3_13t(-)] ) python_single_target_python3_11? ( dev-libs/boost[python,python_targets_python3_11(-)] ) python_single_target_python3_12? ( dev-libs/boost[python,python_targets_python3_12(-)] ) python_single_target_python3_13? ( dev-libs/boost[python,python_targets_python3_13(-)] ) ) ssl? ( dev-libs/openssl:= )
+DESCRIPTION=C++ BitTorrent implementation focusing on efficiency and scalability
+EAPI=8
+HOMEPAGE=https://libtorrent.org/ https://github.com/arvidn/libtorrent
+INHERIT=cmake python-single-r1
+IUSE=+dht debug python ssl test python_single_target_python3_13t python_single_target_python3_11 python_single_target_python3_12 python_single_target_python3_13
+KEYWORDS=amd64 ~arm ~arm64 ~ppc ~ppc64 ~riscv ~sparc x86
+LICENSE=BSD
+RDEPEND=dev-libs/boost:= python? ( python_single_target_python3_13t? ( dev-lang/python:3.13t ) python_single_target_python3_11? ( dev-lang/python:3.11 ) python_single_target_python3_12? ( dev-lang/python:3.12 ) python_single_target_python3_13? ( dev-lang/python:3.13 ) python_single_target_python3_13t? ( dev-libs/boost[python,python_targets_python3_13t(-)] ) python_single_target_python3_11? ( dev-libs/boost[python,python_targets_python3_11(-)] ) python_single_target_python3_12? ( dev-libs/boost[python,python_targets_python3_12(-)] ) python_single_target_python3_13? ( dev-libs/boost[python,python_targets_python3_13(-)] ) ) ssl? ( dev-libs/openssl:= )
+REQUIRED_USE=python? ( ^^ ( python_single_target_python3_13t python_single_target_python3_11 python_single_target_python3_12 python_single_target_python3_13 ) )
+RESTRICT=mirror !test? ( test )
+SLOT=0/10
+SRC_URI=https://github.com/arvidn/libtorrent/releases/download/v1.2.19/libtorrent-rasterbar-1.2.19.tar.gz -> libtorrent-rasterbar-1.2.19.gh.tar.gz
+_eclasses_=toolchain-funcs	f9d71a6efe9d083aec750dd13968e169	flag-o-matic	e8de74bac929ba17427e740e95707d00	multiprocessing	1e32df7deee68372153dca65f4a7c21f	ninja-utils	2df4e452cea39a9ec8fb543ce059f8d6	xdg-utils	42869b3c8d86a70ef3cf75165a395e09	cmake	b05c1b7b3c9213c155f128f4eadaa49f	python-utils-r1	88eb06b8443067388061ece9164b09e6	python-single-r1	a5747fe6dc0651d95cb78eddd5e160a8
+_md5_=420a28ebd48ab14319aa658425d2fc1a

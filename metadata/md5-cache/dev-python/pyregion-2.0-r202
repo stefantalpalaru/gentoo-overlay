@@ -1,4 +1,4 @@
-BDEPEND=python_targets_python2_7? ( dev-lang/python:2.7 ) >=dev-python/setuptools-78.1.0[python_targets_python2_7(-)?] test? ( x11-base/xorg-server[xvfb] x11-apps/xhost )
+BDEPEND=python_targets_python2_7? ( dev-lang/python:2.7 ) dev-python/setuptools[python_targets_python2_7(-)?] test? ( x11-base/xorg-server[xvfb] x11-apps/xhost )
 DEFINED_PHASES=compile configure install prepare test
 DEPEND=dev-python/astropy:python2[python_targets_python2_7(-)?] dev-python/numpy:python2[python_targets_python2_7(-)?] dev-python/pyparsing:python2[python_targets_python2_7(-)?] !<dev-python/pyregion-2.0-r200[python_targets_python2_7(-)?] dev-python/setuptools[python_targets_python2_7(-)?] dev-python/astropy-helpers[python_targets_python2_7(-)?] dev-python/cython[python_targets_python2_7(-)?] doc? ( dev-python/sphinx[python_targets_python2_7(-)?] dev-python/sphinx-rtd-theme[python_targets_python2_7(-)?] dev-python/wcsaxes[python_targets_python2_7(-)?] ) test? ( dev-python/pytest[python_targets_python2_7(-)?] dev-python/matplotlib:python2[python_targets_python2_7(-)?] )
 DESCRIPTION=Python module to parse ds9 region file
@@ -13,5 +13,5 @@ REQUIRED_USE=|| ( python_targets_python2_7 )
 RESTRICT=!test? ( test ) !test? ( test )
 SLOT=python2
 SRC_URI=https://files.pythonhosted.org/packages/source/p/pyregion/pyregion-2.0.tar.gz
-_eclasses_=toolchain-funcs	f9d71a6efe9d083aec750dd13968e169	flag-o-matic	e8de74bac929ba17427e740e95707d00	out-of-source-utils	dbf9e34ee8964084651e25907fa8f52c	multibuild	4650a65187015567b4e041bb9bfdb364	multilib	b2a329026f2e404e9e371097dda47f96	multiprocessing	1e32df7deee68372153dca65f4a7c21f	ninja-utils	2df4e452cea39a9ec8fb543ce059f8d6	python-utils-r1	88eb06b8443067388061ece9164b09e6	python-r1	2d51fd03931e743811ce30d198e4dcfd	distutils-r1	ed60fe06012d326e6cdd021ffcd87654	pypi	ad1b21f87d117ae9bb089bdb65b8f013	virtualx	9741d451eb64ea8bb9faee90d68a9b68	xdg-utils	42869b3c8d86a70ef3cf75165a395e09
+_eclasses_=toolchain-funcs	f9d71a6efe9d083aec750dd13968e169	flag-o-matic	e8de74bac929ba17427e740e95707d00	out-of-source-utils	dbf9e34ee8964084651e25907fa8f52c	multibuild	4650a65187015567b4e041bb9bfdb364	multilib	b2a329026f2e404e9e371097dda47f96	multiprocessing	1e32df7deee68372153dca65f4a7c21f	ninja-utils	2df4e452cea39a9ec8fb543ce059f8d6	python-utils-r1	88eb06b8443067388061ece9164b09e6	python-r1	2d51fd03931e743811ce30d198e4dcfd	distutils-r1	a88fcc6d59ba642f513c2412157c2d08	pypi	ad1b21f87d117ae9bb089bdb65b8f013	virtualx	9741d451eb64ea8bb9faee90d68a9b68	xdg-utils	42869b3c8d86a70ef3cf75165a395e09
 _md5_=5e5509731a3fa7605aa23e5e6282bcc4
