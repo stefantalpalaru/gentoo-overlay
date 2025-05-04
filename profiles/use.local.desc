@@ -396,6 +396,8 @@ net-misc/freerdp:client - Build client binaries
 net-misc/freerdp:fuse - Clipboard with FUSE file copy support
 net-misc/freerdp:openh264 - Enable H.264 support using media-libs/openh264
 net-misc/freerdp:server - Build server binaries
+net-p2p/deluge:console - Enable default console UI
+net-p2p/deluge:webinterface - Install dependencies needed for the web interface
 net-p2p/go-ethereum:devtools - Build Ethereum development tools (evm, abigen, puppeth, ...)
 net-p2p/nimbus-eth2:lto - Enable Link Time Optimization (LTO)
 net-p2p/pybitmessage:opencl - Enable dev-python/pyopencl for GPU acceleration
