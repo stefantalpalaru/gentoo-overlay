@@ -1,4 +1,4 @@
-# Copyright 1999-2024 Gentoo Authors
+# Copyright 1999-2025 Gentoo Authors
 # Distributed under the terms of the GNU General Public License v2
 
 EAPI=8
@@ -6,19 +6,17 @@ EAPI=8
 DESCRIPTION="Official golang implementation of the Ethereum protocol"
 HOMEPAGE="https://github.com/ethereum/go-ethereum"
 SRC_URI="https://github.com/ethereum/${PN}/archive/v${PV}.tar.gz -> ${P}.tar.gz"
-
 LICENSE="GPL-3+ LGPL-3+"
 SLOT="0"
 KEYWORDS="~amd64 ~x86"
 IUSE="devtools"
+# Tests do all kinds of wonky stuff like connecting to Docker daemon, network activity, etc.
+RESTRICT="mirror network-sandbox test"
 
 DEPEND="
 	>=dev-lang/go-1.21:=
 "
 RDEPEND="${DEPEND}"
-
-# Does all kinds of wonky stuff like connecting to Docker daemon, network activity, ...
-RESTRICT="test network-sandbox"
 
 src_compile() {
 	emake $(usex devtools all geth)
