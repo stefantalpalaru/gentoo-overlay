@@ -3,7 +3,7 @@
 
 EAPI=8
 
-PYTHON_COMPAT=( python3_{10..13} python3_13t )
+PYTHON_COMPAT=( python3_{11..13} )
 PYTHON_REQ_USE='xml(+)'
 DISTUTILS_USE_PEP517=hatchling
 DISTUTILS_SINGLE_IMPL=1
@@ -13,12 +13,12 @@ inherit distutils-r1
 DESCRIPTION="Python library to search and download subtitles"
 HOMEPAGE="https://github.com/Diaoul/subliminal
 	https://pypi.org/project/subliminal/"
-SRC_URI="
-	https://github.com/Diaoul/subliminal/archive/${PV}.tar.gz -> ${P}.gh.tar.gz
-"
+SRC_URI="https://github.com/Diaoul/subliminal/archive/${PV}.tar.gz -> ${P}.gh.tar.gz"
 LICENSE="MIT"
 SLOT="0"
 KEYWORDS="~amd64 ~x86"
+# Tests don't work in 2.0.5. Recheck in later versions. See Gentoo bug 630114.
+RESTRICT=test
 
 RDEPEND="
 	$(python_gen_cond_dep '
@@ -47,9 +47,6 @@ DEPEND="
 PATCHES=(
 	"${FILESDIR}"/subliminal-2.3.0-version.patch
 )
-
-# Tests don't work in 2.0.5. Recheck in later versions. See Gentoo bug 630114.
-RESTRICT=test
 
 src_prepare() {
 	default
