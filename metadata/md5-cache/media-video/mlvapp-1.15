@@ -12,5 +12,5 @@ REQUIRED_USE=^^ ( qt5 qt6 )
 RESTRICT=mirror
 SLOT=0
 SRC_URI=https://github.com/ilia3101/MLV-App/archive/refs/tags/QTv1.15.tar.gz -> mlvapp-1.15.tar.gz
-_eclasses_=toolchain-funcs	f9d71a6efe9d083aec750dd13968e169	flag-o-matic	e8de74bac929ba17427e740e95707d00	qmake-utils	a8dd17b1d94586164f5e3fc12b1c6b81
+_eclasses_=toolchain-funcs	f9d71a6efe9d083aec750dd13968e169	flag-o-matic	b892042b2667b8ac69ec8a2571dc290a	qmake-utils	a8dd17b1d94586164f5e3fc12b1c6b81
 _md5_=7329d27c2aca9bafa8a4cd0cdd57f3e4
