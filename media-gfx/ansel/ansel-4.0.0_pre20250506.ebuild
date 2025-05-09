@@ -1,26 +1,20 @@
-# Copyright 1999-2024 Gentoo Authors
+# Copyright 1999-2025 Gentoo Authors
 # Distributed under the terms of the GNU General Public License v2
 
 EAPI=8
-
 LUA_COMPAT=( lua5-4 )
 
-inherit cmake flag-o-matic git-r3 lua-single toolchain-funcs xdg
+inherit cmake flag-o-matic git-r3 lua-single plocale toolchain-funcs xdg
 
 DESCRIPTION="Darktable 4.0 fork"
 HOMEPAGE="https://ansel.photos/en/"
 EGIT_REPO_URI="https://github.com/aurelienpierreeng/ansel"
+EGIT_COMMIT="f32f7f731ac8699228853a2a8b620c281e894631"
 LICENSE="GPL-3 CC-BY-3.0"
 SLOT="0"
-
-if [[ ${PV} != *9999* ]]; then
-	EGIT_COMMIT="7f23d9d38630629e559e76073ec4dbe71733c225"
-	KEYWORDS="~amd64 ~arm64 -x86"
-fi
-
-LANGS=" af ca cs da de el eo es fi fr gl he hu it ja nb nl pl pt-BR pt-PT ro ru sk sl sq sr sr@latin sv th tr uk zh-CN zh-TW"
-IUSE="avif colord cpu_flags_x86_avx cpu_flags_x86_sse3 cups geolocation gmic keyring graphicsmagick heif jpeg2k kwallet lto lua midi nls opencl openmp openexr test tools webp
-	${LANGS// / l10n_}"
+KEYWORDS="~amd64 ~arm64 -x86"
+PLOCALES="af ca cs da de el eo es fi fr gl he hu it ja nb nl pl pt_BR pt_PT ro ru sk sl sq sr sr@latin sv th tr uk zh_CN zh_TW"
+IUSE="avif colord cpu_flags_x86_avx cpu_flags_x86_sse3 cups geolocation gmic keyring graphicsmagick heif jpeg2k kwallet lto lua nls opencl openmp openexr test tools webp"
 
 REQUIRED_USE="lua? ( ${LUA_REQUIRED_USE} )"
 
@@ -68,7 +62,6 @@ DEPEND="dev-db/sqlite:3
 	heif? ( media-libs/libheif:= )
 	jpeg2k? ( media-libs/openjpeg:2= )
 	lua? ( ${LUA_DEPS} )
-	midi? ( media-libs/portmidi )
 	opencl? ( virtual/opencl )
 	openexr? ( media-libs/openexr:= )
 	webp? ( media-libs/libwebp:= )"
@@ -80,7 +73,6 @@ PATCHES=(
 	"${FILESDIR}"/ansel-4.0.0_jsonschema-automagic.patch
 	"${FILESDIR}"/ansel-4.0.0_libxcf-cmake.patch
 	"${FILESDIR}"/ansel-4.0.0_cmake-musl.patch
-	"${FILESDIR}"/ansel-4.0.0_portmidi.patch
 	"${FILESDIR}"/ansel-4.0.0_rawspeed-cmake.patch
 )
 
@@ -110,6 +102,8 @@ src_prepare() {
 
 	sed -i -e 's:/appdata:/metainfo:g' data/CMakeLists.txt || die
 
+	plocale_find_changes "po" "" ".po"
+
 	cmake_src_prepare
 }
 
@@ -137,7 +131,6 @@ src_configure() {
 		-DUSE_OPENEXR=$(usex openexr)
 		-DUSE_OPENJPEG=$(usex jpeg2k)
 		-DUSE_OPENMP=$(usex openmp)
-		-DUSE_PORTMIDI=$(usex midi)
 		-DUSE_WEBP=$(usex webp)
 		-DWANT_JSON_VALIDATION=$(usex test)
 	)
@@ -148,10 +141,8 @@ src_install() {
 	cmake_src_install
 
 	if use nls; then
-		for lang in ${LANGS} ; do
-			if ! use l10n_${lang}; then
-				rm -r "${ED}"/usr/share/locale/${lang/-/_} || die
-			fi
+		for lang in $(plocale_get_locales disabled); do
+			rm -r "${ED}"/usr/share/locale/${lang/-/_} || die
 		done
 	fi
 }

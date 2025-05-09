@@ -276,7 +276,6 @@ media-gfx/ansel:geolocation - Enable geotagging support
 media-gfx/ansel:gmic - Use the G'MIC image-processing framework (media-gfx/gmic), e.g. to support Colour LUTs compressed using their compression scheme
 media-gfx/ansel:kwallet - Enable encrypted storage of passwords with kde-frameworks/kwallet
 media-gfx/ansel:lto - Enable link-time optimisations in the RawSpeed library
-media-gfx/ansel:midi - Support using MIDI input devices such as Behringer X-Touch Mini, Arturia Beatstep or Korg nanoKONTROL2, as input devices
 media-gfx/ansel:opencl - Enable opencl support
 media-gfx/ansel:tools - Install tools for generating base curves and noise profiles
 media-gfx/exiv2:bmff - Add support for the ISOBMFF format
