@@ -10,7 +10,7 @@ DISTUTILS_EXT=1
 CUDA_TARGETS_COMPAT=( sm_50 sm_52 sm_53 sm_60 sm_61 sm_62 sm_70 sm_72 sm_75 sm_80 sm_86 sm_87 sm_89 sm_90 )
 ROCM_VERSION="5.7.1"
 AMDGPU_TARGETS_COMPAT=( gfx1030 gfx1031 gfx1032 gfx1033 gfx1034 gfx1035 gfx1036 gfx1100 gfx1101	gfx1102	gfx1103 )
-LLVM_COMPAT=( 17 18 )
+LLVM_COMPAT=( 17 18 19 20 )
 LLVM_OPTIONAL=1
 
 inherit cmake cuda distutils-r1 flag-o-matic llvm-r1 rocm toolchain-funcs
@@ -43,6 +43,7 @@ REQUIRED_USE="
 	hip? ( migraphx )
 	|| ( cudnn migraphx onednn tensorrt )
 "
+
 RDEPEND="
 	dev-libs/protobuf:=
 "
@@ -53,7 +54,7 @@ BDEPEND="
 	benchmark? ( dev-cpp/benchmark )
 	cuda? (
 		dev-libs/cutlass:=
-		dev-util/nvidia-cuda-toolkit:=
+		>=dev-util/nvidia-cuda-toolkit-12:=
 	)
 	cudnn? (
 		dev-libs/cudnn:=
