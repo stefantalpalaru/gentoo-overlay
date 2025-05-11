@@ -45,11 +45,11 @@ inherit multiprocessing toolchain-funcs
 # @DESCRIPTION:
 # All supported Python implementations, most preferred last.
 _PYTHON_ALL_IMPLS=(
-	pypy3 pypy3_11
+	pypy3_11
 	python2_7
 	tauthon2_8
-	python3_13t
-	python3_{10..13}
+	python3_{13..14}t
+	python3_{11..14}
 )
 readonly _PYTHON_ALL_IMPLS
 
@@ -59,9 +59,9 @@ readonly _PYTHON_ALL_IMPLS
 # All historical Python implementations that are no longer supported.
 _PYTHON_HISTORICAL_IMPLS=(
 	jython2_7
-	pypy pypy1_{8,9} pypy2_0
+	pypy pypy1_{8,9} pypy2_0 pypy3
 	python2_{5..7}
-	python3_{1..9}
+	python3_{1..10}
 )
 readonly _PYTHON_HISTORICAL_IMPLS
 
@@ -89,7 +89,7 @@ _python_verify_patterns() {
 	local impl pattern
 	for pattern; do
 		case ${pattern} in
-			-[23]|3.[89]|3.1[0-3])
+			-[23]|3.[89]|3.1[0-4])
 				continue
 				;;
 		esac
@@ -145,9 +145,9 @@ _python_set_impls() {
 			# please keep them in sync with _PYTHON_ALL_IMPLS
 			# and _PYTHON_HISTORICAL_IMPLS
 			case ${i} in
-				pypy3|pypy3_11|python2_7|tauthon2_8|python3_9|python3_1[0-3]|python3_13t)
+				pypy3_11|python2_7|tauthon2_8|python3_9|python3_1[1-4]|python3_1[3-4]t)
 					;;
-				jython2_7|pypy|pypy1_[89]|pypy2_0|python2_[5-6]|python3_[1-9])
+				jython2_7|pypy|pypy1_[89]|pypy2_0|pypy3|python2_[5-6]|python3_[1-9]|python3_10)
 					obsolete+=( "${i}" )
 					;;
 				*)
@@ -226,11 +226,7 @@ _python_impl_matches() {
 			-3)
 				[[ ${impl} =~ python3 ]] && return 0
 				;;
-			3.10)
-				[[ ${impl} == python${pattern/./_} || ${impl} == pypy3 ]] &&
-					return 0
-				;;
-			3.8|3.9|3.1[1-3])
+			3.[89]|3.1[0-4])
 				[[ ${impl%t} == python${pattern/./_} || ${impl} == pypy${pattern/./_} ]] &&
 					return 0
 				;;

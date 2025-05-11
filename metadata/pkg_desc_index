@@ -10,7 +10,7 @@ app-crypt/certbot 1.8.0-r202 1.32.0-r3: Let’s Encrypt client to automate deplo
 app-crypt/certbot-s3front 0.4.2_p20201118-r6: S3/CloudFront plugin for Let's Encrypt client
 app-crypt/qca 2.3.10: Qt Cryptographic Architecture (QCA)
 app-emacs/pymacs 0.26-r201: A tool that allows both-side communication beetween Python and Emacs Lisp
-app-emulation/quickemu 4.9.7: Create and run optimised Windows, macOS and Linux desktop virtual machines
+app-emulation/quickemu 4.9.7-r1: Create and run optimised Windows, macOS and Linux desktop virtual machines
 app-misc/electricsheep 3.0.2_p20240213-r1 9999-r9: realize the collective dream of sleeping computers from all over the internet
 app-misc/iccloader 0.5-r1 9999-r2: systray widget used to load ICC color profiles with different color temperatures
 app-misc/openrgb 0.9-r2: Open source RGB lighting control
@@ -830,7 +830,7 @@ games-emulation/rpcs3 9999-r15: PlayStation 3 emulator
 games-fps/gzdoom 4.14.2: A modder-friendly OpenGL source port based on the DOOM engine
 games-misc/bsd-games 2.17_p28-r2: Collection of games from NetBSD
 games-sports/trigger 0.6.6.1-r1: Free OpenGL rally car racing game
-games-strategy/0ad 0.0.26_alpha-r3 0.27.0-r100: A free, real-time strategy game
+games-strategy/0ad 0.27.0-r100: A free, real-time strategy game
 games-util/mangohud 0.8.0-r1: Vulkan and OpenGL overlay for monitoring FPS, sensors, system load and more
 games-util/new-lg4ff 0.4.1 9999-r1: Experimental Logitech force feedback module
 games-util/opentrack 2024.1.1-r3: Head tracking software for MS Windows, Linux, and Apple OSX

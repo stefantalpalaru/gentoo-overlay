@@ -1,18 +1,18 @@
 BDEPEND=virtual/pkgconfig app-arch/xz-utils >=dev-build/meson-1.2.3 app-alternatives/ninja dev-build/meson-format-array
 DEFINED_PHASES=compile configure install postinst postrm preinst prepare test
-DEPEND=python_targets_python2_7? ( dev-lang/python:2.7 ) python_targets_python3_10? ( dev-lang/python:3.10 ) >=dev-libs/glib-2.48:2 >=dev-libs/gobject-introspection-1.54:= dev-libs/libffi:= cairo? ( python_targets_python2_7? ( >=dev-python/pycairo-1.11.1:python2 ) python_targets_python3_10? ( >=dev-python/pycairo-1.11.1:0 ) x11-libs/cairo[glib] )
+DEPEND=python_targets_python2_7? ( dev-lang/python:2.7 ) >=dev-libs/glib-2.48:2 >=dev-libs/gobject-introspection-1.54:= dev-libs/libffi:= cairo? ( python_targets_python2_7? ( >=dev-python/pycairo-1.11.1:python2 ) x11-libs/cairo[glib] )
 DESCRIPTION=Python bindings for GObject Introspection
 EAPI=8
 HOMEPAGE=https://pygobject.readthedocs.io/ https://gitlab.gnome.org/GNOME/pygobject
 IDEPEND=dev-util/desktop-file-utils x11-misc/shared-mime-info
 INHERIT=gnome.org meson python-r1 xdg
-IUSE=+cairo examples python_targets_python2_7 python_targets_python3_10
+IUSE=+cairo examples python_targets_python2_7
 KEYWORDS=~alpha amd64 arm arm64 ~hppa ~ia64 ~mips ppc ppc64 ~s390 sparc x86 ~amd64-linux ~x86-linux ~ppc-macos ~x64-macos ~x64-solaris
 LICENSE=LGPL-2.1+
-RDEPEND=python_targets_python2_7? ( dev-lang/python:2.7 ) python_targets_python3_10? ( dev-lang/python:3.10 ) >=dev-libs/glib-2.48:2 >=dev-libs/gobject-introspection-1.54:= dev-libs/libffi:= cairo? ( python_targets_python2_7? ( >=dev-python/pycairo-1.11.1:python2 ) python_targets_python3_10? ( >=dev-python/pycairo-1.11.1:0 ) x11-libs/cairo[glib] )
-REQUIRED_USE=|| ( python_targets_python2_7 python_targets_python3_10 )
+RDEPEND=python_targets_python2_7? ( dev-lang/python:2.7 ) >=dev-libs/glib-2.48:2 >=dev-libs/gobject-introspection-1.54:= dev-libs/libffi:= cairo? ( python_targets_python2_7? ( >=dev-python/pycairo-1.11.1:python2 ) x11-libs/cairo[glib] )
+REQUIRED_USE=|| ( python_targets_python2_7 )
 RESTRICT=test
 SLOT=3
 SRC_URI=mirror://gnome/sources/pygobject/3.36/pygobject-3.36.1.tar.xz
-_eclasses_=gnome.org	e1b4f392dbfedfb8974b71b017937f08	toolchain-funcs	f9d71a6efe9d083aec750dd13968e169	flag-o-matic	b892042b2667b8ac69ec8a2571dc290a	multiprocessing	1e32df7deee68372153dca65f4a7c21f	ninja-utils	2df4e452cea39a9ec8fb543ce059f8d6	python-utils-r1	74b764492af5303ed067d49a35359009	meson	99466844dd8d4fcfb07578a76f5a9922	out-of-source-utils	dbf9e34ee8964084651e25907fa8f52c	multibuild	4650a65187015567b4e041bb9bfdb364	python-r1	2d51fd03931e743811ce30d198e4dcfd	xdg-utils	42869b3c8d86a70ef3cf75165a395e09	xdg	3ef49a87c52c8b77c476351195dfe575
+_eclasses_=gnome.org	e1b4f392dbfedfb8974b71b017937f08	toolchain-funcs	f9d71a6efe9d083aec750dd13968e169	flag-o-matic	b892042b2667b8ac69ec8a2571dc290a	multiprocessing	1e32df7deee68372153dca65f4a7c21f	ninja-utils	2df4e452cea39a9ec8fb543ce059f8d6	python-utils-r1	8def5d5a100b607a411d1e3a1617874d	meson	99466844dd8d4fcfb07578a76f5a9922	out-of-source-utils	dbf9e34ee8964084651e25907fa8f52c	multibuild	4650a65187015567b4e041bb9bfdb364	python-r1	2d51fd03931e743811ce30d198e4dcfd	xdg-utils	42869b3c8d86a70ef3cf75165a395e09	xdg	3ef49a87c52c8b77c476351195dfe575
 _md5_=67358ca9ede084c5af0292bfcb8bb32c
