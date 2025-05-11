@@ -2,13 +2,16 @@
 # Distributed under the terms of the GNU General Public License v2
 
 EAPI=8
+PYTHON_COMPAT=( python3_{11..14} )
+MY_COMMIT="2129abf060eb6af45e0393135da24736e363fc9b"
 
-PYTHON_COMPAT=( python3_{11..13} python3_13t )
 inherit python-single-r1
 
 DESCRIPTION="Create and run optimised Windows, macOS and Linux desktop virtual machines"
 HOMEPAGE="https://github.com/quickemu-project/quickemu"
-SRC_URI="https://github.com/quickemu-project/${PN}/archive/refs/tags/${PV}.tar.gz -> ${P}.tar.gz"
+#SRC_URI="https://github.com/quickemu-project/${PN}/archive/refs/tags/${PV}.tar.gz -> ${P}.gh.tar.gz"
+SRC_URI="https://github.com/quickemu-project/quickemu/archive/${MY_COMMIT}.tar.gz -> ${P}.gh.tar.gz"
+S="${WORKDIR}/quickemu-${MY_COMMIT}"
 LICENSE="MIT"
 SLOT="0"
 KEYWORDS="~amd64"
