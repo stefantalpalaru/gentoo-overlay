@@ -1,0 +1,27 @@
+From aae96a430609bacfa546f0a872cf1a94e8a0b073 Mon Sep 17 00:00:00 2001
+From: mimi89999 <michel@lebihan.pl>
+Date: Sat, 11 Jul 2020 11:22:43 +0200
+Subject: [PATCH 09/15] Change AUI dock art to use system caption text color
+
+Backport part of https://github.com/wxWidgets/wxWidgets/pull/1791, see
+697bd07441 (Change AUI to use system caption text color on all
+platforms, 2020-04-13).
+
+Closes https://github.com/wxWidgets/wxWidgets/pull/1946
+---
+diff --git a/src/aui/dockart.cpp b/src/aui/dockart.cpp
+index c7a22ab..ae8f574 100644
+--- a/src/aui/dockart.cpp
++++ b/src/aui/dockart.cpp
+@@ -183,7 +183,7 @@ wxAuiDefaultDockArt::wxAuiDefaultDockArt()
+     m_activeCaptionTextColour = wxSystemSettings::GetColour(wxSYS_COLOUR_HIGHLIGHTTEXT);
+     m_inactiveCaptionColour = darker1Colour;
+     m_inactiveCaptionGradientColour = baseColour.ChangeLightness(97);
+-    m_inactiveCaptionTextColour = *wxBLACK;
++    m_inactiveCaptionTextColour = wxSystemSettings::GetColour(wxSYS_COLOUR_INACTIVECAPTIONTEXT);
+ 
+     m_sashBrush = wxBrush(baseColour);
+     m_backgroundBrush = wxBrush(baseColour);
+-- 
+2.26.3
+

@@ -1,0 +1,28 @@
+From 83c75a439d90d80a4f3f1fef7442472a54573abf Mon Sep 17 00:00:00 2001
+From: Paul Cornett <paulcor@users.noreply.github.com>
+Date: Fri, 30 Oct 2020 10:12:55 -0700
+Subject: [PATCH 12/15] Ignore invalid file notification events
+
+See #18953
+
+(cherry picked from commit 50c7b4278f72c0c794cbbf9e841029a604770f66)
+---
+ src/msw/fswatcher.cpp | 2 ++
+ 1 file changed, 2 insertions(+)
+
+diff --git a/src/msw/fswatcher.cpp b/src/msw/fswatcher.cpp
+index b9803ef..4baa337 100644
+--- a/src/msw/fswatcher.cpp
++++ b/src/msw/fswatcher.cpp
+@@ -388,6 +388,8 @@ int wxIOCPThread::Native2WatcherFlags(int flags)
+ 
+         // ignored as it should always be matched with ***_OLD_NAME
+         { FILE_ACTION_RENAMED_NEW_NAME, 0 },
++        // ignore invalid event
++        { 0, 0 },
+     };
+ 
+     for (unsigned int i=0; i < WXSIZEOF(flag_mapping); ++i) {
+-- 
+2.26.3
+

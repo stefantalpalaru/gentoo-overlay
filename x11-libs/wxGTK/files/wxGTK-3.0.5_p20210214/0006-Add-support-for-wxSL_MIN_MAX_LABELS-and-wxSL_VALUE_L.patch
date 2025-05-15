@@ -1,0 +1,43 @@
+From 46c34bcde4b083ee06ed5f16d709cd6712b1da26 Mon Sep 17 00:00:00 2001
+From: ousnius <denis41@hotmail.de>
+Date: Mon, 14 Mar 2016 12:04:01 +0100
+Subject: [PATCH 06/15] Add support for wxSL_MIN_MAX_LABELS and
+ wxSL_VALUE_LABEL to XRC
+
+Recognize these flags in wxSlider XRC handler.
+
+See #16949.
+
+See https://github.com/wxWidgets/wxWidgets/pull/253
+
+(cherry picked from commit c3a2994931dfea588a2ffdc29f6aceeb24a7ffa8)
+---
+diff --git a/src/common/slidercmn.cpp b/src/common/slidercmn.cpp
+index 8da1506..0c98df5 100644
+--- a/src/common/slidercmn.cpp
++++ b/src/common/slidercmn.cpp
+@@ -66,6 +66,8 @@ wxBEGIN_FLAGS( wxSliderStyle )
+     wxFLAGS_MEMBER(wxSL_HORIZONTAL)
+     wxFLAGS_MEMBER(wxSL_VERTICAL)
+     wxFLAGS_MEMBER(wxSL_AUTOTICKS)
++    wxFLAGS_MEMBER(wxSL_MIN_MAX_LABELS)
++    wxFLAGS_MEMBER(wxSL_VALUE_LABEL)
+     wxFLAGS_MEMBER(wxSL_LABELS)
+     wxFLAGS_MEMBER(wxSL_LEFT)
+     wxFLAGS_MEMBER(wxSL_TOP)
+diff --git a/src/xrc/xh_slidr.cpp b/src/xrc/xh_slidr.cpp
+index 2f7c623..d0a31ae 100644
+--- a/src/xrc/xh_slidr.cpp
++++ b/src/xrc/xh_slidr.cpp
+@@ -35,6 +35,8 @@ wxSliderXmlHandler::wxSliderXmlHandler()
+     XRC_ADD_STYLE(wxSL_HORIZONTAL);
+     XRC_ADD_STYLE(wxSL_VERTICAL);
+     XRC_ADD_STYLE(wxSL_AUTOTICKS);
++    XRC_ADD_STYLE(wxSL_MIN_MAX_LABELS);
++    XRC_ADD_STYLE(wxSL_VALUE_LABEL);
+     XRC_ADD_STYLE(wxSL_LABELS);
+     XRC_ADD_STYLE(wxSL_LEFT);
+     XRC_ADD_STYLE(wxSL_TOP);
+-- 
+2.26.3
+
