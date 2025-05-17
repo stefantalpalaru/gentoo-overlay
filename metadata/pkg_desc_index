@@ -51,6 +51,7 @@ dev-libs/icu 64.2-r2: International Components for Unicode
 dev-libs/keybinder 0.3.1-r202: A library for registering global keyboard shortcuts
 dev-libs/libb64 2.0.0.1_p20200910-r2: Fast Base64 encoding/decoding routines
 dev-libs/libpeas 1.22.0-r9: A GObject plugins library
+dev-libs/libsodium 1.0.18_p20220618-r1: Portable fork of NaCl, a higher-level cryptographic library
 dev-libs/libxml2 2.11.4-r1: XML C parser and toolkit
 dev-libs/lthread 1.0_pre20150617-r3 9999-r3: multicore enabled coroutine library written in C
 dev-libs/openssl 1.1.1w-r1: Full-strength general purpose cryptography library (including SSL and TLS)
@@ -366,7 +367,7 @@ dev-python/munch 2.5.0-r201: A dot-accessible dictionary (a la JavaScript object
 dev-python/mwlib-ext 0.13.2-r2: Extension module to mwlib to pull in reportlab
 dev-python/mysql-python 1.2.5-r201: Python interface to MySQL
 dev-python/naima 0.8.4-r201: Python package for gamma-ray astronomy
-dev-python/namespace-jaraco 2-r5: Namespace package declaration for jaraco
+dev-python/namespace-jaraco 2-r6: Namespace package declaration for jaraco
 dev-python/nautilus-python 1.2.2-r3: Python bindings for the Nautilus file manager
 dev-python/nbconvert 5.6.1-r201: Converting Jupyter Notebooks
 dev-python/nbformat 4.4.0-r201: Reference implementation of the Jupyter Notebook format
@@ -467,7 +468,7 @@ dev-python/pycairo 1.18.2-r202: Python bindings for the cairo library
 dev-python/pycdf 0.6.3-r5: Python interface to scientific netCDF library
 dev-python/pychecker 0.8.19-r5: Python source code checking tool
 dev-python/pychef 0.2.3-r2: A Python API for interacting with a Chef server
-dev-python/pycodestyle 2.5.0-r200 2.6.0-r200: Python style guide checker (fka pep8)
+dev-python/pycodestyle 2.5.0-r201 2.6.0-r201: Python style guide checker (fka pep8)
 dev-python/pycparser 2.20-r202: C parser and AST generator written in Python
 dev-python/pycrypto 2.6.1-r201: Python Cryptography Toolkit
 dev-python/pycryptodome 3.9.8-r201: A self-contained cryptographic library for Python
@@ -484,10 +485,10 @@ dev-python/pyftpdlib 1.5.6-r201: Python FTP server library
 dev-python/pygame 1.9.6-r201: Python bindings for SDL multimedia library
 dev-python/pyglet 1.4.11-r3: Cross-platform windowing and multimedia library for Python
 dev-python/pygments 2.5.2-r201: Pygments is a syntax highlighting package written in Python
-dev-python/pygobject 2.28.6-r59 3.36.1-r5: Python bindings for GObject Introspection
+dev-python/pygobject 2.28.6-r60 3.36.1-r6: Python bindings for GObject Introspection
 dev-python/pygraphviz 1.5-r201: Python wrapper for the Graphviz Agraph data structure
 dev-python/pygresql 5.2.1-r201: A Python interface for the PostgreSQL database
-dev-python/pygtk 2.24.0-r9: GTK+2 bindings for Python
+dev-python/pygtk 2.24.0-r10: GTK+2 bindings for Python
 dev-python/pyhamcrest 1.10.1-r201: Hamcrest framework for matcher objects
 dev-python/pyifp 0.2.2-r4: Python bindings for libifp library for accessing iRiver iFP devices
 dev-python/pyinotify 0.9.6-r201: Python module used for monitoring filesystems events
@@ -498,7 +499,7 @@ dev-python/pyml 0.7.13.3-r3: Python machine learning package
 dev-python/pymoc 0.5.0-r2: Python Multi-Order Coverage maps for Virtual Observatory
 dev-python/pymongo 3.11.2-r201: Python driver for MongoDB
 dev-python/pymysql 0.9.3-r200: Pure-Python MySQL Driver
-dev-python/pynacl 1.4.0-r200: Python binding to the Networking and Cryptography (NaCl) library
+dev-python/pynacl 1.4.0-r201: Python binding to the Networking and Cryptography (NaCl) library
 dev-python/pynag 0.9.1-r2: Python modules for Nagios plugins and configuration
 dev-python/pyndex 0.3.2a-r3: Simple and fast Python full-text indexer using Metakit as its back-end
 dev-python/pyoembed 0.1.1-r2: Python library for oEmbed with auto-discovered and manually added providers
@@ -513,32 +514,32 @@ dev-python/pyperclip 1.8.0-r201: A cross-platform clipboard module for Python.
 dev-python/pypng 0.0.20-r201: Pure Python PNG image encoder/decoder
 dev-python/pyptlib 0.0.6-r2: Python library for tor's pluggable transport managed-proxy protocol
 dev-python/pyqrcode 1.2.1-r200: A pure Python QR code generator with SVG, EPS, PNG and terminal output
-dev-python/pyqt5 5.15.4-r203 5.15.11-r1: Python bindings for the Qt framework
-dev-python/pyqt5-sip 4.19.25-r201 12.17.0: sip extension module for PyQt5
+dev-python/pyqt5 5.15.4-r204 5.15.11-r2: Python bindings for the Qt framework
+dev-python/pyqt5-sip 4.19.25-r201 12.17.0-r1: sip extension module for PyQt5
 dev-python/pyqtwebengine 5.15.4-r3 5.15.7: Python bindings for QtWebEngine
 dev-python/pyquery 1.4.1-r201: A jQuery-like library for python
-dev-python/pyrax 1.9.7-r200: Python language bindings for OpenStack Clouds
+dev-python/pyrax 1.9.7-r201: Python language bindings for OpenStack Clouds
 dev-python/pyregion 2.0-r202: Python module to parse ds9 region file
-dev-python/pyrex 0.9.9-r4: A language for writing Python extension modules
-dev-python/pyrfc3339 1.1-r200: Generates and parses RFC 3339 timestamps
-dev-python/pyro 4.79-r200: Distributed object middleware for Python (RPC)
-dev-python/pyrsistent 0.16.1-r200: Persistent/Functional/Immutable data structures
+dev-python/pyrex 0.9.9-r5: A language for writing Python extension modules
+dev-python/pyrfc3339 1.1-r201: Generates and parses RFC 3339 timestamps
+dev-python/pyro 4.79-r201: Distributed object middleware for Python (RPC)
+dev-python/pyrsistent 0.16.1-r201: Persistent/Functional/Immutable data structures
 dev-python/pysctp 0.6-r2: PySCTP gives access to the SCTP transport protocol from Python
 dev-python/pysensors 0.0.3-r201: Python bindings to libsensors (via ctypes)
-dev-python/pyserial 3.4-r200: Python Serial Port extension
-dev-python/pysmi 0.3.4-r200: Python Lex & Yacc
+dev-python/pyserial 3.4-r201: Python Serial Port extension
+dev-python/pysmi 0.3.4-r201: Python Lex & Yacc
 dev-python/pysnmp 4.4.12-r200: Python SNMP library
 dev-python/pysocks 1.7.1-r4: SOCKS client module
-dev-python/pystache 0.5.4-r200: Mustache for Python
-dev-python/pystatgrab 0.7-r1: pystatgrab is a set of Python bindings for the libstatgrab library
-dev-python/pysubs2 1.8.0: A library for editing subtitle files
-dev-python/pysvn 1.9.11-r200: Object-oriented python bindings for subversion
+dev-python/pystache 0.5.4-r201: Mustache for Python
+dev-python/pystatgrab 0.7-r2: pystatgrab is a set of Python bindings for the libstatgrab library
+dev-python/pysubs2 1.8.0-r1: A library for editing subtitle files
+dev-python/pysvn 1.9.11-r201: Object-oriented python bindings for subversion
 dev-python/pytest 3.10.1-r201: Simple powerful testing with Python
 dev-python/pytest-arraydiff 0.1-r201: pytest plugin to facilitate comparison of arrays
 dev-python/pytest-cov 2.8.1-r200: py.test plugin for coverage reporting
-dev-python/pytest-cython 0.1.0-r200: Plugin for testing Cython extension modules
+dev-python/pytest-cython 0.1.0-r201: Plugin for testing Cython extension modules
 dev-python/pytest-expect 1.1.0-r201: py.test plugin that stores test expectations by saving the set of failing tests
-dev-python/pytest-flakes 4.0.0-r2: Collection of small Python functions & classes
+dev-python/pytest-flakes 4.0.0-r3: Collection of small Python functions & classes
 dev-python/pytest-forked 1.3.0-r201: run tests in isolated forked subprocesses
 dev-python/pytest-httpbin 1.0.0-r200: Easily test your HTTP library against a local copy of httpbin
 dev-python/pytest-localserver 0.5.0-r200: Py.test plugin to test server connections locally
@@ -660,7 +661,7 @@ dev-python/simplejson 3.17.2-r200: Simple, fast, extensible JSON encoder/decoder
 dev-python/simples3 1.0-r1: A fairly simple, decently quick python interface to Amazon's S3 storage service
 dev-python/simplesettings 0.5-r2: Simple settings initialization
 dev-python/singledispatch 3.4.0.3-r2: A library to bring functools.singledispatch from Python 3.4 to Python 2.6-3.3
-dev-python/sip 4.19.25-r202: Python bindings generator for C/C++ libraries
+dev-python/sip 4.19.25-r203: Python bindings generator for C/C++ libraries
 dev-python/six 1.15.0-r200: Python 2 and 3 compatibility library
 dev-python/slowaes 0.1-r3: AES implementation in pure Python
 dev-python/smmap2 2.0.5-r200: A pure python implementation of a sliding window memory map manager
@@ -786,6 +787,7 @@ dev-qt/designer 5.15.16: WYSIWYG tool for designing and building graphical user 
 dev-qt/linguist-tools 5.15.16: Tools for working with Qt translation data files
 dev-qt/qt3d 5.15.16: 3D rendering module for the Qt5 framework
 dev-qt/qt5compat 6.8.1 6.8.2 6.8.9999 6.9.9999 6.9999: Qt module containing the unsupported Qt 5 APIs
+dev-qt/qtbluetooth 5.15.16-r1: Bluetooth support library for the Qt5 framework
 dev-qt/qtconcurrent 5.15.16: Multi-threading concurrence support library for the Qt5 framework
 dev-qt/qtcore 5.15.16: Cross-platform application development framework
 dev-qt/qtdbus 5.15.16: Qt5 module for inter-process communication over the D-Bus protocol

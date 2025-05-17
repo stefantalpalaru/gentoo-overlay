@@ -5,8 +5,6 @@ app-text/calibre
 dev-db/metakit
 dev-lang/php
 dev-libs/openssl
-dev-python/pyzilla
-dev-python/recsql
 dev-python/amqplib
 dev-python/anyjson
 dev-python/anyvc
@@ -104,7 +102,6 @@ dev-python/pkipplib
 dev-python/pp
 dev-python/py-notify
 dev-python/py-smbpasswd
-dev-python/pypdf
 dev-python/pyamf
 dev-python/pyao
 dev-python/pycdf
@@ -120,6 +117,7 @@ dev-python/pynag
 dev-python/pyndex
 dev-python/pyoembed
 dev-python/pyosd
+dev-python/pypdf
 dev-python/pyptlib
 dev-python/pyqtwebengine
 dev-python/pyrax
@@ -146,12 +144,14 @@ dev-python/pyutil
 dev-python/pyutmp
 dev-python/pyvtk
 dev-python/pyxenstore
+dev-python/pyzilla
 dev-python/qserve
 dev-python/quixote
 dev-python/rackspace-monitoring-cli
 dev-python/rackspace-novaclient
 dev-python/rebulk
 dev-python/reconfigure
+dev-python/recsql
 dev-python/rlcompleter2
 dev-python/ropeide
 dev-python/ropemacs
@@ -193,6 +193,7 @@ dev-python/zict
 dev-qt/qt3d
 dev-qt/qtgamepad
 dev-qt/qtpaths
+dev-qt/qtwebchannel
 dev-qt/qtwebengine
 dev-qt/qtwebkit
 dev-vcs/bzr
