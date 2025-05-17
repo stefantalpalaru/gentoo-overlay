@@ -1,4 +1,4 @@
-# Copyright 1999-2024 Gentoo Authors
+# Copyright 1999-2025 Gentoo Authors
 # Distributed under the terms of the GNU General Public License v2
 
 EAPI=8
@@ -335,7 +335,6 @@ PATCHES=(
 	"${FILESDIR}"/ffmpeg-4.4.4-libvmaf-2.0.0.patch
 	"${FILESDIR}"/${PN}-4.4.5-incmptbl-pntr-types.patch
 	"${FILESDIR}"/ffmpeg-4.4.5-svt-av1-3.patch
-	"${FILESDIR}"/ffmpeg-4.4.5-binutils-2.43-arm.patch
 	"${FILESDIR}"/ffmpeg-4.4.5-texinfo-7.2.patch
 )
 

@@ -886,7 +886,7 @@ media-sound/yabridge-bin 5.1.1: A modern and transparent way to use Windows VST2
 media-tv/dvb-firmware 1.4.0 9999-r3: DVB firmware from the LibreELEC project
 media-tv/w_scan2 1.0.17 9999-r3: Scan for DVB-C/DVB-T/DVB-S channels (w_scan fork)
 media-video/aegisub 3.4.2: Advanced subtitle editor
-media-video/ffmpeg 4.4.5-r4: Complete solution to record/convert/stream audio and video. Includes libavcodec
+media-video/ffmpeg 4.4.6: Complete solution to record/convert/stream audio and video. Includes libavcodec
 media-video/mlvapp 1.15 9999-r2: Magic Lantern Video (MLV) processing suite
 media-video/subliminal 2.3.2 9999-r12: Python library to search and download subtitles
 media-video/vobsub2srt 1.0_pre20171219-r2: Converts VobSub subtitles (.sub/.idx) to .srt text subtitles using tesseract
