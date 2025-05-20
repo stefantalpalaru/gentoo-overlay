@@ -11,7 +11,7 @@ app-crypt/certbot-s3front 0.4.2_p20201118-r6: S3/CloudFront plugin for Let's Enc
 app-crypt/qca 2.3.10: Qt Cryptographic Architecture (QCA)
 app-emacs/pymacs 0.26-r201: A tool that allows both-side communication beetween Python and Emacs Lisp
 app-emulation/quickemu 4.9.7_p20250511: Create and run optimised Windows, macOS and Linux desktop virtual machines
-app-misc/electricsheep 3.0.2_p20240213-r1 9999-r9: realize the collective dream of sleeping computers from all over the internet
+app-misc/electricsheep 3.0.2_p20240213-r2 9999-r10: realize the collective dream of sleeping computers from all over the internet
 app-misc/iccloader 0.5-r1 9999-r2: systray widget used to load ICC color profiles with different color temperatures
 app-misc/openrgb 0.9-r2: Open source RGB lighting control
 app-misc/yworklog 0.0.7-r201: Stack based utility with CLI interface helping to monitor time spent on tasks
