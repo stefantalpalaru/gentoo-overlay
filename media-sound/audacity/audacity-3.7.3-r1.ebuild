@@ -135,7 +135,7 @@ PATCHES=(
 src_prepare() {
 	cmake_src_prepare
 
-	append-cppflags "-I${EPREFIX}/usr/include/portsmf"
+	append-cppflags "-I${EPREFIX}/usr/include/portsmf -DPROTOTYPES"
 
 	# Keep in sync with has_networking and the ThreadPool.h SRC_URI.
 	if use audiocom; then

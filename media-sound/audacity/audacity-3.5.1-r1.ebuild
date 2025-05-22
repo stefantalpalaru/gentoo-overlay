@@ -1,4 +1,4 @@
-# Copyright 1999-2024 Gentoo Authors
+# Copyright 1999-2025 Gentoo Authors
 # Distributed under the terms of the GNU General Public License v2
 
 EAPI=8
@@ -129,12 +129,14 @@ PATCHES=(
 
 	# #920363
 	"${FILESDIR}/audacity-3.4.2-audiocom-std-string.patch"
+
+	"${FILESDIR}/audacity-3.5.1-includes.patch"
 )
 
 src_prepare() {
 	cmake_src_prepare
 
-	append-cppflags "-I${EPREFIX}/usr/include/portsmf"
+	append-cppflags "-I${EPREFIX}/usr/include/portsmf -DPROTOTYPES"
 
 	# Keep in sync with has_networking and the ThreadPool.h SRC_URI.
 	if use audiocom; then
