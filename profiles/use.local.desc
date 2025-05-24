@@ -277,7 +277,6 @@ media-gfx/ansel:gmic - Use the G'MIC image-processing framework (media-gfx/gmic)
 media-gfx/ansel:kwallet - Enable encrypted storage of passwords with kde-frameworks/kwallet
 media-gfx/ansel:lto - Enable link-time optimisations in the RawSpeed library
 media-gfx/ansel:opencl - Enable opencl support
-media-gfx/ansel:tools - Install tools for generating base curves and noise profiles
 media-gfx/exiv2:bmff - Add support for the ISOBMFF format
 media-gfx/exiv2:webready - Support reading metadata over the internet
 media-gfx/fbcat:fbgrab - Install a 'fbgrab' wrapper script around fbcat that mimics media-gfx/fbgrab

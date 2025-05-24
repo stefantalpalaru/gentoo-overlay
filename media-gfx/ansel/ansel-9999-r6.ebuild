@@ -4,7 +4,7 @@
 EAPI=8
 LUA_COMPAT=( lua5-4 )
 
-inherit cmake flag-o-matic git-r3 lua-single plocale toolchain-funcs xdg
+inherit cmake flag-o-matic git-r3 plocale toolchain-funcs xdg
 
 DESCRIPTION="Darktable 4.0 fork"
 HOMEPAGE="https://ansel.photos/en/"
@@ -12,10 +12,7 @@ EGIT_REPO_URI="https://github.com/aurelienpierreeng/ansel"
 LICENSE="GPL-3 CC-BY-3.0"
 SLOT="0"
 PLOCALES="af ca cs da de el eo es fi fr gl he hu it ja nb nl pl pt_BR pt_PT ro ru sk sl sq sr sr@latin sv th tr uk zh_CN zh_TW"
-IUSE="avif colord cpu_flags_x86_avx cpu_flags_x86_sse3 cups geolocation gmic keyring graphicsmagick heif jpeg2k kwallet lto lua nls opencl openmp openexr test tools webp"
-
-REQUIRED_USE="lua? ( ${LUA_REQUIRED_USE} )"
-
+IUSE="avif colord cpu_flags_x86_avx cpu_flags_x86_sse3 cups geolocation gmic keyring graphicsmagick heif jpeg2k kwallet lto nls opencl openmp openexr test webp"
 RESTRICT="!test? ( test )"
 
 # It is sometimes requested, by both users and certain devs, to have sys-devel/gcc[graphite]
@@ -59,7 +56,6 @@ DEPEND="dev-db/sqlite:3
 	graphicsmagick? ( media-gfx/graphicsmagick )
 	heif? ( media-libs/libheif:= )
 	jpeg2k? ( media-libs/openjpeg:2= )
-	lua? ( ${LUA_DEPS} )
 	opencl? ( virtual/opencl )
 	openexr? ( media-libs/openexr:= )
 	webp? ( media-libs/libwebp:= )"
@@ -91,7 +87,6 @@ pkg_pretend() {
 
 pkg_setup() {
 	[[ ${MERGE_TYPE} != binary ]] && use openmp && tc-check-openmp
-	use lua && lua-single_pkg_setup
 }
 
 src_prepare() {
@@ -105,8 +100,8 @@ src_prepare() {
 
 src_configure() {
 	local mycmakeargs=(
-		-DBUILD_CURVE_TOOLS=$(usex tools)
-		-DBUILD_NOISE_TOOLS=$(usex tools)
+		-DBUILD_CURVE_TOOLS=OFF
+		-DBUILD_NOISE_TOOLS=OFF
 		-DBUILD_PRINT=$(usex cups)
 		-DCUSTOM_CFLAGS=ON
 		-DRAWSPEED_ENABLE_LTO=$(usex lto)
@@ -119,7 +114,7 @@ src_configure() {
 		-DUSE_GRAPHICSMAGICK=$(usex graphicsmagick)
 		-DUSE_KWALLET=$(usex kwallet)
 		-DUSE_LIBSECRET=$(usex keyring)
-		-DUSE_LUA=$(usex lua)
+		-DUSE_LUA=OFF
 		-DUSE_BUNDLED_LUA=OFF
 		-DUSE_MAP=$(usex geolocation)
 		-DUSE_NLS=$(usex nls)
