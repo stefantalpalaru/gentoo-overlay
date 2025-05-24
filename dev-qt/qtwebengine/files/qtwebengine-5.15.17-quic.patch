@@ -1,0 +1,18 @@
+diff '--color=auto' -ur qtwebengine-5.15.17.orig/src/3rdparty/chromium/net/third_party/quiche/src/quic/core/quic_interval_deque.h qtwebengine-5.15.17/src/3rdparty/chromium/net/third_party/quiche/src/quic/core/quic_interval_deque.h
+--- qtwebengine-5.15.17.orig/src/3rdparty/chromium/net/third_party/quiche/src/quic/core/quic_interval_deque.h	2025-05-23 21:12:49.895757598 +0200
++++ qtwebengine-5.15.17/src/3rdparty/chromium/net/third_party/quiche/src/quic/core/quic_interval_deque.h	2025-05-23 21:15:25.623479870 +0200
+@@ -198,12 +198,12 @@
+     Iterator operator+(difference_type amount) const {
+       Iterator copy = *this;
+       copy.index_ += amount;
+-      DCHECK(copy.index_ < copy.deque_->size());
++      DCHECK(copy.index_ < copy.deque_->Size());
+       return copy;
+     }
+     Iterator& operator+=(difference_type amount) {
+       index_ += amount;
+-      DCHECK(index_ < deque_->size());
++      DCHECK(index_ < deque_->Size());
+       return *this;
+     }
+     difference_type operator-(const Iterator& rhs) const {

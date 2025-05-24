@@ -209,17 +209,16 @@ dev-python/urllib3:brotli - Enable support for brotli compression
 dev-python/vatnumber:vies - Enable VIES
 dev-qt/designer:declarative - Build the qdeclarativeview plugin
 dev-qt/linguist-tools:qml - Enable QML support in lupdate
+dev-qt/qdoc:qml - Enable QML/JS parsing support
 dev-qt/qt3d:gamepad - Add support for gamepad hardware via dev-qt/qtgamepad
 dev-qt/qt3d:qml - Build QML/QtQuick bindings
-dev-qt/qt5compat:qml - Build QML/QtQuick bindings and imports
 dev-qt/qtbluetooth:qml - Build QML/QtQuick bindings and imports
 dev-qt/qtcore:old-kernel - Disable syscalls not available on Linux kernels older than 4.11
+dev-qt/qtdatavis3d:qml - Build QML/QtQuick bindings and imports
 dev-qt/qtdeclarative:localstorage - Build the LocalStorage import for QtQuick (requires QtSql)
-dev-qt/qtdeclarative:network - Enable QtNetwork support
-dev-qt/qtdeclarative:opengl - Enable OpenGL support
-dev-qt/qtdeclarative:qmlls - Build the qmlls tool using dev-qt/qtlanguageserver
-dev-qt/qtdeclarative:sql - Enable QtSQL support
 dev-qt/qtdeclarative:widgets - Enable QtWidgets support
+dev-qt/qtdiag:network - Report network information
+dev-qt/qtdiag:widgets - Report widget style information
 dev-qt/qtgamepad:evdev - Enable support for input devices via evdev
 dev-qt/qtgamepad:qml - Build QML bindings
 dev-qt/qtgui:X - Build the XCB platform plugin and enable X11 integration
@@ -231,18 +230,17 @@ dev-qt/qtgui:linuxfb - Enable Linux framebuffer support for embedded devices
 dev-qt/qtgui:tslib - Enable support for touchscreen devices via x11-libs/tslib
 dev-qt/qtgui:tuio - Build plugin to receive touch events over the TUIO protocol
 dev-qt/qtgui:wayland - Provide dev-qt/qtwayland to ensure Qt applications can be run as Wayland clients
-dev-qt/qtmultimedia:eglfs - Enable screen capture support with Qt's EGL Full Screen/Single Surface platform plugin
 dev-qt/qtmultimedia:gstreamer - Enable audio support via media-libs/gstreamer
 dev-qt/qtmultimedia:qml - Build QML/QtQuick bindings and imports
 dev-qt/qtmultimedia:widgets - Build the QtMultimediaWidgets module
 dev-qt/qtnetwork:gssapi - Enable support for GSSAPI (virtual/krb5)
 dev-qt/qtnetwork:libproxy - Use net-libs/libproxy for automatic HTTP/SOCKS proxy configuration
 dev-qt/qtpositioning:geoclue - Use enhanced location information from app-misc/geoclue
-dev-qt/qtpositioning:nmea - Build plugin for parsing NMEA (National Marine Electronics Association) sentences
 dev-qt/qtpositioning:qml - Build QML bindings
 dev-qt/qtquickcontrols:widgets - Enable QtWidgets support
 dev-qt/qtquickcontrols2:widgets - Enable QtWidgets support
-dev-qt/qtscxml:qml - Build QML/QtQuick bindings and imports
+dev-qt/qtsensors:qml - Build QML bindings
+dev-qt/qtvirtualkeyboard:handwriting - Adds handwriting recognition integration support
 dev-qt/qtwebchannel:qml - Build QML/QtQuick bindings and imports
 dev-qt/qtwebengine:designer - Install the QWebEngineView plugin used to add widgets in dev-qt/designer forms that display web pages.
 dev-qt/qtwebengine:jumbo-build - Combine source files to speed up build process.

@@ -1,0 +1,38 @@
+diff '--color=auto' -ur qtwebengine-5.15.17.orig/src/3rdparty/chromium/content/browser/browser_context.cc qtwebengine-5.15.17/src/3rdparty/chromium/content/browser/browser_context.cc
+--- qtwebengine-5.15.17.orig/src/3rdparty/chromium/content/browser/browser_context.cc	2025-05-23 21:15:55.660122334 +0200
++++ qtwebengine-5.15.17/src/3rdparty/chromium/content/browser/browser_context.cc	2025-05-23 21:53:01.541956570 +0200
+@@ -533,6 +533,11 @@
+     RemoveUserData(kStoragePartitionMapKeyName);
+ }
+ 
++#if defined(TOOLKIT_QT)
++void BrowserContext::FailedToLoadDictionary(const std::string&) {
++}
++#endif
++
+ std::string BrowserContext::GetMediaDeviceIDSalt() {
+   return unique_id_;
+ }
+diff '--color=auto' -ur qtwebengine-5.15.17.orig/src/3rdparty/chromium/content/public/browser/browser_context.h qtwebengine-5.15.17/src/3rdparty/chromium/content/public/browser/browser_context.h
+--- qtwebengine-5.15.17.orig/src/3rdparty/chromium/content/public/browser/browser_context.h	2025-05-23 21:15:55.837295999 +0200
++++ qtwebengine-5.15.17/src/3rdparty/chromium/content/public/browser/browser_context.h	2025-05-23 21:54:31.181538982 +0200
+@@ -18,7 +18,6 @@
+ #include "base/memory/weak_ptr.h"
+ #include "base/optional.h"
+ #include "base/supports_user_data.h"
+-#include "components/spellcheck/spellcheck_buildflags.h"
+ #include "content/common/content_export.h"
+ #include "mojo/public/cpp/bindings/pending_receiver.h"
+ #include "mojo/public/cpp/bindings/pending_remote.h"
+@@ -346,9 +345,9 @@
+   // directly, so privacy is not compromised.
+   virtual media::VideoDecodePerfHistory* GetVideoDecodePerfHistory();
+ 
+-#if defined(TOOLKIT_QT) && BUILDFLAG(ENABLE_SPELLCHECK)
++#if defined(TOOLKIT_QT)
+   // Inform about not working dictionary for given language
+-  virtual void FailedToLoadDictionary(const std::string& language) = 0;
++  virtual void FailedToLoadDictionary(const std::string& language);
+ #endif
+ 
+   // Returns a LearningSession associated with |this|. Used as the central
