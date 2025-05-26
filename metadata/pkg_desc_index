@@ -34,7 +34,6 @@ dev-db/metakit 2.4.9.7_p20110819-r1: Embedded database library
 dev-db/valkey 8.1.1: Redis fork
 dev-debug/valgrind 3.25.1-r100: An open-source memory debugger for GNU/Linux
 dev-lang/chapel 2.4.0: Chapel programming language compiler
-dev-lang/erlang 27.2: Erlang programming language, runtime environment and libraries (OTP)
 dev-lang/nim 1.0.10-r101 1.2.18-r101 1.4.8-r101 1.6.20-r100 2.0.16-r100 2.2.4-r100 9999-r16: compiled, garbage-collected systems programming language
 dev-lang/php 5.3.29-r11 7.4.33-r11 8.0.30-r6: The PHP language runtime engine
 dev-lang/pony 0.59.0: Compiler for the Pony language
@@ -974,7 +973,7 @@ www-servers/uwsgi 2.0.29-r200: uWSGI server for Python web applications
 x11-libs/dotherside 0.9.0_p20221109-r1: C language library for creating bindings for the Qt QML language
 x11-libs/pangox-compat 0.0.2-r4: PangoX compatibility library
 x11-libs/qscintilla 2.14.1-r1: Qt port of Neil Hodgson's Scintilla C++ editor control
-x11-libs/wxGTK 3.0.5.1-r4 3.2.8.1-r300: GTK version of wxWidgets, a cross-platform C++ GUI toolkit
+x11-libs/wxGTK 3.2.8.1-r301: GTK version of wxWidgets, a cross-platform C++ GUI toolkit
 x11-misc/magick-rotation 1.6.2-r5: Application that rotates tablet pc's screen automatically, based on orientation
 x11-misc/obmenu2 1.1-r2: Openbox menu editor
 x11-misc/qt5ct 1.8 1.9: Qt5 configuration tool, similar to qtconfig for Qt4

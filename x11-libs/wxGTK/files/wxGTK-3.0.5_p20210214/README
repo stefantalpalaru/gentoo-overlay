@@ -1,5 +1,0 @@
-Useful patches from v3.0.5.1..WX_3_0_BRANCH available by end of day 2021-02-14.
-Some bakefile, 3.0.6 version update, wxMSW and wxMac patches removed.
-
-Also commit a309157a666e cherry-pick on top, as we want to remove
-webview from wx-config --libs to avoid overlinking in 3.0.x too.
