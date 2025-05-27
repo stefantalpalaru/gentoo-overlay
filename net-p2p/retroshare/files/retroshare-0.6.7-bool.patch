@@ -1,0 +1,74 @@
+From 7a4c375dc6d51af59e7bb85afd1e731a821e5c18 Mon Sep 17 00:00:00 2001
+From: Nicolas Roeser <Nicolas.Roeser@rz.uni-regensburg.de>
+Date: Sat, 10 May 2025 18:02:57 +0200
+Subject: [PATCH] Make code compatible with C23
+MIME-Version: 1.0
+Content-Type: text/plain; charset=UTF-8
+Content-Transfer-Encoding: 8bit
+
+C23 defines ‘bool’ as a keyword. The code used it as a variable, which
+caused builds to fail with e.g. GCC 15, which by default assumes C23
+sources.
+
+Rename variables to prevent the conflict. The variables are only used
+internally.
+---
+ src/openpgpsdk/packet-parse.c | 10 +++++-----
+ src/openpgpsdk/packet-print.c |  4 ++--
+ 2 files changed, 7 insertions(+), 7 deletions(-)
+
+diff --git a/openpgpsdk/src/openpgpsdk/packet-parse.c b/openpgpsdk/src/openpgpsdk/packet-parse.c
+index 1260e1cb0c..623ecb2646 100644
+--- a/openpgpsdk/src/openpgpsdk/packet-parse.c
++++ b/openpgpsdk/src/openpgpsdk/packet-parse.c
+@@ -1512,7 +1512,7 @@ static int parse_one_signature_subpacket(ops_signature_t *sig,
+     ops_parser_content_t content;
+     unsigned t8,t7;
+     ops_boolean_t read=ops_true;
+-    unsigned char bool[1]="";
++    unsigned char bool_[1]="";
+ 
+     ops_init_subregion(&subregion,region);
+     if(!limited_read_new_length(&subregion.length,region,pinfo))
+@@ -1569,9 +1569,9 @@ static int parse_one_signature_subpacket(ops_signature_t *sig,
+ 	break;
+ 
+     case OPS_PTAG_SS_REVOCABLE:
+-	if(!limited_read(bool,1,&subregion,pinfo))
++	if(!limited_read(bool_,1,&subregion,pinfo))
+ 	    return 0;
+-	C.ss_revocable.revocable=!!bool[0];
++	C.ss_revocable.revocable=!!bool_[0];
+ 	break;
+ 
+     case OPS_PTAG_SS_ISSUER_KEY_ID:
+@@ -1598,9 +1598,9 @@ static int parse_one_signature_subpacket(ops_signature_t *sig,
+ 	break;
+ 			    	
+     case OPS_PTAG_SS_PRIMARY_USER_ID:
+-	if(!limited_read (bool,1,&subregion,pinfo))
++	if(!limited_read (bool_,1,&subregion,pinfo))
+ 	    return 0;
+-	C.ss_primary_user_id.primary_user_id = !!bool[0];
++	C.ss_primary_user_id.primary_user_id = !!bool_[0];
+ 	break;
+  
+     case OPS_PTAG_SS_KEY_FLAGS:
+diff --git a/openpgpsdk/src/openpgpsdk/packet-print.c b/openpgpsdk/src/openpgpsdk/packet-print.c
+index 012531aabd..95e737a97b 100644
+--- a/openpgpsdk/src/openpgpsdk/packet-print.c
++++ b/openpgpsdk/src/openpgpsdk/packet-print.c
+@@ -475,11 +475,11 @@ static void print_duration(char *name, time_t time)
+     printf("\n");
+     }
+ 
+-static void print_boolean(const char *name, unsigned char bool)
++static void print_boolean(const char *name, unsigned char bool_)
+     {
+     print_name(name);
+ 
+-    if(bool)
++    if(bool_)
+ 	printf("Yes");
+     else
+ 	printf("No");

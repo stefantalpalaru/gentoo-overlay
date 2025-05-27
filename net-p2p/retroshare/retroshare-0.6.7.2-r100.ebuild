@@ -8,7 +8,7 @@ inherit desktop ffmpeg-compat flag-o-matic git-r3 qmake-utils xdg
 DESCRIPTION="Decentralized, private and secure communication and sharing platform"
 HOMEPAGE="https://retroshare.cc"
 EGIT_REPO_URI="https://github.com/RetroShare/RetroShare"
-EGIT_COMMIT="v0.6.7.2"
+EGIT_COMMIT="v${PV}"
 
 LICENSE="AGPL-3 Apache-2.0 CC-BY-SA-4.0 GPL-2 GPL-3 LGPL-3"
 SLOT="0"
@@ -60,6 +60,8 @@ BDEPEND="dev-build/cmake
 
 PATCHES=(
 	"${FILESDIR}"/retroshare-0.6.7-miniupnpc-2.2.8.patch
+	"${FILESDIR}"/retroshare-0.6.7-bool.patch
+	"${FILESDIR}"/retroshare-0.6.7-RsFriendListModel.patch
 )
 
 src_configure() {

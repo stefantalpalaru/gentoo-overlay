@@ -1,0 +1,12 @@
+diff '--color=auto' -ur retroshare-0.6.7.orig/retroshare-gui/src/gui/common/FriendListModel.cpp retroshare-0.6.7/retroshare-gui/src/gui/common/FriendListModel.cpp
+--- retroshare-0.6.7.orig/retroshare-gui/src/gui/common/FriendListModel.cpp	2025-05-27 17:59:58.266599656 +0200
++++ retroshare-0.6.7/retroshare-gui/src/gui/common/FriendListModel.cpp	2025-05-27 18:12:04.030959021 +0200
+@@ -287,7 +287,7 @@
+ 
+ QModelIndex RsFriendListModel::index(int row, int column, const QModelIndex& parent) const
+ {
+-    if(row < 0 || column < 0 || column >= COLUMN_THREAD_NB_COLUMNS)
++    if(row < 0 || column < 0 || column >= COLUMN_THREAD_NB_COLUMNS || row >= mTopLevel.size())
+ 		return QModelIndex();
+ 
+     if(parent.internalId() == 0)
