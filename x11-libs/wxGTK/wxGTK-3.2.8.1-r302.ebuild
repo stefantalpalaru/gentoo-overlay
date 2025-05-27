@@ -3,14 +3,11 @@
 
 EAPI=8
 
-inherit multilib-minimal flag-o-matic toolchain-funcs
+inherit edo multilib-minimal flag-o-matic toolchain-funcs
 
-WXSUBVERSION="${PV}-gtk3"				# 3.2.5-gtk3
-WXVERSION="$(ver_cut 1-3)"				# 3.2.5
 # Make sure that this matches the number of components in ${PV}
 WXVERSIONTAG=$(ver_cut 1-2)				# 3.2
 WXRELEASE=${WXVERSIONTAG}-gtk3			# 3.2-gtk3
-WXRELEASE_NODOT=${WXRELEASE//./}		# 32-gtk3
 WXRELEASE_NODOTSLASH=${WXRELEASE//-/}	# 32gtk3
 
 DESCRIPTION="GTK version of wxWidgets, a cross-platform C++ GUI toolkit"
@@ -84,45 +81,6 @@ PATCHES=(
 	"${FILESDIR}/${PN}-3.2.5-dont-break-flags.patch"
 	"${FILESDIR}/${PN}-3.2.2.1-backport-pr24197.patch"
 )
-
-src_prepare() {
-	default
-
-	# find . -iname Makefile.in -not -path ./samples'/*' \
-	#        | xargs grep -l WX_RELEASE
-	local versioned_makefiles=(
-		./Makefile.in
-		./utils/wxrc/Makefile.in
-		./utils/helpview/src/Makefile.in
-		./utils/execmon/Makefile.in
-		./utils/hhp2cached/Makefile.in
-		./utils/emulator/src/Makefile.in
-		./utils/screenshotgen/src/Makefile.in
-		./utils/ifacecheck/src/Makefile.in
-		./demos/poem/Makefile.in
-		./demos/life/Makefile.in
-		./demos/bombs/Makefile.in
-		./demos/fractal/Makefile.in
-		./demos/forty/Makefile.in
-		./tests/benchmarks/Makefile.in
-		./tests/Makefile.in
-	)
-
-	# Versionating
-	sed -i \
-		-e "s:\(WX_RELEASE = \).*:\1${WXRELEASE}:"\
-		-e "s:\(WX_RELEASE_NODOT = \).*:\1${WXRELEASE_NODOT}:"\
-		-e "s:\(WX_VERSION = \).*:\1${WXVERSION}:"\
-		-e "s:aclocal):aclocal/wxwin${WXRELEASE_NODOT}.m4):" \
-		"${versioned_makefiles[@]}" || die
-
-	sed -i \
-		-e "s:\(WX_VERSION=\).*:\1${WXVERSION}:" \
-		-e "s:\(WX_RELEASE=\).*:\1${WXRELEASE}:" \
-		-e "s:\(WX_SUBVERSION=\).*:\1${WXSUBVERSION}:" \
-		-e '/WX_VERSION_TAG=/ s:${WX_RELEASE}:${WXVERSIONTAG}:' \
-		configure || die
-}
 
 multilib_src_configure() {
 	# defang automagic dependencies, bug #927952
@@ -227,8 +185,14 @@ multilib_src_configure() {
 }
 
 multilib_src_test() {
-	emake -C tests
-	(cd tests && ./test '~[.]~[net]') || die
+	pushd tests >/dev/null || die
+
+	emake
+	# TODO: Use --success for verbose logs, but it seems to change test results?
+	# TODO: test_gui too with xvfb-run, as Fedora does?
+	edo ./test '~[.]~[net]'
+
+	popd >/dev/null || die
 }
 
 multilib_src_install_all() {
@@ -243,6 +207,8 @@ multilib_src_install_all() {
 	# Unversioned links
 	rm "${ED}"/usr/bin/wx-config || die
 	rm "${ED}"/usr/bin/wxrc || die
+	# wxwin.m4 is owned by eselect-wxwidgets
+	mv "${ED}"/usr/share/aclocal/wxwin.m4 "${ED}"/usr/share/aclocal/wxwin32-gtk3.m4 || die
 
 	# version bakefile presets
 	pushd "${ED}"/usr/share/bakefile/presets >/dev/null || die
