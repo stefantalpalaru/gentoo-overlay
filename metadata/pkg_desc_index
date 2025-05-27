@@ -876,6 +876,7 @@ media-libs/portaudio 19.07.00-r4: A free, cross-platform, open-source, audio I/O
 media-libs/pyliblo 0.10.0: A Python wrapper for the liblo OSC library
 media-libs/svt-av1 1.8.0-r105 2.3.0-r100 3.0.2-r100: Scalable Video Technology for AV1 (SVT-AV1 Encoder and Decoder)
 media-libs/zmusic 1.1.14: GZDoom's music system as a standalone library
+media-plugins/calf 0.90.7: A set of open source instruments and effects for digital audio workstations
 media-plugins/deadbeef-bs2b 9999-r1: bs2b DSP plugin for DeaDBeeF, using libbs2b.
 media-plugins/deadbeef-jack 9999-r3: JACK output plugin for DeaDBeeF.
 media-plugins/eq10q 2.2-r1: Audio plugin bundle over the LV2 standard for Linux

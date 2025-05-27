@@ -308,6 +308,8 @@ media-libs/svt-av1:lto - Build with link-time optimizations (LTO)
 media-libs/svt-av1:pgo - Build with profile guided optimizations (PGO)
 media-libs/zmusic:fluidsynth - Enable support for MIDI via media-sound/fluidsynth
 media-libs/zmusic:mpg123 - Enable support for MPEG audio playback via media-sound/mpg123
+media-plugins/calf:experimental - Enable experimental features/plugins
+media-plugins/calf:lv2 - Add support for Ladspa V2
 media-radio/guglielmo:airspy - Airspy support
 media-radio/guglielmo:hackrf - Hackrf support
 media-radio/guglielmo:limesdr - Limesdr support
