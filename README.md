@@ -21,7 +21,7 @@ overlay mirror that stopped mirroring on July 21, 2024. You need to remove
 the overlay and add it again:
 
 ```text
-eselect repository remove stefantalpalaru
+eselect repository remove -f stefantalpalaru
 eselect repository add stefantalpalaru git https://github.com/stefantalpalaru/gentoo-overlay
 emaint sync --repo stefantalpalaru
 ```
