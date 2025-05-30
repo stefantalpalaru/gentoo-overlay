@@ -37,9 +37,9 @@ dev-lang/chapel 2.4.0: Chapel programming language compiler
 dev-lang/nim 1.0.10-r101 1.2.18-r101 1.4.8-r101 1.6.20-r100 2.0.16-r100 2.2.4-r100 9999-r16: compiled, garbage-collected systems programming language
 dev-lang/php 5.3.29-r11 7.4.33-r11 8.0.30-r6: The PHP language runtime engine
 dev-lang/pony 0.59.0: Compiler for the Pony language
-dev-lang/python 2.7.18_p114: An interpreted, interactive, object-oriented programming language
+dev-lang/python 2.7.18_p115: An interpreted, interactive, object-oriented programming language
 dev-lang/python-exec 2.4.10-r100: Python script wrapper
-dev-lang/tauthon 2.8.5-r5 9999-r5: Python 2.7 fork with new syntax, builtins, and libraries backported from Python3
+dev-lang/tauthon 2.8.5-r6 9999-r5: Python 2.7 fork with new syntax, builtins, and libraries backported from Python3
 dev-libs/boost 1.88.0: Boost Libraries for C++
 dev-libs/cpuinfo 2025.02.19: CPU INFOrmation library
 dev-libs/cudnn 8.9.7.29-r1100 8.9.7.29-r1200 9.9.0.52-r1100 9.9.0.52-r1200: NVIDIA Accelerated Deep Learning on GPU library
