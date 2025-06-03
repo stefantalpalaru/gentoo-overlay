@@ -971,7 +971,7 @@ virtual/python-pathlib 1.0-r2: A virtual for Python pathlib module
 virtual/python-typing 0-r4: A virtual for the Python typing module
 www-misc/kiwix-desktop 2.4.1: cross-platform viewer/manager for ZIM archives
 www-misc/libkiwix 14.0.0-r1: Kiwix software suite core: code shared by all Kiwix ports
-www-servers/uwsgi 2.0.29-r200: uWSGI server for Python web applications
+www-servers/uwsgi 2.0.30-r200: uWSGI server for Python web applications
 x11-libs/dotherside 0.9.0_p20221109-r1: C language library for creating bindings for the Qt QML language
 x11-libs/pangox-compat 0.0.2-r4: PangoX compatibility library
 x11-libs/qscintilla 2.14.1-r1: Qt port of Neil Hodgson's Scintilla C++ editor control
