@@ -826,6 +826,7 @@ dev-qt/qtsvg 5.15.17: SVG rendering library for the Qt5 framework
 dev-qt/qttest 5.15.17: Unit testing library for the Qt5 framework
 dev-qt/qttranslations 5.15.17: Translation files for the Qt5 framework
 dev-qt/qtvirtualkeyboard 5.15.17: Customizable input framework and virtual keyboard for Qt
+dev-qt/qtwayland 5.15.17: Wayland platform plugin for Qt
 dev-qt/qtwebchannel 5.15.17: Qt5 module for integrating C++ and QML applications with HTML/JavaScript clients
 dev-qt/qtwebengine 5.15.17: Library for rendering dynamic web content in Qt5 C++ and QML applications
 dev-qt/qtwebkit 5.212.0_pre20240528-r1: WebKit rendering library for the Qt5 framework (deprecated)
@@ -978,6 +979,7 @@ x11-libs/wxGTK 3.2.8.1-r302: GTK version of wxWidgets, a cross-platform C++ GUI 
 x11-misc/magick-rotation 1.6.2-r5: Application that rotates tablet pc's screen automatically, based on orientation
 x11-misc/obmenu2 1.1-r2: Openbox menu editor
 x11-misc/qt5ct 1.8 1.9: Qt5 configuration tool, similar to qtconfig for Qt4
+x11-misc/qxkb 0.5.1_pre20190821-r1: Qt-based keyboard layout switcher
 x11-misc/slim 1.4.1-r1: Simple Login Manager resurrected
 x11-themes/adwaita-qt 1.4.2 1.4.2-r1: A style to bend Qt applications to look like they belong into GNOME Shell
 x11-themes/chameleon-xcursors 0.5-r3: Style neutral scalable cursor theme

@@ -208,6 +208,7 @@ dev-qt/qtquicktimeline
 dev-qt/qtsensors
 dev-qt/qtserialbus
 dev-qt/qtvirtualkeyboard
+dev-qt/qtwayland
 dev-qt/qtwebchannel
 dev-qt/qtwebengine
 dev-qt/qtwebkit
@@ -227,4 +228,5 @@ net-print/pykota
 sci-astronomy/casacore
 sci-mathematics/xmds
 x11-libs/pangox-compat
+x11-misc/qxkb
 x11-misc/magick-rotation
