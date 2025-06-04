@@ -116,7 +116,7 @@ PATCHES=(
 	"${FILESDIR}"/caffe2-2.7.0-gentoo.patch
 	"${FILESDIR}"/caffe2-2.6.0-install-dirs.patch
 	"${FILESDIR}"/caffe2-1.12.0-glog-0.6.0.patch
-	"${FILESDIR}"/caffe2-2.7.0-tensorpipe.patch
+	"${FILESDIR}"/caffe2-2.7.1-tensorpipe.patch
 	"${FILESDIR}"/caffe2-2.3.0-cudnn_include_fix.patch
 	"${FILESDIR}"/caffe2-2.1.2-fix-rpath.patch
 	"${FILESDIR}"/caffe2-2.4.0-fix-openmp-link.patch
