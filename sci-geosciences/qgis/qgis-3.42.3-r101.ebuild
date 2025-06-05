@@ -117,6 +117,10 @@ BDEPEND="
 	)
 "
 
+PATCHES=(
+	"${FILESDIR}"/qgis-3.42.3-sip.patch
+)
+
 src_prepare() {
 	# https://github.com/qgis/QGIS/issues/53571#issuecomment-1961276436
 	if ! use serial; then
