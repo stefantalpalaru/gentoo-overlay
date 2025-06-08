@@ -1,6 +1,6 @@
-diff '--color=auto' -ur valkey-8.1.0.orig/valkey.conf valkey-8.1.0/valkey.conf
---- valkey-8.1.0.orig/valkey.conf	2025-03-31 16:56:45.000000000 +0200
-+++ valkey-8.1.0/valkey.conf	2025-03-31 17:54:21.222396300 +0200
+diff '--color=auto' -ur valkey-8.1.1.orig/valkey.conf valkey-8.1.1/valkey.conf
+--- valkey-8.1.1.orig/valkey.conf	2025-04-23 22:38:09.000000000 +0200
++++ valkey-8.1.1/valkey.conf	2025-06-08 14:58:26.043138697 +0200
 @@ -385,7 +385,7 @@
  #
  # Note that on modern Linux systems "/run/valkey.pid" is more conforming
@@ -44,11 +44,3 @@ diff '--color=auto' -ur valkey-8.1.0.orig/valkey.conf valkey-8.1.0/valkey.conf
  
  # LRU, LFU and minimal TTL algorithms are not precise algorithms but approximated
  # algorithms (in order to save memory), so you can tune it for speed or
-@@ -2468,6 +2470,7 @@
- 
- # Active defragmentation is disabled by default
- # activedefrag no
-+activedefrag yes
- 
- # Minimum amount of fragmentation waste to start active defrag
- # active-defrag-ignore-bytes 100mb

@@ -46,7 +46,7 @@ BDEPEND="
 "
 
 PATCHES=(
-	"${FILESDIR}"/valkey-8.1.0-config.patch
+	"${FILESDIR}"/valkey-8.1.0-config-r1.patch
 	"${FILESDIR}"/valkey-8.0.0-ppc-atomic.patch
 	"${FILESDIR}"/valkey-sentinel-8.0.0-config.patch
 	"${FILESDIR}"/valkey-8.0.0-no-which.patch
