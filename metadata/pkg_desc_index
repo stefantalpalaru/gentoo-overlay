@@ -45,6 +45,7 @@ dev-libs/cpuinfo 2025.02.19: CPU INFOrmation library
 dev-libs/cudnn 8.9.7.29-r1100 8.9.7.29-r1200 9.9.0.52-r1100 9.9.0.52-r1200: NVIDIA Accelerated Deep Learning on GPU library
 dev-libs/cudss 0.5.0.16: high-performance CUDA Library for Direct Sparse Solvers
 dev-libs/dht 0.27-r1: BitTorrent DHT library
+dev-libs/gdl 3.40.0-r2: GNOME docking library
 dev-libs/golib 0.0.1_pre20180515-r1 9999-r1: a library exposing Go's channels and goroutines to plain C
 dev-libs/icu 64.2-r2: International Components for Unicode
 dev-libs/keybinder 0.3.1-r202: A library for registering global keyboard shortcuts
