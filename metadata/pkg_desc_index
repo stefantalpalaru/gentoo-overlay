@@ -847,7 +847,7 @@ games-misc/bsd-games 2.17_p28-r2: Collection of games from NetBSD
 games-sports/trigger 0.6.6.1-r1: Free OpenGL rally car racing game
 games-strategy/0ad 0.27.0-r100: A free, real-time strategy game
 games-util/mangohud 0.8.0-r1: Vulkan and OpenGL overlay for monitoring FPS, sensors, system load and more
-games-util/new-lg4ff 0.4.1 9999-r1: Experimental Logitech force feedback module
+games-util/new-lg4ff 0.5.0 9999-r1: Experimental Logitech force feedback module
 games-util/opentrack 2024.1.1-r3: Head tracking software for MS Windows, Linux, and Apple OSX
 games-util/oversteer 0.8.3-r1 9999-r2: Steering Wheel Manager for Linux
 games-util/qzdl 3.1.1: Qt version of BioHazard's ZDoom Launcher (ZDL)
