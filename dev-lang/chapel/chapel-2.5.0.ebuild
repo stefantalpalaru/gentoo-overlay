@@ -2,7 +2,7 @@
 # Distributed under the terms of the GNU General Public License v2
 
 EAPI=8
-LLVM_COMPAT=( 17 18 19 )
+LLVM_COMPAT=( 17 18 19 20 )
 PYTHON_COMPAT=( python3_{10..12} )
 
 inherit llvm-r1 multiprocessing python-any-r1
@@ -11,11 +11,9 @@ DESCRIPTION="Chapel programming language compiler"
 HOMEPAGE="https://chapel-lang.org/
 		https://github.com/chapel-lang/chapel"
 SRC_URI="https://github.com/chapel-lang/chapel/releases/download/${PV}/chapel-${PV}.tar.gz"
-
 LICENSE="Apache-2.0"
 SLOT="0"
 KEYWORDS="~amd64"
-
 IUSE="test vim-syntax"
 RESTRICT="
 	strip
@@ -23,6 +21,7 @@ RESTRICT="
 	!test? ( test )
 	mirror
 "
+
 DEPEND="
 	dev-lang/perl
 	dev-libs/gmp
@@ -75,11 +74,6 @@ src_configure() {
 src_compile() {
 	unset CHPL_HOME
 	emake VERBOSE=1
-
-	# https://github.com/chapel-lang/chapel/issues/25381
-	sed -i \
-		-e '/^dependency_libs/d' \
-		third-party/qthread/install/*/lib/libqthread.la || die
 
 	#export CHPL_CHECK_DEBUG=1
 	emake VERBOSE=1 check
