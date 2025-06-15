@@ -1,0 +1,12 @@
+diff '--color=auto' -ur mcomix-3.1.0.orig/mcomix/__main__.py mcomix-3.1.0/mcomix/__main__.py
+--- mcomix-3.1.0.orig/mcomix/__main__.py	2023-09-12 13:43:55.000000000 +0200
++++ mcomix-3.1.0/mcomix/__main__.py	2025-06-15 05:10:52.245330049 +0200
+@@ -22,7 +22,7 @@
+ 
+ def main() -> None:
+     mp.freeze_support()
+-    mp.set_start_method('spawn')
++    mp.set_start_method('spawn', force = True)
+     run()
+ 
+ 
