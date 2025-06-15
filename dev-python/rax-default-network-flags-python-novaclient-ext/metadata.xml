@@ -5,9 +5,6 @@
     <email>prometheanfire@gentoo.org</email>
     <name>Matthew Thode</name>
   </maintainer>
-  <longdescription lang="en">
-    Adds instance default networks extension support to python-novaclient
-  </longdescription>
   <upstream>
     <remote-id type="pypi">rax_default_network_flags_python_novaclient_ext</remote-id>
     <remote-id type="github">rackspace/rax_default_network_flags_python_novaclient_ext</remote-id>

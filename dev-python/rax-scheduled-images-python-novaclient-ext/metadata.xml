@@ -5,9 +5,6 @@
     <email>prometheanfire@gentoo.org</email>
     <name>Matthew Thode</name>
   </maintainer>
-  <longdescription lang="en">
-    Adds backup-schedule extension support to python-novaclient.
-  </longdescription>
   <upstream>
     <remote-id type="pypi">rax_scheduled_images_python_novaclient_ext</remote-id>
     <remote-id type="github">rackspace/rax_backup_schedule_python_novaclient_ext</remote-id>

@@ -5,9 +5,6 @@
     <email>prometheanfire@gentoo.org</email>
     <name>Matthew Thode</name>
   </maintainer>
-  <longdescription lang="en">
-    Command Line Utility for Rackspace Cloud Monitoring (MaaS)
-  </longdescription>
   <upstream>
     <remote-id type="pypi">rackspace-monitoring-cli</remote-id>
     <remote-id type="github">racker/rackspace-monitoring-cli</remote-id>
