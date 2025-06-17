@@ -1,0 +1,17 @@
+BDEPEND=python_targets_python2_7? ( dev-lang/python:2.7[sqlite?] ) dev-python/setuptools[python_targets_python2_7(-)?]
+DEFINED_PHASES=compile configure install prepare test
+DEPEND=dev-python/egenix-mx-base:python2[python_targets_python2_7(-)?] net-print/pkpgcounter:python2[python_targets_python2_7(-)?] dev-python/chardet:python2[python_targets_python2_7(-)?] dev-python/pkipplib:python2[python_targets_python2_7(-)?] ldap? ( dev-python/python-ldap:python2[python_targets_python2_7(-)?] ) mysql? ( dev-python/mysql-python:python2[python_targets_python2_7(-)?] ) postgres? ( dev-db/postgresql:*[server] dev-python/pygresql:python2[python_targets_python2_7(-)?] ) snmp? ( net-analyzer/net-snmp dev-python/pysnmp:python2[python_targets_python2_7(-)?] ) xml? ( dev-python/jaxml:python2[python_targets_python2_7(-)?] ) net-print/cups
+DESCRIPTION=Flexible print quota and accounting package for use with CUPS and lpd
+EAPI=8
+HOMEPAGE=http://www.pykota.com
+INHERIT=distutils-r1
+IUSE=ldap mysql postgres snmp sqlite xml python_targets_python2_7
+KEYWORDS=~amd64 ~x86
+LICENSE=GPL-2
+RDEPEND=dev-python/egenix-mx-base:python2[python_targets_python2_7(-)?] net-print/pkpgcounter:python2[python_targets_python2_7(-)?] dev-python/chardet:python2[python_targets_python2_7(-)?] dev-python/pkipplib:python2[python_targets_python2_7(-)?] ldap? ( dev-python/python-ldap:python2[python_targets_python2_7(-)?] ) mysql? ( dev-python/mysql-python:python2[python_targets_python2_7(-)?] ) postgres? ( dev-db/postgresql:*[server] dev-python/pygresql:python2[python_targets_python2_7(-)?] ) snmp? ( net-analyzer/net-snmp dev-python/pysnmp:python2[python_targets_python2_7(-)?] ) xml? ( dev-python/jaxml:python2[python_targets_python2_7(-)?] ) python_targets_python2_7? ( dev-lang/python:2.7[sqlite?] )
+REQUIRED_USE=|| ( python_targets_python2_7 )
+RESTRICT=mirror
+SLOT=python2
+SRC_URI=https://dev.gentoo.org/~dilfridge/distfiles/pykota-1.26.tar.xz
+_eclasses_=toolchain-funcs	f9d71a6efe9d083aec750dd13968e169	flag-o-matic	b892042b2667b8ac69ec8a2571dc290a	out-of-source-utils	dbf9e34ee8964084651e25907fa8f52c	multibuild	4650a65187015567b4e041bb9bfdb364	multilib	b2a329026f2e404e9e371097dda47f96	multiprocessing	1e32df7deee68372153dca65f4a7c21f	ninja-utils	2df4e452cea39a9ec8fb543ce059f8d6	python-utils-r1	8def5d5a100b607a411d1e3a1617874d	python-r1	2d51fd03931e743811ce30d198e4dcfd	distutils-r1	79d08efc797dddc59bec3b6c24447943
+_md5_=5e8f2a57a12f539eb7b0db1f0ba4c890

@@ -1,0 +1,14 @@
+DEFINED_PHASES=compile configure install prepare
+DEPEND=dev-qt/qtcore:5 dev-qt/qtgui:5 media-libs/faad2 media-libs/libsamplerate media-libs/libsndfile media-libs/portaudio net-wireless/rtl-sdr sci-libs/fftw:3.0 media-video/ffmpeg virtual/libusb:1 x11-libs/qwt:6
+DESCRIPTION=SDR-J SW receiver for RTL2832-based USB sticks
+EAPI=8
+HOMEPAGE=http://www.sdr-j.tk/ https://github.com/JvanKatwijk/sdr-j-sw
+INHERIT=qmake-utils
+KEYWORDS=~amd64 ~x86
+LICENSE=GPL-2
+RDEPEND=dev-qt/qtcore:5 dev-qt/qtgui:5 media-libs/faad2 media-libs/libsamplerate media-libs/libsndfile media-libs/portaudio net-wireless/rtl-sdr sci-libs/fftw:3.0 media-video/ffmpeg virtual/libusb:1 x11-libs/qwt:6
+RESTRICT=mirror
+SLOT=0
+SRC_URI=https://github.com/JvanKatwijk/sdr-j-sw/archive/refs/tags/0.8.tar.gz -> swreceiver-0.8.gh.tar.gz
+_eclasses_=toolchain-funcs	f9d71a6efe9d083aec750dd13968e169	qmake-utils	a8dd17b1d94586164f5e3fc12b1c6b81
+_md5_=4cbdb6be372bf1b2f225cc68a535d2e3

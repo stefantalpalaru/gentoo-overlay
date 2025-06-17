@@ -1,0 +1,11 @@
+BDEPEND=>=dev-vcs/git-1.8.2.1[curl]
+DEFINED_PHASES=install prepare unpack
+DESCRIPTION=DVB firmware from the LibreELEC project
+EAPI=8
+HOMEPAGE=https://github.com/CoreELEC/dvb-firmware
+INHERIT=git-r3
+LICENSE=all-rights-reserved freedist ISC
+PROPERTIES=live
+SLOT=0
+_eclasses_=git-r3	875eb471682d3e1f18da124be97dcc81
+_md5_=c06f943254c3506911affa89a3e3c26c

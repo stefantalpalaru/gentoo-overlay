@@ -156,6 +156,7 @@ dev-python/numexpr:mkl - Enable support for Intel Vector Math Library, part of s
 dev-python/pandas:full-support - Pull all packages to give pandas full support
 dev-python/paramiko:server - Enable server feature
 dev-python/pillow:imagequant - Build with Image Quantization Library support
+dev-python/pycurl:curl_ssl_nss - Use NSS for SSL
 dev-python/pygame:midi - Enable midi support using media-libs/portmidi
 dev-python/pyglet:image - Enable support for image formats other than PNG and BMP
 dev-python/pyqt5:bluetooth - Build bindings for the QtBluetooth module
@@ -337,6 +338,18 @@ media-sound/audacity:vamp - Enables vamp plugins support (Audio analysing plugin
 media-sound/carla:gtk2 - Use gtk-2 instead of gtk-3
 media-sound/carla:rdf - Enable LADSPA-RDF support
 media-sound/carla:sf2 - Enable builtin SF2 sample support using media-sound/fluidsynth
+media-sound/deadbeef:converter - File format converter
+media-sound/deadbeef:cover - Support for cover art
+media-sound/deadbeef:hotkeys - Keyboard shortcuts support
+media-sound/deadbeef:lastfm - last.fm/AudioScrobbler protocol support
+media-sound/deadbeef:libretro - libretro resampling plugin
+media-sound/deadbeef:libsamplerate - Support the Secret Rabbit Code resampler
+media-sound/deadbeef:notify - Desktop notifications support
+media-sound/deadbeef:nullout - Dummy output driver
+media-sound/deadbeef:pipewire - Pipewire output plugin
+media-sound/deadbeef:sc68 - Atari ST and Amiga music player
+media-sound/deadbeef:shellexec - Define custom shell commands that can be called on tracks
+media-sound/deadbeef:supereq - Enable equalizer
 media-sound/hydrogen:archive - Use libarchive instead of libtar
 media-sound/hydrogen:portmidi - Add portmidi support
 media-sound/lmms:carla - Enables Carla audio plugin host (LADSPA, DSSI, LV2, VST2, VST3, AU).

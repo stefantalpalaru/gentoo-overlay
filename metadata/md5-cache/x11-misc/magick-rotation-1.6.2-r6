@@ -1,0 +1,17 @@
+BDEPEND=virtual/pkgconfig
+DEFINED_PHASES=compile install postinst prepare setup
+DEPEND=python_single_target_python2_7? ( dev-lang/python:2.7[xml] ) x11-libs/libX11 x11-libs/libXrandr
+DESCRIPTION=Application that rotates tablet pc's screen automatically, based on orientation
+EAPI=8
+HOMEPAGE=https://launchpad.net/magick-rotation
+INHERIT=desktop optfeature python-single-r1 toolchain-funcs udev user
+IUSE=+python_single_target_python2_7
+KEYWORDS=~amd64 ~x86
+LICENSE=GPL-2
+RDEPEND=python_single_target_python2_7? ( dev-lang/python:2.7[xml] ) x11-libs/libX11 x11-libs/libXrandr python_single_target_python2_7? ( dev-python/pygobject:2[python_targets_python2_7(-)] dev-python/pygtk:2[python_targets_python2_7(-)] dev-python/py-notify[python_targets_python2_7(-)] ) x11-apps/xinput
+REQUIRED_USE=^^ ( python_single_target_python2_7 )
+RESTRICT=mirror test
+SLOT=0
+SRC_URI=https://launchpad.net/magick-rotation/trunk/1.6/+download/magick-rotation-1.6.2.tar.bz2
+_eclasses_=desktop	3a72ffe0d8e1dd73af3a1c8c15a59fed	optfeature	538bce96e5589935b57e178e8635f301	multiprocessing	1e32df7deee68372153dca65f4a7c21f	toolchain-funcs	f9d71a6efe9d083aec750dd13968e169	python-utils-r1	8def5d5a100b607a411d1e3a1617874d	python-single-r1	a5747fe6dc0651d95cb78eddd5e160a8	udev	f3d9a4376ebd22131726a68e1a0a058f	user-info	563da40a1a20ea1e55bbf4d149fc190d	user	b179fbc0bba7eedadf852c6d12227367
+_md5_=3c4be37cf708dc2d93500519f2c19c6f

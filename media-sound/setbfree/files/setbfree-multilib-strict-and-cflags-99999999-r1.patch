@@ -1,0 +1,34 @@
+diff '--color=auto' -ur setbfree-99999999.orig/common.mak setbfree-99999999/common.mak
+--- setbfree-99999999.orig/common.mak	2025-06-16 22:33:59.137450124 +0200
++++ setbfree-99999999/common.mak	2025-06-16 22:36:37.144757538 +0200
+@@ -2,6 +2,7 @@
+ 
+ PREFIX ?= /usr/local
+ OPTIMIZATIONS ?= -msse -msse2 -mfpmath=sse -ffast-math -fomit-frame-pointer -O3 -fno-finite-math-only
++LIBDIR ?= lib
+ ENABLE_CONVOLUTION ?= no
+ INSTALL_EXTRA_LV2 ?= no
+ FONTFILE?=/usr/share/fonts/truetype/ttf-bitstream-vera/VeraBd.ttf
+@@ -20,18 +21,19 @@
+ 
+ bindir = $(PREFIX)/bin
+ sharedir = $(PREFIX)/share/setBfree
+-lv2dir = $(PREFIX)/lib/lv2
++lv2dir = $(PREFIX)/$(LIBDIR)/lv2
+ 
+-CFLAGS ?= $(OPTIMIZATIONS) -Wall
++CFLAGS ?= -Wall
+ ifeq ($(XWIN),)
+ override CFLAGS += -fPIC
+ endif
+ override CFLAGS += -DVERSION="\"$(VERSION)\""
++override CFLAGS += -fpermissive
+ 
+ STRIP      ?= strip
+ PKG_CONFIG ?= pkg-config
+ 
+-CXXFLAGS ?= $(OPTIMIZATIONS) -Wall
++CXXFLAGS ?= -Wall
+ GLUICFLAGS=-I. -I.. -Wno-unused-function
+ STRIPFLAGS=-s
+ 

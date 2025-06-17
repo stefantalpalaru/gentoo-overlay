@@ -1,0 +1,11 @@
+diff '--color=auto' -ur pyflame-1.6.7.orig/src/ptrace.h pyflame-1.6.7/src/ptrace.h
+--- pyflame-1.6.7.orig/src/ptrace.h	2018-06-26 08:19:34.000000000 +0200
++++ pyflame-1.6.7/src/ptrace.h	2025-06-17 03:09:55.710608750 +0200
+@@ -20,6 +20,7 @@
+ 
+ #include <memory>
+ #include <string>
++#include <cstdint>
+ 
+ #include "./config.h"
+ 

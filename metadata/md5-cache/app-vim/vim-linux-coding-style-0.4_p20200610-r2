@@ -1,0 +1,15 @@
+BDEPEND=>=dev-vcs/git-1.8.2.1[curl]
+DEFINED_PHASES=install postinst postrm prepare unpack
+DEPEND=|| ( >=app-editors/vim-7.3 >=app-editors/gvim-7.3 )
+DESCRIPTION=Vim plugin to respect the Linux kernel coding style
+EAPI=8
+HOMEPAGE=https://github.com/vivien/vim-linux-coding-style http://www.vim.org/scripts/script.php?script_id=4369
+INHERIT=git-r3 vim-plugin
+KEYWORDS=~amd64 ~x86
+LICENSE=vim
+PROPERTIES=live
+RDEPEND=|| ( >=app-editors/vim-7.3 >=app-editors/gvim-7.3 )
+SLOT=0
+SRC_URI=
+_eclasses_=git-r3	875eb471682d3e1f18da124be97dcc81	vim-doc	bea02829eae182f569e6e9a5dc2fe08f	vim-plugin	4acc7611306b8fdbeac907d572ccac21
+_md5_=bbe071ccdbb730f78adc52684bbdc970

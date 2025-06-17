@@ -14,6 +14,9 @@ the pycurl interface.
   <longdescription lang="ja">
 PycURLはLibcurlへのパイソン・インターフェイスです。PycURLはPython言語モジュールの様に、Python言語プログラムからURLで指定されたオブジェクトをダウンロードするにも使えます。Libcurlで利用できる機能全てはPycURLインターフェイスを通して利用できます。
   </longdescription>
+  <use>
+    <flag name="curl_ssl_nss">Use NSS for SSL</flag>
+  </use>
   <upstream>
     <remote-id type="github">pycurl/pycurl</remote-id>
     <remote-id type="sourceforge">pycurl</remote-id>

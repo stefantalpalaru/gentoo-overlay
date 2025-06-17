@@ -1,0 +1,16 @@
+BDEPEND=doc? ( || ( ( dev-lang/python:2.7 >=dev-python/sphinx-8.1.3[python_targets_python2_7(-)] dev-python/alabaster[python_targets_python2_7(-)] ) ) ) python_targets_python2_7? ( dev-lang/python:2.7 ) dev-python/setuptools[python_targets_python2_7(-)?]
+DEFINED_PHASES=compile configure install prepare test
+DESCRIPTION=WSGI request and response object
+EAPI=8
+HOMEPAGE=https://webob.org/ https://github.com/Pylons/webob
+INHERIT=distutils-r1 pypi
+IUSE=doc python_targets_python2_7
+KEYWORDS=~alpha amd64 arm arm64 hppa ppc ppc64 s390 sparc x86 ~amd64-linux ~x86-linux ~ppc-macos ~x64-macos
+LICENSE=MIT
+RDEPEND=!<dev-python/webob-1.8.6-r200[python_targets_python2_7(-)?] python_targets_python2_7? ( dev-lang/python:2.7 )
+REQUIRED_USE=|| ( python_targets_python2_7 )
+RESTRICT=mirror test
+SLOT=python2
+SRC_URI=https://files.pythonhosted.org/packages/source/W/WebOb/WebOb-1.8.6.tar.gz
+_eclasses_=toolchain-funcs	f9d71a6efe9d083aec750dd13968e169	flag-o-matic	b892042b2667b8ac69ec8a2571dc290a	out-of-source-utils	dbf9e34ee8964084651e25907fa8f52c	multibuild	4650a65187015567b4e041bb9bfdb364	multilib	b2a329026f2e404e9e371097dda47f96	multiprocessing	1e32df7deee68372153dca65f4a7c21f	ninja-utils	2df4e452cea39a9ec8fb543ce059f8d6	python-utils-r1	8def5d5a100b607a411d1e3a1617874d	python-r1	2d51fd03931e743811ce30d198e4dcfd	distutils-r1	79d08efc797dddc59bec3b6c24447943	pypi	ad1b21f87d117ae9bb089bdb65b8f013
+_md5_=ffb97490ff3065538d1d1f8cf0ac1cce

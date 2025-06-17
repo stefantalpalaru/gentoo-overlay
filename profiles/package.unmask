@@ -221,12 +221,10 @@ media-gfx/gmic
 media-video/subliminal
 net-analyzer/namebench
 net-fs/tahoe-lafs
-net-misc/pycnb
 net-misc/ssvnc
 net-p2p/pybitmessage
 net-print/pykota
 sci-astronomy/casacore
 sci-mathematics/xmds
-x11-libs/pangox-compat
 x11-misc/qxkb
 x11-misc/magick-rotation
