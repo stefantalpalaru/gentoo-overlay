@@ -17,7 +17,7 @@ VERIFY_SIG_OPENPGP_KEY_PATH="/usr/share/openpgp-keys/akallabeth.asc"
 LICENSE="Apache-2.0"
 SLOT="3"
 KEYWORDS="~alpha ~amd64 ~arm ~arm64 ~loong ~ppc ~ppc64 ~riscv ~x86"
-IUSE="aad alsa cpu_flags_arm_neon +client cups debug +ffmpeg +fuse gstreamer +icu jpeg kerberos openh264 pulseaudio sdl server smartcard systemd test usb valgrind wayland X xinerama xv"
+IUSE="aad alsa cpu_flags_arm_neon +client cups debug +ffmpeg +fuse gstreamer +icu jpeg kerberos openh264 pulseaudio sdl sdl3 server smartcard systemd test usb valgrind wayland X xinerama xv"
 RESTRICT="!test? ( test )"
 
 BDEPEND+="
@@ -49,7 +49,7 @@ COMMON_DEPEND="
 	!ffmpeg? (
 		x11-libs/cairo:0=
 	)
-	fuse? ( sys-fs/fuse:3 )
+	fuse? ( sys-fs/fuse:3= )
 	gstreamer? (
 		media-libs/gstreamer:1.0
 		media-libs/gst-plugins-base:1.0
@@ -60,10 +60,6 @@ COMMON_DEPEND="
 	kerberos? ( virtual/krb5 )
 	openh264? ( media-libs/openh264:0= )
 	pulseaudio? ( media-libs/libpulse )
-	sdl? (
-		media-libs/libsdl2[haptic(+),joystick(+),sound(+),video(+)]
-		media-libs/sdl2-ttf
-	)
 	server? (
 		X? (
 			x11-libs/libXcursor
@@ -78,6 +74,14 @@ COMMON_DEPEND="
 	smartcard? ( sys-apps/pcsc-lite )
 	systemd? ( sys-apps/systemd:0= )
 	client? (
+		sdl? (
+			media-libs/libsdl2[haptic(+),joystick(+),sound(+),video(+)]
+			media-libs/sdl2-ttf
+		)
+		sdl3? (
+			media-libs/libsdl3
+			media-libs/sdl3-ttf
+		)
 		wayland? (
 			dev-libs/wayland
 			x11-libs/libxkbcommon
@@ -135,9 +139,8 @@ freerdp_configure() {
 		-DWITH_ALSA=$(option alsa)
 		-DWITH_CCACHE=OFF
 		-DWITH_CLIENT=$(option client)
-		-DWITH_CLIENT_SDL=$(option sdl)
-		-DWITH_CLIENT_SDL2=$(option sdl)
-		-DWITH_CLIENT_SDL3=OFF
+		-DWITH_CLIENT_SDL2=$(option_client sdl)
+		-DWITH_CLIENT_SDL3=$(option_client sdl3)
 		-DWITH_SAMPLE=OFF
 		-DWITH_CUPS=$(option cups)
 		-DWITH_DEBUG_ALL=$(option debug)
@@ -180,8 +183,12 @@ src_compile() {
 }
 
 src_test() {
-	local myctestargs=( -E TestBacktrace )
-	has network-sandbox ${FEATURES} && myctestargs+=( -E TestConnect )
+	# TestBacktrace: bug 930636
+	# TestSynchCritical, TestSynchMultipleThreads: bug 951301
+	local CMAKE_SKIP_TESTS=( TestBacktrace TestSynchCritical TestSynchMultipleThreads )
+	if has network-sandbox ${FEATURES}; then
+		CMAKE_SKIP_TESTS+=( TestConnect )
+	fi
 	run_for_testing cmake_src_test
 }
 

@@ -424,6 +424,7 @@ net-misc/freerdp:aad - Enable login via Azure AD
 net-misc/freerdp:client - Build client binaries
 net-misc/freerdp:fuse - Clipboard with FUSE file copy support
 net-misc/freerdp:openh264 - Enable H.264 support using media-libs/openh264
+net-misc/freerdp:sdl3 - Build SDL3 client
 net-misc/freerdp:server - Build server binaries
 net-p2p/deluge:console - Enable default console UI
 net-p2p/deluge:webinterface - Install dependencies needed for the web interface
