@@ -1,4 +1,4 @@
-# Copyright 2020-2024 Gentoo Authors
+# Copyright 2020-2025 Gentoo Authors
 # Distributed under the terms of the GNU General Public License v2
 
 EAPI=8
@@ -35,6 +35,7 @@ RDEPEND="${DEPEND}"
 PATCHES=(
 	"${FILESDIR}"/opentrack-2024.1.0-flags.patch
 	"${FILESDIR}"/opentrack-2024.1.1_onnxruntime.patch
+	"${FILESDIR}"/opentrack-2024.1.1-procps-4.0.5.patch
 )
 
 src_prepare() {
