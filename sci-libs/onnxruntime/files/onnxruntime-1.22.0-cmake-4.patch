@@ -1,0 +1,12 @@
+diff '--color=auto' -ur dlpack-0.6.orig/CMakeLists.txt dlpack-0.6/CMakeLists.txt
+--- dlpack-0.6.orig/CMakeLists.txt	2021-07-01 16:01:05.000000000 +0200
++++ dlpack-0.6/CMakeLists.txt	2025-06-17 18:42:24.065331725 +0200
+@@ -2,7 +2,7 @@
+ # Set minimum version of CMake. Since command 'project' use
+ # VERSION sub-option we need at least 3.0.
+ # Note: If you use 2.6 or 2.4, God kills a kitten. Seriously.
+-cmake_minimum_required(VERSION 3.2 FATAL_ERROR)
++cmake_minimum_required(VERSION 3.10 FATAL_ERROR)
+ 
+ ####
+ # Set variables:

@@ -164,6 +164,10 @@ src_prepare() {
 	append-flags -Wa,--noexecstack
 
 	cmake_src_prepare
+
+	# for some reason, "patch -p1" can't handle a path like "a/../foo/bar"
+	cd ..
+	patch -p0 -i "${FILESDIR}/onnxruntime-1.22.0-cmake-4.patch"
 }
 
 src_configure() {
