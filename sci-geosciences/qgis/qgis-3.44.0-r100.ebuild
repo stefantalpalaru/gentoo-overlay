@@ -118,7 +118,7 @@ BDEPEND="
 "
 
 PATCHES=(
-	"${FILESDIR}"/qgis-3.42.3-sip.patch
+	"${FILESDIR}"/qgis-3.44.0-include.patch
 )
 
 src_prepare() {

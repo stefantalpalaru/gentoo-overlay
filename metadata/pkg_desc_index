@@ -939,7 +939,7 @@ sci-astronomy/casacore 3.4.0-r2: Core libraries for the Common Astronomy Softwar
 sci-astronomy/healpix 3.31-r4: Hierarchical Equal Area isoLatitude Pixelization of a sphere
 sci-astronomy/kapteyn 2.3.1-r201: Collection of python tools for astronomy
 sci-geosciences/mkgmap-bin 4918: Tool to create garmin maps
-sci-geosciences/qgis 3.42.3-r101: User friendly Geographic Information System
+sci-geosciences/qgis 3.44.0-r100: User friendly Geographic Information System
 sci-geosciences/splitter-bin 653-r1: Tile splitter for mkgmap
 sci-libs/cfitsio 3.410-r2: C and Fortran library for manipulating FITS files
 sci-libs/cholmod 3.0.14-r2: Sparse Cholesky factorization and update/downdate library

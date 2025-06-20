@@ -1,0 +1,11 @@
+diff '--color=auto' -ur qgis-3.44.0.orig/src/core/pal/priorityqueue.h qgis-3.44.0/src/core/pal/priorityqueue.h
+--- qgis-3.44.0.orig/src/core/pal/priorityqueue.h	2025-06-20 14:08:50.000000000 +0200
++++ qgis-3.44.0/src/core/pal/priorityqueue.h	2025-06-20 17:30:54.117553519 +0200
+@@ -34,6 +34,7 @@
+ 
+ 
+ #include <iostream>
++#include <memory>
+ 
+ #define LEFT(x) (2*x+1)
+ #define RIGHT(x) (2*x+2)
