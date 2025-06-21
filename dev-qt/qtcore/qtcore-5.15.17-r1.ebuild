@@ -13,8 +13,8 @@ inherit linux-info flag-o-matic toolchain-funcs qt5-build
 
 DESCRIPTION="Cross-platform application development framework"
 SLOT=5/${QT5_PV}
-
 IUSE="icu old-kernel"
+RESTRICT="mirror" # https://bugs.gentoo.org/958499
 
 DEPEND="
 	dev-libs/double-conversion:=

@@ -794,7 +794,7 @@ dev-qt/qdoc 5.15.17: Qt documentation generator
 dev-qt/qt3d 5.15.17: 3D rendering module for the Qt5 framework
 dev-qt/qtbluetooth 5.15.17: Bluetooth support library for the Qt5 framework
 dev-qt/qtconcurrent 5.15.17-r1: Multi-threading concurrence support library for the Qt5 framework
-dev-qt/qtcore 5.15.17: Cross-platform application development framework
+dev-qt/qtcore 5.15.17-r1: Cross-platform application development framework
 dev-qt/qtdatavis3d 5.15.17: 3D data visualization library for the Qt5 framework
 dev-qt/qtdbus 5.15.17-r1: Qt5 module for inter-process communication over the D-Bus protocol
 dev-qt/qtdeclarative 5.15.17: The QML and Quick modules for the Qt5 framework
