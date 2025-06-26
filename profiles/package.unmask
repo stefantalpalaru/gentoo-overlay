@@ -4,6 +4,7 @@ app-office/upwork
 app-text/calibre
 dev-db/metakit
 dev-lang/php
+dev-libs/libdbusmenu-qt
 dev-libs/openssl
 dev-python/amqplib
 dev-python/anyjson
