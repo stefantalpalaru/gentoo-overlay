@@ -1,0 +1,16 @@
+diff '--color=auto' -ur Carla-2.5.9.orig/source/bridges-ui/Makefile Carla-2.5.9/source/bridges-ui/Makefile
+--- Carla-2.5.9.orig/source/bridges-ui/Makefile	2024-09-21 23:56:30.000000000 +0200
++++ Carla-2.5.9/source/bridges-ui/Makefile	2025-07-01 16:51:32.997614587 +0200
+@@ -69,8 +69,12 @@
+ 
+ # ---------------------------------------------------------------------------------------------------------------------
+ 
++ifeq ($(HAVE_GTK2),true)
+ TARGETS += ui_lv2-gtk2
++endif
++ifeq ($(HAVE_GTK3),true)
+ TARGETS += ui_lv2-gtk3
++endif
+ 
+ ifneq ($(MACOS_OR_WINDOWS),true)
+ ifeq ($(HAVE_QT4),true)
