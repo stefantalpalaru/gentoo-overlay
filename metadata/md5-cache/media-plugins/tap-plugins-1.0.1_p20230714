@@ -1,0 +1,9 @@
+DEFINED_PHASES=install
+DESCRIPTION=Tom's Audio Processing LADSPA plugins
+EAPI=8
+HOMEPAGE=https://tomscii.sig7.se/tap-plugins/ https://git.hq.sig7.se/tap-plugins.git
+KEYWORDS=~amd64
+LICENSE=GPL-2
+SLOT=0
+SRC_URI=https://git.hq.sig7.se/tap-plugins.git/snapshot/85640223047d49a305e90ba1b92303eb066ba474.tar.gz -> tap-plugins-1.0.1_p20230714.tar.gz
+_md5_=9e90dff433535e86fe8edb6b8bdb0141

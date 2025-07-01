@@ -1,0 +1,19 @@
+diff '--color=auto' -ur tap-plugins-8564022.orig/Makefile tap-plugins-8564022/Makefile
+--- tap-plugins-8564022.orig/Makefile	2023-07-14 11:16:33.000000000 +0200
++++ tap-plugins-8564022/Makefile	2025-07-01 16:24:13.586755394 +0200
+@@ -36,12 +36,12 @@
+ 
+ OS := $(shell uname -s)
+ 
+-CC      = gcc
+-CFLAGS  = -I. -O3 -Wall -fomit-frame-pointer -funroll-loops -ffast-math -c -fPIC -DPIC
++CC      ?= gcc
++CFLAGS  += -I. -O3 -Wall -fomit-frame-pointer -funroll-loops -ffast-math -c -fPIC -DPIC
+ ifeq ($(OS),Darwin)
+ LDFLAGS = -nostartfiles -shared -Wl,-install_name,symbolic -lc -lm
+ else
+-LDFLAGS = -nostartfiles -shared -Wl,-Bsymbolic -lc -lm -lrt
++LDFLAGS += -nostartfiles -shared -Wl,-Bsymbolic -lc -lm -lrt
+ endif
+ MODULES = $(wildcard *.c)
+ 
