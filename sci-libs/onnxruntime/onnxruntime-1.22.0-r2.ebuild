@@ -196,6 +196,7 @@ src_configure() {
 		-Donnxruntime_RUN_ONNX_TESTS=$(usex test)
 		-Donnxruntime_ENABLE_LAZY_TENSOR=OFF
 		-Donnxruntime_USE_PREINSTALLED_EIGEN=ON
+		-Donnxruntime_PREFER_SYSTEM_LIB=ON
 		-Donnxruntime_USE_DNNL=$(usex onednn)
 		-Donnxruntime_USE_CUDA=$(usex cuda)
 		-Donnxruntime_USE_ROCM=$(usex hip)
