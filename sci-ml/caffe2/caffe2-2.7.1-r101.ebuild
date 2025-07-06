@@ -2,14 +2,18 @@
 # Distributed under the terms of the GNU General Public License v2
 
 EAPI=8
-PYTHON_COMPAT=( python3_{10..13} python3_13t )
+PYTHON_COMPAT=( python3_{11..13} )
 ROCM_VERSION=6.1
 MYPN=pytorch
 MYP=${MYPN}-${PV}
 # caffe2-2.6.0 depends on future version of composable kernel
 # TODO: replace it with RDEPEND in the future
-CK_COMMIT=50ee4267e27b875d149e642f4cebd47be1dc3b57
+CK_COMMIT=8086bbe3a78d931eb96fe12fdc014082e18d18d3
 CK_P=composable_kernel-${CK_COMMIT:0:8}
+AOTRITON_PV=0.9.2b
+AOTRITON_PN=aotriton
+AOTRITON_P=${AOTRITON_PN}-${AOTRITON_PV}
+AOTRITON_tar=${AOTRITON_P}-manylinux_2_28_x86_64-rocm6.3-shared.tar.gz
 
 inherit python-single-r1 cmake cuda flag-o-matic prefix rocm toolchain-funcs
 
@@ -17,12 +21,20 @@ DESCRIPTION="A deep learning framework"
 HOMEPAGE="https://pytorch.org/"
 SRC_URI="https://github.com/pytorch/pytorch/releases/download/v${PV}/pytorch-v${PV}.tar.gz
 	-> ${MYP}-full.tar.gz
-	rocm? ( https://github.com/ROCm/composable_kernel/archive/${CK_COMMIT}.tar.gz -> ${CK_P}.tar.gz )
+	rocm? (
+		https://github.com/ROCm/composable_kernel/archive/${CK_COMMIT}.tar.gz
+		-> ${CK_P}.tar.gz
+		memefficient? (
+			amd64? (
+				https://github.com/ROCm/${AOTRITON_PN}/releases/download/${AOTRITON_PV}/${AOTRITON_tar}
+			)
+		)
+	)
 "
 S="${WORKDIR}"/pytorch-v${PV}
 LICENSE="BSD"
 SLOT="0"
-KEYWORDS="~amd64"
+KEYWORDS="~amd64 ~arm64"
 IUSE="cuda distributed fbgemm flash gloo memefficient mkl mpi nnpack +numpy onednn openblas opencl openmp qnnpack rocm xnnpack cpu_flags_x86_avx cpu_flags_x86_avx2 cpu_flags_x86_avx512f"
 RESTRICT="test"
 REQUIRED_USE="
@@ -50,9 +62,9 @@ RDEPEND="
 	dev-libs/protobuf:=
 	dev-libs/pthreadpool
 	dev-libs/sleef
-	virtual/lapack
-	sci-ml/onnx
 	sci-ml/foxi
+	sci-ml/onnx
+	virtual/lapack
 	cuda? (
 		dev-libs/cudnn:=
 		>=sci-ml/cudnn-frontend-1.0.3:0=
@@ -73,19 +85,19 @@ RDEPEND="
 		sci-ml/gemmlowp
 	)
 	rocm? (
-		>=dev-libs/rccl-6.1      <dev-libs/rccl-6.4
-		>=dev-util/hip-6.1       <dev-util/hip-6.4
-		>=dev-util/roctracer-6.1 <dev-util/roctracer-6.4
-		>=sci-libs/hipBLAS-6.1   <sci-libs/hipBLAS-6.4
-		>=sci-libs/hipBLASLt-6.1 <sci-libs/hipBLASLt-6.4
-		>=sci-libs/hipCUB-6.1    <sci-libs/hipCUB-6.4
-		>=sci-libs/hipFFT-6.1    <sci-libs/hipFFT-6.4
-		>=sci-libs/hipRAND-6.1   <sci-libs/hipRAND-6.4
-		>=sci-libs/hipSOLVER-6.1 <sci-libs/hipSOLVER-6.4
-		>=sci-libs/hipSPARSE-6.1 <sci-libs/hipSPARSE-6.4
-		>=sci-libs/miopen-6.1    <sci-libs/miopen-6.4
-		>=sci-libs/rocPRIM-6.1   <sci-libs/rocPRIM-6.4
-		>=sci-libs/rocThrust-6.1 <sci-libs/rocThrust-6.4
+		>=dev-libs/rccl-6.1      <dev-libs/rccl-6.5
+		>=dev-util/hip-6.1       <dev-util/hip-6.5
+		>=dev-util/roctracer-6.1 <dev-util/roctracer-6.5
+		>=sci-libs/hipBLAS-6.1   <sci-libs/hipBLAS-6.5
+		>=sci-libs/hipBLASLt-6.1 <sci-libs/hipBLASLt-6.5
+		>=sci-libs/hipCUB-6.1    <sci-libs/hipCUB-6.5
+		>=sci-libs/hipFFT-6.1    <sci-libs/hipFFT-6.5
+		>=sci-libs/hipRAND-6.1   <sci-libs/hipRAND-6.5
+		>=sci-libs/hipSOLVER-6.1 <sci-libs/hipSOLVER-6.5
+		>=sci-libs/hipSPARSE-6.1 <sci-libs/hipSPARSE-6.5
+		>=sci-libs/miopen-6.1    <sci-libs/miopen-6.5
+		>=sci-libs/rocPRIM-6.1   <sci-libs/rocPRIM-6.5
+		>=sci-libs/rocThrust-6.1 <sci-libs/rocThrust-6.5
 	)
 	distributed? (
 		sci-ml/tensorpipe[cuda?]
@@ -103,8 +115,8 @@ DEPEND="
 	dev-libs/psimd
 	sci-ml/FP16
 	$(python_gen_cond_dep '
-		dev-python/pyyaml[${PYTHON_USEDEP}]
 		dev-python/pybind11[${PYTHON_USEDEP}]
+		dev-python/pyyaml[${PYTHON_USEDEP}]
 		dev-python/typing-extensions[${PYTHON_USEDEP}]
 	')
 	cuda? ( >=dev-libs/cutlass-3.8.0 )
@@ -137,6 +149,14 @@ src_prepare() {
 	pushd torch/csrc/jit/serialization || die
 	flatc --cpp --gen-mutable --scoped-enums mobile_bytecode.fbs || die
 	popd
+	if use rocm && use memefficient; then
+		mkdir -p "${BUILD_DIR}"/aotriton_external-prefix/src || die
+		rm -rf "${WORKDIR}"/aotriton
+		if use amd64; then
+			cp "${DISTDIR}"/${AOTRITON_tar} "${BUILD_DIR}"/aotriton_external-prefix/src || die
+		fi
+	fi
+
 	# prefixify the hardcoded paths, after all patches are applied
 	hprefixify \
 		aten/CMakeLists.txt \
