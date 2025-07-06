@@ -506,7 +506,7 @@ sci-ml/caffe2:openmp - Use OpenMP for parallel code
 sci-ml/caffe2:qnnpack - Use QNNPACK
 sci-ml/caffe2:rocm - Enable ROCm gpu computing support
 sci-ml/caffe2:xnnpack - Use XNNPACK
-sci-ml/torchvision:cuda - Add support for CUDA processing
+sci-ml/torchvision:rocm - Enable ROCm gpu computing support
 sys-cluster/openmpi:cma - Enable the CMA (Cross Memory Attach) MCA
 sys-cluster/openmpi:peruse - Enable PERUSE interface
 sys-cluster/openmpi:romio - Build the ROMIO MPI-IO component
