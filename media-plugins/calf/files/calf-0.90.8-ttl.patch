@@ -1,0 +1,18 @@
+diff '--color=auto' -ur calf-0.90.8.orig/src/CMakeLists.txt calf-0.90.8/src/CMakeLists.txt
+--- calf-0.90.8.orig/src/CMakeLists.txt	2025-07-07 00:23:50.349639708 +0200
++++ calf-0.90.8/src/CMakeLists.txt	2025-07-07 00:29:16.899439034 +0200
+@@ -172,10 +172,10 @@
+     endif()
+ 
+     # Remove previous .ttl files
+-    file(GLOB ttl_files "${LV2DIR_PROJ}/*.ttl")
+-    foreach(ttl_file ${ttl_files})
+-        file(REMOVE "${ttl_file}")
+-    endforeach()
++    #file(GLOB ttl_files "${LV2DIR_PROJ}/*.ttl")
++    #foreach(ttl_file ${ttl_files})
++        #file(REMOVE "${ttl_file}")
++    #endforeach()
+ 
+     # Install new .ttl files
+     install(CODE "execute_process(COMMAND \"${CMAKE_CURRENT_BINARY_DIR}/${PROJECT_NAME}makerdf\" -m ttl -p \"\$ENV{DESTDIR}${LV2DIR_PROJ}\" -d \"\$ENV{DESTDIR}${CMAKE_INSTALL_PREFIX}/share/${PROJECT_NAME}/\")")

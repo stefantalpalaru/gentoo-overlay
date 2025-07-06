@@ -42,6 +42,10 @@ DEPEND="
 "
 RDEPEND="${DEPEND}"
 
+PATCHES=(
+	"${FILESDIR}"/calf-0.90.8-ttl.patch
+)
+
 src_configure() {
 	# Upstream append -ffast-math by default, however since libtool links C++
 	# shared libs with -nostdlib, this causes symbol resolution error for
@@ -53,6 +57,7 @@ src_configure() {
 		-DWANT_GUI=$(usex gtk)
 		-DWANT_JACK=$(usex jack)
 		-DWANT_LASH=$(usex lash)
+		-DWANT_SSE=$(usex cpu_flags_x86_sse)
 		-DWANT_LV2=$(usex lv2)
 		-DWANT_LV2_GUI=$(usex lv2)
 		-DWANT_SORDI=ON
