@@ -10,10 +10,6 @@ MYP=${MYPN}-${PV}
 # TODO: replace it with RDEPEND in the future
 CK_COMMIT=8086bbe3a78d931eb96fe12fdc014082e18d18d3
 CK_P=composable_kernel-${CK_COMMIT:0:8}
-AOTRITON_PV=0.9.2b
-AOTRITON_PN=aotriton
-AOTRITON_P=${AOTRITON_PN}-${AOTRITON_PV}
-AOTRITON_tar=${AOTRITON_P}-manylinux_2_28_x86_64-rocm6.3-shared.tar.gz
 
 inherit python-single-r1 cmake cuda flag-o-matic prefix rocm toolchain-funcs
 
@@ -24,11 +20,6 @@ SRC_URI="https://github.com/pytorch/pytorch/releases/download/v${PV}/pytorch-v${
 	rocm? (
 		https://github.com/ROCm/composable_kernel/archive/${CK_COMMIT}.tar.gz
 		-> ${CK_P}.tar.gz
-		memefficient? (
-			amd64? (
-				https://github.com/ROCm/${AOTRITON_PN}/releases/download/${AOTRITON_PV}/${AOTRITON_tar}
-			)
-		)
 	)
 "
 S="${WORKDIR}"/pytorch-v${PV}
@@ -63,6 +54,7 @@ RDEPEND="
 	dev-libs/pthreadpool
 	dev-libs/sleef
 	sci-ml/foxi
+	~sci-ml/kineto-0.4.0_p20250214
 	sci-ml/onnx
 	virtual/lapack
 	cuda? (
@@ -70,7 +62,7 @@ RDEPEND="
 		>=sci-ml/cudnn-frontend-1.0.3:0=
 		dev-libs/cudss
 		dev-libs/cusparselt
-		dev-util/nvidia-cuda-toolkit:=[profiler]
+		>=dev-util/nvidia-cuda-toolkit-12.9:=[profiler]
 	)
 	fbgemm? ( >=sci-ml/FBGEMM-2023.12.01 )
 	gloo? ( sci-ml/gloo[cuda?] )
@@ -98,6 +90,7 @@ RDEPEND="
 		>=sci-libs/miopen-6.1    <sci-libs/miopen-6.5
 		>=sci-libs/rocPRIM-6.1   <sci-libs/rocPRIM-6.5
 		>=sci-libs/rocThrust-6.1 <sci-libs/rocThrust-6.5
+		memefficient? ( sci-libs/aotriton-bin:0/0.9 )
 	)
 	distributed? (
 		sci-ml/tensorpipe[cuda?]
@@ -137,6 +130,10 @@ PATCHES=(
 	"${FILESDIR}"/caffe2-2.4.0-cpp-httplib.patch
 	"${FILESDIR}"/caffe2-2.4.0-kineto.patch
 	"${FILESDIR}"/caffe2-2.5.1-newfix-functorch-install.patch
+	"${FILESDIR}"/caffe2-2.5.1-unbundle_kineto.patch
+	"${FILESDIR}"/caffe2-2.7.0-glog-0.7.1.patch
+	"${FILESDIR}"/caffe2-2.7.0-llvm.patch
+	"${FILESDIR}"/caffe2-2.7.1-ck-config.patch
 )
 
 src_prepare() {
@@ -145,17 +142,20 @@ src_prepare() {
 		-e "/third_party\/gloo/d" \
 		cmake/Dependencies.cmake \
 		|| die
+
+	# Change libaotriton path
+	sed -i \
+		-e "s|}/lib|}/$(get_libdir)|g" \
+		cmake/External/aotriton.cmake \
+		|| die
+
+	# Noisy warnings from Logging.h
+	sed -i 's/-Wextra-semi//' cmake/public/utils.cmake || die
+
 	cmake_src_prepare
 	pushd torch/csrc/jit/serialization || die
 	flatc --cpp --gen-mutable --scoped-enums mobile_bytecode.fbs || die
 	popd
-	if use rocm && use memefficient; then
-		mkdir -p "${BUILD_DIR}"/aotriton_external-prefix/src || die
-		rm -rf "${WORKDIR}"/aotriton
-		if use amd64; then
-			cp "${DISTDIR}"/${AOTRITON_tar} "${BUILD_DIR}"/aotriton_external-prefix/src || die
-		fi
-	fi
 
 	# prefixify the hardcoded paths, after all patches are applied
 	hprefixify \
@@ -219,47 +219,47 @@ src_configure() {
 		-DLIBSHM_INSTALL_LIB_SUBDIR="${EPREFIX}"/usr/$(get_libdir)
 		-DPython_EXECUTABLE="${PYTHON}"
 		-DTORCH_INSTALL_LIB_DIR="${EPREFIX}"/usr/$(get_libdir)
-
 		-DUSE_CCACHE=OFF
 		-DUSE_CUDA=$(usex cuda)
-		-DUSE_CUDSS=$(usex cuda)
-		-DUSE_CUSPARSELT=$(usex cuda)
 		-DUSE_DISTRIBUTED=$(usex distributed)
-		-DUSE_MPI=$(usex mpi)
 		-DUSE_FAKELOWP=OFF
 		-DUSE_FBGEMM=$(usex fbgemm)
 		-DUSE_FLASH_ATTENTION=$(usex flash)
-		-DUSE_MEM_EFF_ATTENTION=$(usex memefficient)
 		-DUSE_GFLAGS=ON
 		-DUSE_GLOG=ON
 		-DUSE_GLOO=$(usex gloo)
 		-DUSE_ITT=OFF
-		-DUSE_KINETO=OFF # TODO
+		-DUSE_KINETO=ON
+		-DUSE_KLEIDIAI=OFF # TODO
 		-DUSE_MAGMA=OFF # TODO: In GURU as sci-libs/magma
+		-DUSE_MEM_EFF_ATTENTION=$(usex memefficient)
 		-DUSE_MKLDNN=$(usex onednn)
+		-DUSE_MPI=$(usex mpi)
 		-DUSE_NCCL=OFF
 		-DUSE_NNPACK=$(usex nnpack)
 		-DUSE_NUMA=OFF
-		-DUSE_XNNPACK=$(usex xnnpack)
-		-DUSE_SYSTEM_XNNPACK=$(usex xnnpack)
-		-DUSE_TENSORPIPE=$(usex distributed)
-		-DUSE_PYTORCH_QNNPACK=$(usex qnnpack)
 		-DUSE_NUMPY=$(usex numpy)
 		-DUSE_OPENCL=$(usex opencl)
 		-DUSE_OPENMP=$(usex openmp)
+		-DUSE_PYTORCH_QNNPACK=$(usex qnnpack)
+		-DUSE_PYTORCH_METAL=OFF
 		-DUSE_ROCM=$(usex rocm)
 		-DUSE_SYSTEM_CPUINFO=ON
+		-DUSE_SYSTEM_EIGEN_INSTALL=ON
+		-DUSE_SYSTEM_FP16=ON
+		-DUSE_SYSTEM_FXDIV=ON
+		-DUSE_SYSTEM_GLOO=ON
+		-DUSE_SYSTEM_NVTX=ON
+		-DUSE_SYSTEM_ONNX=ON
+		-DUSE_SYSTEM_PSIMD=ON
+		-DUSE_SYSTEM_PTHREADPOOL=ON
 		-DUSE_SYSTEM_PYBIND11=ON
+		-DUSE_SYSTEM_SLEEF=ON
+		-DUSE_SYSTEM_XNNPACK=$(usex xnnpack)
+		-DUSE_TENSORPIPE=$(usex distributed)
 		-DUSE_UCC=OFF
 		-DUSE_VALGRIND=OFF
-		-DUSE_SYSTEM_PTHREADPOOL=ON
-		-DUSE_SYSTEM_PSIMD=ON
-		-DUSE_SYSTEM_FXDIV=ON
-		-DUSE_SYSTEM_FP16=ON
-		-DUSE_SYSTEM_GLOO=ON
-		-DUSE_SYSTEM_ONNX=ON
-		-DUSE_SYSTEM_SLEEF=ON
-		-DUSE_PYTORCH_METAL=OFF
+		-DUSE_XNNPACK=$(usex xnnpack)
 		-DUSE_XPU=OFF
 		-DC_AVX_FOUND=$(usex cpu_flags_x86_avx)
 		-DC_AVX2_FOUND=$(usex cpu_flags_x86_avx2)
@@ -289,9 +289,15 @@ src_configure() {
 			-DTORCH_CUDA_ARCH_LIST="${TORCH_CUDA_ARCH_LIST:-5.0 7.0}"
 			-DUSE_NCCL=OFF # TODO: NVIDIA Collective Communication Library
 			-DCMAKE_CUDA_FLAGS="$(cuda_gccdir -f | tr -d \")"
+			-DUSE_CUDSS=$(usex cuda)
+			-DUSE_CUSPARSELT=$(usex cuda)
 		)
 	elif use rocm; then
 		export PYTORCH_ROCM_ARCH="$(get_amdgpu_flags)"
+
+		if use memefficient; then
+			export AOTRITON_INSTALLED_PREFIX="${ESYSROOT}/usr"
+		fi
 
 		mycmakeargs+=(
 			-DUSE_NCCL=ON
@@ -300,7 +306,7 @@ src_configure() {
 		)
 
 		# ROCm libraries produce too much warnings
-		append-cxxflags -Wno-deprecated-declarations -Wno-unused-result
+		append-cxxflags -Wno-deprecated-declarations -Wno-unused-result -Wno-unused-value
 	fi
 
 	if use onednn; then
@@ -312,9 +318,6 @@ src_configure() {
 	fi
 
 	cmake_src_configure
-
-	# do not rerun cmake and the build process in src_install
-	sed '/RERUN/,+1d' -i "${BUILD_DIR}"/build.ninja || die
 }
 
 src_compile() {
