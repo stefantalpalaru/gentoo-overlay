@@ -945,7 +945,7 @@ sci-geosciences/qgis 3.44.0-r100: User friendly Geographic Information System
 sci-geosciences/splitter-bin 653-r1: Tile splitter for mkgmap
 sci-libs/cfitsio 3.410-r2: C and Fortran library for manipulating FITS files
 sci-libs/cholmod 3.0.14-r2: Sparse Cholesky factorization and update/downdate library
-sci-libs/gdal 3.0.4-r205: Translator library for raster geospatial data formats (includes OGR support)
+sci-libs/gdal 3.0.4-r205 3.11.1: Translator library for raster geospatial data formats (includes OGR support)
 sci-libs/onnxruntime 1.22.0-r2: Cross-platform inference and training machine-learning accelerator.
 sci-mathematics/xmds 2.2.3-r4: XMDS - The eXtensible Multi-Dimensional Simulator
 sci-misc/openfst 1.8.4: Finite State Transducer tools by Google et al

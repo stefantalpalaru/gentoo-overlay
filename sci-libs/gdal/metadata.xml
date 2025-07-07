@@ -21,7 +21,7 @@
 		<flag name="gml">Enable support for <pkg>dev-libs/xerces-c</pkg> C++ API</flag>
 		<flag name="mdb">Enable support for Microsoft Access database</flag>
 		<flag name="ogdi">Enable support for the open geographic datastore interface (<pkg>sci-libs/ogdi</pkg>)</flag>
-		<flag name="opencl">Enable OpenCL support</flag>
+		<flag name="parquet">Enables read/write parquet data format (<pkg>dev-libs/apache-arrow</pkg>)</flag>
 		<flag name="spatialite">Enable Spatial DBMS over sqlite <pkg>dev-db/spatialite</pkg></flag>
 		<flag name="xls">Add the <pkg>dev-libs/freexl</pkg> library for xls import support</flag>
 	</use>
