@@ -4,27 +4,44 @@
 EAPI=8
 CMAKE_MAKEFILE_GENERATOR="emake"
 CMAKE_BUILD_TYPE=Release
+GMIC_QT_COMMIT="b55b8ca53b31151bda65a79f33b698c9b24ba400"
+GMIC_QT_URI="https://github.com/GreycLab/gmic-qt/archive/${GMIC_QT_COMMIT}.tar.gz -> gmic-qt-${PV}.gh.tar.gz"
 
 inherit bash-completion-r1 cmake flag-o-matic qmake-utils toolchain-funcs
 
 DESCRIPTION="GREYC's Magic Image Converter"
 HOMEPAGE="http://gmic.eu/
 	https://github.com/GreycLab/gmic
-	https://framagit.org/dtschump/gmic"
-GMIC_QT_URI="https://github.com/GreycLab/gmic-qt/archive/v.${PV}.tar.gz -> gmic-qt-${PV}.gh.tar.gz"
+	https://framagit.org/dtschump/gmic
+	https://github.com/GreycLab/gmic-qt"
 SRC_URI="https://github.com/GreycLab/gmic/archive/v.${PV}.tar.gz -> ${P}.gh.tar.gz
 	https://gmic.eu/gmic_stdlib_community$(ver_rs 1- '').h
+	gimp? ( ${GMIC_QT_URI} )
+	gui? ( ${GMIC_QT_URI} )
 "
 S="${WORKDIR}/${PN}-v.${PV}"
 LICENSE="CeCILL-2 GPL-3"
 SLOT="0"
 KEYWORDS="~amd64 ~arm64 ~x86"
-IUSE="bash-completion ffmpeg +fftw graphicsmagick jpeg opencv openexr +openmp png static-libs tiff X"
+IUSE="bash-completion +cli ffmpeg +fftw gimp graphicsmagick gui jpeg opencv openexr +openmp png static-libs tiff X"
+REQUIRED_USE="
+	|| ( cli gimp gui )
+	gimp? ( png fftw X )
+	gui? ( png fftw X )
+"
 RESTRICT="mirror network-sandbox"
 
+QT_DEPS="
+	dev-qt/qtbase:6[gui,network,widgets]
+"
 COMMON_DEPEND="
 	fftw? ( sci-libs/fftw:3.0=[threads] )
+	gimp? (
+		media-gfx/gimp:0/3
+		${QT_DEPS}
+	)
 	graphicsmagick? ( media-gfx/graphicsmagick:0= )
+	gui? ( ${QT_DEPS} )
 	jpeg? ( media-libs/libjpeg-turbo:0 )
 	~media-libs/cimg-${PV}
 	net-misc/curl
@@ -48,7 +65,7 @@ DEPEND="${COMMON_DEPEND}
 	virtual/pkgconfig
 "
 
-GMIC_QT_DIR="gmic-qt-v.${PV}"
+GMIC_QT_DIR="gmic-qt-${GMIC_QT_COMMIT}"
 
 pkg_pretend() {
 	if use openmp; then
@@ -62,6 +79,18 @@ src_prepare() {
 	PATCHES=()
 
 	ln -sr ../${PN}-v.${PV} ../${PN}
+
+	if use gimp || use gui ; then
+		sed -i \
+			-e '/CMAKE_CXX_FLAGS_RELEASE/d' \
+			../${GMIC_QT_DIR}/CMakeLists.txt || die "sed failed"
+		local S="${WORKDIR}/${GMIC_QT_DIR}"
+		cd ../${GMIC_QT_DIR}
+		patch -p1 -i "${FILESDIR}/gmic-3.1.6-stripping.patch" || die
+		patch -p1 -i "${FILESDIR}/gmic-3.2.0-system-gmic.patch" || die
+		cd -
+		cmake_src_prepare
+	fi
 }
 
 src_configure() {
@@ -71,9 +100,9 @@ src_configure() {
 	local mycmakeargs=(
 		-DBUILD_LIB=ON
 		-DBUILD_LIB_STATIC=$(usex static-libs ON OFF)
-		-DBUILD_CLI=ON
-		-DBUILD_MAN=ON
-		-DBUILD_BASH_COMPLETION=$(usex bash-completion ON OFF)
+		-DBUILD_CLI=$(usex cli ON OFF)
+		-DBUILD_MAN=$(usex cli ON OFF)
+		-DBUILD_BASH_COMPLETION=$(usex cli $(usex bash-completion ON OFF) OFF)
 		-DENABLE_X=$(usex X ON OFF)
 		-DENABLE_FFMPEG=$(usex ffmpeg ON OFF)
 		-DENABLE_FFTW=$(usex fftw ON OFF)
@@ -100,7 +129,19 @@ src_configure() {
 		-DENABLE_DYNAMIC_LINKING=ON
 		-DENABLE_SYSTEM_GMIC=ON
 		-DGMIC_LIB_PATH="${WORKDIR}/gmic-v.${PV}_build"
+		-DBUILD_WITH_QT6=ON
 	)
+	local BUILD_DIR
+	if use gimp; then
+		BUILD_DIR=${WORKDIR}/gimp_build
+		mycmakeargs+=( -DGMIC_QT_HOST=gimp3 )
+		cmake_src_configure
+	fi
+	if use gui; then
+		BUILD_DIR=${WORKDIR}/gui_build
+		mycmakeargs+=( -DGMIC_QT_HOST=none )
+		cmake_src_configure
+	fi
 }
 
 src_compile() {
@@ -109,6 +150,14 @@ src_compile() {
 	# gmic-qt
 	local S="${WORKDIR}/${GMIC_QT_DIR}"
 	local BUILD_DIR
+	if use gimp; then
+		BUILD_DIR="${WORKDIR}/gimp_build"
+		cmake_src_compile
+	fi
+	if use gui; then
+		BUILD_DIR="${WORKDIR}/gui_build"
+		cmake_src_compile
+	fi
 }
 
 src_install() {
@@ -120,7 +169,7 @@ src_install() {
 	#   might mean that this big file will be automatically downloaded in
 	#   "~/.config/gmic/" when the user runs a tool before updating and sourcing
 	#   the new environment
-	local PLUGIN_DIR="/usr/$(get_libdir)/gimp/2.0/plug-ins/"
+	local PLUGIN_DIR="/usr/$(get_libdir)/gimp/3.0/plug-ins/gmic_gimp_qt"
 	insinto "${PLUGIN_DIR}"
 	doins resources/*.gmz
 
@@ -133,5 +182,14 @@ src_install() {
 	# using the installed "gmic.h".
 	sed -i -e '/^#define cimg.*_plugin/d' "${ED}/usr/include/gmic.h" || die "sed failed"
 
-	use bash-completion && newbashcomp "${WORKDIR}/${PN}-v.${PV}_build/resources/${PN}_bashcompletion.sh" ${PN}
+	use cli && use bash-completion && newbashcomp "${WORKDIR}/${PN}-v.${PV}_build/resources/${PN}_bashcompletion.sh" ${PN}
+
+	# gmic-qt
+	if use gimp; then
+		exeinto "${PLUGIN_DIR}"
+		doexe "${WORKDIR}/gimp_build/gmic_gimp_qt"
+	fi
+	if use gui; then
+		dobin "${WORKDIR}/gui_build/gmic_qt"
+	fi
 }
