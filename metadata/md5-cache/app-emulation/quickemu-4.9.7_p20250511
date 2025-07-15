@@ -12,5 +12,5 @@ REQUIRED_USE=^^ ( python_single_target_python3_11 python_single_target_python3_1
 RESTRICT=mirror
 SLOT=0
 SRC_URI=https://github.com/quickemu-project/quickemu/archive/2129abf060eb6af45e0393135da24736e363fc9b.tar.gz -> quickemu-4.9.7_p20250511.gh.tar.gz
-_eclasses_=multiprocessing	1e32df7deee68372153dca65f4a7c21f	toolchain-funcs	a6df79c1e9bc84369dbf3d44206ac772	python-utils-r1	f1d3a4dea5847c7390ba91bd557c83aa	python-single-r1	a5747fe6dc0651d95cb78eddd5e160a8
+_eclasses_=multiprocessing	1e32df7deee68372153dca65f4a7c21f	toolchain-funcs	a0b29008c671a362b505f96fa80ce9c0	python-utils-r1	f1d3a4dea5847c7390ba91bd557c83aa	python-single-r1	a5747fe6dc0651d95cb78eddd5e160a8
 _md5_=378b1735cb588abe4e6420af46a0871a

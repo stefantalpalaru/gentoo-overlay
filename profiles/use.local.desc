@@ -280,6 +280,30 @@ media-gfx/ansel:gmic - Use the G'MIC image-processing framework (media-gfx/gmic)
 media-gfx/ansel:kwallet - Enable encrypted storage of passwords with kde-frameworks/kwallet
 media-gfx/ansel:lto - Enable link-time optimisations in the RawSpeed library
 media-gfx/ansel:opencl - Enable opencl support
+media-gfx/blender:alembic - Add support for Alembic through media-gfx/alembic.
+media-gfx/blender:bullet - Enable Bullet (Physics Engine).
+media-gfx/blender:collada - Add support for Collada interchange format through media-libs/opencollada.
+media-gfx/blender:color-management - Enable color management via media-libs/opencolorio.
+media-gfx/blender:cuda - Build cycles renderer with nVidia CUDA support.
+media-gfx/blender:cycles - Enable the Cycles raytracing render engine.
+media-gfx/blender:cycles-bin-kernels - Precompile the cycles render kernels for the CUDA/HIP/OneAPI backends, if they are enabled, at compile time. This makes it so that the user doesn't have to wait for the kernels to compile when they are used for the first time in Blender. If this option is not on, they will be built as needed at runtime.
+media-gfx/blender:embree - Use embree to accelerate certain areas of the Cycles render engine.
+media-gfx/blender:fluid - Adds fluid simulation support via the built-in Mantaflow library.
+media-gfx/blender:hip - Build cycles renderer with AMD HIP support.
+media-gfx/blender:nanovdb - Enable nanoVDB support in Cycles. Uses less memory than regular openVDB when rendering.
+media-gfx/blender:ndof - Enable NDOF input devices (SpaceNavigator and friends).
+media-gfx/blender:oidn - Enable OpenImageDenoiser Support
+media-gfx/blender:openpgl - Enable path guiding support in Cycles
+media-gfx/blender:opensubdiv - Add rendering support form OpenSubdiv from Dreamworks Animation through media-libs/opensubdiv.
+media-gfx/blender:openvdb - Enable openvdb for volumetric processing, like the voxel remesher. Also enables volumetric GPU preview rendering for Nvidia cards.
+media-gfx/blender:optix - Add support for NVIDIA's OptiX Raytracing Engine.
+media-gfx/blender:osl - Add support for OpenShadingLanguage scripting.
+media-gfx/blender:pipewire - Enable Pipewire for audio support on Linux
+media-gfx/blender:potrace - Add support for converting bitmaps into Grease pencil line using the potrace library.
+media-gfx/blender:pugixml - Enable PugiXML support (Used for OpenImageIO, Grease Pencil SVG export)
+media-gfx/blender:renderdoc - Build Blender with renderdoc support
+media-gfx/blender:tbb - Use threading building blocks library from dev-cpp/tbb.
+media-gfx/blender:vulkan - Add support for the experimental Vulkan viewport backend
 media-gfx/exiv2:bmff - Add support for the ISOBMFF format
 media-gfx/exiv2:webready - Support reading metadata over the internet
 media-gfx/fbcat:fbgrab - Install a 'fbgrab' wrapper script around fbcat that mimics media-gfx/fbgrab
@@ -315,6 +339,13 @@ media-libs/libheif:svt-av1 - Use media-libs/svt-av1 for AVIF encoding
 media-libs/libheif:x265 - Use media-libs/x265 for HEIF encoding
 media-libs/openexr:large-stack - Enables code to take advantage of large stack support.
 media-libs/openexr:utils - Build several binary tools for verifying and manipulating EXR files.
+media-libs/openimageio:dicom - Enable DICOM medical image file support via sci-libs/dcmtk
+media-libs/openimageio:fits - Enable support for NASA's sci-libs/cfitsio library
+media-libs/openimageio:gui - Build iv (with Qt5)
+media-libs/openimageio:opencv - Enable OpenCV support via media-libs/opencv
+media-libs/openimageio:openvdb - Enable OpenVDB support via media-gfx/openvdb
+media-libs/openimageio:ptex - Enable Ptex texture mapping system file support via media-libs/ptex
+media-libs/openimageio:tools - Build the command-line tools
 media-libs/svt-av1:lto - Build with link-time optimizations (LTO)
 media-libs/svt-av1:pgo - Build with profile guided optimizations (PGO)
 media-libs/zmusic:fluidsynth - Enable support for MIDI via media-sound/fluidsynth

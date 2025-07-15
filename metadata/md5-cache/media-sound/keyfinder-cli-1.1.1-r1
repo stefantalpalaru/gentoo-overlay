@@ -9,5 +9,5 @@ LICENSE=GPL-3+
 RDEPEND=media-libs/libkeyfinder media-video/ffmpeg-compat:4=
 SLOT=0
 SRC_URI=https://github.com/EvanPurkhiser/keyfinder-cli/archive/v1.1.1.tar.gz -> keyfinder-cli-1.1.1.tar.gz
-_eclasses_=toolchain-funcs	a6df79c1e9bc84369dbf3d44206ac772	flag-o-matic	a7afe42e95fb46ce9691605acfb24672	ffmpeg-compat	9fb95232cbc648b5a3556767a2a5030d
+_eclasses_=toolchain-funcs	a0b29008c671a362b505f96fa80ce9c0	flag-o-matic	a7afe42e95fb46ce9691605acfb24672	ffmpeg-compat	9fb95232cbc648b5a3556767a2a5030d
 _md5_=b60396223ab077cb1ba9fff0361c2d73

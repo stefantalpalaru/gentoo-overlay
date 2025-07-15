@@ -11,5 +11,5 @@ RDEPEND=python_targets_python2_7? ( dev-lang/python:2.7 ) python_targets_python3
 REQUIRED_USE=|| ( python_targets_python2_7 python_targets_python3_11 python_targets_python3_12 )
 SLOT=0
 SRC_URI=https://files.pythonhosted.org/packages/source/P/PyQtWebEngine/PyQtWebEngine-5.15.4.tar.gz
-_eclasses_=pypi	ad1b21f87d117ae9bb089bdb65b8f013	out-of-source-utils	dbf9e34ee8964084651e25907fa8f52c	multibuild	4650a65187015567b4e041bb9bfdb364	multiprocessing	1e32df7deee68372153dca65f4a7c21f	toolchain-funcs	a6df79c1e9bc84369dbf3d44206ac772	python-utils-r1	f1d3a4dea5847c7390ba91bd557c83aa	python-r1	2d51fd03931e743811ce30d198e4dcfd	qmake-utils	a8dd17b1d94586164f5e3fc12b1c6b81
+_eclasses_=pypi	ad1b21f87d117ae9bb089bdb65b8f013	out-of-source-utils	dbf9e34ee8964084651e25907fa8f52c	multibuild	4650a65187015567b4e041bb9bfdb364	multiprocessing	1e32df7deee68372153dca65f4a7c21f	toolchain-funcs	a0b29008c671a362b505f96fa80ce9c0	python-utils-r1	f1d3a4dea5847c7390ba91bd557c83aa	python-r1	2d51fd03931e743811ce30d198e4dcfd	qmake-utils	a8dd17b1d94586164f5e3fc12b1c6b81
 _md5_=e392dce4fef498e7121264489e05ab82
