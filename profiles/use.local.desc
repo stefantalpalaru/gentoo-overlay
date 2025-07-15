@@ -290,6 +290,7 @@ media-gfx/blender:cycles-bin-kernels - Precompile the cycles render kernels for 
 media-gfx/blender:embree - Use embree to accelerate certain areas of the Cycles render engine.
 media-gfx/blender:fluid - Adds fluid simulation support via the built-in Mantaflow library.
 media-gfx/blender:hip - Build cycles renderer with AMD HIP support.
+media-gfx/blender:manifold - Enable features depending on Manifold (Fast Robust Boolean).
 media-gfx/blender:nanovdb - Enable nanoVDB support in Cycles. Uses less memory than regular openVDB when rendering.
 media-gfx/blender:ndof - Enable NDOF input devices (SpaceNavigator and friends).
 media-gfx/blender:oidn - Enable OpenImageDenoiser Support
