@@ -8,7 +8,7 @@ DISTUTILS_SINGLE_IMPL=1
 DISTUTILS_USE_PEP517=setuptools
 DISTUTILS_EXT=1
 
-inherit cuda distutils-r1 multiprocessing
+inherit cuda cuda-extra distutils-r1 multiprocessing
 
 DESCRIPTION="Datasets, transforms and models to specific to computer vision"
 HOMEPAGE="https://github.com/pytorch/vision"
@@ -18,6 +18,7 @@ LICENSE="BSD"
 SLOT="0"
 KEYWORDS="~amd64"
 IUSE="cuda +ffmpeg +jpeg +png rocm +webp"
+RESTRICT="test? ( network-sandbox )"
 
 RDEPEND="
 	dev-python/numpy
@@ -73,8 +74,10 @@ src_prepare() {
 
 python_test() {
 	if use cuda; then
-		# FIXME: this is not enough to run CUDA tests
 		cuda_add_sandbox -w
+		addwrite "/proc/self/task"
+		addpredict "/dev/char/"
+		cuda_check_permissions || die "Cannot access CUDA device. Aborting."
 	fi
 
 	rm -rf torchvision || die

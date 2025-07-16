@@ -28,7 +28,7 @@ app-vim/neocomplete 9999-r1: vim plugin: Next generation completion framework af
 app-vim/nim-syntax 1.2_pre20211111-r1 9999-r1: Nim language support
 app-vim/pony-syntax 0.1_pre20170926-r2 9999-r1: vim plugin: Pony language support
 app-vim/vim-linux-coding-style 0.4_p20200610-r2: Vim plugin to respect the Linux kernel coding style
-dev-cpp/eigen 3.4.0_p20250220: C++ template library for linear algebra
+dev-cpp/eigen 3.4.0_p20250220-r1: C++ template library for linear algebra
 dev-cpp/mustache 4.1-r1: Mustache implementation for modern C++
 dev-db/metakit 2.4.9.7_p20110819-r1: Embedded database library
 dev-db/valkey 8.1.3: Redis fork
@@ -857,7 +857,7 @@ media-fonts/breeze-sans 20170821-r4: a humanist sans-serif typeface designed by 
 media-fonts/ipamonafont 1.0.8-r2: Hacked version of IPA fonts, which is suitable for browsing 2ch
 media-gfx/GTS 2.5.1-r1: scanning tool developed by Studio Ghibli
 media-gfx/ansel 4.0.0_pre20250506-r1 9999-r6: Darktable 4.0 fork
-media-gfx/blender 4.4.3-r1 4.5.0: 3D Creation/Animation/Publishing System
+media-gfx/blender 4.4.3-r2 4.5.0-r1: 3D Creation/Animation/Publishing System
 media-gfx/displaycal 3.8.9.3-r5: Display calibration and characterization powered by Argyll CMS
 media-gfx/exiv2 0.27.6-r1: EXIF, IPTC and XMP metadata C++ library and command line utility
 media-gfx/fbcat 0.5.2-r1: utility that takes a screenshot using the framebuffer device
@@ -878,7 +878,7 @@ media-libs/libmysofa 1.3.3: Reader for AES SOFA files to get better HRTFs
 media-libs/libspatialaudio 0.3.0-r3: Ambisonic encoding / decoding and binauralization library in C++
 media-libs/nv-codec-headers 8.1.24.15 11.0.10.3 11.1.5.3 12.0.16.1 12.1.14.0 12.2.72.0 13.0.19.0: FFmpeg version of headers required to interface with Nvidias codec APIs
 media-libs/openexr 3.1.12-r2: ILM's OpenEXR high dynamic-range image file format libraries
-media-libs/openimageio 3.0.8.1: A library for reading and writing images
+media-libs/openimageio 3.0.8.1-r1: A library for reading and writing images
 media-libs/portaudio 19.07.00-r5: A free, cross-platform, open-source, audio I/O library
 media-libs/svt-av1 1.8.0-r105 2.3.0-r100 3.0.2-r100: Scalable Video Technology for AV1 (SVT-AV1 Encoder and Decoder)
 media-libs/zmusic 1.1.14: GZDoom's music system as a standalone library
@@ -956,7 +956,7 @@ sci-ml/FBGEMM 2025.04.27: Facebook GEneral Matrix Multiplication
 sci-ml/caffe2 2.7.1-r103: A deep learning framework
 sci-ml/cudnn-frontend 1.12.1: A c++ wrapper for the cudnn backend API
 sci-ml/pytorch 2.7.1-r101: Tensors and Dynamic neural networks in Python
-sci-ml/torchvision 0.22.1-r1: Datasets, transforms and models to specific to computer vision
+sci-ml/torchvision 0.22.1-r2: Datasets, transforms and models to specific to computer vision
 sys-apps/memtest86-bin 11.2.2000: Stand alone memory testing software for x86 EFI hardware
 sys-apps/udevil 0.4.4-r7: Mount and unmount removable devices without a password
 sys-auth/polkit-qt 0.200.0: Qt wrapper around polkit-1 client libraries

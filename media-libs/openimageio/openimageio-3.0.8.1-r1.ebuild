@@ -7,7 +7,7 @@ PYTHON_COMPAT=( python3_{11..13} )
 
 TEST_OIIO_IMAGE_COMMIT="75099275c73a6937d40c69f9e14a006aa49fa201"
 TEST_OEXR_IMAGE_COMMIT="d45a2d5a890d6963b94479c7a644440068c37dd2"
-inherit cuda cmake flag-o-matic python-single-r1
+inherit cuda cuda-extra cmake flag-o-matic python-single-r1
 
 DESCRIPTION="A library for reading and writing images"
 HOMEPAGE="https://sites.google.com/site/openimageio/ https://github.com/AcademySoftwareFoundation/OpenImageIO"
@@ -279,6 +279,7 @@ src_test() {
 	if use cuda; then
 		cuda_add_sandbox -w
 		addpredict "/dev/char/"
+		cuda_check_permissions || die "Cannot access CUDA device. Aborting."
 	fi
 
 	CMAKE_SKIP_TESTS=(

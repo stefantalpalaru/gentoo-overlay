@@ -25,7 +25,7 @@ LLVM_OPTIONAL=1
 
 ROCM_SKIP_GLOBALS=1
 
-inherit cuda rocm llvm-r1
+inherit cuda cuda-extra rocm llvm-r1
 inherit eapi9-pipestatus check-reqs flag-o-matic pax-utils python-single-r1 toolchain-funcs virtualx
 inherit cmake xdg-utils
 
@@ -679,6 +679,7 @@ src_test() {
 		cuda_add_sandbox -w
 		addwrite "/proc/self/task"
 		addpredict "/dev/char/"
+		cuda_check_permissions || die "Cannot access CUDA device. Aborting."
 	fi
 
 	local -x CMAKE_SKIP_TESTS=(
