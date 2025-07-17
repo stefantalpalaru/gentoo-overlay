@@ -1,4 +1,4 @@
-# Copyright 1999-2024 Gentoo Authors
+# Copyright 1999-2025 Gentoo Authors
 # Distributed under the terms of the GNU General Public License v2
 
 EAPI=8
@@ -10,13 +10,11 @@ HOMEPAGE="http://hydrogen-music.org/"
 MY_PV=${PV/_/-}
 SRC_URI="https://github.com/${PN}-music/${PN}/archive/${MY_PV}.tar.gz -> ${P}.tar.gz"
 S="${WORKDIR}"/${PN}-${MY_PV}
-
 LICENSE="GPL-2 ZLIB"
 SLOT="0"
 KEYWORDS="amd64 ppc ppc64 x86"
-IUSE="alsa +archive doc jack ladspa lash osc oss portaudio portmidi pulseaudio"
-
-REQUIRED_USE="lash? ( alsa )"
+IUSE="alsa +archive doc jack ladspa osc oss portaudio portmidi pulseaudio"
+RESTRICT="mirror"
 
 BDEPEND="
 	dev-qt/linguist-tools:5
@@ -24,13 +22,8 @@ BDEPEND="
 	doc? ( app-text/doxygen )
 "
 CDEPEND="
-	dev-qt/qtcore:5
-	dev-qt/qtgui:5
-	dev-qt/qtnetwork:5
-	dev-qt/qtsvg:5
-	dev-qt/qtwidgets:5
-	dev-qt/qtxml:5
-	dev-qt/qtxmlpatterns:5
+	dev-qt/qtbase:6[gui,network,widgets,xml]
+	dev-qt/qtsvg:6
 	media-libs/libsndfile
 	alsa? ( media-libs/alsa-lib )
 	archive? ( app-arch/libarchive )
@@ -38,7 +31,6 @@ CDEPEND="
 	doc? ( dev-texlive/texlive-fontutils )
 	jack? ( virtual/jack )
 	ladspa? ( media-libs/liblrdf )
-	lash? ( media-sound/lash )
 	osc? ( media-libs/liblo )
 	portaudio? ( media-libs/portaudio )
 	portmidi? ( media-libs/portmidi )
@@ -50,7 +42,7 @@ DEPEND="
 "
 RDEPEND="${CDEPEND}"
 
-DOCS=( AUTHORS ChangeLog DEVELOPERS README.md )
+DOCS=( CHANGELOG.md DEVELOPERS README.md )
 
 PATCHES=(
 	"${FILESDIR}/hydrogen-1.2.3-gnuinstalldirs.patch"
@@ -68,7 +60,7 @@ src_configure() {
 		-DWANT_DEBUG=OFF
 		-DWANT_JACK=$(usex jack)
 		-DWANT_LADSPA=$(usex ladspa)
-		-DWANT_LASH=$(usex lash)
+		-DWANT_LASH=OFF
 		-DWANT_LIBARCHIVE=$(usex archive)
 		-DWANT_LRDF=$(usex ladspa)
 		-DWANT_OSC=$(usex osc)
@@ -77,6 +69,7 @@ src_configure() {
 		-DWANT_PORTMIDI=$(usex portmidi)
 		-DWANT_PULSEAUDIO=$(usex pulseaudio)
 		-DWANT_RUBBERBAND=OFF
+		-DWANT_QT6=ON
 	)
 
 	cmake_src_configure
