@@ -3,16 +3,12 @@
 
 EAPI=8
 
-BASE_V="$(ver_cut 0-3)"
-# supports 12.x but URL has a specific version number
-CUDA_MA="12"
-
 DESCRIPTION="high-performance CUDA Library for Direct Sparse Solvers"
 HOMEPAGE="https://developer.nvidia.com/cudss"
-SRC_URI="https://developer.download.nvidia.com/compute/cudss/redist/libcudss/linux-x86_64/libcudss-linux-x86_64-${PV}_cuda${CUDA_MA}-archive.tar.xz"
-S="${WORKDIR}/libcudss-linux-x86_64-${PV}_cuda${CUDA_MA}-archive"
+SRC_URI="https://developer.download.nvidia.com/compute/cudss/redist/libcudss/linux-x86_64/libcudss-linux-x86_64-${PV}_cuda12-archive.tar.xz"
+S="${WORKDIR}/libcudss-linux-x86_64-${PV}_cuda12-archive"
 LICENSE="NVIDIA-cuDSS"
-SLOT="0/9"
+SLOT="0/0.6" # from the libcudss.so version
 KEYWORDS="~amd64 ~amd64-linux"
 RESTRICT="mirror"
 
