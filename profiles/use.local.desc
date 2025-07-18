@@ -258,6 +258,12 @@ dev-qt/qtwebkit:printsupport - Enable printing via dev-qt/qtprintsupport
 dev-qt/qtwebkit:qml - Build QML/QtQuick bindings
 dev-qt/qtwidgets:gtk - Build the GTK platform theme plugin
 dev-qt/qtxmlpatterns:qml - Build the XmlListModel import for QtQuick (requires QtDeclarative)
+dev-util/nvidia-cuda-toolkit:clang - Depend on llvm-core/clang as host compiler
+dev-util/nvidia-cuda-toolkit:debugger - Install the CUDA debugger
+dev-util/nvidia-cuda-toolkit:nsight - Install profiling and optimizing tools (nsight-compute, nsight-systems)
+dev-util/nvidia-cuda-toolkit:profiler - Install the NVIDIA CUDA profiler (nvprof) and the related libraries
+dev-util/nvidia-cuda-toolkit:rdma - Enable infiniband support via sys-cluster/rdma-core
+dev-util/nvidia-cuda-toolkit:sanitizer - Install compute-sanitizer tool
 dev-vcs/bzr:sftp - Enable sftp support
 games-emulation/rpcs3:llvm - LLVM recompiler support
 games-emulation/rpcs3:vulkan - Vulkan video output support

@@ -1,0 +1,11 @@
+DEFINED_PHASES=compile configure install
+DESCRIPTION=high-performance CUDA Library for Direct Sparse Solvers
+EAPI=8
+HOMEPAGE=https://developer.nvidia.com/cudss
+KEYWORDS=~amd64 ~arm64 ~amd64-linux ~arm64-linux
+LICENSE=NVIDIA-cuDSS
+RDEPEND==dev-util/nvidia-cuda-toolkit-12*
+RESTRICT=mirror bindist test
+SLOT=0/0.6
+SRC_URI=amd64? ( https://developer.download.nvidia.com/compute/cudss/redist/libcudss/linux-x86_64/libcudss-linux-x86_64-0.6.0.5_cuda12-archive.tar.xz ) arm64? ( https://developer.download.nvidia.com/compute/cudss/redist/libcudss/linux-sbsa/libcudss-linux-sbsa-0.6.0.5_cuda12-archive.tar.xz )
+_md5_=93a709af12883839c4139c17e2986c47
