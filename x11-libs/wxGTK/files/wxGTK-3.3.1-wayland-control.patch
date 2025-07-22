@@ -1,0 +1,75 @@
+diff '--color=auto' -ur wxWidgets-3.3.1.orig/configure wxWidgets-3.3.1/configure
+--- wxWidgets-3.3.1.orig/configure	2025-07-22 05:40:32.856063800 +0200
++++ wxWidgets-3.3.1/configure	2025-07-22 05:47:12.948149153 +0200
+@@ -1214,6 +1214,7 @@
+ enable_timer
+ enable_variant
+ enable_zipstream
++enable_wayland
+ enable_url
+ enable_protocol
+ enable_protocol_http
+@@ -2189,6 +2190,7 @@
+   --enable-timer          use wxTimer class
+   --enable-variant        use wxVariant class
+   --enable-zipstream      use wxZip streams
++  --enable-wayland        allow using Wayland EGL backend
+   --enable-url            use wxURL class
+   --enable-protocol       use wxProtocol class
+   --enable-protocol-http  HTTP support in wxProtocol
+@@ -8019,6 +8021,35 @@
+           eval "$wx_cv_use_zipstream"
+ 
+ 
++          enablestring=
++          defaultval=$wxUSE_ALL_FEATURES
++          if test -z "$defaultval"; then
++              if test x"$enablestring" = xdisable; then
++                  defaultval=yes
++              else
++                  defaultval=no
++              fi
++          fi
++
++          # Check whether --enable-wayland was given.
++if test "${enable_wayland+set}" = set; then :
++  enableval=$enable_wayland;
++                          if test "$enableval" = yes; then
++                            wx_cv_use_wayland='wxUSE_WAYLAND=yes'
++                          else
++                            wx_cv_use_wayland='wxUSE_WAYLAND=no'
++                          fi
++
++else
++
++                          wx_cv_use_wayland='wxUSE_WAYLAND=${'DEFAULT_wxUSE_WAYLAND":-$defaultval}"
++
++fi
++
++
++          eval "$wx_cv_use_wayland"
++
++
+ 
+           enablestring=
+           defaultval=$wxUSE_ALL_FEATURES
+@@ -28208,7 +28239,8 @@
+         TOOLKIT=GTK
+         GUIDIST=GTK_DIST
+ 
+-        { $as_echo "$as_me:${as_lineno-$LINENO}: checking for GDK Wayland backend" >&5
++	if test x"$wxUSE_WAYLAND" = xyes; then
++		{ $as_echo "$as_me:${as_lineno-$LINENO}: checking for GDK Wayland backend" >&5
+ $as_echo_n "checking for GDK Wayland backend... " >&6; }
+ if ${wx_cv_gdk_wayland+:} false; then :
+   $as_echo_n "(cached) " >&6
+@@ -28245,6 +28277,9 @@
+ fi
+ { $as_echo "$as_me:${as_lineno-$LINENO}: result: $wx_cv_gdk_wayland" >&5
+ $as_echo "$wx_cv_gdk_wayland" >&6; }
++	else
++		wx_cv_gdk_wayland=no
++       fi
+     fi
+ 
+     if test "$wxUSE_DFB" = 1; then

@@ -1,0 +1,18 @@
+diff '--color=auto' -ur wxWidgets-3.3.1.orig/configure wxWidgets-3.3.1/configure
+--- wxWidgets-3.3.1.orig/configure	2025-07-21 00:13:00.000000000 +0200
++++ wxWidgets-3.3.1/configure	2025-07-22 05:39:18.463419807 +0200
+@@ -43994,6 +43994,14 @@
+ 
+ fi
+ 
++# explicit override to enable or disable tests
++if test "${enable_tests+set}" = set; then
++    SUBDIRS="$SUBDIRS tests"
++fi
++if test "${disable_tests+set}" = set; then
++	SUBDIRS="${SUBDIRS% tests}"
++fi
++
+ if test "$wxWITH_SUBDIRS" != "no"; then
+ for subdir in $SUBDIRS; do
+     if test -d ${srcdir}/${subdir} ; then

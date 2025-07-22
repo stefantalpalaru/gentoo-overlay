@@ -980,7 +980,7 @@ www-misc/libkiwix 14.0.0-r1: Kiwix software suite core: code shared by all Kiwix
 www-servers/uwsgi 2.0.30-r200: uWSGI server for Python web applications
 x11-libs/dotherside 0.9.0_p20221109-r2: C language library for creating bindings for the Qt QML language
 x11-libs/qscintilla 2.14.1-r1: Qt port of Neil Hodgson's Scintilla C++ editor control
-x11-libs/wxGTK 3.2.8.1-r302: GTK version of wxWidgets, a cross-platform C++ GUI toolkit
+x11-libs/wxGTK 3.2.8.1-r302 3.3.1-r300: GTK version of wxWidgets, a cross-platform C++ GUI toolkit
 x11-misc/magick-rotation 1.6.2-r6: Application that rotates tablet pc's screen automatically, based on orientation
 x11-misc/obmenu2 1.1-r2: Openbox menu editor
 x11-misc/qt5ct 1.8 1.9: Qt5 configuration tool, similar to qtconfig for Qt4
