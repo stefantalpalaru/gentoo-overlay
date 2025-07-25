@@ -2,10 +2,10 @@
 # Distributed under the terms of the GNU General Public License v2
 
 EAPI=8
-Sparse_PV="7.10.3"
+Sparse_PV="7.11.0"
 Sparse_P="SuiteSparse-${Sparse_PV}"
 
-inherit cmake cuda toolchain-funcs
+inherit cmake-multilib cuda toolchain-funcs
 
 DESCRIPTION="Sparse Cholesky factorization and update/downdate library"
 HOMEPAGE="https://people.engr.tamu.edu/davis/suitesparse.html
@@ -40,7 +40,7 @@ src_prepare() {
 	cmake_src_prepare
 }
 
-src_configure() {
+multilib_src_configure() {
 	local mycmakeargs=(
 		-DBUILD_STATIC_LIBS=$(usex static-libs)
 		-DCHOLMOD_USE_CUDA=$(usex cuda)
@@ -55,6 +55,6 @@ src_configure() {
 	cmake_src_configure
 }
 
-src_install() {
+multilib_src_install() {
 	cmake_src_install
 }
