@@ -21,9 +21,6 @@ RESTRICT="mirror"
 BDEPEND="
 	amd64? ( dev-lang/nasm )
 "
-RDEPEND="
-	dev-libs/cpuinfo
-"
 
 PATCHES=(
 	"${FILESDIR}"/svt-av1-1.5.0-fortify-no-override.patch
@@ -63,7 +60,6 @@ multilib_src_configure() {
 		-DCMAKE_OUTPUT_DIRECTORY="${BUILD_DIR}"
 		-DENABLE_AVX512=$(usex cpu_flags_x86_avx512f)
 		-DEXCLUDE_HASH=ON
-		-DUSE_CPUINFO=SYSTEM
 	)
 
 	cmake_src_configure
