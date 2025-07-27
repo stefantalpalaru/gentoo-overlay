@@ -40,7 +40,7 @@ src_prepare() {
 
 src_install() {
 	cp -a * "${ED}/"
-	dosym ../../opt/OpenComic/OpenComic /usr/bin/opencomic
+	dosym ../../opt/OpenComic/opencomic /usr/bin/opencomic
 }
 
 pkg_postrm() {
