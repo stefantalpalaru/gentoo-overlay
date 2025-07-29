@@ -67,7 +67,7 @@ SLOT="${BLENDER_BRANCH}"
 IUSE="
 	alembic +bullet collada +color-management cuda +cycles +cycles-bin-kernels
 	debug doc +embree +ffmpeg +fftw +fluid +gmp gnome hip jack
-	jemalloc jpeg2k man +nanovdb ndof nls +oidn openal +openexr +opengl +openmp +openpgl
+	jemalloc jpeg2k man +manifold +nanovdb ndof nls +oidn openal +openexr +opengl +openpgl
 	+opensubdiv +openvdb optix osl pipewire +pdf +potrace +pugixml pulseaudio
 	renderdoc sdl +sndfile +tbb test +tiff +truetype valgrind vulkan wayland +webp X
 "
@@ -136,6 +136,7 @@ RDEPEND="${PYTHON_DEPS}
 	jack? ( virtual/jack )
 	jemalloc? ( dev-libs/jemalloc:= )
 	jpeg2k? ( media-libs/openjpeg:2= )
+	manifold? ( >=sci-mathematics/manifold-3.1.0:= )
 	ndof? (
 		app-misc/spacenavd
 		dev-libs/libspnav
@@ -148,12 +149,15 @@ RDEPEND="${PYTHON_DEPS}
 		>=media-libs/openexr-3.2.1:0=
 	)
 	openpgl? ( media-libs/openpgl:= )
-	opensubdiv? ( >=media-libs/opensubdiv-3.6.0-r2[opengl,cuda?,openmp?,tbb?] )
+	opensubdiv? ( >=media-libs/opensubdiv-3.6.0-r2[opengl,cuda?,tbb?] )
 	openvdb? (
 		>=media-gfx/openvdb-11.0.0:=[nanovdb?]
 		dev-libs/c-blosc:=
 	)
-	optix? ( <dev-libs/optix-9:= )
+	optix? (
+		>=dev-libs/optix-8:=
+		<dev-libs/optix-9:=
+	)
 	osl? (
 		>=media-libs/osl-1.13:=[${LLVM_USEDEP}]
 		media-libs/mesa[${LLVM_USEDEP}]
@@ -241,8 +245,6 @@ PATCHES=(
 )
 
 blender_check_requirements() {
-	[[ ${MERGE_TYPE} != binary ]] && use openmp && tc-check-openmp
-
 	if use doc; then
 		CHECKREQS_DISK_BUILD="4G" check-reqs_pkg_pretend
 	fi
@@ -416,6 +418,7 @@ src_configure() {
 		-DWITH_HEADLESS="$(usex !X "$(usex !wayland)")"
 		-DWITH_INPUT_NDOF="$(usex ndof)"
 		-DWITH_INTERNATIONAL="$(usex nls)"
+		-DWITH_MANIFOLD="$(usex manifold)"
 		-DWITH_MATERIALX="no" # TODO: Package MaterialX
 		-DWITH_NANOVDB="$(usex nanovdb)"
 		-DWITH_OPENCOLLADA="$(usex collada)"
@@ -444,7 +447,6 @@ src_configure() {
 
 		# Compiler Options:
 		# -DWITH_BUILDINFO="yes"
-		-DWITH_OPENMP="$(usex openmp)"
 
 		# System Options:
 		-DWITH_INSTALL_PORTABLE="no"
@@ -550,11 +552,9 @@ src_configure() {
 			local -x CUDAHOSTCXX="$(cuda_gccdir)"
 			local -x CUDAHOSTLD="$(tc-getCXX)"
 
-			if [[ -n "${CUDAARCHS}" ]]; then
-				mycmakeargs+=(
-					-DCYCLES_CUDA_BINARIES_ARCH="$(echo "${CUDAARCHS}" | sed -e 's/^/sm_/g' -e 's/;/;sm_/g')"
-				)
-			fi
+			mycmakeargs+=(
+				-DCYCLES_CUDA_BINARIES_ARCH="$(cuda_get_host_native_arch | sed -e 's/^/sm_/g' -e 's/;/ sm_/g')"
+			)
 		fi
 	fi
 

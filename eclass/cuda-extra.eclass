@@ -39,4 +39,18 @@ cuda_check_permissions() {
 	fi
 }
 
+# @FUNCTION: cuda_get_host_native_arch
+# @DESCRIPTION:
+# Get the host's CUDA architecture number (E.g.: "86"). Overridden by the
+# "CUDAARCHS" environment variable, which can look like this: "75;86;89".
+cuda_get_host_native_arch() {
+	if [[ -n ${CUDAARCHS} ]]; then
+		echo "${CUDAARCHS}"
+		return
+	fi
+
+	cuda_add_sandbox -w
+	cuda_check_permissions || die "Cannot access CUDA device. Aborting. You can set \"CUDAARCHS\" in /etc/portage/make.conf to avoid having to query the host device."
+	__nvcc_device_query || eerror "failed to query the native device"
+}
 fi
