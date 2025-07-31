@@ -2,9 +2,9 @@
 # Distributed under the terms of the GNU General Public License v2
 
 EAPI=8
-
 JAVA_PKG_IUSE="doc source test"
 JAVA_TESTING_FRAMEWORKS="junit-4"
+MY_SEEDNODE_COMMIT="8e8b3574b63e649e03f67d23d3dfa461b7a0ba4a"
 
 inherit java-pkg-2 java-pkg-simple systemd verify-sig
 
@@ -12,7 +12,7 @@ DESCRIPTION="An encrypted network without censorship"
 HOMEPAGE="https://www.hyphanet.org"
 PEV="3.1.6"
 SRC_URI="https://github.com/hyphanet/fred/releases/download/build0${PV#*p}/freenet-build0${PV#*p}-source.tar.bz2
-	https://github.com/hyphanet/seedrefs/archive/build01480.tar.gz -> seednodes-0.7.5_p1480.tar.gz
+	https://github.com/hyphanet/seedrefs/archive/${MY_SEEDNODE_COMMIT}.tar.gz -> freenet-seednodes-${MY_SEEDNODE_COMMIT}.gh.tar.gz
 	verify-sig? (
 		https://github.com/hyphanet/fred/releases/download/build0${PV#*p}/freenet-build0${PV#*p}-source.tar.bz2.sig
 	)"
@@ -102,7 +102,7 @@ src_unpack() {
 			"${DISTDIR}"/freenet-build0${PV#*p}-source.tar.bz2.sig
 	fi
 	unpack freenet-build0${PV#*p}-source.tar.bz2
-	unpack seednodes-0.7.5_p1480.tar.gz
+	unpack freenet-seednodes-${MY_SEEDNODE_COMMIT}.gh.tar.gz
 }
 
 src_prepare() {
@@ -128,7 +128,7 @@ src_prepare() {
 		Add-opens: java.base/java.lang java.base/java.util java.base/java.io
 	EOF
 
-	cat "${WORKDIR}"/seedrefs-build01480/* > "${S}"/seednodes.fref
+	cat "${WORKDIR}"/seedrefs-${MY_SEEDNODE_COMMIT}/* > "${S}"/seednodes.fref
 	cp "${FILESDIR}"/freenet-0.7.5_p1501-wrapper.conf freenet-wrapper.conf || die
 	cp "${FILESDIR}"/run.sh-20090501 run.sh || die
 
