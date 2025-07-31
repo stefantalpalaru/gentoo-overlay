@@ -129,7 +129,7 @@ src_prepare() {
 	EOF
 
 	cat "${WORKDIR}"/seedrefs-${MY_SEEDNODE_COMMIT}/* > "${S}"/seednodes.fref
-	cp "${FILESDIR}"/freenet-0.7.5_p1501-wrapper.conf freenet-wrapper.conf || die
+	cp "${FILESDIR}"/freenet-0.7.5_p1503-wrapper.conf freenet-wrapper.conf || die
 	cp "${FILESDIR}"/run.sh-20090501 run.sh || die
 
 	sed -i -e "s:=/usr/lib:=/usr/$(get_libdir):g" \
