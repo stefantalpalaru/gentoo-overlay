@@ -10,7 +10,8 @@ TEST_OEXR_IMAGE_COMMIT="d45a2d5a890d6963b94479c7a644440068c37dd2"
 inherit cuda cuda-extra cmake flag-o-matic python-single-r1
 
 DESCRIPTION="A library for reading and writing images"
-HOMEPAGE="https://sites.google.com/site/openimageio/ https://github.com/AcademySoftwareFoundation/OpenImageIO"
+HOMEPAGE="https://sites.google.com/site/openimageio/
+		https://github.com/AcademySoftwareFoundation/OpenImageIO"
 SRC_URI="
 	https://github.com/AcademySoftwareFoundation/OpenImageIO/archive/v${PV}.tar.gz -> ${P}.tar.gz
 	test? (
@@ -335,5 +336,6 @@ src_install() {
 	# remove Windows loader file
 	if use python; then
 		rm "${D}$(python_get_sitedir)/__init__.py" || die
+		rm "${D}$(python_get_sitedir)/py.typed" || die
 	fi
 }
