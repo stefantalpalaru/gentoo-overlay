@@ -925,6 +925,7 @@ net-misc/magic-wormhole-transit-relay 0.2.1-r201: Transit Relay server for Magic
 net-misc/ssvnc 1.0.29-r4: VNC viewer that adds encryption security to VNC connections
 net-misc/streamtuner2 2.2.2_p20240918: Internet radio browser
 net-p2p/deluge 2.2.0: BitTorrent client with a client/server model
+net-p2p/fms 0.3.86: Spam-resistant message board application for Freenet
 net-p2p/freenet 0.7.5_p1503-r102: An encrypted network without censorship
 net-p2p/go-ethereum 1.16.1: Official golang implementation of the Ethereum protocol
 net-p2p/nicotine+ 3.3.10 9999-r1: A fork of nicotine, a Soulseek client in Python
@@ -968,7 +969,7 @@ sci-mathematics/xmds 2.2.3-r4: XMDS - The eXtensible Multi-Dimensional Simulator
 sci-misc/openfst 1.8.4: Finite State Transducer tools by Google et al
 sci-misc/opengrm-ngram 1.3.16: n-gram language models encoded as weighted finite-state transducers
 sci-ml/FBGEMM 2025.04.27: Facebook GEneral Matrix Multiplication
-sci-ml/caffe2 2.7.1-r103: A deep learning framework
+sci-ml/caffe2 2.7.1-r104: A deep learning framework
 sci-ml/cudnn-frontend 1.13.0: A c++ wrapper for the cudnn backend API
 sci-ml/pytorch 2.7.1-r101: Tensors and Dynamic neural networks in Python
 sci-ml/torchvision 0.22.1-r2: Datasets, transforms and models to specific to computer vision
