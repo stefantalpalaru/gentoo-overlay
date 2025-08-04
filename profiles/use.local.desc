@@ -259,6 +259,7 @@ dev-qt/qtwebkit:qml - Build QML/QtQuick bindings
 dev-qt/qtwidgets:gtk - Build the GTK platform theme plugin
 dev-qt/qtxmlpatterns:qml - Build the XmlListModel import for QtQuick (requires QtDeclarative)
 dev-util/nvidia-cuda-toolkit:clang - Depend on llvm-core/clang as host compiler
+dev-util/nvidia-cuda-toolkit:cuda-minor-compat - Enforce the minimum compatible x11-drivers/nvidia-drivers version, as described in: https://docs.nvidia.com/cuda/cuda-toolkit-release-notes/index.html#cuda-driver
 dev-util/nvidia-cuda-toolkit:debugger - Install the CUDA debugger
 dev-util/nvidia-cuda-toolkit:nsight - Install profiling and optimizing tools (nsight-compute, nsight-systems)
 dev-util/nvidia-cuda-toolkit:profiler - Install the NVIDIA CUDA profiler (nvprof) and the related libraries

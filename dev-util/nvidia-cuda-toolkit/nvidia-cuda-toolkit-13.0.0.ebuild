@@ -9,10 +9,10 @@ PYTHON_COMPAT=( python3_{11..13} )
 inherit check-reqs edo toolchain-funcs
 inherit python-r1
 
-DRIVER_PV="575.57.08"
+DRIVER_PV="580.65.06"
 # https://docs.nvidia.com/cuda/cuda-installation-guide-linux/index.html
-GCC_MAX_VER="14"
-CLANG_MAX_VER="19"
+GCC_MAX_VER="15"
+CLANG_MAX_VER="20"
 
 DESCRIPTION="NVIDIA CUDA Toolkit (compiler and friends)"
 HOMEPAGE="https://developer.nvidia.com/cuda-zone"
@@ -32,19 +32,23 @@ SLOT="0/${PV}" # UNSLOTTED
 # SLOT="${PV}" # SLOTTED
 
 KEYWORDS="-* ~amd64 ~arm64 ~amd64-linux ~arm64-linux"
-IUSE="clang debugger examples nsight profiler rdma sanitizer"
+IUSE="clang +cuda-minor-compat debugger examples nsight profiler rdma sanitizer"
 RESTRICT="bindist mirror strip test"
 
 REQUIRED_USE="${PYTHON_REQUIRED_USE}"
 
 # since CUDA 11, the bundled toolkit driver (== ${DRIVER_PV}) and the
 # actual required minimum driver version are different.
+# https://docs.nvidia.com/cuda/cuda-toolkit-release-notes/index.html#cuda-driver
 RDEPEND="
 	!clang? (
 		<sys-devel/gcc-$(( GCC_MAX_VER + 1 ))_pre[cxx]
 	)
 	clang? (
 		<llvm-core/clang-$(( CLANG_MAX_VER + 1 ))_pre
+	)
+	cuda-minor-compat? (
+		>=x11-drivers/nvidia-drivers-580
 	)
 	sys-process/numactl
 	debugger? (
@@ -150,14 +154,6 @@ src_unpack() {
 
 	edob -m "Extracting ${A}" \
 		bash "${DISTDIR}/${A}" --tar xf -X <(printf "%s\n" "${exclude[@]}")
-}
-
-src_prepare() {
-	pushd "builds/cuda_nvcc/targets/${narch}-linux" >/dev/null || die
-	eapply -p5 "${FILESDIR}/nvidia-cuda-toolkit-glibc-2.41-r1.patch"
-	popd >/dev/null || die
-
-	default
 }
 
 src_configure() {
@@ -288,7 +284,7 @@ src_install() {
 	fi
 
 	# Add include and lib symlinks
-	dosym -r "${CUDA_PATH}/targets/${narch}-linux/include" "${CUDA_PATH}/include"
+	#dosym -r "${CUDA_PATH}/targets/${narch}-linux/include" "${CUDA_PATH}/include"
 	dosym -r "${CUDA_PATH}/targets/${narch}-linux/lib" "${CUDA_PATH}/$(get_libdir)"
 
 	find "${ED}/${CUDA_PATH}" -empty -delete || die
