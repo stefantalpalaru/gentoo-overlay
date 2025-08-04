@@ -26,6 +26,7 @@ IUSE="+nss"
 CP_DEPEND="
 	dev-java/bcprov:0
 	dev-java/commons-compress:0
+	dev-java/commons-lang:3.6
 	dev-java/commons-io:1
 	dev-java/fec:0
 	dev-java/freenet-ext:29
