@@ -344,6 +344,8 @@ media-libs/libheif:gdk-pixbuf - Enable x11-libs/gdk-pixbuf plugin
 media-libs/libheif:openh264 - USE media-libs/openh264 for AVC decoding
 media-libs/libheif:rav1e - Use media-video/rav1e for AVIF encoding
 media-libs/libheif:svt-av1 - Use media-libs/svt-av1 for AVIF encoding
+media-libs/libheif:tools - Enable various tools (what upstream calls "examples")
+media-libs/libheif:tools-heif-view - Enable "heif-view" (needs media-libs/libsdl2)
 media-libs/libheif:x265 - Use media-libs/x265 for HEIF encoding
 media-libs/openexr:large-stack - Enables code to take advantage of large stack support.
 media-libs/openexr:utils - Build several binary tools for verifying and manipulating EXR files.

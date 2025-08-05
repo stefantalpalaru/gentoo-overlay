@@ -13,6 +13,8 @@
 		<flag name="openh264">USE <pkg>media-libs/openh264</pkg> for AVC decoding</flag>
 		<flag name="rav1e">Use <pkg>media-video/rav1e</pkg> for AVIF encoding</flag>
 		<flag name="svt-av1">Use <pkg>media-libs/svt-av1</pkg> for AVIF encoding</flag>
+		<flag name="tools">Enable various tools (what upstream calls "examples")</flag>
+		<flag name="tools-heif-view">Enable "heif-view" (needs <pkg>media-libs/libsdl2</pkg>)</flag>
 		<flag name="x265">Use <pkg> media-libs/x265</pkg> for HEIF encoding</flag>
 	</use>
 	<upstream>

@@ -11,7 +11,7 @@ SRC_URI="https://github.com/strukturag/libheif/releases/download/v${PV}/${P}.tar
 LICENSE="GPL-3 MIT"
 SLOT="0/$(ver_cut 1-2)"
 KEYWORDS="~amd64 ~arm ~arm64 ~loong ~ppc64 ~riscv ~x86"
-IUSE="aom +dav1d ffmpeg gdk-pixbuf openh264 rav1e +svt-av1 test +x265"
+IUSE="aom +dav1d ffmpeg gdk-pixbuf openh264 rav1e +svt-av1 +tools +tools-heif-view test +x265"
 RESTRICT="!test? ( test )"
 
 DEPEND="
@@ -26,6 +26,7 @@ DEPEND="
 	gdk-pixbuf? ( x11-libs/gdk-pixbuf[${MULTILIB_USEDEP}] )
 	rav1e? ( media-video/rav1e:= )
 	svt-av1? ( <media-libs/svt-av1-4.0.0[${MULTILIB_USEDEP}] )
+	tools-heif-view? ( media-libs/libsdl2 )
 	x265? (
 		media-libs/libde265:=[${MULTILIB_USEDEP}]
 		media-libs/x265:=[${MULTILIB_USEDEP}]
@@ -48,7 +49,8 @@ multilib_src_configure() {
 		-DWITH_AOM_DECODER=$(usex aom)
 		-DWITH_AOM_ENCODER=$(usex aom)
 		-DWITH_DAV1D=$(usex dav1d)
-		-DWITH_EXAMPLES=ON
+		-DWITH_EXAMPLES=$(usex tools)
+		-DWITH_EXAMPLE_HEIF_VIEW=$(usex tools-heif-view)
 		-DWITH_FFMPEG_DECODER=$(usex ffmpeg)
 		-DWITH_GDK_PIXBUF=$(usex gdk-pixbuf)
 		-DWITH_JPEG_DECODER=ON
