@@ -829,7 +829,7 @@ dev-qt/qttest 5.15.17-r1: Unit testing library for the Qt5 framework
 dev-qt/qttranslations 5.15.17-r1: Translation files for the Qt5 framework
 dev-qt/qtvirtualkeyboard 5.15.17: Customizable input framework and virtual keyboard for Qt
 dev-qt/qtwayland 5.15.17: Wayland platform plugin for Qt
-dev-qt/qtwebchannel 5.15.17: Qt5 module for integrating C++ and QML applications with HTML/JavaScript clients
+dev-qt/qtwebchannel 5.15.17-r1: Qt5 module for integrating C++ and QML applications with HTML/JavaScript clients
 dev-qt/qtwebengine 5.15.17: Library for rendering dynamic web content in Qt5 C++ and QML applications
 dev-qt/qtwebkit 5.212.0_pre20240528-r1: WebKit rendering library for the Qt5 framework (deprecated)
 dev-qt/qtwebview 5.15.17-r1: Module for displaying web content in a QML application using the Qt5 framework
