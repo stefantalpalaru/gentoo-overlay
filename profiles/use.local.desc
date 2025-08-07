@@ -554,6 +554,9 @@ sci-ml/caffe2:openmp - Use OpenMP for parallel code
 sci-ml/caffe2:qnnpack - Use QNNPACK
 sci-ml/caffe2:rocm - Enable ROCm gpu computing support
 sci-ml/caffe2:xnnpack - Use XNNPACK
+sci-ml/gloo:libuv - Enable libuv support
+sci-ml/gloo:redis - Enable Redis backend for storage via dev-libs/hiredis
+sci-ml/onnx:disableStaticReg - Disable Static Registration
 sci-ml/torchvision:rocm - Enable ROCm gpu computing support
 sys-cluster/openmpi:cma - Enable the CMA (Cross Memory Attach) MCA
 sys-cluster/openmpi:peruse - Enable PERUSE interface

@@ -1,0 +1,167 @@
+diff '--color=auto' -ur pytorch-v2.8.0.orig/aten/src/ATen/CMakeLists.txt pytorch-v2.8.0/aten/src/ATen/CMakeLists.txt
+--- pytorch-v2.8.0.orig/aten/src/ATen/CMakeLists.txt	2025-08-06 19:51:07.693490583 +0200
++++ pytorch-v2.8.0/aten/src/ATen/CMakeLists.txt	2025-08-06 20:01:08.757486698 +0200
+@@ -325,9 +325,6 @@
+ 
+ if(USE_CUDA)
+   list(APPEND ATen_CUDA_INCLUDE ${CMAKE_CURRENT_SOURCE_DIR}/cuda)
+-  # Next two lines are needed because TunableOp uses third-party/fmt
+-  list(APPEND ATen_CUDA_INCLUDE $<TARGET_PROPERTY:fmt::fmt-header-only,INTERFACE_INCLUDE_DIRECTORIES>)
+-  list(APPEND ATen_CUDA_DEPENDENCY_LIBS fmt::fmt-header-only)
+   list(APPEND ATen_CUDA_CU_SRCS
+     ${cuda_cu}
+     ${native_cuda_cu}
+@@ -394,9 +391,6 @@
+   list(APPEND ATen_HIP_INCLUDE ${CMAKE_CURRENT_BINARY_DIR}/composable_kernel)
+   _pytorch_rocm_generate_ck_conf()
+ 
+-  # Next two lines are needed because TunableOp uses third-party/fmt
+-  list(APPEND ATen_HIP_INCLUDE $<TARGET_PROPERTY:fmt::fmt-header-only,INTERFACE_INCLUDE_DIRECTORIES>)
+-  list(APPEND ATen_HIP_DEPENDENCY_LIBS fmt::fmt-header-only)
+ if(USE_FLASH_ATTENTION)
+   list(APPEND ATen_HIP_INCLUDE ${CMAKE_CURRENT_SOURCE_DIR}/native/transformers/hip/flash_attn/ck)
+ endif()
+diff '--color=auto' -ur pytorch-v2.8.0.orig/c10/CMakeLists.txt pytorch-v2.8.0/c10/CMakeLists.txt
+--- pytorch-v2.8.0.orig/c10/CMakeLists.txt	2025-08-06 19:51:07.608354971 +0200
++++ pytorch-v2.8.0/c10/CMakeLists.txt	2025-08-06 20:01:47.655317733 +0200
+@@ -94,7 +94,7 @@
+   if(C10_USE_GLOG)
+     target_link_libraries(c10 PUBLIC glog::glog)
+   endif()
+-  target_link_libraries(c10 PRIVATE fmt::fmt-header-only)
++  target_link_libraries(c10 PRIVATE fmt)
+   target_link_libraries(c10 PRIVATE nlohmann)
+   target_link_libraries(c10 PRIVATE moodycamel)
+ 
+diff '--color=auto' -ur pytorch-v2.8.0.orig/caffe2/CMakeLists.txt pytorch-v2.8.0/caffe2/CMakeLists.txt
+--- pytorch-v2.8.0.orig/caffe2/CMakeLists.txt	2025-08-06 19:51:07.813057049 +0200
++++ pytorch-v2.8.0/caffe2/CMakeLists.txt	2025-08-06 20:03:30.209872255 +0200
+@@ -87,7 +87,7 @@
+ # Note: the folders that are being commented out have not been properly
+ # addressed yet.
+ 
+-if(NOT MSVC AND USE_XNNPACK)
++if(FALSE)
+   if(NOT TARGET fxdiv)
+     set(FXDIV_BUILD_TESTS OFF CACHE BOOL "")
+     set(FXDIV_BUILD_BENCHMARKS OFF CACHE BOOL "")
+@@ -1195,7 +1195,6 @@
+ endif()
+ 
+ if(NOT MSVC AND USE_XNNPACK)
+-  TARGET_LINK_LIBRARIES(torch_cpu PRIVATE fxdiv)
+ endif()
+ 
+ # ==========================================================
+diff '--color=auto' -ur pytorch-v2.8.0.orig/cmake/Codegen.cmake pytorch-v2.8.0/cmake/Codegen.cmake
+--- pytorch-v2.8.0.orig/cmake/Codegen.cmake	2025-08-06 19:08:00.000000000 +0200
++++ pytorch-v2.8.0/cmake/Codegen.cmake	2025-08-06 20:04:00.991738545 +0200
+@@ -64,7 +64,7 @@
+   if(MSVC)
+     set(OPT_FLAG "/fp:strict ")
+   else(MSVC)
+-    set(OPT_FLAG "-O3 ")
++    set(OPT_FLAG " ")
+     if("${CMAKE_BUILD_TYPE}" MATCHES "Debug")
+       set(OPT_FLAG " ")
+     endif()
+diff '--color=auto' -ur pytorch-v2.8.0.orig/cmake/Dependencies.cmake pytorch-v2.8.0/cmake/Dependencies.cmake
+--- pytorch-v2.8.0.orig/cmake/Dependencies.cmake	2025-08-06 19:51:07.210059622 +0200
++++ pytorch-v2.8.0/cmake/Dependencies.cmake	2025-08-06 20:06:47.187016623 +0200
+@@ -1553,7 +1554,6 @@
+ #
+ set(TEMP_BUILD_SHARED_LIBS ${BUILD_SHARED_LIBS})
+ set(BUILD_SHARED_LIBS OFF CACHE BOOL "Build shared libs" FORCE)
+-add_subdirectory(${PROJECT_SOURCE_DIR}/third_party/fmt)
+ 
+ # Disable compiler feature checks for `fmt`.
+ #
+@@ -1562,9 +1562,7 @@
+ # CMAKE_CXX_FLAGS in ways that break feature checks. Since we already know
+ # `fmt` is compatible with a superset of the compilers that PyTorch is, it
+ # shouldn't be too bad to just disable the checks.
+-set_target_properties(fmt-header-only PROPERTIES INTERFACE_COMPILE_FEATURES "")
+ 
+-list(APPEND Caffe2_DEPENDENCY_LIBS fmt::fmt-header-only)
+ set(BUILD_SHARED_LIBS ${TEMP_BUILD_SHARED_LIBS} CACHE BOOL "Build shared libs" FORCE)
+ 
+ # ---[ Kineto
+diff '--color=auto' -ur pytorch-v2.8.0.orig/cmake/External/nnpack.cmake pytorch-v2.8.0/cmake/External/nnpack.cmake
+--- pytorch-v2.8.0.orig/cmake/External/nnpack.cmake	2025-08-06 19:08:00.000000000 +0200
++++ pytorch-v2.8.0/cmake/External/nnpack.cmake	2025-08-06 20:07:15.843892143 +0200
+@@ -56,7 +56,7 @@
+   set(PTHREADPOOL_SOURCE_DIR "${CAFFE2_THIRD_PARTY_ROOT}/pthreadpool" CACHE STRING "pthreadpool source directory")
+   set(GOOGLETEST_SOURCE_DIR "${CAFFE2_THIRD_PARTY_ROOT}/googletest" CACHE STRING "Google Test source directory")
+ 
+-  if(NOT TARGET nnpack)
++  if(FALSE)
+     set(NNPACK_BUILD_TESTS OFF CACHE BOOL "")
+     set(NNPACK_BUILD_BENCHMARKS OFF CACHE BOOL "")
+     set(NNPACK_LIBRARY_TYPE "static" CACHE STRING "")
+diff '--color=auto' -ur pytorch-v2.8.0.orig/cmake/public/utils.cmake pytorch-v2.8.0/cmake/public/utils.cmake
+--- pytorch-v2.8.0.orig/cmake/public/utils.cmake	2025-08-06 19:51:07.212552014 +0200
++++ pytorch-v2.8.0/cmake/public/utils.cmake	2025-08-06 20:08:33.521554725 +0200
+@@ -460,8 +460,6 @@
+   endif()
+ 
+   # Use -O2 for release builds (-O3 doesn't improve perf, and -Os results in perf regression)
+-  target_compile_options(${libname} PRIVATE
+-      $<$<AND:$<COMPILE_LANGUAGE:CXX>,$<OR:$<CONFIG:Release>,$<CONFIG:RelWithDebInfo>>>:-O2>)
+ 
+ endfunction()
+ 
+diff '--color=auto' -ur pytorch-v2.8.0.orig/CMakeLists.txt pytorch-v2.8.0/CMakeLists.txt
+--- pytorch-v2.8.0.orig/CMakeLists.txt	2025-08-06 19:51:12.896035359 +0200
++++ pytorch-v2.8.0/CMakeLists.txt	2025-08-06 20:10:22.428081656 +0200
+@@ -987,7 +987,6 @@
+   set(CMAKE_COLOR_DIAGNOSTICS ON)
+ endif()
+ if(NOT MSVC)
+-  string(APPEND CMAKE_CXX_FLAGS " -O2 -fPIC")
+ 
+   # This prevents use of `c10::optional`, `c10::nullopt` etc within the codebase
+   string(APPEND CMAKE_CXX_FLAGS " -DC10_NODEPRECATED")
+@@ -998,7 +997,6 @@
+   # Details at http://eigen.tuxfamily.org/bz/show_bug.cgi?id=1459
+   string(APPEND CMAKE_CXX_FLAGS " -Wall")
+   string(APPEND CMAKE_CXX_FLAGS " -Wextra")
+-  append_cxx_flag_if_supported("-Werror=return-type" CMAKE_CXX_FLAGS)
+   append_cxx_flag_if_supported("-Werror=non-virtual-dtor" CMAKE_CXX_FLAGS)
+   append_cxx_flag_if_supported("-Werror=braced-scalar-init" CMAKE_CXX_FLAGS)
+   append_cxx_flag_if_supported("-Werror=range-loop-construct" CMAKE_CXX_FLAGS)
+@@ -1083,7 +1081,6 @@
+   endif()
+   append_cxx_flag_if_supported("-fno-math-errno" CMAKE_CXX_FLAGS)
+   append_cxx_flag_if_supported("-fno-trapping-math" CMAKE_CXX_FLAGS)
+-  append_cxx_flag_if_supported("-Werror=format" CMAKE_CXX_FLAGS)
+   if(CMAKE_COMPILER_IS_GNUCXX AND CMAKE_CXX_COMPILER_VERSION VERSION_GREATER_EQUAL 13)
+     append_cxx_flag_if_supported("-Wno-dangling-reference" CMAKE_CXX_FLAGS)
+     append_cxx_flag_if_supported("-Wno-error=dangling-reference" CMAKE_CXX_FLAGS)
+diff '--color=auto' -ur pytorch-v2.8.0.orig/torch/CMakeLists.txt pytorch-v2.8.0/torch/CMakeLists.txt
+--- pytorch-v2.8.0.orig/torch/CMakeLists.txt	2025-08-06 19:51:07.638057795 +0200
++++ pytorch-v2.8.0/torch/CMakeLists.txt	2025-08-06 20:11:32.228778454 +0200
+@@ -59,15 +59,7 @@
+     ${CMAKE_BINARY_DIR}
+     ${CMAKE_BINARY_DIR}/aten/src
+     ${CMAKE_BINARY_DIR}/caffe2/aten/src
+-    ${CMAKE_BINARY_DIR}/third_party
+-    ${CMAKE_BINARY_DIR}/third_party/onnx
+-
+-    ${TORCH_ROOT}/third_party/valgrind-headers
+-
+-    ${TORCH_ROOT}/third_party/gloo
+-    ${TORCH_ROOT}/third_party/onnx
+-    ${TORCH_ROOT}/third_party/flatbuffers/include
+-    ${TORCH_ROOT}/third_party/kineto/libkineto/include
++    /usr/include/kineto
+     ${TORCH_ROOT}/third_party/cpp-httplib
+     ${TORCH_ROOT}/third_party/nlohmann/include
+ 
+@@ -87,7 +79,6 @@
+     nlohmann
+     moodycamel
+     shm
+-    fmt::fmt-header-only
+     ATEN_CPU_FILES_GEN_LIB)
+ 
+ if(USE_ASAN AND TARGET Sanitizer::address)
