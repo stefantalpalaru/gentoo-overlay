@@ -879,7 +879,7 @@ media-libs/libmysofa 1.3.3: Reader for AES SOFA files to get better HRTFs
 media-libs/libspatialaudio 0.3.0-r3: Ambisonic encoding / decoding and binauralization library in C++
 media-libs/nv-codec-headers 8.1.24.15 11.0.10.3 11.1.5.3 12.0.16.1 12.1.14.0 12.2.72.0 13.0.19.0: FFmpeg version of headers required to interface with Nvidias codec APIs
 media-libs/openexr 3.1.12-r2: ILM's OpenEXR high dynamic-range image file format libraries
-media-libs/openimageio 3.0.9.0: A library for reading and writing images
+media-libs/openimageio 3.0.9.1: A library for reading and writing images
 media-libs/portaudio 19.07.00-r5: A free, cross-platform, open-source, audio I/O library
 media-libs/svt-av1 1.8.0-r105 2.3.0-r100 3.1.0-r100: Scalable Video Technology for AV1 (SVT-AV1 Encoder and Decoder)
 media-libs/zmusic 1.1.14: GZDoom's music system as a standalone library
