@@ -116,7 +116,7 @@ DEPEND="
 "
 
 PATCHES=(
-	"${FILESDIR}"/caffe2-2.8.0-gentoo.patch
+	"${FILESDIR}"/caffe2-2.8.0-gentoo-r1.patch
 	"${FILESDIR}"/caffe2-2.6.0-install-dirs.patch
 	"${FILESDIR}"/caffe2-1.12.0-glog-0.6.0.patch
 	"${FILESDIR}"/caffe2-2.8.0-tensorpipe.patch
@@ -126,9 +126,7 @@ PATCHES=(
 	"${FILESDIR}"/caffe2-2.4.0-rocm-fix-std-cpp17.patch
 	"${FILESDIR}"/caffe2-2.7.0-fix-libcpp.patch
 	"${FILESDIR}"/caffe2-2.4.0-cpp-httplib.patch
-	#"${FILESDIR}"/caffe2-2.4.0-kineto.patch
 	"${FILESDIR}"/caffe2-2.5.1-newfix-functorch-install.patch
-	#"${FILESDIR}"/caffe2-2.5.1-unbundle_kineto.patch
 	"${FILESDIR}"/caffe2-2.7.0-glog-0.7.1.patch
 	"${FILESDIR}"/caffe2-2.7.1-aotriton-fixes.patch
 	"${FILESDIR}"/caffe2-2.8.0-kineto.patch
