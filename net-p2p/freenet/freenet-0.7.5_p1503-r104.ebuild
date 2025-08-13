@@ -206,7 +206,7 @@ src_install() {
 
 pkg_postinst() {
 	elog " "
-	elog "1. Start freenet with rc-service freenet start."
+	elog "1. Start freenet with 'rc-service freenet start'."
 	elog "2. Open localhost:8888 in your browser for the web interface."
 	#workaround for previously existing freenet user
 	[[ $(stat --format="%U" /var/freenet) == "freenet" ]] || chown \

@@ -1,18 +1,18 @@
 #!/sbin/openrc-run
-# Copyright 1999-2004 Gentoo Foundation
+# Copyright 1999-2005 Gentoo Foundation
 # Distributed under the terms of the GNU General Public License v2
 
 start() {
-	start-stop-daemon --start --user freenet --exec /bin/sh /var/freenet/run.sh start 2>/dev/null
-	eend 0
+        su freenet --shell /bin/sh -c "/var/freenet/run.sh start"
+	eend $?
 }
 
 status() {
-	start-stop-daemon --start --user freenet --exec /bin/sh /var/freenet/run.sh status 2>/dev/null
-	eend 0
+        su freenet --shell /bin/sh -c "/var/freenet/run.sh status"
+	eend $?
 }
 
 stop() {
-	start-stop-daemon --start --user freenet --exec /bin/sh /var/freenet/run.sh stop 2>/dev/null
-	eend 0
+        su freenet --shell /bin/sh -c "/var/freenet/run.sh stop"
+	eend $?
 }

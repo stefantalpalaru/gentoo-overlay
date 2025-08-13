@@ -14,4 +14,4 @@ RESTRICT=!test? ( test )
 SLOT=0
 SRC_URI=https://github.com/hyphanet/fred/releases/download/build01503/freenet-build01503-source.tar.bz2 https://github.com/hyphanet/seedrefs/archive/8e8b3574b63e649e03f67d23d3dfa461b7a0ba4a.tar.gz -> freenet-seednodes-8e8b3574b63e649e03f67d23d3dfa461b7a0ba4a.gh.tar.gz verify-sig? ( https://github.com/hyphanet/fred/releases/download/build01503/freenet-build01503-source.tar.bz2.sig )
 _eclasses_=java-utils-2	e2cdf66cd9c826ccda532772976d342d	java-pkg-2	38fd81c7880666a00a638ca8deb64d72	java-pkg-simple	460c3cd928ba6e677d113a15c496017e	toolchain-funcs	a0b29008c671a362b505f96fa80ce9c0	systemd	a964c0cbe818b5729da1dbfcee5be861	eapi9-pipestatus	d2c134036ac31c3085aebc9147f572bd	verify-sig	4e83419d7fb5d336f6a4de8193968319
-_md5_=c1947b27d1ee8f8fb03811d85e48442e
+_md5_=656c58426bc25e0060f5abb1a4fdf824
