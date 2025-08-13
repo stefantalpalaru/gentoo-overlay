@@ -162,6 +162,10 @@ src_prepare() {
 	eapply -p5 "${FILESDIR}/nvidia-cuda-toolkit-glibc-2.41-r1.patch"
 	popd >/dev/null || die
 
+	pushd "builds/cuda_nvcc/targets/${narch}-linux" >/dev/null || die
+	eapply -p5 "${FILESDIR}/nvidia-cuda-toolkit-glibc-2.42.patch"
+	popd >/dev/null || die
+
 	default
 }
 
