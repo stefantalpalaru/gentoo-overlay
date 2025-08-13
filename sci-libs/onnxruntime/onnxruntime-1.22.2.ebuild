@@ -7,13 +7,11 @@ PYTHON_COMPAT=( python3_{10..13} )
 DISTUTILS_USE_PEP517=setuptools
 DISTUTILS_SINGLE_IMPL=1
 DISTUTILS_EXT=1
-CUDA_TARGETS_COMPAT=( sm_50 sm_52 sm_53 sm_60 sm_61 sm_62 sm_70 sm_72 sm_75 sm_80 sm_86 sm_87 sm_89 sm_90 )
 ROCM_VERSION="5.7.1"
-AMDGPU_TARGETS_COMPAT=( gfx1030 gfx1031 gfx1032 gfx1033 gfx1034 gfx1035 gfx1036 gfx1100 gfx1101	gfx1102	gfx1103 )
 LLVM_COMPAT=( 17 18 19 20 )
 LLVM_OPTIONAL=1
 
-inherit cmake cuda distutils-r1 flag-o-matic llvm-r1 rocm toolchain-funcs
+inherit cmake cuda cuda-extra distutils-r1 flag-o-matic llvm-r1 rocm toolchain-funcs
 
 DESCRIPTION="Cross-platform inference and training machine-learning accelerator."
 HOMEPAGE="https://onnxruntime.ai
@@ -34,9 +32,7 @@ SLOT="0/${PV}"
 KEYWORDS="~amd64"
 CPU_FLAGS="cpu_flags_x86_avx cpu_flags_x86_avx2 cpu_flags_x86_avx512f"
 IUSE="benchmark cuda onednn cudnn debug hip +python migraphx mimalloc lto test tensorrt llvm xnnpack
-${CPU_FLAGS}
-${CUDA_TARGETS_COMPAT[@]/#/cuda_targets_}
-${AMDGPU_TARGETS_COMPAT[@]/#/amdgpu_targets_}"
+${CPU_FLAGS}"
 RESTRICT="mirror test"
 REQUIRED_USE="
 	cuda? ( cudnn !lto )
@@ -76,6 +72,7 @@ BDEPEND="
 		>=dev-libs/rocr-runtime-${ROCM_VERSION}:=
 		>=dev-util/hip-${ROCM_VERSION}:=
 	)
+	mimalloc? ( dev-libs/mimalloc )
 	onednn? ( sci-ml/oneDNN:= )
 	python? (
 		$(python_gen_cond_dep '
@@ -115,6 +112,7 @@ PATCHES=(
 	"${FILESDIR}/onnxruntime-1.20.0-cudnn_frontend.patch"
 	"${FILESDIR}/onnxruntime-1.21.0-external-downloads.patch"
 	"${FILESDIR}/onnxruntime-1.21.1-gcc-15.patch"
+	"${FILESDIR}/onnxruntime-1.22.2-onnx-1.18.patch"
 )
 
 pkg_setup() {
@@ -196,7 +194,6 @@ src_configure() {
 		-Donnxruntime_RUN_ONNX_TESTS=$(usex test)
 		-Donnxruntime_ENABLE_LAZY_TENSOR=OFF
 		-Donnxruntime_USE_PREINSTALLED_EIGEN=ON
-		-Donnxruntime_PREFER_SYSTEM_LIB=ON
 		-Donnxruntime_USE_DNNL=$(usex onednn)
 		-Donnxruntime_USE_CUDA=$(usex cuda)
 		-Donnxruntime_USE_ROCM=$(usex hip)
@@ -274,13 +271,11 @@ src_configure() {
 	)
 
 	if use cuda; then
-		for CA in ${CUDA_TARGETS_COMPAT[*]}; do
-			use ${CA/#/cuda_targets_} && CUDA_ARCH+="${CA#sm_*}-real;"
-		done
+		local cuda_architectures_real="$(cuda_get_host_native_arch | sed -e 's/$/-real/g' -e 's/;/-real;/g')"
 		mycmakeargs+=(
 			-Donnxruntime_CUDA_HOME=/opt/cuda
 			-Donnxruntime_CUDNN_HOME=/usr
-			-DCMAKE_CUDA_ARCHITECTURES="${CUDA_ARCH%%;}"
+			-DCMAKE_CUDA_ARCHITECTURES="${cuda_architectures_real%%;}"
 			-DCMAKE_CUDA_HOST_COMPILER="$(cuda_gccdir)"
 			-DCMAKE_CUDA_FLAGS="-forward-unknown-opts -fno-lto ${NVCCFLAGS}"
 			-DCMAKE_CUDA_STANDARD_REQUIRED=ON

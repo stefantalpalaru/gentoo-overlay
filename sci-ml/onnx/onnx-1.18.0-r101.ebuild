@@ -31,7 +31,8 @@ src_prepare() {
 	# Can't use PATCHES in here, because both _src_prepare() wrappers we call
 	# next try to apply them.
 	eapply "${FILESDIR}"/${PN}-1.18.0-hidden.patch \
-		"${FILESDIR}"/${PN}-1.18.0-cmake.patch
+		"${FILESDIR}"/${PN}-1.18.0-cmake.patch \
+		"${FILESDIR}"/onnx-1.18.0-onnxruntime.patch
 
 	cmake_src_prepare
 	distutils-r1_src_prepare

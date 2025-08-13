@@ -1,0 +1,19 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE pkgmetadata SYSTEM "http://www.gentoo.org/dtd/metadata.dtd">
+<pkgmetadata>
+	<maintainer type="person">
+		<email>stefantalpalaru@yahoo.com</email>
+		<name>Ștefan Talpalaru</name>
+	</maintainer>
+	<use>
+		<flag name='benchmark'>Build benchmarks.</flag>
+		<flag name='cudnn'>Use <pkg>dev-libs/cudnn</pkg>.</flag>
+		<flag name='hip'>Use AMD's ROCm stack.</flag>
+		<flag name='llvm'>Use LLVM.</flag>
+		<flag name='migraphx'>Use Migraphx.</flag>
+		<flag name='mimalloc'>Use <pkg>dev-libs/mimalloc</pkg>.</flag>
+		<flag name='onednn'>Use <pkg>sci-ml/oneDNN</pkg>.</flag>
+		<flag name='tensorrt'>Use TensorRT.</flag>
+		<flag name='xnnpack'>Use <pkg>sci-ml/XNNPACK</pkg>.</flag>
+	</use>
+</pkgmetadata>

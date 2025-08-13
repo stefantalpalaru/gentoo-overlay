@@ -538,6 +538,15 @@ sci-libs/gdal:ogdi - Enable support for the open geographic datastore interface 
 sci-libs/gdal:parquet - Enables read/write parquet data format (dev-libs/apache-arrow)
 sci-libs/gdal:spatialite - Enable Spatial DBMS over sqlite dev-db/spatialite
 sci-libs/gdal:xls - Add the dev-libs/freexl library for xls import support
+sci-libs/onnxruntime:benchmark - Build benchmarks.
+sci-libs/onnxruntime:cudnn - Use dev-libs/cudnn.
+sci-libs/onnxruntime:hip - Use AMD's ROCm stack.
+sci-libs/onnxruntime:llvm - Use LLVM.
+sci-libs/onnxruntime:migraphx - Use Migraphx.
+sci-libs/onnxruntime:mimalloc - Use dev-libs/mimalloc.
+sci-libs/onnxruntime:onednn - Use sci-ml/oneDNN.
+sci-libs/onnxruntime:tensorrt - Use TensorRT.
+sci-libs/onnxruntime:xnnpack - Use sci-ml/XNNPACK.
 sci-libs/suitesparse:partition - Enable graph partitioning and graph-partition-based orderings through sci-libs/metis or sci-libs/parmetis
 sci-libs/suitesparse:tbb - Enable multithreading with the Intel Threads Building Block dev-cpp/tbb
 sci-ml/caffe2:distributed - Support distributed applications
