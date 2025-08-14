@@ -130,6 +130,9 @@ PATCHES=(
 	"${FILESDIR}"/caffe2-2.7.0-glog-0.7.1.patch
 	"${FILESDIR}"/caffe2-2.7.1-aotriton-fixes.patch
 	"${FILESDIR}"/caffe2-2.8.0-kineto.patch
+	"${FILESDIR}"/caffe2-2.8.0-CUDA-13.patch
+	"${FILESDIR}"/caffe2-2.8.0-cufft.patch
+	"${FILESDIR}"/caffe2-2.8.0-CCCL.patch
 )
 
 src_prepare() {

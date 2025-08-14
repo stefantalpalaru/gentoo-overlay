@@ -237,11 +237,12 @@ BDEPEND="
 "
 
 PATCHES=(
-	"${FILESDIR}/${PN}-4.0.2-FindClang.patch"
-	"${FILESDIR}/${PN}-4.1.1-FindLLVM.patch"
-	"${FILESDIR}/${PN}-4.1.1-numpy.patch"
-	"${FILESDIR}/${PN}-4.3.2-system-glog.patch"
-	"${FILESDIR}/${PN}-4.4.0-optix-compile-flags.patch"
+	"${FILESDIR}"/blender-4.0.2-FindClang.patch
+	"${FILESDIR}"/blender-4.1.1-FindLLVM.patch
+	"${FILESDIR}"/blender-4.1.1-numpy.patch
+	"${FILESDIR}"/blender-4.3.2-system-glog.patch
+	"${FILESDIR}"/blender-4.4.0-optix-compile-flags.patch
+	"${FILESDIR}"/blender-4.5.1-CUDA-13.patch
 )
 
 blender_check_requirements() {

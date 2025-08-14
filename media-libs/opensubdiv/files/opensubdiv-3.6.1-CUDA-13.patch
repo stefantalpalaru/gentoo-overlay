@@ -1,0 +1,12 @@
+diff '--color=auto' -ur OpenSubdiv-3_6_1.orig/opensubdiv/osd/cudaEvaluator.cpp OpenSubdiv-3_6_1/opensubdiv/osd/cudaEvaluator.cpp
+--- OpenSubdiv-3_6_1.orig/opensubdiv/osd/cudaEvaluator.cpp	2025-06-16 18:54:29.000000000 +0200
++++ OpenSubdiv-3_6_1/opensubdiv/osd/cudaEvaluator.cpp	2025-08-14 21:28:04.699678798 +0200
+@@ -376,7 +376,7 @@
+ /* static */
+ void
+ CudaEvaluator::Synchronize(void * /*deviceContext*/) {
+-    cudaThreadSynchronize();
++    cudaDeviceSynchronize();
+ }
+ 
+ }  // end namespace Osd

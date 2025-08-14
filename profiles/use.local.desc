@@ -108,6 +108,16 @@ dev-libs/boost:numpy - Optionally build NumPy extensions when Boost.Python is en
 dev-libs/boost:stacktrace - Build the full Boost.Stacktrace dynamic library instead of relying on the header-only implementation
 dev-libs/boost:test-full - Enable tests that take a very long time to build or run
 dev-libs/boost:tools - Build and install the boost tools (bcp, quickbook, inspect, wave)
+dev-libs/cutlass:clang-cuda - Use clang for cuda units compilation
+dev-libs/cutlass:cublas - Enable cuBLAS usage for tests
+dev-libs/cutlass:cudnn - Enable cuDNN usage for tests
+dev-libs/cutlass:dot - Use dot to generate graphs in the doxygen documentation via media-gfx/graphviz
+dev-libs/cutlass:examples - Enable CUTLASS Examples
+dev-libs/cutlass:headers-only - Enable only the header library
+dev-libs/cutlass:jumbo-build - Enable combined source compilation
+dev-libs/cutlass:performance - Enable CUTLASS Performance
+dev-libs/cutlass:profiler - Enable CUTLASS Profiler
+dev-libs/cutlass:tools - Enable CUTLASS Tools
 dev-libs/libpeas:glade - Install the glade catalog
 dev-libs/libpeas:python - Build support for loading dev-lang/python plugins
 dev-libs/libsodium:urandom - Use /dev/urandom instead of /dev/random
@@ -347,6 +357,9 @@ media-libs/libheif:svt-av1 - Use media-libs/svt-av1 for AVIF encoding
 media-libs/libheif:tools - Enable various tools (what upstream calls "examples")
 media-libs/libheif:tools-heif-view - Enable "heif-view" (needs media-libs/libsdl2)
 media-libs/libheif:x265 - Use media-libs/x265 for HEIF encoding
+media-libs/oidn:apps - Build the standalone denoise, self test, and benchmark binaries.
+media-libs/oidn:hip - Build OIDN with AMD HIP support.
+media-libs/oidn:openimageio - Enable OpenImageIO Support
 media-libs/openexr:large-stack - Enables code to take advantage of large stack support.
 media-libs/openexr:utils - Build several binary tools for verifying and manipulating EXR files.
 media-libs/openimageio:dicom - Enable DICOM medical image file support via sci-libs/dcmtk
@@ -356,6 +369,11 @@ media-libs/openimageio:opencv - Enable OpenCV support via media-libs/opencv
 media-libs/openimageio:openvdb - Enable OpenVDB support via media-gfx/openvdb
 media-libs/openimageio:ptex - Enable Ptex texture mapping system file support via media-libs/ptex
 media-libs/openimageio:tools - Build the command-line tools
+media-libs/opensubdiv:glfw - Build all example files that uses (media-libs/glfw)
+media-libs/opensubdiv:ptex - Adds support for faster per-face texture mapping through media-libs/ptex
+media-libs/opensubdiv:python - Use dev-lang/python to process source and documentation source files
+media-libs/opensubdiv:tbb - Enable multithreading with the Intel Threads Building Blocks through dev-cpp/tbb
+media-libs/opensubdiv:tutorials - Install the tutorials
 media-libs/svt-av1:lto - Build with link-time optimizations (LTO)
 media-libs/svt-av1:pgo - Build with profile guided optimizations (PGO)
 media-libs/zmusic:fluidsynth - Enable support for MIDI via media-sound/fluidsynth

@@ -1,0 +1,44 @@
+From 25343b343e6dd87f89ae0f37d5d44bf9344b8cff Mon Sep 17 00:00:00 2001
+From: Aidyn-A <aidyn.b.aitzhan@gmail.com>
+Date: Wed, 30 Jul 2025 21:10:32 +0000
+Subject: [PATCH] [ATen][CUDA][cuFFT] Guard against deprecated error codes
+ (#159466)
+
+This PR adds a guard based on CUDA version, per latest cuFFT [documentation](https://docs.nvidia.com/cuda/cufft/index.html#return-value-cufftresult):
+>The following error codes are deprecated and will be removed in a future release: `CUFFT_INCOMPLETE_PARAMETER_LIST`, `CUFFT_PARSE_ERROR`, `CUFFT_LICENSE_ERROR`.
+
+Pull Request resolved: https://github.com/pytorch/pytorch/pull/159466
+Approved by: https://github.com/albanD, https://github.com/eqy, https://github.com/Skylion007
+---
+ aten/src/ATen/native/cuda/CuFFTUtils.h | 12 +++++++-----
+ 1 file changed, 7 insertions(+), 5 deletions(-)
+
+diff --git a/aten/src/ATen/native/cuda/CuFFTUtils.h b/aten/src/ATen/native/cuda/CuFFTUtils.h
+index f20baa9568661..38013137f0a40 100644
+--- a/aten/src/ATen/native/cuda/CuFFTUtils.h
++++ b/aten/src/ATen/native/cuda/CuFFTUtils.h
+@@ -38,17 +38,19 @@ static inline std::string _cudaGetErrorEnum(cufftResult error)
+       return "CUFFT_INVALID_SIZE";
+     case CUFFT_UNALIGNED_DATA:
+       return "CUFFT_UNALIGNED_DATA";
+-    case CUFFT_INCOMPLETE_PARAMETER_LIST:
+-      return "CUFFT_INCOMPLETE_PARAMETER_LIST";
+     case CUFFT_INVALID_DEVICE:
+       return "CUFFT_INVALID_DEVICE";
+-    case CUFFT_PARSE_ERROR:
+-      return "CUFFT_PARSE_ERROR";
+     case CUFFT_NO_WORKSPACE:
+       return "CUFFT_NO_WORKSPACE";
+     case CUFFT_NOT_IMPLEMENTED:
+       return "CUFFT_NOT_IMPLEMENTED";
+-#if !defined(USE_ROCM)
++#if CUDA_VERSION <= 12090
++    case CUFFT_INCOMPLETE_PARAMETER_LIST:
++      return "CUFFT_INCOMPLETE_PARAMETER_LIST";
++    case CUFFT_PARSE_ERROR:
++      return "CUFFT_PARSE_ERROR";
++#endif
++#if !defined(USE_ROCM) && CUDA_VERSION <= 12090
+     case CUFFT_LICENSE_ERROR:
+       return "CUFFT_LICENSE_ERROR";
+ #endif
