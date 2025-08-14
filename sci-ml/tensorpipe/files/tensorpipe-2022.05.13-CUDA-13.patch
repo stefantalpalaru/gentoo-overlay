@@ -1,0 +1,24 @@
+From 818f4cfc6dd18170e3b157e9425348d34c37e3b0 Mon Sep 17 00:00:00 2001
+From: Aidyn-A <31858918+Aidyn-A@users.noreply.github.com>
+Date: Sun, 3 Aug 2025 11:43:07 +0400
+Subject: [PATCH] use cudaDeviceGetAttribute
+
+---
+ tensorpipe/channel/cuda_ipc/context_impl.cc | 4 +++-
+ 1 file changed, 3 insertions(+), 1 deletion(-)
+
+diff --git a/tensorpipe/channel/cuda_ipc/context_impl.cc b/tensorpipe/channel/cuda_ipc/context_impl.cc
+index 69db487d0..b4c1fda06 100644
+--- a/tensorpipe/channel/cuda_ipc/context_impl.cc
++++ b/tensorpipe/channel/cuda_ipc/context_impl.cc
+@@ -233,7 +233,9 @@ std::shared_ptr<ContextImpl> ContextImpl::create() {
+ 
+     // The other two compute modes are "exclusive" and "prohibited", both of
+     // which prevent access from an other process.
+-    if (props.computeMode != cudaComputeModeDefault) {
++    int computeMode = -1;
++    TP_CUDA_CHECK(cudaDeviceGetAttribute(&computeMode, cudaDevAttrComputeMode, device.index));
++    if (computeMode != cudaComputeModeDefault) {
+       TP_VLOG(4) << "CUDA IPC channel is not viable because CUDA device "
+                  << device.index << " is not in default compute mode";
+       return nullptr;
