@@ -76,6 +76,10 @@ BDEPEND="
 CUDA_PATH="/opt/cuda"
 QA_PREBUILT="${CUDA_PATH#/}/*"
 
+PATCHES=(
+	"${FILESDIR}/nvidia-cuda-toolkit-glibc-2.42.patch"
+)
+
 python_check_deps() {
 	python_has_version "dev-python/defusedxml[${PYTHON_USEDEP}]"
 }
