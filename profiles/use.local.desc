@@ -549,6 +549,7 @@ sci-libs/onnxruntime:tensorrt - Use TensorRT.
 sci-libs/onnxruntime:xnnpack - Use sci-ml/XNNPACK.
 sci-libs/suitesparse:partition - Enable graph partitioning and graph-partition-based orderings through sci-libs/metis or sci-libs/parmetis
 sci-libs/suitesparse:tbb - Enable multithreading with the Intel Threads Building Block dev-cpp/tbb
+sci-ml/caffe2:cudss - Use cuDSS
 sci-ml/caffe2:distributed - Support distributed applications
 sci-ml/caffe2:fbgemm - Use FBGEMM
 sci-ml/caffe2:flash - Enable flash attention

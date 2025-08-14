@@ -6,6 +6,7 @@
 		<name>Tupone Alfredo</name>
 	</maintainer>
 	<use>
+		<flag name="cudss">Use cuDSS</flag>
 		<flag name="distributed">Support distributed applications</flag>
 		<flag name="fbgemm">Use FBGEMM</flag>
 		<flag name="flash">Enable flash attention</flag>

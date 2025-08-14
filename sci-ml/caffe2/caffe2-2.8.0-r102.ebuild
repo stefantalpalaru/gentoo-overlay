@@ -26,7 +26,7 @@ S="${WORKDIR}"/pytorch-v${PV}
 LICENSE="BSD"
 SLOT="0"
 KEYWORDS="~amd64 ~arm64"
-IUSE="cuda distributed fbgemm flash gloo memefficient mkl mpi nnpack +numpy onednn openblas opencl openmp qnnpack rocm xnnpack cpu_flags_x86_avx cpu_flags_x86_avx2 cpu_flags_x86_avx512f"
+IUSE="cuda cudss distributed fbgemm flash gloo memefficient mkl mpi nnpack +numpy onednn openblas opencl openmp qnnpack rocm xnnpack cpu_flags_x86_avx cpu_flags_x86_avx2 cpu_flags_x86_avx512f"
 RESTRICT="test"
 REQUIRED_USE="
 	${PYTHON_REQUIRED_USE}
@@ -59,7 +59,7 @@ RDEPEND="
 	cuda? (
 		dev-libs/cudnn:=
 		>=sci-ml/cudnn-frontend-1.0.3:0=
-		dev-libs/cudss
+		cudss? ( dev-libs/cudss )
 		dev-libs/cusparselt
 		>=dev-util/nvidia-cuda-toolkit-12.9:=[profiler]
 	)
@@ -290,8 +290,8 @@ src_configure() {
 			-DTORCH_CUDA_ARCH_LIST="${TORCH_CUDA_ARCH_LIST:-5.0 7.0}"
 			-DUSE_NCCL=OFF # TODO: NVIDIA Collective Communication Library
 			-DCMAKE_CUDA_FLAGS="$(cuda_gccdir -f | tr -d \")"
-			-DUSE_CUDSS=$(usex cuda)
-			-DUSE_CUSPARSELT=$(usex cuda)
+			-DUSE_CUDSS=$(usex cudss)
+			-DUSE_CUSPARSELT=ON
 		)
 	elif use rocm; then
 		export PYTORCH_ROCM_ARCH="$(get_amdgpu_flags)"
