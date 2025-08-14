@@ -6,15 +6,16 @@ EAPI=8
 inherit edos2unix cmake
 
 DESCRIPTION="Spam-resistant message board application for Freenet"
-# FMS only has a homepage within freenet, so the closest is a wiki linking to it
+# FMS only has a homepage within Freenet, so the closest is a wiki linking to it
 HOMEPAGE="https://github.com/hyphanet/wiki/wiki/FMS"
-SRC_URI="http://127.0.0.1:8888/CHK@ZndjoXMPzYxVTxhfpAzBMKlLYfQ~LjlDz-~N9xGB-JE,HhAoviqsLgsasYAEGPdDY3ZeeMfJa0QbIfLby8YjxEI,AAMC--8/fms-src-0.3.86.zip"
+# "max-size" needs to be larger than archive size, in bytes
+SRC_URI="http://127.0.0.1:8888/CHK@ZndjoXMPzYxVTxhfpAzBMKlLYfQ~LjlDz-~N9xGB-JE,HhAoviqsLgsasYAEGPdDY3ZeeMfJa0QbIfLby8YjxEI,AAMC--8/fms-src-${PV}.zip?type=application/x-zip-compressed&max-size=10000000&force=ecc7215efe7d18f2421a3f5c684c7dd834212f00ee3ee4c3e2765fa712ad66af -> fms-src-${PV}.zip"
 S="${WORKDIR}"
 LICENSE="GPL-2"
 SLOT="0"
 KEYWORDS="~amd64 ~x86"
 IUSE="frost ssl"
-RESTRICT="fetch"
+#RESTRICT="fetch"
 
 CDEPEND="
 	acct-group/freenet
