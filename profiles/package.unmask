@@ -219,6 +219,7 @@ dev-vcs/hg-fast-export
 gnome-base/libgnome-keyring
 media-gfx/displaycal
 media-gfx/gmic
+media-gfx/opentoonz
 media-video/subliminal
 net-analyzer/namebench
 net-fs/tahoe-lafs
