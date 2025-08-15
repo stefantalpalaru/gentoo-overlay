@@ -278,6 +278,8 @@ dev-util/nvidia-cuda-toolkit:sanitizer - Install compute-sanitizer tool
 dev-vcs/bzr:sftp - Enable sftp support
 games-emulation/rpcs3:llvm - LLVM recompiler support
 games-emulation/rpcs3:vulkan - Vulkan video output support
+games-emulation/snes9x:libretro - Build libretro port
+games-emulation/snes9x:netplay - Enable playing ROMs over the network (not recommended)
 games-fps/gzdoom:gles2 - Enable GLES2 backend
 games-fps/gzdoom:non-free - Enable non-free components
 games-fps/gzdoom:swr - Enable software renderer
