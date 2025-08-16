@@ -20,6 +20,7 @@ RDEPEND="${DEPEND}
 "
 
 RESTRICT="mirror"
+QA_PREBUILT="/usr/lib64/koreader/*"
 
 src_unpack() {
 	unpack_deb ${A}
@@ -46,6 +47,10 @@ src_prepare() {
 		font_file=$(basename ${path})
 		ln -sfn "../../../../share/fonts/noto/${font_file}" "${path}"
 	done
+
+	gunzip usr/share/doc/koreader/changelog.Debian.gz
+	gunzip usr/share/man/man1/koreader.1.gz
+	mv usr/share/doc/koreader usr/share/doc/"${P}"
 }
 
 src_install() {
