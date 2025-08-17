@@ -7,34 +7,21 @@ inherit cmake-multilib
 
 Sparse_PV="7.11.0"
 Sparse_P="SuiteSparse-${Sparse_PV}"
-DESCRIPTION="Simple but educational LDL^T matrix factorization algorithm"
+DESCRIPTION="Extended sparse matrix package"
 HOMEPAGE="https://people.engr.tamu.edu/davis/suitesparse.html"
 SRC_URI="https://github.com/DrTimothyAldenDavis/SuiteSparse/archive/refs/tags/v${Sparse_PV}.tar.gz -> ${Sparse_P}.gh.tar.gz"
-S="${WORKDIR}/${Sparse_P}/${PN^^}"
-LICENSE="LGPL-2.1+"
-SLOT="0/3"
-KEYWORDS="~amd64 ~arm ~arm64 ~hppa ~ppc ~ppc64 ~riscv ~sparc ~x86 ~amd64-linux ~x86-linux"
-IUSE="doc static-libs"
+S="${WORKDIR}/${Sparse_P}/CXSparse"
+LICENSE="LGPL-2.1"
+SLOT="0/4"
+KEYWORDS="amd64 arm arm64 ~hppa ~ppc ~ppc64 ~riscv ~sparc x86 amd64-linux x86-linux"
+IUSE="static-libs"
 
-DEPEND=">=sci-libs/suitesparseconfig-${Sparse_PV}
-	>=sci-libs/amd-3.0.3"
+DEPEND=">=sci-libs/suitesparseconfig-${Sparse_PV}"
 RDEPEND="${DEPEND}"
-BDEPEND="doc? ( virtual/latex-base )"
 
 multilib_src_configure() {
 	local mycmakeargs=(
 		-DBUILD_STATIC_LIBS=$(usex static-libs)
 	)
 	cmake_src_configure
-}
-
-multilib_src_install() {
-	if use doc; then
-		pushd "${S}/Doc"
-		rm -rf *.pdf
-		emake
-		popd
-		DOCS="${S}/Doc/*.pdf"
-	fi
-	cmake_src_install
 }

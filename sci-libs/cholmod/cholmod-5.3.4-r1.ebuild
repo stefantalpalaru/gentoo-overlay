@@ -5,7 +5,7 @@ EAPI=8
 Sparse_PV="7.11.0"
 Sparse_P="SuiteSparse-${Sparse_PV}"
 
-inherit cmake-multilib cuda toolchain-funcs
+inherit cmake-multilib cuda cuda-extra toolchain-funcs
 
 DESCRIPTION="Sparse Cholesky factorization and update/downdate library"
 HOMEPAGE="https://people.engr.tamu.edu/davis/suitesparse.html
@@ -14,7 +14,7 @@ SRC_URI="https://github.com/DrTimothyAldenDavis/SuiteSparse/archive/refs/tags/v$
 S="${WORKDIR}/${Sparse_P}/${PN^^}"
 LICENSE="LGPL-2.1+ modify? ( GPL-2+ ) matrixops? ( GPL-2+ )"
 SLOT="0/5"
-KEYWORDS="amd64 arm arm64 ~hppa ~mips ppc ppc64 ~riscv ~s390 sparc x86 ~amd64-linux ~x86-linux"
+KEYWORDS="amd64 arm arm64 ~hppa ~mips ~ppc ~ppc64 ~riscv ~s390 ~sparc x86 amd64-linux x86-linux"
 IUSE="cuda +lapack +matrixops +modify openmp +partition static-libs"
 RESTRICT="mirror"
 
@@ -43,14 +43,22 @@ src_prepare() {
 multilib_src_configure() {
 	local mycmakeargs=(
 		-DBUILD_STATIC_LIBS=$(usex static-libs)
-		-DCHOLMOD_USE_CUDA=$(usex cuda)
 		-DCHOLMOD_USE_OPENMP=$(usex openmp)
+		-DCHOLMOD_USE_CUDA=$(usex cuda)
 		-DCHOLMOD_MATRIXOPS=$(usex matrixops)
 		-DCHOLMOD_MODIFY=$(usex modify)
 		-DCHOLMOD_PARTITION=$(usex partition)
 		-DCHOLMOD_CAMD=$(usex partition)
 		-DCHOLMOD_SUPERNODAL=$(usex lapack)
 	)
+
+	if use cuda; then
+		mycmakeargs+=(
+			-DSUITESPARSE_CUDA_ARCHITECTURES="$(cuda_get_host_native_arch)"
+			-DCMAKE_CUDA_HOST_COMPILER="$(cuda_gccdir)"
+			-DCMAKE_CUDA_FLAGS="-forward-unknown-opts -fno-lto ${NVCCFLAGS}"
+		)
+	fi
 
 	cmake_src_configure
 }

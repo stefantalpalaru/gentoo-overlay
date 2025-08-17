@@ -7,7 +7,7 @@ DESCRIPTION="Metapackage for a suite of sparse matrix tools"
 HOMEPAGE="https://people.engr.tamu.edu/davis/suitesparse.html"
 LICENSE="metapackage"
 SLOT="0"
-KEYWORDS="amd64 arm64 ~hppa ~ppc ppc64 ~sparc ~x86 ~amd64-linux ~x86-linux"
+KEYWORDS="amd64 arm arm64 ~hppa ~ppc ~ppc64 ~sparc x86 amd64-linux x86-linux"
 IUSE="cuda doc lapack partition tbb"
 
 RDEPEND="
