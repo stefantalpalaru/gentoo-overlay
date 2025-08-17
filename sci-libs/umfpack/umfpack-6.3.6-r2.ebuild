@@ -14,7 +14,8 @@ S="${WORKDIR}/${Sparse_P}/${PN^^}"
 LICENSE="GPL-2+"
 SLOT="0/6"
 KEYWORDS="amd64 arm arm64 ~hppa ~loong ~mips ~ppc ~ppc64 ~riscv ~s390 ~sparc x86 amd64-linux x86-linux"
-IUSE="doc openmp static-libs"
+IUSE="doc openmp static-libs test"
+RESTRICT="!test? ( test )"
 
 DEPEND=">=sci-libs/suitesparseconfig-${Sparse_PV}
 	>=sci-libs/amd-3.3.3
@@ -37,6 +38,7 @@ multilib_src_configure() {
 		-DBUILD_STATIC_LIBS=$(usex static-libs)
 		-DSUITESPARSE_USE_FORTRAN=ON
 		-DSUITESPARSE_USE_OPENMP=$(usex openmp)
+		-DSUITESPARSE_DEMOS=$(usex test)
 	)
 	cmake_src_configure
 }
