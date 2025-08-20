@@ -886,6 +886,7 @@ media-libs/openexr 3.1.12-r2: ILM's OpenEXR high dynamic-range image file format
 media-libs/openimageio 3.0.9.1: A library for reading and writing images
 media-libs/opensubdiv 3.6.1-r100: An Open-Source subdivision surface library
 media-libs/portaudio 19.07.00-r5: A free, cross-platform, open-source, audio I/O library
+media-libs/rtaudio 5.2.0-r1: A set of cross-platform C++ classes for realtime audio I/O
 media-libs/svt-av1 1.8.0-r105 2.3.0-r100 3.1.0-r100: Scalable Video Technology for AV1 (SVT-AV1 Encoder and Decoder)
 media-libs/zmusic 1.1.14: GZDoom's music system as a standalone library
 media-plugins/calf 0.90.8: A set of open source instruments and effects for digital audio workstations
