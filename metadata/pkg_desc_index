@@ -485,7 +485,7 @@ dev-python/pyfits 3.5-r3: Provides an interface to FITS formatted files under py
 dev-python/pyflakes 2.1.1-r201 2.2.0-r201: Passive checker for Python programs
 dev-python/pyftpdlib 1.5.6-r201: Python FTP server library
 dev-python/pygame 1.9.6-r201: Python bindings for SDL multimedia library
-dev-python/pyglet 1.4.11-r3: Cross-platform windowing and multimedia library for Python
+dev-python/pyglet 1.4.11-r4: Cross-platform windowing and multimedia library for Python
 dev-python/pygments 2.5.2-r201: Pygments is a syntax highlighting package written in Python
 dev-python/pygobject 2.28.6-r60 3.36.1-r6: Python bindings for GObject Introspection
 dev-python/pygraphviz 1.5-r201: Python wrapper for the Graphviz Agraph data structure

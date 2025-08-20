@@ -24,8 +24,8 @@ RDEPEND="
 		x11-libs/gtk+:2
 	) )
 	sound? ( || (
+		media-libs/libpulse
 		media-libs/openal
-		media-sound/pulseaudio
 	) )
 	!<dev-python/pyglet-1.4.11-r2[${PYTHON_USEDEP}]
 "
