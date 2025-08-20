@@ -860,7 +860,7 @@ media-fonts/breeze-sans 20170821-r4: a humanist sans-serif typeface designed by 
 media-fonts/ipamonafont 1.0.8-r2: Hacked version of IPA fonts, which is suitable for browsing 2ch
 media-gfx/GTS 2.5.1-r1: scanning tool developed by Studio Ghibli
 media-gfx/ansel 4.0.0_pre20250506-r1 9999-r6: Darktable 4.0 fork
-media-gfx/blender 4.5.1-r1: 3D Creation/Animation/Publishing System
+media-gfx/blender 4.5.2: 3D Creation/Animation/Publishing System
 media-gfx/displaycal 3.8.9.3-r5: Display calibration and characterization powered by Argyll CMS
 media-gfx/exiv2 0.27.6-r1: EXIF, IPTC and XMP metadata C++ library and command line utility
 media-gfx/fbcat 0.5.2-r1: utility that takes a screenshot using the framebuffer device
