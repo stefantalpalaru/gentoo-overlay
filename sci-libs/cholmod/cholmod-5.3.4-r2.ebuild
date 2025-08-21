@@ -5,7 +5,7 @@ EAPI=8
 Sparse_PV="7.11.0"
 Sparse_P="SuiteSparse-${Sparse_PV}"
 
-inherit cmake-multilib cuda cuda-extra toolchain-funcs
+inherit cmake cuda cuda-extra toolchain-funcs
 
 DESCRIPTION="Sparse Cholesky factorization and update/downdate library"
 HOMEPAGE="https://people.engr.tamu.edu/davis/suitesparse.html
@@ -40,7 +40,7 @@ src_prepare() {
 	cmake_src_prepare
 }
 
-multilib_src_configure() {
+src_configure() {
 	local mycmakeargs=(
 		-DBUILD_STATIC_LIBS=$(usex static-libs)
 		-DCHOLMOD_USE_OPENMP=$(usex openmp)
@@ -63,6 +63,6 @@ multilib_src_configure() {
 	cmake_src_configure
 }
 
-multilib_src_install() {
+src_install() {
 	cmake_src_install
 }
