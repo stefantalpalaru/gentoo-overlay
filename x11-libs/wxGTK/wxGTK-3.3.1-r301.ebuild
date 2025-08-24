@@ -75,17 +75,16 @@ BDEPEND="
 # I'm missing something.  This is an automagic header dep, though.
 
 PATCHES=(
-	"${FILESDIR}/${PN}-3.2.1-configure-tests.patch"
-	"${FILESDIR}/${PN}-3.2.1-wayland-control.patch"
+	"${FILESDIR}/${PN}-3.3.1-configure-tests.patch"
+	"${FILESDIR}/${PN}-3.3.1-wayland-control.patch"
 	"${FILESDIR}/${PN}-3.2.1-prefer-lib64-in-tests.patch"
 	"${FILESDIR}/${PN}-3.2.5-dont-break-flags.patch"
-	"${FILESDIR}/${PN}-3.2.2.1-backport-pr24197.patch"
 )
 
 multilib_src_configure() {
 	# defang automagic dependencies, bug #927952
-	use wayland || append-cflags -DGENTOO_GTK_HIDE_WAYLAND
-	use X || append-cflags -DGENTOO_GTK_HIDE_X11
+	use wayland || append-cppflags -DGENTOO_GTK_HIDE_WAYLAND
+	use X || append-cppflags -DGENTOO_GTK_HIDE_X11
 
 	# bug #952961
 	tc-is-lto && filter-flags -fno-semantic-interposition
@@ -208,7 +207,7 @@ multilib_src_install_all() {
 	rm "${ED}"/usr/bin/wx-config || die
 	rm "${ED}"/usr/bin/wxrc || die
 	# wxwin.m4 is owned by eselect-wxwidgets
-	mv "${ED}"/usr/share/aclocal/wxwin.m4 "${ED}"/usr/share/aclocal/wxwin32-gtk3.m4 || die
+	mv "${ED}"/usr/share/aclocal/wxwin.m4 "${ED}"/usr/share/aclocal/wxwin"${WXVERSIONTAG/./}"-gtk3.m4 || die
 
 	# version bakefile presets
 	pushd "${ED}"/usr/share/bakefile/presets >/dev/null || die
