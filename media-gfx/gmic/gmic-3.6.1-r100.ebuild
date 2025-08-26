@@ -4,6 +4,7 @@
 EAPI=8
 CMAKE_MAKEFILE_GENERATOR="emake"
 CMAKE_BUILD_TYPE=Release
+GMIC_COMMIT="b2b51983270422c3f2226c5605b7324a7a04082c"
 GMIC_QT_COMMIT="b55b8ca53b31151bda65a79f33b698c9b24ba400"
 GMIC_QT_URI="https://github.com/GreycLab/gmic-qt/archive/${GMIC_QT_COMMIT}.tar.gz -> gmic-qt-${GMIC_QT_COMMIT}.gh.tar.gz"
 
@@ -14,12 +15,12 @@ HOMEPAGE="http://gmic.eu/
 	https://github.com/GreycLab/gmic
 	https://framagit.org/dtschump/gmic
 	https://github.com/GreycLab/gmic-qt"
-SRC_URI="https://github.com/GreycLab/gmic/archive/v.${PV}.tar.gz -> ${P}.gh.tar.gz
+SRC_URI="https://github.com/GreycLab/gmic/archive/${GMIC_COMMIT}.tar.gz -> ${PN}-${GMIC_COMMIT}.gh.tar.gz
 	https://gmic.eu/gmic_stdlib_community$(ver_rs 1- '').h
 	gimp? ( ${GMIC_QT_URI} )
 	gui? ( ${GMIC_QT_URI} )
 "
-S="${WORKDIR}/${PN}-v.${PV}"
+S="${WORKDIR}/${PN}-${GMIC_COMMIT}"
 LICENSE="CeCILL-2 GPL-3"
 SLOT="0"
 KEYWORDS="~amd64 ~arm64 ~x86"
@@ -182,7 +183,7 @@ src_install() {
 	# using the installed "gmic.h".
 	sed -i -e '/^#define cimg.*_plugin/d' "${ED}/usr/include/gmic.h" || die "sed failed"
 
-	use cli && use bash-completion && newbashcomp "${WORKDIR}/${PN}-v.${PV}_build/resources/${PN}_bashcompletion.sh" ${PN}
+	use cli && use bash-completion && newbashcomp "${BUILD_DIR}/resources/${PN}_bashcompletion.sh" ${PN}
 
 	# gmic-qt
 	if use gimp; then
