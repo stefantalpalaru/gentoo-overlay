@@ -9,10 +9,11 @@ DESCRIPTION="Comic and Manga reader, written with Node.js and using Electron"
 HOMEPAGE="https://github.com/ollm/OpenComic"
 SRC_URI="https://github.com/ollm/OpenComic/releases/download/v${PV}/opencomic_${PV}_amd64.deb"
 S="${WORKDIR}"
-
 LICENSE="GPL-3"
 SLOT="0"
 KEYWORDS="~amd64"
+RESTRICT="mirror"
+QA_PREBUILT="*"
 
 RDEPEND="${DEPEND}
 	dev-libs/expat
@@ -25,7 +26,9 @@ RDEPEND="${DEPEND}
 	x11-libs/gtk+:3[cups]
 "
 
-RESTRICT="mirror"
+PATCHES=(
+	"${FILESDIR}"/opencomic-bin-1.6.1-desktop.patch
+)
 
 src_unpack() {
 	unpack_deb ${A}
@@ -40,6 +43,8 @@ src_prepare() {
 
 src_install() {
 	cp -a * "${ED}/"
+	mv "${ED}/usr/share/doc/opencomic" "${ED}/usr/share/doc/${P}"
+	gunzip "${ED}/usr/share/doc/${P}"/*.gz
 	dosym ../../opt/OpenComic/opencomic /usr/bin/opencomic
 }
 

@@ -1,0 +1,10 @@
+diff '--color=auto' -ur usr.orig/share/applications/opencomic.desktop usr/share/applications/opencomic.desktop
+--- a/usr/share/applications/opencomic.desktop	2025-08-26 10:51:41.000000000 +0200
++++ b/usr/share/applications/opencomic.desktop	2025-08-26 20:40:52.471814038 +0200
+@@ -6,5 +6,5 @@
+ Icon=opencomic
+ StartupWMClass=OpenComic
+ Comment=Comic and manga reader
+-MimeType=application/x-cbz;application/x-cbr;application/x-cb7;application/x-cbt;application/pdf;application/x-bzpdf;application/x-gzpdf;application/epub+zip;application/x-cbz;application/x-cbr;application/x-cb7;application/x-cbt;application/pdf;application/epub+zip;x-scheme-handler/opencomic;application/x-cbz;application/x-cbr;application/x-cb7;application/x-cbt;application/pdf;application/epub+zip;x-scheme-handler/opencomic;application/x-cbz;application/x-cbr;application/x-cb7;application/x-cbt;application/pdf;application/epub+zip;x-scheme-handler/opencomic;
++MimeType=application/x-cbz;application/x-cbr;application/x-cb7;application/x-cbt;application/pdf;application/x-bzpdf;application/x-gzpdf;application/epub+zip;x-scheme-handler/opencomic;
+ Categories=Graphics;
