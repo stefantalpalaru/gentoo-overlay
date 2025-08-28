@@ -2,6 +2,7 @@ app-admin/conky
 app-misc/yworklog
 app-office/upwork
 app-text/calibre
+app-text/djview
 dev-db/metakit
 dev-lang/php
 dev-libs/libdbusmenu-qt
