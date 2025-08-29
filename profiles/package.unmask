@@ -229,6 +229,7 @@ net-misc/ssvnc
 net-p2p/pybitmessage
 net-print/pykota
 sci-astronomy/casacore
+sci-libs/clapack
 sci-mathematics/xmds
-x11-misc/qxkb
 x11-misc/magick-rotation
+x11-misc/qxkb

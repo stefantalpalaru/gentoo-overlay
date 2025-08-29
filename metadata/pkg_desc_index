@@ -962,6 +962,7 @@ sci-libs/camd 3.3.5-r2: Library to order a sparse matrix prior to Cholesky facto
 sci-libs/ccolamd 3.3.5-r2: Constrained Column approximate minimum degree ordering algorithm
 sci-libs/cfitsio 3.410-r2: C and Fortran library for manipulating FITS files
 sci-libs/cholmod 5.3.4-r2: Sparse Cholesky factorization and update/downdate library
+sci-libs/clapack 3.2.1-r9: f2c'ed version of LAPACK
 sci-libs/colamd 3.3.5-r2: Column approximate minimum degree ordering algorithm
 sci-libs/cxsparse 4.4.2-r2: Extended sparse matrix package
 sci-libs/gdal 3.0.4-r205 3.11.3: Translator library for raster geospatial data formats (includes OGR support)
