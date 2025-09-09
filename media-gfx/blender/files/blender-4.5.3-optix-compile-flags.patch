@@ -1,0 +1,11 @@
+diff '--color=auto' -ur blender-4.5.3.orig/intern/cycles/kernel/CMakeLists.txt blender-4.5.3/intern/cycles/kernel/CMakeLists.txt
+--- blender-4.5.3.orig/intern/cycles/kernel/CMakeLists.txt	2025-09-09 11:56:04.082680279 +0200
++++ blender-4.5.3/intern/cycles/kernel/CMakeLists.txt	2025-09-09 12:02:17.954408319 +0200
+@@ -928,6 +928,7 @@
+         ${cuda_nvcc_executable}
+         --ptx
+         -arch=${arch}
++        ${CUDA_NVCC_FLAGS}
+         ${cuda_flags}
+         ${input}
+       WORKING_DIRECTORY
