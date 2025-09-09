@@ -558,6 +558,8 @@ sci-libs/gdal:ogdi - Enable support for the open geographic datastore interface 
 sci-libs/gdal:parquet - Enables read/write parquet data format (dev-libs/apache-arrow)
 sci-libs/gdal:spatialite - Enable Spatial DBMS over sqlite dev-db/spatialite
 sci-libs/gdal:xls - Add the dev-libs/freexl library for xls import support
+sci-libs/hdf5:hl - Enable high level API (https://support.hdfgroup.org/HDF5/doc/HL/index.html)
+sci-libs/hdf5:unsupported - Enable unsupported combinations of configuration options
 sci-libs/onnxruntime:benchmark - Build benchmarks.
 sci-libs/onnxruntime:cudnn - Use dev-libs/cudnn.
 sci-libs/onnxruntime:hip - Use AMD's ROCm stack.

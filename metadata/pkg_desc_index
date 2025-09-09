@@ -967,6 +967,7 @@ sci-libs/clapack 3.2.1-r9: f2c'ed version of LAPACK
 sci-libs/colamd 3.3.5-r2: Column approximate minimum degree ordering algorithm
 sci-libs/cxsparse 4.4.2-r2: Extended sparse matrix package
 sci-libs/gdal 3.0.4-r205 3.11.3: Translator library for raster geospatial data formats (includes OGR support)
+sci-libs/hdf5 1.10.5-r2: General purpose library and file format for storing scientific data
 sci-libs/klu 2.3.6-r2: Sparse LU factorization for circuit simulation
 sci-libs/ldl 3.3.3-r2: Simple but educational LDL^T matrix factorization algorithm
 sci-libs/onnxruntime 1.22.2: Cross-platform inference and training machine-learning accelerator.
