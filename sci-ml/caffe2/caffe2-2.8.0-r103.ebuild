@@ -26,7 +26,7 @@ S="${WORKDIR}"/pytorch-v${PV}
 LICENSE="BSD"
 SLOT="0"
 KEYWORDS="~amd64 ~arm64"
-IUSE="cuda cudss distributed fbgemm flash gloo memefficient mkl mpi nnpack +numpy onednn openblas opencl openmp qnnpack rocm xnnpack cpu_flags_x86_avx cpu_flags_x86_avx2 cpu_flags_x86_avx512f"
+IUSE="cuda cudss distributed fbgemm flash gloo memefficient mkl mpi nnpack +numpy onednn openblas opencl openmp qnnpack rocm vulkan xnnpack cpu_flags_x86_avx cpu_flags_x86_avx2 cpu_flags_x86_avx512f"
 RESTRICT="test"
 REQUIRED_USE="
 	${PYTHON_REQUIRED_USE}
@@ -97,6 +97,7 @@ RDEPEND="
 	xnnpack? ( >=sci-ml/XNNPACK-2024.11 )
 	mkl? ( sci-libs/mkl )
 	openblas? ( sci-libs/openblas )
+	vulkan? ( media-libs/vulkan-loader )
 "
 DEPEND="
 	${RDEPEND}
@@ -263,6 +264,7 @@ src_configure() {
 		-DUSE_TENSORPIPE=$(usex distributed)
 		-DUSE_UCC=OFF
 		-DUSE_VALGRIND=OFF
+		-DUSE_VULKAN=$(usex vulkan)
 		-DUSE_XNNPACK=$(usex xnnpack)
 		-DUSE_XPU=OFF
 		-DC_AVX_FOUND=$(usex cpu_flags_x86_avx)
