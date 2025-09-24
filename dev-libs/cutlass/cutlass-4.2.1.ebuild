@@ -60,8 +60,8 @@ src_prepare() {
 		-e '/-std=/s/17/20/g' \
 		-i \
 			CMakeLists.txt \
-			python/cutlass/backend/compiler.py \
-			python/cutlass/emit/pytorch.py \
+			python/cutlass_cppgen/backend/compiler.py \
+			python/cutlass_cppgen/emit/pytorch.py \
 			python/docs/_modules/cutlass/emit/pytorch.html \
 			test/unit/nvrtc/thread/nvrtc_contraction.cu \
 			test/unit/nvrtc/thread/testbed.h \
