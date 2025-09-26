@@ -12,9 +12,10 @@ KEYWORDS="~amd64 ~x86"
 IUSE="devtools"
 # Tests do all kinds of wonky stuff like connecting to Docker daemon, network activity, etc.
 RESTRICT="mirror network-sandbox test"
+QA_PRESTRIPPED="/usr/bin/workload /usr/bin/geth-ethkey /usr/bin/geth /usr/bin/evm /usr/bin/era /usr/bin/devp2p /usr/bin/clef /usr/bin/blsync /usr/bin/abigen /usr/bin/abidump"
 
 DEPEND="
-	>=dev-lang/go-1.21:=
+	>=dev-lang/go-1.24:=
 "
 RDEPEND="${DEPEND}"
 
