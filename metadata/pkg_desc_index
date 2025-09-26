@@ -971,7 +971,7 @@ sci-libs/gdal 3.0.4-r205 3.11.4: Translator library for raster geospatial data f
 sci-libs/hdf5 1.10.5-r2: General purpose library and file format for storing scientific data
 sci-libs/klu 2.3.6-r2: Sparse LU factorization for circuit simulation
 sci-libs/ldl 3.3.3-r2: Simple but educational LDL^T matrix factorization algorithm
-sci-libs/onnxruntime 1.22.2: Cross-platform inference and training machine-learning accelerator.
+sci-libs/onnxruntime 1.23.0: Cross-platform inference and training machine-learning accelerator.
 sci-libs/spqr 4.3.5-r2: Multithreaded multifrontal sparse QR factorization library
 sci-libs/suitesparse 7.11.0-r1: Metapackage for a suite of sparse matrix tools
 sci-libs/suitesparseconfig 7.11.0-r2: Common configurations for all packages in suitesparse

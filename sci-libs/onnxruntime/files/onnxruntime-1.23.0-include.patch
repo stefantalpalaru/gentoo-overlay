@@ -1,0 +1,11 @@
+diff '--color=auto' -ur onnxruntime-1.23.0.orig/onnxruntime/core/common/semver.h onnxruntime-1.23.0/onnxruntime/core/common/semver.h
+--- onnxruntime-1.23.0.orig/onnxruntime/core/common/semver.h	2025-09-25 03:34:17.000000000 +0200
++++ onnxruntime-1.23.0/onnxruntime/core/common/semver.h	2025-09-26 12:06:42.559397795 +0200
+@@ -7,6 +7,7 @@
+ #include <string_view>
+ 
+ #include "core/common/status.h"
++#include <cstdint>
+ 
+ namespace onnxruntime {
+ 

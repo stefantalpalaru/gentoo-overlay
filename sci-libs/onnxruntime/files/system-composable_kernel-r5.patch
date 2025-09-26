@@ -1,6 +1,6 @@
-diff '--color=auto' -ur onnxruntime-1.21.0.orig/cmake/external/composable_kernel.cmake onnxruntime-1.21.0/cmake/external/composable_kernel.cmake
---- onnxruntime-1.21.0.orig/cmake/external/composable_kernel.cmake	2025-03-06 01:37:52.000000000 +0100
-+++ onnxruntime-1.21.0/cmake/external/composable_kernel.cmake	2025-03-08 14:51:25.940345358 +0100
+diff '--color=auto' -ur onnxruntime-1.23.0.orig/cmake/external/composable_kernel.cmake onnxruntime-1.23.0/cmake/external/composable_kernel.cmake
+--- onnxruntime-1.23.0.orig/cmake/external/composable_kernel.cmake	2025-09-25 03:34:17.000000000 +0200
++++ onnxruntime-1.23.0/cmake/external/composable_kernel.cmake	2025-09-26 10:43:03.597947939 +0200
 @@ -1,66 +1,2 @@
 -set(PATCH_CLANG ${PROJECT_SOURCE_DIR}/patches/composable_kernel/Fix_Clang_Build.patch)
 -set(PATCH_GFX12X ${PROJECT_SOURCE_DIR}/patches/composable_kernel/Add_gfx12x_support.patch)
@@ -69,30 +69,3 @@ diff '--color=auto' -ur onnxruntime-1.21.0.orig/cmake/external/composable_kernel
 -  endif()
 -  set_target_properties(onnxruntime_composable_kernel_fmha PROPERTIES HIP_ARCHITECTURES "${archs}")
 -endif()
-diff '--color=auto' -ur onnxruntime-1.21.0.orig/cmake/onnxruntime_providers_rocm.cmake onnxruntime-1.21.0/cmake/onnxruntime_providers_rocm.cmake
---- onnxruntime-1.21.0.orig/cmake/onnxruntime_providers_rocm.cmake	2025-03-06 01:37:52.000000000 +0100
-+++ onnxruntime-1.21.0/cmake/onnxruntime_providers_rocm.cmake	2025-03-08 14:52:24.386048594 +0100
-@@ -192,20 +192,10 @@
-   endif()
- 
-   if (onnxruntime_USE_COMPOSABLE_KERNEL)
--    include(composable_kernel)
-+    add_library(composable_kernel::device_operations SHARED IMPORTED GLOBAL)
-+    set_property(TARGET composable_kernel::device_operations PROPERTY IMPORTED_LOCATION "/usr/${CMAKE_INSTALL_LIBDIR}/libdevice_operations.a")
-     target_link_libraries(onnxruntime_providers_rocm PRIVATE
--      onnxruntime_composable_kernel_includes
--      # Currently we shall not use composablekernels::device_operations, the target includes all conv dependencies, which
--      # are extremely slow to compile. Instead, we only link all gemm related objects. See the following directory on
--      # updating.
--      # https://github.com/ROCmSoftwarePlatform/composable_kernel/tree/develop/library/src/tensor_operation_instance/gpu
--      device_gemm_instance
--      device_gemm_add_fastgelu_instance
--      device_gemm_fastgelu_instance
--      device_gemm_splitk_instance
--      device_gemm_streamk_instance
--      device_batched_gemm_instance
--      device_softmax_instance
-+      composable_kernel::device_operations
-     )
-     target_compile_definitions(onnxruntime_providers_rocm PRIVATE USE_COMPOSABLE_KERNEL)
-     if (onnxruntime_USE_COMPOSABLE_KERNEL_CK_TILE)

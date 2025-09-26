@@ -1,7 +1,7 @@
-diff '--color=auto' -ur onnxruntime-1.21.0.orig/cmake/external/onnxruntime_external_deps.cmake onnxruntime-1.21.0/cmake/external/onnxruntime_external_deps.cmake
---- onnxruntime-1.21.0.orig/cmake/external/onnxruntime_external_deps.cmake	2025-03-08 14:53:14.685793191 +0100
-+++ onnxruntime-1.21.0/cmake/external/onnxruntime_external_deps.cmake	2025-03-08 14:57:12.258586891 +0100
-@@ -408,28 +408,6 @@
+diff '--color=auto' -ur onnxruntime-1.23.0.orig/cmake/external/onnxruntime_external_deps.cmake onnxruntime-1.23.0/cmake/external/onnxruntime_external_deps.cmake
+--- onnxruntime-1.23.0.orig/cmake/external/onnxruntime_external_deps.cmake	2025-09-26 10:47:16.060938526 +0200
++++ onnxruntime-1.23.0/cmake/external/onnxruntime_external_deps.cmake	2025-09-26 10:49:51.328234731 +0200
+@@ -405,35 +405,6 @@
    endif()
  endif()
  
@@ -27,10 +27,17 @@ diff '--color=auto' -ur onnxruntime-1.21.0.orig/cmake/external/onnxruntime_exter
 -set(GSL_INCLUDE_DIR "$<TARGET_PROPERTY:${GSL_TARGET},INTERFACE_INCLUDE_DIRECTORIES>")
 -onnxruntime_fetchcontent_makeavailable(GSL)
 -
+-if (NOT GSL_FOUND AND NOT onnxruntime_BUILD_SHARED_LIB)
+-  install(TARGETS GSL EXPORT ${PROJECT_NAME}Targets
+-  ARCHIVE  DESTINATION ${CMAKE_INSTALL_LIBDIR}
+-  LIBRARY  DESTINATION ${CMAKE_INSTALL_LIBDIR}
+-  RUNTIME  DESTINATION ${CMAKE_INSTALL_BINDIR})
+-endif()
+-
  find_path(safeint_SOURCE_DIR NAMES "SafeInt.hpp")
  if(NOT safeint_SOURCE_DIR)
    unset(safeint_SOURCE_DIR)
-@@ -590,7 +568,7 @@
+@@ -595,7 +566,7 @@
  
  set(onnxruntime_EXTERNAL_LIBRARIES ${onnxruntime_EXTERNAL_LIBRARIES_XNNPACK} ${WIL_TARGET} nlohmann_json::nlohmann_json
                                     ONNX::onnx ONNX::onnx_proto ${PROTOBUF_LIB} re2::re2 Boost::mp11 safeint_interface
