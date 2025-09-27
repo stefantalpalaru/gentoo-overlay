@@ -46,6 +46,7 @@ src_configure() {
 src_test() {
 	# Run simple demo first
 	# Other demo files have issues making them unsuitable for testing
+	cd "${BUILD_DIR}"
 	./umfpack_simple || die "failed testing umfpack_simple"
 }
 

@@ -975,7 +975,7 @@ sci-libs/onnxruntime 1.23.0: Cross-platform inference and training machine-learn
 sci-libs/spqr 4.3.5-r2: Multithreaded multifrontal sparse QR factorization library
 sci-libs/suitesparse 7.11.0-r1: Metapackage for a suite of sparse matrix tools
 sci-libs/suitesparseconfig 7.11.0-r2: Common configurations for all packages in suitesparse
-sci-libs/umfpack 6.3.6-r3: Unsymmetric multifrontal sparse LU factorization library
+sci-libs/umfpack 6.3.6-r4: Unsymmetric multifrontal sparse LU factorization library
 sci-mathematics/xmds 2.2.3-r4: XMDS - The eXtensible Multi-Dimensional Simulator
 sci-misc/openfst 1.8.4: Finite State Transducer tools by Google et al
 sci-misc/opengrm-ngram 1.3.16: n-gram language models encoded as weighted finite-state transducers
