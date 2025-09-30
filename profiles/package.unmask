@@ -226,6 +226,7 @@ media-video/subliminal
 net-analyzer/namebench
 net-fs/tahoe-lafs
 net-misc/ssvnc
+net-p2p/fms
 net-p2p/pybitmessage
 net-print/pykota
 sci-astronomy/casacore
