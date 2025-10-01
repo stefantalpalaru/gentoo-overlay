@@ -1016,6 +1016,7 @@ x11-misc/obmenu2 1.1-r2: Openbox menu editor
 x11-misc/qt5ct 1.8 1.9: Qt5 configuration tool, similar to qtconfig for Qt4
 x11-misc/qxkb 0.5.1_pre20190821-r1: Qt-based keyboard layout switcher
 x11-misc/slim 1.4.1-r1: Simple Login Manager resurrected
+x11-misc/xlockmore 5.84: Just another screensaver application for X
 x11-themes/adwaita-qt 1.4.2 1.4.2-r1: A style to bend Qt applications to look like they belong into GNOME Shell
 x11-themes/chameleon-xcursors 0.5-r4: Style neutral scalable cursor theme
 x11-themes/numix-solarized 9999-r2: solarized version of Numix

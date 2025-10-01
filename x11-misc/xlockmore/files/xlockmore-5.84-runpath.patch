@@ -1,0 +1,18 @@
+diff '--color=auto' -ur xlockmore-5.84.orig/configure.ac xlockmore-5.84/configure.ac
+--- xlockmore-5.84.orig/configure.ac	2025-10-01 20:09:57.510345733 +0200
++++ xlockmore-5.84/configure.ac	2025-10-01 20:11:44.614909233 +0200
+@@ -5106,8 +5106,12 @@
+     PIXMAPTYPE="linux"
+ dnl if Shadow and not elf
+ dnl XLOCKLIBS="${XLOCKLIBS} -lgdbm"
+-    XLOCKLDFLAGS="-Wl,-R${XLOCK_LDFLAGS}"
+-    XMLOCKLDFLAGS="-Wl,-R${XMLOCK_LDFLAGS}"
++    if test -n "${XLOCK_LDFLAGS}"; then
++        XLOCKLDFLAGS="-Wl,-R${XLOCK_LDFLAGS}"
++    fi
++    if test -n "${XMLOCK_LDFLAGS}"; then
++        XMLOCKLDFLAGS="-Wl,-R${XMLOCK_LDFLAGS}"
++    fi
+   ;;
+ 
+   *-*-cygwin* )
