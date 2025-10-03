@@ -1,0 +1,30 @@
+diff '--color=auto' -ur OpenImageIO-3.1.6.1.orig/src/cmake/testing.cmake OpenImageIO-3.1.6.1/src/cmake/testing.cmake
+--- OpenImageIO-3.1.6.1.orig/src/cmake/testing.cmake	2025-10-03 07:19:50.484870658 +0200
++++ OpenImageIO-3.1.6.1/src/cmake/testing.cmake	2025-10-03 07:31:31.421895454 +0200
+@@ -276,12 +276,15 @@
+                     IMAGEDIR oiio-images URL "Recent checkout of OpenImageIO-images")
+     oiio_add_tests (jpeg2000
+                     FOUNDVAR OPENJPEG_FOUND
++                    ENABLEVAR ENABLE_OPENJPEG
+                     IMAGEDIR oiio-images URL "Recent checkout of OpenImageIO-images")
+     oiio_add_tests (htj2k
+                     FOUNDVAR openjph_FOUND
++                    ENABLEVAR ENABLE_OPENJPEG
+                     IMAGEDIR oiio-images URL "Recent checkout of OpenImageIO-images")
+     oiio_add_tests (jpeg2000-j2kp4files
+                     FOUNDVAR OPENJPEG_FOUND
++                    ENABLEVAR ENABLE_OPENJPEG
+                     IMAGEDIR j2kp4files_v1_5
+                     URL http://www.itu.int/net/ITU-T/sigdb/speimage/ImageForm-s.aspx?val=10100803)
+     set (all_openexr_tests
+@@ -428,6 +431,10 @@
+     oiio_get_test_data (openexr-images
+                         REPO https://github.com/AcademySoftwareFoundation/openexr-images.git
+                         BRANCH main)
++    if(ENABLE_FITS)
+     oiio_get_test_data (fits-images)
++    endif()
++    if(ENABLE_OPENJPEG)
+     oiio_get_test_data (j2kp4files_v1_5)
++    endif()
+ endfunction ()
