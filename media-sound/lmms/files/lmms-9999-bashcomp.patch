@@ -1,0 +1,12 @@
+diff '--color=auto' -ur lmms-9999.orig/cmake/modules/BashCompletion.cmake lmms-9999/cmake/modules/BashCompletion.cmake
+--- lmms-9999.orig/cmake/modules/BashCompletion.cmake	2025-10-06 17:09:28.840625043 +0200
++++ lmms-9999/cmake/modules/BashCompletion.cmake	2025-10-06 17:33:15.831516866 +0200
+@@ -53,7 +53,7 @@
+ 		#   and this step will be skipped
+ 		# * For non-root installs (e.g. ../target), this will silently fail
+ 		set(BASHCOMP_ORIG "${CMAKE_INSTALL_PREFIX}/${BASHCOMP_USER_PATH}/${CMAKE_PROJECT_NAME}")
+-		set(BASHCOMP_LINK "${BASHCOMP_PKG_PATH}/${CMAKE_PROJECT_NAME}")
++		set(BASHCOMP_LINK "${CMAKE_INSTALL_PREFIX}/${BASHCOMP_PKG_PATH}/${CMAKE_PROJECT_NAME}")
+ 
+ 		if(BASHCOMP_PKG_PATH)
+ 			# TODO: CMake 3.21 Use "file(COPY_FILE ...)"

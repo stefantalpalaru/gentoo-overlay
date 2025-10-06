@@ -1,10 +1,8 @@
-# Copyright 1999-2024 Gentoo Authors
+# Copyright 1999-2025 Gentoo Authors
 # Distributed under the terms of the GNU General Public License v2
 
 EAPI=8
 
-# The order is important here! Both, cmake and xdg define src_prepare.
-# We need the one from cmake
 inherit bash-completion-r1 cmake git-r3 xdg
 
 DESCRIPTION="Cross-platform music production software"
@@ -13,6 +11,7 @@ EGIT_REPO_URI="https://github.com/LMMS/lmms.git"
 LICENSE="GPL-2 LGPL-2"
 SLOT="0"
 IUSE="alsa carla debug fluidsynth jack libgig mp3 ogg portaudio pulseaudio sdl soundio stk vst"
+RESTRICT="network-sandbox"
 
 COMMON_DEPEND="
 	>=media-libs/libsamplerate-0.1.8
@@ -63,6 +62,10 @@ RDEPEND="${COMMON_DEPEND}
 
 DOCS=( README.md doc/AUTHORS )
 
+PATCHES=(
+	"${FILESDIR}"/lmms-9999-bashcomp.patch
+)
+
 src_configure() {
 	local mycmakeargs+=(
 		-DBASHCOMP_PKG_PATH="$(get_bashcompdir)"
@@ -88,4 +91,16 @@ src_configure() {
 		-DWANT_WEAKJACK=FALSE
 	)
 	cmake_src_configure
+}
+
+pkg_preinst() {
+	xdg_pkg_preinst
+}
+
+pkg_postinst() {
+	xdg_pkg_postinst
+}
+
+pkg_postrm() {
+	xdg_pkg_postrm
 }

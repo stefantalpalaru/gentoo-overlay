@@ -1,20 +1,19 @@
-# Copyright 1999-2024 Gentoo Authors
+# Copyright 1999-2025 Gentoo Authors
 # Distributed under the terms of the GNU General Public License v2
 
 EAPI=8
 
-# The order is important here! Both, cmake and xdg define src_prepare.
-# We need the one from cmake
-inherit xdg cmake
+inherit bash-completion-r1 cmake git-r3 xdg
 
 DESCRIPTION="Cross-platform music production software"
 HOMEPAGE="https://lmms.io"
-SRC_URI="https://github.com/LMMS/lmms/releases/download/v${PV/_/-}/${PN}_${PV/_/-}.tar.xz -> ${P}.tar.xz"
-S="${WORKDIR}/${PN}"
+EGIT_REPO_URI="https://github.com/LMMS/lmms.git"
+EGIT_COMMIT="db6fc2948cc57482c48ae20d1cf4f770943851b1"
 LICENSE="GPL-2 LGPL-2"
 SLOT="0"
 KEYWORDS="amd64 x86"
 IUSE="alsa carla debug fluidsynth jack libgig mp3 ogg portaudio pulseaudio sdl soundio stk vst"
+RESTRICT="network-sandbox"
 
 COMMON_DEPEND="
 	>=media-libs/libsamplerate-0.1.8
@@ -24,6 +23,7 @@ COMMON_DEPEND="
 	carla? ( media-sound/carla )
 	dev-qt/qtcore:5
 	dev-qt/qtgui:5
+	dev-qt/qttest:5
 	dev-qt/qtwidgets:5
 	dev-qt/qtxml:5
 	fluidsynth? ( media-sound/fluidsynth )
@@ -65,14 +65,12 @@ RDEPEND="${COMMON_DEPEND}
 DOCS=( README.md doc/AUTHORS )
 
 PATCHES=(
-	"${FILESDIR}/lmms-1.2.2-no_compress_man.patch" #733284
-	"${FILESDIR}/lmms-1.2.2-carla.patch"
-	"${FILESDIR}/lmms-1.2.2-kwidgetsaddons.patch"
-	"${FILESDIR}/lmms-1.2.2-plugin-path.patch"
+	"${FILESDIR}"/lmms-9999-bashcomp.patch
 )
 
 src_configure() {
 	local mycmakeargs+=(
+		-DBASHCOMP_PKG_PATH="$(get_bashcompdir)"
 		-DUSE_WERROR=FALSE
 		-DWANT_ALSA=$(usex alsa)
 		-DWANT_CALF=FALSE
@@ -85,7 +83,6 @@ src_configure() {
 		-DWANT_OGGVORBIS=$(usex ogg)
 		-DWANT_PORTAUDIO=$(usex portaudio)
 		-DWANT_PULSEAUDIO=$(usex pulseaudio)
-		-DWANT_QT5=TRUE
 		-DWANT_SDL=$(usex sdl)
 		-DWANT_SF2=$(usex fluidsynth)
 		-DWANT_SOUNDIO=$(usex soundio)

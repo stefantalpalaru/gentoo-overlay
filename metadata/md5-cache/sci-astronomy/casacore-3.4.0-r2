@@ -1,4 +1,4 @@
-BDEPEND=app-alternatives/ninja >=dev-build/cmake-3.20.5 virtual/fortran
+BDEPEND=app-alternatives/ninja >=dev-build/cmake-3.28.5 virtual/fortran
 DEFINED_PHASES=compile configure install prepare pretend setup test
 DEPEND=sci-astronomy/wcslib:0= sci-libs/cfitsio:0= sys-libs/readline:0= virtual/blas:= virtual/lapack:= data? ( sci-astronomy/casa-data ) sci-libs/fftw:3.0=[threads] hdf5? ( sci-libs/hdf5:0= ) python? ( python_targets_python2_7? ( dev-lang/python:2.7 ) dev-libs/boost:0=[python,python_targets_python2_7(-)?] dev-python/numpy:python2[python_targets_python2_7(-)?] ) virtual/pkgconfig doc? ( app-text/doxygen ) test? ( sci-astronomy/casa-data ) virtual/fortran
 DESCRIPTION=Core libraries for the Common Astronomy Software Applications
@@ -13,5 +13,5 @@ REQUIRED_USE=python? ( || ( python_targets_python2_7 ) )
 RESTRICT=!test? ( test )
 SLOT=0
 SRC_URI=https://github.com/casacore/casacore/archive/v3.4.0.tar.gz -> casacore-3.4.0.gh.tar.gz
-_eclasses_=toolchain-funcs	a0b29008c671a362b505f96fa80ce9c0	flag-o-matic	a7afe42e95fb46ce9691605acfb24672	multiprocessing	1e32df7deee68372153dca65f4a7c21f	ninja-utils	2df4e452cea39a9ec8fb543ce059f8d6	xdg-utils	42869b3c8d86a70ef3cf75165a395e09	cmake	460729dc36f68cf03b044bc1d367e34a	fortran-2	54fcb693257134adae26819685891ecc	out-of-source-utils	dbf9e34ee8964084651e25907fa8f52c	multibuild	4650a65187015567b4e041bb9bfdb364	python-utils-r1	f1d3a4dea5847c7390ba91bd557c83aa	python-r1	2d51fd03931e743811ce30d198e4dcfd
+_eclasses_=toolchain-funcs	a0b29008c671a362b505f96fa80ce9c0	flag-o-matic	a7afe42e95fb46ce9691605acfb24672	multiprocessing	1e32df7deee68372153dca65f4a7c21f	ninja-utils	2df4e452cea39a9ec8fb543ce059f8d6	xdg-utils	42869b3c8d86a70ef3cf75165a395e09	cmake	cf95ad72ab207889c1668fc0d1bee181	fortran-2	54fcb693257134adae26819685891ecc	out-of-source-utils	dbf9e34ee8964084651e25907fa8f52c	multibuild	4650a65187015567b4e041bb9bfdb364	python-utils-r1	f1d3a4dea5847c7390ba91bd557c83aa	python-r1	2d51fd03931e743811ce30d198e4dcfd
 _md5_=2b1f826f099664a3c3422a7dc28d897c

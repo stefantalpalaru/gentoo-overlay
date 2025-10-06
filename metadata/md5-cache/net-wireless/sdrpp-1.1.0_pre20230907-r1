@@ -1,4 +1,4 @@
-BDEPEND=dev-build/make >=dev-build/cmake-3.20.5
+BDEPEND=dev-build/make >=dev-build/cmake-3.28.5
 DEFINED_PHASES=compile configure install prepare test
 DEPEND=sci-libs/fftw media-libs/glfw media-libs/glew sci-libs/volk airspy? ( net-wireless/airspy ) bladerf? ( net-wireless/bladerf ) hackrf? ( net-libs/libhackrf ) limesdr? ( net-wireless/limesuite ) rtlsdr? ( net-wireless/rtl-sdr ) soapysdr? ( net-wireless/soapysdr ) rtaudio? ( media-libs/rtaudio ) portaudio? ( media-libs/portaudio ) plutosdr? ( net-libs/libiio net-libs/libad9361-iio )
 DESCRIPTION=a cross-platform SDR software with the aim of being bloat free and simple to use
@@ -11,5 +11,5 @@ LICENSE=GPL-3
 RESTRICT=mirror
 SLOT=0
 SRC_URI=https://github.com/AlexandreRouma/SDRPlusPlus/archive/a55d1d9c06122e25a5d5dab5d54c11dda30f2010.tar.gz -> sdrpp-1.1.0_pre20230907.gh.tar.gz
-_eclasses_=toolchain-funcs	a0b29008c671a362b505f96fa80ce9c0	flag-o-matic	a7afe42e95fb46ce9691605acfb24672	multiprocessing	1e32df7deee68372153dca65f4a7c21f	ninja-utils	2df4e452cea39a9ec8fb543ce059f8d6	xdg-utils	42869b3c8d86a70ef3cf75165a395e09	cmake	460729dc36f68cf03b044bc1d367e34a
+_eclasses_=toolchain-funcs	a0b29008c671a362b505f96fa80ce9c0	flag-o-matic	a7afe42e95fb46ce9691605acfb24672	multiprocessing	1e32df7deee68372153dca65f4a7c21f	ninja-utils	2df4e452cea39a9ec8fb543ce059f8d6	xdg-utils	42869b3c8d86a70ef3cf75165a395e09	cmake	cf95ad72ab207889c1668fc0d1bee181
 _md5_=dbee954378d8ee3fc3b370d59e951e41
