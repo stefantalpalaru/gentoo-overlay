@@ -870,7 +870,7 @@ media-gfx/gifsicle 9999-r2: Create, manipulate, and optimize GIF images and anim
 media-gfx/gmic 3.5.0-r102 3.6.2-r100: GREYC's Magic Image Converter
 media-gfx/inkscape 1.4.2-r4: SVG based generic vector-drawing program
 media-gfx/mcomix 3.1.0-r1: GTK image viewer for comic book archives
-media-gfx/opencomic-bin 1.6.2: Comic and Manga reader, written with Node.js and using Electron
+media-gfx/opencomic-bin 1.6.3: Comic and Manga reader, written with Node.js and using Electron
 media-gfx/opentoonz 1.7.1: An open-source full-featured 2D animation creation software
 media-gfx/zart 3.2.2_p20231127: G'MIC GUI for video streams
 media-libs/chromaprint 1.5.1-r5: Library implementing a custom algorithm for extracting audio fingerprints
