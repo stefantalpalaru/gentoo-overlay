@@ -1,0 +1,13 @@
+diff '--color=auto' -ur NativeThread.orig/Makefile NativeThread/Makefile
+--- NativeThread.orig/Makefile	2022-06-18 18:30:58.000000000 +0200
++++ NativeThread/Makefile	2025-10-09 20:43:37.444094419 +0200
+@@ -10,7 +10,8 @@
+ 	$(CC) $(CFLAGS) -o libNativeThread.so $(LDFLAGS) NativeThread.c $(LIBS)
+ 
+ NativeThread.h:
+-	javah -o NativeThread.h -classpath $(CLASSPATH) freenet.support.io.NativeThread
++	javac -h . -classpath /usr/share/freenet/lib/freenet.jar:/usr/share/jna-4/lib/jna.jar:/usr/share/jna-4/lib/jna-platform.jar NativeThread.java
++	mv freenet_support_io_NativeThread_LinuxNativeThread.h NativeThread.h
+ 
+ clean:
+ 	-rm -f *.class NativeThread.h libNativeThread*.so
