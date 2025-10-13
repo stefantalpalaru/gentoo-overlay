@@ -7,5 +7,5 @@ KEYWORDS=~amd64 ~arm64 ~x86
 LICENSE=CeCILL-2 CeCILL-C
 RESTRICT=mirror
 SLOT=0
-SRC_URI=https://github.com/GreycLab/CImg/archive/c9fb96ab09f0f68cb700e96ebb12cd5395483f49.tar.gz -> cimg-c9fb96ab09f0f68cb700e96ebb12cd5395483f49.gh.tar.gz
-_md5_=2b3be866d6b2ccd844ced0f805dd08b3
+SRC_URI=https://github.com/GreycLab/CImg/archive/0138251887c5f800ebf763c64628131e108e93fd.tar.gz -> cimg-0138251887c5f800ebf763c64628131e108e93fd.gh.tar.gz
+_md5_=69e1487ab794883fbb79128f495a1767

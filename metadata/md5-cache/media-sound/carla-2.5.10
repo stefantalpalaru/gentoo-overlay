@@ -12,5 +12,5 @@ RDEPEND=python_single_target_python3_11? ( dev-lang/python:3.11 ) python_single_
 REQUIRED_USE=^^ ( python_single_target_python3_11 python_single_target_python3_12 python_single_target_python3_13 )
 SLOT=0
 SRC_URI=https://github.com/falkTX/Carla/archive/v2.5.10.tar.gz -> carla-2.5.10.tar.gz
-_eclasses_=multiprocessing	1e32df7deee68372153dca65f4a7c21f	toolchain-funcs	a0b29008c671a362b505f96fa80ce9c0	python-utils-r1	f1d3a4dea5847c7390ba91bd557c83aa	python-single-r1	a5747fe6dc0651d95cb78eddd5e160a8	xdg-utils	42869b3c8d86a70ef3cf75165a395e09	xdg	3ef49a87c52c8b77c476351195dfe575
+_eclasses_=multiprocessing	1e32df7deee68372153dca65f4a7c21f	toolchain-funcs	98d9f464d912ae6b7316fb8a3721f5db	python-utils-r1	f1d3a4dea5847c7390ba91bd557c83aa	python-single-r1	a5747fe6dc0651d95cb78eddd5e160a8	xdg-utils	42869b3c8d86a70ef3cf75165a395e09	xdg	3ef49a87c52c8b77c476351195dfe575
 _md5_=382eee875421f398d1a57ffb3573b9e9

@@ -8,5 +8,5 @@ KEYWORDS=~amd64 ~arm ~arm64 ~mips ~ppc ~ppc64 ~x86
 LICENSE=MIT
 SLOT=0
 SRC_URI=https://github.com/jech/dht/archive/refs/tags/dht-0.27.tar.gz -> dht-0.27.gh.tar.gz
-_eclasses_=toolchain-funcs	a0b29008c671a362b505f96fa80ce9c0
+_eclasses_=toolchain-funcs	98d9f464d912ae6b7316fb8a3721f5db
 _md5_=ce1be3306219a72926db76453c68ca8e
