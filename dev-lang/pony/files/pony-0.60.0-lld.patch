@@ -1,0 +1,23 @@
+diff '--color=auto' -ur pony-0.60.0.orig/CMakeLists.txt pony-0.60.0/CMakeLists.txt
+--- pony-0.60.0.orig/CMakeLists.txt	2025-10-15 19:06:12.488969563 +0200
++++ pony-0.60.0/CMakeLists.txt	2025-10-15 19:07:22.038959485 +0200
+@@ -221,6 +221,7 @@
+     LLVM_BUILD_MODE=${PONY_LLVM_BUILD_MODE}
+     LLVM_VERSION="${LLVM_VERSION}"
+     PONY_COMPILER="${CMAKE_C_COMPILER}"
++    PONY_LINKER="${PONY_LINKER}"
+     PONY_ARCH="${PONY_ARCH}"
+     PONY_DEFAULT_PIC=true
+     $<$<CONFIG:Debug>:PONY_BUILD_CONFIG="debug">
+diff '--color=auto' -ur pony-0.60.0.orig/src/libponyc/codegen/genexe.c pony-0.60.0/src/libponyc/codegen/genexe.c
+--- pony-0.60.0.orig/src/libponyc/codegen/genexe.c	2025-10-15 19:04:58.515514068 +0200
++++ pony-0.60.0/src/libponyc/codegen/genexe.c	2025-10-15 19:09:21.776496811 +0200
+@@ -359,7 +359,7 @@
+   const char* mcx16_arg = (target_is_lp64(c->opt->triple)
+     && target_is_x86(c->opt->triple)) ? "-mcx16" : "";
+   const char* fuseldcmd = c->opt->link_ldcmd != NULL ? c->opt->link_ldcmd :
+-    "";
++    PONY_LINKER;
+   const char* fuseld = strlen(fuseldcmd) ? "-fuse-ld=" : "";
+   const char* ldl = target_is_linux(c->opt->triple) ? "-ldl" : "";
+   const char* atomic =

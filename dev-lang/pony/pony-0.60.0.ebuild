@@ -1,8 +1,8 @@
-# Copyright 2014-2024 Gentoo Authors
+# Copyright 2014-2025 Gentoo Authors
 # Distributed under the terms of the GNU General Public License v2
 
 EAPI=8
-LLVM_COMPAT=( 17 18 19 )
+LLVM_COMPAT=( 17 18 19 20 21 )
 CMAKE_IN_SOURCE_BUILD=1
 
 inherit cmake git-r3 llvm-r1
@@ -38,7 +38,7 @@ BDEPEND="
 "
 
 PATCHES=(
-	"${FILESDIR}"/pony-0.58.8-lld.patch
+	"${FILESDIR}"/pony-0.60.0-lld.patch
 	"${FILESDIR}"/pony-0.59.0-gcc-15.patch
 )
 
