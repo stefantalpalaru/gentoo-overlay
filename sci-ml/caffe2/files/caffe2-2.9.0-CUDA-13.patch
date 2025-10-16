@@ -1,0 +1,11 @@
+diff '--color=auto' -ur pytorch-v2.9.0.orig/cmake/Modules/FindCUB.cmake pytorch-v2.9.0/cmake/Modules/FindCUB.cmake
+--- pytorch-v2.9.0.orig/cmake/Modules/FindCUB.cmake	2025-10-15 19:15:02.000000000 +0200
++++ pytorch-v2.9.0/cmake/Modules/FindCUB.cmake	2025-10-15 22:50:49.051145150 +0200
+@@ -4,6 +4,7 @@
+ 
+ find_path(CUB_INCLUDE_DIR
+         HINTS "${CUDAToolkit_INCLUDE_DIRS}"
++        HINTS "${CUDAToolkit_INCLUDE_DIRS}" "${CUDAToolkit_INCLUDE_DIRS}/cccl"
+         NAMES cub/cub.cuh
+         DOC "The directory where CUB includes reside"
+ )

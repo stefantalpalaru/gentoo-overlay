@@ -1,0 +1,11 @@
+diff '--color=auto' -ur pytorch-v2.9.0.orig/cmake/Dependencies.cmake pytorch-v2.9.0/cmake/Dependencies.cmake
+--- pytorch-v2.9.0.orig/cmake/Dependencies.cmake	2025-10-15 22:42:49.753618747 +0200
++++ pytorch-v2.9.0/cmake/Dependencies.cmake	2025-10-15 22:44:28.407334339 +0200
+@@ -1141,7 +1141,6 @@
+ 
+     # Tensorpipe uses cuda_add_library
+     torch_update_find_cuda_flags()
+-    add_subdirectory(${PROJECT_SOURCE_DIR}/third_party/tensorpipe)
+     # Suppress warning to unblock libnop compilation by clang-17
+     # See https://github.com/pytorch/pytorch/issues/151316
+     target_compile_options_if_supported(tensorpipe -Wno-missing-template-arg-list-after-template-kw)

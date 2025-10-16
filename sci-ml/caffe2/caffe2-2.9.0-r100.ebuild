@@ -2,7 +2,7 @@
 # Distributed under the terms of the GNU General Public License v2
 
 EAPI=8
-PYTHON_COMPAT=( python3_{11..13} )
+PYTHON_COMPAT=( python3_{11..14} )
 ROCM_VERSION=6.1
 MYPN=pytorch
 MYP=${MYPN}-${PV}
@@ -26,10 +26,11 @@ S="${WORKDIR}"/pytorch-v${PV}
 LICENSE="BSD"
 SLOT="0"
 KEYWORDS="~amd64 ~arm64"
-IUSE="cuda distributed fbgemm flash gloo memefficient mkl mpi nnpack +numpy onednn openblas opencl openmp qnnpack rocm xnnpack cpu_flags_x86_avx cpu_flags_x86_avx2 cpu_flags_x86_avx512f"
+IUSE="cuda cudss distributed fbgemm flash gloo memefficient mkl mpi nnpack +numpy onednn openblas opencl openmp qnnpack rocm vulkan xnnpack cpu_flags_x86_avx cpu_flags_x86_avx2 cpu_flags_x86_avx512f"
 RESTRICT="test"
 REQUIRED_USE="
 	${PYTHON_REQUIRED_USE}
+	fbgemm? ( cpu_flags_x86_avx cpu_flags_x86_avx2 cpu_flags_x86_avx512f )
 	flash? ( || ( cuda rocm ) )
 	memefficient? ( || ( cuda rocm ) )
 	mpi? ( distributed )
@@ -54,18 +55,17 @@ RDEPEND="
 	dev-libs/pthreadpool
 	dev-libs/sleef
 	sci-ml/foxi
-	~sci-ml/kineto-0.4.0_p20250214
-	<sci-ml/onnx-1.18.0:=
+	sci-ml/onnx:=
 	virtual/lapack
 	cuda? (
 		dev-libs/cudnn:=
 		>=sci-ml/cudnn-frontend-1.0.3:0=
-		dev-libs/cudss
+		cudss? ( dev-libs/cudss )
 		dev-libs/cusparselt
 		>=dev-util/nvidia-cuda-toolkit-12.9:=[profiler]
 	)
-	fbgemm? ( >=sci-ml/FBGEMM-2023.12.01 )
-	gloo? ( <=sci-ml/gloo-2023.12.03[cuda?] )
+	fbgemm? ( sci-ml/FBGEMM )
+	gloo? ( >=sci-ml/gloo-2025.06.04[cuda?] )
 	mpi? ( virtual/mpi )
 	nnpack? ( sci-ml/NNPACK )
 	numpy? ( $(python_gen_cond_dep '
@@ -99,6 +99,7 @@ RDEPEND="
 	xnnpack? ( >=sci-ml/XNNPACK-2024.11 )
 	mkl? ( sci-libs/mkl )
 	openblas? ( sci-libs/openblas )
+	vulkan? ( media-libs/vulkan-loader )
 "
 DEPEND="
 	${RDEPEND}
@@ -118,27 +119,26 @@ DEPEND="
 "
 
 PATCHES=(
-	"${FILESDIR}"/caffe2-2.7.0-gentoo.patch
+	"${FILESDIR}"/caffe2-2.9.0-gentoo-r1.patch
 	"${FILESDIR}"/caffe2-2.6.0-install-dirs.patch
 	"${FILESDIR}"/caffe2-1.12.0-glog-0.6.0.patch
-	"${FILESDIR}"/caffe2-2.7.1-tensorpipe.patch
+	"${FILESDIR}"/caffe2-2.9.0-tensorpipe.patch
 	"${FILESDIR}"/caffe2-2.3.0-cudnn_include_fix.patch
 	"${FILESDIR}"/caffe2-2.1.2-fix-rpath.patch
 	"${FILESDIR}"/caffe2-2.4.0-fix-openmp-link.patch
 	"${FILESDIR}"/caffe2-2.4.0-rocm-fix-std-cpp17.patch
-	"${FILESDIR}"/caffe2-2.7.0-fix-libcpp.patch
 	"${FILESDIR}"/caffe2-2.4.0-cpp-httplib.patch
-	"${FILESDIR}"/caffe2-2.4.0-kineto.patch
 	"${FILESDIR}"/caffe2-2.5.1-newfix-functorch-install.patch
-	"${FILESDIR}"/caffe2-2.5.1-unbundle_kineto.patch
 	"${FILESDIR}"/caffe2-2.7.0-glog-0.7.1.patch
-	"${FILESDIR}"/caffe2-2.7.0-llvm.patch
-	"${FILESDIR}"/caffe2-2.7.1-ck-config.patch
 	"${FILESDIR}"/caffe2-2.7.1-aotriton-fixes.patch
+	"${FILESDIR}"/caffe2-2.8.0-kineto.patch
+	"${FILESDIR}"/caffe2-2.9.0-CUDA-13.patch
+	"${FILESDIR}"/caffe2-2.9.0-fbgemm.patch
 )
 
 src_prepare() {
 	filter-lto #bug 862672
+
 	sed -i \
 		-e "/third_party\/gloo/d" \
 		cmake/Dependencies.cmake \
@@ -228,7 +228,6 @@ src_configure() {
 		-DUSE_CCACHE=OFF
 		-DUSE_CUDA=$(usex cuda)
 		-DUSE_DISTRIBUTED=$(usex distributed)
-		-DUSE_FAKELOWP=OFF
 		-DUSE_FBGEMM=$(usex fbgemm)
 		-DUSE_FLASH_ATTENTION=$(usex flash)
 		-DUSE_GFLAGS=ON
@@ -265,6 +264,7 @@ src_configure() {
 		-DUSE_TENSORPIPE=$(usex distributed)
 		-DUSE_UCC=OFF
 		-DUSE_VALGRIND=OFF
+		-DUSE_VULKAN=$(usex vulkan)
 		-DUSE_XNNPACK=$(usex xnnpack)
 		-DUSE_XPU=OFF
 		-DC_AVX_FOUND=$(usex cpu_flags_x86_avx)
@@ -295,8 +295,8 @@ src_configure() {
 			-DTORCH_CUDA_ARCH_LIST="${TORCH_CUDA_ARCH_LIST:-5.0 7.0}"
 			-DUSE_NCCL=OFF # TODO: NVIDIA Collective Communication Library
 			-DCMAKE_CUDA_FLAGS="$(cuda_gccdir -f | tr -d \")"
-			-DUSE_CUDSS=$(usex cuda)
-			-DUSE_CUSPARSELT=$(usex cuda)
+			-DUSE_CUDSS=$(usex cudss)
+			-DUSE_CUSPARSELT=ON
 		)
 	elif use rocm; then
 		export PYTORCH_ROCM_ARCH="$(get_amdgpu_flags)"
@@ -340,13 +340,18 @@ python_install() {
 	ln -s ../../../../../include/torch \
 		"${D}$(python_get_sitedir)"/torch/include/torch || die # bug 923269
 	ln -s ../../../../../bin/torch_shm_manager \
-		"${D}"/$(python_get_sitedir)/torch/bin/torch_shm_manager || die
+		"${D}"$(python_get_sitedir)/torch/bin/torch_shm_manager || die
 	ln -s ../../../../../$(get_libdir)/libtorch_global_deps.so \
-		"${D}"/$(python_get_sitedir)/torch/lib/libtorch_global_deps.so || die
+		"${D}"$(python_get_sitedir)/torch/lib/libtorch_global_deps.so || die
 }
 
 src_install() {
 	cmake_src_install
+
+	# Clean up third-party software installs.
+	rm -rf "${ED}"/usr/share/cmake/{kineto,fbgemm} \
+		"${ED}"/usr/include/{kineto,fbgemm,asmjit} \
+		"${ED}"/usr/$(get_libdir)/cmake/asmjit
 
 	# Used by pytorch ebuild
 	insinto "/var/lib/${PN}"

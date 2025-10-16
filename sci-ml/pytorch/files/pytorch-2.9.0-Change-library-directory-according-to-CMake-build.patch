@@ -1,0 +1,13 @@
+diff '--color=auto' -ur pytorch-2.9.0.orig/setup.py pytorch-2.9.0/setup.py
+--- pytorch-2.9.0.orig/setup.py	2025-10-15 22:10:32.194995875 +0200
++++ pytorch-2.9.0/setup.py	2025-10-15 22:16:46.029341349 +0200
+@@ -484,7 +484,8 @@
+ 
+ # Constant known variables used throughout this file
+ TORCH_DIR = CWD / "torch"
+-TORCH_LIB_DIR = TORCH_DIR / "lib"
++cmake_build_dir = os.environ.get("CMAKE_BUILD_DIR", CWD / "build")
++TORCH_LIB_DIR = os.path.join(cmake_build_dir, "lib")
+ THIRD_PARTY_DIR = CWD / "third_party"
+ 
+ # CMAKE: full path to python library

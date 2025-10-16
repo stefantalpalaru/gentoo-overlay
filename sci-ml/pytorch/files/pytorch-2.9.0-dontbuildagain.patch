@@ -1,0 +1,18 @@
+diff '--color=auto' -ur pytorch-2.9.0.orig/setup.py pytorch-2.9.0/setup.py
+--- pytorch-2.9.0.orig/setup.py	2025-10-09 03:09:57.000000000 +0200
++++ pytorch-2.9.0/setup.py	2025-10-15 22:09:36.469119636 +0200
+@@ -1004,14 +1004,6 @@
+ 
+     check_submodules()
+     check_pydep("yaml", "pyyaml")
+-    build_pytorch(
+-        version=TORCH_VERSION,
+-        cmake_python_library=CMAKE_PYTHON_LIBRARY.as_posix(),
+-        build_python=not BUILD_LIBTORCH_WHL,
+-        rerun_cmake=RERUN_CMAKE,
+-        cmake_only=CMAKE_ONLY,
+-        cmake=cmake,
+-    )
+ 
+     if CMAKE_ONLY:
+         report(
