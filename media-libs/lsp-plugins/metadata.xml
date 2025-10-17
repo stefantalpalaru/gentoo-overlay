@@ -1,0 +1,23 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE pkgmetadata SYSTEM "https://www.gentoo.org/dtd/metadata.dtd">
+<pkgmetadata>
+	<maintainer type="person">
+		<email>stefantalpalaru@yahoo.com</email>
+		<name>Ștefan Talpalaru</name>
+	</maintainer>
+	<longdescription lang="en">
+		LSP (Linux Studio Plugins) is a collection of open-source plugins
+		currently compatible with CLAP, LADSPA, LV2, VST2/LinuxVST, VST3 and
+		JACK standalone formats.
+	</longdescription>
+	<use>
+		<flag name="clap">Build CLAP plugins</flag>
+		<flag name="gstreamer">Build GStreamer plugins</flag>
+		<flag name="lv2">Build LV2 plugins</flag>
+		<flag name="vst">Build VST2/LinuxVST plugins</flag>
+		<flag name="vst3">Build VST3 plugins</flag>
+	</use>
+	<upstream>
+		<remote-id type="github">lsp-plugins/lsp-plugins</remote-id>
+	</upstream>
+</pkgmetadata>

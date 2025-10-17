@@ -359,6 +359,11 @@ media-libs/libheif:svt-av1 - Use media-libs/svt-av1 for AVIF encoding
 media-libs/libheif:tools - Enable various tools (what upstream calls "examples")
 media-libs/libheif:tools-heif-view - Enable "heif-view" (needs media-libs/libsdl2)
 media-libs/libheif:x265 - Use media-libs/x265 for HEIF encoding
+media-libs/lsp-plugins:clap - Build CLAP plugins
+media-libs/lsp-plugins:gstreamer - Build GStreamer plugins
+media-libs/lsp-plugins:lv2 - Build LV2 plugins
+media-libs/lsp-plugins:vst - Build VST2/LinuxVST plugins
+media-libs/lsp-plugins:vst3 - Build VST3 plugins
 media-libs/oidn:apps - Build the standalone denoise, self test, and benchmark binaries.
 media-libs/oidn:hip - Build OIDN with AMD HIP support.
 media-libs/oidn:openimageio - Enable OpenImageIO Support
