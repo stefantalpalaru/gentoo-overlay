@@ -67,6 +67,7 @@ src_prepare() {
 
 		-e 's:-Werror ::g'
 		-e 's:-Werror=deprecated-declarations ::g'
+		-e 's:-Werror=undef::g'
 	)
 	for MKF in $(find -name 'Makefile' | cut -b 3-); do
 		mv "${MKF}" "${MKF}.in"

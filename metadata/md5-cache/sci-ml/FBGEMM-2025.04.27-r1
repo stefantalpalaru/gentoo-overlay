@@ -13,5 +13,5 @@ REQUIRED_USE=cpu_flags_x86_avx2
 RESTRICT=!test? ( test )
 SLOT=0
 SRC_URI=https://github.com/pytorch/FBGEMM/archive/refs/tags/v1.2.0.tar.gz -> FBGEMM-2025.04.27.tar.gz
-_eclasses_=multiprocessing	1e32df7deee68372153dca65f4a7c21f	toolchain-funcs	98d9f464d912ae6b7316fb8a3721f5db	python-utils-r1	f1d3a4dea5847c7390ba91bd557c83aa	python-any-r1	a3e9c0524a795d7f2767a2cf12a2e8c0	flag-o-matic	a7afe42e95fb46ce9691605acfb24672	ninja-utils	2df4e452cea39a9ec8fb543ce059f8d6	xdg-utils	42869b3c8d86a70ef3cf75165a395e09	cmake	cf95ad72ab207889c1668fc0d1bee181
+_eclasses_=multiprocessing	1e32df7deee68372153dca65f4a7c21f	toolchain-funcs	98d9f464d912ae6b7316fb8a3721f5db	python-utils-r1	f1d3a4dea5847c7390ba91bd557c83aa	python-any-r1	a3e9c0524a795d7f2767a2cf12a2e8c0	flag-o-matic	a7afe42e95fb46ce9691605acfb24672	ninja-utils	2df4e452cea39a9ec8fb543ce059f8d6	xdg-utils	42869b3c8d86a70ef3cf75165a395e09	cmake	2d36accef058c00889b1f93ea4bc4061
 _md5_=0bf0cc630accf58def7dedb8d55056cb
