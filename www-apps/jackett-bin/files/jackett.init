@@ -2,5 +2,6 @@
 
 pidfile="/run/jackett.pid"
 command="/opt/jackett/jackett"
+command_args="--ListenPrivate --NoUpdates"
 command_user="jackett:jackett"
 command_background=true

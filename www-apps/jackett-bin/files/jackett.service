@@ -7,7 +7,7 @@ User=jackett
 Group=jackett
 
 Type=simple
-ExecStart=/opt/jackett/jackett
+ExecStart=/opt/jackett/jackett --ListenPrivate --NoUpdates
 TimeoutStopSec=20
 KillMode=process
 Restart=always
