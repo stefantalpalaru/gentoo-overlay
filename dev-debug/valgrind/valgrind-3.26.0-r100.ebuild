@@ -13,7 +13,7 @@ inherit autotools flag-o-matic toolchain-funcs multilib pax-utils
 DESCRIPTION="An open-source memory debugger for GNU/Linux"
 HOMEPAGE="https://www.valgrind.org"
 SRC_URI="https://sourceware.org/pub/valgrind/${P}.tar.bz2"
-LICENSE="GPL-2"
+LICENSE="GPL-3+"
 SLOT="0"
 KEYWORDS="-* ~amd64 ~arm ~arm64 ~ppc ~ppc64 ~x86 ~amd64-linux ~x86-linux ~x64-macos ~x64-solaris"
 IUSE="mpi lto"
