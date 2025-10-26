@@ -67,7 +67,7 @@ dev-nim/nimble 0.16.4 9999-r2: Nim package manager
 dev-nim/ntags 0.5.0-r1: tool that generates tags for Nim files, similar to ctags
 dev-php/pecl-apcu 5.1.23-r2: Stripped down version of APC supporting only user cache
 dev-php/pecl-imagick 3.7.0-r2: PHP wrapper for the ImageMagick library
-dev-php/xdebug 3.1.6-r2 3.4.6: A PHP debugging and profiling extension
+dev-php/xdebug 3.1.6-r2 3.4.7: A PHP debugging and profiling extension
 dev-python/alabaster 0.7.12-r3: A configurable sidebar-enabled Sphinx theme
 dev-python/alembic 1.4.2-r201: database migrations tool, written by the author of SQLAlchemy
 dev-python/amqp 1.4.9-r3: Low-level AMQP client for Python (fork of amqplib)
