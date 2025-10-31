@@ -17,7 +17,7 @@ IUSE="test"
 RESTRICT="mirror !test? ( test )"
 
 COMMON_DEPEND="
-	>=app-arch/libzim-9.0.0
+	>=app-arch/libzim-9.4.0
 	dev-libs/icu:=
 	dev-libs/pugixml
 	dev-libs/xapian:=
