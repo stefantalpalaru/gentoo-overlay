@@ -1,14 +1,13 @@
-# Copyright 1999-2022 Gentoo Authors
+# Copyright 1999-2025 Gentoo Authors
 # Distributed under the terms of the GNU General Public License v2
 
-EAPI=7
+EAPI=8
 
 inherit qmake-utils
 
 DESCRIPTION="Free Music Instrument Tuner"
 HOMEPAGE="https://gillesdegottex.github.io/fmit"
-SRC_URI="https://github.com/gillesdegottex/fmit/archive/v${PV}.tar.gz \
-							-> ${P}.tar.gz"
+SRC_URI="https://github.com/gillesdegottex/fmit/archive/v${PV}.tar.gz -> ${P}.gh.tar.gz"
 
 LICENSE="GPL-2+ LGPL-2.1"
 SLOT="0"
@@ -16,18 +15,14 @@ KEYWORDS="~amd64 ~x86"
 IUSE="alsa jack oss portaudio"
 
 RDEPEND=">=sci-libs/fftw-3.3.4:3.0=
-	dev-qt/qtmultimedia:5
-	dev-qt/qtopengl:5
-	dev-qt/qtsvg:5
-	dev-qt/qtcore:5
-	dev-qt/qtgui:5
-	dev-qt/qtwidgets:5
+	dev-qt/qtbase:6[gui,opengl,widgets]
+	dev-qt/qtsvg:6
+	dev-qt/qtmultimedia:6
 	alsa? ( media-libs/alsa-lib )
 	jack? ( virtual/jack )
 	portaudio? ( media-libs/portaudio )"
 
-DEPEND="${RDEPEND}
-	dev-qt/linguist-tools:5"
+DEPEND="${RDEPEND}"
 
 src_prepare() {
 	# Fix the path to readme file to prevent errors on start up
@@ -49,8 +44,6 @@ src_configure() {
 		use ${flag} && config+=" acs_${flag}"
 	done
 
-	"$(qt5_get_bindir)"/lrelease fmit.pro || die "Running lrelease failed"
-
-	eqmake5 CONFIG+="${config}" fmit.pro PREFIX="${ED}"/usr \
+	eqmake6 CONFIG+="${config}" fmit.pro PREFIX="${ED}"/usr \
 		PREFIXSHORTCUT="${ED}"/usr DISTDIR=/usr
 }
