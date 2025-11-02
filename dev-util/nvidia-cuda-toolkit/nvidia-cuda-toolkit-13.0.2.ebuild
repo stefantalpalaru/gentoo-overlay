@@ -9,7 +9,7 @@ PYTHON_COMPAT=( python3_{11..13} )
 inherit check-reqs edo toolchain-funcs
 inherit python-r1
 
-DRIVER_PV="580.82.07"
+DRIVER_PV="580.95.05"
 # https://docs.nvidia.com/cuda/cuda-installation-guide-linux/index.html
 GCC_MAX_VER="15"
 CLANG_MAX_VER="20"
