@@ -7,20 +7,20 @@ DESCRIPTION="high-performance CUDA Library for Direct Sparse Solvers"
 HOMEPAGE="https://developer.nvidia.com/cudss"
 SRC_URI="
 	amd64? (
-		https://developer.download.nvidia.com/compute/cudss/redist/libcudss/linux-x86_64/libcudss-linux-x86_64-${PV}_cuda12-archive.tar.xz
+		https://developer.download.nvidia.com/compute/cudss/redist/libcudss/linux-x86_64/libcudss-linux-x86_64-${PV}_cuda13-archive.tar.xz
 	)
 	arm64? (
-		https://developer.download.nvidia.com/compute/cudss/redist/libcudss/linux-sbsa/libcudss-linux-sbsa-${PV}_cuda12-archive.tar.xz
+		https://developer.download.nvidia.com/compute/cudss/redist/libcudss/linux-sbsa/libcudss-linux-sbsa-${PV}_cuda13-archive.tar.xz
 	)
 "
 S="${WORKDIR}"
 LICENSE="NVIDIA-cuDSS"
-SLOT="0/0.6" # from the libcudss.so version
+SLOT="0/$(ver_cut 1-3)"
 KEYWORDS="~amd64 ~arm64 ~amd64-linux ~arm64-linux"
 RESTRICT="mirror bindist test"
 
 RDEPEND="
-	=dev-util/nvidia-cuda-toolkit-12*
+	=dev-util/nvidia-cuda-toolkit-13*
 "
 
 QA_PREBUILT="/opt/cuda*/targets/*-linux/lib/*"
@@ -44,7 +44,7 @@ src_install() {
 	# allow slotted install
 	local CUDNN_PATH="${CUDNN_PATH:-${EPREFIX}/opt/cuda}"
 
-	cd "${WORKDIR}/libcudss-linux-${narch}-${PV}_cuda12-archive" || die
+	cd "${WORKDIR}/libcudss-linux-${narch}-${PV}_cuda13-archive" || die
 
 	dodir "${CUDNN_PATH}/targets/${narch}-linux"
 	mv \

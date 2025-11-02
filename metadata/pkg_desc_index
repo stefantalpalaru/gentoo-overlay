@@ -44,7 +44,7 @@ dev-lang/tauthon 2.8.5-r6 9999-r5: Python 2.7 fork with new syntax, builtins, an
 dev-libs/boost 1.88.0: Boost Libraries for C++
 dev-libs/cpuinfo 2025.02.19: CPU INFOrmation library
 dev-libs/cudnn 8.9.7.29-r1100 8.9.7.29-r1200 9.10.2.21-r1100 9.14.0.64-r1200 9.14.0.64-r1300: NVIDIA Accelerated Deep Learning on GPU library
-dev-libs/cudss 0.6.0.5-r1: high-performance CUDA Library for Direct Sparse Solvers
+dev-libs/cudss 0.7.1.4-r1200 0.7.1.4-r1300: high-performance CUDA Library for Direct Sparse Solvers
 dev-libs/cutlass 4.2.1: CUDA Templates for Linear Algebra Subroutines
 dev-libs/dht 0.27-r1: BitTorrent DHT library
 dev-libs/gdl 3.40.0-r2: GNOME docking library
