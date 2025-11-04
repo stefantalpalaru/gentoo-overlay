@@ -1,0 +1,173 @@
+diff '--color=auto' -ur client_generic/Client/Player.cpp client_generic/Client/Player.cpp
+--- client_generic/Client/Player.cpp	2025-11-04 13:00:11.434985399 +0100
++++ client_generic/Client/Player.cpp	2025-11-04 13:00:52.748303106 +0100
+@@ -12,7 +12,7 @@
+ #ifndef LINUX_GNU
+ #include	"GLee.h"
+ #else
+-#include <GLee.h>
++#include <GL/glew.h>
+ #include <endian.h>
+ #if __BYTE_ORDER == __LITTLE_ENDIAN
+ #define __LITTLE_ENDIAN__ __LITTLE_ENDIAN
+@@ -229,8 +229,15 @@
+  	if( !spDisplay->Initialize( w, h, m_bFullscreen ) )
+ 		return false;
+ #endif
+-	
+- 	spRenderer = new CRendererGL();
++	// Initialize GLEW now that we have a GL context
++	GLenum err = glewInit();
++	if (GLEW_OK != err)
++	{
++		g_Log->Error("GLEW Init failed: %s", (const char*)glewGetErrorString(err));
++		return false;
++	}
++
++	spRenderer = new CRendererGL();
+ #endif
+ 
+ 	//	Start renderer & set window title.
+@@ -642,10 +649,6 @@
+ 		du = m_displayUnits[ displayUnit ];
+ 	}
+ 
+-	du->spRenderer->Reset( eEverything );
+-	du->spRenderer->Orthographic();
+-	du->spRenderer->Apply();
+-	
+ 	{
+ 		boost::mutex::scoped_lock lockthis( m_updateMutex );
+ 
+diff '--color=auto' -ur client_generic/configure.ac client_generic/configure.ac
+--- client_generic/configure.ac	2025-11-04 13:00:11.056944907 +0100
++++ client_generic/configure.ac	2025-11-04 13:00:52.748374555 +0100
+@@ -167,32 +167,10 @@
+ 
+ 
+ 
+-dnl Check for glee
++dnl Check for glew
+ 
+-PKG_CHECK_MODULES([GLEE],[glee], [HAVE_GLEE=true] , [HAVE_GLEE=false] )
+-if test "$HAVE_GLEE" = "false"; then
+-
+-   PKG_CHECK_MODULES([GLEE],[GLee], [HAVE_GLEE=true] , [HAVE_GLEE=false] )
+-   if test "$HAVE_GLEE" = "false"; then
+-      AC_MSG_CHECKING(for GLee.h)
+-      AC_CHECK_HEADERS(GLee.h GL/GLee.h)
+-
+-      if test "x$ac_cv_header_GLee_h" = "xno"; then
+-      	 if test "x$ac_cv_header_GL_GLee_h" = "xno"; then
+-      	    AC_MSG_ERROR([neither GLee.h nor GL/GLee.h were found. Please make sure you have GLee.h installed in your include path.])
+-      	 fi
+-      	 dnl found GLee.h in GL subdir
+-      	 GLEE_CFLAGS="-I $includedir/GL -I/usr/include/GL"
+-      fi
+-
+-      AC_CHECK_LIB([GLee],[main],GLEE_LIBS="-lGLee",
+-	AC_CHECK_LIB([glee],[main],GLEE_LIBS="-lglee",,))
+-
+-      fi
+-
+-fi
+-AC_SUBST(GLEE_CFLAGS)
+-AC_SUBST(GLEE_LIBS)
++PKG_CHECK_MODULES([GLEE], [glew],,
++  [AC_MSG_ERROR([GLEW not found. Please make sure libglew-dev is installed.])])
+ 
+ 
+ dnl Check for curl
+diff '--color=auto' -ur client_generic/DisplayOutput/OpenGL/glx.h client_generic/DisplayOutput/OpenGL/glx.h
+--- client_generic/DisplayOutput/OpenGL/glx.h	2025-11-04 13:00:11.030945026 +0100
++++ client_generic/DisplayOutput/OpenGL/glx.h	2025-11-04 13:00:52.748410055 +0100
+@@ -13,7 +13,8 @@
+ #ifndef LINUX_GNU
+ #include "GLee.h"
+ #else
+-#include <GLee.h>
++#include <GL/glew.h>
++#include <GL/glx.h>
+ #endif
+ #include "DisplayOutput.h"
+ 
+diff '--color=auto' -ur client_generic/DisplayOutput/OpenGL/RendererGL.cpp client_generic/DisplayOutput/OpenGL/RendererGL.cpp
+--- client_generic/DisplayOutput/OpenGL/RendererGL.cpp	2025-11-04 13:00:11.029945031 +0100
++++ client_generic/DisplayOutput/OpenGL/RendererGL.cpp	2025-11-04 13:00:52.748459525 +0100
+@@ -3,7 +3,7 @@
+ #ifndef LINUX_GNU
+ #include	"./OpenGL/GLee.h"
+ #else
+-#include <GLee.h>
++#include <GL/glew.h>
+ #endif
+ #ifdef MAC
+ #include	<OpenGL/CGLMacro.h>
+diff '--color=auto' -ur client_generic/DisplayOutput/OpenGL/ShaderGL.cpp client_generic/DisplayOutput/OpenGL/ShaderGL.cpp
+--- client_generic/DisplayOutput/OpenGL/ShaderGL.cpp	2025-11-04 13:00:11.029945031 +0100
++++ client_generic/DisplayOutput/OpenGL/ShaderGL.cpp	2025-11-04 13:02:30.898857037 +0100
+@@ -6,7 +6,7 @@
+ #include	"./OpenGL/GLee.h"
+ #include <OpenGL/CGLMacro.h>
+ #else
+-#include<GLee.h>
++#include <GL/glew.h>
+ #endif
+ 
+ #include	"Exception.h"
+@@ -97,7 +97,7 @@
+ 	GLint len, infoLogPos = 0;
+ 
+ 	//	Compile to the highest supported language version.
+-	if( GLEE_ARB_shading_language_100 )
++	if( GLEW_ARB_shading_language_100 )
+ 	{
+ 		static char versionString[ 16 ];
+ 		static bool bFirst = true;
+@@ -369,8 +369,8 @@
+ 	return true;
+ }
+ 
+-typedef GLvoid (APIENTRY *Uniform_Func)(GLint location, GLsizei count, const void *value);
+-typedef GLvoid (APIENTRY *Uniform_MatrixFunc)(GLint location, GLsizei count, GLboolean transpose, const GLfloat *value);
++typedef GLvoid (*Uniform_Func)(GLint location, GLsizei count, const void *value);
++typedef GLvoid (*Uniform_MatrixFunc)(GLint location, GLsizei count, GLboolean transpose, const GLfloat *value);
+ 
+ /*
+ */
+diff '--color=auto' -ur client_generic/DisplayOutput/OpenGL/TextureFlatGL.cpp client_generic/DisplayOutput/OpenGL/TextureFlatGL.cpp
+--- client_generic/DisplayOutput/OpenGL/TextureFlatGL.cpp	2025-11-04 13:00:11.030945026 +0100
++++ client_generic/DisplayOutput/OpenGL/TextureFlatGL.cpp	2025-11-04 13:00:52.748571035 +0100
+@@ -4,7 +4,7 @@
+ #ifndef LINUX_GNU
+ #include "GLee.h"
+ #else
+-#include <GLee.h>
++#include <GL/glew.h>
+ #endif
+ #ifdef MAC
+ #include <OpenGL/CGLMacro.h>
+@@ -210,9 +210,9 @@
+ #endif
+ 			
+ #ifndef LINUX_GNU
+-			if( GLEE_ARB_texture_non_power_of_two || m_TexTarget == GL_TEXTURE_RECTANGLE_EXT )
++			if( GLEW_ARB_texture_non_power_of_two || m_TexTarget == GL_TEXTURE_RECTANGLE_EXT )
+ #else
+-			if( GLEE_ARB_texture_non_power_of_two || m_TexTarget == GL_TEXTURE_RECTANGLE_ARB )
++			if( GLEW_ARB_texture_non_power_of_two || m_TexTarget == GL_TEXTURE_RECTANGLE_ARB )
+ 
+ #endif
+ 			{
+diff '--color=auto' -ur client_generic/MSVC/SettingsGUI/electricsheepguiMyDialog2.cpp client_generic/MSVC/SettingsGUI/electricsheepguiMyDialog2.cpp
+--- client_generic/MSVC/SettingsGUI/electricsheepguiMyDialog2.cpp	2025-11-04 13:00:11.032901685 +0100
++++ client_generic/MSVC/SettingsGUI/electricsheepguiMyDialog2.cpp	2025-11-04 13:00:52.748637055 +0100
+@@ -418,7 +418,7 @@
+     FireLoginStatusUpdateEvent("...talking...");
+ 	wxMutexGuiLeave();
+ 
+-	m_Role == "error";
++	m_Role = "error";
+ 	long code = 0;
+ 	m_Response.clear();
+ 	if (code = curl_easy_perform(pCurl) == CURLE_OK)

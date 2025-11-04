@@ -22,7 +22,7 @@ DEPEND="dev-lang/lua:5.1
 	gnome-base/libgtop
 	media-gfx/flam3
 	media-libs/freeglut
-	media-libs/glee
+	media-libs/glew
 	media-libs/libpng:*
 	media-video/ffmpeg:0
 	net-misc/curl
@@ -36,6 +36,7 @@ RDEPEND="${DEPEND}"
 PATCHES=(
 	"${FILESDIR}"/electricsheep-disable-vsync.patch
 	"${FILESDIR}"/electricsheep-boost-1.85.patch
+	"${FILESDIR}"/electricsheep-glew.patch
 )
 
 src_prepare() {
