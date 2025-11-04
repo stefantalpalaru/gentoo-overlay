@@ -787,59 +787,59 @@ dev-python/zope-component 4.4.1-r202: Zope Component Architecture
 dev-python/zope-event 4.5.0-r202: Event publishing / dispatch, used by Zope Component Architecture
 dev-python/zope-interface 5.1.2-r202: Interfaces for Python
 dev-python/zope-testing 4.7-r202: Zope testing helpers
-dev-qt/assistant 5.15.17-r1: Tool for viewing on-line documentation in Qt help file format
-dev-qt/designer 5.15.17: WYSIWYG tool for designing and building graphical user interfaces with QtWidgets
-dev-qt/linguist 5.15.17-r1: Graphical tool for translating Qt applications
-dev-qt/linguist-tools 5.15.17: Tools for working with Qt translation data files
-dev-qt/pixeltool 5.15.17-r1: Qt screen magnifier
-dev-qt/qdbus 5.15.17-r1: Interface to Qt applications communicating over D-Bus
-dev-qt/qdbusviewer 5.15.17-r1: Graphical tool that lets you introspect D-Bus objects and messages
-dev-qt/qdoc 5.15.17: Qt documentation generator
-dev-qt/qt3d 5.15.17: 3D rendering module for the Qt5 framework
-dev-qt/qtbluetooth 5.15.17: Bluetooth support library for the Qt5 framework
-dev-qt/qtconcurrent 5.15.17-r1: Multi-threading concurrence support library for the Qt5 framework
-dev-qt/qtcore 5.15.17-r1: Cross-platform application development framework
-dev-qt/qtdatavis3d 5.15.17: 3D data visualization library for the Qt5 framework
-dev-qt/qtdbus 5.15.17-r1: Qt5 module for inter-process communication over the D-Bus protocol
-dev-qt/qtdeclarative 5.15.17: The QML and Quick modules for the Qt5 framework
-dev-qt/qtdiag 5.15.17: Tool for reporting diagnostic information about Qt and its environment
-dev-qt/qtgamepad 5.15.17: Qt module to support gamepad hardware
-dev-qt/qtgraphicaleffects 5.15.17-r1: Set of QML types for adding visual effects to user interfaces
-dev-qt/qtgui 5.15.17: The GUI module and platform plugins for the Qt5 framework
-dev-qt/qthelp 5.15.17-r1: Qt5 module for integrating online documentation into applications
-dev-qt/qtimageformats 5.15.17: Additional format plugins for the Qt image I/O system
-dev-qt/qtlocation 5.15.17: Location (places, maps, navigation) library for the Qt5 framework
+dev-qt/assistant 5.15.18: Tool for viewing on-line documentation in Qt help file format
+dev-qt/designer 5.15.18: WYSIWYG tool for designing and building graphical user interfaces with QtWidgets
+dev-qt/linguist 5.15.18: Graphical tool for translating Qt applications
+dev-qt/linguist-tools 5.15.18: Tools for working with Qt translation data files
+dev-qt/pixeltool 5.15.18: Qt screen magnifier
+dev-qt/qdbus 5.15.18: Interface to Qt applications communicating over D-Bus
+dev-qt/qdbusviewer 5.15.18: Graphical tool that lets you introspect D-Bus objects and messages
+dev-qt/qdoc 5.15.18: Qt documentation generator
+dev-qt/qt3d 5.15.18: 3D rendering module for the Qt5 framework
+dev-qt/qtbluetooth 5.15.18: Bluetooth support library for the Qt5 framework
+dev-qt/qtconcurrent 5.15.18: Multi-threading concurrence support library for the Qt5 framework
+dev-qt/qtcore 5.15.18: Cross-platform application development framework
+dev-qt/qtdatavis3d 5.15.18: 3D data visualization library for the Qt5 framework
+dev-qt/qtdbus 5.15.18: Qt5 module for inter-process communication over the D-Bus protocol
+dev-qt/qtdeclarative 5.15.18: The QML and Quick modules for the Qt5 framework
+dev-qt/qtdiag 5.15.18: Tool for reporting diagnostic information about Qt and its environment
+dev-qt/qtgamepad 5.15.18: Qt module to support gamepad hardware
+dev-qt/qtgraphicaleffects 5.15.18: Set of QML types for adding visual effects to user interfaces
+dev-qt/qtgui 5.15.18: The GUI module and platform plugins for the Qt5 framework
+dev-qt/qthelp 5.15.18: Qt5 module for integrating online documentation into applications
+dev-qt/qtimageformats 5.15.18: Additional format plugins for the Qt image I/O system
+dev-qt/qtlocation 5.15.18: Location (places, maps, navigation) library for the Qt5 framework
 dev-qt/qtlockedfile 2.4.1_p20171024: QFile extension with advisory locking functions
-dev-qt/qtmultimedia 5.15.17: Multimedia (audio, video, radio, camera) library for the Qt5 framework
-dev-qt/qtnetwork 5.15.17: Network abstraction library for the Qt5 framework
-dev-qt/qtnetworkauth 5.15.17-r1: Network authorization library for the Qt5 framework
-dev-qt/qtopengl 5.15.17: OpenGL support library for the Qt5 framework (deprecated)
-dev-qt/qtpaths 5.15.17-r1: Command line client to QStandardPaths
-dev-qt/qtplugininfo 5.15.17-r1: Qt5 plugin metadata dumper
-dev-qt/qtpositioning 5.15.17: Physical position determination library for the Qt5 framework
-dev-qt/qtprintsupport 5.15.17: Printing support library for the Qt5 framework
-dev-qt/qtquickcontrols 5.15.17: Set of Qt Quick controls to create complete user interfaces (deprecated)
-dev-qt/qtquickcontrols2 5.15.17: Set of next generation Qt Quick controls for the Qt5 framework
-dev-qt/qtquicktimeline 5.15.17: Qt module for keyframe-based timeline construction
-dev-qt/qtscxml 5.15.17-r1: State Chart XML (SCXML) support library for the Qt5 framework
-dev-qt/qtsensors 5.15.17: Hardware sensor access library for the Qt5 framework
-dev-qt/qtserialbus 5.15.17-r1: Qt module to access CAN, ModBus, and other industrial serial buses and protocols
-dev-qt/qtserialport 5.15.17-r1: Serial port abstraction library for the Qt5 framework
+dev-qt/qtmultimedia 5.15.18: Multimedia (audio, video, radio, camera) library for the Qt5 framework
+dev-qt/qtnetwork 5.15.18: Network abstraction library for the Qt5 framework
+dev-qt/qtnetworkauth 5.15.18: Network authorization library for the Qt5 framework
+dev-qt/qtopengl 5.15.18: OpenGL support library for the Qt5 framework (deprecated)
+dev-qt/qtpaths 5.15.18: Command line client to QStandardPaths
+dev-qt/qtplugininfo 5.15.18: Qt5 plugin metadata dumper
+dev-qt/qtpositioning 5.15.18: Physical position determination library for the Qt5 framework
+dev-qt/qtprintsupport 5.15.18: Printing support library for the Qt5 framework
+dev-qt/qtquickcontrols 5.15.18: Set of Qt Quick controls to create complete user interfaces (deprecated)
+dev-qt/qtquickcontrols2 5.15.18: Set of next generation Qt Quick controls for the Qt5 framework
+dev-qt/qtquicktimeline 5.15.18: Qt module for keyframe-based timeline construction
+dev-qt/qtscxml 5.15.18: State Chart XML (SCXML) support library for the Qt5 framework
+dev-qt/qtsensors 5.15.18: Hardware sensor access library for the Qt5 framework
+dev-qt/qtserialbus 5.15.18: Qt module to access CAN, ModBus, and other industrial serial buses and protocols
+dev-qt/qtserialport 5.15.18: Serial port abstraction library for the Qt5 framework
 dev-qt/qtsingleapplication 2.6.1_p20171024: Qt library to start applications only once per user
-dev-qt/qtsql 5.15.17: SQL abstraction library for the Qt5 framework
-dev-qt/qtsvg 5.15.17-r1: SVG rendering library for the Qt5 framework
-dev-qt/qttest 5.15.17-r1: Unit testing library for the Qt5 framework
-dev-qt/qttranslations 5.15.17-r1: Translation files for the Qt5 framework
-dev-qt/qtvirtualkeyboard 5.15.17: Customizable input framework and virtual keyboard for Qt
-dev-qt/qtwayland 5.15.17: Wayland platform plugin for Qt
-dev-qt/qtwebchannel 5.15.17-r1: Qt5 module for integrating C++ and QML applications with HTML/JavaScript clients
-dev-qt/qtwebengine 5.15.17: Library for rendering dynamic web content in Qt5 C++ and QML applications
+dev-qt/qtsql 5.15.18: SQL abstraction library for the Qt5 framework
+dev-qt/qtsvg 5.15.18: SVG rendering library for the Qt5 framework
+dev-qt/qttest 5.15.18: Unit testing library for the Qt5 framework
+dev-qt/qttranslations 5.15.18: Translation files for the Qt5 framework
+dev-qt/qtvirtualkeyboard 5.15.18: Customizable input framework and virtual keyboard for Qt
+dev-qt/qtwayland 5.15.18: Wayland platform plugin for Qt
+dev-qt/qtwebchannel 5.15.18: Qt5 module for integrating C++ and QML applications with HTML/JavaScript clients
+dev-qt/qtwebengine 5.15.18: Library for rendering dynamic web content in Qt5 C++ and QML applications
 dev-qt/qtwebkit 5.212.0_pre20240528-r1: WebKit rendering library for the Qt5 framework (deprecated)
-dev-qt/qtwebview 5.15.17-r1: Module for displaying web content in a QML application using the Qt5 framework
-dev-qt/qtwidgets 5.15.17: Set of components for creating classic desktop-style UIs for the Qt5 framework
-dev-qt/qtx11extras 5.15.17-r1: Linux/X11-specific support library for the Qt5 framework
-dev-qt/qtxml 5.15.17-r1: Implementation of SAX and DOM for the Qt5 framework
-dev-qt/qtxmlpatterns 5.15.17: XPath, XQuery, XSLT, and XML Schema validation library for the Qt5 framework
+dev-qt/qtwebview 5.15.18: Module for displaying web content in a QML application using the Qt5 framework
+dev-qt/qtwidgets 5.15.18: Set of components for creating classic desktop-style UIs for the Qt5 framework
+dev-qt/qtx11extras 5.15.18: Linux/X11-specific support library for the Qt5 framework
+dev-qt/qtxml 5.15.18: Implementation of SAX and DOM for the Qt5 framework
+dev-qt/qtxmlpatterns 5.15.18: XPath, XQuery, XSLT, and XML Schema validation library for the Qt5 framework
 dev-util/gotags 1.4.1-r2: ctags-compatible tag generator for Go
 dev-util/nvidia-cuda-toolkit 12.9.1-r2 13.0.2: NVIDIA CUDA Toolkit (compiler and friends)
 dev-util/tla-toolbox-bin 1.8.0-r1: IDE for TLA+

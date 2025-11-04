@@ -1,4 +1,4 @@
-# Copyright 1999-2024 Gentoo Authors
+# Copyright 1999-2025 Gentoo Authors
 # Distributed under the terms of the GNU General Public License v2
 
 # @ECLASS: qt5-build.eclass
@@ -106,14 +106,21 @@ inherit estack flag-o-matic toolchain-funcs virtualx
 
 if [[ ${PN} != qtwebengine ]]; then
 	case ${PV} in
-		*9999 )
+		*9999)
 			inherit kde.org # kde/5.15 branch
 			;;
-		5.15.[5-9]* | 5.15.??* )
+		5.15.??*)
 			# official stable release
 			_QT5_P=${QT5_MODULE}-everywhere-opensource-src-${PV}
 			HOMEPAGE="https://www.qt.io/"
-			SRC_URI="https://download.qt.io/official_releases/qt/${PV%.*}/${PV}/submodules/${_QT5_P}.tar.xz"
+			case ${PV} in
+				5.15.17)
+					SRC_URI="https://download.qt.io/official_releases/qt/${PV%.*}/${PV}/submodules/${_QT5_P}.tar.xz"
+					;;
+				*)
+					SRC_URI="https://download.qt.io/archive/qt/${PV%.*}/${PV}/submodules/${_QT5_P}.tar.xz"
+					;;
+			esac
 			# KDE Qt5PatchCollection on top of tag v${PV}-lts-lgpl
 			if [[ -n ${QT5_KDEPATCHSET_REV} ]]; then
 				HOMEPAGE+=" https://invent.kde.org/qt/qt/${QT5_MODULE} https://community.kde.org/Qt5PatchCollection"
@@ -125,14 +132,7 @@ if [[ ${PN} != qtwebengine ]]; then
 fi
 
 if [[ ${QT5_MODULE} == qtbase ]]; then
-	case ${PV} in
-		5.15.13)
-			_QT5_GENTOOPATCHSET_REV=5
-			;;
-		*)
-			_QT5_GENTOOPATCHSET_REV=6
-			;;
-	esac
+	_QT5_GENTOOPATCHSET_REV=6
 	SRC_URI+=" https://dev.gentoo.org/~asturm/distfiles/qtbase-5.15-gentoo-patchset-${_QT5_GENTOOPATCHSET_REV}.tar.xz"
 fi
 
@@ -183,6 +183,11 @@ qt5-build_src_prepare() {
 	# Upstream: https://bugreports.qt.io/browse/QTBUG-111514
 	if [[ ${PN} != qtcore ]]; then
 		append-ldflags $(test-flags-CCLD -Wl,--undefined-version)
+	fi
+
+	# https://bugs.gentoo.org/964253
+	if tc-is-gcc && [[ $(gcc-major-version) -ge 16 ]]; then
+		append-cxxflags -fno-devirtualize-speculatively
 	fi
 
 	# many bugs, no one to fix
@@ -679,10 +684,10 @@ qt5_base_configure() {
 		# link-time code generation is not something we want to enable by default
 		-no-ltcg
 
-		# reduced relocations cause major breakage on at least arm and ppc, so
-		# don't specify anything and let the configure figure out if they are
-		# supported; see also https://bugreports.qt.io/browse/QTBUG-36129
-		#-reduce-relocations
+		# Qt 5 doesn't support -mno-direct-extern-access, so uses
+		# -Bsymbolic, which causes issues for consumers if not linking
+		# corectly (bug #754021).
+		-no-reduce-relocations
 
 		# use the system linker (gold will be selected automagically otherwise)
 		$(tc-ld-is-gold && echo -use-gold-linker || echo -no-use-gold-linker)
