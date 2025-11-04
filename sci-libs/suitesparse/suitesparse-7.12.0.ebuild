@@ -21,5 +21,5 @@ RDEPEND="
 	~sci-libs/cxsparse-4.4.2
 	~sci-libs/klu-2.3.6[doc?]
 	~sci-libs/ldl-3.3.3[doc?]
-	~sci-libs/spqr-4.3.5[doc?]
-	~sci-libs/umfpack-6.3.6[doc?]"
+	~sci-libs/spqr-4.3.6[doc?]
+	~sci-libs/umfpack-6.3.7[doc?]"

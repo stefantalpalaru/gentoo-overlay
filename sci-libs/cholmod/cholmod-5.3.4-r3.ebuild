@@ -2,7 +2,7 @@
 # Distributed under the terms of the GNU General Public License v2
 
 EAPI=8
-Sparse_PV="7.11.0"
+Sparse_PV="7.12.0"
 Sparse_P="SuiteSparse-${Sparse_PV}"
 
 inherit cmake cuda cuda-extra toolchain-funcs
@@ -50,6 +50,8 @@ src_configure() {
 		-DCHOLMOD_PARTITION=$(usex partition)
 		-DCHOLMOD_CAMD=$(usex partition)
 		-DCHOLMOD_SUPERNODAL=$(usex lapack)
+		-DBLA_VENDOR="OpenBLAS"
+		-DBLAS_LIBRARIES="-lopenblas"
 	)
 
 	if use cuda; then

@@ -5,7 +5,7 @@ EAPI=8
 
 inherit cmake cuda cuda-extra toolchain-funcs
 
-Sparse_PV="7.11.0"
+Sparse_PV="7.12.0"
 Sparse_P="SuiteSparse-${Sparse_PV}"
 DESCRIPTION="Multithreaded multifrontal sparse QR factorization library"
 HOMEPAGE="https://people.engr.tamu.edu/davis/suitesparse.html"
@@ -47,6 +47,8 @@ src_configure() {
 		-DBUILD_STATIC_LIBS=$(usex static-libs)
 		-DSUITESPARSE_USE_OPENMP=$(usex openmp)
 		-DSPQR_USE_CUDA=$(usex cuda)
+		-DBLA_VENDOR="OpenBLAS"
+		-DBLAS_LIBRARIES="-lopenblas"
 	)
 
 	if use cuda; then

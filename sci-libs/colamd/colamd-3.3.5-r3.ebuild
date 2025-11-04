@@ -5,7 +5,7 @@ EAPI=8
 
 inherit cmake
 
-Sparse_PV="7.11.0"
+Sparse_PV="7.12.0"
 Sparse_P="SuiteSparse-${Sparse_PV}"
 DESCRIPTION="Column approximate minimum degree ordering algorithm"
 HOMEPAGE="https://people.engr.tamu.edu/davis/suitesparse.html"

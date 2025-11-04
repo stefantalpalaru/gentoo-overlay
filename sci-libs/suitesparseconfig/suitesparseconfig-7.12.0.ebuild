@@ -17,7 +17,7 @@ KEYWORDS="amd64 arm arm64 ~hppa ~loong ~mips ~ppc ~ppc64 ~riscv ~s390 ~sparc x86
 IUSE="openmp static-libs"
 
 # BLAS availability is checked for at configuration time and will fail if it is not present.
-BDEPEND="virtual/blas"
+BDEPEND="sci-libs/openblas"
 
 pkg_pretend() {
 	[[ ${MERGE_TYPE} != binary ]] && use openmp && tc-check-openmp
@@ -35,6 +35,8 @@ src_configure() {
 		-DBUILD_STATIC_LIBS=$(usex static-libs)
 		-DSUITESPARSE_USE_FORTRAN=ON
 		-DSUITESPARSE_USE_OPENMP=$(usex openmp)
+		-DBLA_VENDOR="OpenBLAS"
+		-DBLAS_LIBRARIES="-lopenblas"
 	)
 	cmake_src_configure
 }

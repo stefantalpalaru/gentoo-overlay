@@ -5,7 +5,7 @@ EAPI=8
 
 inherit cmake toolchain-funcs
 
-Sparse_PV="7.11.0"
+Sparse_PV="7.12.0"
 Sparse_P="SuiteSparse-${Sparse_PV}"
 DESCRIPTION="Unsymmetric multifrontal sparse LU factorization library"
 HOMEPAGE="https://people.engr.tamu.edu/davis/suitesparse.html"
@@ -39,6 +39,8 @@ src_configure() {
 		-DSUITESPARSE_USE_FORTRAN=ON
 		-DSUITESPARSE_USE_OPENMP=$(usex openmp)
 		-DSUITESPARSE_DEMOS=$(usex test)
+		-DBLA_VENDOR="OpenBLAS"
+		-DBLAS_LIBRARIES="-lopenblas"
 	)
 	cmake_src_configure
 }
