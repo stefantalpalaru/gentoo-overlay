@@ -13,5 +13,5 @@ REQUIRED_USE=python? ( || ( python_targets_python2_7 ) )
 RESTRICT=!test? ( test )
 SLOT=0
 SRC_URI=https://github.com/casacore/casacore/archive/v3.4.0.tar.gz -> casacore-3.4.0.gh.tar.gz
-_eclasses_=toolchain-funcs	98d9f464d912ae6b7316fb8a3721f5db	flag-o-matic	a7afe42e95fb46ce9691605acfb24672	multiprocessing	1e32df7deee68372153dca65f4a7c21f	ninja-utils	2df4e452cea39a9ec8fb543ce059f8d6	xdg-utils	42869b3c8d86a70ef3cf75165a395e09	cmake	29a000891e576f0392730bb6834b67f5	fortran-2	54fcb693257134adae26819685891ecc	out-of-source-utils	dbf9e34ee8964084651e25907fa8f52c	multibuild	4650a65187015567b4e041bb9bfdb364	python-utils-r1	f1d3a4dea5847c7390ba91bd557c83aa	python-r1	2d51fd03931e743811ce30d198e4dcfd
+_eclasses_=toolchain-funcs	98d9f464d912ae6b7316fb8a3721f5db	flag-o-matic	a7afe42e95fb46ce9691605acfb24672	multiprocessing	1e32df7deee68372153dca65f4a7c21f	ninja-utils	2df4e452cea39a9ec8fb543ce059f8d6	xdg-utils	42869b3c8d86a70ef3cf75165a395e09	cmake	29a000891e576f0392730bb6834b67f5	fortran-2	ae6d43513003405bd4a48698fc20370a	out-of-source-utils	dbf9e34ee8964084651e25907fa8f52c	multibuild	4650a65187015567b4e041bb9bfdb364	python-utils-r1	f1d3a4dea5847c7390ba91bd557c83aa	python-r1	2d51fd03931e743811ce30d198e4dcfd
 _md5_=2b1f826f099664a3c3422a7dc28d897c
