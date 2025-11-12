@@ -13,6 +13,7 @@
 		<flag name="gloo">Use sci-libs/gloo</flag>
 		<flag name="memefficient">Enable mem efficient attention</flag>
 		<flag name="mkl">Use <pkg>sci-libs/mkl</pkg> for blas, lapack and sparse blas routines</flag>
+		<flag name="nccl">Use NCCL with CUDA or <pkg>dev-libs/rccl</pkg> (NCCL compatible) with ROCm for distributed operations</flag>
 		<flag name="nnpack">Use NNPACK</flag>
 		<flag name="numpy">Add support for math operations through numpy</flag>
 		<flag name="onednn">Use oneDNN</flag>
