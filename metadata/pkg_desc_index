@@ -23,6 +23,7 @@ app-text/multitail 7.1.5-r1: Tail with multiple windows
 app-text/pinfo 0.6.13-r3: Hypertext info and man viewer based on (n)curses
 app-text/zettlr-bin 3.6.0: A Markdown Editor for the 21st century.
 app-vim/airline 9999-r1: vim plugin: lean & mean statusline for vim that's light as air
+app-vim/ale 4.0.0 99999999-r2: Asynchronous Lint Engine for vim
 app-vim/chapel-syntax 2.2.0: vim plugin:
 app-vim/neocomplete 9999-r1: vim plugin: Next generation completion framework after neocomplcache
 app-vim/nim-syntax 1.2_pre20211111-r1 9999-r1: Nim language support
