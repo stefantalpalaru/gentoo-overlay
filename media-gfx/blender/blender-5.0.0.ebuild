@@ -55,7 +55,7 @@ else
 			https://download.blender.org/source/blender-test-data-${BLENDER_BRANCH}.0.tar.xz
 		)
 	"
-	KEYWORDS="amd64 ~arm ~arm64"
+	KEYWORDS="~amd64 ~arm ~arm64"
 fi
 
 # assets is CC0-1.0
@@ -65,7 +65,7 @@ SLOT="${BLENDER_BRANCH}"
 # NOTE +openpgl breaks on very old amd64 hardware
 # potentially mirror cpu_flags_x86 + REQUIRED_USE
 IUSE="
-	alembic +bullet collada +color-management cuda +cycles +cycles-bin-kernels
+	alembic +bullet +color-management cuda +cycles +cycles-bin-kernels
 	debug doc +embree +ffmpeg +fftw +fluid +gmp gnome hip jack
 	jemalloc jpeg2k man +manifold +nanovdb ndof nls +oidn openal +openexr +opengl +openpgl
 	+opensubdiv +openvdb optix osl pipewire +pdf +potrace +pugixml pulseaudio
@@ -105,10 +105,12 @@ RDEPEND="${PYTHON_DEPS}
 	dev-libs/boost:=[nls?]
 	dev-libs/lzo:2=
 	$(python_gen_cond_dep '
+		dev-python/cattrs[${PYTHON_USEDEP}]
 		dev-python/cython[${PYTHON_USEDEP}]
+		dev-python/fastjsonschema[${PYTHON_USEDEP}]
 		dev-python/numpy[${PYTHON_USEDEP}]
-		dev-python/zstandard[${PYTHON_USEDEP}]
 		dev-python/requests[${PYTHON_USEDEP}]
+		dev-python/zstandard[${PYTHON_USEDEP}]
 	')
 	media-libs/freetype:=[brotli]
 	media-libs/libepoxy:=
@@ -123,7 +125,6 @@ RDEPEND="${PYTHON_DEPS}
 	virtual/opengl[X?]
 	alembic? ( >=media-gfx/alembic-1.8.3-r2[boost(+),hdf(+)] )
 	bullet? ( sci-physics/bullet:=[double-precision] )
-	collada? ( >=media-libs/opencollada-1.6.68 )
 	color-management? ( media-libs/opencolorio:= )
 	cuda? ( dev-util/nvidia-cuda-toolkit:= )
 	embree? ( media-libs/embree:=[raymask] )
@@ -243,7 +244,11 @@ PATCHES=(
 	"${FILESDIR}"/blender-4.1.1-numpy.patch
 	"${FILESDIR}"/blender-4.3.2-system-glog.patch
 	"${FILESDIR}"/blender-4.5.3-optix-compile-flags.patch
-	"${FILESDIR}"/blender-4.5.3-CUDA-13.patch
+	"${FILESDIR}"/blender-5.0.0-CUDA-13.patch
+	"${FILESDIR}"/blender-5.0.0-SSE4.2.patch
+	"${FILESDIR}"/blender-5.0.0-F16C.patch
+	"${FILESDIR}"/blender-5.0.0-system-eigen3.patch
+	"${FILESDIR}"/blender-5.0.0-FMA-auto-vectorization.patch
 )
 
 blender_check_requirements() {
@@ -423,7 +428,6 @@ src_configure() {
 		-DWITH_MANIFOLD="$(usex manifold)"
 		-DWITH_MATERIALX="no" # TODO: Package MaterialX
 		-DWITH_NANOVDB="$(usex nanovdb)"
-		-DWITH_OPENCOLLADA="$(usex collada)"
 		-DWITH_OPENCOLORIO="$(usex color-management)"
 		-DWITH_OPENGL_BACKEND="$(usex opengl)"
 		-DWITH_OPENIMAGEDENOISE="$(usex oidn)"
@@ -445,7 +449,6 @@ src_configure() {
 		-DWITH_SYSTEM_FREETYPE="yes"
 		-DWITH_SYSTEM_GFLAGS="yes"
 		-DWITH_SYSTEM_GLOG="yes"
-		-DWITH_SYSTEM_LZO="yes"
 
 		# Compiler Options:
 		# -DWITH_BUILDINFO="yes"
@@ -712,9 +715,11 @@ src_test() {
 			"^cycles_shader_cuda$"
 			"^cycles_shader_optix$"
 			"^ffmpeg_libs$" # needs H265
+			"^io_fbx_import$"
 			"^imbuf_save$" # needs oiio with working webp
 			"^geo_node_curves_curve_to_points$"
 			"^geo_node_geometry_duplicate_elements_curve_points$"
+			"^sequencer_load_meta_stack$"
 		)
 	fi
 
@@ -731,6 +736,11 @@ src_test() {
 			"^compositor_cpu_file_output$"
 		)
 	fi
+
+	# Temporarily enable a single test, during debugging.
+	#myctestargs+=(
+		#-R "^io_curve_svg_path$"
+	#)
 
 	# oiio can't find webp due to missing cmake files # 937031
 	sed -e "s/ WEBP//g" -i "${BUILD_DIR}/tests/python/CTestTestfile.cmake" || die

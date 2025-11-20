@@ -1,0 +1,35 @@
+diff '--color=auto' -ur blender-4.5.5.orig/intern/libmv/libmv/numeric/numeric.h blender-4.5.5/intern/libmv/libmv/numeric/numeric.h
+--- blender-4.5.5.orig/intern/libmv/libmv/numeric/numeric.h	2025-07-10 11:43:06.000000000 +0200
++++ blender-4.5.5/intern/libmv/libmv/numeric/numeric.h	2025-11-19 20:23:37.484567215 +0100
+@@ -25,6 +25,8 @@
+ #ifndef LIBMV_NUMERIC_NUMERIC_H
+ #define LIBMV_NUMERIC_NUMERIC_H
+ 
++#include <cassert>
++
+ #include <Eigen/Cholesky>
+ #include <Eigen/Core>
+ #include <Eigen/Eigenvalues>
+diff '--color=auto' -ur blender-4.5.5.orig/intern/slim/intern/edge_lengths.cpp blender-4.5.5/intern/slim/intern/edge_lengths.cpp
+--- blender-4.5.5.orig/intern/slim/intern/edge_lengths.cpp	2025-07-10 11:43:06.000000000 +0200
++++ blender-4.5.5/intern/slim/intern/edge_lengths.cpp	2025-11-19 20:25:09.771100408 +0100
+@@ -11,6 +11,8 @@
+ 
+ #include "edge_lengths.h"
+ 
++#include <cassert>
++
+ namespace slim {
+ 
+ template<typename DerivedV, typename DerivedF, typename DerivedL>
+diff '--color=auto' -ur blender-4.5.5.orig/intern/slim/intern/uv_initializer.cpp blender-4.5.5/intern/slim/intern/uv_initializer.cpp
+--- blender-4.5.5.orig/intern/slim/intern/uv_initializer.cpp	2025-07-10 11:43:06.000000000 +0200
++++ blender-4.5.5/intern/slim/intern/uv_initializer.cpp	2025-11-19 20:24:37.718666265 +0100
+@@ -8,6 +8,7 @@
+ 
+ #include "uv_initializer.h"
+ 
++#include <cassert>
+ #include <Eigen/SparseLU>
+ 
+ namespace slim {

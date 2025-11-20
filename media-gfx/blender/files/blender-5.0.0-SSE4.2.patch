@@ -1,0 +1,12 @@
+diff '--color=auto' -ur blender-4.5.5.orig/build_files/cmake/macros.cmake blender-4.5.5/build_files/cmake/macros.cmake
+--- blender-4.5.5.orig/build_files/cmake/macros.cmake	2025-07-10 11:43:06.000000000 +0200
++++ blender-4.5.5/build_files/cmake/macros.cmake	2025-11-19 14:22:37.555424541 +0100
+@@ -548,7 +548,7 @@
+ 
+   # message(STATUS "Detecting SSE support")
+   if(CMAKE_COMPILER_IS_GNUCC OR (CMAKE_C_COMPILER_ID MATCHES "Clang"))
+-    set(${_sse42_flags} "-march=x86-64-v2")
++    set(${_sse42_flags} "-msse4.2")
+   elseif(MSVC)
+     # MSVC has no specific build flags for SSE42, but when using intrinsics it will
+     # generate the right instructions.
