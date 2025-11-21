@@ -1,0 +1,52 @@
+diff '--color=auto' -ur eigen-3.4.1.orig/test/main.h eigen-3.4.1/test/main.h
+--- eigen-3.4.1.orig/test/main.h	2025-09-30 01:25:14.000000000 +0200
++++ eigen-3.4.1/test/main.h	2025-11-21 01:00:01.002980295 +0100
+@@ -70,32 +70,6 @@
+ #include <cuda_fp16.h>
+ #endif
+ 
+-// To test that all calls from Eigen code to std::min() and std::max() are
+-// protected by parenthesis against macro expansion, the min()/max() macros
+-// are defined here and any not-parenthesized min/max call will cause a
+-// compiler error.
+-#if !defined(__HIPCC__) && !defined(EIGEN_USE_SYCL)
+-  //
+-  // HIP header files include the following files
+-  //  <thread>
+-  //  <regex>
+-  //  <unordered_map>
+-  // which seem to contain not-parenthesized calls to "max"/"min", triggering the following check and causing the compile to fail
+-  //
+-  // Including those header files before the following macro definition for "min" / "max", only partially resolves the issue
+-  // This is because other HIP header files also define "isnan" / "isinf" / "isfinite" functions, which are needed in other
+-  // headers.
+-  //
+-  // So instead choosing to simply disable this check for HIP
+-  //
+-  #define min(A,B) please_protect_your_min_with_parentheses
+-  #define max(A,B) please_protect_your_max_with_parentheses
+-  #define isnan(X) please_protect_your_isnan_with_parentheses
+-  #define isinf(X) please_protect_your_isinf_with_parentheses
+-  #define isfinite(X) please_protect_your_isfinite_with_parentheses
+-#endif
+-
+-
+ // test possible conflicts
+ struct real {};
+ struct imag {};
+@@ -105,15 +79,6 @@
+ #endif
+ #define M_PI please_use_EIGEN_PI_instead_of_M_PI
+ 
+-#define FORBIDDEN_IDENTIFIER (this_identifier_is_forbidden_to_avoid_clashes) this_identifier_is_forbidden_to_avoid_clashes
+-// B0 is defined in POSIX header termios.h
+-#define B0 FORBIDDEN_IDENTIFIER
+-// `I` may be defined by complex.h:
+-#define I  FORBIDDEN_IDENTIFIER
+-
+-// _res is defined by resolv.h
+-#define _res FORBIDDEN_IDENTIFIER
+-
+ // Unit tests calling Eigen's blas library must preserve the default blocking size
+ // to avoid troubles.
+ #ifndef EIGEN_NO_DEBUG_SMALL_PRODUCT_BLOCKS

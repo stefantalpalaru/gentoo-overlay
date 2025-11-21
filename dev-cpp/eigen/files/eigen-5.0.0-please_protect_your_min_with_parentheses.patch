@@ -1,7 +1,6 @@
-diff --git a/test/main.h b/test/main.h
-index 771725f06..df22e12f6 100644
---- a/test/main.h
-+++ b/test/main.h
+diff '--color=auto' -ur eigen-5.0.0.orig/test/main.h eigen-5.0.0/test/main.h
+--- eigen-5.0.0.orig/test/main.h	2025-09-28 09:24:17.000000000 +0200
++++ eigen-5.0.0/test/main.h	2025-11-21 01:02:29.702350858 +0100
 @@ -86,32 +86,6 @@
  #define EIGEN_DEFAULT_DENSE_INDEX_TYPE int
  #endif
@@ -35,11 +34,7 @@ index 771725f06..df22e12f6 100644
  // test possible conflicts
  struct real {};
  struct imag {};
-diff --git a/test/main.h b/test/main.h
-index df22e12f6..5ca40424e 100644
---- a/test/main.h
-+++ b/test/main.h
-@@ -95,12 +95,6 @@ struct imag {};
+@@ -121,15 +95,6 @@
  #endif
  #define M_PI please_use_EIGEN_PI_instead_of_M_PI
  
@@ -49,6 +44,9 @@ index df22e12f6..5ca40424e 100644
 -#define B0 FORBIDDEN_IDENTIFIER
 -#define I FORBIDDEN_IDENTIFIER
 -
- // _res is defined by resolv.h
- #define _res FORBIDDEN_IDENTIFIER
- 
+-// _res is defined by resolv.h
+-#define _res FORBIDDEN_IDENTIFIER
+-
+ // Unit tests calling Eigen's blas library must preserve the default blocking size
+ // to avoid troubles.
+ #ifndef EIGEN_NO_DEBUG_SMALL_PRODUCT_BLOCKS

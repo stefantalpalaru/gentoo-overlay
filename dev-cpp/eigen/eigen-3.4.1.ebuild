@@ -6,14 +6,12 @@ EAPI=8
 FORTRAN_NEEDED="test"
 LLVM_COMPAT=( 17 18 )
 LLVM_OPTIONAL=1
-MY_COMMIT="4dda5b927a3d5cfedad812ba7c1a966dd983e624"
 inherit cmake cuda cuda-extra fortran-2 llvm-r1 toolchain-funcs
 
 DESCRIPTION="C++ template library for linear algebra"
 HOMEPAGE="https://eigen.tuxfamily.org/index.php?title=Main_Page"
-SRC_URI="https://gitlab.com/libeigen/eigen/-/archive/${MY_COMMIT}/eigen-${MY_COMMIT}.tar.bz2 -> ${P}.tar.bz2
+SRC_URI="https://gitlab.com/libeigen/eigen/-/archive/${PV}/${P}.tar.bz2
 		test? ( lapack? ( http://downloads.tuxfamily.org/eigen/lapack_addons_3.4.1.tgz -> ${PN}-lapack_addons-3.4.1.tgz ) )"
-S="${WORKDIR}/eigen-${MY_COMMIT}"
 LICENSE="MPL-2.0"
 SLOT="3"
 KEYWORDS="~alpha ~amd64 ~arm ~arm64 ~hppa ~loong ~ppc ~ppc64 ~riscv ~s390 ~sparc ~x86 ~amd64-linux ~x86-linux ~arm64-macos ~x64-macos"
@@ -141,7 +139,7 @@ REQUIRED_USE="
 PATCHES=(
 	"${FILESDIR}/${PN}-3.4.0-doc-nocompress.patch" # bug 830064
 	"${FILESDIR}/${PN}-3.4.0-buildstring.patch"
-	"${FILESDIR}/${PN}-9999-please_protect_your_min_with_parentheses.patch"
+	"${FILESDIR}/${PN}-3.4.1-please_protect_your_min_with_parentheses.patch"
 )
 
 # TODO should be in cuda.eclass
