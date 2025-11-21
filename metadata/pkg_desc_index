@@ -790,7 +790,7 @@ dev-python/zope-event 4.5.0-r202: Event publishing / dispatch, used by Zope Comp
 dev-python/zope-interface 5.1.2-r202: Interfaces for Python
 dev-python/zope-testing 4.7-r202: Zope testing helpers
 dev-qt/assistant 5.15.18: Tool for viewing on-line documentation in Qt help file format
-dev-qt/designer 5.15.18: WYSIWYG tool for designing and building graphical user interfaces with QtWidgets
+dev-qt/designer 5.15.18-r1: WYSIWYG tool for designing and building graphical user interfaces with QtWidgets
 dev-qt/linguist 5.15.18: Graphical tool for translating Qt applications
 dev-qt/linguist-tools 5.15.18: Tools for working with Qt translation data files
 dev-qt/pixeltool 5.15.18: Qt screen magnifier
