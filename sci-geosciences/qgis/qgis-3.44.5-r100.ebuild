@@ -117,10 +117,6 @@ BDEPEND="
 	)
 "
 
-PATCHES=(
-	"${FILESDIR}"/qgis-3.44.0-include.patch
-)
-
 src_prepare() {
 	# https://github.com/qgis/QGIS/issues/53571#issuecomment-1961276436
 	if ! use serial; then
