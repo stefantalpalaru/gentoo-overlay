@@ -14,5 +14,5 @@ REQUIRED_USE=^^ ( python_single_target_python3_11 python_single_target_python3_1
 RESTRICT=!test? ( test ) test
 SLOT=0
 SRC_URI=https://media.inkscape.org/dl/resources/file/inkscape-1.4.2.tar.xz
-_eclasses_=toolchain-funcs	98d9f464d912ae6b7316fb8a3721f5db	flag-o-matic	a7afe42e95fb46ce9691605acfb24672	multiprocessing	1e32df7deee68372153dca65f4a7c21f	ninja-utils	3a59a39e97af0f7c03f49cf3c22f262b	xdg-utils	42869b3c8d86a70ef3cf75165a395e09	cmake	a36a2a340635cb293524229ee6d2ef7a	xdg	3ef49a87c52c8b77c476351195dfe575	python-utils-r1	f1d3a4dea5847c7390ba91bd557c83aa	python-single-r1	a5747fe6dc0651d95cb78eddd5e160a8
+_eclasses_=toolchain-funcs	98d9f464d912ae6b7316fb8a3721f5db	flag-o-matic	a7afe42e95fb46ce9691605acfb24672	multiprocessing	1e32df7deee68372153dca65f4a7c21f	ninja-utils	3a59a39e97af0f7c03f49cf3c22f262b	xdg-utils	42869b3c8d86a70ef3cf75165a395e09	cmake	22e4e58d68692975dc74424dc9b12fb7	xdg	3ef49a87c52c8b77c476351195dfe575	python-utils-r1	f1d3a4dea5847c7390ba91bd557c83aa	python-single-r1	a5747fe6dc0651d95cb78eddd5e160a8
 _md5_=011d838fead023b77757fcf8ab95f07c
