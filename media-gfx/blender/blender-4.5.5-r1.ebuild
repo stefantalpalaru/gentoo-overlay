@@ -247,7 +247,7 @@ PATCHES=(
 	"${FILESDIR}"/blender-5.0.0-SSE4.2.patch
 	"${FILESDIR}"/blender-5.0.0-F16C.patch
 	"${FILESDIR}"/blender-5.0.0-system-eigen3.patch
-	"${FILESDIR}"/blender-5.0.0-FMA-auto-vectorization.patch
+	"${FILESDIR}"/blender-5.0.0-FMA-auto-vectorization-r1.patch
 )
 
 blender_check_requirements() {
