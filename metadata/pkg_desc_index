@@ -988,7 +988,7 @@ sci-ml/FBGEMM 2025.04.27-r1: Facebook GEneral Matrix Multiplication
 sci-ml/caffe2 2.9.1-r100: A deep learning framework
 sci-ml/cudnn-frontend 1.16.0: A c++ wrapper for the cudnn backend API
 sci-ml/gloo 2025.06.04-r101: library of floating-point neural network inference operators
-sci-ml/onnx 1.19.1-r100: Open Neural Network Exchange (ONNX)
+sci-ml/onnx 1.19.1-r100 1.20.0-r100: Open Neural Network Exchange (ONNX)
 sci-ml/pytorch 2.9.1-r100: Tensors and Dynamic neural networks in Python
 sci-ml/tensorpipe 2022.05.13-r100: provides a tensor-aware channel
 sci-ml/torchvision 0.24.1: Datasets, transforms and models to specific to computer vision
