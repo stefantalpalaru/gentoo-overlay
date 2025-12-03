@@ -8,13 +8,12 @@ inherit go-module shell-completion toolchain-funcs
 DESCRIPTION="Fast linters runner for Go"
 HOMEPAGE="https://golangci-lint.run/ https://github.com/golangci/golangci-lint"
 SRC_URI="https://github.com/golangci/golangci-lint/archive/v${PV}.tar.gz -> ${P}.tar.gz"
-SRC_URI+=" https://github.com/gentoo-golang-dist/${PN}/releases/download/v${PV}/${P}-vendor.tar.xz"
-
 LICENSE="GPL-3"
 # Dependent licenses
 LICENSE+=" Apache-2.0 BSD BSD-2 GPL-3 ISC MIT MPL-2.0"
 SLOT="0"
 KEYWORDS="~amd64"
+RESTRICT="network-sandbox"
 
 src_prepare() {
 	default
