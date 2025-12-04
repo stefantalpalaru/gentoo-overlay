@@ -7,12 +7,11 @@ inherit cmake
 
 DESCRIPTION="Ambisonic encoding / decoding and binauralization library in C++"
 HOMEPAGE="https://github.com/videolabs/libspatialaudio"
-SRC_URI="https://github.com/videolabs/libspatialaudio/archive/${PV}.tar.gz -> ${P}.tar.gz"
-
+SRC_URI="https://github.com/videolabs/libspatialaudio/archive/v$(ver_cut 1-2).tar.gz -> ${P}.tar.gz"
+S="${WORKDIR}/${PN}-$(ver_cut 1-2)"
 LICENSE="LGPL-2.1+"
-SLOT="0"
+SLOT="0/$(ver_cut 1-2)"
 KEYWORDS="~amd64 ~x86"
-IUSE="static-libs"
 
 RDEPEND="
 	media-libs/libmysofa
@@ -20,7 +19,7 @@ RDEPEND="
 DEPEND="${RDEPEND}"
 
 PATCHES=(
-	"${FILESDIR}/${PN}-0.3.0-dynamic-lib.patch"
+	"${FILESDIR}/libspatialaudio-0.4.0-config-h.patch"
 )
 
 src_prepare() {
@@ -34,8 +33,5 @@ src_prepare() {
 }
 
 src_configure() {
-	local mycmakeargs=(
-		-DBUILD_STATIC_LIBS=$(usex static-libs ON OFF)
-	)
 	cmake_src_configure
 }

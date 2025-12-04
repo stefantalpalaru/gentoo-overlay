@@ -1,0 +1,12 @@
+diff '--color=auto' -ur libspatialaudio-0.4.orig/CMakeLists.txt libspatialaudio-0.4/CMakeLists.txt
+--- libspatialaudio-0.4.orig/CMakeLists.txt	2025-12-04 10:32:25.141022005 +0100
++++ libspatialaudio-0.4/CMakeLists.txt	2025-12-04 10:36:25.887682189 +0100
+@@ -193,8 +193,6 @@
+ )
+ install(FILES "${CMAKE_CURRENT_BINARY_DIR}/${PROJECT_NAME}.pc"
+     DESTINATION ${CMAKE_INSTALL_LIBDIR}/pkgconfig)
+-install(FILES ${PROJECT_BINARY_DIR}/config.h
+-    DESTINATION ${CMAKE_INSTALL_INCLUDEDIR}/spatialaudio)
+ 
+ enable_testing()
+ add_subdirectory(tests)
