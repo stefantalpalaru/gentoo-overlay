@@ -206,9 +206,11 @@ dev-qt/qtlocation
 dev-qt/qtnetworkauth
 dev-qt/qtpaths
 dev-qt/qtplugininfo
+dev-qt/qtpositioning
 dev-qt/qtquicktimeline
 dev-qt/qtsensors
 dev-qt/qtserialbus
+dev-qt/qtserialport
 dev-qt/qtvirtualkeyboard
 dev-qt/qtwayland
 dev-qt/qtwebchannel
@@ -226,13 +228,13 @@ media-sound/lmms
 media-video/subliminal
 net-analyzer/namebench
 net-fs/tahoe-lafs
+net-libs/NativeThread
 net-misc/ssvnc
 net-p2p/fms
 net-p2p/pybitmessage
 net-print/pykota
 sci-astronomy/casacore
 sci-libs/clapack
-net-libs/NativeThread
 sci-mathematics/xmds
 x11-misc/magick-rotation
 x11-misc/qxkb
