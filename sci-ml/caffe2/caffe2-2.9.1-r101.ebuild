@@ -150,6 +150,7 @@ PATCHES=(
 	"${FILESDIR}"/caffe2-2.9.0-CUDA-13.patch
 	"${FILESDIR}"/caffe2-2.9.0-fbgemm.patch
 	"${FILESDIR}"/caffe2-2.9.0-rocm-distributed-link.patch
+	"${FILESDIR}"/caffe2-2.9.1-cccl-3.1.patch
 )
 
 src_prepare() {
