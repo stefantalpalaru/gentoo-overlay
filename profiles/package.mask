@@ -9,16 +9,16 @@
 #
 # And no, you cannot set the EAPI in such a file. The main tree is just special and your overlay and local config are not.
 
-dev-qt/qt3d
-dev-qt/qtdatavis3d
-dev-qt/qtgamepad
-dev-qt/qtlocation
-dev-qt/qtnetworkauth
-dev-qt/qtpositioning
-dev-qt/qtquicktimeline
-dev-qt/qtsensors
-dev-qt/qtserialbus
-dev-qt/qtserialport
-dev-qt/qtvirtualkeyboard
-dev-qt/qtwebchannel
-dev-qt/qtwebview
+-<dev-libs/openssl-3 # we need to match the exact "/usr/portage/profiles/package.mask" entry here
+-dev-qt/assistant
+-dev-qt/linguist
+-dev-qt/pixeltool
+-dev-qt/qdbus
+-dev-qt/qdbusviewer
+-dev-qt/qdoc
+-dev-qt/qtdiag
+-dev-qt/qtpaths
+-dev-qt/qtplugininfo
+-dev-qt/qtwayland
+-dev-qt/qtwebengine
+-dev-qt/qtwebkit
