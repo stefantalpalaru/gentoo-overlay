@@ -1,0 +1,95 @@
+# Copyright 1999-2025 Gentoo Authors
+# Distributed under the terms of the GNU General Public License v2
+
+EAPI=8
+
+inherit cmake desktop xdg flag-o-matic
+
+DESCRIPTION="A modder-friendly OpenGL source port based on the DOOM engine"
+HOMEPAGE="https://zdoom.org
+		https://github.com/UZDoom/UZDoom"
+SRC_URI="https://github.com/UZDoom/UZDoom/archive/refs/tags/${PV}.tar.gz -> ${P}.tar.gz"
+S="${WORKDIR}/UZDoom-${PV}"
+LICENSE="Apache-2.0 BSD BZIP2 GPL-3 LGPL-2.1+ LGPL-3 MIT
+	non-free? ( Activision ChexQuest3 DOOM-COLLECTORS-EDITION freedist WidePix )"
+SLOT="0"
+KEYWORDS="~amd64 ~arm64"
+IUSE="debug gles2 gtk +non-free openmp +swr telemetry vulkan"
+
+DEPEND="
+	app-arch/bzip2
+	media-libs/libjpeg-turbo:0=
+	media-libs/libsdl2[gles2?,opengl,vulkan?]
+	media-libs/libvpx:=
+	media-libs/libwebp:=
+	media-libs/openal
+	>=media-libs/zmusic-1.1.14
+	sys-libs/zlib
+	gtk? ( x11-libs/gtk+:3 )
+	!games-fps/gzdoom"
+RDEPEND="${DEPEND}"
+
+PATCHES=(
+	"${FILESDIR}"/gzdoom-4.7.1-Introduce-the-BUILD_NONFREE-option.patch
+)
+
+src_prepare() {
+	rm -rf docs/licenses
+	rm -rf libraries/{bzip2,jpeg,zlib}
+	if ! use non-free; then
+		rm -rf wadsrc_bm wadsrc_extra wadsrc_widepix
+	fi
+
+	cmake_src_prepare
+}
+
+src_configure() {
+	# https://bugs.gentoo.org/858749
+	filter-lto
+	append-flags -fno-strict-aliasing
+
+	local mycmakeargs=(
+		-DBUILD_SHARED_LIBS=OFF
+		-DINSTALL_DOCS_PATH="${EPREFIX}/usr/share/doc/${PF}"
+		-DINSTALL_PK3_PATH="${EPREFIX}/usr/share/doom"
+		-DINSTALL_SOUNDFONT_PATH="${EPREFIX}/usr/share/doom"
+		-DDYN_OPENAL=OFF
+		-DNO_GTK="$(usex !gtk)"
+		-DNO_OPENAL=OFF
+		-DHAVE_VULKAN="$(usex vulkan)"
+		-DHAVE_GLES2="$(usex gles2)"
+		-DNO_OPENMP="$(usex !openmp)"
+		-DZDOOM_ENABLE_SWR="$(usex swr)"
+		-DBUILD_NONFREE="$(usex non-free)"
+		-DSEND_ANON_STATS="$(usex telemetry)"
+	)
+
+	# multiple GCC-13 failures when precompiled headers are disabled
+	mycmakeargs+=(
+		-DCMAKE_DISABLE_PRECOMPILE_HEADERS=OFF
+	)
+
+	use debug || append-cppflags -DNDEBUG
+
+	cmake_src_configure
+}
+
+src_install() {
+	newicon src/posix/zdoom.xpm "${PN}.xpm"
+	make_desktop_entry "${PN}" "UZDoom" "${PN}" "Game;ActionGame"
+	cmake_src_install
+}
+
+pkg_postinst() {
+	xdg_pkg_postinst
+
+	if ! use non-free ; then
+		ewarn
+		ewarn "UZDoom installed without non-free components."
+		ewarn "Note: The non-free game_support.pk3 file is needed to play"
+		ewarn "      games natively supported by UZDoom."
+		ewarn "A list of games natively supported by UZDoom is available"
+		ewarn "on the ZDoom wiki: https://zdoom.org/wiki/IWAD"
+		ewarn
+	fi
+}
