@@ -15,35 +15,32 @@ SRC_URI="https://github.com/onnx/${PN}/archive/refs/tags/v${PV}.tar.gz
 
 LICENSE="Apache-2.0"
 SLOT="0"
-# Way too broken to be keyworded.
-#KEYWORDS="~amd64 ~arm64 ~riscv"
+KEYWORDS="~amd64 ~arm64"
 IUSE="disableStaticReg"
 RESTRICT="test"
 
 RDEPEND="
 	dev-cpp/abseil-cpp:=
 	dev-libs/protobuf:=[protoc(+)]
+	dev-python/ml-dtypes[$PYTHON_USEDEP]
+	dev-python/numpy[${PYTHON_USEDEP}]
 	dev-python/protobuf[${PYTHON_USEDEP}]
-	dev-python/nanobind[${PYTHON_USEDEP}]
+	dev-python/typing-extensions[$PYTHON_USEDEP]
 "
 DEPEND="${RDEPEND}"
+BDEPEND="
+	dev-python/nanobind[${PYTHON_USEDEP}]
+"
 
 src_prepare() {
 	# Can't use PATCHES in here, because both _src_prepare() wrappers we call
 	# next try to apply them.
-	#eapply \
-		#"${FILESDIR}"/${PN}-1.19.0-cmake.patch \
-		#"${FILESDIR}"/onnx-1.18.0-onnxruntime.patch
-
+	eapply "${FILESDIR}/${PN}-1.20.0-don-t-hide-symbols-in-object-files.patch"
 	cmake_src_prepare
 	distutils-r1_src_prepare
 }
 
-python_configure_all()
-{
-	# Used in src_compile(), but cannot be defined there.
-	nanobind_DIR="$(python_get_sitedir)/nanobind/cmake"
-
+src_configure() {
 	mycmakeargs=(
 		-DONNX_USE_PROTOBUF_SHARED_LIBS=ON
 		-DONNX_USE_LITE_PROTO=ON
@@ -53,30 +50,20 @@ python_configure_all()
 	cmake_src_configure
 }
 
-src_configure() {
-	distutils-r1_src_configure
+python_compile() {
+	local mycmakeargs=(
+		"${mycmakeargs[@]}"
+		-Dnanobind_DIR="$(python_get_sitedir)/nanobind/cmake"
+	)
+	CMAKE_ARGS="${mycmakeargs[@]}" distutils-r1_python_compile
 }
 
 src_compile() {
-	mycmakeargs=(
-		-DONNX_USE_PROTOBUF_SHARED_LIBS=ON
-		-DONNX_USE_LITE_PROTO=ON
-		-DBUILD_SHARED_LIBS=ON
-		-DONNX_DISABLE_STATIC_REGISTRATION=$(usex disableStaticReg ON OFF)
-		-Dnanobind_DIR="${nanobind_DIR}"
-	)
-	CMAKE_ARGS="${mycmakeargs[@]}" distutils-r1_src_compile
-}
-
-python_compile_all() {
 	cmake_src_compile
-}
-
-python_install_all() {
-	cmake_src_install
-	distutils-r1_python_install_all
+	distutils-r1_src_compile
 }
 
 src_install() {
+	cmake_src_install
 	distutils-r1_src_install
 }
