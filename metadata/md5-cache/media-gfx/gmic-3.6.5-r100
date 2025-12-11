@@ -1,0 +1,17 @@
+BDEPEND=dev-build/make >=dev-build/cmake-3.28.5
+DEFINED_PHASES=compile configure install prepare pretend test
+DEPEND=fftw? ( sci-libs/fftw:3.0=[threads] ) gimp? ( media-gfx/gimp:0/3 dev-qt/qtbase:6[gui,network,widgets] ) graphicsmagick? ( media-gfx/graphicsmagick:0= ) gui? ( dev-qt/qtbase:6[gui,network,widgets] ) jpeg? ( media-libs/libjpeg-turbo:0 ) ~media-libs/cimg-3.6.5 net-misc/curl opencv? ( >=media-libs/opencv-2.3.1a-r1:0= ) openexr? ( dev-libs/imath:= media-libs/openexr:0= ) png? ( media-libs/libpng:0= ) sys-libs/zlib:0= tiff? ( media-libs/tiff:0 ) X? ( x11-libs/libX11 x11-libs/libXext ) virtual/pkgconfig
+DESCRIPTION=GREYC's Magic Image Converter
+EAPI=8
+HOMEPAGE=http://gmic.eu/ https://github.com/GreycLab/gmic https://framagit.org/dtschump/gmic https://github.com/GreycLab/gmic-qt
+INHERIT=bash-completion-r1 cmake flag-o-matic qmake-utils toolchain-funcs
+IUSE=bash-completion +cli ffmpeg +fftw gimp graphicsmagick gui jpeg opencv openexr +openmp png static-libs tiff X
+KEYWORDS=~amd64 ~arm64 ~x86
+LICENSE=CeCILL-2 GPL-3
+RDEPEND=fftw? ( sci-libs/fftw:3.0=[threads] ) gimp? ( media-gfx/gimp:0/3 dev-qt/qtbase:6[gui,network,widgets] ) graphicsmagick? ( media-gfx/graphicsmagick:0= ) gui? ( dev-qt/qtbase:6[gui,network,widgets] ) jpeg? ( media-libs/libjpeg-turbo:0 ) ~media-libs/cimg-3.6.5 net-misc/curl opencv? ( >=media-libs/opencv-2.3.1a-r1:0= ) openexr? ( dev-libs/imath:= media-libs/openexr:0= ) png? ( media-libs/libpng:0= ) sys-libs/zlib:0= tiff? ( media-libs/tiff:0 ) X? ( x11-libs/libX11 x11-libs/libXext ) ffmpeg? ( media-video/ffmpeg:0= )
+REQUIRED_USE=|| ( cli gimp gui ) gimp? ( png fftw X ) gui? ( png fftw X )
+RESTRICT=mirror network-sandbox
+SLOT=0
+SRC_URI=https://github.com/GreycLab/gmic/archive/028383bc46261af6075d87d84bfc44f0acc6c7cd.tar.gz -> gmic-028383bc46261af6075d87d84bfc44f0acc6c7cd.gh.tar.gz https://gmic.eu/gmic_stdlib_community365.h gimp? ( https://github.com/GreycLab/gmic-qt/archive/b55b8ca53b31151bda65a79f33b698c9b24ba400.tar.gz -> gmic-qt-b55b8ca53b31151bda65a79f33b698c9b24ba400.gh.tar.gz ) gui? ( https://github.com/GreycLab/gmic-qt/archive/b55b8ca53b31151bda65a79f33b698c9b24ba400.tar.gz -> gmic-qt-b55b8ca53b31151bda65a79f33b698c9b24ba400.gh.tar.gz )
+_eclasses_=toolchain-funcs	98d9f464d912ae6b7316fb8a3721f5db	bash-completion-r1	767861f3744f589ee5291c1698b1c082	flag-o-matic	a7afe42e95fb46ce9691605acfb24672	multiprocessing	1e32df7deee68372153dca65f4a7c21f	ninja-utils	3a59a39e97af0f7c03f49cf3c22f262b	xdg-utils	42869b3c8d86a70ef3cf75165a395e09	cmake	22e4e58d68692975dc74424dc9b12fb7	qmake-utils	a8dd17b1d94586164f5e3fc12b1c6b81
+_md5_=2561d15b08e3a6e8ab83905d8eda8a07
