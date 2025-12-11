@@ -906,7 +906,7 @@ media-plugins/tap-plugins 1.0.1_p20230714: Tom's Audio Processing LADSPA plugins
 media-radio/fmreceiver 3.20: SDR-J FM receiver for RTL2832-based USB sticks
 media-radio/guglielmo 0.6-r1: Qt based FM / Dab tuner
 media-radio/swreceiver 0.8-r1: SDR-J SW receiver for RTL2832-based USB sticks
-media-sound/audacity 3.5.1-r1 3.7.6: Free crossplatform audio editor
+media-sound/audacity 3.5.1-r1 3.7.7: Free crossplatform audio editor
 media-sound/carla 2.5.10 9999-r3: Fully-featured audio plugin host, supports many audio drivers and plugin formats
 media-sound/dcue 1.5: generate CUE sheets from Discogs data
 media-sound/deadbeef 1.10.0-r1: DeaDBeeF is a modular audio player similar to foobar2000
