@@ -32,6 +32,9 @@ app-crypt/qca:nss - Enable NSS plugin
 app-crypt/qca:pkcs11 - Enable PKCS#11 plugin
 app-crypt/qca:sasl - Enable SASL plugin
 app-crypt/qca:softstore - Enable softstore plugin
+app-text/doxygen:clang - support for llvm-core/clang assisted parsing
+app-text/doxygen:dot - allow to create dot graphs using media-gfx/graphviz
+app-text/doxygen:doxysearch - build doxyindexer and doxysearch.cgi
 dev-cpp/eigen:adolc - Add test support for Adolc (sci-libs/adolc)
 dev-cpp/eigen:benchmark - Build benchmark suite
 dev-cpp/eigen:boost - Add test support for Boost.Multiprecision (dev-libs/boost)
