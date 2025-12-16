@@ -452,6 +452,9 @@ src_configure() {
 
 		# Compiler Options:
 		# -DWITH_BUILDINFO="yes"
+		# disable a "-march=..." override, while actually enabling SIMD (AVX, F16C and newer)
+		# https://projects.blender.org/blender/blender/pulls/150318
+		#-DWITH_COMPILER_SIMD=OFF
 
 		# System Options:
 		-DWITH_INSTALL_PORTABLE="no"
