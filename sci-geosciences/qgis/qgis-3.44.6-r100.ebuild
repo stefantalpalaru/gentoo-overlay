@@ -5,13 +5,16 @@ EAPI=8
 
 PYTHON_COMPAT=( python3_{11..13} )
 PYTHON_REQ_USE="sqlite"
+MY_PV="$(ver_rs 1- _)"
 
 inherit cmake python-single-r1 virtualx xdg
 
 DESCRIPTION="User friendly Geographic Information System"
 HOMEPAGE="https://www.qgis.org/"
-SRC_URI="https://qgis.org/downloads/${P}.tar.bz2
+#SRC_URI="https://qgis.org/downloads/${P}.tar.bz2
+SRC_URI="https://github.com/qgis/QGIS/archive/refs/tags/final-${MY_PV}.tar.gz -> ${P}.tar.gz
 	examples? ( https://qgis.org/downloads/data/qgis_sample_data.tar.gz -> qgis_sample_data-2.8.14.tar.gz )"
+S="${WORKDIR}/QGIS-final-${MY_PV}"
 LICENSE="GPL-2+ GPL-3+"
 SLOT="0"
 KEYWORDS="~amd64"
