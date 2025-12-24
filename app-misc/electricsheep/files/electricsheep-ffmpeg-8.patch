@@ -1,0 +1,23 @@
+From f3417c7a5b6bf5bc56d2cb5572ebfad3661dc740 Mon Sep 17 00:00:00 2001
+From: Platon Pronko <platon7pronko@gmail.com>
+Date: Thu, 12 Sep 2024 19:36:25 +0400
+Subject: [PATCH] replace deprecated avcodec_close with avcodec_free_context
+
+---
+ client_generic/ContentDecoder/ContentDecoder.h | 3 +--
+ 1 file changed, 1 insertion(+), 2 deletions(-)
+
+diff --git a/client_generic/ContentDecoder/ContentDecoder.h b/client_generic/ContentDecoder/ContentDecoder.h
+index b2bd664..1ceb483 100644
+--- client_generic/ContentDecoder/ContentDecoder.h
++++ client_generic/ContentDecoder/ContentDecoder.h
+@@ -101,8 +101,7 @@ struct sOpenVideoInfo
+ 	{
+ 		if( m_pVideoCodecContext )
+ 		{
+-			avcodec_close( m_pVideoCodecContext );
+-			m_pVideoCodecContext = NULL;
++			avcodec_free_context( &m_pVideoCodecContext );
+ 		}
+ 
+ 		if( m_pFormatContext )
