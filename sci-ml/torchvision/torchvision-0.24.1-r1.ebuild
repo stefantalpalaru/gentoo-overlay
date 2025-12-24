@@ -40,6 +40,10 @@ BDEPEND="
 	)
 "
 
+PATCHES=(
+	"${FILESDIR}"/torchvision-0.24.1-ffmpeg-8.patch
+)
+
 distutils_enable_tests pytest
 
 src_prepare() {
