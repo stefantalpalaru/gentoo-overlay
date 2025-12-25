@@ -9,5 +9,5 @@ LICENSE=GPL-2
 RDEPEND=>=virtual/jre-1.8:* >=dev-java/java-config-2.2.0-r3
 SLOT=0
 SRC_URI=https://github.com/hyphanet/contrib/archive/e0ff693341c64f9f089444fad8c51a85f05438f3.tar.gz -> NativeThread-0_pre20220618.gh.tar.gz
-_eclasses_=toolchain-funcs	98d9f464d912ae6b7316fb8a3721f5db	flag-o-matic	a7afe42e95fb46ce9691605acfb24672	java-utils-2	3febdd17a5820c438f6368dde60d4848	java-pkg-2	38fd81c7880666a00a638ca8deb64d72
+_eclasses_=toolchain-funcs	30214924c0c3b92ec7dbf24fc70d60d3	flag-o-matic	a7afe42e95fb46ce9691605acfb24672	java-utils-2	3febdd17a5820c438f6368dde60d4848	java-pkg-2	38fd81c7880666a00a638ca8deb64d72
 _md5_=71860e9b394b1ffd4b863e799c9c8e60

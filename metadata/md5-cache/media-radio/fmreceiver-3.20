@@ -9,5 +9,5 @@ LICENSE=GPL-2
 RDEPEND=dev-qt/qtcore:5 dev-qt/qtgui:5 media-libs/faad2 media-libs/libsamplerate media-libs/libsndfile media-libs/portaudio net-wireless/rtl-sdr sci-libs/fftw:3.0 virtual/libusb:1 x11-libs/qwt:6
 SLOT=0
 SRC_URI=https://github.com/JvanKatwijk/sdr-j-fm/archive/refs/tags/3.20.tar.gz -> fmreceiver-3.20.tar.gz
-_eclasses_=toolchain-funcs	98d9f464d912ae6b7316fb8a3721f5db	qmake-utils	a8dd17b1d94586164f5e3fc12b1c6b81
+_eclasses_=toolchain-funcs	30214924c0c3b92ec7dbf24fc70d60d3	qmake-utils	a8dd17b1d94586164f5e3fc12b1c6b81
 _md5_=668899fe6371a8ed8aa9c3836735ec75

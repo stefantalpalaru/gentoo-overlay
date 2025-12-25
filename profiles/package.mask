@@ -22,3 +22,5 @@
 -dev-qt/qtwayland
 -dev-qt/qtwebengine
 -dev-qt/qtwebkit
+-games-fps/gzdoom
+-games-strategy/hedgewars

@@ -292,6 +292,9 @@ games-fps/uzdoom:swr - Enable software renderer
 games-strategy/0ad:editor - Include Atlas scenario editor projects
 games-strategy/0ad:lobby - Enable the use of net-libs/gloox and the multiplayer lobby
 games-strategy/0ad:nvtt - Support for some uncompressed data formats (might be needed for some mods)
+games-strategy/hedgewars:ffmpeg - Enable video recording feature
+games-strategy/hedgewars:pas2c - Translate Pascal sources to C and build with clang
+games-strategy/hedgewars:server - Enable local server
 games-util/mangohud:mangoapp - Build and install mangoapp and mangoapp layer
 games-util/mangohud:mangohudctl - Build and install mangohudctl
 games-util/mangohud:mangoplot - Install mangoplot python script
