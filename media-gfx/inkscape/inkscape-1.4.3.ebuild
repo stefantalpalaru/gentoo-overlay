@@ -112,13 +112,6 @@ DEPEND="${COMMON_DEPEND}
 	test? ( dev-cpp/gtest )
 "
 
-PATCHES=(
-	"${FILESDIR}"/inkscape-1.4.2-poppler-25.06.patch
-	"${FILESDIR}"/inkscape-1.4.2-poppler-25.07.patch
-	"${FILESDIR}"/inkscape-1.4.2-poppler-25.09.patch
-	"${FILESDIR}"/inkscape-1.4.2-poppler-25.10.patch
-)
-
 pkg_pretend() {
 	[[ ${MERGE_TYPE} != binary ]] && use openmp && tc-check-openmp
 }
