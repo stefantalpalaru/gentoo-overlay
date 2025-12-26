@@ -26,6 +26,7 @@ RDEPEND="${DEPEND}
 "
 
 RESTRICT="mirror"
+QA_PREBUILT="/usr/lib/zettlr/*"
 
 src_unpack() {
 	unpack_deb ${A}
