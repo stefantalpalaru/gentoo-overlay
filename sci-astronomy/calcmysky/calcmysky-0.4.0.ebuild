@@ -12,7 +12,7 @@ SRC_URI="
 "
 S="${WORKDIR}/CalcMySky-${PV}"
 
-LICENSE="GPL-3"
+LICENSE="GPL-2 GPL-3"
 # subslot is soversion
 SLOT="0/15"
 KEYWORDS="amd64 ~ppc ppc64 ~riscv ~x86"
