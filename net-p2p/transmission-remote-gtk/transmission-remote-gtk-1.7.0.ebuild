@@ -2,14 +2,12 @@
 # Distributed under the terms of the GNU General Public License v2
 
 EAPI=8
-MY_COMMIT="3cb7977c7287f22185d94114d5ce0441ca29e327"
 
 inherit meson xdg
 
 DESCRIPTION="GTK+ client for management of the Transmission BitTorrent client, over HTTP RPC"
 HOMEPAGE="https://github.com/transmission-remote-gtk/transmission-remote-gtk"
-SRC_URI="https://github.com/transmission-remote-gtk/transmission-remote-gtk/archive/${MY_COMMIT}.tar.gz -> ${PF}.gh.tar.gz"
-S="${WORKDIR}/${PN}-${MY_COMMIT}"
+SRC_URI="https://github.com/transmission-remote-gtk/transmission-remote-gtk/archive/refs/tags/${PV}.tar.gz -> ${PF}.gh.tar.gz"
 LICENSE="GPL-2+"
 SLOT="0"
 KEYWORDS="~amd64 ~arm64 ~ppc64 ~x86"
@@ -34,7 +32,6 @@ BDEPEND="
 
 src_configure() {
 	local emesonargs=(
-		$(meson_feature geoip)
 		$(meson_feature appindicator libappindicator)
 	)
 	meson_src_configure
