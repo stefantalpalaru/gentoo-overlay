@@ -1740,13 +1740,9 @@ distutils-r1_python_compile() {
 		build_base = ${BUILD_DIR}/build${#DISTUTILS_WHEELS[@]}
 	EOF
 
-	if python_is_python3; then
-		cat >> "${DIST_EXTRA_CONFIG}" <<-EOF || die
-
-			[build_ext]
-			parallel = $(makeopts_jobs "${MAKEOPTS} ${*}")
-		EOF
-	fi
+	# we are no longer adding "parallel" since it is causing too many
+	# issues, including silent miscompilations, and upstream doesn't
+	# address any bugs - https://public-inbox.gentoo.org/gentoo-dev/20251226115248.44576-1-mgorny@gentoo.org/T/#u
 
 	if [[ ${DISTUTILS_ALLOW_WHEEL_REUSE} ]]; then
 		local whl
