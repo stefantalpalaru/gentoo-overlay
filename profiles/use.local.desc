@@ -577,7 +577,6 @@ sci-libs/hdf5:unsupported - Enable unsupported combinations of configuration opt
 sci-libs/onnxruntime:benchmark - Build benchmarks.
 sci-libs/onnxruntime:cudnn - Use dev-libs/cudnn.
 sci-libs/onnxruntime:hip - Use AMD's ROCm stack.
-sci-libs/onnxruntime:llvm - Use LLVM.
 sci-libs/onnxruntime:migraphx - Use Migraphx.
 sci-libs/onnxruntime:mimalloc - Use dev-libs/mimalloc.
 sci-libs/onnxruntime:onednn - Use sci-ml/oneDNN.

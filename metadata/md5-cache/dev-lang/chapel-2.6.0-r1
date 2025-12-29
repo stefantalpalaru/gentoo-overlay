@@ -1,0 +1,17 @@
+BDEPEND=llvm_slot_17? ( llvm-core/clang:17 ) llvm_slot_18? ( llvm-core/clang:18 ) llvm_slot_19? ( llvm-core/clang:19 ) llvm_slot_20? ( llvm-core/clang:20 )
+DEFINED_PHASES=compile configure install postinst prepare setup test
+DEPEND=dev-lang/perl dev-libs/gmp dev-libs/jemalloc llvm_slot_17? ( llvm-core/llvm:17 ) llvm_slot_18? ( llvm-core/llvm:18 ) llvm_slot_19? ( llvm-core/llvm:19 ) llvm_slot_20? ( llvm-core/llvm:20 ) sys-libs/libunwind vim-syntax? ( app-vim/chapel-syntax )
+DESCRIPTION=Chapel programming language compiler
+EAPI=8
+HOMEPAGE=https://chapel-lang.org/ https://github.com/chapel-lang/chapel
+INHERIT=llvm-r2 multiprocessing python-any-r1
+IUSE=test vim-syntax +llvm_slot_20 llvm_slot_17 llvm_slot_18 llvm_slot_19
+KEYWORDS=~amd64
+LICENSE=Apache-2.0
+RDEPEND=dev-lang/perl dev-libs/gmp dev-libs/jemalloc llvm_slot_17? ( llvm-core/llvm:17 ) llvm_slot_18? ( llvm-core/llvm:18 ) llvm_slot_19? ( llvm-core/llvm:19 ) llvm_slot_20? ( llvm-core/llvm:20 ) sys-libs/libunwind vim-syntax? ( app-vim/chapel-syntax )
+REQUIRED_USE=^^ ( llvm_slot_17 llvm_slot_18 llvm_slot_19 llvm_slot_20 )
+RESTRICT=strip test? ( network-sandbox ) !test? ( test ) mirror
+SLOT=0
+SRC_URI=https://github.com/chapel-lang/chapel/releases/download/2.6.0/chapel-2.6.0.tar.gz
+_eclasses_=llvm-utils	64536677f4b4365e25e9b739163bed58	toolchain-funcs	30214924c0c3b92ec7dbf24fc70d60d3	multilib	a199af442898963433d6f038a88cce9c	llvm-r2	d6b14d3bbccc5ab5b4182c606245dbd3	multiprocessing	1e32df7deee68372153dca65f4a7c21f	python-utils-r1	f1d3a4dea5847c7390ba91bd557c83aa	python-any-r1	a3e9c0524a795d7f2767a2cf12a2e8c0
+_md5_=657103639b5ddcd23daa5c5bf5e19719

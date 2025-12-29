@@ -31,14 +31,14 @@ app-vim/neocomplete 9999-r1: vim plugin: Next generation completion framework af
 app-vim/nim-syntax 1.2_pre20211111-r1 9999-r1: Nim language support
 app-vim/pony-syntax 0.1_pre20170926-r2 9999-r1: vim plugin: Pony language support
 app-vim/vim-linux-coding-style 0.4_p20200610-r2: Vim plugin to respect the Linux kernel coding style
-dev-cpp/eigen 3.4.1 5.0.0: C++ template library for linear algebra
+dev-cpp/eigen 3.4.1-r1 5.0.0-r1: C++ template library for linear algebra
 dev-cpp/mustache 4.1-r1: Mustache implementation for modern C++
 dev-db/metakit 2.4.9.7_p20110819-r1: Embedded database library
 dev-db/valkey 9.0.1: Redis fork
 dev-debug/valgrind 3.26.0-r100: An open-source memory debugger for GNU/Linux
 dev-go/golangci-lint 2.7.2-r100: Fast linters runner for Go
 dev-java/jna 5.13.0-r1: Java Native Access
-dev-lang/chapel 2.6.0: Chapel programming language compiler
+dev-lang/chapel 2.6.0-r1: Chapel programming language compiler
 dev-lang/nim 1.0.10-r101 1.2.18-r101 1.4.8-r101 1.6.20-r100 2.0.16-r100 2.2.6-r100 9999-r16: compiled, garbage-collected systems programming language
 dev-lang/php 5.3.29-r11 7.4.33-r11 8.0.30-r6: The PHP language runtime engine
 dev-lang/pony 0.60.0: Compiler for the Pony language
@@ -868,7 +868,7 @@ media-fonts/breeze-sans 20170821-r4: a humanist sans-serif typeface designed by 
 media-fonts/ipamonafont 1.0.8-r2: Hacked version of IPA fonts, which is suitable for browsing 2ch
 media-gfx/GTS 2.5.1-r1: scanning tool developed by Studio Ghibli
 media-gfx/ansel 4.0.0_pre20250506-r1 9999-r6: Darktable 4.0 fork
-media-gfx/blender 4.5.5-r1 5.0.1: 3D Creation/Animation/Publishing System
+media-gfx/blender 4.5.5-r2 5.0.1-r1: 3D Creation/Animation/Publishing System
 media-gfx/displaycal 3.8.9.3-r5: Display calibration and characterization powered by Argyll CMS
 media-gfx/exiv2 0.27.6-r1: EXIF, IPTC and XMP metadata C++ library and command line utility
 media-gfx/fbcat 0.5.2-r1: utility that takes a screenshot using the framebuffer device
@@ -979,7 +979,7 @@ sci-libs/gdal 3.0.4-r205 3.11.5 3.12.1: Translator library for raster geospatial
 sci-libs/hdf5 1.10.5-r2: General purpose library and file format for storing scientific data
 sci-libs/klu 2.3.6-r3: Sparse LU factorization for circuit simulation
 sci-libs/ldl 3.3.3-r3: Simple but educational LDL^T matrix factorization algorithm
-sci-libs/onnxruntime 1.23.2: Cross-platform inference and training machine-learning accelerator.
+sci-libs/onnxruntime 1.23.2-r1: Cross-platform inference and training machine-learning accelerator.
 sci-libs/spqr 4.3.6: Multithreaded multifrontal sparse QR factorization library
 sci-libs/suitesparse 7.12.0: Metapackage for a suite of sparse matrix tools
 sci-libs/suitesparseconfig 7.12.0: Common configurations for all packages in suitesparse

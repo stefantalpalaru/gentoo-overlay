@@ -8,10 +8,10 @@ DISTUTILS_USE_PEP517=setuptools
 DISTUTILS_SINGLE_IMPL=1
 DISTUTILS_EXT=1
 ROCM_VERSION="5.7.1"
-LLVM_COMPAT=( 17 18 19 20 )
+LLVM_COMPAT=( {17..20} )
 LLVM_OPTIONAL=1
 
-inherit cmake cuda cuda-extra distutils-r1 flag-o-matic llvm-r1 rocm toolchain-funcs
+inherit cmake cuda cuda-extra distutils-r1 flag-o-matic llvm-r2 rocm toolchain-funcs
 
 DESCRIPTION="Cross-platform inference and training machine-learning accelerator."
 HOMEPAGE="https://onnxruntime.ai
@@ -31,7 +31,7 @@ LICENSE="MIT"
 SLOT="0/${PV}"
 KEYWORDS="~amd64"
 CPU_FLAGS="cpu_flags_x86_avx cpu_flags_x86_avx2 cpu_flags_x86_avx512f"
-IUSE="benchmark cuda onednn cudnn debug hip +python migraphx mimalloc lto test tensorrt llvm xnnpack
+IUSE="benchmark cuda onednn cudnn debug hip +python migraphx mimalloc lto test tensorrt xnnpack
 ${CPU_FLAGS}"
 RESTRICT="mirror test"
 REQUIRED_USE="
@@ -71,6 +71,9 @@ BDEPEND="
 		sci-libs/hipCUB:=
 		>=dev-libs/rocr-runtime-${ROCM_VERSION}:=
 		>=dev-util/hip-${ROCM_VERSION}:=
+		$(llvm_gen_dep '
+			llvm-core/clang:${LLVM_SLOT}
+		')
 	)
 	mimalloc? ( dev-libs/mimalloc )
 	onednn? ( sci-ml/oneDNN:= )
@@ -113,7 +116,7 @@ PATCHES=(
 
 pkg_setup() {
 	use python && python-single-r1_pkg_setup
-	use llvm && llvm-r1_pkg_setup
+	use hip && llvm-r2_pkg_setup
 }
 
 src_prepare() {

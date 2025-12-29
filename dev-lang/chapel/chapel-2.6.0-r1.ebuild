@@ -2,10 +2,10 @@
 # Distributed under the terms of the GNU General Public License v2
 
 EAPI=8
-LLVM_COMPAT=( 17 18 19 20 )
+LLVM_COMPAT=( {17..20} )
 PYTHON_COMPAT=( python3_{10..12} )
 
-inherit llvm-r1 multiprocessing python-any-r1
+inherit llvm-r2 multiprocessing python-any-r1
 
 DESCRIPTION="Chapel programming language compiler"
 HOMEPAGE="https://chapel-lang.org/
@@ -26,10 +26,18 @@ DEPEND="
 	dev-lang/perl
 	dev-libs/gmp
 	dev-libs/jemalloc
+	$(llvm_gen_dep '
+		llvm-core/llvm:${LLVM_SLOT}
+	')
 	sys-libs/libunwind
 	vim-syntax? ( app-vim/chapel-syntax )
 "
 RDEPEND="${DEPEND}"
+BDEPEND="
+	$(llvm_gen_dep '
+		llvm-core/clang:${LLVM_SLOT}
+	')
+"
 
 PATCHES=(
 	"${FILESDIR}"/chapel-2.0.0-no-default-config.patch
@@ -37,7 +45,7 @@ PATCHES=(
 )
 
 pkg_setup() {
-	llvm-r1_pkg_setup
+	llvm-r2_pkg_setup
 }
 
 src_prepare() {

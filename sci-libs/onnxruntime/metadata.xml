@@ -9,7 +9,6 @@
 		<flag name='benchmark'>Build benchmarks.</flag>
 		<flag name='cudnn'>Use <pkg>dev-libs/cudnn</pkg>.</flag>
 		<flag name='hip'>Use AMD's ROCm stack.</flag>
-		<flag name='llvm'>Use LLVM.</flag>
 		<flag name='migraphx'>Use Migraphx.</flag>
 		<flag name='mimalloc'>Use <pkg>dev-libs/mimalloc</pkg>.</flag>
 		<flag name='onednn'>Use <pkg>sci-ml/oneDNN</pkg>.</flag>

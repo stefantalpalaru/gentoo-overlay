@@ -25,7 +25,7 @@ LLVM_OPTIONAL=1
 
 ROCM_SKIP_GLOBALS=1
 
-inherit cuda cuda-extra rocm llvm-r1
+inherit cuda cuda-extra rocm llvm-r2
 inherit eapi9-pipestatus check-reqs flag-o-matic pax-utils python-single-r1 toolchain-funcs virtualx
 inherit cmake xdg-utils
 
@@ -65,7 +65,7 @@ SLOT="${BLENDER_BRANCH}"
 # NOTE +openpgl breaks on very old amd64 hardware
 # potentially mirror cpu_flags_x86 + REQUIRED_USE
 IUSE="
-	alembic +bullet +color-management cuda +cycles +cycles-bin-kernels
+	alembic +bullet collada +color-management cuda +cycles +cycles-bin-kernels
 	debug doc +embree +ffmpeg +fftw +fluid +gmp gnome hip jack
 	jemalloc jpeg2k man +manifold +nanovdb ndof nls +oidn openal +openexr +opengl +openpgl
 	+opensubdiv +openvdb optix osl pipewire +pdf +potrace +pugixml pulseaudio
@@ -105,9 +105,7 @@ RDEPEND="${PYTHON_DEPS}
 	dev-libs/boost:=[nls?]
 	dev-libs/lzo:2=
 	$(python_gen_cond_dep '
-		dev-python/cattrs[${PYTHON_USEDEP}]
 		dev-python/cython[${PYTHON_USEDEP}]
-		dev-python/fastjsonschema[${PYTHON_USEDEP}]
 		dev-python/numpy[${PYTHON_USEDEP}]
 		dev-python/requests[${PYTHON_USEDEP}]
 		dev-python/zstandard[${PYTHON_USEDEP}]
@@ -125,6 +123,7 @@ RDEPEND="${PYTHON_DEPS}
 	virtual/opengl[X?]
 	alembic? ( >=media-gfx/alembic-1.8.3-r2[boost(+),hdf(+)] )
 	bullet? ( sci-physics/bullet:=[double-precision] )
+	collada? ( >=media-libs/opencollada-1.6.68 )
 	color-management? ( media-libs/opencolorio:= )
 	cuda? ( dev-util/nvidia-cuda-toolkit:= )
 	embree? ( media-libs/embree:=[raymask] )
@@ -134,6 +133,9 @@ RDEPEND="${PYTHON_DEPS}
 	gnome? ( gui-libs/libdecor )
 	hip? (
 		>=dev-util/hip-5.7:=
+		$(llvm_gen_dep '
+			llvm-core/clang:${LLVM_SLOT}
+		')
 	)
 	jack? ( virtual/jack )
 	jemalloc? ( dev-libs/jemalloc:= )
@@ -163,6 +165,10 @@ RDEPEND="${PYTHON_DEPS}
 	osl? (
 		>=media-libs/osl-1.13:=[${LLVM_USEDEP}]
 		media-libs/mesa[${LLVM_USEDEP}]
+		$(llvm_gen_dep '
+			llvm-core/clang:${LLVM_SLOT}
+			llvm-core/llvm:${LLVM_SLOT}
+		')
 	)
 	pdf? ( media-libs/libharu )
 	potrace? ( media-gfx/potrace )
@@ -244,7 +250,7 @@ PATCHES=(
 	"${FILESDIR}"/blender-4.1.1-numpy.patch
 	"${FILESDIR}"/blender-4.3.2-system-glog.patch
 	"${FILESDIR}"/blender-4.5.3-optix-compile-flags.patch
-	"${FILESDIR}"/blender-5.0.0-CUDA-13.patch
+	"${FILESDIR}"/blender-4.5.3-CUDA-13.patch
 	"${FILESDIR}"/blender-5.0.0-SSE4.2.patch
 	"${FILESDIR}"/blender-5.0.0-F16C.patch
 	"${FILESDIR}"/blender-5.0.0-system-eigen3.patch
@@ -288,8 +294,8 @@ pkg_setup() {
 	blender_check_requirements
 	python-single-r1_pkg_setup
 
-	if use osl; then
-		llvm-r1_pkg_setup
+	if use osl || use hip; then
+		llvm-r2_pkg_setup
 	fi
 }
 
@@ -428,6 +434,7 @@ src_configure() {
 		-DWITH_MANIFOLD="$(usex manifold)"
 		-DWITH_MATERIALX="no" # TODO: Package MaterialX
 		-DWITH_NANOVDB="$(usex nanovdb)"
+		-DWITH_OPENCOLLADA="$(usex collada)"
 		-DWITH_OPENCOLORIO="$(usex color-management)"
 		-DWITH_OPENGL_BACKEND="$(usex opengl)"
 		-DWITH_OPENIMAGEDENOISE="$(usex oidn)"
@@ -449,12 +456,10 @@ src_configure() {
 		-DWITH_SYSTEM_FREETYPE="yes"
 		-DWITH_SYSTEM_GFLAGS="yes"
 		-DWITH_SYSTEM_GLOG="yes"
+		-DWITH_SYSTEM_LZO="yes"
 
 		# Compiler Options:
 		# -DWITH_BUILDINFO="yes"
-		# disable a "-march=..." override, while actually enabling SIMD (AVX, F16C and newer)
-		# https://projects.blender.org/blender/blender/pulls/150318
-		#-DWITH_COMPILER_SIMD=OFF
 
 		# System Options:
 		-DWITH_INSTALL_PORTABLE="no"
@@ -864,7 +869,7 @@ pkg_postinst() {
 	if use osl && ! has_version "media-libs/mesa[${LLVM_USEDEP}]"; then
 		ewarn ""
 		ewarn "OSL is know to cause runtime segfaults if Mesa has been linked to"
-		ewarn "an other LLVM version than what OSL is linked to."
+		ewarn "another LLVM version than what OSL is linked to."
 		ewarn "See https://bugs.gentoo.org/880671 for more details"
 		ewarn ""
 	fi
