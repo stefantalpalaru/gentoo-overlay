@@ -367,6 +367,7 @@ media-libs/libheif:rav1e - Use media-video/rav1e for AVIF encoding
 media-libs/libheif:svt-av1 - Use media-libs/svt-av1 for AVIF encoding
 media-libs/libheif:tools - Enable various tools (what upstream calls "examples")
 media-libs/libheif:tools-heif-view - Enable "heif-view" (needs media-libs/libsdl2)
+media-libs/libheif:x264 - Use media-libs/x264 for AVC encoding
 media-libs/libheif:x265 - Use media-libs/x265 for HEIF encoding
 media-libs/lsp-plugins:clap - Build CLAP plugins
 media-libs/lsp-plugins:gstreamer - Build GStreamer plugins

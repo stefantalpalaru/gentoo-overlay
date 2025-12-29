@@ -11,7 +11,7 @@ SRC_URI="https://github.com/strukturag/libheif/releases/download/v${PV}/${P}.tar
 LICENSE="GPL-3 MIT"
 SLOT="0/$(ver_cut 1-2)"
 KEYWORDS="~amd64 ~arm ~arm64 ~loong ~ppc64 ~riscv ~x86"
-IUSE="aom +dav1d ffmpeg gdk-pixbuf openh264 rav1e +svt-av1 +tools +tools-heif-view test +x265"
+IUSE="aom +dav1d ffmpeg gdk-pixbuf openh264 rav1e +svt-av1 +tools +tools-heif-view test x264 +x265"
 RESTRICT="!test? ( test )"
 
 DEPEND="
@@ -27,6 +27,9 @@ DEPEND="
 	rav1e? ( media-video/rav1e:= )
 	svt-av1? ( <media-libs/svt-av1-4.0.0[${MULTILIB_USEDEP}] )
 	tools-heif-view? ( media-libs/libsdl2 )
+	x264? (
+		media-libs/x264:=[${MULTILIB_USEDEP}]
+	)
 	x265? (
 		media-libs/libde265:=[${MULTILIB_USEDEP}]
 		media-libs/x265:=[${MULTILIB_USEDEP}]
@@ -68,6 +71,7 @@ multilib_src_configure() {
 		-DWITH_UVG266=OFF
 		-DWITH_VVDEC=OFF
 		-DWITH_VVENC=OFF
+		-DWITH_X264=$(usex x264)
 		-DWITH_X265=$(usex x265)
 	)
 	cmake_src_configure
