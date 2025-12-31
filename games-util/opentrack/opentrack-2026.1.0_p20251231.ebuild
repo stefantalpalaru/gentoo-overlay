@@ -2,13 +2,14 @@
 # Distributed under the terms of the GNU General Public License v2
 
 EAPI=8
+MY_COMMIT="93212320b990f19b880593e3e2d7b82033a165d4"
 
 inherit cmake desktop
 
 DESCRIPTION="Head tracking software for MS Windows, Linux, and Apple OSX"
 HOMEPAGE="https://github.com/opentrack/opentrack"
-SRC_URI="https://github.com/${PN}/${PN}/archive/${P}.tar.gz"
-S="${WORKDIR}/${PN}-${P}"
+SRC_URI="https://github.com/opentrack/opentrack/archive/${MY_COMMIT}.tar.gz -> ${PN}-${MY_COMMIT}.gh.tar.gz"
+S="${WORKDIR}/${PN}-${MY_COMMIT}"
 LICENSE="MIT"
 SLOT="0"
 KEYWORDS="~amd64 ~x86"
