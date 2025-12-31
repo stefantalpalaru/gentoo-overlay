@@ -15,11 +15,9 @@ KEYWORDS="~amd64 ~x86"
 IUSE="+neuralnet +wine"
 
 DEPEND="
-	dev-qt/linguist-tools:5
-	dev-qt/qtcore:5
-	dev-qt/qtgui:5
-	dev-qt/qtnetwork:5
-	dev-qt/qtwidgets:5
+	dev-qt/qtbase:6[gui,network,widgets]
+	dev-qt/qtserialport:6
+	dev-qt/qttools:6[linguist]
 	media-libs/opencv
 	neuralnet? (
 		sci-libs/onnxruntime:=
@@ -35,7 +33,6 @@ RDEPEND="${DEPEND}"
 PATCHES=(
 	"${FILESDIR}"/opentrack-2024.1.0-flags.patch
 	"${FILESDIR}"/opentrack-2024.1.1_onnxruntime.patch
-	"${FILESDIR}"/opentrack-2024.1.1-procps-4.0.5.patch
 )
 
 src_prepare() {
