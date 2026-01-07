@@ -36,7 +36,7 @@ dev-cpp/mustache 4.1-r1: Mustache implementation for modern C++
 dev-db/metakit 2.4.9.7_p20110819-r1: Embedded database library
 dev-db/valkey 9.0.1: Redis fork
 dev-debug/valgrind 3.26.0-r100: An open-source memory debugger for GNU/Linux
-dev-go/golangci-lint 2.7.2-r100: Fast linters runner for Go
+dev-go/golangci-lint 2.8.0-r100: Fast linters runner for Go
 dev-java/jna 5.13.0-r1: Java Native Access
 dev-lang/chapel 2.6.0-r1: Chapel programming language compiler
 dev-lang/nim 1.0.10-r101 1.2.18-r101 1.4.8-r101 1.6.20-r100 2.0.16-r100 2.2.6-r100 9999-r16: compiled, garbage-collected systems programming language
