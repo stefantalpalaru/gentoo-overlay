@@ -1,0 +1,12 @@
+diff '--color=auto' -ur guglielmo-0.7.orig/cmake/Modules/FindQwt.cmake guglielmo-0.7/cmake/Modules/FindQwt.cmake
+--- guglielmo-0.7.orig/cmake/Modules/FindQwt.cmake	2026-01-08 17:12:23.000000000 +0100
++++ guglielmo-0.7/cmake/Modules/FindQwt.cmake	2026-01-09 22:41:33.068678417 +0100
+@@ -28,7 +28,7 @@
+ 
+ # prefer qt's qwt
+ find_library (QWT_LIBRARIES
+-  NAMES qwt6-qt5 qwt-qt5 qwt6-qt6 qwt-qt6 qwt6 qwt
++  NAMES qwt6-qt6 qwt-qt6 qwt6-qt5 qwt-qt5 qwt6 qwt
+   HINTS
+   ${CMAKE_INSTALL_PREFIX}/lib
+   ${CMAKE_INSTALL_PREFIX}/lib64
