@@ -1,8 +1,7 @@
-Allow specifying AMDGPU_TARGETS with CMake flags.
-Fix build when main compiler is set to GCC.
---- a/devices/CMakeLists.txt
-+++ b/devices/CMakeLists.txt
-@@ -129,6 +129,10 @@ if(OIDN_DEVICE_HIP)
+diff '--color=auto' -ur oidn-2.4.0.orig/devices/CMakeLists.txt oidn-2.4.0/devices/CMakeLists.txt
+--- oidn-2.4.0.orig/devices/CMakeLists.txt	2026-01-10 00:30:04.759763263 +0100
++++ oidn-2.4.0/devices/CMakeLists.txt	2026-01-10 00:32:19.209917937 +0100
+@@ -138,6 +138,10 @@
    )
    mark_as_advanced(OIDN_DEVICE_HIP_COMPILER)
  
@@ -13,7 +12,7 @@ Fix build when main compiler is set to GCC.
    # Add ROCm to CMAKE_PREFIX_PATH
    set(_hip_prefix_path CMAKE_PREFIX_PATH)
    list(APPEND _hip_prefix_path ${ROCM_PATH}/hip ${ROCM_PATH})
-@@ -143,7 +147,6 @@ if(OIDN_DEVICE_HIP)
+@@ -152,7 +156,6 @@
      CMAKE_CACHE_ARGS
        -DCMAKE_PREFIX_PATH:STRING=${_hip_prefix_path_str}
        -DCMAKE_CXX_COMPILER:FILEPATH=${OIDN_DEVICE_HIP_COMPILER}
@@ -21,7 +20,7 @@ Fix build when main compiler is set to GCC.
        -DCMAKE_BUILD_TYPE:STRING=${CMAKE_BUILD_TYPE}
        -DCMAKE_INSTALL_PREFIX:PATH=${CMAKE_CURRENT_BINARY_DIR}/hip/preinstall
        -DCMAKE_INSTALL_BINDIR:PATH=${CMAKE_INSTALL_BINDIR}
-@@ -155,6 +158,9 @@ if(OIDN_DEVICE_HIP)
+@@ -165,6 +168,9 @@
        -DOIDN_API_NAMESPACE:STRING=${OIDN_API_NAMESPACE}
        -DOIDN_WARN_AS_ERRORS:BOOL=${OIDN_WARN_AS_ERRORS}
        -DOIDN_SANITIZER:STRING=${OIDN_SANITIZER}
@@ -31,16 +30,31 @@ Fix build when main compiler is set to GCC.
      BUILD_ALWAYS TRUE
      DEPENDS
        OpenImageDenoise_core
---- a/devices/hip/CMakeLists.txt
-+++ b/devices/hip/CMakeLists.txt
-@@ -25,8 +25,8 @@ include(oidn_common_external)
+@@ -181,4 +187,4 @@
+ 
+ if(OIDN_DEVICE_METAL)
+   add_subdirectory(metal)
+-endif()
+\ No newline at end of file
++endif()
+diff '--color=auto' -ur oidn-2.4.0.orig/devices/hip/CMakeLists.txt oidn-2.4.0/devices/hip/CMakeLists.txt
+--- oidn-2.4.0.orig/devices/hip/CMakeLists.txt	2026-01-10 00:30:04.742535059 +0100
++++ oidn-2.4.0/devices/hip/CMakeLists.txt	2026-01-10 00:33:22.261655695 +0100
+@@ -25,8 +25,8 @@
  # FIXME: Older versions of the HIP runtime have a bug which may cause a crash if the kernels are
  # not compiled for all targets detected in the system (it seems mostly APUs/integrated GPUs).
  # As a workaround, we compile for more targets then we actually support to avoid this crash.
--set(GPU_TARGETS "gfx902,gfx909,gfx90c,gfx1030,gfx1031,gfx1032,gfx1033,gfx1034,gfx1035,gfx1036,gfx1100,gfx1101,gfx1102,gfx1103,gfx1200,gfx1201" CACHE INTERNAL "")
+-set(GPU_TARGETS "gfx902,gfx909,gfx90c,gfx1030,gfx1031,gfx1032,gfx1033,gfx1034,gfx1035,gfx1036,gfx1100,gfx1101,gfx1102,gfx1103,gfx1150,gfx1151,gfx1200,gfx1201" CACHE INTERNAL "")
 -set(AMDGPU_TARGETS ${GPU_TARGETS} CACHE INTERNAL "")
 +set(GPU_TARGETS "gfx902,gfx909,gfx90c,gfx1030,gfx1031,gfx1032,gfx1033,gfx1034,gfx1035,gfx1036,gfx1100,gfx1101,gfx1102,gfx1103,gfx1200,gfx1201" CACHE STRING "")
 +set(AMDGPU_TARGETS ${GPU_TARGETS} CACHE STRING "")
  
  # Find HIP
  find_package(hip REQUIRED)
+@@ -91,4 +91,4 @@
+ 
+ target_link_libraries(OpenImageDenoise_device_hip PRIVATE OpenImageDenoise_core hip::device)
+ oidn_strip_symbols(OpenImageDenoise_device_hip)
+-oidn_install_module(OpenImageDenoise_device_hip)
+\ No newline at end of file
++oidn_install_module(OpenImageDenoise_device_hip)

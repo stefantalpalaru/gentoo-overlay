@@ -1,4 +1,4 @@
-# Copyright 1999-2025 Gentoo Authors
+# Copyright 1999-2026 Gentoo Authors
 # Distributed under the terms of the GNU General Public License v2
 
 EAPI=8
@@ -11,19 +11,10 @@ inherit cmake cuda python-any-r1 rocm
 
 DESCRIPTION="Intel Open Image Denoise library"
 HOMEPAGE="https://www.openimagedenoise.org https://github.com/RenderKit/oidn"
-
-if [[ ${PV} = *9999* ]]; then
-	EGIT_REPO_URI="https://github.com/RenderKit/oidn.git"
-	EGIT_BRANCH="master"
-	EGIT_LFS="1"
-	inherit git-r3
-else
-	SRC_URI="https://github.com/RenderKit/${PN}/releases/download/v${PV}/${P}.src.tar.gz -> ${P}.tar.gz"
-	KEYWORDS="amd64 -arm ~arm64 -ppc ~ppc64 -x86" # 64-bit-only
-fi
-
+SRC_URI="https://github.com/RenderKit/${PN}/releases/download/v${PV}/${P}.src.tar.gz -> ${P}.tar.gz"
 LICENSE="Apache-2.0"
 SLOT="0/${PV}"
+KEYWORDS="amd64 -arm ~arm64 -ppc ~ppc64 -x86" # 64-bit-only
 IUSE="apps cuda hip openimageio test"
 REQUIRED_USE="
 	test? ( apps )
@@ -46,8 +37,7 @@ DEPEND="${RDEPEND}"
 BDEPEND="${PYTHON_DEPS}"
 
 PATCHES=(
-	"${FILESDIR}/${PN}-2.3.3-amdgpu-targets.patch"
-	"${FILESDIR}"/oidn-2.3.3-CUDA-13.patch
+	"${FILESDIR}/${PN}-2.4.0-amdgpu-targets.patch"
 )
 
 src_prepare() {
@@ -62,12 +52,12 @@ src_prepare() {
 	fi
 
 	# do not fortify source -- bug 895018
-	sed -e "s/-D_FORTIFY_SOURCE=2//g" -i {cmake/oidn_platform,external/mkl-dnn/cmake/SDL}.cmake || die
+	sed -e "s/-D_FORTIFY_SOURCE=2//g" -i cmake/oidn_platform.cmake || die
 
 	# Don't de-bundle composable_kernel for two reasons:
 	# 1. sci-libs/composable-kernel takes a very long time to compile and oidn only uses a subset of it.
 	# 2. We've run into compilation issues when trying to debundle it. See #955869
-	rm -r external/{cutlass,mkl-dnn} || die
+	#rm -r external/{cutlass,mkl-dnn} || die
 
 	cmake_src_prepare
 }
