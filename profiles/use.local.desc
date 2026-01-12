@@ -618,6 +618,8 @@ www-servers/uwsgi:yajl - Use dev-libs/yajl instead of dev-libs/jansson for parsi
 www-servers/uwsgi:yaml - Support yaml as a configuration file format.
 www-servers/uwsgi:zeromq - Enable logging and deployment via ZeroMQ.
 x11-libs/qscintilla:designer - Build plugin for Qt Designer
+x11-libs/qwt:designer - Installs dev-qt/designer plugin.
+x11-libs/qwt:polar - Install the QwtPolar headers
 x11-libs/wxGTK:gstreamer - Enable the wxMediaCtrl class for playing audio and video through gstreamer.
 x11-libs/wxGTK:sdl - Use Simple Directmedia Layer (media-libs/libsdl2) for audio.
 x11-misc/xlockmore:vtlock - Enables support for virtual terminal locking

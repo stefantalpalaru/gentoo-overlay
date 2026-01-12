@@ -112,6 +112,10 @@ DEPEND="${COMMON_DEPEND}
 	test? ( dev-cpp/gtest )
 "
 
+PATCHES=(
+	"${FILESDIR}"/inkscape-1.4.3-poppler-26.01.0.patch
+)
+
 pkg_pretend() {
 	[[ ${MERGE_TYPE} != binary ]] && use openmp && tc-check-openmp
 }
