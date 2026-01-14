@@ -37,7 +37,7 @@ DEPEND="${RDEPEND}"
 BDEPEND="${PYTHON_DEPS}"
 
 PATCHES=(
-	"${FILESDIR}/${PN}-2.4.0-amdgpu-targets.patch"
+	"${FILESDIR}/${PN}-2.4.1-amdgpu-targets.patch"
 )
 
 src_prepare() {
