@@ -1,10 +1,10 @@
-# Copyright 1999-2025 Gentoo Authors
+# Copyright 1999-2026 Gentoo Authors
 # Distributed under the terms of the GNU General Public License v2
 
 EAPI=8
 JAVA_PKG_IUSE="doc source test"
 JAVA_TESTING_FRAMEWORKS="junit-4"
-MY_SEEDNODE_COMMIT="8e8b3574b63e649e03f67d23d3dfa461b7a0ba4a"
+MY_SEEDNODE_COMMIT="b34dbc4d021c58c4a108214a71a9e1ab986c4e14"
 
 inherit java-pkg-2 java-pkg-simple systemd verify-sig
 
