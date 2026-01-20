@@ -1,4 +1,4 @@
-# Copyright 1999-2025 Gentoo Authors
+# Copyright 1999-2026 Gentoo Authors
 # Distributed under the terms of the GNU General Public License v2
 
 # shellcheck disable=SC2207
@@ -255,6 +255,7 @@ PATCHES=(
 	"${FILESDIR}"/blender-5.0.0-F16C.patch
 	"${FILESDIR}"/blender-5.0.0-system-eigen3.patch
 	"${FILESDIR}"/blender-5.0.0-FMA-auto-vectorization-r1.patch
+	"${FILESDIR}"/blender-4.5.6-ffmpeg-8.patch
 )
 
 blender_check_requirements() {
