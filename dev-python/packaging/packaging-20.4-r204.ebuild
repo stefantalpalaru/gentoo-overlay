@@ -1,4 +1,4 @@
-# Copyright 1999-2024 Gentoo Authors
+# Copyright 1999-2026 Gentoo Authors
 # Distributed under the terms of the GNU General Public License v2
 
 EAPI=8
@@ -13,7 +13,7 @@ HOMEPAGE="https://github.com/pypa/packaging
 
 LICENSE="|| ( Apache-2.0 BSD-2 )"
 SLOT="python2"
-KEYWORDS="amd64 arm arm64 hppa ~m68k ~mips ppc ppc64 ~riscv sparc x86 ~amd64-linux ~x86-linux ~ppc-macos ~x64-macos ~x64-solaris"
+KEYWORDS="amd64 arm arm64 hppa ~m68k ~mips ppc ppc64 ~riscv sparc x86 ~x64-macos ~x64-solaris"
 IUSE="test"
 RESTRICT="!test? ( test )"
 
