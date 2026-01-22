@@ -1,0 +1,25 @@
+diff '--color=auto' -ur pytorch-2.10.0.orig/torch/utils/cpp_extension.py pytorch-2.10.0/torch/utils/cpp_extension.py
+--- pytorch-2.10.0.orig/torch/utils/cpp_extension.py	2026-01-22 02:33:40.343998544 +0100
++++ pytorch-2.10.0/torch/utils/cpp_extension.py	2026-01-22 02:37:38.886847698 +0100
+@@ -1616,10 +1616,10 @@
+         paths.extend([TORCH_LIB_PATH])
+ 
+     if device_type == "cuda" and IS_HIP_EXTENSION:
+-        lib_dir = 'lib'
++        lib_dir = '%LIB_DIR%'
+         paths.append(_join_rocm_home(lib_dir))
+         if HIP_HOME is not None:
+-            paths.append(os.path.join(HIP_HOME, 'lib'))
++            paths.append(os.path.join(HIP_HOME, '%LIB_DIR%'))
+     elif device_type == "cuda":
+         if cross_target_platform == "windows":
+             lib_dir = os.path.join('lib', 'x64')
+@@ -2447,7 +2447,7 @@
+                 extra_ldflags.append(f'/LIBPATH:{_join_rocm_home("lib")}')
+                 extra_ldflags.append('amdhip64.lib')
+             else:
+-                extra_ldflags.append(f'-L{_join_rocm_home("lib")}')
++                extra_ldflags.append(f'-L{_join_rocm_home("%LIB_DIR%")}')
+                 extra_ldflags.append('-lamdhip64')
+     if with_sycl:
+         if IS_WINDOWS:

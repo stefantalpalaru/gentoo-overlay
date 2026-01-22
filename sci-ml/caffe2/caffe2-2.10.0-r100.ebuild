@@ -1,4 +1,4 @@
-# Copyright 2022-2025 Gentoo Authors
+# Copyright 2022-2026 Gentoo Authors
 # Distributed under the terms of the GNU General Public License v2
 
 EAPI=8
@@ -133,7 +133,7 @@ DEPEND="
 "
 
 PATCHES=(
-	"${FILESDIR}"/caffe2-2.9.0-gentoo-r1.patch
+	"${FILESDIR}"/caffe2-2.10.0-gentoo.patch
 	"${FILESDIR}"/caffe2-2.6.0-install-dirs.patch
 	"${FILESDIR}"/caffe2-1.12.0-glog-0.6.0.patch
 	"${FILESDIR}"/caffe2-2.9.0-tensorpipe.patch
@@ -142,15 +142,12 @@ PATCHES=(
 	"${FILESDIR}"/caffe2-2.4.0-fix-openmp-link.patch
 	"${FILESDIR}"/caffe2-2.4.0-rocm-fix-std-cpp17.patch
 	"${FILESDIR}"/caffe2-2.4.0-cpp-httplib.patch
-	"${FILESDIR}"/caffe2-2.5.1-newfix-functorch-install.patch
 	"${FILESDIR}"/caffe2-2.7.0-glog-0.7.1.patch
 	"${FILESDIR}"/caffe2-2.7.1-aotriton-fixes.patch
-	"${FILESDIR}"/caffe2-2.8.0-kineto.patch
+	"${FILESDIR}"/caffe2-2.10.0-kineto.patch
 	"${FILESDIR}"/caffe2-2.8.0-rocm-minus-flash.patch
 	"${FILESDIR}"/caffe2-2.9.0-CUDA-13.patch
-	"${FILESDIR}"/caffe2-2.9.0-fbgemm.patch
 	"${FILESDIR}"/caffe2-2.9.0-rocm-distributed-link.patch
-	"${FILESDIR}"/caffe2-2.9.1-cccl-3.1.patch
 )
 
 src_prepare() {
@@ -245,6 +242,8 @@ src_configure() {
 		-DLIBSHM_INSTALL_LIB_SUBDIR="${EPREFIX}"/usr/$(get_libdir)
 		-DPython_EXECUTABLE="${PYTHON}"
 		-DTORCH_INSTALL_LIB_DIR="${EPREFIX}"/usr/$(get_libdir)
+		-DATEN_NO_TEST=ON
+		-DBUILD_TEST=OFF
 		-DUSE_CCACHE=OFF
 		-DUSE_CUDA=$(usex cuda)
 		-DUSE_DISTRIBUTED=$(usex distributed)
@@ -373,11 +372,6 @@ src_install() {
 	rm -rf "${ED}"/usr/share/cmake/{kineto,fbgemm} \
 		"${ED}"/usr/include/{kineto,fbgemm,asmjit} \
 		"${ED}"/usr/$(get_libdir)/cmake/asmjit
-
-	# Used by pytorch ebuild
-	insinto "/var/lib/${PN}"
-	doins "${BUILD_DIR}"/CMakeCache.txt
-	dostrip -x /var/lib/${PN}/functorch.so
 
 	rm -rf python
 	mkdir -p python/torch || die

@@ -1,4 +1,4 @@
-# Copyright 2022-2025 Gentoo Authors
+# Copyright 2022-2026 Gentoo Authors
 # Distributed under the terms of the GNU General Public License v2
 
 EAPI=8
@@ -36,9 +36,9 @@ DEPEND="${RDEPEND}
 PATCHES=(
 	"${FILESDIR}"/pytorch-2.9.0-dontbuildagain.patch
 	"${FILESDIR}"/pytorch-2.9.0-Change-library-directory-according-to-CMake-build.patch
-	"${FILESDIR}"/pytorch-2.9.0-global-dlopen.patch
+	"${FILESDIR}"/pytorch-2.10.0-global-dlopen.patch
 	"${FILESDIR}"/pytorch-2.5.0-torch_shm_manager.patch
-	"${FILESDIR}"/pytorch-2.7.1-cpp-extension-multilib.patch
+	"${FILESDIR}"/pytorch-2.10.0-cpp-extension-multilib.patch
 )
 
 src_prepare() {
@@ -59,9 +59,6 @@ src_prepare() {
 		|| die
 
 	distutils-r1_src_prepare
-
-	# Get object file from caffe2
-	cp -a "${ESYSROOT}"/var/lib/caffe2/functorch.so functorch/ || die
 
 	hprefixify tools/setup_helpers/env.py
 }

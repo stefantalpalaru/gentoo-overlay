@@ -1,7 +1,7 @@
-diff '--color=auto' -ur pytorch-2.9.0.orig/torch/__init__.py pytorch-2.9.0/torch/__init__.py
---- pytorch-2.9.0.orig/torch/__init__.py	2025-10-09 03:09:57.000000000 +0200
-+++ pytorch-2.9.0/torch/__init__.py	2025-10-15 22:19:55.054558825 +0200
-@@ -331,7 +331,7 @@
+diff '--color=auto' -ur pytorch-2.10.0.orig/torch/__init__.py pytorch-2.10.0/torch/__init__.py
+--- pytorch-2.10.0.orig/torch/__init__.py	2026-01-16 01:29:35.000000000 +0100
++++ pytorch-2.10.0/torch/__init__.py	2026-01-22 02:32:29.361687354 +0100
+@@ -363,7 +363,7 @@
      global_deps_lib_path = os.path.join(os.path.dirname(here), "lib", lib_name)
  
      try:
@@ -10,10 +10,10 @@ diff '--color=auto' -ur pytorch-2.9.0.orig/torch/__init__.py pytorch-2.9.0/torch
          # Workaround slim-wheel CUDA dependency bugs in cusparse and cudnn by preloading nvjitlink
          # and nvrtc. In CUDA-12.4+ cusparse depends on nvjitlink, but does not have rpath when
          # shipped as wheel, which results in OS picking wrong/older version of nvjitlink library
-@@ -382,7 +382,7 @@
- 
-         # libnvToolsExt is Optional Dependency
-         _preload_cuda_deps("nvtx", "libnvToolsExt.so.*[0-9]", required=False)
+@@ -386,7 +386,7 @@
+         # Can happen for wheel with cuda libs as PYPI deps
+         # As PyTorch is not purelib, but nvidia-*-cu12 is
+         _preload_cuda_deps(err)
 -        ctypes.CDLL(global_deps_lib_path, mode=ctypes.RTLD_GLOBAL)
 +        ctypes.CDLL(lib_name, mode=ctypes.RTLD_GLOBAL)
  
