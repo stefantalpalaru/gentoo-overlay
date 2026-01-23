@@ -1,11 +1,11 @@
-# Copyright 1999-2025 Gentoo Authors
+# Copyright 1999-2026 Gentoo Authors
 # Distributed under the terms of the GNU General Public License v2
 
 EAPI=8
 
-PYTHON_COMPAT=( python3_{11..13} )
+PYTHON_COMPAT=( python3_{11..14} )
 
-inherit flag-o-matic python-single-r1 meson-multilib
+inherit flag-o-matic python-single-r1 meson-multilib toolchain-funcs
 
 MY_PV=$(ver_cut 1-3)
 [[ -n "$(ver_cut 4)" ]] && MY_PV_REV="-$(ver_cut 4)"
@@ -13,13 +13,14 @@ MY_PV=$(ver_cut 1-3)
 DESCRIPTION="Vulkan and OpenGL overlay for monitoring FPS, sensors, system load and more"
 HOMEPAGE="https://github.com/flightlessmango/MangoHud"
 
+# Check subprojects/vulkan-headers.wrap for both of these values
 VK_HEADERS_VER="1.2.158"
 VK_HEADERS_MESON_WRAP_VER="2"
 
 SRC_URI="
 	https://github.com/KhronosGroup/Vulkan-Headers/archive/v${VK_HEADERS_VER}.tar.gz
 		-> vulkan-headers-${VK_HEADERS_VER}.tar.gz
-	https://wrapdb.mesonbuild.com/v2/vulkan-headers_${VK_HEADERS_VER}-${VK_HEADERS_MESON_WRAP_VER}/get_patch
+	https://github.com/mesonbuild/wrapdb/releases/download/vulkan-headers_${VK_HEADERS_VER}-${VK_HEADERS_MESON_WRAP_VER}/vulkan-headers_${VK_HEADERS_VER}-${VK_HEADERS_MESON_WRAP_VER}_patch.zip
 		-> vulkan-headers-${VK_HEADERS_VER}-${VK_HEADERS_MESON_WRAP_VER}-meson-wrap.zip
 "
 
@@ -94,7 +95,7 @@ RDEPEND="
 "
 
 PATCHES=(
-	"${FILESDIR}"/mangohud-0.8.0-xkb.patch
+	"${FILESDIR}"/mangohud-0.8.2-wayland.patch
 )
 
 src_unpack() {
@@ -125,7 +126,9 @@ src_prepare() {
 multilib_src_configure() {
 	# workaround for lld
 	# https://github.com/flightlessmango/MangoHud/issues/1240
-	append-ldflags $(test-flags-CCLD -Wl,--undefined-version)
+	if tc-ld-is-lld; then
+		append-ldflags -Wl,--undefined-version
+	fi
 
 	local emesonargs=(
 		-Dappend_libdir_mangohud=false
