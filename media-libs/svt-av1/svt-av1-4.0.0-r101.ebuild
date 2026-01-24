@@ -13,7 +13,7 @@ S="${WORKDIR}/SVT-AV1-v${PV}"
 
 # Also see "Alliance for Open Media Patent License 1.0"
 LICENSE="BSD-2 Apache-2.0 BSD ISC LGPL-2.1+ MIT"
-SLOT="0/3"
+SLOT="0/4"
 KEYWORDS="~amd64 ~arm64 ~hppa ~loong ~ppc ~ppc64 ~riscv ~sparc ~x86"
 IUSE="+lto +pgo cpu_flags_x86_avx512f"
 RESTRICT="mirror"
@@ -23,7 +23,7 @@ BDEPEND="
 "
 
 PATCHES=(
-	"${FILESDIR}"/svt-av1-1.5.0-fortify-no-override.patch
+	"${FILESDIR}"/svt-av1-4.0.0-fortify-no-override.patch
 )
 
 src_unpack() {
@@ -48,20 +48,21 @@ multilib_src_configure() {
 	append-ldflags -Wl,-z,noexecstack
 	append-cflags -Wno-coverage-mismatch # for ccache
 
-	local enable_pgo=$(usex pgo)
-	if [[ "${MULTILIB_ABI_FLAG}" == "abi_x86_32" ]]; then
-		enable_pgo=OFF # painfully slow on 32-bit
+	local build_apps=OFF
+	if multilib_is_native_abi; then
+		build_apps=ON
 	fi
 
 	local mycmakeargs=(
 		-DCMAKE_VERBOSE_MAKEFILE=ON
+		-DBUILD_APPS="${build_apps}"
 		# Tests require linking against https://github.com/Cidana-Developers/aom/tree/av1-normative
 		# undefined reference to `ifd_inspect'
 		# https://github.com/Cidana-Developers/aom/commit/cfc5c9e95bcb48a5a41ca7908b44df34ea1313c0
 		# .. and https://gitlab.com/AOMediaCodec/SVT-AV1/-/blob/master/.gitlab/workflows/linux/.gitlab-ci.yml implies it's all quite manual
 		-DBUILD_TESTING=OFF
 		-DSVT_AV1_LTO=$(usex lto)
-		-DSVT_AV1_PGO="${enable_pgo}"
+		-DSVT_AV1_PGO=$(multilib_native_usex pgo)
 		-DSVT_AV1_PGO_CUSTOM_VIDEOS="${WORKDIR}/pgo_videos"
 		-DCMAKE_OUTPUT_DIRECTORY="${BUILD_DIR}"
 		-DENABLE_AVX512=$(usex cpu_flags_x86_avx512f)
@@ -72,7 +73,7 @@ multilib_src_configure() {
 }
 
 multilib_src_compile() {
-	if use pgo && [[ "${MULTILIB_ABI_FLAG}" != "abi_x86_32" ]]; then
+	if multilib_native_use pgo; then
 		cmake_src_compile RunPGO
 	else
 		cmake_src_compile
