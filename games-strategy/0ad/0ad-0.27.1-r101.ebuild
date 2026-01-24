@@ -29,7 +29,7 @@ CHECKREQS_DISK_USR="3500M" # 3555340 KiB (3.3 GiB)
 QA_PRESTRIPPED="/usr/lib64/0ad/libCollada.so /usr/lib64/0ad/libAtlasUI.so /usr/bin/0ad /usr/bin/0ad-ActorEditor"
 
 BDEPEND="
-	>=dev-util/premake-5.0.0_alpha12:5
+	>=dev-util/premake-5.0.0_beta7:5
 	virtual/pkgconfig
 	test? ( dev-lang/perl )
 "
@@ -60,6 +60,10 @@ RDEPEND="
 	${DEPEND}
 	!games-strategy/0ad-data
 "
+
+PATCHES=(
+	"${FILESDIR}"/0ad-0.27.1-premake-5.0.0_beta7.patch
+)
 
 pkg_setup() {
 	use editor && setup-wxwidgets
@@ -103,7 +107,7 @@ src_configure() {
 
 	cd "${S}/build/premake" || die "Could not enter premake directory"
 
-	premake5 "${mypremakeargs[@]}" "${myconf[@]}" gmake2 \
+	premake5 "${mypremakeargs[@]}" "${myconf[@]}" gmake \
 		|| die "Premake failed"
 }
 
