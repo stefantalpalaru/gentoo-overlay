@@ -1,0 +1,13 @@
+diff '--color=auto' -ur SVT-AV1-v4.0.0.orig/CMakeLists.txt SVT-AV1-v4.0.0/CMakeLists.txt
+--- SVT-AV1-v4.0.0.orig/CMakeLists.txt	2026-01-24 12:26:51.154326437 +0100
++++ SVT-AV1-v4.0.0/CMakeLists.txt	2026-01-24 12:28:27.780917054 +0100
+@@ -433,9 +433,6 @@
+     check_both_flags_add(-mno-avx)
+ endif()
+ 
+-if(CMAKE_C_FLAGS MATCHES "-O" AND NOT CMAKE_C_FLAGS MATCHES "-O0" AND NOT MINGW)
+-    add_definitions(-D_FORTIFY_SOURCE=2)
+-endif()
+ 
+ if(CMAKE_ASM_NASM_OBJECT_FORMAT MATCHES "win")
+     set(CMAKE_ASM_NASM_FLAGS_DEBUG "${CMAKE_ASM_NASM_FLAGS_DEBUG} -gcv8")
