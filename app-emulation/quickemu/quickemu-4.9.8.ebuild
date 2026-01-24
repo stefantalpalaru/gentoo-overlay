@@ -1,17 +1,14 @@
-# Copyright 2021-2025 Gentoo Authors
+# Copyright 2021-2026 Gentoo Authors
 # Distributed under the terms of the GNU General Public License v2
 
 EAPI=8
 PYTHON_COMPAT=( python3_{11..14} )
-MY_COMMIT="2129abf060eb6af45e0393135da24736e363fc9b"
 
 inherit python-single-r1
 
 DESCRIPTION="Create and run optimised Windows, macOS and Linux desktop virtual machines"
 HOMEPAGE="https://github.com/quickemu-project/quickemu"
-#SRC_URI="https://github.com/quickemu-project/${PN}/archive/refs/tags/${PV}.tar.gz -> ${P}.gh.tar.gz"
-SRC_URI="https://github.com/quickemu-project/quickemu/archive/${MY_COMMIT}.tar.gz -> ${P}.gh.tar.gz"
-S="${WORKDIR}/quickemu-${MY_COMMIT}"
+SRC_URI="https://github.com/quickemu-project/${PN}/archive/refs/tags/${PV}.tar.gz -> ${P}.gh.tar.gz"
 LICENSE="MIT"
 SLOT="0"
 KEYWORDS="~amd64"
