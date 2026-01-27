@@ -19,7 +19,7 @@ app-misc/yworklog 0.0.7-r201: Stack based utility with CLI interface helping to 
 app-office/upwork 5.8.0.33: Project collaboration and tracking software for upwork.com
 app-text/djview 4.12.3: Portable DjVu viewer using Qt
 app-text/doxygen 1.15.0-r1: Documentation system for most programming languages
-app-text/fbreader 0.99.4-r8: E-Book Reader. Supports many e-book formats
+app-text/fbreader 0.99.4-r9: E-Book Reader. Supports many e-book formats
 app-text/koreader-bin 2025.10: ebook reader application
 app-text/multitail 7.1.5-r1: Tail with multiple windows
 app-text/pinfo 0.6.13-r3: Hypertext info and man viewer based on (n)curses
