@@ -6,6 +6,6 @@ KEYWORDS=~amd64 ~arm64
 LICENSE=NVIDIA-cuDNN
 RDEPEND==dev-util/nvidia-cuda-toolkit-12*
 RESTRICT=mirror bindist test
-SLOT=0/9.17.0
-SRC_URI=amd64? ( https://developer.download.nvidia.com/compute/cudnn/redist/cudnn/linux-x86_64/cudnn-linux-x86_64-9.17.0.29_cuda12-archive.tar.xz ) arm64? ( https://developer.download.nvidia.com/compute/cudnn/redist/cudnn/linux-sbsa/cudnn-linux-sbsa-9.17.0.29_cuda12-archive.tar.xz )
+SLOT=0/9.18.1
+SRC_URI=amd64? ( https://developer.download.nvidia.com/compute/cudnn/redist/cudnn/linux-x86_64/cudnn-linux-x86_64-9.18.1.3_cuda12-archive.tar.xz ) arm64? ( https://developer.download.nvidia.com/compute/cudnn/redist/cudnn/linux-sbsa/cudnn-linux-sbsa-9.18.1.3_cuda12-archive.tar.xz )
 _md5_=ee5c9bf8e32acfe39f21212a0771d5db
