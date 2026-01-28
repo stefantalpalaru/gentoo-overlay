@@ -10,7 +10,7 @@ LICENSE=NVIDIA-CUDA
 RDEPEND=!clang? ( <sys-devel/gcc-16_pre[cxx] ) clang? ( <llvm-core/clang-21_pre ) cuda-minor-compat? ( >=x11-drivers/nvidia-drivers-580 ) sys-process/numactl debugger? ( python_targets_python3_11? ( dev-lang/python:3.11 ) python_targets_python3_12? ( dev-lang/python:3.12 ) python_targets_python3_13? ( dev-lang/python:3.13 ) ) examples? ( media-libs/freeglut media-libs/glu ) nsight? ( dev-util/nsight-compute dev-util/nsight-systems ) rdma? ( sys-cluster/rdma-core )
 REQUIRED_USE=|| ( python_targets_python3_11 python_targets_python3_12 python_targets_python3_13 )
 RESTRICT=bindist mirror strip test
-SLOT=0/13.1.0
-SRC_URI=amd64? ( https://developer.download.nvidia.com/compute/cuda/13.1.0/local_installers/cuda_13.1.0_590.44.01_linux.run ) arm64? ( https://developer.download.nvidia.com/compute/cuda/13.1.0/local_installers/cuda_13.1.0_590.44.01_linux_sbsa.run )
+SLOT=0/13.1.1
+SRC_URI=amd64? ( https://developer.download.nvidia.com/compute/cuda/13.1.1/local_installers/cuda_13.1.1_590.48.01_linux.run ) arm64? ( https://developer.download.nvidia.com/compute/cuda/13.1.1/local_installers/cuda_13.1.1_590.48.01_linux_sbsa.run )
 _eclasses_=check-reqs	12ab9d3fc16bfe1f87c6fb652324b57c	edo	a5e294016aa84979fcb2459749eb80b2	toolchain-funcs	30214924c0c3b92ec7dbf24fc70d60d3	out-of-source-utils	8e5093bd27b7f541a1913271f25d633a	multibuild	83db098a835f71feb71761f72a694aa2	multiprocessing	1e32df7deee68372153dca65f4a7c21f	python-utils-r1	f1d3a4dea5847c7390ba91bd557c83aa	python-r1	2d51fd03931e743811ce30d198e4dcfd
-_md5_=ddc1b4b42e51b66554fdafce161f8baa
+_md5_=8a71a4b0e516c2c14f1db148e3d95285
