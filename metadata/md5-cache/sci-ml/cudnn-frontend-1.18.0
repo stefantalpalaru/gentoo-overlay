@@ -6,6 +6,6 @@ HOMEPAGE=https://github.com/NVIDIA/cudnn-frontend
 KEYWORDS=~amd64
 LICENSE=MIT
 RDEPEND=>=dev-libs/cudnn-9:0
-SLOT=0/1.17
-SRC_URI=https://github.com/NVIDIA/cudnn-frontend/archive/refs/tags/v1.17.0.tar.gz -> cudnn-frontend-1.17.0.tar.gz
+SLOT=0/1.18
+SRC_URI=https://github.com/NVIDIA/cudnn-frontend/archive/refs/tags/v1.18.0.tar.gz -> cudnn-frontend-1.18.0.tar.gz
 _md5_=cf6b9c977d61698323f82f44e0269b1d
