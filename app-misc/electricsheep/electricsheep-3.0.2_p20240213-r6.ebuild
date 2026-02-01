@@ -3,16 +3,18 @@
 
 EAPI=8
 WX_GTK_VER="3.2-gtk3"
+MY_COMMIT="5fbbb684752be06ccbea41639968aa7f1cc678dd"
 
-inherit autotools flag-o-matic git-r3 wxwidgets
+inherit autotools flag-o-matic wxwidgets
 
 DESCRIPTION="realize the collective dream of sleeping computers from all over the internet"
 HOMEPAGE="http://electricsheep.org/
 		https://github.com/scottdraves/electricsheep"
-EGIT_REPO_URI="https://github.com/scottdraves/electricsheep"
-S="${WORKDIR}/${P}/client_generic"
+SRC_URI="https://github.com/scottdraves/electricsheep/archive/${MY_COMMIT}.tar.gz -> ${P}.tar.gz"
+S="${WORKDIR}/${PN}-${MY_COMMIT}/client_generic"
 LICENSE="GPL-2"
 SLOT="0"
+KEYWORDS="~amd64 ~x86"
 IUSE="video_cards_nvidia"
 
 DEPEND="dev-lang/lua:5.1
@@ -38,7 +40,7 @@ PATCHES=(
 	"${FILESDIR}"/electricsheep-boost-1.85.patch
 	"${FILESDIR}"/electricsheep-glew.patch
 	"${FILESDIR}"/electricsheep-ffmpeg-8.patch
-	"${FILESDIR}"/electricsheep-boost-system.patch
+	"${FILESDIR}"/electricsheep-boost-system-r1.patch
 )
 
 src_prepare() {
