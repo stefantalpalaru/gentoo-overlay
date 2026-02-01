@@ -1,4 +1,4 @@
-# Copyright 2014-2025 Gentoo Authors
+# Copyright 2014-2026 Gentoo Authors
 # Distributed under the terms of the GNU General Public License v2
 
 EAPI=8
@@ -63,6 +63,7 @@ RDEPEND="
 
 PATCHES=(
 	"${FILESDIR}"/0ad-0.27.1-premake-5.0.0_beta7.patch
+	"${FILESDIR}"/0ad-0.27.1-boost-1.89.patch
 )
 
 pkg_setup() {

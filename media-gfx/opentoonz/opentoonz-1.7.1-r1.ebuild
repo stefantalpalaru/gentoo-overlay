@@ -1,4 +1,4 @@
-# Copyright 1999-2025 Gentoo Authors
+# Copyright 1999-2026 Gentoo Authors
 # Distributed under the terms of the GNU General Public License v2
 
 EAPI=8
@@ -42,16 +42,13 @@ RDEPEND="
 	media-libs/opencv:=[features2d]
 	>=sci-libs/superlu-4.1:=
 	sys-libs/zlib
+	virtual/cblas
 	virtual/libusb:1
 	virtual/opengl
 "
 DEPEND="${RDEPEND}"
 
 CMAKE_USE_DIR="${S}"/toonz/sources
-
-PATCHES=(
-	"${FILESDIR}"/opentoonz-1.7.1-blas.patch
-)
 
 src_configure() {
 	# bug #859778
