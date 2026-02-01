@@ -893,7 +893,7 @@ media-libs/lsp-plugins 1.2.26: Linux Studio Plugins
 media-libs/nv-codec-headers 8.1.24.15 11.0.10.3 11.1.5.3 12.0.16.1 12.1.14.0 12.2.72.0 13.0.19.0: FFmpeg version of headers required to interface with Nvidias codec APIs
 media-libs/oidn 2.4.1-r1300: Intel Open Image Denoise library
 media-libs/openexr 3.1.12-r2: ILM's OpenEXR high dynamic-range image file format libraries
-media-libs/openimageio 3.0.14.0 3.1.9.0: A library for reading and writing images
+media-libs/openimageio 3.0.15.0 3.1.10.0: A library for reading and writing images
 media-libs/opensubdiv 3.6.1-r100: An Open-Source subdivision surface library
 media-libs/portaudio 19.07.00-r5: A free, cross-platform, open-source, audio I/O library
 media-libs/rtaudio 5.2.0-r1: A set of cross-platform C++ classes for realtime audio I/O
