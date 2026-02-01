@@ -40,6 +40,7 @@ PATCHES=(
 	"${FILESDIR}"/electricsheep-boost-1.85.patch
 	"${FILESDIR}"/electricsheep-glew.patch
 	"${FILESDIR}"/electricsheep-ffmpeg-8.patch
+	"${FILESDIR}"/electricsheep-boost-system.patch
 )
 
 src_prepare() {
