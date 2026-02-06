@@ -1,9 +1,9 @@
-# Copyright 2022-2025 Gentoo Authors
+# Copyright 2022-2026 Gentoo Authors
 # Distributed under the terms of the GNU General Public License v2
 
 EAPI=8
 CMAKE_IN_SOURCE_BUILD=1
-PYTHON_COMPAT=( python3_{10..13} )
+PYTHON_COMPAT=( python3_{10..14} )
 DISTUTILS_USE_PEP517=setuptools
 DISTUTILS_SINGLE_IMPL=1
 DISTUTILS_EXT=1
@@ -83,6 +83,7 @@ BDEPEND="
 			dev-python/coloredlogs[${PYTHON_USEDEP}]
 			dev-python/flatbuffers[${PYTHON_USEDEP}]
 			dev-python/h5py[${PYTHON_USEDEP}]
+			dev-python/ml-dtypes[${PYTHON_USEDEP}]
 			dev-python/numpy[${PYTHON_USEDEP}]
 			dev-python/psutil[${PYTHON_USEDEP}]
 			dev-python/py-cpuinfo[${PYTHON_USEDEP}]
@@ -97,11 +98,10 @@ BDEPEND="
 PATCHES=(
 	"${FILESDIR}/onnxruntime-system-dnnl.patch"
 	"${FILESDIR}/re2-pkg-config-r4.patch"
-	"${FILESDIR}/system-onnx-r6.patch"
-	"${FILESDIR}/system-composable_kernel-r5.patch"
+	"${FILESDIR}/system-onnx-r7.patch"
 	"${FILESDIR}/system-protobuf-r1.patch"
 	"${FILESDIR}/system-mp11.patch"
-	"${FILESDIR}/system-gsl-r5.patch"
+	"${FILESDIR}/system-gsl-r6.patch"
 	"${FILESDIR}/shared-build-fix.patch"
 	"${FILESDIR}/contrib-ops.patch"
 	"${FILESDIR}/disabled_rules_and_transformers.patch"
@@ -110,8 +110,9 @@ PATCHES=(
 	"${FILESDIR}/onnxruntime-1.19.0-eigen.patch"
 	"${FILESDIR}/onnxruntime-1.21.0-system-eigen.patch"
 	"${FILESDIR}/onnxruntime-1.20.0-cudnn_frontend.patch"
-	"${FILESDIR}/onnxruntime-1.23.0-external-downloads.patch"
+	"${FILESDIR}/onnxruntime-1.24.1-external-downloads.patch"
 	"${FILESDIR}/onnxruntime-1.23.0-include.patch"
+	"${FILESDIR}/onnxruntime-1.24.1-string-view.patch"
 )
 
 pkg_setup() {
@@ -181,7 +182,6 @@ src_configure() {
 		-Donnxruntime_USE_PREINSTALLED_EIGEN=ON
 		-Donnxruntime_USE_DNNL=$(usex onednn)
 		-Donnxruntime_USE_CUDA=$(usex cuda)
-		-Donnxruntime_USE_ROCM=$(usex hip)
 		-Donnxruntime_USE_AVX=$(usex cpu_flags_x86_avx)
 		-Donnxruntime_USE_AVX2=$(usex cpu_flags_x86_avx2)
 		-Donnxruntime_USE_AVX512=$(usex cpu_flags_x86_avx512f)

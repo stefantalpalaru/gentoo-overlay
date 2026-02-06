@@ -1,7 +1,7 @@
-diff '--color=auto' -ur onnxruntime-1.23.0.orig/cmake/external/onnxruntime_external_deps.cmake onnxruntime-1.23.0/cmake/external/onnxruntime_external_deps.cmake
---- onnxruntime-1.23.0.orig/cmake/external/onnxruntime_external_deps.cmake	2025-09-26 10:47:16.060938526 +0200
-+++ onnxruntime-1.23.0/cmake/external/onnxruntime_external_deps.cmake	2025-09-26 10:49:51.328234731 +0200
-@@ -405,35 +405,6 @@
+diff '--color=auto' -ur onnxruntime-1.24.1.orig/cmake/external/onnxruntime_external_deps.cmake onnxruntime-1.24.1/cmake/external/onnxruntime_external_deps.cmake
+--- onnxruntime-1.24.1.orig/cmake/external/onnxruntime_external_deps.cmake	2026-02-06 01:17:08.729578796 +0100
++++ onnxruntime-1.24.1/cmake/external/onnxruntime_external_deps.cmake	2026-02-06 01:20:13.104345250 +0100
+@@ -397,35 +397,6 @@
    endif()
  endif()
  
@@ -37,12 +37,12 @@ diff '--color=auto' -ur onnxruntime-1.23.0.orig/cmake/external/onnxruntime_exter
  find_path(safeint_SOURCE_DIR NAMES "SafeInt.hpp")
  if(NOT safeint_SOURCE_DIR)
    unset(safeint_SOURCE_DIR)
-@@ -595,7 +566,7 @@
+@@ -587,7 +558,7 @@
  
  set(onnxruntime_EXTERNAL_LIBRARIES ${onnxruntime_EXTERNAL_LIBRARIES_XNNPACK} ${WIL_TARGET} nlohmann_json::nlohmann_json
                                     ONNX::onnx ONNX::onnx_proto ${PROTOBUF_LIB} re2::re2 Boost::mp11 safeint_interface
--                                   flatbuffers::flatbuffers ${GSL_TARGET} ${ABSEIL_LIBS} date::date
-+                                   flatbuffers::flatbuffers ${ABSEIL_LIBS} date::date
-                                    ${ONNXRUNTIME_CLOG_TARGET_NAME} Eigen3::Eigen)
+-                                   flatbuffers::flatbuffers ${GSL_TARGET} ${ABSEIL_LIBS} date::date Eigen3::Eigen)
++                                   flatbuffers::flatbuffers ${ABSEIL_LIBS} date::date Eigen3::Eigen)
  
  # The source code of onnx_proto is generated, we must build this lib first before starting to compile the other source code that uses ONNX protobuf types.
+ # The other libs do not have the problem. All the sources are already there. We can compile them in any order.

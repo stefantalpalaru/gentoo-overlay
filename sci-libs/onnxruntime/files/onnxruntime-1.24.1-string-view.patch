@@ -1,0 +1,12 @@
+diff '--color=auto' -ur onnxruntime-1.24.1.orig/onnxruntime/core/framework/ort_value_name_idx_map.h onnxruntime-1.24.1/onnxruntime/core/framework/ort_value_name_idx_map.h
+--- onnxruntime-1.24.1.orig/onnxruntime/core/framework/ort_value_name_idx_map.h	2026-02-04 03:26:24.000000000 +0100
++++ onnxruntime-1.24.1/onnxruntime/core/framework/ort_value_name_idx_map.h	2026-02-06 01:49:39.412556731 +0100
+@@ -33,7 +33,7 @@
+   common::Status GetIdx(std::string_view name, int& idx) const {
+     idx = -1;
+ 
+-    auto it = map_.find(name);
++    auto it = map_.find(std::string(name));
+     if (it == map_.end()) {
+       return ORT_MAKE_STATUS(ONNXRUNTIME, FAIL, "Could not find OrtValue with name '", name, "'");
+     }

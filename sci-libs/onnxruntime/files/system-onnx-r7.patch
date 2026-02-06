@@ -1,14 +1,13 @@
-diff '--color=auto' -ur onnxruntime-1.23.0.orig/cmake/external/onnxruntime_external_deps.cmake onnxruntime-1.23.0/cmake/external/onnxruntime_external_deps.cmake
---- onnxruntime-1.23.0.orig/cmake/external/onnxruntime_external_deps.cmake	2025-09-26 10:27:40.524640337 +0200
-+++ onnxruntime-1.23.0/cmake/external/onnxruntime_external_deps.cmake	2025-09-26 10:36:23.893627413 +0200
-@@ -591,20 +591,13 @@
+diff '--color=auto' -ur onnxruntime-1.24.1.orig/cmake/external/onnxruntime_external_deps.cmake onnxruntime-1.24.1/cmake/external/onnxruntime_external_deps.cmake
+--- onnxruntime-1.24.1.orig/cmake/external/onnxruntime_external_deps.cmake	2026-02-06 01:06:36.667073969 +0100
++++ onnxruntime-1.24.1/cmake/external/onnxruntime_external_deps.cmake	2026-02-06 01:08:55.195028955 +0100
+@@ -583,19 +583,12 @@
  endif()
  
  set(onnxruntime_EXTERNAL_LIBRARIES ${onnxruntime_EXTERNAL_LIBRARIES_XNNPACK} ${WIL_TARGET} nlohmann_json::nlohmann_json
 -                                   onnx onnx_proto ${PROTOBUF_LIB} re2::re2 Boost::mp11 safeint_interface
 +                                   ONNX::onnx ONNX::onnx_proto ${PROTOBUF_LIB} re2::re2 Boost::mp11 safeint_interface
-                                    flatbuffers::flatbuffers ${GSL_TARGET} ${ABSEIL_LIBS} date::date
-                                    ${ONNXRUNTIME_CLOG_TARGET_NAME} Eigen3::Eigen)
+                                    flatbuffers::flatbuffers ${GSL_TARGET} ${ABSEIL_LIBS} date::date Eigen3::Eigen)
  
  # The source code of onnx_proto is generated, we must build this lib first before starting to compile the other source code that uses ONNX protobuf types.
  # The other libs do not have the problem. All the sources are already there. We can compile them in any order.
@@ -24,10 +23,10 @@ diff '--color=auto' -ur onnxruntime-1.23.0.orig/cmake/external/onnxruntime_exter
  
  if(onnxruntime_ENABLE_DLPACK)
    message(STATUS "dlpack is enabled.")
-diff '--color=auto' -ur onnxruntime-1.23.0.orig/cmake/onnxruntime_providers_cpu.cmake onnxruntime-1.23.0/cmake/onnxruntime_providers_cpu.cmake
---- onnxruntime-1.23.0.orig/cmake/onnxruntime_providers_cpu.cmake	2025-09-25 03:34:17.000000000 +0200
-+++ onnxruntime-1.23.0/cmake/onnxruntime_providers_cpu.cmake	2025-09-26 10:38:18.327146594 +0200
-@@ -174,7 +174,7 @@
+diff '--color=auto' -ur onnxruntime-1.24.1.orig/cmake/onnxruntime_providers_cpu.cmake onnxruntime-1.24.1/cmake/onnxruntime_providers_cpu.cmake
+--- onnxruntime-1.24.1.orig/cmake/onnxruntime_providers_cpu.cmake	2026-02-04 03:26:24.000000000 +0100
++++ onnxruntime-1.24.1/cmake/onnxruntime_providers_cpu.cmake	2026-02-06 01:09:59.002776353 +0100
+@@ -184,7 +184,7 @@
  
  target_include_directories(onnxruntime_providers PRIVATE ${ONNXRUNTIME_ROOT})
  onnxruntime_add_include_to_target(onnxruntime_providers re2::re2 Eigen3::Eigen)

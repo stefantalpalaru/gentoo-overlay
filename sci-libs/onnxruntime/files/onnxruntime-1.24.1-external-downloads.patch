@@ -1,6 +1,6 @@
-diff '--color=auto' -ur onnxruntime-1.23.0.orig/cmake/external/cudnn_frontend.cmake onnxruntime-1.23.0/cmake/external/cudnn_frontend.cmake
---- onnxruntime-1.23.0.orig/cmake/external/cudnn_frontend.cmake	2025-09-25 03:34:17.000000000 +0200
-+++ onnxruntime-1.23.0/cmake/external/cudnn_frontend.cmake	2025-09-26 12:00:17.761901807 +0200
+diff '--color=auto' -ur onnxruntime-1.24.1.orig/cmake/external/cudnn_frontend.cmake onnxruntime-1.24.1/cmake/external/cudnn_frontend.cmake
+--- onnxruntime-1.24.1.orig/cmake/external/cudnn_frontend.cmake	2026-02-04 03:26:24.000000000 +0100
++++ onnxruntime-1.24.1/cmake/external/cudnn_frontend.cmake	2026-02-06 01:22:06.011898273 +0100
 @@ -1,15 +1 @@
  
 -onnxruntime_fetchcontent_declare(
@@ -17,16 +17,17 @@ diff '--color=auto' -ur onnxruntime-1.23.0.orig/cmake/external/cudnn_frontend.cm
 -set(CUDNN_PATH ${onnxruntime_CUDNN_HOME})
 -
 -onnxruntime_fetchcontent_makeavailable(cudnn_frontend)
-diff '--color=auto' -ur onnxruntime-1.23.0.orig/cmake/external/cutlass.cmake onnxruntime-1.23.0/cmake/external/cutlass.cmake
---- onnxruntime-1.23.0.orig/cmake/external/cutlass.cmake	2025-09-25 03:34:17.000000000 +0200
-+++ onnxruntime-1.23.0/cmake/external/cutlass.cmake	2025-09-26 12:00:42.433795936 +0200
-@@ -1,12 +0,0 @@
+diff '--color=auto' -ur onnxruntime-1.24.1.orig/cmake/external/cutlass.cmake onnxruntime-1.24.1/cmake/external/cutlass.cmake
+--- onnxruntime-1.24.1.orig/cmake/external/cutlass.cmake	2026-02-04 03:26:24.000000000 +0100
++++ onnxruntime-1.24.1/cmake/external/cutlass.cmake	2026-02-06 01:22:24.024826964 +0100
+@@ -1,13 +0,0 @@
 -include(FetchContent)
 -onnxruntime_fetchcontent_declare(
 -  cutlass
 -  URL ${DEP_URL_cutlass}
 -  URL_HASH SHA1=${DEP_SHA1_cutlass}
 -  EXCLUDE_FROM_ALL
+-PATCH_COMMAND ${Patch_EXECUTABLE} --ignore-whitespace -p1 < ${PROJECT_SOURCE_DIR}/patches/cutlass/cutlass_4.2.1.patch
 -)
 -
 -FetchContent_GetProperties(cutlass)
