@@ -5,7 +5,7 @@ app-admin/conky 1.22.2: An advanced, highly configurable system monitor for X
 app-admin/rasdaemon 0.8.4: Reliability, Availability and Serviceability logging tool
 app-admin/zenmonitor3 2.0.0_p20220812: Zen monitor is monitoring software for AMD Zen-based CPUs
 app-alternatives/yacc 0-r1: Virtual for yacc (yet another compiler compiler)
-app-arch/libzim 9.4.1: reference implementation for the ZIM archive format
+app-arch/libzim 9.5.0: reference implementation for the ZIM archive format
 app-crypt/acme 1.8.0-r201 1.32.0-r1: An implementation of the ACME protocol
 app-crypt/certbot 1.8.0-r202 1.32.0-r3: Let’s Encrypt client to automate deployment of X.509 certificates
 app-crypt/certbot-s3front 0.4.2_p20201118-r6: S3/CloudFront plugin for Let's Encrypt client
