@@ -943,7 +943,7 @@ net-misc/ssvnc 1.0.29-r4: VNC viewer that adds encryption security to VNC connec
 net-misc/streamtuner2 2.2.2_p20240918: Internet radio browser
 net-p2p/deluge 2.2.0: BitTorrent client with a client/server model
 net-p2p/fms 0.3.86-r1: Spam-resistant message board application for Freenet
-net-p2p/freenet 0.7.5_p1504-r101: An encrypted network without censorship
+net-p2p/freenet 0.7.5_p1505-r100: An encrypted network without censorship
 net-p2p/go-ethereum 1.16.8: Official golang implementation of the Ethereum protocol
 net-p2p/nicotine+ 3.3.10 9999-r1: A fork of nicotine, a Soulseek client in Python
 net-p2p/nimbus-eth2 26.1.0 9999-r19: Nim implementation of the Ethereum 2.0 blockchain
