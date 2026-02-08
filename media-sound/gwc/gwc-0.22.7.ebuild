@@ -1,4 +1,4 @@
-# Copyright 2023-2025 Gentoo Authors
+# Copyright 2023-2026 Gentoo Authors
 # Distributed under the terms of the GNU General Public License v2
 
 EAPI=8
@@ -53,19 +53,6 @@ src_configure() {
 	fi
 
 	econf "${myconf[@]}"
-
-	cd meschach
-	econf --with-sparse
-	cd - 2>/dev/null
-}
-
-src_compile() {
-	cd meschach || die
-	emake part1 part2 part3
-	cp machine.h .. || die
-	cd - 2>/dev/null
-
-	emake
 }
 
 src_install() {
