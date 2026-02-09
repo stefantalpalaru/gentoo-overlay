@@ -825,6 +825,7 @@ dev-qt/qtprintsupport 5.15.18: Printing support library for the Qt5 framework
 dev-qt/qtquickcontrols 5.15.18: Set of Qt Quick controls to create complete user interfaces (deprecated)
 dev-qt/qtquickcontrols2 5.15.18: Set of next generation Qt Quick controls for the Qt5 framework
 dev-qt/qtquicktimeline 5.15.18: Qt module for keyframe-based timeline construction
+dev-qt/qtscript 5.15.18: Application scripting library for the Qt5 framework (deprecated)
 dev-qt/qtscxml 5.15.18: State Chart XML (SCXML) support library for the Qt5 framework
 dev-qt/qtsensors 5.15.18: Hardware sensor access library for the Qt5 framework
 dev-qt/qtserialbus 5.15.18: Qt module to access CAN, ModBus, and other industrial serial buses and protocols

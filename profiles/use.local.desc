@@ -253,6 +253,7 @@ dev-qt/qtpositioning:geoclue - Use enhanced location information from app-misc/g
 dev-qt/qtpositioning:qml - Build QML bindings
 dev-qt/qtquickcontrols:widgets - Enable QtWidgets support
 dev-qt/qtquickcontrols2:widgets - Enable QtWidgets support
+dev-qt/qtscript:scripttools - Build the QtScriptTools module (requires QtWidgets)
 dev-qt/qtsensors:qml - Build QML bindings
 dev-qt/qtvirtualkeyboard:handwriting - Adds handwriting recognition integration support
 dev-qt/qtwayland:compositor - Enable support for the wayland compositor / server APIs

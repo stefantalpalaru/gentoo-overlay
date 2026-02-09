@@ -16,6 +16,7 @@ dev-qt/qtlocation
 dev-qt/qtnetworkauth
 dev-qt/qtpositioning
 dev-qt/qtquicktimeline
+dev-qt/qtscript
 dev-qt/qtsensors
 dev-qt/qtserialbus
 dev-qt/qtserialport
