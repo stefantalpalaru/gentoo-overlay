@@ -1,6 +1,6 @@
 BDEPEND=app-arch/unzip verify-sig? ( sec-keys/openpgp-keys-freenet ) virtual/pkgconfig verify-sig? ( || ( app-alternatives/gpg app-crypt/gnupg[-alternatives(-)] ) >=app-portage/gemato-20 )
 DEFINED_PHASES=compile install postinst postrm preinst prepare setup test unpack
-DEPEND=dev-java/unbescape:0 >=virtual/jdk-1.8:* dev-java/bcprov:0 dev-java/commons-compress:0 dev-java/commons-lang:3.6 dev-java/commons-io:1 >=dev-java/freenet-ext-29-r2:29 dev-java/java-service-wrapper:0 dev-java/jbitcollider-core:0 dev-java/jna:4 dev-java/lzma:0 dev-java/lzmajio:0 dev-java/mersennetwister:0 dev-java/pebble:0 dev-java/slf4j-api:0 dev-java/slf4j-simple:0 dev-java/unbescape:0 test? ( dev-java/hamcrest:0 dev-java/mockito:0 dev-java/objenesis:0 net-libs/NativeThread:0 ) >=dev-java/java-config-2.2.0-r3 source? ( app-arch/zip ) test? ( dev-java/junit:4 )
+DEPEND=dev-java/unbescape:0 >=virtual/jdk-1.8:* dev-java/bcprov:0 dev-java/commons-compress:0 dev-java/commons-lang:3.6 dev-java/commons-io:1 >=dev-java/freenet-ext-29-r3:29 dev-java/java-service-wrapper:0 dev-java/jbitcollider-core:0 dev-java/jna:4 dev-java/lzma:0 dev-java/lzmajio:0 dev-java/pebble:0 dev-java/slf4j-api:0 dev-java/slf4j-simple:0 dev-java/unbescape:0 test? ( dev-java/hamcrest:0 dev-java/mockito:0 dev-java/objenesis:0 net-libs/NativeThread:0 ) >=dev-java/java-config-2.2.0-r3 source? ( app-arch/zip ) test? ( dev-java/junit:4 )
 DESCRIPTION=An encrypted network without censorship
 EAPI=8
 HOMEPAGE=https://www.hyphanet.org
@@ -9,9 +9,9 @@ IUSE=+nss doc source test verify-sig
 KEYWORDS=amd64 ~arm64
 LICENSE=GPL-2+ GPL-2 MIT BSD-2 Apache-2.0
 PDEPEND=net-libs/NativeThread:0
-RDEPEND=acct-user/freenet acct-group/freenet >=virtual/jre-1.8:* dev-java/bcprov:0 dev-java/commons-compress:0 dev-java/commons-lang:3.6 dev-java/commons-io:1 >=dev-java/freenet-ext-29-r2:29 dev-java/java-service-wrapper:0 dev-java/jbitcollider-core:0 dev-java/jna:4 dev-java/lzma:0 dev-java/lzmajio:0 dev-java/mersennetwister:0 dev-java/pebble:0 dev-java/slf4j-api:0 dev-java/slf4j-simple:0 dev-java/unbescape:0 nss? ( dev-libs/nss ) >=dev-java/java-config-2.2.0-r3 source? ( app-arch/zip )
+RDEPEND=acct-user/freenet acct-group/freenet >=virtual/jre-1.8:* dev-java/bcprov:0 dev-java/commons-compress:0 dev-java/commons-lang:3.6 dev-java/commons-io:1 >=dev-java/freenet-ext-29-r3:29 dev-java/java-service-wrapper:0 dev-java/jbitcollider-core:0 dev-java/jna:4 dev-java/lzma:0 dev-java/lzmajio:0 dev-java/pebble:0 dev-java/slf4j-api:0 dev-java/slf4j-simple:0 dev-java/unbescape:0 nss? ( dev-libs/nss ) >=dev-java/java-config-2.2.0-r3 source? ( app-arch/zip )
 RESTRICT=!test? ( test )
 SLOT=0
 SRC_URI=https://github.com/hyphanet/fred/releases/download/build01505/freenet-build01505-source.tar.bz2 https://github.com/hyphanet/seedrefs/archive/b34dbc4d021c58c4a108214a71a9e1ab986c4e14.tar.gz -> freenet-seednodes-b34dbc4d021c58c4a108214a71a9e1ab986c4e14.gh.tar.gz verify-sig? ( https://github.com/hyphanet/fred/releases/download/build01505/freenet-build01505-source.tar.bz2.sig )
 _eclasses_=java-utils-2	b41327d85d12ce816943cf4d344add19	java-pkg-2	438c2725ea326202d7fc1eb31af76813	java-pkg-simple	df1fc43a5017ec8f5d23007b23731474	toolchain-funcs	7e440a20ac11dece04e3334622e6e5da	systemd	a964c0cbe818b5729da1dbfcee5be861	eapi9-pipestatus	d2c134036ac31c3085aebc9147f572bd	verify-sig	ece4c893b6bd62eacbc4d25958e857f8
-_md5_=3ea409dc40d9ea342faa07b1f706d4ee
+_md5_=c139f01992c1378bb22751ecddd640c5
