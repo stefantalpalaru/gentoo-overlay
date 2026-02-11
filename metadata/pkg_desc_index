@@ -967,24 +967,25 @@ sci-astronomy/kapteyn 2.3.1-r201: Collection of python tools for astronomy
 sci-geosciences/mkgmap-bin 4918: Tool to create garmin maps
 sci-geosciences/qgis 3.44.7-r100: User friendly Geographic Information System
 sci-geosciences/splitter-bin 653-r1: Tile splitter for mkgmap
-sci-libs/amd 3.3.4-r3: Library to order a sparse matrix prior to Cholesky factorization
-sci-libs/btf 2.3.3-r3: Algorithm for matrix permutation into block triangular form
-sci-libs/camd 3.3.5-r3: Library to order a sparse matrix prior to Cholesky factorization
-sci-libs/ccolamd 3.3.5-r3: Constrained Column approximate minimum degree ordering algorithm
-sci-libs/cfitsio 3.410-r2: C and Fortran library for manipulating FITS files
-sci-libs/cholmod 5.3.4-r3: Sparse Cholesky factorization and update/downdate library
-sci-libs/clapack 3.2.1-r9: f2c'ed version of LAPACK
-sci-libs/colamd 3.3.5-r3: Column approximate minimum degree ordering algorithm
-sci-libs/cxsparse 4.4.2-r3: Extended sparse matrix package
+sci-libs/amd 3.3.4-r4: Library to order a sparse matrix prior to Cholesky factorization
+sci-libs/btf 2.3.3-r4: Algorithm for matrix permutation into block triangular form
+sci-libs/camd 3.3.5-r4: Library to order a sparse matrix prior to Cholesky factorization
+sci-libs/ccolamd 3.3.5-r4: Constrained Column approximate minimum degree ordering algorithm
+sci-libs/cfitsio 3.410-r3: C and Fortran library for manipulating FITS files
+sci-libs/cholmod 5.3.4-r4: Sparse Cholesky factorization and update/downdate library
+sci-libs/clapack 3.2.1-r10: f2c'ed version of LAPACK
+sci-libs/colamd 3.3.5-r4: Column approximate minimum degree ordering algorithm
+sci-libs/cxsparse 4.4.2-r4: Extended sparse matrix package
 sci-libs/gdal 3.0.4-r206 3.11.5-r1 3.12.2: Translator library for raster geospatial data formats (includes OGR support)
-sci-libs/hdf5 1.10.5-r2: General purpose library and file format for storing scientific data
-sci-libs/klu 2.3.6-r3: Sparse LU factorization for circuit simulation
-sci-libs/ldl 3.3.3-r3: Simple but educational LDL^T matrix factorization algorithm
+sci-libs/graphblas 10.3.1: Sparse LU factorization for circuit simulation
+sci-libs/hdf5 1.10.5-r3: General purpose library and file format for storing scientific data
+sci-libs/klu 2.3.6-r4: Sparse LU factorization for circuit simulation
+sci-libs/ldl 3.3.3-r4: Simple but educational LDL^T matrix factorization algorithm
 sci-libs/onnxruntime 1.24.1: Cross-platform inference and training machine-learning accelerator.
-sci-libs/spqr 4.3.6: Multithreaded multifrontal sparse QR factorization library
-sci-libs/suitesparse 7.12.0: Metapackage for a suite of sparse matrix tools
-sci-libs/suitesparseconfig 7.12.0: Common configurations for all packages in suitesparse
-sci-libs/umfpack 6.3.7: Unsymmetric multifrontal sparse LU factorization library
+sci-libs/spqr 4.3.6-r1: Multithreaded multifrontal sparse QR factorization library
+sci-libs/suitesparse 7.12.2: Metapackage for a suite of sparse matrix tools
+sci-libs/suitesparseconfig 7.12.2: Common configurations for all packages in suitesparse
+sci-libs/umfpack 6.3.7-r1: Unsymmetric multifrontal sparse LU factorization library
 sci-mathematics/xmds 2.2.3-r4: XMDS - The eXtensible Multi-Dimensional Simulator
 sci-misc/openfst 1.8.4: Finite State Transducer tools by Google et al
 sci-misc/opengrm-ngram 1.3.16: n-gram language models encoded as weighted finite-state transducers

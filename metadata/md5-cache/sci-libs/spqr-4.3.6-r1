@@ -1,0 +1,15 @@
+BDEPEND=doc? ( virtual/latex-base ) app-alternatives/ninja >=dev-build/cmake-3.28.5
+DEFINED_PHASES=compile configure install prepare pretend setup test
+DEPEND=cuda? ( dev-util/nvidia-cuda-toolkit x11-drivers/nvidia-drivers ) >=sci-libs/suitesparseconfig-7.12.2 >=sci-libs/amd-3.0.3 >=sci-libs/colamd-3.0.3 >=sci-libs/cholmod-4.0.3 virtual/blas
+DESCRIPTION=Multithreaded multifrontal sparse QR factorization library
+EAPI=8
+HOMEPAGE=https://people.engr.tamu.edu/davis/suitesparse.html
+INHERIT=cmake cuda cuda-extra toolchain-funcs
+IUSE=cuda doc openmp static-libs
+KEYWORDS=amd64 arm arm64 ~hppa ~loong ~ppc ~ppc64 ~riscv ~sparc x86
+LICENSE=GPL-2+
+RDEPEND=cuda? ( dev-util/nvidia-cuda-toolkit x11-drivers/nvidia-drivers ) >=sci-libs/suitesparseconfig-7.12.2 >=sci-libs/amd-3.0.3 >=sci-libs/colamd-3.0.3 >=sci-libs/cholmod-4.0.3 virtual/blas
+SLOT=0/3
+SRC_URI=https://github.com/DrTimothyAldenDavis/SuiteSparse/archive/refs/tags/v7.12.2.tar.gz -> SuiteSparse-7.12.2.gh.tar.gz
+_eclasses_=toolchain-funcs	7e440a20ac11dece04e3334622e6e5da	flag-o-matic	ed1eda86c8f746a2a75f7f9f7478f5f4	multiprocessing	1e32df7deee68372153dca65f4a7c21f	ninja-utils	3a59a39e97af0f7c03f49cf3c22f262b	xdg-utils	42869b3c8d86a70ef3cf75165a395e09	cmake	5691a3da96eac88f135cf3596b8c2c3c	cuda	8b660e223a1695e3884ee4c7dc2c5059	cuda-extra	136d6c15e6d28edf8d31926713bdaed2
+_md5_=27a9bf90165450760c2339df93c25223
