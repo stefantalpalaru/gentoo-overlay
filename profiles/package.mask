@@ -17,8 +17,10 @@
 -dev-qt/qdbusviewer
 -dev-qt/qdoc
 -dev-qt/qtdiag
+-dev-qt/qtlockedfile
 -dev-qt/qtpaths
 -dev-qt/qtplugininfo
+-dev-qt/qtsingleapplication
 -dev-qt/qtwayland
 -dev-qt/qtwebengine
 -dev-qt/qtwebkit
