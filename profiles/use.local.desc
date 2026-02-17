@@ -51,6 +51,7 @@ dev-cpp/eigen:sparsehash - Add test support for GoogleHash (dev-cpp/sparsehash)
 dev-cpp/eigen:spqr - Add test support for SPQR (sci-libs/spqr)
 dev-cpp/eigen:superlu - Add test support for SuperLU (sci-libs/superlu)
 dev-cpp/eigen:umfpack - Add test support for UMFPACK (sci-libs/umfpack)
+dev-db/redis:tcmalloc - Use tcmalloc from dev-util/google-perftools for allocations.
 dev-db/valkey:tcmalloc - Use tcmalloc from dev-util/google-perftools for allocations.
 dev-debug/valgrind:lto - Build with link time optimization (LTO)
 dev-lang/nim:boehm-gc - Enable Hans Boehm's garbage collector (dev-libs/boehm-gc).
