@@ -9,5 +9,5 @@ LICENSE=GPL-3+ LGPL-3+
 RDEPEND=>=dev-lang/go-1.24:=
 RESTRICT=mirror network-sandbox test
 SLOT=0
-SRC_URI=https://github.com/ethereum/go-ethereum/archive/v1.16.8.tar.gz -> go-ethereum-1.16.8.tar.gz
+SRC_URI=https://github.com/ethereum/go-ethereum/archive/v1.17.0.tar.gz -> go-ethereum-1.17.0.tar.gz
 _md5_=fb92b35e2f958b5204ec23e5cd1dc757
