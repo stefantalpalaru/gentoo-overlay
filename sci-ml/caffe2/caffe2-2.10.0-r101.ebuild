@@ -118,7 +118,7 @@ DEPEND="
 	dev-libs/psimd
 	sci-ml/FP16
 	$(python_gen_cond_dep '
-		dev-python/pybind11[${PYTHON_USEDEP}]
+		<dev-python/pybind11-3.0.2[${PYTHON_USEDEP}]
 		dev-python/pyyaml[${PYTHON_USEDEP}]
 		dev-python/typing-extensions[${PYTHON_USEDEP}]
 	')
@@ -160,6 +160,7 @@ src_prepare() {
 
 	# Change libaotriton path
 	sed -i \
+		-e "/set(__AOTRITON_LIB/s|lib/|$(get_libdir)/|g" \
 		-e "s|}/lib|}/$(get_libdir)|g" \
 		cmake/External/aotriton.cmake \
 		|| die
@@ -211,11 +212,8 @@ src_prepare() {
 		# Workaround for libc++ issue https://github.com/llvm/llvm-project/issues/100802
 		sed -e 's/std::memcpy/memcpy/g' -i torch/headeronly/util/Half.h || die
 
-		# Typo: https://github.com/pytorch/pytorch/pull/166502
-		sed -e 's/gloo_hiop/gloo_hip/' -i cmake/Modules/FindGloo.cmake || die
-
 		ebegin "HIPifying cuda sources"
-		${EPYTHON} tools/amd_build/build_amd.py || die
+		FBCODE_BUILD_TOOL="buck" ${EPYTHON} tools/amd_build/build_amd.py || die
 		eend $?
 	fi
 
@@ -317,6 +315,13 @@ src_configure() {
 			-DUSE_CUDSS=$(usex cudss)
 			-DUSE_CUSPARSELT=ON
 		)
+
+		[[ -v CUDACXX ]] && export PYTORCH_NVCC="${CUDACXX}"
+
+		if use flash; then
+			export FLASH_ATTENTION_FORCE_BUILD="TRUE"
+			export FLASH_ATTN_CUDA_ARCHS="${CUDAARCHS:-${TORCH_CUDA_ARCH_LIST:-5.0 7.0}}"
+		fi
 	elif use rocm; then
 		export PYTORCH_ROCM_ARCH="$(get_amdgpu_flags)"
 
