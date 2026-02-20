@@ -982,7 +982,7 @@ sci-libs/graphblas 10.3.1: Sparse LU factorization for circuit simulation
 sci-libs/hdf5 1.10.5-r3: General purpose library and file format for storing scientific data
 sci-libs/klu 2.3.6-r4: Sparse LU factorization for circuit simulation
 sci-libs/ldl 3.3.3-r4: Simple but educational LDL^T matrix factorization algorithm
-sci-libs/onnxruntime 1.24.1: Cross-platform inference and training machine-learning accelerator.
+sci-libs/onnxruntime 1.24.2: Cross-platform inference and training machine-learning accelerator.
 sci-libs/spqr 4.3.6-r1: Multithreaded multifrontal sparse QR factorization library
 sci-libs/suitesparse 7.12.2: Metapackage for a suite of sparse matrix tools
 sci-libs/suitesparseconfig 7.12.2: Common configurations for all packages in suitesparse
