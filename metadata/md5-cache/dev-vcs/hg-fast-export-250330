@@ -12,5 +12,5 @@ REQUIRED_USE=|| ( python_targets_python3_11 python_targets_python3_12 python_tar
 RESTRICT=mirror
 SLOT=0
 SRC_URI=https://github.com/frej/fast-export/archive/refs/tags/v250330.tar.gz -> hg-fast-export-250330.gh.tar.gz
-_eclasses_=out-of-source-utils	8e5093bd27b7f541a1913271f25d633a	multibuild	83db098a835f71feb71761f72a694aa2	multiprocessing	1e32df7deee68372153dca65f4a7c21f	toolchain-funcs	7e440a20ac11dece04e3334622e6e5da	python-utils-r1	f1d3a4dea5847c7390ba91bd557c83aa	python-r1	2d51fd03931e743811ce30d198e4dcfd
+_eclasses_=multibuild	83db098a835f71feb71761f72a694aa2	multiprocessing	1e32df7deee68372153dca65f4a7c21f	out-of-source-utils	8e5093bd27b7f541a1913271f25d633a	python-r1	2d51fd03931e743811ce30d198e4dcfd	python-utils-r1	f1d3a4dea5847c7390ba91bd557c83aa	toolchain-funcs	8a2c298bde71ecf3f452dd9e67c94369
 _md5_=2254ae41422af2f13257d9c1f7e51b0b

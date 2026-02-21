@@ -13,5 +13,5 @@ RDEPEND=acct-user/freenet acct-group/freenet >=virtual/jre-1.8:* dev-java/bcprov
 RESTRICT=!test? ( test )
 SLOT=0
 SRC_URI=https://github.com/hyphanet/fred/releases/download/build01506/freenet-build01506-source.tar.bz2 https://github.com/hyphanet/seedrefs/archive/b34dbc4d021c58c4a108214a71a9e1ab986c4e14.tar.gz -> freenet-seednodes-b34dbc4d021c58c4a108214a71a9e1ab986c4e14.gh.tar.gz verify-sig? ( https://github.com/hyphanet/fred/releases/download/build01506/freenet-build01506-source.tar.bz2.sig )
-_eclasses_=java-utils-2	b41327d85d12ce816943cf4d344add19	java-pkg-2	438c2725ea326202d7fc1eb31af76813	java-pkg-simple	df1fc43a5017ec8f5d23007b23731474	toolchain-funcs	7e440a20ac11dece04e3334622e6e5da	systemd	a964c0cbe818b5729da1dbfcee5be861	eapi9-pipestatus	d2c134036ac31c3085aebc9147f572bd	verify-sig	ece4c893b6bd62eacbc4d25958e857f8
+_eclasses_=eapi9-pipestatus	d2c134036ac31c3085aebc9147f572bd	java-pkg-2	438c2725ea326202d7fc1eb31af76813	java-pkg-simple	df1fc43a5017ec8f5d23007b23731474	java-utils-2	b41327d85d12ce816943cf4d344add19	systemd	a964c0cbe818b5729da1dbfcee5be861	toolchain-funcs	8a2c298bde71ecf3f452dd9e67c94369	verify-sig	ece4c893b6bd62eacbc4d25958e857f8
 _md5_=c139f01992c1378bb22751ecddd640c5
