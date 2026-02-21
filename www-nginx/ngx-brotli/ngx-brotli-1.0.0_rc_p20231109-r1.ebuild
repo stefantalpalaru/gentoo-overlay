@@ -4,17 +4,13 @@
 EAPI=8
 
 NGX_BROTLI_P="ngx-brotli-a71f9312c2deb28875acc7bacfdd5695a111aa53"
-
 MY_PN="${PN//-/_}"
-NGINX_MOD_S="${WORKDIR}/${MY_PN}-${NGX_BROTLI_P#ngx-brotli-}"
 inherit nginx-module
 
 DESCRIPTION="NGINX module for Brotli compression"
 HOMEPAGE="https://github.com/google/ngx_brotli"
-SRC_URI="
-	https://github.com/google/ngx_brotli/archive/${NGX_BROTLI_P#ngx-brotli-}.tar.gz -> ${NGX_BROTLI_P}.tar.gz
-"
-
+SRC_URI="https://github.com/google/ngx_brotli/archive/${NGX_BROTLI_P#ngx-brotli-}.tar.gz -> ${NGX_BROTLI_P}.tar.gz"
+S="${WORKDIR}/${MY_PN}-${NGX_BROTLI_P#ngx-brotli-}"
 LICENSE="BSD-2"
 SLOT="0"
 KEYWORDS="~amd64 ~arm64 ~x86"
