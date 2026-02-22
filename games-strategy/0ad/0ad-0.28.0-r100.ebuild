@@ -61,20 +61,8 @@ RDEPEND="
 	!games-strategy/0ad-data
 "
 
-PATCHES=(
-	"${FILESDIR}"/0ad-0.27.1-premake-5.0.0_beta7.patch
-	"${FILESDIR}"/0ad-0.27.1-boost-1.89.patch
-)
-
 pkg_setup() {
 	use editor && setup-wxwidgets
-}
-
-src_prepare() {
-	default
-
-	# Originally from 0ad-data
-	rm binaries/data/tools/fontbuilder/fonts/*.txt || die
 }
 
 src_configure() {
