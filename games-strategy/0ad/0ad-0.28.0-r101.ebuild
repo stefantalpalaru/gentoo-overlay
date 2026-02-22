@@ -19,10 +19,10 @@ LICENSE="BitstreamVera CC-BY-SA-3.0 GPL-2 LGPL-2.1 LPPL-1.3c MIT ZLIB"
 SLOT="0"
 KEYWORDS="~amd64 ~arm64 ~x86"
 IUSE="editor +lobby lto nvtt pch test vulkan"
+RESTRICT="!test? ( test )"
 
-RESTRICT="test"
-CHECKREQS_DISK_BUILD="5000M" # for alpha 27
-CHECKREQS_DISK_USR="3500M" # 3555340 KiB (3.3 GiB)
+CHECKREQS_DISK_BUILD="5500M"
+CHECKREQS_DISK_USR="3700M"
 
 # Premake adds '-s' to some LDFLAGS. Simply sed'ing it out leads to
 # build and/or startup issues.
@@ -37,12 +37,13 @@ BDEPEND="
 # Removed dependency on nvtt as we use the bundled one.
 # bug #768930
 DEPEND="
-	dev-lang/spidermonkey:115=
+	dev-lang/spidermonkey:128=
 	dev-libs/boost:=
 	dev-libs/icu:=
 	dev-libs/libfmt:0=
 	dev-libs/libsodium:=
-	dev-libs/libxml2
+	dev-libs/libxml2:=
+	media-libs/freetype
 	media-libs/libpng:0
 	media-libs/libsdl2[X,opengl,video,vulkan?]
 	media-libs/libvorbis
@@ -50,10 +51,10 @@ DEPEND="
 	net-libs/enet:1.3
 	net-libs/miniupnpc:=
 	net-misc/curl
-	sys-libs/zlib
+	virtual/zlib:=
 	virtual/opengl
 	x11-libs/libX11
-	editor? ( x11-libs/wxGTK:${WX_GTK_VER}[X,opengl] )
+	editor? ( x11-libs/wxGTK:${WX_GTK_VER}=[X,opengl] )
 	lobby? ( net-libs/gloox )
 "
 RDEPEND="
@@ -63,6 +64,13 @@ RDEPEND="
 
 pkg_setup() {
 	use editor && setup-wxwidgets
+}
+
+src_prepare() {
+	default
+
+	# Delete test needing network access
+	rm source/network/tests/test_StunClient.h || die
 }
 
 src_configure() {
@@ -85,7 +93,7 @@ src_configure() {
 		--datadir="/usr/share/${PN}"
 	)
 
-	tc-export AR CC CXX RANLIB
+	tc-export AR CC CXX PKG_CONFIG RANLIB
 
 	local mypremakeargs=(
 		--file="premake5.lua"
@@ -114,10 +122,15 @@ src_compile() {
 
 src_test() {
 	cd binaries/system || die
-	./test -libdir "${S}/binaries/system" || die "Failed tests"
+	./test --libdir "${S}/binaries/system" || die "Failed tests"
 }
 
 src_install() {
+	# Remove transifex tooling configuration
+	rm -r binaries/data/l10n/{.tx,messages.json} || die
+	# Remove test only data
+	rm -r binaries/data/mods/_test.* || die
+
 	newbin binaries/system/pyrogenesis 0ad
 	use editor && newbin binaries/system/ActorEditor 0ad-ActorEditor
 
