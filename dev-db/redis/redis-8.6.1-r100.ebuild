@@ -6,7 +6,7 @@ EAPI=8
 # N.B.: It is no clue in porting to Lua eclasses, as upstream have deviated
 # too far from vanilla Lua, adding their own APIs like lua_enablereadonlytable
 
-inherit autotools edo multiprocessing systemd tmpfiles toolchain-funcs
+inherit autotools multiprocessing systemd tmpfiles toolchain-funcs
 
 DESCRIPTION="A persistent caching system, key-value, and data structures database"
 HOMEPAGE="
