@@ -35,7 +35,7 @@ dev-cpp/eigen 3.4.1-r1 5.0.0-r1: C++ template library for linear algebra
 dev-cpp/mustache 4.1-r1: Mustache implementation for modern C++
 dev-db/metakit 2.4.9.7_p20110819-r1: Embedded database library
 dev-db/redis 8.6.1-r100: A persistent caching system, key-value, and data structures database
-dev-db/valkey 9.0.2: Redis fork
+dev-db/valkey 9.0.3: Redis fork
 dev-debug/valgrind 3.26.0-r100: An open-source memory debugger for GNU/Linux
 dev-go/golangci-lint 2.10.1-r100: Fast linters runner for Go
 dev-java/jna 5.13.0-r1: Java Native Access
