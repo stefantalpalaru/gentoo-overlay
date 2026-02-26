@@ -1,10 +1,10 @@
-# Copyright 1999-2025 Gentoo Authors
+# Copyright 1999-2026 Gentoo Authors
 # Distributed under the terms of the GNU General Public License v2
 
 EAPI=8
 CMAKE_MAKEFILE_GENERATOR="emake"
 CMAKE_BUILD_TYPE=Release
-GMIC_COMMIT="699bfdc47af41732665a2b58bb56875a643afdc9"
+GMIC_COMMIT="8425c1279d1e410ccf4fd41d2534e4d16006f3f8"
 GMIC_QT_COMMIT="d4ecc26b0843e7c6815f399f7282592c21568de2"
 GMIC_QT_URI="https://github.com/GreycLab/gmic-qt/archive/${GMIC_QT_COMMIT}.tar.gz -> gmic-qt-${GMIC_QT_COMMIT}.gh.tar.gz"
 

@@ -1,8 +1,8 @@
-# Copyright 1999-2025 Gentoo Authors
+# Copyright 1999-2026 Gentoo Authors
 # Distributed under the terms of the GNU General Public License v2
 
 EAPI=8
-MY_COMMIT="ceea85e94ebe520ae8141b66b16a9a9a93f3c96b"
+MY_COMMIT="0db6dcc924b666c2df6438e7da635d751dc442fa"
 
 DESCRIPTION="C++ template image processing toolkit"
 HOMEPAGE="http://cimg.eu/
