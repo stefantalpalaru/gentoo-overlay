@@ -4,7 +4,7 @@
 EAPI=8
 CMAKE_MAKEFILE_GENERATOR="emake"
 CMAKE_BUILD_TYPE=Release
-GMIC_COMMIT="8425c1279d1e410ccf4fd41d2534e4d16006f3f8"
+GMIC_COMMIT="577546ca7a40da09271b55e608c0cdeeee2ae8f4"
 GMIC_QT_COMMIT="d4ecc26b0843e7c6815f399f7282592c21568de2"
 GMIC_QT_URI="https://github.com/GreycLab/gmic-qt/archive/${GMIC_QT_COMMIT}.tar.gz -> gmic-qt-${GMIC_QT_COMMIT}.gh.tar.gz"
 
@@ -125,11 +125,12 @@ src_configure() {
 	# gmic-qt
 	local CMAKE_USE_DIR="${WORKDIR}/${GMIC_QT_DIR}"
 	append-cppflags -I"${WORKDIR}/gmic/src"
-	append-ldflags -L"${WORKDIR}/gmic-v.${PV}_build"
+	append-ldflags -L"${WORKDIR}/gmic-${GMIC_COMMIT}_build"
 	mycmakeargs=(
 		-DENABLE_DYNAMIC_LINKING=ON
 		-DENABLE_SYSTEM_GMIC=ON
-		-DGMIC_LIB_PATH="${WORKDIR}/gmic-v.${PV}_build"
+		-DGMIC_PATH="${WORKDIR}/gmic/src"
+		-DGMIC_LIB_PATH="${WORKDIR}/gmic-${GMIC_COMMIT}_build"
 		-DBUILD_WITH_QT6=ON
 	)
 	local BUILD_DIR
