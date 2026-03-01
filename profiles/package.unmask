@@ -9,17 +9,22 @@
 #
 # And no, you cannot set the EAPI in such a file. The main tree is just special and your overlay and local config are not.
 
+dev-qt/designer
 dev-qt/qt3d
 dev-qt/qtdatavis3d
 dev-qt/qtgamepad
+dev-qt/qthelp
+dev-qt/qtimageformats
 dev-qt/qtlocation
 dev-qt/qtnetworkauth
 dev-qt/qtpositioning
 dev-qt/qtquicktimeline
 dev-qt/qtscript
+dev-qt/qtscxml
 dev-qt/qtsensors
 dev-qt/qtserialbus
 dev-qt/qtserialport
 dev-qt/qtvirtualkeyboard
 dev-qt/qtwebchannel
 dev-qt/qtwebview
+dev-qt/qtxmlpatterns

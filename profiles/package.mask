@@ -26,3 +26,4 @@
 -dev-qt/qtwebkit
 -games-fps/gzdoom
 -games-strategy/hedgewars
+-net-p2p/retroshare
