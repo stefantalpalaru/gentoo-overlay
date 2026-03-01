@@ -1,11 +1,11 @@
-# Copyright 2014-2025 Gentoo Authors
+# Copyright 2014-2026 Gentoo Authors
 # Distributed under the terms of the GNU General Public License v2
 
 EAPI=8
 LLVM_COMPAT=( 17 18 19 20 21 )
 CMAKE_IN_SOURCE_BUILD=1
 
-inherit cmake git-r3 llvm-r1
+inherit cmake git-r3 llvm-r2
 
 DESCRIPTION="Compiler for the Pony language"
 HOMEPAGE="http://www.ponylang.org/"
@@ -43,7 +43,7 @@ PATCHES=(
 )
 
 pkg_setup() {
-	llvm-r1_pkg_setup
+	llvm-r2_pkg_setup
 
 	export LD="ld.lld"
 	llvm_fix_tool_path LD
