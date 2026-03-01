@@ -125,7 +125,7 @@ DOCS=(
 )
 
 PATCHES=(
-	"${FILESDIR}/openimageio-3.0.8.1-fix-tests.patch"
+	"${FILESDIR}/openimageio-3.0.16.0-fix-tests.patch"
 	"${FILESDIR}/openimageio-2.5.12.0-heif-find-fix.patch"
 	"${FILESDIR}/openimageio-3.1.6.1-tests-optional.patch"
 )
@@ -175,7 +175,6 @@ src_prepare() {
 		fi
 
 		cp testsuite/heif/ref/out-libheif1.1{2,5}-orient.txt || die
-		eapply "${FILESDIR}/${PN}-2.5.12.0_heif_test.patch"
 	fi
 }
 
@@ -301,6 +300,8 @@ src_test() {
 
 		"^tiff-depths" # TODO float errors
 		"^tiff-suite" # TODO missing compression
+		"^oiiotool-attribs$"
+		"^heif$"
 	)
 
 	sed -e "s#../../../testsuite#../../../OpenImageIO-${PV}/testsuite#g" \

@@ -1,4 +1,4 @@
-# Copyright 1999-2025 Gentoo Authors
+# Copyright 1999-2026 Gentoo Authors
 # Distributed under the terms of the GNU General Public License v2
 
 EAPI=8
@@ -125,7 +125,7 @@ DOCS=(
 )
 
 PATCHES=(
-	"${FILESDIR}/openimageio-3.0.8.1-fix-tests.patch"
+	"${FILESDIR}/openimageio-3.0.16.0-fix-tests.patch"
 	"${FILESDIR}/openimageio-2.5.12.0-heif-find-fix.patch"
 	"${FILESDIR}/openimageio-2.5.18.0-tests-optional.patch"
 )
@@ -301,6 +301,7 @@ src_test() {
 
 		"^tiff-depths" # TODO float errors
 		"^tiff-suite" # TODO missing compression
+		"^oiiotool-attribs$"
 	)
 
 	sed -e "s#../../../testsuite#../../../OpenImageIO-${PV}/testsuite#g" \

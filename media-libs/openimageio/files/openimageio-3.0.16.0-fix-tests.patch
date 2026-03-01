@@ -1,6 +1,6 @@
-diff '--color=auto' -ur OpenImageIO-3.0.8.1.orig/src/cmake/testing.cmake OpenImageIO-3.0.8.1/src/cmake/testing.cmake
---- OpenImageIO-3.0.8.1.orig/src/cmake/testing.cmake	2025-07-05 07:39:32.000000000 +0200
-+++ OpenImageIO-3.0.8.1/src/cmake/testing.cmake	2025-07-15 11:27:28.849376239 +0200
+diff '--color=auto' -ur OpenImageIO-3.0.16.0.orig/src/cmake/testing.cmake OpenImageIO-3.0.16.0/src/cmake/testing.cmake
+--- OpenImageIO-3.0.16.0.orig/src/cmake/testing.cmake	2026-02-28 11:19:23.000000000 +0100
++++ OpenImageIO-3.0.16.0/src/cmake/testing.cmake	2026-03-02 00:20:31.558573455 +0100
 @@ -77,7 +77,7 @@
      elseif (_ats_IMAGEDIR AND NOT EXISTS ${_ats_testdir})
          # If the directory containing reference data (images) for the test
@@ -10,9 +10,9 @@ diff '--color=auto' -ur OpenImageIO-3.0.8.1.orig/src/cmake/testing.cmake OpenIma
          message (STATUS "  -> Will not run tests ${_ats_UNPARSED_ARGUMENTS}")
          message (STATUS "  -> You can find it at ${_ats_URL}\n")
      else ()
-diff '--color=auto' -ur OpenImageIO-3.0.8.1.orig/testsuite/oiiotool-text/run.py OpenImageIO-3.0.8.1/testsuite/oiiotool-text/run.py
---- OpenImageIO-3.0.8.1.orig/testsuite/oiiotool-text/run.py	2025-07-05 07:39:32.000000000 +0200
-+++ OpenImageIO-3.0.8.1/testsuite/oiiotool-text/run.py	2025-07-15 11:22:35.216644466 +0200
+diff '--color=auto' -ur OpenImageIO-3.0.16.0.orig/testsuite/oiiotool-text/run.py OpenImageIO-3.0.16.0/testsuite/oiiotool-text/run.py
+--- OpenImageIO-3.0.16.0.orig/testsuite/oiiotool-text/run.py	2026-02-28 11:19:23.000000000 +0100
++++ OpenImageIO-3.0.16.0/testsuite/oiiotool-text/run.py	2026-03-02 00:21:12.912376094 +0100
 @@ -56,7 +56,7 @@
  # on Windows.
  if os.name != "nt" :
@@ -22,9 +22,9 @@ diff '--color=auto' -ur OpenImageIO-3.0.8.1.orig/testsuite/oiiotool-text/run.py 
                  "-d uint8 -o unicode.tif")
      outputs += [ "unicode.tif" ]
  
-diff '--color=auto' -ur OpenImageIO-3.0.8.1.orig/testsuite/python-imagebufalgo/ref/out.txt OpenImageIO-3.0.8.1/testsuite/python-imagebufalgo/ref/out.txt
---- OpenImageIO-3.0.8.1.orig/testsuite/python-imagebufalgo/ref/out.txt	2025-07-05 07:39:32.000000000 +0200
-+++ OpenImageIO-3.0.8.1/testsuite/python-imagebufalgo/ref/out.txt	2025-07-15 11:30:02.788711277 +0200
+diff '--color=auto' -ur OpenImageIO-3.0.16.0.orig/testsuite/python-imagebufalgo/ref/out.txt OpenImageIO-3.0.16.0/testsuite/python-imagebufalgo/ref/out.txt
+--- OpenImageIO-3.0.16.0.orig/testsuite/python-imagebufalgo/ref/out.txt	2026-02-28 11:19:23.000000000 +0100
++++ OpenImageIO-3.0.16.0/testsuite/python-imagebufalgo/ref/out.txt	2026-03-02 00:23:06.393834502 +0100
 @@ -13,15 +13,15 @@
    max         =  [0.8784314393997192, 1.0, 1.0]
    avg         =  [0.10193096846342087, 0.21669696271419525, 0.4254732131958008]
@@ -72,9 +72,9 @@ diff '--color=auto' -ur OpenImageIO-3.0.8.1.orig/testsuite/python-imagebufalgo/r
  Comparing "cut.tif" and "../../../testsuite/oiiotool-copy/ref/cut.tif"
  PASS
  Comparing "pasted.tif" and "../../../testsuite/oiiotool-copy/ref/pasted.tif"
-diff '--color=auto' -ur OpenImageIO-3.0.8.1.orig/testsuite/python-imagebufalgo/run.py OpenImageIO-3.0.8.1/testsuite/python-imagebufalgo/run.py
---- OpenImageIO-3.0.8.1.orig/testsuite/python-imagebufalgo/run.py	2025-07-05 07:39:32.000000000 +0200
-+++ OpenImageIO-3.0.8.1/testsuite/python-imagebufalgo/run.py	2025-07-15 11:23:10.896490362 +0200
+diff '--color=auto' -ur OpenImageIO-3.0.16.0.orig/testsuite/python-imagebufalgo/run.py OpenImageIO-3.0.16.0/testsuite/python-imagebufalgo/run.py
+--- OpenImageIO-3.0.16.0.orig/testsuite/python-imagebufalgo/run.py	2026-02-28 11:19:23.000000000 +0100
++++ OpenImageIO-3.0.16.0/testsuite/python-imagebufalgo/run.py	2026-03-02 00:23:24.551747843 +0100
 @@ -27,7 +27,7 @@
             "chanshuffle.tif", "ch-rgba.exr", "ch-z.exr",
             "chappend-rgbaz.exr",
@@ -84,22 +84,21 @@ diff '--color=auto' -ur OpenImageIO-3.0.8.1.orig/testsuite/python-imagebufalgo/r
             "rotate90.tif", "rotate180.tif", "rotate270.tif",
             "rotated.tif", "rotated-offcenter.tif",
             "warped.tif",
-diff '--color=auto' -ur OpenImageIO-3.0.8.1.orig/testsuite/texture-interp-bilinear/run.py OpenImageIO-3.0.8.1/testsuite/texture-interp-bilinear/run.py
---- OpenImageIO-3.0.8.1.orig/testsuite/texture-interp-bilinear/run.py	2025-07-05 07:39:32.000000000 +0200
-+++ OpenImageIO-3.0.8.1/testsuite/texture-interp-bilinear/run.py	2025-07-15 11:23:46.406336992 +0200
-@@ -4,6 +4,9 @@
+diff '--color=auto' -ur OpenImageIO-3.0.16.0.orig/testsuite/texture-interp-bilinear/run.py OpenImageIO-3.0.16.0/testsuite/texture-interp-bilinear/run.py
+--- OpenImageIO-3.0.16.0.orig/testsuite/texture-interp-bilinear/run.py	2026-02-28 11:19:23.000000000 +0100
++++ OpenImageIO-3.0.16.0/testsuite/texture-interp-bilinear/run.py	2026-03-02 00:24:56.290310020 +0100
+@@ -4,7 +4,7 @@
  # SPDX-License-Identifier: Apache-2.0
  # https://github.com/AcademySoftwareFoundation/OpenImageIO
  
-+# Adjust error thresholds a tad to account for platform-to-platform variation
-+# in some math precision.
+-hardfail = 0.02
 +hardfail = 0.036
  
  command = testtex_command ("../common/textures/grid.tx",
                             extraargs = "-interpmode 1  -d uint8 -o out.tif")
-diff '--color=auto' -ur OpenImageIO-3.0.8.1.orig/testsuite/texture-interp-closest/run.py OpenImageIO-3.0.8.1/testsuite/texture-interp-closest/run.py
---- OpenImageIO-3.0.8.1.orig/testsuite/texture-interp-closest/run.py	2025-07-05 07:39:32.000000000 +0200
-+++ OpenImageIO-3.0.8.1/testsuite/texture-interp-closest/run.py	2025-07-15 11:24:25.736167122 +0200
+diff '--color=auto' -ur OpenImageIO-3.0.16.0.orig/testsuite/texture-interp-closest/run.py OpenImageIO-3.0.16.0/testsuite/texture-interp-closest/run.py
+--- OpenImageIO-3.0.16.0.orig/testsuite/texture-interp-closest/run.py	2026-02-28 11:19:23.000000000 +0100
++++ OpenImageIO-3.0.16.0/testsuite/texture-interp-closest/run.py	2026-03-02 00:25:23.940130553 +0100
 @@ -7,8 +7,8 @@
  
  # Adjust error thresholds a tad to account for platform-to-platform variation
@@ -111,9 +110,9 @@ diff '--color=auto' -ur OpenImageIO-3.0.8.1.orig/testsuite/texture-interp-closes
  allowfailures = 1
  
  command = testtex_command ("../common/textures/grid.tx",
-diff '--color=auto' -ur OpenImageIO-3.0.8.1.orig/testsuite/texture-levels-stochaniso/run.py OpenImageIO-3.0.8.1/testsuite/texture-levels-stochaniso/run.py
---- OpenImageIO-3.0.8.1.orig/testsuite/texture-levels-stochaniso/run.py	2025-07-05 07:39:32.000000000 +0200
-+++ OpenImageIO-3.0.8.1/testsuite/texture-levels-stochaniso/run.py	2025-07-15 11:24:55.572038258 +0200
+diff '--color=auto' -ur OpenImageIO-3.0.16.0.orig/testsuite/texture-levels-stochaniso/run.py OpenImageIO-3.0.16.0/testsuite/texture-levels-stochaniso/run.py
+--- OpenImageIO-3.0.16.0.orig/testsuite/texture-levels-stochaniso/run.py	2026-02-28 11:19:23.000000000 +0100
++++ OpenImageIO-3.0.16.0/testsuite/texture-levels-stochaniso/run.py	2026-03-02 00:25:45.995815423 +0100
 @@ -9,7 +9,7 @@
  # in some math precision.
  hardfail = 0.16
@@ -123,9 +122,9 @@ diff '--color=auto' -ur OpenImageIO-3.0.8.1.orig/testsuite/texture-levels-stocha
  
  command = testtex_command ("../oiio-images/miplevels.tx",
                             extraargs = "--stochastic 3 -bluenoise -d uint8 -o out.tif")
-diff '--color=auto' -ur OpenImageIO-3.0.8.1.orig/testsuite/texture-levels-stochmip/run.py OpenImageIO-3.0.8.1/testsuite/texture-levels-stochmip/run.py
---- OpenImageIO-3.0.8.1.orig/testsuite/texture-levels-stochmip/run.py	2025-07-05 07:39:32.000000000 +0200
-+++ OpenImageIO-3.0.8.1/testsuite/texture-levels-stochmip/run.py	2025-07-15 11:25:13.785959591 +0200
+diff '--color=auto' -ur OpenImageIO-3.0.16.0.orig/testsuite/texture-levels-stochmip/run.py OpenImageIO-3.0.16.0/testsuite/texture-levels-stochmip/run.py
+--- OpenImageIO-3.0.16.0.orig/testsuite/texture-levels-stochmip/run.py	2026-02-28 11:19:23.000000000 +0100
++++ OpenImageIO-3.0.16.0/testsuite/texture-levels-stochmip/run.py	2026-03-02 00:26:00.444146242 +0100
 @@ -9,7 +9,7 @@
  # in some math precision.
  hardfail = 0.16
@@ -135,22 +134,20 @@ diff '--color=auto' -ur OpenImageIO-3.0.8.1.orig/testsuite/texture-levels-stochm
  
  command = testtex_command ("../oiio-images/miplevels.tx",
                             extraargs = "-stochastic 1 -bluenoise -d uint8 -o out.tif")
-diff '--color=auto' -ur OpenImageIO-3.0.8.1.orig/testsuite/texture-mip-onelevel/run.py OpenImageIO-3.0.8.1/testsuite/texture-mip-onelevel/run.py
---- OpenImageIO-3.0.8.1.orig/testsuite/texture-mip-onelevel/run.py	2025-07-05 07:39:32.000000000 +0200
-+++ OpenImageIO-3.0.8.1/testsuite/texture-mip-onelevel/run.py	2025-07-15 11:26:01.308399681 +0200
-@@ -4,6 +4,9 @@
+diff '--color=auto' -ur OpenImageIO-3.0.16.0.orig/testsuite/texture-mip-onelevel/run.py OpenImageIO-3.0.16.0/testsuite/texture-mip-onelevel/run.py
+--- OpenImageIO-3.0.16.0.orig/testsuite/texture-mip-onelevel/run.py	2026-02-28 11:19:23.000000000 +0100
++++ OpenImageIO-3.0.16.0/testsuite/texture-mip-onelevel/run.py	2026-03-02 00:26:29.548812643 +0100
+@@ -4,6 +4,7 @@
  # SPDX-License-Identifier: Apache-2.0
  # https://github.com/AcademySoftwareFoundation/OpenImageIO
  
-+# Adjust error thresholds a tad to account for platform-to-platform variation
-+# in some math precision.
 +allowfailures = 6
  
  command = testtex_command ("../common/textures/grid.tx",
                             extraargs = "-mipmode 2  -d uint8 -o out.tif")
-diff '--color=auto' -ur OpenImageIO-3.0.8.1.orig/testsuite/texture-mip-stochasticaniso/run.py OpenImageIO-3.0.8.1/testsuite/texture-mip-stochasticaniso/run.py
---- OpenImageIO-3.0.8.1.orig/testsuite/texture-mip-stochasticaniso/run.py	2025-07-05 07:39:32.000000000 +0200
-+++ OpenImageIO-3.0.8.1/testsuite/texture-mip-stochasticaniso/run.py	2025-07-15 11:26:18.698679226 +0200
+diff '--color=auto' -ur OpenImageIO-3.0.16.0.orig/testsuite/texture-mip-stochasticaniso/run.py OpenImageIO-3.0.16.0/testsuite/texture-mip-stochasticaniso/run.py
+--- OpenImageIO-3.0.16.0.orig/testsuite/texture-mip-stochasticaniso/run.py	2026-02-28 11:19:23.000000000 +0100
++++ OpenImageIO-3.0.16.0/testsuite/texture-mip-stochasticaniso/run.py	2026-03-02 00:26:43.941142179 +0100
 @@ -9,7 +9,7 @@
  # in some math precision.
  hardfail = 0.16
@@ -160,22 +157,20 @@ diff '--color=auto' -ur OpenImageIO-3.0.8.1.orig/testsuite/texture-mip-stochasti
  
  command = testtex_command ("../common/textures/grid.tx",
                             extraargs = "-stochastic 1 -d uint8 -o out.tif")
-diff '--color=auto' -ur OpenImageIO-3.0.8.1.orig/testsuite/texture-mip-stochastictrilinear/run.py OpenImageIO-3.0.8.1/testsuite/texture-mip-stochastictrilinear/run.py
---- OpenImageIO-3.0.8.1.orig/testsuite/texture-mip-stochastictrilinear/run.py	2025-07-05 07:39:32.000000000 +0200
-+++ OpenImageIO-3.0.8.1/testsuite/texture-mip-stochastictrilinear/run.py	2025-07-15 11:26:45.810562128 +0200
-@@ -4,6 +4,9 @@
+diff '--color=auto' -ur OpenImageIO-3.0.16.0.orig/testsuite/texture-mip-stochastictrilinear/run.py OpenImageIO-3.0.16.0/testsuite/texture-mip-stochastictrilinear/run.py
+--- OpenImageIO-3.0.16.0.orig/testsuite/texture-mip-stochastictrilinear/run.py	2026-02-28 11:19:23.000000000 +0100
++++ OpenImageIO-3.0.16.0/testsuite/texture-mip-stochastictrilinear/run.py	2026-03-02 00:27:02.334563327 +0100
+@@ -4,6 +4,7 @@
  # SPDX-License-Identifier: Apache-2.0
  # https://github.com/AcademySoftwareFoundation/OpenImageIO
  
-+# Adjust error thresholds a tad to account for platform-to-platform variation
-+# in some math precision.
 +allowfailures = 9
  
  command = testtex_command ("../common/textures/grid.tx",
                             extraargs = "-mipmode 3 -stochastic 1 -d uint8 -o out.tif")
-diff '--color=auto' -ur OpenImageIO-3.0.8.1.orig/testsuite/tiff-depths/ref/out.txt OpenImageIO-3.0.8.1/testsuite/tiff-depths/ref/out.txt
---- OpenImageIO-3.0.8.1.orig/testsuite/tiff-depths/ref/out.txt	2025-07-05 07:39:32.000000000 +0200
-+++ OpenImageIO-3.0.8.1/testsuite/tiff-depths/ref/out.txt	2025-07-15 11:32:17.798127870 +0200
+diff '--color=auto' -ur OpenImageIO-3.0.16.0.orig/testsuite/tiff-depths/ref/out.txt OpenImageIO-3.0.16.0/testsuite/tiff-depths/ref/out.txt
+--- OpenImageIO-3.0.16.0.orig/testsuite/tiff-depths/ref/out.txt	2026-02-28 11:19:23.000000000 +0100
++++ OpenImageIO-3.0.16.0/testsuite/tiff-depths/ref/out.txt	2026-03-02 00:28:42.018845770 +0100
 @@ -799,7 +799,7 @@
      SHA-1: F739D368D37AB99D237FA1358A2EECE913245226
  Reading ../oiio-images/libtiffpic/depth/flower-separated-contig-16.tif
