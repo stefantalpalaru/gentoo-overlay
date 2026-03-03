@@ -16,8 +16,8 @@ SRC_URI="https://github.com/wxWidgets/wxWidgets/releases/download/v${PV}/wxWidge
 	doc? ( https://github.com/wxWidgets/wxWidgets/releases/download/v${PV}/wxWidgets-${PV}-docs-html.tar.bz2 )"
 S="${WORKDIR}/wxWidgets-${PV}"
 LICENSE="wxWinLL-3 GPL-2 doc? ( wxWinFDL-3 )"
-SLOT="${WXRELEASE}"
-KEYWORDS="~alpha ~amd64 ~arm ~arm64 ~hppa ~loong ~mips ~ppc ~ppc64 ~riscv ~sparc ~x86 ~amd64-linux ~x86-linux"
+SLOT="${WXRELEASE}/${WXVERSIONTAG}"
+KEYWORDS="~alpha ~amd64 ~arm ~arm64 ~hppa ~loong ~mips ~ppc ~ppc64 ~riscv ~sparc ~x86"
 IUSE="+X curl doc debug keyring gstreamer libnotify +lzma opengl pch sdl +spell test tiff wayland webkit X"
 REQUIRED_USE="test? ( tiff ) tiff? ( X ) spell? ( X ) keyring? ( X )"
 RESTRICT="!test? ( test )"
@@ -75,10 +75,11 @@ BDEPEND="
 # I'm missing something.  This is an automagic header dep, though.
 
 PATCHES=(
-	"${FILESDIR}/${PN}-3.3.1-configure-tests.patch"
-	"${FILESDIR}/${PN}-3.3.1-wayland-control.patch"
+	"${FILESDIR}/${PN}-3.2.1-configure-tests.patch"
+	"${FILESDIR}/${PN}-3.2.1-wayland-control.patch"
 	"${FILESDIR}/${PN}-3.2.1-prefer-lib64-in-tests.patch"
 	"${FILESDIR}/${PN}-3.2.5-dont-break-flags.patch"
+	"${FILESDIR}/${PN}-3.2.2.1-backport-pr24197.patch"
 )
 
 multilib_src_configure() {
@@ -207,7 +208,7 @@ multilib_src_install_all() {
 	rm "${ED}"/usr/bin/wx-config || die
 	rm "${ED}"/usr/bin/wxrc || die
 	# wxwin.m4 is owned by eselect-wxwidgets
-	mv "${ED}"/usr/share/aclocal/wxwin.m4 "${ED}"/usr/share/aclocal/wxwin"${WXVERSIONTAG/./}"-gtk3.m4 || die
+	mv "${ED}"/usr/share/aclocal/wxwin.m4 "${ED}"/usr/share/aclocal/wxwin32-gtk3.m4 || die
 
 	# version bakefile presets
 	pushd "${ED}"/usr/share/bakefile/presets >/dev/null || die
