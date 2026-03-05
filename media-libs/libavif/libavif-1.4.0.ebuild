@@ -1,4 +1,4 @@
-# Copyright 2020-2025 Gentoo Authors
+# Copyright 2020-2026 Gentoo Authors
 # Distributed under the terms of the GNU General Public License v2
 
 EAPI=8
@@ -17,7 +17,7 @@ LICENSE="
 	extras? ( MIT )
 "
 # See bug #822336 re subslot
-SLOT="0/16.3.0"
+SLOT="0/16.4.0"
 KEYWORDS="~alpha ~amd64 ~arm ~arm64 ~hppa ~loong ~mips ~ppc64 ~riscv ~sparc ~x86"
 IUSE="+aom dav1d examples extras gdk-pixbuf libyuv rav1e svt-av1 test"
 RESTRICT="
@@ -42,7 +42,7 @@ DEPEND="
 		x11-libs/gdk-pixbuf:2[${MULTILIB_USEDEP}]
 	)
 	rav1e? ( >=media-video/rav1e-0.5.1:=[capi] )
-	svt-av1? ( <media-libs/svt-av1-4:= )
+	svt-av1? ( <media-libs/svt-av1-5:= )
 	libyuv? ( media-libs/libyuv:= )
 "
 RDEPEND="
