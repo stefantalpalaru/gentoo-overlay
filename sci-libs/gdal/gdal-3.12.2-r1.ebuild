@@ -1,4 +1,4 @@
-# Copyright 1999-2025 Gentoo Authors
+# Copyright 1999-2026 Gentoo Authors
 # Distributed under the terms of the GNU General Public License v2
 
 EAPI=8
@@ -99,6 +99,10 @@ RDEPEND="
 
 QA_CONFIG_IMPL_DECL_SKIP=(
 	_wstat64 # Windows LFS
+)
+
+PATCHES=(
+	"${FILESDIR}"/gdal-3.12.2-poppler-26.02.patch
 )
 
 pkg_setup() {
