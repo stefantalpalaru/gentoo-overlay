@@ -1,0 +1,11 @@
+diff '--color=auto' -ur QGIS-final-4_0_0.orig/CMakeLists.txt QGIS-final-4_0_0/CMakeLists.txt
+--- QGIS-final-4_0_0.orig/CMakeLists.txt	2026-03-06 18:54:12.950443100 +0100
++++ QGIS-final-4_0_0/CMakeLists.txt	2026-03-06 18:55:06.060226622 +0100
+@@ -103,6 +103,7 @@
+             message(STATUS "Couldn't find OpenCL C++ headers, using internal: ${OPENCL_HPP_INCLUDE_DIR}")
+         endif()
+         set(OpenCL_INCLUDE_DIRS ${OpenCL_INCLUDE_DIRS} ${OPENCL_HPP_INCLUDE_DIR})
++        include_directories(SYSTEM ${OpenCL_INCLUDE_DIRS})
+     else()
+         message(STATUS "Couldn't find OpenCL: support DISABLED")
+     endif()

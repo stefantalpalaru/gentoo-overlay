@@ -1,0 +1,8 @@
+diff '--color=auto' -ur QGIS-final-4_0_0.orig/python/CMakeLists.txt QGIS-final-4_0_0/python/CMakeLists.txt
+--- QGIS-final-4_0_0.orig/python/CMakeLists.txt	2026-03-06 19:30:19.352489655 +0100
++++ QGIS-final-4_0_0/python/CMakeLists.txt	2026-03-06 19:39:52.077389164 +0100
+@@ -459,4 +459,3 @@
+ endforeach(module)
+ 
+ configure_file(${CMAKE_CURRENT_SOURCE_DIR}/pyproject.toml.in ${CMAKE_CURRENT_BINARY_DIR}/pyproject.toml @ONLY)
+-install(FILES ${CMAKE_CURRENT_BINARY_DIR}/pyproject.toml DESTINATION "${QGIS_PYTHON_INSTALL_DIR}/")
