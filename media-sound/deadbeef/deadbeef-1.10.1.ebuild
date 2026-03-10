@@ -1,4 +1,4 @@
-# Copyright 2021-2025 Gentoo Authors
+# Copyright 2021-2026 Gentoo Authors
 # Distributed under the terms of the GNU General Public License v2
 
 EAPI=8
@@ -7,7 +7,7 @@ inherit autotools xdg flag-o-matic toolchain-funcs plocale
 
 DESCRIPTION="DeaDBeeF is a modular audio player similar to foobar2000"
 HOMEPAGE="https://deadbeef.sourceforge.io/"
-SRC_URI="https://sourceforge.net/projects/${PN}/files/travis/linux/${PV}/deadbeef-${PV}.tar.bz2/download
+SRC_URI="https://sourceforge.net/projects/deadbeef/files/Builds/${PV}/linux/deadbeef-${PV}.tar.bz2/download
 	-> ${P}.tar.bz2"
 
 LICENSE="
@@ -17,9 +17,7 @@ LICENSE="
 	wavpack? ( BSD )
 "
 SLOT="0"
-if [[ ${PV} != *beta* && ${PV} != *rc* ]]; then
-	KEYWORDS="amd64 ~riscv x86"
-fi
+KEYWORDS="~amd64 ~riscv ~x86"
 IUSE="aac alsa cdda converter cover dts ffmpeg flac +hotkeys lastfm libretro libsamplerate mp3 musepack nls notify +nullout opus oss pulseaudio pipewire sc68 shellexec +supereq vorbis wavpack zip"
 
 REQUIRED_USE="
@@ -62,7 +60,7 @@ DEPEND="
 	pipewire? ( media-video/pipewire:= )
 	vorbis? ( media-libs/libvorbis )
 	wavpack? ( media-sound/wavpack )
-	zip? ( sys-libs/zlib )
+	zip? ( dev-libs/libzip:= )
 "
 
 RDEPEND="${DEPEND}"
@@ -75,9 +73,8 @@ BDEPEND="
 "
 
 PATCHES=(
-	"${FILESDIR}"/${PN}-1.10.0_beta1-drop-Werror.patch
-	"${FILESDIR}"/${PN}-1.9.6-update-gettext.patch
-	"${FILESDIR}"/deadbeef-1.10.0-include.patch
+	"${FILESDIR}"/deadbeef-1.10.1-drop-Werror.patch
+	"${FILESDIR}"/deadbeef-1.10.1-update-gettext.patch
 )
 
 src_prepare() {

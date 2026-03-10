@@ -4,7 +4,7 @@ See also: https://bugs.gentoo.org/908414
 See also: https://github.com/gentoo/gentoo/pull/32491
 --- a/configure.ac
 +++ b/configure.ac
-@@ -17,8 +17,8 @@ AC_SYS_LARGEFILE
+@@ -19,8 +19,8 @@ AC_PROG_INSTALL
  dnl AC_PROG_LIBTOOL
  AC_CONFIG_MACRO_DIR([m4])
  AC_C_BIGENDIAN
