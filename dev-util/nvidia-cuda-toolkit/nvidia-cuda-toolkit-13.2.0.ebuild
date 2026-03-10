@@ -1,4 +1,4 @@
-# Copyright 1999-2025 Gentoo Authors
+# Copyright 1999-2026 Gentoo Authors
 # Distributed under the terms of the GNU General Public License v2
 
 # shellcheck disable=SC2317
@@ -9,10 +9,10 @@ PYTHON_COMPAT=( python3_{11..13} )
 inherit check-reqs edo toolchain-funcs
 inherit python-r1
 
-DRIVER_PV="590.48.01"
+DRIVER_PV="595.45.04"
 # https://docs.nvidia.com/cuda/cuda-installation-guide-linux/index.html
 GCC_MAX_VER="15"
-CLANG_MAX_VER="20"
+CLANG_MAX_VER="21"
 
 DESCRIPTION="NVIDIA CUDA Toolkit (compiler and friends)"
 HOMEPAGE="https://developer.nvidia.com/cuda-zone"
@@ -31,7 +31,7 @@ LICENSE="NVIDIA-CUDA"
 SLOT="0/${PV}" # UNSLOTTED
 # SLOT="${PV}" # SLOTTED
 
-KEYWORDS="-* ~amd64 ~arm64 ~amd64-linux ~arm64-linux"
+KEYWORDS="-* ~amd64 ~arm64"
 IUSE="clang +cuda-minor-compat debugger examples nsight profiler rdma sanitizer"
 RESTRICT="bindist mirror strip test"
 
@@ -75,10 +75,6 @@ BDEPEND="
 # CUDA_PATH="/opt/cuda-${PV}" #950207
 CUDA_PATH="/opt/cuda"
 QA_PREBUILT="${CUDA_PATH#/}/*"
-
-PATCHES=(
-	"${FILESDIR}/nvidia-cuda-toolkit-glibc-2.42.patch"
-)
 
 python_check_deps() {
 	python_has_version "dev-python/defusedxml[${PYTHON_USEDEP}]"

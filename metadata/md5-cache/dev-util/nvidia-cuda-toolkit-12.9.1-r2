@@ -5,7 +5,7 @@ EAPI=8
 HOMEPAGE=https://developer.nvidia.com/cuda-zone
 INHERIT=check-reqs edo toolchain-funcs python-r1
 IUSE=clang +cuda-minor-compat debugger examples nsight profiler rdma sanitizer python_targets_python3_11 python_targets_python3_12 python_targets_python3_13
-KEYWORDS=-* ~amd64 ~arm64 ~amd64-linux ~arm64-linux
+KEYWORDS=-* ~amd64 ~arm64
 LICENSE=NVIDIA-CUDA
 RDEPEND=!clang? ( <sys-devel/gcc-15_pre[cxx] ) clang? ( <llvm-core/clang-20_pre ) cuda-minor-compat? ( >=x11-drivers/nvidia-drivers-525 <x11-drivers/nvidia-drivers-580 ) sys-process/numactl debugger? ( python_targets_python3_11? ( dev-lang/python:3.11 ) python_targets_python3_12? ( dev-lang/python:3.12 ) python_targets_python3_13? ( dev-lang/python:3.13 ) ) examples? ( media-libs/freeglut media-libs/glu ) nsight? ( dev-util/nsight-compute dev-util/nsight-systems ) rdma? ( sys-cluster/rdma-core )
 REQUIRED_USE=|| ( python_targets_python3_11 python_targets_python3_12 python_targets_python3_13 )
@@ -13,4 +13,4 @@ RESTRICT=bindist mirror strip test
 SLOT=0/12.9.1
 SRC_URI=amd64? ( https://developer.download.nvidia.com/compute/cuda/12.9.1/local_installers/cuda_12.9.1_575.57.08_linux.run ) arm64? ( https://developer.download.nvidia.com/compute/cuda/12.9.1/local_installers/cuda_12.9.1_575.57.08_linux_sbsa.run )
 _eclasses_=check-reqs	12ab9d3fc16bfe1f87c6fb652324b57c	edo	a5e294016aa84979fcb2459749eb80b2	toolchain-funcs	8a2c298bde71ecf3f452dd9e67c94369	out-of-source-utils	8e5093bd27b7f541a1913271f25d633a	multibuild	83db098a835f71feb71761f72a694aa2	multiprocessing	1e32df7deee68372153dca65f4a7c21f	python-utils-r1	f1d3a4dea5847c7390ba91bd557c83aa	python-r1	2d51fd03931e743811ce30d198e4dcfd
-_md5_=17c93c1daa33695c0f7d01f7571f4591
+_md5_=3436e82cf4afc4622185bf8a2083dee6
