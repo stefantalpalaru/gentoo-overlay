@@ -1,0 +1,13 @@
+diff '--color=auto' -ur pytorch-v2.10.0.orig/caffe2/CMakeLists.txt pytorch-v2.10.0/caffe2/CMakeLists.txt
+--- pytorch-v2.10.0.orig/caffe2/CMakeLists.txt	2026-03-10 18:25:07.340489463 +0100
++++ pytorch-v2.10.0/caffe2/CMakeLists.txt	2026-03-10 18:30:06.447509774 +0100
+@@ -996,6 +996,9 @@
+     target_link_libraries(torch_cuda PRIVATE __caffe2_nccl)
+     target_compile_definitions(torch_cuda PRIVATE USE_NCCL)
+   endif()
++  if(USE_NVRTC)
++    target_link_libraries(torch_cuda PRIVATE caffe2::nvrtc)
++  endif()
+ 
+   # Compile with NVSHMEM
+   # Default value of `USE_NVSHMEM` is set in CMakeLists.txt under root, to ON.

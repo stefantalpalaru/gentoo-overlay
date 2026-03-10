@@ -1,0 +1,32 @@
+diff '--color=auto' -ur pytorch-2.10.0.orig/torch/__init__.py pytorch-2.10.0/torch/__init__.py
+--- pytorch-2.10.0.orig/torch/__init__.py	2026-03-10 13:11:57.780508267 +0100
++++ pytorch-2.10.0/torch/__init__.py	2026-03-10 13:14:00.556890150 +0100
+@@ -307,15 +307,13 @@
+     assert platform.system() == "Linux", "Should only be called on Linux"
+ 
+     lib_path = None
+-    for path in sys.path:
+-        candidate_lib_paths = _get_cuda_dep_paths(path, lib_folder, lib_name)
+-        if candidate_lib_paths:
+-            lib_path = candidate_lib_paths[0]
+-            break
++    candidate_lib_paths = glob.glob(os.path.join("/opt/cuda/%LIB_DIR%", lib_name))
++    if candidate_lib_paths:
++        lib_path = candidate_lib_paths[0]
+     if not lib_path and required:
+         raise ValueError(f"{lib_name} not found in the system path {sys.path}")
+     if lib_path:
+-        ctypes.CDLL(lib_path)
++        ctypes.CDLL(lib_path, mode=ctypes.RTLD_GLOBAL)
+ 
+ 
+ def _preload_cuda_deps(err: OSError | None = None) -> None:
+@@ -345,7 +343,7 @@
+ 
+     # Otherwise, try to preload dependencies from site-packages
+     for lib_folder, lib_name in cuda_libs:
+-        _preload_cuda_lib(lib_folder, lib_name)
++        _preload_cuda_lib(lib_folder, lib_name, required=False)
+ 
+     # libnvToolsExt is Optional Dependency
+     _preload_cuda_lib("nvtx", "libnvToolsExt.so.*[0-9]", required=False)

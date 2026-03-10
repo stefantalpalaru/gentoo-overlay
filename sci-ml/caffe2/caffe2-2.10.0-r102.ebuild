@@ -148,6 +148,7 @@ PATCHES=(
 	"${FILESDIR}"/caffe2-2.8.0-rocm-minus-flash.patch
 	"${FILESDIR}"/caffe2-2.9.0-CUDA-13.patch
 	"${FILESDIR}"/caffe2-2.9.0-rocm-distributed-link.patch
+	"${FILESDIR}"/caffe2-2.10.0-nvrtc.patch
 )
 
 src_prepare() {
@@ -261,6 +262,7 @@ src_configure() {
 		-DUSE_NNPACK=$(usex nnpack)
 		-DUSE_NUMA=OFF
 		-DUSE_NUMPY=$(usex numpy)
+		-DUSE_NVRTC=$(usex cuda)
 		-DUSE_OPENCL=$(usex opencl)
 		-DUSE_OPENMP=$(usex openmp)
 		-DUSE_PYTORCH_QNNPACK=$(usex qnnpack)

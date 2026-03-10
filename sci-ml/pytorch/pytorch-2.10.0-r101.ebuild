@@ -39,12 +39,18 @@ PATCHES=(
 	"${FILESDIR}"/pytorch-2.10.0-global-dlopen.patch
 	"${FILESDIR}"/pytorch-2.5.0-torch_shm_manager.patch
 	"${FILESDIR}"/pytorch-2.10.0-cpp-extension-multilib.patch
+	"${FILESDIR}"/pytorch-2.10.0-cuda.patch
 )
 
 src_prepare() {
+	distutils-r1_src_prepare
+
 	# Replace placeholders added by cpp-extension.patch
-	sed -e "s|%LIB_DIR%|$(get_libdir)|g" \
-		-i torch/utils/cpp_extension.py || die
+	sed -i \
+		-e "s/%LIB_DIR%/$(get_libdir)/g" \
+		torch/utils/cpp_extension.py \
+		torch/__init__.py \
+		|| die
 
 	# Set build dir for pytorch's setup
 	sed -i \
@@ -57,8 +63,6 @@ src_prepare() {
 		-e "/build-backend/s|:__legacy__||" \
 		pyproject.toml \
 		|| die
-
-	distutils-r1_src_prepare
 
 	hprefixify tools/setup_helpers/env.py
 }
