@@ -1,9 +1,9 @@
-# Copyright 2024-2025 Gentoo Authors
+# Copyright 2024-2026 Gentoo Authors
 # Distributed under the terms of the GNU General Public License v2
 
 EAPI=8
-LLVM_COMPAT=( {17..20} )
-PYTHON_COMPAT=( python3_{10..12} )
+LLVM_COMPAT=( {17..21} )
+PYTHON_COMPAT=( python3_{10..14} )
 
 inherit llvm-r2 multiprocessing python-any-r1
 
@@ -41,7 +41,7 @@ BDEPEND="
 
 PATCHES=(
 	"${FILESDIR}"/chapel-2.0.0-no-default-config.patch
-	"${FILESDIR}"/chapel-2.4.0-jemalloc.patch
+	"${FILESDIR}"/chapel-2.8.0-jemalloc.patch
 )
 
 pkg_setup() {
