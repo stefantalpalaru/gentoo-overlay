@@ -11,5 +11,5 @@ RDEPEND=>=sys-devel/m4-1.4.16
 RESTRICT=mirror !test? ( test )
 SLOT=0
 SRC_URI=mirror://gnu/bison/bison-2.7.1.tar.xz
-_eclasses_=flag-o-matic	ed1eda86c8f746a2a75f7f9f7478f5f4	toolchain-funcs	8a2c298bde71ecf3f452dd9e67c94369
+_eclasses_=toolchain-funcs	da0a71e3a72194ca0b88d5b045d721ac	flag-o-matic	fd3558f73f6503093adee69adf41020d
 _md5_=e1665408818cbb917a8ab1fb95508000
