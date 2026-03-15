@@ -1,0 +1,32 @@
+diff '--color=auto' -ur pony-0.61.1.orig/CMakeLists.txt pony-0.61.1/CMakeLists.txt
+--- pony-0.61.1.orig/CMakeLists.txt	2026-03-15 01:14:30.815711349 +0100
++++ pony-0.61.1/CMakeLists.txt	2026-03-15 01:15:10.221610741 +0100
+@@ -235,6 +235,7 @@
+     LLVM_BUILD_MODE=${PONY_LLVM_BUILD_MODE}
+     LLVM_VERSION="${LLVM_VERSION}"
+     PONY_COMPILER="${CMAKE_C_COMPILER}"
++    PONY_LINKER="${PONY_LINKER}"
+     PONY_ARCH="${PONY_ARCH}"
+     PONY_DEFAULT_PIC=true
+     $<$<CONFIG:Debug>:PONY_BUILD_CONFIG="debug">
+diff '--color=auto' -ur pony-0.61.1.orig/src/libponyc/codegen/genexe.cc pony-0.61.1/src/libponyc/codegen/genexe.cc
+--- pony-0.61.1.orig/src/libponyc/codegen/genexe.cc	2026-03-15 01:14:07.995864053 +0100
++++ pony-0.61.1/src/libponyc/codegen/genexe.cc	2026-03-15 01:17:34.749043681 +0100
+@@ -1416,7 +1416,7 @@
+   // escape hatch is specified. Sanitizer builds fall back to the system
+   // compiler driver for native compilation since sanitizer runtime libraries
+   // need compiler-specific link logic; cross-compilation still uses LLD.
+-#ifdef PLATFORM_IS_POSIX_BASED
++#if 0
+   if(c->opt->linker == NULL
+     && target_is_linux(c->opt->triple)
+ #if defined(PONY_SANITIZER)
+@@ -1541,7 +1541,7 @@
+   const char* mcx16_arg = (target_is_lp64(c->opt->triple)
+     && target_is_x86(c->opt->triple)) ? "-mcx16" : "";
+   const char* fuseldcmd = c->opt->link_ldcmd != NULL ? c->opt->link_ldcmd :
+-    "";
++    PONY_LINKER;
+   const char* fuseld = strlen(fuseldcmd) ? "-fuse-ld=" : "";
+   const char* ldl = target_is_linux(c->opt->triple) ? "-ldl" : "";
+   const char* atomic =

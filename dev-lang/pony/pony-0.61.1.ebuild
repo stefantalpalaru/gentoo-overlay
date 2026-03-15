@@ -14,7 +14,7 @@ EGIT_COMMIT="${PV}"
 
 LICENSE="BSD-2"
 SLOT="0"
-KEYWORDS="~amd64 ~x86"
+KEYWORDS="~amd64"
 IUSE="+lto test vim-syntax"
 RESTRICT="strip
 	network-sandbox
@@ -38,8 +38,7 @@ BDEPEND="
 "
 
 PATCHES=(
-	"${FILESDIR}"/pony-0.60.0-lld.patch
-	"${FILESDIR}"/pony-0.59.0-gcc-15.patch
+	"${FILESDIR}"/pony-0.61.1-lld.patch
 )
 
 pkg_setup() {
@@ -63,7 +62,7 @@ src_prepare() {
 		Makefile || die
 }
 
-common_make_args="config=release verbose=yes PONY_USES=\"-DPONY_LINKER=\${LD}\""
+export common_make_args="config=release verbose=yes PONY_USES=\"-DPONY_LINKER=\${LD}\""
 
 src_configure() {
 	emake ${common_make_args} build_flags="${MAKEOPTS}" libs
