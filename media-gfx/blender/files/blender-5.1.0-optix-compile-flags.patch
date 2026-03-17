@@ -1,0 +1,11 @@
+diff '--color=auto' -ur blender-5.1.0.orig/intern/cycles/kernel/device/optix/CMakeLists.txt blender-5.1.0/intern/cycles/kernel/device/optix/CMakeLists.txt
+--- blender-5.1.0.orig/intern/cycles/kernel/device/optix/CMakeLists.txt	2026-02-09 06:15:57.000000000 +0100
++++ blender-5.1.0/intern/cycles/kernel/device/optix/CMakeLists.txt	2026-03-17 13:14:41.090636755 +0100
+@@ -80,6 +80,7 @@
+         ${cuda_nvcc_executable}
+         --ptx
+         -arch=${arch}
++        ${CUDA_NVCC_FLAGS}
+         ${cuda_flags}
+         ${input}
+       WORKING_DIRECTORY

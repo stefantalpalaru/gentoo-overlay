@@ -1,4 +1,4 @@
-# Copyright 1999-2025 Gentoo Authors
+# Copyright 1999-2026 Gentoo Authors
 # Distributed under the terms of the GNU General Public License v2
 
 # shellcheck disable=SC2207
@@ -67,7 +67,7 @@ SLOT="${BLENDER_BRANCH}"
 IUSE="
 	alembic +bullet +color-management cuda +cycles +cycles-bin-kernels
 	debug doc +embree +ffmpeg +fftw +fluid +gmp gnome hip jack
-	jemalloc jpeg2k man +manifold +nanovdb ndof nls +oidn openal +openexr +opengl +openpgl
+	jpeg2k man +manifold +nanovdb ndof nls +oidn openal +openexr +opengl +openpgl
 	+opensubdiv +openvdb optix osl pipewire +pdf +potrace +pugixml pulseaudio
 	renderdoc sdl +sndfile +tbb test +tiff +truetype valgrind vulkan wayland +webp X
 "
@@ -102,7 +102,6 @@ RDEPEND="${PYTHON_DEPS}
 	app-arch/zstd
 	dev-cpp/gflags:=
 	dev-cpp/glog:=
-	dev-libs/boost:=[nls?]
 	dev-libs/lzo:2=
 	$(python_gen_cond_dep '
 		dev-python/cattrs[${PYTHON_USEDEP}]
@@ -118,12 +117,11 @@ RDEPEND="${PYTHON_DEPS}
 	media-libs/libpng:=
 	media-libs/libsamplerate
 	>=media-libs/openimageio-2.5.6.0:=
-	<media-libs/openimageio-3.1:=
 	sys-libs/zlib:=
 	virtual/glu
 	virtual/libintl
 	virtual/opengl[X?]
-	alembic? ( >=media-gfx/alembic-1.8.3-r2[boost(+),hdf(+)] )
+	alembic? ( >=media-gfx/alembic-1.8.3-r2[hdf(+)] )
 	bullet? ( sci-physics/bullet:=[double-precision] )
 	color-management? ( media-libs/opencolorio:= )
 	cuda? ( dev-util/nvidia-cuda-toolkit:= )
@@ -139,7 +137,6 @@ RDEPEND="${PYTHON_DEPS}
 		')
 	)
 	jack? ( virtual/jack )
-	jemalloc? ( dev-libs/jemalloc:= )
 	jpeg2k? ( media-libs/openjpeg:2= )
 	manifold? ( >=sci-mathematics/manifold-3.1.0:= )
 	ndof? (
@@ -156,7 +153,7 @@ RDEPEND="${PYTHON_DEPS}
 	openpgl? ( media-libs/openpgl:= )
 	opensubdiv? ( >=media-libs/opensubdiv-3.6.0-r2[opengl,cuda?,tbb?] )
 	openvdb? (
-		>=media-gfx/openvdb-11.0.0:=[nanovdb?]
+		>=media-gfx/openvdb-13.0.0:=[nanovdb?]
 		dev-libs/c-blosc:=
 	)
 	optix? (
@@ -175,6 +172,7 @@ RDEPEND="${PYTHON_DEPS}
 	potrace? ( media-gfx/potrace )
 	pugixml? ( dev-libs/pugixml )
 	pulseaudio? ( media-libs/libpulse )
+	sci-libs/ceres-solver
 	sdl? ( media-libs/libsdl2[sound,joystick] )
 	sndfile? ( media-libs/libsndfile )
 	tbb? ( dev-cpp/tbb:= )
@@ -248,14 +246,10 @@ BDEPEND="
 PATCHES=(
 	"${FILESDIR}"/blender-4.0.2-FindClang.patch
 	"${FILESDIR}"/blender-4.1.1-FindLLVM.patch
-	"${FILESDIR}"/blender-4.1.1-numpy.patch
 	"${FILESDIR}"/blender-4.3.2-system-glog.patch
-	"${FILESDIR}"/blender-4.5.3-optix-compile-flags.patch
+	"${FILESDIR}"/blender-5.1.0-optix-compile-flags.patch
 	"${FILESDIR}"/blender-5.0.0-CUDA-13.patch
-	"${FILESDIR}"/blender-5.0.0-SSE4.2.patch
-	"${FILESDIR}"/blender-5.0.0-F16C.patch
 	"${FILESDIR}"/blender-5.0.0-system-eigen3.patch
-	"${FILESDIR}"/blender-5.0.0-FMA-auto-vectorization-r1.patch
 )
 
 blender_check_requirements() {
@@ -420,7 +414,6 @@ src_configure() {
 
 		# Build Options:
 		-DWITH_ALEMBIC="$(usex alembic)"
-		-DWITH_BOOST="yes"
 		-DWITH_BULLET="$(usex bullet)"
 		-DWITH_CYCLES="$(usex cycles)"
 		-DWITH_DOC_MANPAGE="$(usex man)"
@@ -452,7 +445,6 @@ src_configure() {
 		-DWITH_XR_OPENXR="no"
 
 		-DWITH_SYSTEM_BULLET="yes"
-		-DWITH_SYSTEM_EIGEN3="no"
 		-DWITH_SYSTEM_FREETYPE="yes"
 		-DWITH_SYSTEM_GFLAGS="yes"
 		-DWITH_SYSTEM_GLOG="yes"
@@ -461,11 +453,10 @@ src_configure() {
 		# -DWITH_BUILDINFO="yes"
 		# disable a "-march=..." override, while actually enabling SIMD (AVX, F16C and newer)
 		# https://projects.blender.org/blender/blender/pulls/150318
-		#-DWITH_COMPILER_SIMD=OFF
+		-DWITH_COMPILER_SIMD=OFF
 
 		# System Options:
 		-DWITH_INSTALL_PORTABLE="no"
-		-DWITH_MEM_JEMALLOC="$(usex jemalloc)"
 		-DWITH_MEM_VALGRIND="$(usex valgrind)"
 
 		# GHOST Options:
@@ -604,13 +595,6 @@ src_configure() {
 
 	append-cflags "$(usex debug '-DDEBUG' '-DNDEBUG')"
 	append-cxxflags "$(usex debug '-DDEBUG' '-DNDEBUG')"
-
-	if tc-is-gcc; then
-		# We disable these to respect the user's choice of linker.
-		mycmakeargs+=(
-			-DWITH_LINKER_GOLD="no"
-		)
-	fi
 
 	if tc-is-clang || use osl; then
 		mycmakeargs+=(
@@ -877,11 +861,11 @@ pkg_postinst() {
 	fi
 
 	# NOTE build_files/cmake/Modules/FindPythonLibsUnix.cmake: set(_PYTHON_VERSION_SUPPORTED 3.11)
-	if ! use python_single_target_python3_11; then
-		elog "You are building Blender with a newer python version than"
-		elog "supported by this version upstream."
+	if ! use python_single_target_python3_13; then
+		elog "You are building Blender with a different python version than"
+		elog "the one supported by this version upstream."
 		elog "If you experience breakages with e.g. plugins, please switch to"
-		elog "PYTHON_SINGLE_TARGET: python3_11 instead."
+		elog "PYTHON_SINGLE_TARGET: python3_13 instead."
 		elog "Bug: https://bugs.gentoo.org/737388"
 		elog
 	fi

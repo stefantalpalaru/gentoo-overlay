@@ -349,6 +349,19 @@ media-gfx/inkscape:sourceview - Enable syntax highlighting support via x11-libs/
 media-gfx/inkscape:svg2 - Enable support for new SVG2 features
 media-gfx/inkscape:visio - Enable support for Microsoft Visio diagrams via media-libs/libvisio
 media-gfx/inkscape:wpg - Enable support for WordPerfect graphics via app-text/libwpg
+media-gfx/openvdb:abi10-compat - Disables newer features to maintain compatibility with ABI10
+media-gfx/openvdb:abi11-compat - Disables newer features to maintain compatibility with ABI11
+media-gfx/openvdb:abi12-compat - Disables newer features to maintain compatibility with ABI12
+media-gfx/openvdb:abi13-compat - Disables newer features to maintain compatibility with ABI13
+media-gfx/openvdb:abi14-compat - Disables newer features to maintain compatibility with ABI14
+media-gfx/openvdb:alembic - Add support for Alembic through media-gfx/alembic.
+media-gfx/openvdb:ax - Build the OpenVDB AX module to perform custom manipulation of OpenVDB data via an expression language: AX
+media-gfx/openvdb:blosc - Allow using blosc compression via dev-libs/c-blosc
+media-gfx/openvdb:cuda - Enable support for CUDA in NanoVDB
+media-gfx/openvdb:nanovdb - A lightweight, header only, and GPU friendly version of VDB
+media-gfx/openvdb:numpy - Build pyopenvdb with support for dev-python/numpy
+media-gfx/openvdb:pdal - Enable support for PDAL for point clouds via sci-libs/pdal
+media-gfx/openvdb:utils - Build utility binaries
 media-libs/chromaprint:tools - Build and install fpcalc and fpcollect tools
 media-libs/libavif:aom - Enable support for the AOM codec encoding and decoding
 media-libs/libavif:dav1d - Enable support for the dav1d codec decoding
@@ -379,6 +392,7 @@ media-libs/lsp-plugins:vst3 - Build VST3 plugins
 media-libs/oidn:apps - Build the standalone denoise, self test, and benchmark binaries.
 media-libs/oidn:hip - Build OIDN with AMD HIP support.
 media-libs/oidn:openimageio - Enable OpenImageIO Support
+media-libs/opencolorio:apps - Build the OCIO command line apps
 media-libs/openexr:large-stack - Enables code to take advantage of large stack support.
 media-libs/openexr:utils - Build several binary tools for verifying and manipulating EXR files.
 media-libs/openimageio:dicom - Enable DICOM medical image file support via sci-libs/dcmtk
@@ -561,6 +575,8 @@ sci-geosciences/qgis:pdal - Enable support for PDAL for point clouds via sci-lib
 sci-geosciences/qgis:qml - Enable support Qml-based plugins using dev-qt/qtdeclarative
 sci-geosciences/qgis:serial - Enable support for serial GPS using dev-qt/qtserialport
 sci-geosciences/qgis:webengine - Enable webengine support using dev-qt/qtwebengine
+sci-libs/ceres-solver:schur - Enable fixed-size schur specializations (disable if binary size is an issue)
+sci-libs/ceres-solver:sparse - Enable support for sparse matrix algebra with various packages from SuiteSparse
 sci-libs/cfitsio:tools - Build execs fpack, funpack, imcopy, fitscopy, listhead
 sci-libs/cholmod:cuda - Use nvidia cuda toolkit for speeding up computations
 sci-libs/cholmod:matrixops - Support basic sparse and dense matrix operations (add, multiply, scale, et cetera)

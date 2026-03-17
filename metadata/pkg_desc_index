@@ -870,7 +870,7 @@ media-fonts/breeze-sans 20170821-r4: a humanist sans-serif typeface designed by 
 media-fonts/ipamonafont 1.0.8-r2: Hacked version of IPA fonts, which is suitable for browsing 2ch
 media-gfx/GTS 2.5.1-r1: scanning tool developed by Studio Ghibli
 media-gfx/ansel 4.0.0_pre20250506-r1 9999-r6: Darktable 4.0 fork
-media-gfx/blender 4.5.8 5.0.1-r1: 3D Creation/Animation/Publishing System
+media-gfx/blender 4.5.8 5.1.0: 3D Creation/Animation/Publishing System
 media-gfx/displaycal 3.8.9.3-r5: Display calibration and characterization powered by Argyll CMS
 media-gfx/exiv2 0.27.6-r1: EXIF, IPTC and XMP metadata C++ library and command line utility
 media-gfx/fbcat 0.5.2-r1: utility that takes a screenshot using the framebuffer device
@@ -880,6 +880,7 @@ media-gfx/inkscape 1.4.3-r2: SVG based generic vector-drawing program
 media-gfx/mcomix 3.1.0-r1: GTK image viewer for comic book archives
 media-gfx/opencomic-bin 1.6.5: Comic and Manga reader, written with Node.js and using Electron
 media-gfx/opentoonz 1.7.1-r1: An open-source full-featured 2D animation creation software
+media-gfx/openvdb 13.0.0: Library for the efficient manipulation of volumetric data
 media-gfx/zart 3.2.2_p20231127: G'MIC GUI for video streams
 media-libs/chromaprint 1.5.1-r5: Library implementing a custom algorithm for extracting audio fingerprints
 media-libs/cimg 3.5.0-r101 3.7.3-r100: C++ template image processing toolkit
@@ -894,6 +895,7 @@ media-libs/libtheora 1.1.1-r3: The Theora Video Compression Codec
 media-libs/lsp-plugins 1.2.27: Linux Studio Plugins
 media-libs/nv-codec-headers 8.1.24.15 11.0.10.3 11.1.5.3 12.0.16.1 12.1.14.0 12.2.72.0 13.0.19.0: FFmpeg version of headers required to interface with Nvidias codec APIs
 media-libs/oidn 2.4.1-r1300: Intel Open Image Denoise library
+media-libs/opencolorio 2.5.1: Color management framework for visual effects and animation
 media-libs/openexr 3.1.12-r2: ILM's OpenEXR high dynamic-range image file format libraries
 media-libs/openimageio 3.0.16.0 3.1.11.0: A library for reading and writing images
 media-libs/opensubdiv 3.6.1-r100: An Open-Source subdivision surface library
@@ -972,6 +974,7 @@ sci-libs/amd 3.3.4-r4: Library to order a sparse matrix prior to Cholesky factor
 sci-libs/btf 2.3.3-r4: Algorithm for matrix permutation into block triangular form
 sci-libs/camd 3.3.5-r4: Library to order a sparse matrix prior to Cholesky factorization
 sci-libs/ccolamd 3.3.5-r4: Constrained Column approximate minimum degree ordering algorithm
+sci-libs/ceres-solver 2.2.0_p20260225: Nonlinear least-squares minimizer
 sci-libs/cfitsio 3.410-r3: C and Fortran library for manipulating FITS files
 sci-libs/cholmod 5.3.4-r4: Sparse Cholesky factorization and update/downdate library
 sci-libs/clapack 3.2.1-r10: f2c'ed version of LAPACK

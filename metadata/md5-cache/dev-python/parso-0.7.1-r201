@@ -12,5 +12,5 @@ REQUIRED_USE=|| ( python_targets_python2_7 )
 RESTRICT=mirror test
 SLOT=python2
 SRC_URI=https://github.com/davidhalter/parso/archive/v0.7.1.tar.gz -> parso-0.7.1.gh.tar.gz
-_eclasses_=toolchain-funcs	da0a71e3a72194ca0b88d5b045d721ac	flag-o-matic	fd3558f73f6503093adee69adf41020d	out-of-source-utils	8e5093bd27b7f541a1913271f25d633a	multibuild	83db098a835f71feb71761f72a694aa2	multilib	404b65bd5212cff83b3935c685419d08	multiprocessing	1e32df7deee68372153dca65f4a7c21f	ninja-utils	d063ea1900a793f93eb095010d6d9156	python-utils-r1	f1d3a4dea5847c7390ba91bd557c83aa	python-r1	2d51fd03931e743811ce30d198e4dcfd	distutils-r1	20f2de98de352d5dae53d6972cf12f63
+_eclasses_=toolchain-funcs	da0a71e3a72194ca0b88d5b045d721ac	flag-o-matic	fd3558f73f6503093adee69adf41020d	out-of-source-utils	8e5093bd27b7f541a1913271f25d633a	multibuild	83db098a835f71feb71761f72a694aa2	multilib	404b65bd5212cff83b3935c685419d08	multiprocessing	1e32df7deee68372153dca65f4a7c21f	ninja-utils	d063ea1900a793f93eb095010d6d9156	python-utils-r1	f1d3a4dea5847c7390ba91bd557c83aa	python-r1	fa20a4abee4aa6a3b47c7362cfa8251f	distutils-r1	20f2de98de352d5dae53d6972cf12f63
 _md5_=6580d0962fa9f851e9258f23c5042bfc
