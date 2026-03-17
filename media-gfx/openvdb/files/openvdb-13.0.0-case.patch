@@ -1,0 +1,32 @@
+diff '--color=auto' -ur openvdb-13.0.0.orig/nanovdb/nanovdb/tools/VoxelBlockManager.h openvdb-13.0.0/nanovdb/nanovdb/tools/VoxelBlockManager.h
+--- openvdb-13.0.0.orig/nanovdb/nanovdb/tools/VoxelBlockManager.h	2025-11-04 00:04:25.000000000 +0100
++++ openvdb-13.0.0/nanovdb/nanovdb/tools/VoxelBlockManager.h	2026-03-17 17:18:37.482357638 +0100
+@@ -56,20 +56,20 @@
+     VoxelBlockManagerHandle& operator=(VoxelBlockManagerHandle&& other) noexcept {
+         mFirstLeafID = std::move(other.mFirstLeafID);
+         mJumpMap = std::move(other.mJumpMap);
+-        mBlockCount = other.mblockCount;
+-        mFirstOffset = other.mfirstOffset;
+-        mLastOffset = other.mlastOffset;
+-        mLowerCount = other.mlowerCount;
++        mBlockCount = other.mBlockCount;
++        mFirstOffset = other.mFirstOffset;
++        mLastOffset = other.mLastOffset;
++        mLowerCount = other.mLowerCount;
+         return *this;
+     }
+ 
+     VoxelBlockManagerHandle(VoxelBlockManagerHandle&& other) noexcept {
+         mFirstLeafID = std::move(other.mFirstLeafID);
+         mJumpMap = std::move(other.mJumpMap);
+-        mBlockCount = other.mblockCount;
+-        mFirstOffset = other.mfirstOffset;
+-        mLastOffset = other.mlastOffset;
+-        mLowerCount = other.mlowerCount;
++        mBlockCount = other.mBlockCount;
++        mFirstOffset = other.mFirstOffset;
++        mLastOffset = other.mLastOffset;
++        mLowerCount = other.mLowerCount;
+     }
+ 
+     ~VoxelBlockManagerHandle() { this->reset(); }
