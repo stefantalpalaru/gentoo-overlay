@@ -26,21 +26,24 @@ S="${WORKDIR}"/pytorch-v${PV}
 LICENSE="BSD"
 SLOT="0"
 KEYWORDS="~amd64 ~arm64"
-IUSE="cuda cudss distributed fbgemm flash gloo memefficient mkl mpi nccl nnpack +numpy
-	onednn openblas opencl openmp qnnpack rocm vulkan xnnpack cpu_flags_x86_avx cpu_flags_x86_avx2 cpu_flags_x86_avx512f"
+IUSE="cuda cusparselt cudss distributed fbgemm flash gloo memefficient mimalloc mkl
+	mpi nccl nnpack +numpy onednn openblas opencl openmp qnnpack rocm vulkan xnnpack
+	cpu_flags_x86_avx cpu_flags_x86_avx2 cpu_flags_x86_avx512f"
 RESTRICT="test"
 REQUIRED_USE="
 	${PYTHON_REQUIRED_USE}
 	fbgemm? ( cpu_flags_x86_avx cpu_flags_x86_avx2 cpu_flags_x86_avx512f )
-	flash? ( || ( cuda rocm ) )
-	memefficient? ( || ( cuda rocm ) )
 	mpi? ( distributed )
-	nccl? ( || ( cuda rocm ) )
 	gloo? ( distributed )
 	?? ( cuda rocm )
 	rocm? (
 		|| ( ${ROCM_REQUIRED_USE} )
+		memefficient? ( flash )
 	)
+	cusparselt? ( || ( cuda rocm ) )
+	flash? ( || ( cuda rocm ) )
+	memefficient? ( || ( cuda rocm ) )
+	nccl? ( || ( cuda rocm ) )
 "
 
 RDEPEND="
@@ -60,11 +63,12 @@ RDEPEND="
 		dev-libs/cudnn:=
 		>=sci-ml/cudnn-frontend-1.0.3:0=
 		cudss? ( dev-libs/cudss )
-		dev-libs/cusparselt
 		>=dev-util/nvidia-cuda-toolkit-12.9:=[profiler]
+		cusparselt? ( dev-libs/cusparselt )
 	)
 	fbgemm? ( sci-ml/FBGEMM )
 	gloo? ( >=sci-ml/gloo-2025.06.04[cuda?,rocm?] )
+	mimalloc? ( dev-libs/mimalloc )
 	mpi? ( virtual/mpi )
 	nnpack? (
 		dev-libs/pthreadpool
@@ -72,7 +76,7 @@ RDEPEND="
 	)
 	numpy? ( $(python_gen_cond_dep '
 		dev-python/numpy[${PYTHON_USEDEP}]
-		') )
+	') )
 	onednn? ( sci-ml/oneDNN )
 	opencl? ( virtual/opencl )
 	qnnpack? (
@@ -80,21 +84,22 @@ RDEPEND="
 		sci-ml/gemmlowp
 	)
 	rocm? (
-		nccl? ( >=dev-libs/rccl-6.3:= <dev-libs/rccl-7.2:= )
-		>=dev-util/hip-6.3:=       <dev-util/hip-7.2:=
-		>=dev-util/roctracer-6.3:= <dev-util/roctracer-7.2:=
-		>=sci-libs/hipBLAS-6.3:=   <sci-libs/hipBLAS-7.2:=[rocsolver(+)]
-		>=sci-libs/hipBLASLt-6.3:= <sci-libs/hipBLASLt-7.2:=
-		>=sci-libs/hipFFT-6.3:=    <sci-libs/hipFFT-7.2:=
-		>=sci-libs/hipRAND-6.3:=   <sci-libs/hipRAND-7.2:=
-		>=sci-libs/hipSOLVER-6.3:= <sci-libs/hipSOLVER-7.2:=
-		>=sci-libs/hipSPARSE-6.3:= <sci-libs/hipSPARSE-7.2:=
-		>=sci-libs/miopen-6.3:=    <sci-libs/miopen-7.2:=
-		>=sci-libs/rocBLAS-6.3:=   <sci-libs/rocBLAS-7.2:=
-		>=sci-libs/rocRAND-6.3:=   <sci-libs/rocRAND-7.2:=
-		>=sci-libs/rocSOLVER-6.3:= <sci-libs/rocSOLVER-7.2:=
-		memefficient? ( sci-libs/aotriton-bin:0/0.11 )
-		distributed? ( >=dev-util/rocm-smi-6.3:= <dev-util/rocm-smi-7.2:= )
+		nccl? ( >=dev-libs/rccl-6.3:= <dev-libs/rccl-7.3:= )
+		>=dev-util/hip-6.3:=       <dev-util/hip-7.3:=
+		>=dev-util/roctracer-6.3:= <dev-util/roctracer-7.3:=
+		>=sci-libs/hipBLAS-6.3:=   <sci-libs/hipBLAS-7.3:=[rocsolver(+)]
+		>=sci-libs/hipBLASLt-6.3:= <sci-libs/hipBLASLt-7.3:=
+		>=sci-libs/hipFFT-6.3:=    <sci-libs/hipFFT-7.3:=
+		>=sci-libs/hipRAND-6.3:=   <sci-libs/hipRAND-7.3:=
+		>=sci-libs/hipSOLVER-6.3:= <sci-libs/hipSOLVER-7.3:=
+		>=sci-libs/hipSPARSE-6.3:= <sci-libs/hipSPARSE-7.3:=
+		>=sci-libs/miopen-6.3:=    <sci-libs/miopen-7.3:=
+		>=sci-libs/rocBLAS-6.3:=   <sci-libs/rocBLAS-7.3:=
+		>=sci-libs/rocRAND-6.3:=   <sci-libs/rocRAND-7.3:=
+		>=sci-libs/rocSOLVER-6.3:= <sci-libs/rocSOLVER-7.3:=
+		memefficient? ( =sci-libs/aotriton-bin-0.11*:= )
+		distributed? ( >=dev-util/rocm-smi-6.3:= <dev-util/rocm-smi-7.3:= )
+		cusparselt? ( >=sci-libs/hipsparselt-6.3:= <sci-libs/hipsparselt-7.3:= )
 	)
 	distributed? (
 		!rocm? ( sci-ml/tensorpipe[cuda?] )
@@ -125,9 +130,9 @@ DEPEND="
 	cuda? ( >=dev-libs/cutlass-3.9.2[tools(+)] )
 	onednn? ( sci-ml/ideep )
 	rocm? (
-		>=sci-libs/hipCUB-6.3:=    <sci-libs/hipCUB-7.2:=
-		>=sci-libs/rocPRIM-6.3:=   <sci-libs/rocPRIM-7.2:=
-		>=sci-libs/rocThrust-6.3:= <sci-libs/rocThrust-7.2:=
+		>=sci-libs/hipCUB-6.3:=    <sci-libs/hipCUB-7.3:=
+		>=sci-libs/rocPRIM-6.3:=   <sci-libs/rocPRIM-7.3:=
+		>=sci-libs/rocThrust-6.3:= <sci-libs/rocThrust-7.3:=
 	)
 	qnnpack? ( dev-libs/clog )
 "
@@ -143,12 +148,13 @@ PATCHES=(
 	"${FILESDIR}"/caffe2-2.4.0-rocm-fix-std-cpp17.patch
 	"${FILESDIR}"/caffe2-2.4.0-cpp-httplib.patch
 	"${FILESDIR}"/caffe2-2.7.0-glog-0.7.1.patch
-	"${FILESDIR}"/caffe2-2.7.1-aotriton-fixes.patch
+	"${FILESDIR}"/caffe2-2.10.0-aotriton-fixes.patch
 	"${FILESDIR}"/caffe2-2.10.0-kineto.patch
 	"${FILESDIR}"/caffe2-2.8.0-rocm-minus-flash.patch
 	"${FILESDIR}"/caffe2-2.9.0-CUDA-13.patch
 	"${FILESDIR}"/caffe2-2.9.0-rocm-distributed-link.patch
 	"${FILESDIR}"/caffe2-2.10.0-nvrtc.patch
+	"${FILESDIR}"/caffe2-2.10.0-mimalloc.patch
 )
 
 src_prepare() {
@@ -161,8 +167,8 @@ src_prepare() {
 
 	# Change libaotriton path
 	sed -i \
-		-e "/set(__AOTRITON_LIB/s|lib/|$(get_libdir)/|g" \
-		-e "s|}/lib|}/$(get_libdir)|g" \
+		-e "s|}/lib|}/\${CMAKE_INSTALL_LIBDIR}|g" \
+		-e "/set(__AOTRITON_LIB/s|lib/|\${CMAKE_INSTALL_LIBDIR}/|g" \
 		cmake/External/aotriton.cmake \
 		|| die
 
@@ -256,6 +262,7 @@ src_configure() {
 		-DUSE_KLEIDIAI=OFF # TODO
 		-DUSE_MAGMA=OFF # TODO: In GURU as sci-libs/magma
 		-DUSE_MEM_EFF_ATTENTION=$(usex memefficient)
+		-DUSE_MIMALLOC=$(usex mimalloc)
 		-DUSE_MKLDNN=$(usex onednn)
 		-DUSE_MPI=$(usex mpi)
 		-DUSE_NCCL=OFF
@@ -280,7 +287,7 @@ src_configure() {
 		-DUSE_SYSTEM_PYBIND11=ON
 		-DUSE_SYSTEM_SLEEF=ON
 		-DUSE_SYSTEM_XNNPACK=$(usex xnnpack)
-		-DUSE_TENSORPIPE=$(use distributed && use !rocm && echo ON || echo OFF)
+		-DUSE_TENSORPIPE=$(usex distributed $(usex !rocm))
 		-DUSE_UCC=OFF
 		-DUSE_VALGRIND=OFF
 		-DUSE_VULKAN=$(usex vulkan)
@@ -305,9 +312,9 @@ src_configure() {
 	fi
 
 	if use cuda; then
-		addpredict "/dev/nvidiactl" # bug 867706
-		addpredict "/dev/char"
-		addpredict "/proc/self/task" # bug 926116
+		# bug 867706 926116
+		cuda_add_sandbox
+		addpredict "/dev/char/"
 
 		mycmakeargs+=(
 			-DUSE_CUDNN=ON
@@ -315,7 +322,7 @@ src_configure() {
 			-DUSE_NCCL=OFF # TODO: NVIDIA Collective Communication Library
 			-DCMAKE_CUDA_FLAGS="$(cuda_gccdir -f | tr -d \")"
 			-DUSE_CUDSS=$(usex cudss)
-			-DUSE_CUSPARSELT=ON
+			-DUSE_CUSPARSELT=$(usex cusparselt)
 		)
 
 		[[ -v CUDACXX ]] && export PYTORCH_NVCC="${CUDACXX}"
@@ -335,6 +342,7 @@ src_configure() {
 			-DUSE_NCCL=$(usex nccl)
 			-DUSE_SYSTEM_NCCL=ON
 			-DCMAKE_REQUIRE_FIND_PACKAGE_HIP=ON
+			-DCMAKE_DISABLE_FIND_PACKAGE_hipsparselt=$(usex !cusparselt) # disable automagic
 			-DUSE_ROCM_CK_SDPA=OFF # requires flash + aiter, works only on gfx90a/gfx942/gfx950
 		)
 
@@ -378,7 +386,8 @@ src_install() {
 	# Clean up third-party software installs.
 	rm -rf "${ED}"/usr/share/cmake/{kineto,fbgemm} \
 		"${ED}"/usr/include/{kineto,fbgemm,asmjit} \
-		"${ED}"/usr/$(get_libdir)/cmake/asmjit
+		"${ED}"/usr/$(get_libdir)/cmake/asmjit \
+		"${ED}"/usr/$(get_libdir)/pkgconfig/mimalloc.pc
 
 	rm -rf python
 	mkdir -p python/torch || die

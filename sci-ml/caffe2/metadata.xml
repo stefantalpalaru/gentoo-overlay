@@ -7,11 +7,13 @@
 	</maintainer>
 	<use>
 		<flag name="cudss">Use cuDSS</flag>
+		<flag name="cusparselt">Use the CUDA/HIP Sparse Matrix Multiplication</flag>
 		<flag name="distributed">Support distributed applications</flag>
 		<flag name="fbgemm">Use FBGEMM</flag>
 		<flag name="flash">Enable flash attention</flag>
 		<flag name="gloo">Use sci-libs/gloo</flag>
 		<flag name="memefficient">Enable mem efficient attention</flag>
+		<flag name="mimalloc">Use <pkg>dev-libs/mimalloc</pkg> as replacement for system malloc</flag>
 		<flag name="mkl">Use <pkg>sci-libs/mkl</pkg> for blas, lapack and sparse blas routines</flag>
 		<flag name="nccl">Use NCCL with CUDA or <pkg>dev-libs/rccl</pkg> (NCCL compatible) with ROCm for distributed operations</flag>
 		<flag name="nnpack">Use NNPACK</flag>
