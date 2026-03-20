@@ -3,7 +3,7 @@
 
 EAPI=8
 
-PYTHON_COMPAT=( python3_{10..13} )
+PYTHON_COMPAT=( python3_{10..14} )
 inherit cmake java-pkg-opt-2 python-single-r1
 
 DESCRIPTION="Translator library for raster geospatial data formats (includes OGR support)"
@@ -99,10 +99,6 @@ RDEPEND="
 
 QA_CONFIG_IMPL_DECL_SKIP=(
 	_wstat64 # Windows LFS
-)
-
-PATCHES=(
-	"${FILESDIR}"/gdal-3.12.2-poppler-26.02.patch
 )
 
 pkg_setup() {
