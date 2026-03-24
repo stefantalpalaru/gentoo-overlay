@@ -145,7 +145,7 @@ PATCHES=(
 	"${FILESDIR}"/caffe2-2.3.0-cudnn_include_fix.patch
 	"${FILESDIR}"/caffe2-2.1.2-fix-rpath.patch
 	"${FILESDIR}"/caffe2-2.4.0-fix-openmp-link.patch
-	"${FILESDIR}"/caffe2-2.4.0-rocm-fix-std-cpp17.patch
+	"${FILESDIR}"/caffe2-2.11.0-rocm-fix-std-cpp17.patch
 	"${FILESDIR}"/caffe2-2.4.0-cpp-httplib.patch
 	"${FILESDIR}"/caffe2-2.7.0-glog-0.7.1.patch
 	"${FILESDIR}"/caffe2-2.10.0-aotriton-fixes.patch
@@ -154,7 +154,7 @@ PATCHES=(
 	"${FILESDIR}"/caffe2-2.9.0-CUDA-13.patch
 	"${FILESDIR}"/caffe2-2.9.0-rocm-distributed-link.patch
 	"${FILESDIR}"/caffe2-2.10.0-nvrtc.patch
-	"${FILESDIR}"/caffe2-2.10.0-mimalloc.patch
+	#"${FILESDIR}"/caffe2-2.11.0-mimalloc.patch
 )
 
 src_prepare() {
@@ -260,7 +260,7 @@ src_configure() {
 		-DUSE_ITT=OFF
 		-DUSE_KINETO=ON
 		-DUSE_KLEIDIAI=OFF # TODO
-		-DUSE_MAGMA=OFF # TODO: In GURU as sci-libs/magma
+		-DUSE_MAGMA=OFF # deprecated
 		-DUSE_MEM_EFF_ATTENTION=$(usex memefficient)
 		-DUSE_MIMALLOC=$(usex mimalloc)
 		-DUSE_MKLDNN=$(usex onednn)

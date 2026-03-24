@@ -1,0 +1,25 @@
+diff '--color=auto' -ur pytorch-v2.11.0.orig/c10/CMakeLists.txt pytorch-v2.11.0/c10/CMakeLists.txt
+--- pytorch-v2.11.0.orig/c10/CMakeLists.txt	2026-03-23 22:16:38.151732704 +0100
++++ pytorch-v2.11.0/c10/CMakeLists.txt	2026-03-23 22:19:06.574748452 +0100
+@@ -120,8 +120,8 @@
+   endif()
+ 
+   if(USE_MIMALLOC)
+-    target_link_libraries(c10 PRIVATE "mimalloc-static")
+-    add_dependencies(c10 mimalloc-static)
++    find_package(mimalloc REQUIRED)
++    target_link_libraries(c10 PRIVATE "mimalloc")
+   endif()
+ 
+   if(LINUX)
+diff '--color=auto' -ur pytorch-v2.11.0.orig/CMakeLists.txt pytorch-v2.11.0/CMakeLists.txt
+--- pytorch-v2.11.0.orig/CMakeLists.txt	2026-03-23 22:16:38.187335556 +0100
++++ pytorch-v2.11.0/CMakeLists.txt	2026-03-23 22:16:55.903250476 +0100
+@@ -404,7 +404,6 @@
+ # on Windows and AArch64.
+ option(USE_MIMALLOC_ON_MKL "Use mimalloc on MKL" OFF)
+ if(WIN32 OR (CPU_AARCH64 AND NOT APPLE))
+-  set(USE_MIMALLOC ON)
+   # Disable OPT flags for mimalloc on aarch64 as it breaks ARMv8.0
+   # See https://github.com/pytorch/pytorch/issues/174344
+   if(CPU_AARCH64)

@@ -1,0 +1,41 @@
+diff '--color=auto' -ur pytorch-v2.11.0.orig/c10/hip/CMakeLists.txt pytorch-v2.11.0/c10/hip/CMakeLists.txt
+--- pytorch-v2.11.0.orig/c10/hip/CMakeLists.txt	2026-03-23 21:58:29.347541070 +0100
++++ pytorch-v2.11.0/c10/hip/CMakeLists.txt	2026-03-23 21:59:34.129363925 +0100
+@@ -37,6 +37,7 @@
+ 
+   # Propagate HIP_CXX_FLAGS that were set from Dependencies.cmake
+   target_compile_options(c10_hip PRIVATE ${HIP_CXX_FLAGS})
++  set_target_properties(c10_hip PROPERTIES CXX_STANDARD 17 CXX_EXTENSIONS OFF)
+ 
+   # caffe2_hip adds a bunch of dependencies like rocsparse, but c10/hip is supposed to be
+   # minimal.  I'm not sure if we need hip_hcc or not; for now leave it out
+diff '--color=auto' -ur pytorch-v2.11.0.orig/caffe2/CMakeLists.txt pytorch-v2.11.0/caffe2/CMakeLists.txt
+--- pytorch-v2.11.0.orig/caffe2/CMakeLists.txt	2026-03-23 21:58:29.291249195 +0100
++++ pytorch-v2.11.0/caffe2/CMakeLists.txt	2026-03-23 22:02:19.281714260 +0100
+@@ -1776,6 +1776,7 @@
+ 
+   # Since PyTorch files contain HIP headers, these flags are required for the necessary definitions to be added.
+   target_compile_options(torch_hip PUBLIC ${HIP_CXX_FLAGS})  # experiment
++  set_target_properties(torch_hip PROPERTIES CXX_STANDARD 17 CXX_EXTENSIONS OFF)
+ 
+   target_link_libraries(torch_hip PUBLIC c10_hip)
+ 
+@@ -2005,6 +2006,7 @@
+       target_include_directories(${test_name} PRIVATE $<INSTALL_INTERFACE:include>)
+       target_include_directories(${test_name} PRIVATE ${Caffe2_CPU_INCLUDE} ${Caffe2_HIP_INCLUDE})
+       target_compile_options(${test_name} PRIVATE ${HIP_CXX_FLAGS})
++      set_target_properties(${test_name} PROPERTIES CXX_STANDARD 17 CXX_EXTENSIONS OFF)
+       add_test(NAME ${test_name} COMMAND $<TARGET_FILE:${test_name}>)
+       if(INSTALL_TEST)
+         set_target_properties(${test_name} PROPERTIES INSTALL_RPATH "${CMAKE_INSTALL_RPATH}:${_rpath_portable_origin}/../lib")
+diff '--color=auto' -ur pytorch-v2.11.0.orig/cmake/public/utils.cmake pytorch-v2.11.0/cmake/public/utils.cmake
+--- pytorch-v2.11.0.orig/cmake/public/utils.cmake	2026-03-23 21:58:15.363496896 +0100
++++ pytorch-v2.11.0/cmake/public/utils.cmake	2026-03-23 22:08:45.861193561 +0100
+@@ -254,6 +254,7 @@
+   caffe2_binary_target(${target_name_or_src})
+ 
+   target_compile_options(${__target} PRIVATE ${HIP_CXX_FLAGS})
++  set_target_properties(${__target} PROPERTIES CXX_STANDARD 17 CXX_EXTENSIONS OFF)
+   target_include_directories(${__target} PRIVATE ${Caffe2_HIP_INCLUDE})
+ endfunction()
+ 
