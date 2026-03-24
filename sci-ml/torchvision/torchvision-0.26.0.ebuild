@@ -40,10 +40,6 @@ BDEPEND="
 	)
 "
 
-PATCHES=(
-	"${FILESDIR}"/torchvision-0.24.1-ffmpeg-8.patch
-)
-
 distutils_enable_tests pytest
 
 src_prepare() {
@@ -87,7 +83,6 @@ python_test() {
 	rm -rf torchvision || die
 
 	local EPYTEST_IGNORE=(
-		test/test_videoapi.py
 	)
 	local EPYTEST_DESELECT=(
 		test/test_backbone_utils.py::TestFxFeatureExtraction::test_forward_backward
