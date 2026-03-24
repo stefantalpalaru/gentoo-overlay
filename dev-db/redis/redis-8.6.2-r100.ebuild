@@ -6,7 +6,7 @@ EAPI=8
 # N.B.: It is no clue in porting to Lua eclasses, as upstream have deviated
 # too far from vanilla Lua, adding their own APIs like lua_enablereadonlytable
 
-inherit autotools multiprocessing systemd tmpfiles toolchain-funcs
+inherit autotools edo multiprocessing systemd tmpfiles toolchain-funcs
 
 DESCRIPTION="A persistent caching system, key-value, and data structures database"
 HOMEPAGE="
@@ -45,7 +45,7 @@ BDEPEND="
 	virtual/pkgconfig
 	test? (
 		dev-lang/tcl:0=
-		ssl? ( dev-tcltk/tls )
+		ssl? ( <dev-tcltk/tls-2 )
 	)
 "
 
@@ -126,11 +126,14 @@ src_compile() {
 
 src_test() {
 	local runtestargs=(
-		--clients "$(makeopts_jobs)" # see bug #649868
+		--clients "$(get_makeopts_jobs)" # see bug #649868
 
 		# The Active defrag for argv test fails with edge values, it does not seem to be
 		# critical issue, see https://github.com/redis/redis/issues/14006
 		--skiptest "/Active defrag for argv retained by the main thread from IO thread.*"
+
+		# Expected '1' to be equal to '2' (context: type eval line 43 cmd {assert_equal 1 [$replica get k]} proc ::start_server)
+		--skiptest "Shutting down master waits for replica timeout"
 	)
 
 	if has usersandbox ${FEATURES} || ! has userpriv ${FEATURES}; then
