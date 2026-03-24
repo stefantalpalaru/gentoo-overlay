@@ -1,6 +1,6 @@
 diff '--color=auto' -ur pytorch-v2.11.0.orig/c10/CMakeLists.txt pytorch-v2.11.0/c10/CMakeLists.txt
---- pytorch-v2.11.0.orig/c10/CMakeLists.txt	2026-03-23 22:16:38.151732704 +0100
-+++ pytorch-v2.11.0/c10/CMakeLists.txt	2026-03-23 22:19:06.574748452 +0100
+--- pytorch-v2.11.0.orig/c10/CMakeLists.txt	2026-03-24 12:10:32.130425663 +0100
++++ pytorch-v2.11.0/c10/CMakeLists.txt	2026-03-24 12:11:18.717440363 +0100
 @@ -120,8 +120,8 @@
    endif()
  
@@ -13,8 +13,8 @@ diff '--color=auto' -ur pytorch-v2.11.0.orig/c10/CMakeLists.txt pytorch-v2.11.0/
  
    if(LINUX)
 diff '--color=auto' -ur pytorch-v2.11.0.orig/CMakeLists.txt pytorch-v2.11.0/CMakeLists.txt
---- pytorch-v2.11.0.orig/CMakeLists.txt	2026-03-23 22:16:38.187335556 +0100
-+++ pytorch-v2.11.0/CMakeLists.txt	2026-03-23 22:16:55.903250476 +0100
+--- pytorch-v2.11.0.orig/CMakeLists.txt	2026-03-24 12:10:32.171189387 +0100
++++ pytorch-v2.11.0/CMakeLists.txt	2026-03-24 12:12:34.320704790 +0100
 @@ -404,7 +404,6 @@
  # on Windows and AArch64.
  option(USE_MIMALLOC_ON_MKL "Use mimalloc on MKL" OFF)
@@ -23,3 +23,12 @@ diff '--color=auto' -ur pytorch-v2.11.0.orig/CMakeLists.txt pytorch-v2.11.0/CMak
    # Disable OPT flags for mimalloc on aarch64 as it breaks ARMv8.0
    # See https://github.com/pytorch/pytorch/issues/174344
    if(CPU_AARCH64)
+@@ -1294,8 +1293,6 @@
+   set(MI_BUILD_OBJECT OFF)
+   set(MI_BUILD_TESTS OFF)
+   add_definitions(-DUSE_MIMALLOC)
+-  add_subdirectory(third_party/mimalloc)
+-  include_directories(third_party/mimalloc/include)
+ endif()
+ 
+ if(USE_MIMALLOC AND USE_MIMALLOC_ON_MKL)

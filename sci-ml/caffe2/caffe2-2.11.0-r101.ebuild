@@ -154,7 +154,7 @@ PATCHES=(
 	"${FILESDIR}"/caffe2-2.9.0-CUDA-13.patch
 	"${FILESDIR}"/caffe2-2.9.0-rocm-distributed-link.patch
 	"${FILESDIR}"/caffe2-2.10.0-nvrtc.patch
-	#"${FILESDIR}"/caffe2-2.11.0-mimalloc.patch
+	"${FILESDIR}"/caffe2-2.11.0-mimalloc.patch
 )
 
 src_prepare() {
