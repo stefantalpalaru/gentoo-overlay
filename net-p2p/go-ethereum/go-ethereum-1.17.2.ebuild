@@ -1,4 +1,4 @@
-# Copyright 1999-2025 Gentoo Authors
+# Copyright 1999-2026 Gentoo Authors
 # Distributed under the terms of the GNU General Public License v2
 
 EAPI=8
@@ -12,7 +12,7 @@ KEYWORDS="~amd64 ~x86"
 IUSE="devtools"
 # Tests do all kinds of wonky stuff like connecting to Docker daemon, network activity, etc.
 RESTRICT="mirror network-sandbox test"
-QA_PRESTRIPPED="/usr/bin/workload /usr/bin/geth-ethkey /usr/bin/geth /usr/bin/evm /usr/bin/era /usr/bin/devp2p /usr/bin/clef /usr/bin/blsync /usr/bin/abigen /usr/bin/abidump"
+QA_PRESTRIPPED="/usr/bin/workload /usr/bin/geth-ethkey /usr/bin/geth /usr/bin/evm /usr/bin/era /usr/bin/devp2p /usr/bin/clef /usr/bin/blsync /usr/bin/abigen /usr/bin/abidump /usr/bin/fetchpayload"
 
 DEPEND="
 	>=dev-lang/go-1.24:=
