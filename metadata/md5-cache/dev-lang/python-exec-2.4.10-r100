@@ -11,5 +11,5 @@ RDEPEND=dev-lang/python-exec-conf !<=dev-lang/python-2.7.18-r3:2.7
 RESTRICT=!test? ( test )
 SLOT=2
 SRC_URI=https://github.com/projg2/python-exec/releases/download/v2.4.10/python-exec-2.4.10.tar.bz2
-_eclasses_=multiprocessing	d4511f019dc17ec44bfe46b9e672ca64	toolchain-funcs	5195689ff6a73b0e789acfa09d4fbcb9	python-utils-r1	f1d3a4dea5847c7390ba91bd557c83aa	python-any-r1	d8d4f41eb440f685afa1a12e6b5d04cc
+_eclasses_=multiprocessing	45d0620f25c2f063ad6276ecd9ed9399	toolchain-funcs	5195689ff6a73b0e789acfa09d4fbcb9	python-utils-r1	f1d3a4dea5847c7390ba91bd557c83aa	python-any-r1	d8d4f41eb440f685afa1a12e6b5d04cc
 _md5_=007d7cc341f30f61a0eef345a0033b89

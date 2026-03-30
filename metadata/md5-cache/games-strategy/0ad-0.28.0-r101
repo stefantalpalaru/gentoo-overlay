@@ -13,5 +13,5 @@ RDEPEND=dev-lang/spidermonkey:128= dev-libs/boost:= dev-libs/icu:= dev-libs/libf
 RESTRICT=!test? ( test )
 SLOT=0
 SRC_URI=http://releases.wildfiregames.com/0ad-0.28.0-unix-build.tar.xz https://releases.wildfiregames.com/0ad-0.28.0-unix-data.tar.xz
-_eclasses_=desktop	26d57169ca094c04be416993844ec8bc	toolchain-funcs	5195689ff6a73b0e789acfa09d4fbcb9	multiprocessing	d4511f019dc17ec44bfe46b9e672ca64	flag-o-matic	fd3558f73f6503093adee69adf41020d	wxwidgets	c48bf68858bd3c27c272ff034eb1e14d	xdg-utils	42869b3c8d86a70ef3cf75165a395e09	xdg	3ef49a87c52c8b77c476351195dfe575
+_eclasses_=desktop	26d57169ca094c04be416993844ec8bc	toolchain-funcs	5195689ff6a73b0e789acfa09d4fbcb9	multiprocessing	45d0620f25c2f063ad6276ecd9ed9399	flag-o-matic	fd3558f73f6503093adee69adf41020d	wxwidgets	c48bf68858bd3c27c272ff034eb1e14d	xdg-utils	42869b3c8d86a70ef3cf75165a395e09	xdg	3ef49a87c52c8b77c476351195dfe575
 _md5_=4eed5d757408d1ef17310c9fd98fa9e9
