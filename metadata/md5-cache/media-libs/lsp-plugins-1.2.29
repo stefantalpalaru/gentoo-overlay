@@ -13,6 +13,6 @@ RDEPEND=media-libs/libglvnd[X] media-libs/libsndfile clap? ( media-libs/freetype
 REQUIRED_USE=|| ( clap gstreamer jack ladspa lv2 vst vst3 ) test? ( jack )
 RESTRICT=!test? ( test )
 SLOT=0
-SRC_URI=https://github.com/lsp-plugins/lsp-plugins/releases/download/1.2.27/lsp-plugins-src-1.2.27.tar.gz -> lsp-plugins-1.2.27.gh.tar.gz
+SRC_URI=https://github.com/lsp-plugins/lsp-plugins/releases/download/1.2.29/lsp-plugins-src-1.2.29.tar.gz -> lsp-plugins-1.2.29.gh.tar.gz
 _eclasses_=toolchain-funcs	5195689ff6a73b0e789acfa09d4fbcb9	flag-o-matic	fd3558f73f6503093adee69adf41020d	xdg-utils	42869b3c8d86a70ef3cf75165a395e09	xdg	3ef49a87c52c8b77c476351195dfe575
 _md5_=0e9fe68f07173d13a00c04b450d2b502
