@@ -119,7 +119,6 @@ BDEPEND="
 
 PATCHES=(
 	"${FILESDIR}"/qgis-4.0.0-opencl.patch
-	"${FILESDIR}"/qgis-4.0.0-pyproject.patch
 )
 
 src_prepare() {
