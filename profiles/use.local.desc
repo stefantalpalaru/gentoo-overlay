@@ -514,6 +514,7 @@ media-video/ffmpeg:zimg - Enables media-libs/zimg based scale filter.
 media-video/ffmpeg:zvbi - Enables media-libs/zvbi based teletext decoder.
 net-libs/libutp:tools - Build "ucat".
 net-misc/freerdp:aad - Enable login via Azure AD
+net-misc/freerdp:camera - Enable camera support
 net-misc/freerdp:client - Build client binaries
 net-misc/freerdp:fuse - Clipboard with FUSE file copy support
 net-misc/freerdp:openh264 - Enable H.264 support using media-libs/openh264

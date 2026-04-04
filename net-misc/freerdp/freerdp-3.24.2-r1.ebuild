@@ -1,4 +1,4 @@
-# Copyright 2011-2025 Gentoo Authors
+# Copyright 2011-2026 Gentoo Authors
 # Distributed under the terms of the GNU General Public License v2
 
 EAPI=8
@@ -17,7 +17,7 @@ VERIFY_SIG_OPENPGP_KEY_PATH="/usr/share/openpgp-keys/akallabeth.asc"
 LICENSE="Apache-2.0"
 SLOT="3"
 KEYWORDS="~alpha ~amd64 ~arm ~arm64 ~loong ~ppc ~ppc64 ~riscv ~x86"
-IUSE="aad alsa cpu_flags_arm_neon +client cups debug +ffmpeg +fuse gstreamer +icu jpeg kerberos openh264 pulseaudio sdl sdl3 server smartcard systemd test usb valgrind wayland X xinerama xv"
+IUSE="aad alsa camera cpu_flags_arm_neon +client cups debug +ffmpeg +fuse gstreamer +icu jpeg kerberos openh264 pulseaudio sdl sdl3 server smartcard systemd test usb valgrind wayland X xinerama xv"
 RESTRICT="!test? ( test )"
 
 BDEPEND+="
@@ -27,7 +27,7 @@ BDEPEND+="
 "
 COMMON_DEPEND="
 	dev-libs/openssl:0=
-	sys-libs/zlib:0
+	virtual/zlib:=
 	aad? ( dev-libs/cJSON )
 	alsa? ( media-libs/alsa-lib )
 	cups? ( net-print/cups )
@@ -74,6 +74,7 @@ COMMON_DEPEND="
 	smartcard? ( sys-apps/pcsc-lite )
 	systemd? ( sys-apps/systemd:0= )
 	client? (
+		camera? ( media-libs/libv4l )
 		sdl? (
 			media-libs/libsdl2[haptic(+),joystick(+),sound(+),video(+)]
 			media-libs/sdl2-ttf
@@ -93,6 +94,9 @@ COMMON_DEPEND="
 	)
 "
 DEPEND="${COMMON_DEPEND}
+	test? (
+		ffmpeg? ( media-video/ffmpeg:0[x264(-)] )
+	)
 	valgrind? ( dev-debug/valgrind )
 "
 RDEPEND="${COMMON_DEPEND}
@@ -101,6 +105,10 @@ RDEPEND="${COMMON_DEPEND}
 	server? ( !net-misc/freerdp:2[server] )
 	smartcard? ( app-crypt/p11-kit )
 "
+
+PATCHES=(
+	"${FILESDIR}"/freerdp-3.24.2-heimdal.patch
+)
 
 option() {
 	usex "$1" ON OFF
@@ -114,27 +122,18 @@ option_client() {
 	fi
 }
 
-run_for_testing() {
-	if use test; then
-		local BUILD_DIR="${WORKDIR}/${P}_testing"
-		"$@"
-	fi
-}
-
 src_configure() {
 	use debug || append-cppflags -DNDEBUG
-	freerdp_configure -DBUILD_TESTING=OFF
-	run_for_testing freerdp_configure -DBUILD_TESTING=ON
-}
-
-freerdp_configure() {
 	local mycmakeargs=(
 		-Wno-dev
+
+		-DBUILD_TESTING=$(option test)
 
 		# https://bugs.gentoo.org/927037
 		-DCMAKE_INTERPROCEDURAL_OPTIMIZATION=OFF
 
 		-DCHANNEL_URBDRC=$(option usb)
+		-DCHANNEL_RDPECAM_CLIENT=$(option_client camera)
 		-DWITH_AAD=$(option aad)
 		-DWITH_ALSA=$(option alsa)
 		-DWITH_CCACHE=OFF
@@ -171,25 +170,18 @@ freerdp_configure() {
 		-DWITH_WAYLAND=$(option_client wayland)
 		-DWITH_WEBVIEW=OFF
 		-DWITH_WINPR_TOOLS=$(option server)
-
-		"$@"
 	)
 	cmake_src_configure
-}
-
-src_compile() {
-	cmake_src_compile
-	run_for_testing cmake_src_compile
 }
 
 src_test() {
 	# TestBacktrace: bug 930636
 	# TestSynchCritical, TestSynchMultipleThreads: bug 951301
-	local CMAKE_SKIP_TESTS=( TestBacktrace TestSynchCritical TestSynchMultipleThreads )
+	local CMAKE_SKIP_TESTS=( TestBacktrace TestSynchCritical TestSynchMultipleThreads TestThreadCreateProcess )
 	if has network-sandbox ${FEATURES}; then
 		CMAKE_SKIP_TESTS+=( TestConnect )
 	fi
-	run_for_testing cmake_src_test
+	cmake_src_test
 }
 
 src_install() {
