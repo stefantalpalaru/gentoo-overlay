@@ -18,7 +18,7 @@ RDEPEND="
 	app-arch/xz-utils
 	app-arch/zstd
 	dev-libs/icu
-	dev-libs/xapian
+	dev-libs/xapian:=
 "
 
 DEPEND="virtual/pkgconfig"

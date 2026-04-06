@@ -7,8 +7,8 @@ HOMEPAGE=https://wiki.openzim.org/wiki/OpenZIM https://github.com/openzim/libzim
 INHERIT=meson
 KEYWORDS=~amd64
 LICENSE=GPL-2
-RDEPEND=app-arch/xz-utils app-arch/zstd dev-libs/icu dev-libs/xapian
+RDEPEND=app-arch/xz-utils app-arch/zstd dev-libs/icu dev-libs/xapian:=
 SLOT=0
 SRC_URI=https://github.com/openzim/libzim/archive/refs/tags/9.6.0.tar.gz -> libzim-9.6.0-r1.tar.gz
 _eclasses_=toolchain-funcs	5195689ff6a73b0e789acfa09d4fbcb9	flag-o-matic	fd3558f73f6503093adee69adf41020d	multiprocessing	45d0620f25c2f063ad6276ecd9ed9399	ninja-utils	d063ea1900a793f93eb095010d6d9156	python-utils-r1	f1d3a4dea5847c7390ba91bd557c83aa	sysroot	ba2e3d2f7daad91fdef9350dc789d87f	rust-toolchain	76468983281b0a7fc167ca224f84ecfd	meson	12065b402c6d78a2aec926ed8dfd964f
-_md5_=cb4716889102e0640494780be834f38a
+_md5_=b521fe4df27ff6117caa3df510fc27a7
