@@ -458,7 +458,7 @@ dev-python/prometheus-client 0.7.1-r201: Python client for the Prometheus monito
 dev-python/prompt-toolkit 1.0.18-r4 2.0.10-r4: Building powerful interactive command lines in Python
 dev-python/protobuf 3.13.0-r202: Google's Protocol Buffers - Python bindings
 dev-python/psutil 5.7.2-r201: Retrieve information on running processes and system utilization
-dev-python/psycopg 2.8.6-r201: PostgreSQL database adapter for Python
+dev-python/psycopg 2.8.6-r202 2.9.11: PostgreSQL database adapter for Python
 dev-python/ptyprocess 0.6.0-r201: Run a subprocess in a pseudo terminal
 dev-python/py 1.9.0-r201: library with cross-python path, ini-parsing, io, code, log facilities
 dev-python/py-notify 0.3.1-r3: Tools for implementing the Observer programming pattern in Python
