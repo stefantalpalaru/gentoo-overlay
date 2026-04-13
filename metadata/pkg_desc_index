@@ -909,9 +909,9 @@ media-plugins/deadbeef-jack 9999-r3: JACK output plugin for DeaDBeeF.
 media-plugins/eq10q 2.2-r1: Audio plugin bundle over the LV2 standard for Linux
 media-plugins/refocus-it 2.0.0-r2: Refocus-It plugin for The Gimp
 media-plugins/tap-plugins 1.0.1_p20230714: Tom's Audio Processing LADSPA plugins
-media-radio/fmreceiver 3.20: SDR-J FM receiver for RTL2832-based USB sticks
+media-radio/fmreceiver 3.20-r1: SDR-J FM receiver for RTL2832-based USB sticks
 media-radio/guglielmo 0.7.2: Qt based FM / Dab tuner
-media-radio/swreceiver 0.8-r1: SDR-J SW receiver for RTL2832-based USB sticks
+media-radio/swreceiver 0.8-r2: SDR-J SW receiver for RTL2832-based USB sticks
 media-sound/audacity 3.5.1-r1 3.7.7: Free crossplatform audio editor
 media-sound/carla 2.5.10 9999-r3: Fully-featured audio plugin host, supports many audio drivers and plugin formats
 media-sound/dcue 1.5 1.5_p20231216: generate CUE sheets from Discogs data
@@ -1025,7 +1025,7 @@ www-nginx/ngx-brotli 1.0.0_rc_p20231109-r1: NGINX module for Brotli compression
 www-servers/uwsgi 2.0.31-r200: uWSGI server for Python web applications
 x11-libs/dotherside 0.9.0_p20221109-r2: C language library for creating bindings for the Qt QML language
 x11-libs/qscintilla 2.14.1-r1: Qt port of Neil Hodgson's Scintilla C++ editor control
-x11-libs/qwt 6.3.0: 2D plotting library for Qt
+x11-libs/qwt 6.3.0-r1: 2D plotting library for Qt
 x11-libs/wxGTK 3.2.10-r300 3.3.2-r300: GTK version of wxWidgets, a cross-platform C++ GUI toolkit
 x11-misc/magick-rotation 1.6.2-r6: Application that rotates tablet pc's screen automatically, based on orientation
 x11-misc/obmenu2 1.1-r2: Openbox menu editor

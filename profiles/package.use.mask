@@ -1,2 +1,4 @@
 # doesn't work with pygtk:2
 dev-python/matplotlib gtk2
+# Unmasking an USE flag does not work in here. Only in "/etc/portage/profile/package.use.mask".
+x11-libs/qwt -qt5
