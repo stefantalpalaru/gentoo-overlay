@@ -1,0 +1,134 @@
+diff '--color=auto' -ur jemalloc-5.3.1.orig/include/jemalloc/internal/hpa.h jemalloc-5.3.1/include/jemalloc/internal/hpa.h
+--- jemalloc-5.3.1.orig/include/jemalloc/internal/hpa.h	2026-04-14 02:12:37.000000000 +0200
++++ jemalloc-5.3.1/include/jemalloc/internal/hpa.h	2026-04-15 04:23:07.235565603 +0200
+@@ -14,6 +14,33 @@
+ #include "jemalloc/internal/psset.h"
+ #include "jemalloc/internal/sec.h"
+ 
++/*
++ * The HPA_SUPPORTED macro is not a technical indicator of whether HPA
++ * theoretically functions on the platform, but rather whether the platform is
++ * tested/supported for using HPA on by the jemalloc developers.
++ */
++#ifdef HPA_SUPPORTED
++#warning "Force-enabling HPA support. Do NOT report issues to jemalloc developers."
++#else
++#define HPA_SUPPORTED 1
++
++/*
++ * At least until the API and implementation is somewhat settled, we
++ * don't want to try to debug the VM subsystem on the hardest-to-test
++ * platform.
++ */
++#ifdef _WIN32
++#undef HPA_SUPPORTED
++#endif
++
++/*
++ * https://github.com/jemalloc/jemalloc/issues/2305#issuecomment-1195917164
++ */
++#if !defined(__x86_64__) && !defined(__i386__)
++#undef HPA_SUPPORTED
++#endif
++#endif
++
+ typedef struct hpa_shard_nonderived_stats_s hpa_shard_nonderived_stats_t;
+ struct hpa_shard_nonderived_stats_s {
+ 	/*
+diff '--color=auto' -ur jemalloc-5.3.1.orig/src/hpa.c jemalloc-5.3.1/src/hpa.c
+--- jemalloc-5.3.1.orig/src/hpa.c	2026-04-14 02:12:37.000000000 +0200
++++ jemalloc-5.3.1/src/hpa.c	2026-04-15 04:23:55.490383303 +0200
+@@ -34,12 +34,7 @@
+ 
+ bool
+ hpa_supported(void) {
+-#ifdef _WIN32
+-	/*
+-	 * At least until the API and implementation is somewhat settled, we
+-	 * don't want to try to debug the VM subsystem on the hardest-to-test
+-	 * platform.
+-	 */
++#ifndef HPA_SUPPORTED
+ 	return false;
+ #endif
+ 	if (!pages_can_hugify) {
+diff '--color=auto' -ur jemalloc-5.3.1.orig/test/include/test/test.h jemalloc-5.3.1/test/include/test/test.h
+--- jemalloc-5.3.1.orig/test/include/test/test.h	2026-04-14 02:12:37.000000000 +0200
++++ jemalloc-5.3.1/test/include/test/test.h	2026-04-15 04:25:35.425005764 +0200
+@@ -525,6 +525,15 @@
+ 			goto label_test_end;                                   \
+ 		}
+ 
++#define TEST_SKIP(f)							\
++static void									\
++f(void) {									\
++	p_test_init(#f);						\
++	test_skip("%s:%s:%d: Test skipped: ",	\
++		__func__, __FILE__, __LINE__);		\
++	p_test_fini();							\
++}
++
+ #define TEST_END                                                               \
+ 	goto label_test_end;                                                   \
+ 	label_test_end:                                                        \
+diff '--color=auto' -ur jemalloc-5.3.1.orig/test/unit/psset.c jemalloc-5.3.1/test/unit/psset.c
+--- jemalloc-5.3.1.orig/test/unit/psset.c	2026-04-14 02:12:37.000000000 +0200
++++ jemalloc-5.3.1/test/unit/psset.c	2026-04-15 04:30:17.991938266 +0200
+@@ -309,6 +309,7 @@
+ }
+ TEST_END
+ 
++#ifdef HPA_SUPPORTED
+ TEST_BEGIN(test_multi_pageslab) {
+ 	test_skip_if(hpa_hugepage_size_exceeds_limit());
+ 	bool      err;
+@@ -378,6 +379,9 @@
+ 	free(alloc[1]);
+ }
+ TEST_END
++#else
++TEST_SKIP(test_multi_pageslab)
++#endif
+ 
+ TEST_BEGIN(test_stats_merged) {
+ 	hpdata_t pageslab;
+@@ -624,6 +628,7 @@
+  * (There's nothing magic about these numbers; it's just useful to share the
+  * setup between the oldest fit and the insert/remove test).
+  */
++#ifdef HPA_SUPPORTED
+ static void
+ init_test_pageslabs(psset_t *psset, hpdata_t *pageslab,
+     hpdata_t *worse_pageslab, edata_t *alloc, edata_t *worse_alloc) {
+@@ -671,7 +676,9 @@
+ 	    psset, &alloc[HUGEPAGE_PAGES - 1]);
+ 	expect_ptr_null(evicted, "Unexpected eviction");
+ }
++#endif
+ 
++#ifdef HPA_SUPPORTED
+ TEST_BEGIN(test_oldest_fit) {
+ 	test_skip_if(hpa_hugepage_size_exceeds_limit());
+ 	bool     err;
+@@ -699,7 +706,11 @@
+ 	free(worse_alloc);
+ }
+ TEST_END
++#else
++TEST_SKIP(test_oldest_fit)
++#endif
+ 
++#ifdef HPA_SUPPORTED
+ TEST_BEGIN(test_insert_remove) {
+ 	test_skip_if(hpa_hugepage_size_exceeds_limit());
+ 	bool      err;
+@@ -750,6 +761,9 @@
+ 	free(worse_alloc);
+ }
+ TEST_END
++#else
++TEST_SKIP(test_insert_remove)
++#endif
+ 
+ TEST_BEGIN(test_purge_prefers_nonhuge) {
+ 	test_skip_if(hpa_hugepage_size_exceeds_limit());
