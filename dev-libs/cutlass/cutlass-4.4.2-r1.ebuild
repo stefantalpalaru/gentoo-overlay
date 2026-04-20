@@ -58,6 +58,7 @@ src_prepare() {
 
 	sed \
 		-e '/-std=/s/17/20/g' \
+		-e '/_STANDARD/s/17/20/g' \
 		-i \
 			CMakeLists.txt \
 			python/cutlass_cppgen/backend/compiler.py \
