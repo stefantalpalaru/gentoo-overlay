@@ -1,0 +1,33 @@
+diff '--color=auto' -ur builds.orig/cuda_cccl/targets/x86_64-linux/include/cccl/cub/device/device_transform.cuh builds/cuda_cccl/targets/x86_64-linux/include/cccl/cub/device/device_transform.cuh
+--- builds.orig/cuda_cccl/targets/x86_64-linux/include/cccl/cub/device/device_transform.cuh	2026-03-03 22:47:21.000000000 +0100
++++ builds/cuda_cccl/targets/x86_64-linux/include/cccl/cub/device/device_transform.cuh	2026-04-21 22:45:37.702723360 +0200
+@@ -40,9 +40,11 @@
+ } // namespace detail
+ CUB_NAMESPACE_END
+ 
++_CCCL_BEGIN_NAMESPACE_CUDA
+ template <typename T>
+-struct ::cuda::proclaims_copyable_arguments<CUB_NS_QUALIFIER::detail::__return_constant<T>> : ::cuda::std::true_type
++struct proclaims_copyable_arguments<CUB_NS_QUALIFIER::detail::__return_constant<T>> : ::cuda::std::true_type
+ {};
++_CCCL_END_NAMESPACE_CUDA
+ 
+ CUB_NAMESPACE_BEGIN
+ //! DeviceTransform provides device-wide, parallel operations for transforming elements tuple-wise from multiple input
+diff '--color=auto' -ur builds.orig/cuda_cccl/targets/x86_64-linux/include/cccl/cub/device/dispatch/tuning/tuning_transform.cuh builds/cuda_cccl/targets/x86_64-linux/include/cccl/cub/device/dispatch/tuning/tuning_transform.cuh
+--- builds.orig/cuda_cccl/targets/x86_64-linux/include/cccl/cub/device/dispatch/tuning/tuning_transform.cuh	2026-03-03 22:47:21.000000000 +0100
++++ builds/cuda_cccl/targets/x86_64-linux/include/cccl/cub/device/dispatch/tuning/tuning_transform.cuh	2026-04-21 22:46:26.476532990 +0200
+@@ -48,10 +48,12 @@
+ } // namespace detail::transform
+ CUB_NAMESPACE_END
+ 
++_CCCL_BEGIN_NAMESPACE_CUDA
+ template <>
+-struct ::cuda::proclaims_copyable_arguments<CUB_NS_QUALIFIER::detail::transform::always_true_predicate>
++struct proclaims_copyable_arguments<CUB_NS_QUALIFIER::detail::transform::always_true_predicate>
+     : ::cuda::std::true_type
+ {};
++_CCCL_END_NAMESPACE_CUDA
+ 
+ CUB_NAMESPACE_BEGIN
+ namespace detail::transform

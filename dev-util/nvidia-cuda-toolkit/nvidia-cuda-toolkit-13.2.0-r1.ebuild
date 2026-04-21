@@ -156,6 +156,14 @@ src_unpack() {
 		bash "${DISTDIR}/${A}" --tar xf -X <(printf "%s\n" "${exclude[@]}")
 }
 
+src_prepare() {
+	pushd "builds/cuda_cccl/targets/${narch}-linux" >/dev/null || die
+	eapply -p4 "${FILESDIR}/nvidia-cuda-toolkit-13.2.0-cccl.patch"
+	popd >/dev/null || die
+
+	default
+}
+
 src_configure() {
 	:
 }
