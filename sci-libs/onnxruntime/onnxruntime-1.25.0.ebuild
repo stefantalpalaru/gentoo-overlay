@@ -19,13 +19,17 @@ HOMEPAGE="https://onnxruntime.ai
 SAFEINT_COMMIT=3.0.28
 FLATBUFFERS_PV=23.5.26
 DATE_PV=3.0.1
-DLPACK_PV=0.6
+DLPACK_PV=1.2
+# We need to fetch CUTLASS, to use some example headers - that
+# never get installed, but are needed by some contrib ops.
+CUTLASS_PV=4.2.1
 SRC_URI="
 	https://github.com/microsoft/${PN}/archive/refs/tags/v${PV}.tar.gz -> ${P}.tar.gz
 	https://github.com/dcleblanc/SafeInt/archive/${SAFEINT_COMMIT}.tar.gz -> SafeInt-${SAFEINT_COMMIT:0:10}.tar.gz
 	https://github.com/google/flatbuffers/archive/v${FLATBUFFERS_PV}.tar.gz -> flatbuffers-${FLATBUFFERS_PV}.tar.gz
 	https://github.com/HowardHinnant/date/archive/v${DATE_PV}.tar.gz -> hhdate-${DATE_PV}.tar.gz
 	https://github.com/dmlc/dlpack/archive/refs/tags/v${DLPACK_PV}.tar.gz -> dlpack-${DLPACK_PV}.tar.gz
+	https://github.com/NVIDIA/cutlass/archive/refs/tags/v${CUTLASS_PV}.tar.gz -> cutlass-${CUTLASS_PV}.tar.gz
 "
 LICENSE="MIT"
 SLOT="0/${PV}"
@@ -49,7 +53,6 @@ BDEPEND="
 	app-admin/chrpath
 	benchmark? ( dev-cpp/benchmark )
 	cuda? (
-		dev-libs/cutlass:=
 		>=dev-util/nvidia-cuda-toolkit-12:=
 	)
 	cudnn? (
@@ -110,7 +113,7 @@ PATCHES=(
 	"${FILESDIR}/onnxruntime-1.19.0-eigen.patch"
 	"${FILESDIR}/onnxruntime-1.21.0-system-eigen.patch"
 	"${FILESDIR}/onnxruntime-1.20.0-cudnn_frontend.patch"
-	"${FILESDIR}/onnxruntime-1.24.1-external-downloads.patch"
+	"${FILESDIR}/onnxruntime-1.25.0-external-downloads.patch"
 	"${FILESDIR}/onnxruntime-1.23.0-include.patch"
 	"${FILESDIR}/onnxruntime-1.24.1-string-view.patch"
 )
@@ -148,10 +151,6 @@ src_prepare() {
 	append-flags -Wa,--noexecstack
 
 	cmake_src_prepare
-
-	# for some reason, "patch -p1" can't handle a path like "a/../foo/bar"
-	cd ..
-	patch -p0 -i "${FILESDIR}/onnxruntime-1.22.0-cmake-4.patch"
 }
 
 src_configure() {
@@ -195,6 +194,7 @@ src_configure() {
 		-DFETCHCONTENT_SOURCE_DIR_FLATBUFFERS="${WORKDIR}/flatbuffers-${FLATBUFFERS_PV}"
 		-DFETCHCONTENT_SOURCE_DIR_DATE="${WORKDIR}/date-${DATE_PV}"
 		-DFETCHCONTENT_SOURCE_DIR_DLPACK="${WORKDIR}/dlpack-${DLPACK_PV}"
+		-DFETCHCONTENT_SOURCE_DIR_CUTLASS="${WORKDIR}/cutlass-${CUTLASS_PV}"
 		-Donnxruntime_USE_TENSORRT=$(usex tensorrt)
 		-Donnxruntime_USE_JSEP=OFF
 		-Donnxruntime_ENABLE_MEMORY_PROFILE=OFF
@@ -213,7 +213,7 @@ src_configure() {
 		-Donnxruntime_USE_TENSORRT_BUILTIN_PARSER=OFF
 		-Donnxruntime_USE_MIGRAPHX=$(usex migraphx)
 		-Donnxruntime_CROSS_COMPILING=$(tc-is-cross-compiler && echo ON || echo OFF)
-		-Donnxruntime_DISABLE_CONTRIB_OPS=ON
+		-Donnxruntime_DISABLE_CONTRIB_OPS=OFF
 		-Donnxruntime_DISABLE_ML_OPS=ON
 		-Donnxruntime_DISABLE_RTTI=OFF
 		-Donnxruntime_DISABLE_EXCEPTIONS=$(usex !debug)
@@ -227,9 +227,6 @@ src_configure() {
 		-Donnxruntime_BUILD_MS_EXPERIMENTAL_OPS=OFF
 		-Donnxruntime_USE_TELEMETRY=OFF
 		-Donnxruntime_USE_ACL=OFF
-		-Donnxruntime_USE_ARMNN=OFF
-		-Donnxruntime_ARMNN_RELU_USE_CPU=ON
-		-Donnxruntime_ARMNN_BN_USE_CPU=ON
 		-Donnxruntime_ENABLE_NVTX_PROFILE=OFF
 		-Donnxruntime_ENABLE_TRAINING=OFF
 		-Donnxruntime_ENABLE_TRAINING_OPS=OFF
