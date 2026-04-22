@@ -524,7 +524,7 @@ dev-python/pypng 0.0.20-r201: Pure Python PNG image encoder/decoder
 dev-python/pyptlib 0.0.6-r2: Python library for tor's pluggable transport managed-proxy protocol
 dev-python/pyqrcode 1.2.1-r200: A pure Python QR code generator with SVG, EPS, PNG and terminal output
 dev-python/pyqt5 5.15.4-r204 5.15.11-r2: Python bindings for the Qt framework
-dev-python/pyqt5-sip 4.19.25-r201 12.17.0-r1: sip extension module for PyQt5
+dev-python/pyqt5-sip 4.19.25-r201 12.18.0: sip extension module for PyQt5
 dev-python/pyqtwebengine 5.15.4-r3 5.15.7: Python bindings for QtWebEngine
 dev-python/pyquery 1.4.1-r201: A jQuery-like library for python
 dev-python/pyrax 1.9.7-r201: Python language bindings for OpenStack Clouds
