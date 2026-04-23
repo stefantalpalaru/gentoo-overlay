@@ -10,5 +10,5 @@ RDEPEND=dev-qt/qtcore:5 dev-qt/qtgui:5 media-libs/faad2 media-libs/libsamplerate
 RESTRICT=mirror
 SLOT=0
 SRC_URI=https://github.com/JvanKatwijk/sdr-j-sw/archive/refs/tags/0.8.tar.gz -> swreceiver-0.8.gh.tar.gz
-_eclasses_=toolchain-funcs	5195689ff6a73b0e789acfa09d4fbcb9	qmake-utils	28f99dba9219112f4785f46ed426a021
+_eclasses_=toolchain-funcs	58a918e3a42d0156f010dcfd43725be5	qmake-utils	28f99dba9219112f4785f46ed426a021
 _md5_=d73a50bafb1c528d8681c532e3a9f16d

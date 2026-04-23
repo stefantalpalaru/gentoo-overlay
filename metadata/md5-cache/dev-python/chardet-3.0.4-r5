@@ -13,5 +13,5 @@ REQUIRED_USE=|| ( python_targets_python2_7 )
 RESTRICT=mirror !test? ( test )
 SLOT=python2
 SRC_URI=https://github.com/chardet/chardet/archive/3.0.4.tar.gz -> chardet-3.0.4.gh.tar.gz
-_eclasses_=toolchain-funcs	5195689ff6a73b0e789acfa09d4fbcb9	flag-o-matic	fd3558f73f6503093adee69adf41020d	out-of-source-utils	8e5093bd27b7f541a1913271f25d633a	multibuild	83db098a835f71feb71761f72a694aa2	multilib	fc812e8eb2170022c28272d80a1f9e77	multiprocessing	45d0620f25c2f063ad6276ecd9ed9399	ninja-utils	d063ea1900a793f93eb095010d6d9156	python-utils-r1	f1d3a4dea5847c7390ba91bd557c83aa	python-r1	fa20a4abee4aa6a3b47c7362cfa8251f	distutils-r1	20f2de98de352d5dae53d6972cf12f63
+_eclasses_=toolchain-funcs	58a918e3a42d0156f010dcfd43725be5	flag-o-matic	fd3558f73f6503093adee69adf41020d	out-of-source-utils	8e5093bd27b7f541a1913271f25d633a	multibuild	83db098a835f71feb71761f72a694aa2	multilib	fc812e8eb2170022c28272d80a1f9e77	multiprocessing	45d0620f25c2f063ad6276ecd9ed9399	ninja-utils	d063ea1900a793f93eb095010d6d9156	python-utils-r1	f1d3a4dea5847c7390ba91bd557c83aa	python-r1	fa20a4abee4aa6a3b47c7362cfa8251f	distutils-r1	20f2de98de352d5dae53d6972cf12f63
 _md5_=81bea4159a91db1ee58413ca6afa6ce1

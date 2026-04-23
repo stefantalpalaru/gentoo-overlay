@@ -17,7 +17,7 @@ VERIFY_SIG_OPENPGP_KEY_PATH="/usr/share/openpgp-keys/akallabeth.asc"
 LICENSE="Apache-2.0"
 SLOT="3"
 KEYWORDS="~alpha ~amd64 ~arm ~arm64 ~loong ~ppc ~ppc64 ~riscv ~x86"
-IUSE="aad alsa camera cpu_flags_arm_neon +client cups debug +ffmpeg +fuse gstreamer +icu jpeg kerberos openh264 pulseaudio sdl sdl3 server smartcard systemd test usb valgrind wayland X xinerama xv"
+IUSE="aad alsa aom camera cpu_flags_arm_neon +client cups debug +ffmpeg +fuse gstreamer +icu jpeg kerberos openh264 pulseaudio sdl sdl3 server smartcard systemd test usb valgrind wayland X xinerama xv"
 RESTRICT="!test? ( test )"
 
 BDEPEND+="
@@ -28,8 +28,9 @@ BDEPEND+="
 COMMON_DEPEND="
 	dev-libs/openssl:0=
 	virtual/zlib:=
-	aad? ( dev-libs/cJSON )
+	aad? ( dev-libs/jansson )
 	alsa? ( media-libs/alsa-lib )
+	aom? ( media-libs/libaom )
 	cups? ( net-print/cups )
 	usb? (
 		virtual/libudev:0=
@@ -106,10 +107,6 @@ RDEPEND="${COMMON_DEPEND}
 	smartcard? ( app-crypt/p11-kit )
 "
 
-PATCHES=(
-	"${FILESDIR}"/freerdp-3.24.2-heimdal.patch
-)
-
 option() {
 	usex "$1" ON OFF
 }
@@ -135,7 +132,10 @@ src_configure() {
 		-DCHANNEL_URBDRC=$(option usb)
 		-DCHANNEL_RDPECAM_CLIENT=$(option_client camera)
 		-DWITH_AAD=$(option aad)
+		-DWITH_JSON_DISABLED=$(option !aad)
+		-DWITH_JANSSON_REQUIRED=$(option aad)
 		-DWITH_ALSA=$(option alsa)
+		-DWITH_AOM=$(option aom)
 		-DWITH_CCACHE=OFF
 		-DWITH_CLIENT=$(option client)
 		-DWITH_CLIENT_SDL2=$(option_client sdl)
@@ -167,6 +167,7 @@ src_configure() {
 		-DWITH_X11=$(option X)
 		-DWITH_XINERAMA=$(option xinerama)
 		-DWITH_XV=$(option xv)
+		-DWITH_YUV=OFF
 		-DWITH_WAYLAND=$(option_client wayland)
 		-DWITH_WEBVIEW=OFF
 		-DWITH_WINPR_TOOLS=$(option server)

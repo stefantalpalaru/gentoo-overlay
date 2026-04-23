@@ -9,5 +9,5 @@ LICENSE=GPL-2
 PROPERTIES=live
 RDEPEND=dev-lang/tcl:0 dev-lang/tk:0 media-fonts/dejavu virtual/jack >=media-libs/alsa-lib-1.0.0 media-libs/ftgl media-libs/liblo media-libs/lv2 media-libs/mesa:0
 SLOT=0
-_eclasses_=desktop	26d57169ca094c04be416993844ec8bc	toolchain-funcs	5195689ff6a73b0e789acfa09d4fbcb9	git-r3	7b584b5dc33e3bc66ff5b9271bf41764
+_eclasses_=desktop	26d57169ca094c04be416993844ec8bc	toolchain-funcs	58a918e3a42d0156f010dcfd43725be5	git-r3	7b584b5dc33e3bc66ff5b9271bf41764
 _md5_=572321492769a1272a54e358d183b823
