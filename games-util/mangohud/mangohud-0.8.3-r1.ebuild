@@ -38,7 +38,7 @@ fi
 LICENSE="MIT"
 SLOT="0"
 IUSE="+dbus debug +X xnvctrl wayland mangoapp mangohudctl mangoplot video_cards_nvidia video_cards_amdgpu test"
-RESTRICT="!test? ( test ) network-sandbox"
+RESTRICT="!test? ( test )"
 
 REQUIRED_USE="
 	${PYTHON_REQUIRED_USE}
@@ -56,7 +56,7 @@ BDEPEND="
 
 DEPEND="
 	${PYTHON_DEPS}
-	=media-libs/imgui-1.89.9*:=[opengl,vulkan,${MULTILIB_USEDEP}]
+	=media-libs/imgui-1.91.6*:=[opengl,vulkan,${MULTILIB_USEDEP}]
 	=media-libs/implot-0.16*:=[${MULTILIB_USEDEP}]
 	dev-libs/spdlog:=[${MULTILIB_USEDEP}]
 	dev-libs/libfmt:=[${MULTILIB_USEDEP}]
