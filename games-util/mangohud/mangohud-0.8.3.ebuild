@@ -13,15 +13,14 @@ MY_PV=$(ver_cut 1-3)
 DESCRIPTION="Vulkan and OpenGL overlay for monitoring FPS, sensors, system load and more"
 HOMEPAGE="https://github.com/flightlessmango/MangoHud"
 
-# Check subprojects/vulkan-headers.wrap for both of these values
-VK_HEADERS_VER="1.2.158"
-VK_HEADERS_MESON_WRAP_VER="2"
+# Check subprojects/vulkan-headers.wrap for this value:
+VK_HEADERS_VER="1.4.346"
 
 SRC_URI="
 	https://github.com/KhronosGroup/Vulkan-Headers/archive/v${VK_HEADERS_VER}.tar.gz
 		-> vulkan-headers-${VK_HEADERS_VER}.tar.gz
-	https://github.com/mesonbuild/wrapdb/releases/download/vulkan-headers_${VK_HEADERS_VER}-${VK_HEADERS_MESON_WRAP_VER}/vulkan-headers_${VK_HEADERS_VER}-${VK_HEADERS_MESON_WRAP_VER}_patch.zip
-		-> vulkan-headers-${VK_HEADERS_VER}-${VK_HEADERS_MESON_WRAP_VER}-meson-wrap.zip
+	https://github.com/KhronosGroup/Vulkan-Utility-Libraries/archive/v${VK_HEADERS_VER}.tar.gz
+		-> vulkan-utility-libraries-${VK_HEADERS_VER}.tar.gz
 "
 
 if [[ ${PV} == 9999 ]]; then
@@ -39,7 +38,7 @@ fi
 LICENSE="MIT"
 SLOT="0"
 IUSE="+dbus debug +X xnvctrl wayland mangoapp mangohudctl mangoplot video_cards_nvidia video_cards_amdgpu test"
-RESTRICT="!test? ( test )"
+RESTRICT="!test? ( test ) network-sandbox"
 
 REQUIRED_USE="
 	${PYTHON_REQUIRED_USE}
@@ -95,7 +94,7 @@ RDEPEND="
 "
 
 PATCHES=(
-	"${FILESDIR}"/mangohud-0.8.2-wayland.patch
+	"${FILESDIR}"/mangohud-0.8.3-system-imgui.patch
 )
 
 src_unpack() {
@@ -108,8 +107,11 @@ src_unpack() {
 	fi
 
 	unpack vulkan-headers-${VK_HEADERS_VER}.tar.gz
-	unpack vulkan-headers-${VK_HEADERS_VER}-${VK_HEADERS_MESON_WRAP_VER}-meson-wrap.zip
 	mv "${WORKDIR}/Vulkan-Headers-${VK_HEADERS_VER}" "${S}/subprojects/" || die
+	cp -a "${S}/subprojects/packagefiles/vulkan-headers/meson.build" "${S}/subprojects/Vulkan-Headers-${VK_HEADERS_VER}/"
+	unpack vulkan-utility-libraries-${VK_HEADERS_VER}.tar.gz
+	mv "${WORKDIR}/Vulkan-Utility-Libraries-${VK_HEADERS_VER}" "${S}/subprojects/" || die
+	cp -a "${S}/subprojects/packagefiles/vulkan-utility-libraries/meson.build" "${S}/subprojects/Vulkan-Utility-Libraries-${VK_HEADERS_VER}/"
 }
 
 src_prepare() {

@@ -1,0 +1,19 @@
+diff '--color=auto' -ur MangoHud-0.8.3.orig/meson.build MangoHud-0.8.3/meson.build
+--- MangoHud-0.8.3.orig/meson.build	2026-04-24 18:18:41.987714630 +0200
++++ MangoHud-0.8.3/meson.build	2026-04-24 18:22:43.785528246 +0200
+@@ -256,13 +256,8 @@
+   ]
+ endif
+ 
+-imgui_sp = subproject('imgui', default_options: imgui_options)
+-dearimgui_dep = imgui_sp.get_variable('imgui_dep')
+-
+-meson.override_dependency('imgui', dearimgui_dep)
+-
+-implot_sp = subproject('implot', default_options: ['default_library=static'])
+-implot_dep = implot_sp.get_variable('implot_dep')
++dearimgui_dep = dependency('imgui', fallback: ['imgui'], required: true, default_options: imgui_options)
++implot_dep = dependency('implot', fallback: ['implot'], required: true, default_options: ['default_library=static'])
+ 
+ spdlog_options = [
+   'default_library=static',
