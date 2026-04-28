@@ -516,6 +516,8 @@ media-video/ffmpeg:x265 - Enables HEVC encoding with media-libs/x265.
 media-video/ffmpeg:zeromq - Enables net-libs/zeromq support with the zmq/azmq filters.
 media-video/ffmpeg:zimg - Enables media-libs/zimg based scale filter.
 media-video/ffmpeg:zvbi - Enables media-libs/zvbi based teletext decoder.
+net-analyzer/goaccess:geoipv2 - Enable support for GeoIP2 through dev-libs/libmaxminddb
+net-analyzer/goaccess:getline - Use GNU getline() to parse full line requests
 net-libs/libutp:tools - Build "ucat".
 net-misc/freerdp:aad - Enable login via Azure AD
 net-misc/freerdp:aom - Enable AV1 encoding/decoding support using media-libs/libaom

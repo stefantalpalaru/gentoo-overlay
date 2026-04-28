@@ -1,0 +1,16 @@
+BDEPEND=virtual/pkgconfig virtual/pkgconfig
+DEFINED_PHASES=configure install postinst prepare
+DEPEND=acct-group/goaccess acct-user/goaccess sys-libs/ncurses:=[unicode(+)?] geoip? ( !geoipv2? ( dev-libs/geoip ) geoipv2? ( dev-libs/libmaxminddb:0= ) ) ssl? ( dev-libs/openssl:0= )
+DESCRIPTION=A real-time web log analyzer and interactive viewer in a terminal
+EAPI=8
+HOMEPAGE=https://goaccess.io
+INHERIT=optfeature systemd tmpfiles
+IUSE=debug geoip geoipv2 getline ssl unicode
+KEYWORDS=~amd64 ~x86
+LICENSE=MIT
+RDEPEND=acct-group/goaccess acct-user/goaccess sys-libs/ncurses:=[unicode(+)?] geoip? ( !geoipv2? ( dev-libs/geoip ) geoipv2? ( dev-libs/libmaxminddb:0= ) ) ssl? ( dev-libs/openssl:0= ) virtual/tmpfiles
+REQUIRED_USE=geoipv2? ( geoip )
+SLOT=0
+SRC_URI=https://tar.goaccess.io/goaccess-1.10.2.tar.gz
+_eclasses_=optfeature	538bce96e5589935b57e178e8635f301	toolchain-funcs	58a918e3a42d0156f010dcfd43725be5	systemd	a964c0cbe818b5729da1dbfcee5be861	tmpfiles	e0b49bcd7a0daea941c0fbe4cb35ff4e
+_md5_=73ab1c13ee639adb044e278c49ab2491
