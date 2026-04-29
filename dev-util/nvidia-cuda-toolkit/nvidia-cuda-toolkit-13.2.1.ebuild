@@ -5,11 +5,11 @@
 
 EAPI=8
 
-PYTHON_COMPAT=( python3_{11..13} )
+PYTHON_COMPAT=( python3_{11..14} )
 inherit check-reqs edo toolchain-funcs
 inherit python-r1
 
-DRIVER_PV="595.45.04"
+DRIVER_PV="595.58.03"
 # https://docs.nvidia.com/cuda/cuda-installation-guide-linux/index.html
 GCC_MAX_VER="15"
 CLANG_MAX_VER="21"
