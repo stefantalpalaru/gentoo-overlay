@@ -1,4 +1,4 @@
-# Copyright 1999-2025 Gentoo Authors
+# Copyright 1999-2026 Gentoo Authors
 # Distributed under the terms of the GNU General Public License v2
 
 EAPI=8
@@ -17,7 +17,7 @@ S="${WORKDIR}"
 LICENSE="NVIDIA-cuDNN"
 SLOT="0/$(ver_cut 1-3)"
 KEYWORDS="~amd64 ~arm64"
-RESTRICT="mirror bindist test"
+RESTRICT="bindist mirror strip test"
 
 RDEPEND="
 	=dev-util/nvidia-cuda-toolkit-13*
