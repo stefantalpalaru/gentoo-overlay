@@ -37,7 +37,7 @@ dev-db/metakit 2.4.9.7_p20110819-r1: Embedded database library
 dev-db/redis 8.6.2-r100: A persistent caching system, key-value, and data structures database
 dev-db/valkey 9.0.3: Redis fork
 dev-debug/valgrind 3.27.0-r100: An open-source memory debugger for GNU/Linux
-dev-go/golangci-lint 2.11.4-r100: Fast linters runner for Go
+dev-go/golangci-lint 2.12.0-r100: Fast linters runner for Go
 dev-java/jna 5.13.0-r1: Java Native Access
 dev-lang/chapel 2.8.0: Chapel programming language compiler
 dev-lang/nim 1.0.10-r101 1.2.18-r101 1.4.8-r101 1.6.20-r100 2.0.16-r100 2.2.10-r100 9999-r16: compiled, garbage-collected systems programming language
@@ -971,7 +971,7 @@ sci-astronomy/casacore 3.4.0-r2: Core libraries for the Common Astronomy Softwar
 sci-astronomy/healpix 3.31-r4: Hierarchical Equal Area isoLatitude Pixelization of a sphere
 sci-astronomy/kapteyn 2.3.1-r201: Collection of python tools for astronomy
 sci-geosciences/mkgmap-bin 4918: Tool to create garmin maps
-sci-geosciences/qgis 3.44.9-r100 4.0.1-r100: User friendly Geographic Information System
+sci-geosciences/qgis 3.44.10-r100 4.0.2-r100: User friendly Geographic Information System
 sci-geosciences/splitter-bin 653-r1: Tile splitter for mkgmap
 sci-libs/amd 3.3.4-r4: Library to order a sparse matrix prior to Cholesky factorization
 sci-libs/btf 2.3.3-r4: Algorithm for matrix permutation into block triangular form

@@ -13,6 +13,6 @@ RDEPEND=app-crypt/qca:2[qt6(+),ssl] >=dev-db/spatialite-4.2.0 dev-db/sqlite:3 de
 REQUIRED_USE=^^ ( python_single_target_python3_11 python_single_target_python3_12 python_single_target_python3_13 ) mapserver? ( python ) test? ( postgres )
 RESTRICT=!test? ( test ) !test? ( test )
 SLOT=0
-SRC_URI=https://github.com/qgis/QGIS/archive/refs/tags/final-4_0_1.tar.gz -> qgis-4.0.1.tar.gz examples? ( https://qgis.org/downloads/data/qgis_sample_data.tar.gz -> qgis_sample_data-2.8.14.tar.gz )
-_eclasses_=toolchain-funcs	58a918e3a42d0156f010dcfd43725be5	flag-o-matic	fd3558f73f6503093adee69adf41020d	multiprocessing	45d0620f25c2f063ad6276ecd9ed9399	ninja-utils	d063ea1900a793f93eb095010d6d9156	xdg-utils	42869b3c8d86a70ef3cf75165a395e09	cmake	3395ce6618fc5c7af03335471b896644	python-utils-r1	f1d3a4dea5847c7390ba91bd557c83aa	python-single-r1	fce70c93e3be02f91782d976dfdad92b	virtualx	9741d451eb64ea8bb9faee90d68a9b68	xdg	3ef49a87c52c8b77c476351195dfe575
+SRC_URI=https://github.com/qgis/QGIS/archive/refs/tags/final-4_0_2.tar.gz -> qgis-4.0.2.tar.gz examples? ( https://qgis.org/downloads/data/qgis_sample_data.tar.gz -> qgis_sample_data-2.8.14.tar.gz )
+_eclasses_=cmake	3395ce6618fc5c7af03335471b896644	flag-o-matic	fd3558f73f6503093adee69adf41020d	multiprocessing	45d0620f25c2f063ad6276ecd9ed9399	ninja-utils	d063ea1900a793f93eb095010d6d9156	python-single-r1	fce70c93e3be02f91782d976dfdad92b	python-utils-r1	f1d3a4dea5847c7390ba91bd557c83aa	toolchain-funcs	58a918e3a42d0156f010dcfd43725be5	virtualx	9741d451eb64ea8bb9faee90d68a9b68	xdg	3ef49a87c52c8b77c476351195dfe575	xdg-utils	42869b3c8d86a70ef3cf75165a395e09
 _md5_=090c2d8361c029dbdb7f12b4495abb23
