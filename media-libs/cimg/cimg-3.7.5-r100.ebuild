@@ -2,7 +2,7 @@
 # Distributed under the terms of the GNU General Public License v2
 
 EAPI=8
-MY_COMMIT="5b8556a0c644e41374f5a1f3868b05fc7b95f5be"
+MY_COMMIT="7602be403284be77e6c50e2173003c0882900ef4"
 
 DESCRIPTION="C++ template image processing toolkit"
 HOMEPAGE="http://cimg.eu/
