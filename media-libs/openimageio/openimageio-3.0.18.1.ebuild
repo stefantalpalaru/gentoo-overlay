@@ -1,4 +1,4 @@
-# Copyright 1999-2025 Gentoo Authors
+# Copyright 1999-2026 Gentoo Authors
 # Distributed under the terms of the GNU General Public License v2
 
 EAPI=8
@@ -127,7 +127,7 @@ DOCS=(
 PATCHES=(
 	"${FILESDIR}/openimageio-3.0.16.0-fix-tests.patch"
 	"${FILESDIR}/openimageio-2.5.12.0-heif-find-fix.patch"
-	"${FILESDIR}/openimageio-3.1.6.1-tests-optional.patch"
+	"${FILESDIR}/openimageio-2.5.18.0-tests-optional.patch"
 )
 
 pkg_setup() {
@@ -175,6 +175,7 @@ src_prepare() {
 		fi
 
 		cp testsuite/heif/ref/out-libheif1.1{2,5}-orient.txt || die
+		eapply "${FILESDIR}/${PN}-2.5.12.0_heif_test.patch"
 	fi
 }
 
@@ -301,7 +302,7 @@ src_test() {
 		"^tiff-depths" # TODO float errors
 		"^tiff-suite" # TODO missing compression
 		"^oiiotool-attribs$"
-		"^heif$"
+		"^rla$" # "-../libjxl-0.11.2/lib/jxl/decode.cc:2021: invalid signature"
 	)
 
 	sed -e "s#../../../testsuite#../../../OpenImageIO-${PV}/testsuite#g" \
