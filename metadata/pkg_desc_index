@@ -930,7 +930,7 @@ media-sound/yabridge-bin 5.1.1: A modern and transparent way to use Windows VST2
 media-tv/dvb-firmware 1.4.0-r1 9999-r4: DVB firmware from the LibreELEC project
 media-tv/w_scan2 1.0.17 9999-r3: Scan for DVB-C/DVB-T/DVB-S channels (w_scan fork)
 media-video/aegisub 3.4.2: Advanced subtitle editor
-media-video/ffmpeg 4.4.6: Complete solution to record/convert/stream audio and video. Includes libavcodec
+media-video/ffmpeg 4.4.7: Complete solution to record/convert/stream audio and video. Includes libavcodec
 media-video/mlvapp 1.15 9999-r2: Magic Lantern Video (MLV) processing suite
 media-video/smplayer 25.6.0-r1: Great Qt GUI front-end for mplayer/mpv
 media-video/subliminal 2.6.0 9999-r13: Python library to search and download subtitles
