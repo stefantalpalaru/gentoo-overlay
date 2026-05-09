@@ -257,6 +257,7 @@ src_configure() {
 			-Donnxruntime_CUDA_HOME=/opt/cuda
 			-Donnxruntime_CUDNN_HOME=/usr
 			-DCMAKE_CUDA_ARCHITECTURES="${cuda_architectures_real%%;}"
+			-DCMAKE_CUDA_COMPILER="nvcc"
 			-DCMAKE_CUDA_HOST_COMPILER="$(cuda_gccdir)"
 			-DCMAKE_CUDA_FLAGS="-forward-unknown-opts -fno-lto ${NVCCFLAGS}"
 			-DCMAKE_CUDA_STANDARD_REQUIRED=ON
