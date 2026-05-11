@@ -40,7 +40,7 @@ BDEPEND="
 "
 COMMON_DEPEND="${PYTHON_DEPS}
 	>=app-text/poppler-0.57.0:=[cairo,lcms]
-	<app-text/poppler-26.05.0:=[cairo,lcms]
+	<app-text/poppler-26.06.0:=[cairo,lcms]
 	>=dev-cpp/cairomm-1.12:0
 	>=dev-cpp/glibmm-2.58:2
 	dev-cpp/gtkmm:3.0
@@ -112,6 +112,10 @@ RDEPEND="${COMMON_DEPEND}
 DEPEND="${COMMON_DEPEND}
 	test? ( dev-cpp/gtest )
 "
+
+PATCHES=(
+	"${FILESDIR}"/inkscape-1.4.4-poppler-26.05.patch
+)
 
 pkg_pretend() {
 	[[ ${MERGE_TYPE} != binary ]] && use openmp && tc-check-openmp
