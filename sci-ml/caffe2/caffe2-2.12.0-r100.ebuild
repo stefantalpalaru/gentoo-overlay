@@ -148,11 +148,10 @@ PATCHES=(
 	"${FILESDIR}"/caffe2-2.11.0-rocm-fix-std-cpp17.patch
 	"${FILESDIR}"/caffe2-2.4.0-cpp-httplib.patch
 	"${FILESDIR}"/caffe2-2.7.0-glog-0.7.1.patch
-	"${FILESDIR}"/caffe2-2.10.0-aotriton-fixes.patch
-	"${FILESDIR}"/caffe2-2.10.0-kineto.patch
+	"${FILESDIR}"/caffe2-2.12.0-aotriton-fixes.patch
+	"${FILESDIR}"/caffe2-2.12.0-kineto.patch
 	"${FILESDIR}"/caffe2-2.8.0-rocm-minus-flash.patch
 	"${FILESDIR}"/caffe2-2.9.0-CUDA-13.patch
-	"${FILESDIR}"/caffe2-2.9.0-rocm-distributed-link.patch
 	"${FILESDIR}"/caffe2-2.10.0-nvrtc.patch
 	"${FILESDIR}"/caffe2-2.11.0-mimalloc.patch
 )
