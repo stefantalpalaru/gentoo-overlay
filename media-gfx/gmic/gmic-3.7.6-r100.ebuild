@@ -4,7 +4,7 @@
 EAPI=8
 CMAKE_MAKEFILE_GENERATOR="emake"
 CMAKE_BUILD_TYPE=Release
-GMIC_COMMIT="bb9a7e33865ff821addb864381712d8cff43a600"
+GMIC_COMMIT="73017a21f014c8a0a1cb3d3095433f6a73db6708"
 GMIC_QT_COMMIT="6e596125d2abab16159cb68bef1fa3a465efd000"
 GMIC_QT_URI="https://github.com/GreycLab/gmic-qt/archive/${GMIC_QT_COMMIT}.tar.gz -> gmic-qt-${GMIC_QT_COMMIT}.gh.tar.gz"
 
