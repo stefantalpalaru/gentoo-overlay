@@ -1,9 +1,9 @@
-# Copyright 1999-2025 Gentoo Authors
+# Copyright 1999-2026 Gentoo Authors
 # Distributed under the terms of the GNU General Public License v2
 
 EAPI=8
 
-PYTHON_COMPAT=( python3_{11..13} )
+PYTHON_COMPAT=( python3_{11..14} )
 MY_COMMIT="d0455c7d41"
 
 inherit python-single-r1
@@ -21,7 +21,7 @@ RESTRICT="mirror"
 
 DEPEND="$(python_gen_cond_dep '
 	dev-python/pillow:0[${PYTHON_USEDEP}]
-	dev-python/pygobject:3[${PYTHON_USEDEP}]
+	<dev-python/pygobject-3.51.0:3[${PYTHON_USEDEP}]
 	dev-python/pyquery:0[${PYTHON_USEDEP}]
 	dev-python/requests:0[${PYTHON_USEDEP}]
 ')"

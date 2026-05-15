@@ -1,0 +1,16 @@
+DEFINED_PHASES=compile install prepare setup
+DEPEND=python_single_target_python3_11? ( dev-python/pillow:0[python_targets_python3_11(-)] <dev-python/pygobject-3.51.0:3[python_targets_python3_11(-)] dev-python/pyquery:0[python_targets_python3_11(-)] dev-python/requests:0[python_targets_python3_11(-)] ) python_single_target_python3_12? ( dev-python/pillow:0[python_targets_python3_12(-)] <dev-python/pygobject-3.51.0:3[python_targets_python3_12(-)] dev-python/pyquery:0[python_targets_python3_12(-)] dev-python/requests:0[python_targets_python3_12(-)] ) python_single_target_python3_13? ( dev-python/pillow:0[python_targets_python3_13(-)] <dev-python/pygobject-3.51.0:3[python_targets_python3_13(-)] dev-python/pyquery:0[python_targets_python3_13(-)] dev-python/requests:0[python_targets_python3_13(-)] ) python_single_target_python3_14? ( dev-python/pillow:0[python_targets_python3_14(-)] <dev-python/pygobject-3.51.0:3[python_targets_python3_14(-)] dev-python/pyquery:0[python_targets_python3_14(-)] dev-python/requests:0[python_targets_python3_14(-)] )
+DESCRIPTION=Internet radio browser
+EAPI=8
+HOMEPAGE=http://freshcode.club/projects/streamtuner2 https://fossil.include-once.org/streamtuner2/index
+INHERIT=python-single-r1
+IUSE=python_single_target_python3_11 python_single_target_python3_12 python_single_target_python3_13 python_single_target_python3_14
+KEYWORDS=~amd64 ~x86
+LICENSE=public-domain
+RDEPEND=python_single_target_python3_11? ( dev-python/pillow:0[python_targets_python3_11(-)] <dev-python/pygobject-3.51.0:3[python_targets_python3_11(-)] dev-python/pyquery:0[python_targets_python3_11(-)] dev-python/requests:0[python_targets_python3_11(-)] ) python_single_target_python3_12? ( dev-python/pillow:0[python_targets_python3_12(-)] <dev-python/pygobject-3.51.0:3[python_targets_python3_12(-)] dev-python/pyquery:0[python_targets_python3_12(-)] dev-python/requests:0[python_targets_python3_12(-)] ) python_single_target_python3_13? ( dev-python/pillow:0[python_targets_python3_13(-)] <dev-python/pygobject-3.51.0:3[python_targets_python3_13(-)] dev-python/pyquery:0[python_targets_python3_13(-)] dev-python/requests:0[python_targets_python3_13(-)] ) python_single_target_python3_14? ( dev-python/pillow:0[python_targets_python3_14(-)] <dev-python/pygobject-3.51.0:3[python_targets_python3_14(-)] dev-python/pyquery:0[python_targets_python3_14(-)] dev-python/requests:0[python_targets_python3_14(-)] ) python_single_target_python3_11? ( dev-lang/python:3.11 ) python_single_target_python3_12? ( dev-lang/python:3.12 ) python_single_target_python3_13? ( dev-lang/python:3.13 ) python_single_target_python3_14? ( dev-lang/python:3.14 )
+REQUIRED_USE=^^ ( python_single_target_python3_11 python_single_target_python3_12 python_single_target_python3_13 python_single_target_python3_14 )
+RESTRICT=mirror
+SLOT=0
+SRC_URI=https://fossil.include-once.org/streamtuner2/tarball/d0455c7d41/streamtuner2-d0455c7d41.tar.gz -> streamtuner2-2.2.2_p20240918.tar.gz
+_eclasses_=multiprocessing	45d0620f25c2f063ad6276ecd9ed9399	toolchain-funcs	58a918e3a42d0156f010dcfd43725be5	python-utils-r1	f1d3a4dea5847c7390ba91bd557c83aa	python-single-r1	fce70c93e3be02f91782d976dfdad92b
+_md5_=e578722673ff1b0f144c34cb29673b28
