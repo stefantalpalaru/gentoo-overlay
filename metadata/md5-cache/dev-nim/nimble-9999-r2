@@ -10,5 +10,5 @@ LICENSE=MIT
 PROPERTIES=live
 RESTRICT=!test? ( test )
 SLOT=0
-_eclasses_=git-r3	7b584b5dc33e3bc66ff5b9271bf41764
+_eclasses_=git-r3	2f8cdb10b033f92c3136aa6488a31c98
 _md5_=c0e48c2496cc1ac95c4104368f38118a

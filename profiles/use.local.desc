@@ -640,6 +640,11 @@ sci-ml/torchvision:rocm - Enable ROCm gpu computing support
 sys-cluster/openmpi:cma - Enable the CMA (Cross Memory Attach) MCA
 sys-cluster/openmpi:peruse - Enable PERUSE interface
 sys-cluster/openmpi:romio - Build the ROMIO MPI-IO component
+sys-fs/zfs:dist-kernel-cap - Prevents upgrading to an unsupported kernel version when combined with USE=dist-kernel
+sys-fs/zfs:minimal - Don't install python scripts (arcstat, dbufstat etc) and avoid dependency on dev-lang/python
+sys-fs/zfs:pam - Install zfs_key pam module, for automatically loading zfs encryption keys for home datasets
+sys-fs/zfs:rootfs - Enable dependencies required for booting off a pool containing a rootfs
+sys-fs/zfs:test-suite - Install regression test suite
 www-servers/uwsgi:embedded - Embed plugins instead of building them as real plugins. When disabling this USE flag make sure you specify all used plugins in your uWSGI configuration. Note: Language plugins will always be built as real plugins.
 www-servers/uwsgi:go - Build the gccgo plugin to run Go applications.
 www-servers/uwsgi:json - Support json as a configuration file format.
