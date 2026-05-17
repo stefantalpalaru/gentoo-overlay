@@ -29,3 +29,4 @@
 -games-fps/gzdoom
 -games-strategy/hedgewars
 -net-p2p/retroshare
+-x11-misc/qt5ct
