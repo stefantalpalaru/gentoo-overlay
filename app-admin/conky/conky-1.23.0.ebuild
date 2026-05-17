@@ -1,10 +1,10 @@
-# Copyright 1999-2024 Gentoo Authors
+# Copyright 1999-2026 Gentoo Authors
 # Distributed under the terms of the GNU General Public License v2
 
 EAPI=8
 
 LUA_COMPAT=( lua5-4 )
-PYTHON_COMPAT=( python3_{10..13} )
+PYTHON_COMPAT=( python3_{10..14} )
 
 inherit cmake linux-info lua-single python-any-r1 readme.gentoo-r1 xdg
 
@@ -18,7 +18,7 @@ KEYWORDS="~alpha ~amd64 ~arm ~arm64 ~ppc ~ppc64 ~riscv ~sparc ~x86"
 IUSE="apcupsd bundled-toluapp cmus curl doc extras hddtemp ical iconv imlib
 	intel-backlight iostats irc lua-cairo lua-cairo-xlib lua-imlib lua-rsvg
 	math moc mpd mysql ncurses nvidia +portmon pulseaudio rss systemd test
-	thinkpad truetype wayland webserver wifi X xinerama xinput xmms2"
+	thinkpad truetype wayland webserver wifi X xinerama xmms2"
 RESTRICT="!test? ( test )"
 
 # Note: toluapp is bundled in conky since 1.11.2
@@ -155,10 +155,8 @@ src_configure() {
 			-DOWN_WINDOW=yes
 			-DBUILD_XDAMAGE=yes
 			-DBUILD_XFIXES=yes
-			-DBUILD_ARGB=yes
 			-DBUILD_XDBE=yes
 			-DBUILD_XSHAPE=yes
-			-DBUILD_XINPUT=$(usex xinput)
 			-DBUILD_MOUSE_EVENTS=yes
 			-DBUILD_X11=yes
 		)
