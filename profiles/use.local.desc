@@ -518,6 +518,49 @@ media-video/ffmpeg:x265 - Enables HEVC encoding with media-libs/x265.
 media-video/ffmpeg:zeromq - Enables net-libs/zeromq support with the zmq/azmq filters.
 media-video/ffmpeg:zimg - Enables media-libs/zimg based scale filter.
 media-video/ffmpeg:zvbi - Enables media-libs/zvbi based teletext decoder.
+media-video/vlc:X - Enable support for e.g. fullscreen mode via X and the X C-language binding. It does not build a graphical interface
+media-video/vlc:aom - Enable AV1 encoding/decoding support using media-libs/libaom
+media-video/vlc:archive - Enable support for libarchive stream extractor
+media-video/vlc:aribsub - Enable support for decoding ARIB STD-B24 subtitles
+media-video/vlc:bluray - Enable libbluray for Blu-ray disc support
+media-video/vlc:chromaprint - Enable libchromaprint for Chromaprint based audio fingerprinter support
+media-video/vlc:chromecast - Enable experimental support for Google Chromecast
+media-video/vlc:dav1d - Enable support for media-libs/dav1d AV1 decoder
+media-video/vlc:dc1394 - Enable IIDC cameras support
+media-video/vlc:directx - Enable Win32 DirectX, D3D11va and DxVA2 support
+media-video/vlc:dvbpsi - Enable support for Mpeg-TS files (.ts, .m2ts, .mts) via media-libs/libdvbpsi
+media-video/vlc:encode - Enable streaming-output support and videolan manager to control multiple streams from within one instance
+media-video/vlc:faad - Enable AAC audio decoding library support via media-libs/faad2
+media-video/vlc:fdk - Enable the Fraunhofer AAC codec library
+media-video/vlc:fluidsynth - Enable Fluidsynth MIDI software synthesis (with external sound fonts)
+media-video/vlc:gcrypt - Enable cryptography support via libgcrypt
+media-video/vlc:gme - Enable support for media-libs/game-music-emu for playing various video game music formats
+media-video/vlc:gstreamer - Enable GStreamer based decoding support (currently supports only video decoding)
+media-video/vlc:kate - Adds support for Ogg Kate subtitles via libkate
+media-video/vlc:libtiger - Enable Ogg Kate subtitles rendering using libtiger
+media-video/vlc:linsys - Enable support for Linux Linear Systems Ltd. SDI and HD-SDI input cards
+media-video/vlc:live - Enable live555 streaming media support (client support for rtsp)
+media-video/vlc:lua - Enable Lua scripting support, needed for including support for Jamendo (online music platform) and similar things
+media-video/vlc:macosx-notifications - Enable Mac OS X notifications module (formerly growl)
+media-video/vlc:matroska - Enable matroska support using reference libraries (fallback on other existing matroska support if disabled, i.e., matroska enabled FFmpeg)
+media-video/vlc:mpeg - Add libmpeg2 support for mpeg-1 and mpeg-2 video streams
+media-video/vlc:nfs - Enable support for nfs protocol via net-fs/libnfs
+media-video/vlc:omxil - Enable OpenMAX Integration Layer codec module
+media-video/vlc:optimisememory - Enable optimisation for memory rather than performance
+media-video/vlc:projectm - Enable the projectM visualization plugin
+media-video/vlc:run-as-root - Allows vlc to start for root. Don't enable this unless you have a very specific (e.g. embedded) need for it!
+media-video/vlc:sdl-image - Enable sdl image video decoder (depends on sdl)
+media-video/vlc:sftp - Enable libssh2 to support SFTP file transfer
+media-video/vlc:shout - Enable libshout output
+media-video/vlc:skins - Enable support for the skins2 interface
+media-video/vlc:soxr - Enable SoX Resampler support via media-libs/soxr
+media-video/vlc:srt - Enable support for Secure Reliable Transport (SRT) via net-libs/srt
+media-video/vlc:tremor - Enable tremor, a fixed-point version of the Ogg Vorbis decoder
+media-video/vlc:twolame - Enable twolame support (MPEG Audio Layer 2 encoder)
+media-video/vlc:upnp - Enable support for the Intel SDK stack based UPnP discovery module instead of CyberLink
+media-video/vlc:x265 - Support X265 Encoder
+media-video/vlc:zeroconf - Enable support for zero-configuration networking via avahi
+media-video/vlc:zvbi - Enable support for teletext subtitles via the zvbi library
 net-analyzer/goaccess:geoipv2 - Enable support for GeoIP2 through dev-libs/libmaxminddb
 net-analyzer/goaccess:getline - Use GNU getline() to parse full line requests
 net-libs/libutp:tools - Build "ucat".
