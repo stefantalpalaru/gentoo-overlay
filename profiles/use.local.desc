@@ -616,6 +616,10 @@ net-wireless/soapysdr:rtlsdr - Add support for rtlsdr hardware
 net-wireless/soapysdr:uhd - Add support for Ettus USRP hardware
 sci-astronomy/casacore:data - Installs measures and data (pulls sci-astronomy/casa-data)
 sci-astronomy/healpix:idl - Install healpix IDL/GDL routines
+sci-geosciences/grass:geos - Use sci-libs/geos for v.buffer and adds extended options to the v.select module
+sci-geosciences/grass:lfs - Support large files (>2GB) on 32-bit systems
+sci-geosciences/grass:pdal - Enable support for PDAL for point clouds via sci-libs/pdal
+sci-geosciences/grass:svm - Enable support for the Support Vector Machine library sci-libs/libsvm
 sci-geosciences/qgis:3d - Build QGIS 3D library using dev-qt/qt3d
 sci-geosciences/qgis:georeferencer - Determines whether georeferencer plugin should be built
 sci-geosciences/qgis:grass - Add support for grass
