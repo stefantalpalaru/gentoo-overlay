@@ -571,6 +571,12 @@ net-misc/freerdp:fuse - Clipboard with FUSE file copy support
 net-misc/freerdp:openh264 - Enable H.264 support using media-libs/openh264
 net-misc/freerdp:sdl3 - Build SDL3 client
 net-misc/freerdp:server - Build server binaries
+net-misc/megasync:dolphin - Build a plugin for Dolphin
+net-misc/megasync:mediainfo - Use media-libs/libmediainfo to determine media properties
+net-misc/megasync:nautilus - Build a plugin for nautilus
+net-misc/megasync:nemo - Build a plugin for Nemo
+net-misc/megasync:thumbnail - Enable support for thumbnail generation
+net-misc/megasync:thunar - Build a plugin for Thunar
 net-p2p/deluge:console - Enable default console UI
 net-p2p/deluge:webinterface - Install dependencies needed for the web interface
 net-p2p/fms:frost - Add support for frost boards

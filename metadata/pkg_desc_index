@@ -949,6 +949,7 @@ net-misc/freerdp 3.26.0: Free implementation of the Remote Desktop Protocol
 net-misc/magic-wormhole 0.11.2-r201: Securely and simply transfer data between computers
 net-misc/magic-wormhole-mailbox-server 0.4.1-r201: Rendezvous / mailbox server for Magic-Wormhole
 net-misc/magic-wormhole-transit-relay 0.2.1-r201: Transit Relay server for Magic-Wormhole
+net-misc/megasync 6.3.0.1: The official Qt-based program for syncing your MEGA account in your PC
 net-misc/ssvnc 1.0.29-r4: VNC viewer that adds encryption security to VNC connections
 net-misc/streamtuner2 2.2.2_p20240918-r1: Internet radio browser
 net-p2p/deluge 2.2.0: BitTorrent client with a client/server model
@@ -973,7 +974,7 @@ sci-astronomy/casa-data 20241126: Data and tables for the CASA software
 sci-astronomy/casacore 3.4.0-r2: Core libraries for the Common Astronomy Software Applications
 sci-astronomy/healpix 3.31-r4: Hierarchical Equal Area isoLatitude Pixelization of a sphere
 sci-astronomy/kapteyn 2.3.1-r201: Collection of python tools for astronomy
-sci-geosciences/grass 8.5.0: Free GIS with raster and vector functionality, as well as 3D vizualization
+sci-geosciences/grass 8.5.0-r100: Free GIS with raster and vector functionality, as well as 3D vizualization
 sci-geosciences/mkgmap-bin 4918: Tool to create garmin maps
 sci-geosciences/qgis 3.44.10-r100 4.0.2-r100: User friendly Geographic Information System
 sci-geosciences/splitter-bin 653-r1: Tile splitter for mkgmap

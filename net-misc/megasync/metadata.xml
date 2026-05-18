@@ -1,0 +1,23 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE pkgmetadata SYSTEM "https://www.gentoo.org/dtd/metadata.dtd">
+<pkgmetadata>
+	<maintainer type="person">
+		<email>pastalian46@gmail.com</email>
+		<name>Takuya Wakazono</name>
+	</maintainer>
+	<maintainer type="person">
+		<email>samuelbernardo.mail@gmail.com</email>
+		<name>Samuel Bernardo</name>
+	</maintainer>
+	<upstream>
+		<remote-id type="github">meganz/MEGAsync</remote-id>
+	</upstream>
+	<use>
+		<flag name='dolphin'>Build a plugin for Dolphin</flag>
+		<flag name='mediainfo'>Use <pkg>media-libs/libmediainfo</pkg> to determine media properties</flag>
+		<flag name='nautilus'>Build a plugin for nautilus</flag>
+		<flag name='nemo'>Build a plugin for Nemo</flag>
+		<flag name='thumbnail'>Enable support for thumbnail generation</flag>
+		<flag name='thunar'>Build a plugin for Thunar</flag>
+	</use>
+</pkgmetadata>
