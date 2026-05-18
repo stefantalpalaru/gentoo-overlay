@@ -50,9 +50,17 @@ src_configure() {
 		-DCHOLMOD_PARTITION=$(usex partition)
 		-DCHOLMOD_CAMD=$(usex partition)
 		-DCHOLMOD_SUPERNODAL=$(usex lapack)
-		-DBLA_VENDOR="OpenBLAS"
-		-DBLAS_LIBRARIES="-lopenblas"
 	)
+
+	if has_version 'virtual/blas[index64]'; then
+		mycmakeargs+=( -DSUITESPARSE_USE_64BIT_BLAS=ON )
+	fi
+
+	if has_version 'virtual/blas[flexiblas]'; then
+		mycmakeargs+=( -DBLA_VENDOR=FlexiBLAS )
+	else
+		mycmakeargs+=( -DBLA_VENDOR=Generic )
+	fi
 
 	if use cuda; then
 		mycmakeargs+=(

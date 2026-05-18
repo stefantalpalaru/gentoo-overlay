@@ -1,4 +1,4 @@
-# Copyright 1999-2025 Gentoo Authors
+# Copyright 1999-2026 Gentoo Authors
 # Distributed under the terms of the GNU General Public License v2
 
 EAPI=8
@@ -17,7 +17,8 @@ KEYWORDS="amd64 arm arm64 ~hppa ~loong ~mips ~ppc ~ppc64 ~riscv ~s390 ~sparc x86
 IUSE="openmp static-libs"
 
 # BLAS availability is checked for at configuration time and will fail if it is not present.
-BDEPEND="sci-libs/openblas"
+DEPEND="virtual/blas"
+RDEPEND="${DEPEND}"
 
 pkg_pretend() {
 	[[ ${MERGE_TYPE} != binary ]] && use openmp && tc-check-openmp
@@ -35,8 +36,18 @@ src_configure() {
 		-DBUILD_STATIC_LIBS=$(usex static-libs)
 		-DSUITESPARSE_USE_FORTRAN=ON
 		-DSUITESPARSE_USE_OPENMP=$(usex openmp)
-		-DBLA_VENDOR="OpenBLAS"
-		-DBLAS_LIBRARIES="-lopenblas"
 	)
+
+	if has_version 'virtual/blas[index64]'; then
+		mycmakeargs+=( -DSUITESPARSE_USE_64BIT_BLAS=ON )
+	fi
+
+	if has_version 'virtual/blas[flexiblas]'; then
+		mycmakeargs+=( -DBLA_VENDOR=FlexiBLAS )
+	else
+		mycmakeargs+=( -DBLA_VENDOR=Generic )
+	fi
+	# TODO: Figure out how to make sci-libs/mkl work. Bug 974246
+
 	cmake_src_configure
 }

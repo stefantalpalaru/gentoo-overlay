@@ -1,16 +1,15 @@
-BDEPEND=doc? ( virtual/latex-base ) app-alternatives/ninja >=dev-build/cmake-3.28.5
+BDEPEND=app-alternatives/ninja >=dev-build/cmake-3.28.5
 DEFINED_PHASES=compile configure install prepare pretend setup test
-DEPEND=>=sci-libs/suitesparseconfig-7.12.2 >=sci-libs/amd-3.3.3 >=sci-libs/cholmod-5.3.3[openmp=] virtual/blas
-DESCRIPTION=Unsymmetric multifrontal sparse LU factorization library
+DEPEND=virtual/blas
+DESCRIPTION=Common configurations for all packages in suitesparse
 EAPI=8
 HOMEPAGE=https://people.engr.tamu.edu/davis/suitesparse.html
 INHERIT=cmake toolchain-funcs
-IUSE=doc openmp static-libs test
+IUSE=openmp static-libs
 KEYWORDS=amd64 arm arm64 ~hppa ~loong ~mips ~ppc ~ppc64 ~riscv ~s390 ~sparc x86
-LICENSE=GPL-2+
-RDEPEND=>=sci-libs/suitesparseconfig-7.12.2 >=sci-libs/amd-3.3.3 >=sci-libs/cholmod-5.3.3[openmp=] virtual/blas
-RESTRICT=!test? ( test )
-SLOT=0/6
+LICENSE=BSD
+RDEPEND=virtual/blas
+SLOT=0/7
 SRC_URI=https://github.com/DrTimothyAldenDavis/SuiteSparse/archive/refs/tags/v7.12.2.tar.gz -> SuiteSparse-7.12.2.gh.tar.gz
 _eclasses_=toolchain-funcs	58a918e3a42d0156f010dcfd43725be5	flag-o-matic	fd3558f73f6503093adee69adf41020d	multiprocessing	45d0620f25c2f063ad6276ecd9ed9399	ninja-utils	d063ea1900a793f93eb095010d6d9156	xdg-utils	42869b3c8d86a70ef3cf75165a395e09	cmake	3395ce6618fc5c7af03335471b896644
-_md5_=9c9ae64df7da7634a72438c043c5ccd9
+_md5_=9240a71f18bf4c976976dbb312412f73

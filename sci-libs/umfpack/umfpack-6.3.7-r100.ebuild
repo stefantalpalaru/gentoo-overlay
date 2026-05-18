@@ -3,28 +3,23 @@
 
 EAPI=8
 
-inherit cmake cuda cuda-extra toolchain-funcs
+inherit cmake toolchain-funcs
 
 Sparse_PV="7.12.2"
 Sparse_P="SuiteSparse-${Sparse_PV}"
-DESCRIPTION="Multithreaded multifrontal sparse QR factorization library"
+DESCRIPTION="Unsymmetric multifrontal sparse LU factorization library"
 HOMEPAGE="https://people.engr.tamu.edu/davis/suitesparse.html"
 SRC_URI="https://github.com/DrTimothyAldenDavis/SuiteSparse/archive/refs/tags/v${Sparse_PV}.tar.gz -> ${Sparse_P}.gh.tar.gz"
 S="${WORKDIR}/${Sparse_P}/${PN^^}"
 LICENSE="GPL-2+"
-SLOT="0/3"
-KEYWORDS="amd64 arm arm64 ~hppa ~loong ~ppc ~ppc64 ~riscv ~sparc x86"
-IUSE="cuda doc openmp static-libs"
+SLOT="0/6"
+KEYWORDS="amd64 arm arm64 ~hppa ~loong ~mips ~ppc ~ppc64 ~riscv ~s390 ~sparc x86"
+IUSE="doc openmp static-libs test"
+RESTRICT="!test? ( test )"
 
-DEPEND="
-	cuda? (
-		dev-util/nvidia-cuda-toolkit
-		x11-drivers/nvidia-drivers
-	)
-	>=sci-libs/suitesparseconfig-${Sparse_PV}
-	>=sci-libs/amd-3.0.3
-	>=sci-libs/colamd-3.0.3
-	>=sci-libs/cholmod-4.0.3
+DEPEND=">=sci-libs/suitesparseconfig-${Sparse_PV}
+	>=sci-libs/amd-3.3.3
+	>=sci-libs/cholmod-5.3.3[openmp=]
 	virtual/blas"
 RDEPEND="${DEPEND}"
 BDEPEND="doc? ( virtual/latex-base )"
@@ -37,35 +32,38 @@ pkg_setup() {
 	[[ ${MERGE_TYPE} != binary ]] && use openmp && tc-check-openmp
 }
 
-src_prepare() {
-	use cuda && cuda_src_prepare
-	cmake_src_prepare
-}
-
 src_configure() {
+	# Fortran is only used to compile additional demo programs that can be tested.
 	local mycmakeargs=(
 		-DBUILD_STATIC_LIBS=$(usex static-libs)
+		-DSUITESPARSE_USE_FORTRAN=ON
 		-DSUITESPARSE_USE_OPENMP=$(usex openmp)
-		-DSPQR_USE_CUDA=$(usex cuda)
-		-DBLA_VENDOR="OpenBLAS"
-		-DBLAS_LIBRARIES="-lopenblas"
+		-DSUITESPARSE_DEMOS=$(usex test)
 	)
 
-	if use cuda; then
-		mycmakeargs+=(
-			-DSUITESPARSE_CUDA_ARCHITECTURES="$(cuda_get_host_native_arch)"
-			-DCMAKE_CUDA_HOST_COMPILER="$(cuda_gccdir)"
-			-DCMAKE_CUDA_FLAGS="-forward-unknown-opts -fno-lto ${NVCCFLAGS}"
-		)
+	if has_version 'virtual/blas[index64]'; then
+		mycmakeargs+=( -DSUITESPARSE_USE_64BIT_BLAS=ON )
+	fi
+
+	if has_version 'virtual/blas[flexiblas]'; then
+		mycmakeargs+=( -DBLA_VENDOR=FlexiBLAS )
+	else
+		mycmakeargs+=( -DBLA_VENDOR=Generic )
 	fi
 
 	cmake_src_configure
 }
 
+src_test() {
+	# Run simple demo first
+	# Other demo files have issues making them unsuitable for testing
+	cd "${BUILD_DIR}"
+	./umfpack_simple || die "failed testing umfpack_simple"
+}
+
 src_install() {
 	if use doc; then
 		pushd "${S}/Doc"
-		emake clean
 		rm -rf *.pdf
 		emake
 		popd
