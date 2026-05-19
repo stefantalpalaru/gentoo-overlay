@@ -49,7 +49,9 @@ PATCHES=(
 	"${FILESDIR}"/valkey-8.1.0-config-r1.patch
 	"${FILESDIR}"/valkey-8.0.0-ppc-atomic.patch
 	"${FILESDIR}"/valkey-sentinel-8.0.0-config.patch
-	"${FILESDIR}"/valkey-8.0.0-no-which.patch
+	"${FILESDIR}"/valkey-9.1-no-which.patch
+	"${FILESDIR}"/valkey-9.1-headers.patch
+	"${FILESDIR}"/valkey-9.1-distclean.patch
 )
 
 src_prepare() {
@@ -68,6 +70,7 @@ src_prepare() {
 		-e 's:-Werror ::g'
 		-e 's:-Werror=deprecated-declarations ::g'
 		-e 's:-Werror=undef::g'
+		-e 's:-Werror::g'
 	)
 	for MKF in $(find -name 'Makefile' | cut -b 3-); do
 		mv "${MKF}" "${MKF}.in"

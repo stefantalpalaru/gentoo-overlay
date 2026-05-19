@@ -1,0 +1,12 @@
+diff '--color=auto' -ur valkey-9.1.orig/deps/Makefile valkey-9.1/deps/Makefile
+--- valkey-9.1.orig/deps/Makefile	2026-05-19 18:42:05.790697035 +0200
++++ valkey-9.1/deps/Makefile	2026-05-19 18:43:12.033078565 +0200
+@@ -30,7 +30,7 @@
+ 
+ # Clean everything when LDFLAGS is different
+ ifneq ($(shell sh -c '[ -f .make-ldflags ] && cat .make-ldflags || echo none'), $(LDFLAGS))
+-.make-ldflags: distclean
++.make-ldflags:
+ 	-(echo "$(LDFLAGS)" > .make-ldflags)
+ .make-prerequisites: .make-ldflags
+ endif

@@ -1,0 +1,11 @@
+diff '--color=auto' -ur valkey-9.1.orig/deps/lua/src/lua_cjson.c valkey-9.1/deps/lua/src/lua_cjson.c
+--- valkey-9.1.orig/deps/lua/src/lua_cjson.c	2026-05-19 17:03:27.000000000 +0200
++++ valkey-9.1/deps/lua/src/lua_cjson.c	2026-05-19 18:02:55.409608884 +0200
+@@ -38,6 +38,7 @@
+ 
+ #include <assert.h>
+ #include <string.h>
++#include <strings.h>
+ #include <math.h>
+ #include <stdint.h>
+ #include <limits.h>
