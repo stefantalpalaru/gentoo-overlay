@@ -1,0 +1,12 @@
+diff '--color=auto' -uir libheif-1.22.0.orig/libheif/api/libheif/heif_properties.h libheif-1.22.0/libheif/api/libheif/heif_properties.h
+--- libheif-1.22.0.orig/libheif/api/libheif/heif_properties.h	2026-05-19 20:01:13.000000000 +0200
++++ libheif-1.22.0/libheif/api/libheif/heif_properties.h	2026-05-20 00:20:34.804906538 +0200
+@@ -335,7 +335,7 @@
+                                                  uint32_t num_bad_columns,
+                                                  const uint32_t* bad_columns,
+                                                  uint32_t num_bad_pixels,
+-                                                 const heif_bad_pixel* bad_pixels);
++                                                 const struct heif_bad_pixel* bad_pixels);
+ 
+ // Returns the number of sensor bad pixels maps on this image (0 if none).
+ LIBHEIF_API
