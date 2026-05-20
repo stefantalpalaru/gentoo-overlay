@@ -1,0 +1,88 @@
+From c1cd0bd516e67156381f94c24836132b1b7672e6 Mon Sep 17 00:00:00 2001
+From: Ulf Hermann <ulf.hermann@qt.io>
+Date: Wed, 11 Jan 2023 08:40:33 +0100
+Subject: [PATCH 08/11] Gui: Always declare qt_memfill{32|64} as function
+ pointers on x86
+
+Having the declaration of a function depend on compiler flags is a
+fundamentally bad idea since you can compile different compilation units
+that all include the header with different flags. This leads to
+undefined symbols.
+
+Pick-to: 6.5
+Fixes: QTBUG-109159
+Change-Id: I0aede280988e4f10c42d5b1824ad9c96a1e10854
+Reviewed-by: Allan Sandfeld Jensen <allan.jensen@qt.io>
+Reviewed-by: Liang Qi <liang.qi@qt.io>
+Reviewed-by: Thiago Macieira <thiago.macieira@intel.com>
+(cherry picked from commit 9615e7f9e538af4ad212f4f71d1364c64b18542d)
+
+Pending upstream MR:
+https://invent.kde.org/qt/qt/qtbase/-/merge_requests/295
+---
+ src/gui/painting/qdrawhelper.cpp | 16 +++++++++-------
+ src/gui/painting/qdrawhelper_p.h |  2 +-
+ 2 files changed, 10 insertions(+), 8 deletions(-)
+
+diff --git a/src/gui/painting/qdrawhelper.cpp b/src/gui/painting/qdrawhelper.cpp
+index fe8ff2633b4..b7554feda60 100644
+--- a/src/gui/painting/qdrawhelper.cpp
++++ b/src/gui/painting/qdrawhelper.cpp
+@@ -6649,7 +6649,7 @@ DrawHelper qDrawHelper[QImage::NImageFormats] =
+     },
+ };
+ 
+-#if !defined(__SSE2__)
++#if !defined(Q_PROCESSOR_X86)
+ void qt_memfill64(quint64 *dest, quint64 color, qsizetype count)
+ {
+     qt_memfill_template<quint64>(dest, color, count);
+@@ -6716,16 +6716,15 @@ void qt_memfill16(quint16 *dest, quint16 value, qsizetype count)
+     qt_memfill32(reinterpret_cast<quint32*>(dest), value32, count / 2);
+ }
+ 
+-#if !defined(__SSE2__) && !defined(__ARM_NEON__) && !defined(__MIPS_DSP__)
++#if defined(Q_PROCESSOR_X86)
++void (*qt_memfill32)(quint32 *dest, quint32 value, qsizetype count) = nullptr;
++void (*qt_memfill64)(quint64 *dest, quint64 value, qsizetype count) = nullptr;
++#elif !defined(__ARM_NEON__) && !defined(__MIPS_DSP__)
+ void qt_memfill32(quint32 *dest, quint32 color, qsizetype count)
+ {
+     qt_memfill_template<quint32>(dest, color, count);
+ }
+ #endif
+-#ifdef __SSE2__
+-decltype(qt_memfill32_sse2) *qt_memfill32 = nullptr;
+-decltype(qt_memfill64_sse2) *qt_memfill64 = nullptr;
+-#endif
+ 
+ #ifdef QT_COMPILER_SUPPORTS_SSE4_1
+ template<QtPixelOrder> void QT_FASTCALL storeA2RGB30PMFromARGB32PM_sse4(uchar *dest, const uint *src, int index, int count, const QVector<QRgb> *, QDitherInfo *);
+@@ -6738,7 +6737,10 @@ static void qInitDrawhelperFunctions()
+     // Set up basic blend function tables.
+     qInitBlendFunctions();
+ 
+-#ifdef __SSE2__
++#if defined(Q_PROCESSOR_X86) && !defined(__SSE2__)
++    qt_memfill32 = qt_memfill_template<quint32>;
++    qt_memfill64 = qt_memfill_template<quint64>;
++#elif defined(__SSE2__)
+ #  ifndef __haswell__
+     qt_memfill32 = qt_memfill32_sse2;
+     qt_memfill64 = qt_memfill64_sse2;
+diff --git a/src/gui/painting/qdrawhelper_p.h b/src/gui/painting/qdrawhelper_p.h
+index b90d0b32027..52f8d8c711b 100644
+--- a/src/gui/painting/qdrawhelper_p.h
++++ b/src/gui/painting/qdrawhelper_p.h
+@@ -183,7 +183,7 @@ struct quint24 {
+ 
+ void qBlendGradient(int count, const QSpan *spans, void *userData);
+ void qBlendTexture(int count, const QSpan *spans, void *userData);
+-#ifdef __SSE2__
++#ifdef Q_PROCESSOR_X86
+ extern void (*qt_memfill64)(quint64 *dest, quint64 value, qsizetype count);
+ extern void (*qt_memfill32)(quint32 *dest, quint32 value, qsizetype count);
+ #else
+-- 
+2.45.1
+

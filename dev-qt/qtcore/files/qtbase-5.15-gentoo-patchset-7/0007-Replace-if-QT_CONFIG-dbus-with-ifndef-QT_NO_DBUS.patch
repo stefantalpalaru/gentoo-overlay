@@ -1,0 +1,60 @@
+diff '--color=auto' -ur qtbase-everywhere-src-5.15.19.orig/src/gui/kernel/qguiapplication.cpp qtbase-everywhere-src-5.15.19/src/gui/kernel/qguiapplication.cpp
+--- qtbase-everywhere-src-5.15.19.orig/src/gui/kernel/qguiapplication.cpp	2025-11-20 13:50:34.000000000 +0100
++++ qtbase-everywhere-src-5.15.19/src/gui/kernel/qguiapplication.cpp	2026-05-20 17:41:19.345486890 +0200
+@@ -263,7 +263,7 @@
+ 
+ static bool checkNeedPortalSupport()
+ {
+-#if QT_CONFIG(dbus)
++#ifndef QT_NO_DBUS
+     return !QStandardPaths::locate(QStandardPaths::RuntimeLocation, QLatin1String("flatpak-info")).isEmpty() || qEnvironmentVariableIsSet("SNAP");
+ #else
+     return false;
+diff '--color=auto' -ur qtbase-everywhere-src-5.15.19.orig/src/platformsupport/services/genericunix/qgenericunixservices.cpp qtbase-everywhere-src-5.15.19/src/platformsupport/services/genericunix/qgenericunixservices.cpp
+--- qtbase-everywhere-src-5.15.19.orig/src/platformsupport/services/genericunix/qgenericunixservices.cpp	2025-11-20 13:50:34.000000000 +0100
++++ qtbase-everywhere-src-5.15.19/src/platformsupport/services/genericunix/qgenericunixservices.cpp	2026-05-20 17:41:19.345415350 +0200
+@@ -51,7 +51,7 @@
+ #include <QtCore/QStandardPaths>
+ #include <QtCore/QUrl>
+ 
+-#if QT_CONFIG(dbus)
++#ifndef QT_NO_DBUS
+ // These QtCore includes are needed for xdg-desktop-portal support
+ #include <QtCore/private/qcore_unix_p.h>
+ 
+@@ -180,7 +180,7 @@
+     return ok;
+ }
+ 
+-#if QT_CONFIG(dbus)
++#ifndef QT_NO_DBUS
+ static inline bool checkNeedPortalSupport()
+ {
+     return !QStandardPaths::locate(QStandardPaths::RuntimeLocation, QLatin1String("flatpak-info")).isEmpty() || qEnvironmentVariableIsSet("SNAP");
+@@ -309,7 +309,7 @@
+ bool QGenericUnixServices::openUrl(const QUrl &url)
+ {
+     if (url.scheme() == QLatin1String("mailto")) {
+-#if QT_CONFIG(dbus)
++#ifndef QT_NO_DBUS
+         if (checkNeedPortalSupport()) {
+             QDBusError error = xdgDesktopPortalSendEmail(url);
+             if (isPortalReturnPermanent(error))
+@@ -321,7 +321,7 @@
+         return openDocument(url);
+     }
+ 
+-#if QT_CONFIG(dbus)
++#ifndef QT_NO_DBUS
+     if (checkNeedPortalSupport()) {
+         QDBusError error = xdgDesktopPortalOpenUrl(url);
+         if (isPortalReturnPermanent(error))
+@@ -338,7 +338,7 @@
+ 
+ bool QGenericUnixServices::openDocument(const QUrl &url)
+ {
+-#if QT_CONFIG(dbus)
++#ifndef QT_NO_DBUS
+     if (checkNeedPortalSupport()) {
+         QDBusError error = xdgDesktopPortalOpenFile(url);
+         if (isPortalReturnPermanent(error))

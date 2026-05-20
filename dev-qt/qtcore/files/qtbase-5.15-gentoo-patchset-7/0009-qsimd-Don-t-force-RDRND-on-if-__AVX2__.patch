@@ -1,0 +1,52 @@
+From 1501da97a61bc6d5fa972f7d19b4bb7b9980c588 Mon Sep 17 00:00:00 2001
+From: Thiago Macieira <thiago.macieira@intel.com>
+Date: Tue, 22 Jun 2021 09:21:19 -0700
+Subject: [PATCH 09/11] qsimd: Don't force RDRND on if __AVX2__
+
+Like AESNI, RDRAND is an optional extra feature that is not always
+enabled in all parts. Probably something to do with export restrictions,
+but I've only seen that in low-end parts.
+
+Drive-by removal of "AES" where it was no longer relevant.
+
+Pick-to: 6.2
+Change-Id: I7246c3e7bb894e0d9521fffd168af3fc0fb638a1
+Reviewed-by: Allan Sandfeld Jensen <allan.jensen@qt.io>
+(cherry picked from commit 9cc7f233c9e2f2bacdcb06f166d0812d58eb4bfc)
+
+Pending upstream MR:
+https://invent.kde.org/qt/qt/qtbase/-/merge_requests/297
+---
+ src/corelib/tools/qsimd_p.h | 9 ++++-----
+ 1 file changed, 4 insertions(+), 5 deletions(-)
+
+diff --git a/src/corelib/tools/qsimd_p.h b/src/corelib/tools/qsimd_p.h
+index 26e98c45423..ab2ff20dd2f 100644
+--- a/src/corelib/tools/qsimd_p.h
++++ b/src/corelib/tools/qsimd_p.h
+@@ -218,18 +218,17 @@
+ 
+ // AVX intrinsics
+ #  if defined(__AVX__) && defined(QT_COMPILER_SUPPORTS_SIMD_ALWAYS) && (defined(Q_CC_INTEL) || defined(Q_CC_MSVC))
+-// AES, PCLMULQDQ instructions:
++// PCLMULQDQ instructions:
+ // All processors that support AVX support PCLMULQDQ
+ // (but neither MSVC nor the Intel compiler define this macro)
+ #    define __PCLMUL__                      1
+ #  endif
+ 
+ #  if defined(__AVX2__) && defined(QT_COMPILER_SUPPORTS_SIMD_ALWAYS) && (defined(Q_CC_INTEL) || defined(Q_CC_MSVC))
+-// F16C & RDRAND instructions:
+-// All processors that support AVX2 support F16C & RDRAND:
+-// (but neither MSVC nor the Intel compiler define these macros)
++// F16C instructions:
++// All processors that support AVX2 support F16C:
++// (but neither MSVC nor the Intel compiler define this macro)
+ #    define __F16C__                        1
+-#    define __RDRND__                       1
+ #  endif
+ 
+ #  if defined(__BMI__) && !defined(__BMI2__) && defined(Q_CC_INTEL)
+-- 
+2.45.1
+

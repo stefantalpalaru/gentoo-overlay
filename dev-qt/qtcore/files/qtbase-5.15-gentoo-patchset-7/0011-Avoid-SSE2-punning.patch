@@ -1,0 +1,46 @@
+From 0b6f497bd08c4e77402447b9b4868e631005ecc0 Mon Sep 17 00:00:00 2001
+From: Allan Sandfeld Jensen <allan.jensen@qt.io>
+Date: Fri, 24 Jun 2022 14:27:18 +0200
+Subject: [PATCH 11/11] Avoid SSE2 punning
+
+It is technical UB, even if GCC promises to let it work, but it also
+generates inefficient code.
+
+Pick-to: 6.4
+Change-Id: I8f0cae3490d32287ecbaa16b1e9ace84223cda2a
+Reviewed-by: Thiago Macieira <thiago.macieira@intel.com>
+(cherry picked from commit 821aa1ff095ae66a89eb8725650dccac363f06ad)
+
+Pending upstream MR:
+https://invent.kde.org/qt/qt/qtbase/-/merge_requests/298
+---
+ src/gui/painting/qdrawhelper_sse2.cpp | 11 ++++++-----
+ 1 file changed, 6 insertions(+), 5 deletions(-)
+
+diff --git a/src/gui/painting/qdrawhelper_sse2.cpp b/src/gui/painting/qdrawhelper_sse2.cpp
+index f7d364ac710..1fdb1722cb3 100644
+--- a/src/gui/painting/qdrawhelper_sse2.cpp
++++ b/src/gui/painting/qdrawhelper_sse2.cpp
+@@ -607,13 +607,14 @@ void qt_scale_image_argb32_on_argb32_sse2(uchar *destPixels, int dbpl,
+ 
+         __m128i srcxVector = _mm_set_epi32(srcx, srcx + ix, srcx + ix + ix, srcx + ix + ix + ix);
+ 
+-        for (; x<w - 3; x += 4) {
+-            union Vect_buffer { __m128i vect; quint32 i[4]; };
+-            Vect_buffer addr;
+-            addr.vect = _mm_srli_epi32(srcxVector, 16);
++        for (; x < (w - 3); x += 4) {
++            const int idx0 = _mm_extract_epi16(srcxVector, 1);
++            const int idx1 = _mm_extract_epi16(srcxVector, 3);
++            const int idx2 = _mm_extract_epi16(srcxVector, 5);
++            const int idx3 = _mm_extract_epi16(srcxVector, 7);
+             srcxVector = _mm_add_epi32(srcxVector, ixVector);
+ 
+-            const __m128i srcVector = _mm_set_epi32(src[addr.i[0]], src[addr.i[1]], src[addr.i[2]], src[addr.i[3]]);
++            const __m128i srcVector = _mm_set_epi32(src[idx0], src[idx1], src[idx2], src[idx3]);
+             BLEND_SOURCE_OVER_ARGB32_SSE2_helper(dst, srcVector, nullVector, half, one, colorMask, alphaMask);
+         }
+ 
+-- 
+2.45.1
+

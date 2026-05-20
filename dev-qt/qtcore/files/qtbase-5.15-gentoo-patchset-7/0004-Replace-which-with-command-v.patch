@@ -1,0 +1,64 @@
+From 3167bfdc6a0e0376ce710f73083f8690f90cffb3 Mon Sep 17 00:00:00 2001
+From: Andreas Sturmlechner <asturm@gentoo.org>
+Date: Tue, 14 Jun 2022 12:40:46 +0200
+Subject: [PATCH 04/11] Replace `which` with `command -v`
+
+Bug: https://bugs.gentoo.org/828100
+Signed-off-by: Andreas Sturmlechner <asturm@gentoo.org>
+---
+ configure | 12 ++++++------
+ 1 file changed, 6 insertions(+), 6 deletions(-)
+
+diff --git a/configure b/configure
+index a356427631c..b1737aeb066 100755
+--- a/configure
++++ b/configure
+@@ -40,14 +40,14 @@ relpath=`(cd "$relpath"; /bin/pwd)`
+ # the current directory is the "build tree" or "object tree"
+ outpath=`/bin/pwd`
+ 
+-WHICH="which"
++WHICH="command -v"
+ 
+ PERL=`$WHICH perl 2>/dev/null`
+ 
+ # find out which awk we want to use, prefer gawk, then nawk, then regular awk
+ AWK=
+ for e in gawk nawk awk; do
+-    if "$WHICH" $e >/dev/null 2>&1 && ( $e -f /dev/null /dev/null ) >/dev/null 2>&1; then
++    if $WHICH $e >/dev/null 2>&1 && ( $e -f /dev/null /dev/null ) >/dev/null 2>&1; then
+         AWK=$e
+         break
+     fi
+@@ -57,8 +57,8 @@ done
+ if [ -z "$MAKE" ]; then
+     MAKE=
+     for mk in gmake make; do
+-        if "$WHICH" $mk >/dev/null 2>&1; then
+-            MAKE=`"$WHICH" $mk`
++        if $WHICH $mk >/dev/null 2>&1; then
++            MAKE=`$WHICH $mk`
+             break
+         fi
+     done
+@@ -722,7 +722,7 @@ setBootstrapVariable()
+         in_mkfile=$relpath/qmake/Makefile.unix
+         mkfile=$outpath/qmake/Makefile
+         if [ -f "$mkfile" ]; then
+-            [ "$CFG_DEV" = "yes" ] && "$WHICH" chflags >/dev/null 2>&1 && chflags nouchg "$mkfile"
++            [ "$CFG_DEV" = "yes" ] && $WHICH chflags >/dev/null 2>&1 && chflags nouchg "$mkfile"
+             rm -f "$mkfile"
+         fi
+ 
+@@ -793,7 +793,7 @@ setBootstrapVariable()
+             echo "-include \$(notdir \$(DEPEND_SRC:%.cpp=%.d))" >> "$mkfile"
+         else
+             cat "$in_mkfile" >> "$mkfile"
+-            if "$WHICH" makedepend >/dev/null 2>&1 && grep 'depend:' "$mkfile" >/dev/null 2>&1; then
++            if $WHICH makedepend >/dev/null 2>&1 && grep 'depend:' "$mkfile" >/dev/null 2>&1; then
+                 (cd "$outpath/qmake" && "$MAKE" -f "$mkfile" depend) >/dev/null 2>&1
+                 sed 's,^.*/\([^/]*.o\):,\1:,g' "$mkfile" >"$mkfile.tmp"
+                 sed "s,$outpath,$adjoutpath,g" "$mkfile.tmp" >"$mkfile"
+-- 
+2.45.1
+

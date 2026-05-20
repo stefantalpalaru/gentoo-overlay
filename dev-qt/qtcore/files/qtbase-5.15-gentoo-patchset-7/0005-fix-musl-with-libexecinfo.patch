@@ -1,0 +1,38 @@
+From 441ea4a0ea22d8e20c0817a5941e0296a409a4a9 Mon Sep 17 00:00:00 2001
+From: Alfred Persson Forsberg <cat@catcream.org>
+Date: Tue, 21 Jun 2022 00:42:04 +0000
+Subject: [PATCH 05/11] fix musl with libexecinfo
+
+QtCore incorrectly assumes that execinfo is already linked on Linux if
+execinfo.h is present. The edge case here is that on musl you can
+install libexecinfo standalone, thereby QtCore will detect the header
+but not the library, and QtCore will think that glibc has already linked it.
+
+There is no code/config for QMake to detect and link against
+-lexecinfo except on the BSD:s. Qt should properly add something
+similar for non-glibc as well.
+
+This is just a *fix* compatible with all supported Gentoo systems.
+
+Signed-off-by: Alfred Persson Forsberg <cat@catcream.org>
+Signed-off-by: Andreas Sturmlechner <asturm@gentoo.org>
+---
+ src/corelib/global/qlogging.cpp | 2 +-
+ 1 file changed, 1 insertion(+), 1 deletion(-)
+
+diff --git a/src/corelib/global/qlogging.cpp b/src/corelib/global/qlogging.cpp
+index 93c4731cc57..876ce18686a 100644
+--- a/src/corelib/global/qlogging.cpp
++++ b/src/corelib/global/qlogging.cpp
+@@ -108,7 +108,7 @@
+ #    endif
+ #  elif defined(Q_OS_ANDROID) && __ANDROID_API__ < 33
+     // Android lacked backtrace logging until API level 33.
+-#  elif (defined(__GLIBC__) && defined(__GLIBCXX__)) || (__has_include(<cxxabi.h>) && __has_include(<execinfo.h>))
++#  elif (defined(__GLIBC__) && defined(__GLIBCXX__))
+ #    define QLOGGING_HAVE_BACKTRACE
+ #  endif
+ #endif
+-- 
+2.45.1
+

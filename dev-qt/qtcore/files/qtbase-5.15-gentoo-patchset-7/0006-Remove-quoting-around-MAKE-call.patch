@@ -1,0 +1,29 @@
+From 61a5af6680d341a1f34ef4d817bd72a23a27829d Mon Sep 17 00:00:00 2001
+From: Andreas Sturmlechner <asturm@gentoo.org>
+Date: Sun, 17 Jul 2022 17:43:27 +0200
+Subject: [PATCH 06/11] Remove quoting around $MAKE call
+
+Fixes build with e.g. MAKE='make libtool=...'
+
+Gentoo-bug: https://bugs.gentoo.org/792804
+Signed-off-by: Andreas Sturmlechner <asturm@gentoo.org>
+---
+ configure | 2 +-
+ 1 file changed, 1 insertion(+), 1 deletion(-)
+
+diff --git a/configure b/configure
+index b1737aeb066..961d4c96688 100755
+--- a/configure
++++ b/configure
+@@ -803,7 +803,7 @@ setBootstrapVariable()
+ 
+     if [ "$OPT_VERBOSE" = yes ]; then
+         # Show the output of make
+-        (cd "$outpath/qmake"; "$MAKE") || exit 2
++        (cd "$outpath/qmake"; $MAKE) || exit 2
+     else
+         # Hide the output of make
+         # Use bash to print dots, if we have it, and stdout is a tty.
+-- 
+2.45.1
+

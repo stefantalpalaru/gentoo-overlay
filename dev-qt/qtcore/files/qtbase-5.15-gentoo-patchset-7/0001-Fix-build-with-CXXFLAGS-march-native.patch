@@ -1,0 +1,31 @@
+From 824a19ce24702ac347d6b5cd8dd97885f0f1a1a6 Mon Sep 17 00:00:00 2001
+From: Mike Gilbert <floppym@gentoo.org>
+Date: Sat, 2 Mar 2019 04:43:36 +0000
+Subject: [PATCH 01/11] Fix build with CXXFLAGS="-march=native"
+
+Resolves a build failure when QMAKE_CXXFLAGS contains -march=native
+and the compiler is running on a CPU which does not support AVX2.
+
+Bug: https://bugs.gentoo.org/672946
+Signed-off-by: Mike Gilbert <floppym@gentoo.org>
+Signed-off-by: Andreas Sturmlechner <asturm@gentoo.org>
+---
+ mkspecs/common/gcc-base.conf | 2 +-
+ 1 file changed, 1 insertion(+), 1 deletion(-)
+
+diff --git a/mkspecs/common/gcc-base.conf b/mkspecs/common/gcc-base.conf
+index fa65c1dd371..e2170a0e1e5 100644
+--- a/mkspecs/common/gcc-base.conf
++++ b/mkspecs/common/gcc-base.conf
+@@ -121,7 +121,7 @@ QMAKE_CFLAGS_MIPS_DSP  += -mdsp
+ QMAKE_CFLAGS_MIPS_DSPR2 += -mdspr2
+ 
+ # -march=haswell is supported as of GCC 4.9 and Clang 3.6
+-QMAKE_CFLAGS_ARCH_HASWELL           = -march=core-avx2
++QMAKE_CFLAGS_ARCH_HASWELL           = -mavx2
+ 
+ # Wrapper tools that understand .o/.a files with GIMPLE instead of machine code
+ QMAKE_AR_LTCG           = gcc-ar cqs
+-- 
+2.45.1
+

@@ -1,0 +1,57 @@
+From e772da9a9b0267710ec8e52777474ae037b17c75 Mon Sep 17 00:00:00 2001
+From: Han Gao <rabenda.cn@gmail.com>
+Date: Sun, 27 Mar 2022 21:05:18 +0200
+Subject: [PATCH 03/11] Use link option -pthread instead of -lpthread
+
+In riscv, "-pthread" equivalent to add link option "--push-state --as-needed -latomic --pop-state"
+
+See also:
+https://github.com/riscv-collab/riscv-gcc/issues/12 use Option 4
+https://stackoverflow.com/questions/23250863/difference-between-pthread-and-lpthread-while-compiling
+
+Bug: https://bugs.gentoo.org/803470
+Signed-off-by: Han Gao <rabenda.cn@gmail.com>
+Signed-off-by: Andreas Sturmlechner <asturm@gentoo.org>
+---
+ mkspecs/common/linux.conf  | 2 +-
+ src/corelib/configure.json | 4 ++--
+ 2 files changed, 3 insertions(+), 3 deletions(-)
+
+diff --git a/mkspecs/common/linux.conf b/mkspecs/common/linux.conf
+index 544cc227153..add969be671 100644
+--- a/mkspecs/common/linux.conf
++++ b/mkspecs/common/linux.conf
+@@ -33,7 +33,7 @@ QMAKE_LIBS_EGL          = -lEGL
+ QMAKE_LIBS_OPENGL       = -lGL
+ QMAKE_LIBS_OPENGL_ES2   = -lGLESv2
+ QMAKE_LIBS_OPENVG       = -lOpenVG
+-QMAKE_LIBS_THREAD       = -lpthread
++QMAKE_LIBS_THREAD       = -pthread
+ QMAKE_LIBS_VULKAN       =
+ 
+ QMAKE_INCDIR_WAYLAND    =
+diff --git a/src/corelib/configure.json b/src/corelib/configure.json
+index a9025a2dd29..89a69462c6a 100644
+--- a/src/corelib/configure.json
++++ b/src/corelib/configure.json
+@@ -355,7 +355,7 @@
+                     "std::future<int> f = std::async([]() { return 42; });",
+                     "(void)f.get();"
+                 ],
+-                "qmake": "unix:!vxworks:LIBS += -lpthread"
++                "qmake": "unix:!vxworks:LIBS += -pthread"
+             }
+         },
+         "cxx11_random": {
+@@ -466,7 +466,7 @@
+                     "shm_open(\"test\", O_RDWR | O_CREAT | O_EXCL, 0666);",
+                     "shm_unlink(\"test\");"
+                 ],
+-                "qmake": "linux: LIBS += -lpthread -lrt"
++                "qmake": "linux: LIBS += -pthread -lrt"
+             }
+         },
+         "linkat": {
+-- 
+2.45.1
+
