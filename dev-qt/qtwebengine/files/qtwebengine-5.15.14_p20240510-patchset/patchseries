@@ -9,5 +9,4 @@
 009-port-to-pipewire-0.3.patch	# bug 698988, pipewire-3
 010-widevine.patch	# bug 888783
 011-clang16.patch	# bug 903573
-012-python3.12-dubious-imp.patch	# bug 925718, py3.12
 013-python3.12-fix-six.patch	# bug 925718, py3.12

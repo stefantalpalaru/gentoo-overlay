@@ -1,0 +1,16 @@
+BDEPEND=dev-lang/perl virtual/pkgconfig
+DEFINED_PHASES=compile configure install postinst postrm prepare test
+DEPEND==dev-qt/qtcore-5.15.19*:5= test? ( =dev-qt/qtnetwork-5.15.19* ) test? ( =dev-qt/qttest-5.15.19* )
+DESCRIPTION=Implementation of SAX and DOM for the Qt5 framework
+EAPI=8
+HOMEPAGE=https://www.qt.io/
+INHERIT=qt5-build
+IUSE=debug test
+KEYWORDS=amd64 arm arm64 ~hppa ~loong ppc ppc64 ~riscv x86
+LICENSE=|| ( GPL-2 GPL-3 LGPL-3 ) FDL-1.3
+RDEPEND==dev-qt/qtcore-5.15.19*:5=
+RESTRICT=test
+SLOT=5/5.15
+SRC_URI=https://download.qt.io/archive/qt/5.15/5.15.19/submodules/qtbase-everywhere-opensource-src-5.15.19.tar.xz https://github.com/stefantalpalaru/gentoo-overlay/archive/d9349fb2c33a223a4c76bbbe0872c458cb1e4c00.tar.gz -> qtbase-5.15-gentoo-patchset-7.tar.gz
+_eclasses_=estack	c61c368a76fdf3a82fdf8dbaebea3804	toolchain-funcs	58a918e3a42d0156f010dcfd43725be5	flag-o-matic	fd3558f73f6503093adee69adf41020d	virtualx	9741d451eb64ea8bb9faee90d68a9b68	qt5-build	56a782c59704ab1cc067e41f83db88d5
+_md5_=5f999ba9c02af966ed1993e33f5776a4

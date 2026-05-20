@@ -132,8 +132,10 @@ if [[ ${PN} != qtwebengine ]]; then
 fi
 
 if [[ ${QT5_MODULE} == qtbase ]]; then
-	_QT5_GENTOOPATCHSET_REV=6
-	SRC_URI+=" https://dev.gentoo.org/~asturm/distfiles/qtbase-5.15-gentoo-patchset-${_QT5_GENTOOPATCHSET_REV}.tar.xz"
+	_QT5_GENTOOPATCHSET_REV=7
+	_QT5_GENTOOPATCHSET_COMMIT="d9349fb2c33a223a4c76bbbe0872c458cb1e4c00"
+	#SRC_URI+=" https://dev.gentoo.org/~asturm/distfiles/qtbase-5.15-gentoo-patchset-${_QT5_GENTOOPATCHSET_REV}.tar.xz"
+	SRC_URI+=" https://github.com/stefantalpalaru/gentoo-overlay/archive/${_QT5_GENTOOPATCHSET_COMMIT}.tar.gz -> qtbase-5.15-gentoo-patchset-${_QT5_GENTOOPATCHSET_REV}.tar.gz"
 fi
 
 # @ECLASS_VARIABLE: QT5_BUILD_DIR
@@ -218,7 +220,7 @@ qt5-build_src_prepare() {
 	[[ -n ${QT5_KDEPATCHSET_REV} ]] && eapply "${WORKDIR}/${QT5_MODULE}-${PV}-gentoo-kde-${QT5_KDEPATCHSET_REV}"
 
 	if [[ ${QT5_MODULE} == qtbase ]]; then
-		[[ -n ${_QT5_GENTOOPATCHSET_REV} ]] && eapply "${WORKDIR}/qtbase-5.15-gentoo-patchset-${_QT5_GENTOOPATCHSET_REV}"
+		[[ -n ${_QT5_GENTOOPATCHSET_REV} ]] && eapply "${WORKDIR}/gentoo-overlay-${_QT5_GENTOOPATCHSET_COMMIT}/dev-qt/qtcore/files/qtbase-5.15-gentoo-patchset-${_QT5_GENTOOPATCHSET_REV}"
 
 		# Respect CC, CXX, *FLAGS, MAKEOPTS and EXTRA_EMAKE when bootstrapping qmake
 		sed -i -e "/outpath\/qmake\".*\"*\$MAKE\"*)/ s|)| \

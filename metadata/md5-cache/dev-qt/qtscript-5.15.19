@@ -1,0 +1,16 @@
+BDEPEND=dev-lang/perl virtual/pkgconfig
+DEFINED_PHASES=compile configure install postinst postrm prepare test
+DEPEND==dev-qt/qtcore-5.15.19* scripttools? ( =dev-qt/qtgui-5.15.19* =dev-qt/qtwidgets-5.15.19* ) test? ( =dev-qt/qttest-5.15.19* )
+DESCRIPTION=Application scripting library for the Qt5 framework (deprecated)
+EAPI=8
+HOMEPAGE=https://www.qt.io/
+INHERIT=qt5-build
+IUSE=+jit scripttools debug test
+KEYWORDS=amd64 ~arm arm64 ~hppa ppc ppc64 ~riscv x86
+LICENSE=|| ( GPL-2 GPL-3 LGPL-3 ) FDL-1.3
+RDEPEND==dev-qt/qtcore-5.15.19* scripttools? ( =dev-qt/qtgui-5.15.19* =dev-qt/qtwidgets-5.15.19* )
+RESTRICT=test
+SLOT=5/5.15
+SRC_URI=https://download.qt.io/archive/qt/5.15/5.15.19/submodules/qtscript-everywhere-opensource-src-5.15.19.tar.xz
+_eclasses_=estack	c61c368a76fdf3a82fdf8dbaebea3804	toolchain-funcs	58a918e3a42d0156f010dcfd43725be5	flag-o-matic	fd3558f73f6503093adee69adf41020d	virtualx	9741d451eb64ea8bb9faee90d68a9b68	qt5-build	56a782c59704ab1cc067e41f83db88d5
+_md5_=04a710ae013da86bf4d6db324b108100
