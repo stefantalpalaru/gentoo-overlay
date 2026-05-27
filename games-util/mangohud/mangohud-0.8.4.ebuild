@@ -37,8 +37,7 @@ fi
 
 LICENSE="MIT"
 SLOT="0"
-IUSE="+dbus debug +X xnvctrl wayland mangoapp mangohudctl mangoplot video_cards_nvidia video_cards_amdgpu test"
-RESTRICT="!test? ( test )"
+IUSE="+dbus debug +X xnvctrl wayland mangoapp mangohudctl mangoplot video_cards_nvidia video_cards_amdgpu"
 
 REQUIRED_USE="
 	${PYTHON_REQUIRED_USE}
@@ -50,7 +49,6 @@ REQUIRED_USE="
 BDEPEND="
 	app-arch/unzip
 	dev-util/glslang
-	test? ( dev-util/cmocka )
 	$(python_gen_cond_dep 'dev-python/mako[${PYTHON_USEDEP}]')
 "
 
@@ -70,7 +68,7 @@ DEPEND="
 	)
 	wayland? ( dev-libs/wayland[${MULTILIB_USEDEP}] )
 	mangoapp? (
-		=media-libs/imgui-1.89.9*[glfw]
+		=media-libs/imgui-1.91.6*[glfw]
 		media-libs/glfw[X(+)?,wayland(+)?]
 		media-libs/glew
 	)
