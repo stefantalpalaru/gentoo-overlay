@@ -98,7 +98,10 @@ RDEPEND="
 		>=sci-libs/rocRAND-6.3:=   <sci-libs/rocRAND-7.3:=
 		>=sci-libs/rocSOLVER-6.3:= <sci-libs/rocSOLVER-7.3:=
 		memefficient? ( =sci-libs/aotriton-bin-0.11*:= )
-		distributed? ( >=dev-util/rocm-smi-6.3:= <dev-util/rocm-smi-7.3:= )
+		distributed? (
+			>=dev-util/rocm-smi-6.3:= <dev-util/rocm-smi-7.3:=
+			>=dev-util/amdsmi-6.3:= <dev-util/amdsmi-7.3:=
+		)
 		cusparselt? ( >=sci-libs/hipsparselt-6.3:= <sci-libs/hipsparselt-7.3:= )
 	)
 	distributed? (
@@ -123,7 +126,7 @@ DEPEND="
 	dev-libs/psimd
 	sci-ml/FP16
 	$(python_gen_cond_dep '
-		<dev-python/pybind11-3.0.2[${PYTHON_USEDEP}]
+		<dev-python/pybind11-3.0.5[${PYTHON_USEDEP}]
 		dev-python/pyyaml[${PYTHON_USEDEP}]
 		dev-python/typing-extensions[${PYTHON_USEDEP}]
 	')
