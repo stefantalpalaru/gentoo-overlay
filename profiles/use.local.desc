@@ -303,6 +303,7 @@ games-strategy/0ad:nvtt - Support for some uncompressed data formats (might be n
 games-strategy/hedgewars:ffmpeg - Enable video recording feature
 games-strategy/hedgewars:pas2c - Translate Pascal sources to C and build with clang
 games-strategy/hedgewars:server - Enable local server
+games-strategy/warzone2100:discord - Enable Discord presence/join integration
 games-util/mangohud:mangoapp - Build and install mangoapp and mangoapp layer
 games-util/mangohud:mangohudctl - Build and install mangohudctl
 games-util/mangohud:mangoplot - Install mangoplot python script

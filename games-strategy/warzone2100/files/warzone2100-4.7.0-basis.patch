@@ -1,0 +1,12 @@
+diff '--color=auto' -ur warzone2100.orig/cmake/WZBasisEncode.cmake warzone2100/cmake/WZBasisEncode.cmake
+--- warzone2100.orig/cmake/WZBasisEncode.cmake	2026-04-07 15:57:52.000000000 +0200
++++ warzone2100/cmake/WZBasisEncode.cmake	2026-05-28 15:58:19.217224486 +0200
+@@ -148,7 +148,7 @@
+ 		set(_output_name "${TEXTURE_FILE_NAME_WE}.ktx2")
+ 		add_custom_command(OUTPUT "${_parsedArguments_OUTPUT_DIR}/${_output_name}"
+ 			COMMAND "${BASIS_UNIVERSAL_CLI}"
+-			ARGS -ktx2 -uastc -uastc_level ${_uastc_level} ${_rdo_arguments} -uastc_rdo_m ${_type_dependent_arguments} ${_resample_arguments} -output_file "${_parsedArguments_OUTPUT_DIR}/${_output_name}" -file "${TEXTURE}"
++			ARGS -ktx2 -uastc -uastc_level ${_uastc_level} ${_rdo_arguments} -uastc_rdo_m -no_multithreading ${_type_dependent_arguments} ${_resample_arguments} -output_file "${_parsedArguments_OUTPUT_DIR}/${_output_name}" -file "${TEXTURE}"
+ 			DEPENDS "${TEXTURE}"
+ 			VERBATIM
+ 		)
