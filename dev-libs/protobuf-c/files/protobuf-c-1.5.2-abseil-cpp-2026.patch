@@ -1,0 +1,12 @@
+diff '--color=auto' -ur protobuf-c-1.5.2.orig/configure.ac protobuf-c-1.5.2/configure.ac
+--- protobuf-c-1.5.2.orig/configure.ac	2025-04-07 03:17:27.000000000 +0200
++++ protobuf-c-1.5.2/configure.ac	2026-05-30 16:21:15.822038984 +0200
+@@ -69,7 +69,7 @@
+   AS_HELP_STRING([--disable-protoc], [Disable building protoc_c (also disables tests)]))
+ if test "x$enable_protoc" != "xno"; then
+   AC_LANG_PUSH([C++])
+-  AX_CXX_COMPILE_STDCXX(17, noext, mandatory)
++  dnl AX_CXX_COMPILE_STDCXX(20, noext, mandatory)
+   PKG_CHECK_MODULES([protobuf], [protobuf >= 3.0.0])
+ 
+   save_CPPFLAGS="$CPPFLAGS"

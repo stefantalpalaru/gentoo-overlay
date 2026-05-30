@@ -5,7 +5,7 @@ EAPI=8
 
 # Check 'next' branch for backports.
 
-inherit autotools multilib-minimal
+inherit autotools flag-o-matic multilib-minimal
 
 MY_PV="${PV/_/-}"
 MY_P="${PN}-${MY_PV}"
@@ -38,10 +38,12 @@ RDEPEND="${DEPEND}
 
 PATCHES=(
 	"${FILESDIR}"/protobuf-c-1.5.2-protobuf-34.patch
+	"${FILESDIR}"/protobuf-c-1.5.2-abseil-cpp-2026.patch
 )
 
 src_prepare() {
 	default
+	append-cxxflags -std=c++20
 	eautoreconf
 }
 
