@@ -1,6 +1,6 @@
 Fortification is an important security feature.
---- a/build/cmake/aom_configure.cmake
-+++ b/build/cmake/aom_configure.cmake
+--- a/cmake/aom_configure.cmake
++++ b/cmake/aom_configure.cmake
 @@ -389,9 +389,6 @@ else()
      add_compiler_flag_if_supported("-Werror")
    endif()
