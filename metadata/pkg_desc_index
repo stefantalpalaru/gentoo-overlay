@@ -849,6 +849,7 @@ dev-qt/qtwidgets 5.15.19: Set of components for creating classic desktop-style U
 dev-qt/qtx11extras 5.15.19: Linux/X11-specific support library for the Qt5 framework
 dev-qt/qtxml 5.15.19: Implementation of SAX and DOM for the Qt5 framework
 dev-qt/qtxmlpatterns 5.15.19: XPath, XQuery, XSLT, and XML Schema validation library for the Qt5 framework
+dev-util/exercism 3.5.8: Command line client for https://exercism.io
 dev-util/gotags 1.4.1-r2: ctags-compatible tag generator for Go
 dev-util/nvidia-cuda-toolkit 12.9.1-r2 13.2.1: NVIDIA CUDA Toolkit (compiler and friends)
 dev-util/tla-toolbox-bin 1.8.0-r1: IDE for TLA+
