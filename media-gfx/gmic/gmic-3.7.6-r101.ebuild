@@ -34,6 +34,7 @@ RESTRICT="mirror network-sandbox"
 
 QT_DEPS="
 	dev-qt/qtbase:6[gui,network,widgets]
+	dev-qt/qttools[linguist]
 "
 COMMON_DEPEND="
 	fftw? ( sci-libs/fftw:3.0=[threads] )
