@@ -7,8 +7,8 @@ inherit flag-o-matic qmake-utils toolchain-funcs
 
 DESCRIPTION="Magic Lantern Video (MLV) processing suite"
 HOMEPAGE="https://github.com/ilia3101/MLV-App"
-SRC_URI="https://github.com/ilia3101/MLV-App/archive/refs/tags/QTv${PV}.tar.gz -> ${P}.tar.gz"
-S="${WORKDIR}/MLV-App-QTv${PV}"
+SRC_URI="https://github.com/ilia3101/MLV-App/archive/refs/tags/Qtv${PV}.tar.gz -> ${P}.gh.tar.gz"
+S="${WORKDIR}/MLV-App-Qtv${PV}"
 LICENSE="GPL-3"
 SLOT="0"
 KEYWORDS="~amd64 ~x86"
@@ -33,7 +33,7 @@ RDEPEND="${DEPEND}
 "
 
 PATCHES=(
-	"${FILESDIR}/mlvapp-1.15-flags.patch"
+	"${FILESDIR}/mlvapp-1.16-flags.patch"
 )
 
 pkg_pretend() {
