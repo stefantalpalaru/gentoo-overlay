@@ -3,14 +3,15 @@
 
 EAPI=8
 
-PYTHON_COMPAT=( python3_{11..13} )
+PYTHON_COMPAT=( python3_{11..14} )
 ROCM_VERSION=6.3
 CUDA_DEVICE_TARGETS=1
 
 inherit cmake cuda python-any-r1 rocm
 
 DESCRIPTION="Intel Open Image Denoise library"
-HOMEPAGE="https://www.openimagedenoise.org https://github.com/RenderKit/oidn"
+HOMEPAGE="https://www.openimagedenoise.org
+		https://github.com/RenderKit/oidn"
 SRC_URI="https://github.com/RenderKit/${PN}/releases/download/v${PV}/${P}.src.tar.gz -> ${P}.tar.gz"
 LICENSE="Apache-2.0"
 SLOT="0/${PV}"
