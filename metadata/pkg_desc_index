@@ -6,9 +6,9 @@ app-admin/rasdaemon 0.8.4: Reliability, Availability and Serviceability logging 
 app-admin/zenmonitor3 2.0.0_p20220812: Zen monitor is monitoring software for AMD Zen-based CPUs
 app-alternatives/yacc 0-r1: Virtual for yacc (yet another compiler compiler)
 app-arch/libzim 9.7.0: reference implementation for the ZIM archive format
-app-crypt/acme 1.8.0-r201 1.32.0-r1: An implementation of the ACME protocol
-app-crypt/certbot 1.8.0-r202 1.32.0-r3: Let’s Encrypt client to automate deployment of X.509 certificates
-app-crypt/certbot-s3front 0.4.2_p20201118-r6: S3/CloudFront plugin for Let's Encrypt client
+app-crypt/acme 1.8.0-r201 1.32.0-r2: An implementation of the ACME protocol
+app-crypt/certbot 1.8.0-r202 1.32.0-r4: Let’s Encrypt client to automate deployment of X.509 certificates
+app-crypt/certbot-s3front 0.4.2_p20201118-r7: S3/CloudFront plugin for Let's Encrypt client
 app-crypt/qca 2.3.10: Qt Cryptographic Architecture (QCA)
 app-emacs/pymacs 0.26-r201: A tool that allows both-side communication beetween Python and Emacs Lisp
 app-emulation/quickemu 4.9.8 4.9.9: Create and run optimised Windows, macOS and Linux desktop virtual machines
@@ -45,7 +45,7 @@ dev-lang/nim 1.0.10-r101 1.2.18-r101 1.4.8-r101 1.6.20-r100 2.0.16-r100 2.2.10-r
 dev-lang/php 5.3.29-r11 7.4.33-r11 8.0.30-r6: The PHP language runtime engine
 dev-lang/pony 0.64.0: Compiler for the Pony language
 dev-lang/python 2.7.18_p115: An interpreted, interactive, object-oriented programming language
-dev-lang/python-exec 2.4.10-r100: Python script wrapper
+dev-lang/python-exec 2.4.10-r101: Python script wrapper
 dev-lang/tauthon 2.8.5-r6 9999-r5: Python 2.7 fork with new syntax, builtins, and libraries backported from Python3
 dev-libs/boost 1.89.0 1.90.0: Boost Libraries for C++
 dev-libs/cpuinfo 2025.02.19: CPU INFOrmation library
@@ -62,7 +62,7 @@ dev-libs/libb64 2.0.0.1_p20200910-r2: Fast Base64 encoding/decoding routines
 dev-libs/libdbusmenu-qt 0.9.3_pre20160218-r4: Library providing Qt implementation of DBusMenu specification
 dev-libs/libpeas 1.22.0-r9: A GObject plugins library
 dev-libs/libsodium 1.0.18_p20220618-r1: Portable fork of NaCl, a higher-level cryptographic library
-dev-libs/libxml2 2.11.4-r1: XML C parser and toolkit
+dev-libs/libxml2 2.11.4-r2: XML C parser and toolkit
 dev-libs/lthread 1.0_pre20150617-r3 9999-r3: multicore enabled coroutine library written in C
 dev-libs/openssl 1.1.1w-r1: Full-strength general purpose cryptography library (including SSL and TLS)
 dev-libs/protobuf 3.13.0-r2: Google's Protocol Buffers - Extensible mechanism for serializing structured data
@@ -102,7 +102,7 @@ dev-python/astroquery 0.3.6-r201: Collection of packages to access online astron
 dev-python/astroscrappy 1.0.5-r4: Optimized cosmic ray annihilation astropy python module
 dev-python/atomicwrites 1.4.0-r201: Atomic file writes
 dev-python/atpy 0.9.7-r3: Astronomical tables support for Python
-dev-python/attrdict3 2.0.2-r2: access Python object elements as both keys and attributes
+dev-python/attrdict3 2.0.2-r3: access Python object elements as both keys and attributes
 dev-python/attrs 20.2.0-r4: Attributes without boilerplate
 dev-python/autobahn 19.11.2-r201: WebSocket and WAMP for Twisted and Asyncio
 dev-python/automat 20.2.0-r4: Self-service finite-state machines for the programmer on the go
@@ -279,7 +279,7 @@ dev-python/happydoc 3.1-r6: Tool for extracting documentation from Python source
 dev-python/hcluster 0.2.0-r4: Python hierarchical clustering package for Scipy
 dev-python/hcs-utils 2.0-r2: A library containing some useful snippets
 dev-python/healpy 1.13.0-r4: Python wrapper for healpix
-dev-python/heapdict 1.0.0-r5: Heap with decrease-key and increase-key operations
+dev-python/heapdict 1.0.0-r6: Heap with decrease-key and increase-key operations
 dev-python/hgdistver 0.25-r3: utility lib to generate python package version infos from mercurial tags
 dev-python/hiredis 1.0.1-r201: Python extension that wraps hiredis
 dev-python/hkdf 20150724-r201: Python implementation of HKDF
@@ -389,7 +389,7 @@ dev-python/netifaces 0.10.9-r201: Portable network interface information
 dev-python/networkx 2.2-r201: Python tools to manipulate graphs and complex networks
 dev-python/nevow 0.14.3-r202: A web templating framework that provides LivePage, an automatic AJAX toolkit
 dev-python/newt_syrup 0.1.2-r2: Python framework for creating text-based applications
-dev-python/nose 1.3.7-r203 1.3.7_p20221026-r3: Unittest extension with automatic test suite discovery and easy test authoring
+dev-python/nose 1.3.7-r203 1.3.7_p20221026-r4: Unittest extension with automatic test suite discovery and easy test authoring
 dev-python/nose-cover3 0.1.0-r201: Coverage 3.x support for Nose
 dev-python/nose-exclude 0.5.0-r201: Exclude specific directories from nosetests runs
 dev-python/nose-testconfig 0.10-r201: Test Configuration plugin for nosetests
@@ -528,7 +528,7 @@ dev-python/pyptlib 0.0.6-r2: Python library for tor's pluggable transport manage
 dev-python/pyqrcode 1.2.1-r200: A pure Python QR code generator with SVG, EPS, PNG and terminal output
 dev-python/pyqt5 5.15.4-r204 5.15.11-r2: Python bindings for the Qt framework
 dev-python/pyqt5-sip 4.19.25-r201 12.18.0: sip extension module for PyQt5
-dev-python/pyqtwebengine 5.15.4-r3 5.15.7: Python bindings for QtWebEngine
+dev-python/pyqtwebengine 5.15.4-r4 5.15.7-r1: Python bindings for QtWebEngine
 dev-python/pyquery 1.4.1-r201: A jQuery-like library for python
 dev-python/pyrax 1.9.7-r201: Python language bindings for OpenStack Clouds
 dev-python/pyregion 2.0-r202: Python module to parse ds9 region file
@@ -578,7 +578,7 @@ dev-python/python-keystoneclient 3.22.0-r201: Client Library for OpenStack Ident
 dev-python/python-ldap 3.3.1-r201: Various LDAP-related Python modules
 dev-python/python-mhash 1.4-r5: Python interface to libmhash
 dev-python/python-mimeparse 1.6.0-r201: Basic functions for handling mime-types in python
-dev-python/python-modernize 0.7-r3: Modernizes Python code for eventual Python 3 migration
+dev-python/python-modernize 0.8.0: Modernizes Python code for eventual Python 3 migration
 dev-python/python-neutronclient 6.14.0-r201: A client for the OpenStack Quantum API
 dev-python/python-novaclient 16.0.0-r201: A client for the OpenStack Nova API
 dev-python/python-oembed 0.2.4-r2: A Python library that implements an OEmbed consumer
@@ -589,7 +589,7 @@ dev-python/python-pluginloader 1.0.0-r6 1.0.0-r203: Library to manage python plu
 dev-python/python-prctl 1.6.1-r2: Control process attributes through prctl
 dev-python/python-recaptcha 2.0.1-r201: A plugin for reCAPTCHA and reCAPTCHA Mailhide
 dev-python/python-snappy 0.6.0-r201: Python library for the snappy compression library from Google
-dev-python/python-subunit 1.4.0-r7: A streaming protocol for test results
+dev-python/python-subunit 1.4.0-r8: A streaming protocol for test results
 dev-python/pythondialog 3.5.1-r203: A Python module for making simple text/console-mode user interfaces
 dev-python/pytidylib 0.3.2-r3: Python wrapper for HTML Tidy (tidylib)
 dev-python/pytools 2019.1.1-r201: Collection of tools missing from the Python standard library
@@ -607,8 +607,8 @@ dev-python/pyzmq 17.1.0-r201: Lightweight and super-fast messaging library built
 dev-python/qrcode 6.1-r201: QR Code generator on top of PIL
 dev-python/qscintilla 2.14.1-r5: Python bindings for QScintilla
 dev-python/qserve 0.2.8-r201: A job queue server
-dev-python/qtconsole 4.6.0-r201 5.6.1: Qt-based console for Jupyter with support for rich media output
-dev-python/qtpy 1.9.0-r201 2.4.2: Abstraction layer on top of PyQt and PySide with additional custom QWidgets
+dev-python/qtconsole 4.6.0-r201 5.6.1-r1: Qt-based console for Jupyter with support for rich media output
+dev-python/qtpy 1.9.0-r202: Abstraction layer for PyQt5/PySide
 dev-python/quixote 2.9.1-r1: Python HTML templating framework for developing web applications
 dev-python/rackspace-auth-openstack 1.3-r201: Rackspace Auth Plugin for OpenStack Clients
 dev-python/rackspace-monitoring 0.8.1-r201: Client library for Rackspace Cloud Monitoring
@@ -747,7 +747,7 @@ dev-python/u-msgpack-python 2.7.0-r201: A portable, lightweight MessagePack seri
 dev-python/ujson 1.35-r201: Ultra fast JSON encoder and decoder for Python
 dev-python/unicodecsv 0.14.1-r201: Drop-in replacement for python stdlib csv module supporting unicode
 dev-python/unidecode 1.1.1-r201: Module providing ASCII transliterations of Unicode text
-dev-python/unittest-or-fail 2-r1: Run unittests or fail if no tests were found
+dev-python/unittest-or-fail 2-r2: Run unittests or fail if no tests were found
 dev-python/unittest2 1.1.0-r201: The new features in unittest backported to Python 2.4+
 dev-python/uritemplate 3.0.1-r201: Python implementation of RFC6570, URI Template
 dev-python/urllib3 1.25.10-r201: HTTP library with thread-safe connection pooling, file post, and more
@@ -774,7 +774,7 @@ dev-python/webtest 2.0.35-r3: Helper to test WSGI applications
 dev-python/werkzeug 1.0.1-r201: Collection of various utilities for WSGI applications
 dev-python/wheel 0.35.1-r201: A built-package format for Python
 dev-python/whoosh 2.7.4-r201: Fast, pure-Python full text indexing, search and spell checking library
-dev-python/widgetsnbextension 3.5.1-r5: IPython HTML widgets for Jupyter
+dev-python/widgetsnbextension 3.5.1-r6: IPython HTML widgets for Jupyter
 dev-python/workerpool 0.9.4-r1: Module for distributing jobs to a pool of worker threads
 dev-python/wrapt 1.12.1-r201: Module for decorators, wrappers and monkey patching
 dev-python/wsaccel 0.6.3-r201: Accelerator for ws4py, autobahn and tornado
@@ -787,7 +787,7 @@ dev-python/xlwt 1.3.0-r201: Python library to create spreadsheet files compatibl
 dev-python/xmltodict 0.12.0-r201: Makes working with XML feel like you are working with JSON
 dev-python/yolk 0.4.3-r201: Tool and library for querying PyPI and locally installed Python packages
 dev-python/yolk-portage 0.1-r3: Gentoo Portage plugin for yolk
-dev-python/youtube-search-python 1.6.6-r100: Get YouTube video information using link WITHOUT YouTube Data API v3
+dev-python/youtube-search-python 1.6.6-r101: Get YouTube video information using link WITHOUT YouTube Data API v3
 dev-python/zbase32 1.1.5-r2: base32 encoder/decoder (not RFC 3548 compliant)
 dev-python/zfec 1.5.3-r2: Fast erasure codec for the command-line, C, Python, or Haskell
 dev-python/zict 0.1.4-r201: Mutable mapping tools
@@ -844,7 +844,7 @@ dev-qt/qtvirtualkeyboard 5.15.19: Customizable input framework and virtual keybo
 dev-qt/qtwayland 5.15.19: Wayland platform plugin for Qt
 dev-qt/qtwebchannel 5.15.19: Qt5 module for integrating C++ and QML applications with HTML/JavaScript clients
 dev-qt/qtwebengine 5.15.19: Library for rendering dynamic web content in Qt5 C++ and QML applications
-dev-qt/qtwebkit 5.212.0_pre20240528-r1: WebKit rendering library for the Qt5 framework (deprecated)
+dev-qt/qtwebkit 5.212.0_pre20240528-r2: WebKit rendering library for the Qt5 framework (deprecated)
 dev-qt/qtwebview 5.15.19: Module for displaying web content in a QML application using the Qt5 framework
 dev-qt/qtwidgets 5.15.19: Set of components for creating classic desktop-style UIs for the Qt5 framework
 dev-qt/qtx11extras 5.15.19: Linux/X11-specific support library for the Qt5 framework
@@ -878,16 +878,15 @@ media-gfx/GTS 2.5.1-r1: scanning tool developed by Studio Ghibli
 media-gfx/ansel 4.0.0_pre20260412 9999-r6: Darktable 4.0 fork
 media-gfx/blender 4.5.10-r1 5.1.2-r1: 3D Creation/Animation/Publishing System
 media-gfx/displaycal 3.8.9.3-r5: Display calibration and characterization powered by Argyll CMS
-media-gfx/exiv2 0.27.6-r1: EXIF, IPTC and XMP metadata C++ library and command line utility
+media-gfx/exiv2 0.27.6-r2: EXIF, IPTC and XMP metadata C++ library and command line utility
 media-gfx/fbcat 0.5.2-r1: utility that takes a screenshot using the framebuffer device
 media-gfx/gifsicle 9999-r2: Create, manipulate, and optimize GIF images and animations
 media-gfx/gmic 3.5.0-r102 3.7.6-r101: GREYC's Magic Image Converter
 media-gfx/imagemagick 7.1.2.24: A collection of tools and libraries for many image formats
 media-gfx/inkscape 1.4.4-r3: SVG based generic vector-drawing program
-media-gfx/mcomix 3.1.0-r1: GTK image viewer for comic book archives
 media-gfx/opencomic-bin 1.6.5: Comic and Manga reader, written with Node.js and using Electron
 media-gfx/opentoonz 1.7.1-r1: An open-source full-featured 2D animation creation software
-media-gfx/openvdb 13.0.0: Library for the efficient manipulation of volumetric data
+media-gfx/openvdb 13.0.0-r1: Library for the efficient manipulation of volumetric data
 media-gfx/yomikiru-bin 2.24.0: manga, manhwa, comic, and novel reader for desktop
 media-gfx/zart 3.2.2_p20231127: G'MIC GUI for video streams
 media-libs/chromaprint 1.5.1-r5: Library implementing a custom algorithm for extracting audio fingerprints
@@ -907,7 +906,7 @@ media-libs/oidn 2.5.0-r1300: Intel Open Image Denoise library
 media-libs/opencolorio 2.5.2: Color management framework for visual effects and animation
 media-libs/openexr 3.1.12-r2: ILM's OpenEXR high dynamic-range image file format libraries
 media-libs/openimageio 3.0.19.0 3.1.14.0: A library for reading and writing images
-media-libs/opensubdiv 3.6.1-r100: An Open-Source subdivision surface library
+media-libs/opensubdiv 3.6.1-r101: An Open-Source subdivision surface library
 media-libs/portaudio 19.07.00-r5: A free, cross-platform, open-source, audio I/O library
 media-libs/rtaudio 5.2.0-r1: A set of cross-platform C++ classes for realtime audio I/O
 media-libs/svt-av1 1.8.0-r105 2.3.0-r100 3.1.2-r102 4.1.0-r100: Scalable Video Technology for AV1 (SVT-AV1 Encoder and Decoder)
@@ -930,7 +929,7 @@ media-sound/fmit 1.3.3: Free Music Instrument Tuner
 media-sound/gwc 0.22.7: Gtk (formerly Gnome) Wave Cleaner
 media-sound/hydrogen 1.2.6: Advanced drum machine
 media-sound/keyfinder-cli 1.1.1-r1: Musical key detection software (libkeyfinder CLI)
-media-sound/kid3 3.9.7: Simple tag editor based on Qt
+media-sound/kid3 3.9.7-r1: Simple tag editor based on Qt
 media-sound/lmms 1.3.0_pre20250928 9999-r3: Cross-platform music production software
 media-sound/setbfree 0.8.11-r3 99999999-r4: MIDI controlled DSP tonewheel organ
 media-sound/tg 0.5.0-r2 9999-r2: a program for timing mechanical watches
@@ -959,7 +958,7 @@ net-misc/megasync 6.3.1.0: The official Qt-based program for syncing your MEGA a
 net-misc/s3cmd 2.4.0-r1: Command line client for Amazon S3
 net-misc/ssvnc 1.0.29-r4: VNC viewer that adds encryption security to VNC connections
 net-misc/streamtuner2 2.2.2_p20240918-r1: Internet radio browser
-net-p2p/deluge 2.2.0: BitTorrent client with a client/server model
+net-p2p/deluge 2.2.0-r1: BitTorrent client with a client/server model
 net-p2p/fms 0.3.86-r1: Spam-resistant message board application for Freenet
 net-p2p/freenet 0.7.5_p1506-r100: An encrypted network without censorship
 net-p2p/go-ethereum 1.17.3: Official golang implementation of the Ethereum protocol
@@ -974,7 +973,7 @@ net-print/pykota 1.26-r201: Flexible print quota and accounting package for use 
 net-wireless/cubicsdr 0.2.7-r4: Cross-Platform Software-Defined Radio Application
 net-wireless/sdrpp 1.1.0_pre20230907-r1: a cross-platform SDR software with the aim of being bloat free and simple to use
 net-wireless/soapyairspyhf 0.2.0: SoapySDR Airspyhf-SDR Support Module
-net-wireless/soapysdr 0.8.1-r2: vendor and platform neutral SDR support library
+net-wireless/soapysdr 0.8.1-r3: vendor and platform neutral SDR support library
 sci-astronomy/astrometry 0.78-r3: Automated astrometric calibration programs and service
 sci-astronomy/calcmysky 0.4.0: Simulator of light scattering by planetary atmospheres
 sci-astronomy/casa-data 20241126: Data and tables for the CASA software
@@ -989,7 +988,7 @@ sci-libs/amd 3.3.4-r100: Library to order a sparse matrix prior to Cholesky fact
 sci-libs/btf 2.3.3-r100: Algorithm for matrix permutation into block triangular form
 sci-libs/camd 3.3.5-r100: Library to order a sparse matrix prior to Cholesky factorization
 sci-libs/ccolamd 3.3.5-r100: Constrained Column approximate minimum degree ordering algorithm
-sci-libs/ceres-solver 2.2.0_p20260225: Nonlinear least-squares minimizer
+sci-libs/ceres-solver 2.2.0_p20260225-r1: Nonlinear least-squares minimizer
 sci-libs/cfitsio 3.410-r3: C and Fortran library for manipulating FITS files
 sci-libs/cholmod 5.3.4-r100: Sparse Cholesky factorization and update/downdate library
 sci-libs/clapack 3.2.1-r10: f2c'ed version of LAPACK
@@ -1008,7 +1007,7 @@ sci-libs/umfpack 6.3.7-r100: Unsymmetric multifrontal sparse LU factorization li
 sci-mathematics/xmds 2.2.3-r4: XMDS - The eXtensible Multi-Dimensional Simulator
 sci-misc/openfst 1.8.4: Finite State Transducer tools by Google et al
 sci-misc/opengrm-ngram 1.3.16: n-gram language models encoded as weighted finite-state transducers
-sci-ml/FBGEMM 2025.04.27-r1: Facebook GEneral Matrix Multiplication
+sci-ml/FBGEMM 2025.04.27-r2: Facebook GEneral Matrix Multiplication
 sci-ml/caffe2 2.12.0-r101: A deep learning framework
 sci-ml/cudnn-frontend 1.24.0: A c++ wrapper for the cudnn backend API
 sci-ml/gloo 2025.06.04-r101: library of floating-point neural network inference operators
@@ -1026,20 +1025,20 @@ sys-devel/pyflame 1.6.7: a ptracing profiler for Python
 sys-fs/zfs 2.4.2: Linux kernel module and userland utilities for ZFS
 sys-kernel/zenpower3 0.2.0_p20250617: Linux kernel driver for reading sensors of AMD Zen family CPUs
 sys-kernel/zenstats 0.1.0: kernel driver for AMD Zen sensors (zenpower3 fork)
-virtual/python-cffi 1-r4: A virtual for the Python cffi package
-virtual/python-enum34 2-r4: A virtual for Python enum34 module
-virtual/python-funcsigs 2-r5: A Virtual for Python function signatures from PEP362 (py3.6 variant)
-virtual/python-futures 1-r2: A virtual for the Python concurrent.futures module
-virtual/python-greenlet 1.0-r6: A virtual for Python greenlet module
-virtual/python-ipaddress 1.0-r4: A virtual for Python ipaddress module
-virtual/python-pathlib 1.0-r3: A virtual for Python pathlib module
-virtual/python-typing 0-r5: A virtual for the Python typing module
+virtual/python-cffi 1-r5: A virtual for the Python cffi package
+virtual/python-enum34 2-r5: A virtual for Python enum34 module
+virtual/python-funcsigs 2-r6: A Virtual for Python function signatures from PEP362 (py3.6 variant)
+virtual/python-futures 1-r3: A virtual for the Python concurrent.futures module
+virtual/python-greenlet 1.0-r7: A virtual for Python greenlet module
+virtual/python-ipaddress 1.0-r5: A virtual for Python ipaddress module
+virtual/python-pathlib 1.0-r4: A virtual for Python pathlib module
+virtual/python-typing 0-r6: A virtual for the Python typing module
 www-apache/mod_wsgi 6.0.1: An Apache2 module for running Python WSGI applications
 www-apps/jackett-bin 0.24.185-r1: API Support for your favorite torrent trackers
 www-misc/kiwix-desktop 2.5.1: cross-platform viewer/manager for ZIM archives
 www-misc/libkiwix 14.2.1: Kiwix software suite core: code shared by all Kiwix ports
 www-nginx/ngx-brotli 1.0.0_rc_p20231109-r1: NGINX module for Brotli compression
-www-servers/uwsgi 2.0.31-r200: uWSGI server for Python web applications
+www-servers/uwsgi 2.0.31-r201: uWSGI server for Python web applications
 x11-libs/dotherside 0.9.0_p20221109-r2: C language library for creating bindings for the Qt QML language
 x11-libs/qscintilla 2.14.1-r1: Qt port of Neil Hodgson's Scintilla C++ editor control
 x11-libs/qwt 6.3.0-r1: 2D plotting library for Qt
