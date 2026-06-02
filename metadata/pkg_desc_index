@@ -1,7 +1,7 @@
 acct-group/valkey 0: Valkey program group
 acct-group/vmware 0: Group for VMware
 acct-user/valkey 0: Valkey program user
-app-admin/conky 1.24.0-r1: An advanced, highly configurable system monitor for X
+app-admin/conky 1.24.0-r2: An advanced, highly configurable system monitor for X
 app-admin/rasdaemon 0.8.4: Reliability, Availability and Serviceability logging tool
 app-admin/zenmonitor3 2.0.0_p20220812: Zen monitor is monitoring software for AMD Zen-based CPUs
 app-alternatives/yacc 0-r1: Virtual for yacc (yet another compiler compiler)
@@ -331,7 +331,7 @@ dev-python/jsonschema 3.2.0-r201: An implementation of JSON-Schema validation fo
 dev-python/jupyter-client 5.3.4-r201: Jupyter protocol implementation and client libraries
 dev-python/jupyter-core 4.6.3-r201: Core common functionality of Jupyter projects
 dev-python/kerberos 1.3.1-r201: A high-level Python wrapper for Kerberos/GSSAPI operations
-dev-python/key-mon 1.20_p20240509: screencast utility that displays your keyboard and mouse status
+dev-python/key-mon 1.20_p20240509-r1: screencast utility that displays your keyboard and mouse status
 dev-python/keyczar 0.715-r201: Toolkit for safe and simple cryptography
 dev-python/keyring 18.0.1-r4: Provides access to the system keyring service
 dev-python/keyrings-alt 2.4-r201: Alternate keyring implementations
@@ -389,7 +389,7 @@ dev-python/netifaces 0.10.9-r201: Portable network interface information
 dev-python/networkx 2.2-r201: Python tools to manipulate graphs and complex networks
 dev-python/nevow 0.14.3-r202: A web templating framework that provides LivePage, an automatic AJAX toolkit
 dev-python/newt_syrup 0.1.2-r2: Python framework for creating text-based applications
-dev-python/nose 1.3.7-r202 1.3.7_p20221026-r2: Unittest extension with automatic test suite discovery and easy test authoring
+dev-python/nose 1.3.7-r203 1.3.7_p20221026-r3: Unittest extension with automatic test suite discovery and easy test authoring
 dev-python/nose-cover3 0.1.0-r201: Coverage 3.x support for Nose
 dev-python/nose-exclude 0.5.0-r201: Exclude specific directories from nosetests runs
 dev-python/nose-testconfig 0.10-r201: Test Configuration plugin for nosetests
@@ -422,7 +422,7 @@ dev-python/oslo-sphinx 4.18.0-r201: OpenStack Sphinx Extensions and Theme
 dev-python/oslo-utils 3.41.4-r201: Oslo Utility library
 dev-python/oslotest 3.9.0-r201: Oslo test framework
 dev-python/osprofiler 2.9.0-r201: OpenStack Profiler Library
-dev-python/packaging 20.4-r204 26.2-r100: Core utilities for Python packages
+dev-python/packaging 20.4-r204 26.2-r101: Core utilities for Python packages
 dev-python/pallets-sphinx-themes 1.2.3-r1: Sphinx themes for Pallets and related projects
 dev-python/pandas 0.24.2-r202: Powerful data structures for data analysis and statistics
 dev-python/pandocfilters 1.4.2-r201: Utilities for writing pandoc filters in python
@@ -447,6 +447,7 @@ dev-python/piddle 1.0.15-r4: Cross-media, cross-platform 2D graphics package
 dev-python/pillow 6.1.0-r201: Python Imaging Library (fork)
 dev-python/pip 20.3.4-r201: Installs python packages -- replacement for easy_install
 dev-python/pipfile 0.0.2-r201: Replacement for the existing standard pip's requirements.txt file
+dev-python/pkg-resources 81.0.0-r1: pkg_resources package split from old setuptools
 dev-python/pkgconfig 1.5.2-r201: Interface Python with pkg-config
 dev-python/pkginfo 1.5.0.1-r201: Provides an API for querying the distutils metadata written in a PKG-INFO file
 dev-python/pkipplib 0.07-r201: Pkipplib is a Python module which parses IPP requests
@@ -584,7 +585,7 @@ dev-python/python-oembed 0.2.4-r2: A Python library that implements an OEmbed co
 dev-python/python-openid 2.2.5-r201: OpenID support for servers and consumers
 dev-python/python-openstackclient 4.0.0-r201: A client for the OpenStack APIs
 dev-python/python-pam 0.1.4-r2: A python interface to the PAM library on linux using ctypes
-dev-python/python-pluginloader 1.0.0-r5 1.0.0-r203: Library to manage python plugins/extensions
+dev-python/python-pluginloader 1.0.0-r6 1.0.0-r203: Library to manage python plugins/extensions
 dev-python/python-prctl 1.6.1-r2: Control process attributes through prctl
 dev-python/python-recaptcha 2.0.1-r201: A plugin for reCAPTCHA and reCAPTCHA Mailhide
 dev-python/python-snappy 0.6.0-r201: Python library for the snappy compression library from Google
@@ -604,7 +605,7 @@ dev-python/pyyaml 5.3.1-r201: YAML parser and emitter for Python
 dev-python/pyzilla 0.1.0-r3: Python wrapper for the BugZilla XML-RPC API
 dev-python/pyzmq 17.1.0-r201: Lightweight and super-fast messaging library built on top of the ZeroMQ library
 dev-python/qrcode 6.1-r201: QR Code generator on top of PIL
-dev-python/qscintilla 2.14.1-r4: Python bindings for QScintilla
+dev-python/qscintilla 2.14.1-r5: Python bindings for QScintilla
 dev-python/qserve 0.2.8-r201: A job queue server
 dev-python/qtconsole 4.6.0-r201 5.6.1: Qt-based console for Jupyter with support for rich media output
 dev-python/qtpy 1.9.0-r201 2.4.2: Abstraction layer on top of PyQt and PySide with additional custom QWidgets
@@ -756,7 +757,7 @@ dev-python/vatnumber 1.1-r201: Module to validate VAT numbers
 dev-python/versioneer 0.18-r201: Easy VCS-based management of project version strings
 dev-python/versiontools 1.9.1-r201: Smart replacement for plain tuple used in __version__
 dev-python/virtualenv 20.0.33-r202: Virtual Python Environment builder
-dev-python/virtualenv-tauthon 0.0.2-r2: external Virtualenv plugin that adds Tauthon support
+dev-python/virtualenv-tauthon 0.0.2-r3: external Virtualenv plugin that adds Tauthon support
 dev-python/voluptuous 0.12.0-r201: A Python data validation library.
 dev-python/waitress 1.4.4-r201: A pure-Python WSGI server
 dev-python/warlock 1.3.3-r201: Python object model built on JSON schema and JSON patch
@@ -854,9 +855,9 @@ dev-util/gotags 1.4.1-r2: ctags-compatible tag generator for Go
 dev-util/nvidia-cuda-toolkit 12.9.1-r2 13.2.1: NVIDIA CUDA Toolkit (compiler and friends)
 dev-util/tla-toolbox-bin 1.8.0-r1: IDE for TLA+
 dev-vcs/bzr 2.7.1_pre-r4: Bazaar is a next generation distributed version control system
-dev-vcs/hg-fast-export 260405: mercurial to git converter using git-fast-import
+dev-vcs/hg-fast-export 260405-r1: mercurial to git converter using git-fast-import
 games-emulation/dbgl-bin 0.99: DOSBox Game Launcher
-games-emulation/rpcs3 9999-r15: PlayStation 3 emulator
+games-emulation/rpcs3 9999-r16: PlayStation 3 emulator
 games-emulation/snes9x 1.63-r1: Super Nintendo Entertainment System (SNES) emulator
 games-fps/gzdoom 4.14.2: A modder-friendly OpenGL source port based on the DOOM engine
 games-fps/uzdoom 4.14.3: A modder-friendly OpenGL source port based on the DOOM engine
@@ -868,7 +869,7 @@ games-strategy/warzone2100 4.7.0: 3D real-time strategy game
 games-util/mangohud 0.8.4: Vulkan and OpenGL overlay for monitoring FPS, sensors, system load and more
 games-util/new-lg4ff 0.5.0 9999-r1: Experimental Logitech force feedback module
 games-util/opentrack 2026.1.0_p20251231: Head tracking software for MS Windows, Linux, and Apple OSX
-games-util/oversteer 0.8.3-r1 9999-r2: Steering Wheel Manager for Linux
+games-util/oversteer 0.8.3-r2 9999-r3: Steering Wheel Manager for Linux
 games-util/qzdl 3.1.1-r1: Qt version of BioHazard's ZDoom Launcher (ZDL)
 gnome-base/libgnome-keyring 3.12.0-r6: Compatibility library for accessing secrets
 media-fonts/breeze-sans 20170821-r4: a humanist sans-serif typeface designed by Dalton Maag for Samsung
@@ -882,7 +883,7 @@ media-gfx/fbcat 0.5.2-r1: utility that takes a screenshot using the framebuffer 
 media-gfx/gifsicle 9999-r2: Create, manipulate, and optimize GIF images and animations
 media-gfx/gmic 3.5.0-r102 3.7.6-r101: GREYC's Magic Image Converter
 media-gfx/imagemagick 7.1.2.24: A collection of tools and libraries for many image formats
-media-gfx/inkscape 1.4.4-r2: SVG based generic vector-drawing program
+media-gfx/inkscape 1.4.4-r3: SVG based generic vector-drawing program
 media-gfx/mcomix 3.1.0-r1: GTK image viewer for comic book archives
 media-gfx/opencomic-bin 1.6.5: Comic and Manga reader, written with Node.js and using Electron
 media-gfx/opentoonz 1.7.1-r1: An open-source full-featured 2D animation creation software
@@ -920,8 +921,9 @@ media-plugins/tap-plugins 1.0.1_p20230714: Tom's Audio Processing LADSPA plugins
 media-radio/fmreceiver 3.20-r1: SDR-J FM receiver for RTL2832-based USB sticks
 media-radio/guglielmo 0.7.2: Qt based FM / Dab tuner
 media-radio/swreceiver 0.8-r2: SDR-J SW receiver for RTL2832-based USB sticks
+media-sound/a2jmidid 12-r1 9999-r1: Daemon for exposing ALSA sequencer applications in JACK MIDI system
 media-sound/audacity 3.5.1-r1 3.7.7: Free crossplatform audio editor
-media-sound/carla 2.5.10 9999-r3: Fully-featured audio plugin host, supports many audio drivers and plugin formats
+media-sound/carla 2.5.10-r1 9999-r4: Fully-featured audio plugin host, supports many audio drivers and plugin formats
 media-sound/dcue 1.5 1.5_p20231216: generate CUE sheets from Discogs data
 media-sound/deadbeef 1.10.2: DeaDBeeF is a modular audio player similar to foobar2000
 media-sound/fmit 1.3.3: Free Music Instrument Tuner
@@ -954,13 +956,14 @@ net-misc/magic-wormhole 0.11.2-r201: Securely and simply transfer data between c
 net-misc/magic-wormhole-mailbox-server 0.4.1-r201: Rendezvous / mailbox server for Magic-Wormhole
 net-misc/magic-wormhole-transit-relay 0.2.1-r201: Transit Relay server for Magic-Wormhole
 net-misc/megasync 6.3.1.0: The official Qt-based program for syncing your MEGA account in your PC
+net-misc/s3cmd 2.4.0-r1: Command line client for Amazon S3
 net-misc/ssvnc 1.0.29-r4: VNC viewer that adds encryption security to VNC connections
 net-misc/streamtuner2 2.2.2_p20240918-r1: Internet radio browser
 net-p2p/deluge 2.2.0: BitTorrent client with a client/server model
 net-p2p/fms 0.3.86-r1: Spam-resistant message board application for Freenet
 net-p2p/freenet 0.7.5_p1506-r100: An encrypted network without censorship
 net-p2p/go-ethereum 1.17.3: Official golang implementation of the Ethereum protocol
-net-p2p/nicotine+ 3.3.10 9999-r1: A fork of nicotine, a Soulseek client in Python
+net-p2p/nicotine+ 3.3.10-r1 9999-r2: A fork of nicotine, a Soulseek client in Python
 net-p2p/nimbus-eth2 26.5.0 9999-r19: Nim implementation of the Ethereum 2.0 blockchain
 net-p2p/pybitmessage 0.6.3.2_p20180521-r4: Reference client for Bitmessage: a P2P communications protocol
 net-p2p/retroshare 0.6.7.2-r100: Decentralized, private and secure communication and sharing platform
@@ -980,7 +983,7 @@ sci-astronomy/healpix 3.31-r4: Hierarchical Equal Area isoLatitude Pixelization 
 sci-astronomy/kapteyn 2.3.1-r201: Collection of python tools for astronomy
 sci-geosciences/grass 8.5.0-r100: Free GIS with raster and vector functionality, as well as 3D vizualization
 sci-geosciences/mkgmap-bin 4918: Tool to create garmin maps
-sci-geosciences/qgis 3.44.11-r100 4.0.3-r100: User friendly Geographic Information System
+sci-geosciences/qgis 3.44.11-r101 4.0.3-r101: User friendly Geographic Information System
 sci-geosciences/splitter-bin 653-r1: Tile splitter for mkgmap
 sci-libs/amd 3.3.4-r100: Library to order a sparse matrix prior to Cholesky factorization
 sci-libs/btf 2.3.3-r100: Algorithm for matrix permutation into block triangular form
@@ -1031,6 +1034,7 @@ virtual/python-greenlet 1.0-r6: A virtual for Python greenlet module
 virtual/python-ipaddress 1.0-r4: A virtual for Python ipaddress module
 virtual/python-pathlib 1.0-r3: A virtual for Python pathlib module
 virtual/python-typing 0-r5: A virtual for the Python typing module
+www-apache/mod_wsgi 6.0.1: An Apache2 module for running Python WSGI applications
 www-apps/jackett-bin 0.24.185-r1: API Support for your favorite torrent trackers
 www-misc/kiwix-desktop 2.5.1: cross-platform viewer/manager for ZIM archives
 www-misc/libkiwix 14.2.1: Kiwix software suite core: code shared by all Kiwix ports
@@ -1041,7 +1045,7 @@ x11-libs/qscintilla 2.14.1-r1: Qt port of Neil Hodgson's Scintilla C++ editor co
 x11-libs/qwt 6.3.0-r1: 2D plotting library for Qt
 x11-libs/wxGTK 3.2.10-r300 3.3.2-r300: GTK version of wxWidgets, a cross-platform C++ GUI toolkit
 x11-misc/magick-rotation 1.6.2-r6: Application that rotates tablet pc's screen automatically, based on orientation
-x11-misc/obmenu2 1.1-r2: Openbox menu editor
+x11-misc/obmenu2 1.1-r3: Openbox menu editor
 x11-misc/qt5ct 1.8 1.9: Qt5 configuration tool, similar to qtconfig for Qt4
 x11-misc/qxkb 0.5.1_pre20190821-r1: Qt-based keyboard layout switcher
 x11-misc/slim 1.4.1-r2: Simple Login Manager resurrected

@@ -1,0 +1,17 @@
+BDEPEND=test? ( python_targets_python3_12? ( dev-lang/python:3.12[gdbm] ) python_targets_python3_13? ( dev-lang/python:3.13[gdbm] ) python_targets_python3_14? ( dev-lang/python:3.14[gdbm] ) dev-python/pygobject:3[python_targets_python3_12(-)?,python_targets_python3_13(-)?,python_targets_python3_14(-)?] x11-libs/gtk+:3[introspection] >=dev-python/pytest-7.4.4[python_targets_python3_12(-)?,python_targets_python3_13(-)?,python_targets_python3_14(-)?] ) python_targets_python3_12? ( dev-lang/python:3.12[gdbm] ) python_targets_python3_13? ( dev-lang/python:3.13[gdbm] ) python_targets_python3_14? ( dev-lang/python:3.14[gdbm] ) >=dev-python/gpep517-16[python_targets_python3_12(-)?,python_targets_python3_13(-)?,python_targets_python3_14(-)?] dev-python/setuptools[python_targets_python3_12(-)?,python_targets_python3_13(-)?,python_targets_python3_14(-)?] >=dev-vcs/git-1.8.2.1[curl]
+DEFINED_PHASES=compile configure install postinst postrm preinst prepare test unpack
+DEPEND=python_targets_python3_12? ( dev-lang/python:3.12[gdbm] ) python_targets_python3_13? ( dev-lang/python:3.13[gdbm] ) python_targets_python3_14? ( dev-lang/python:3.14[gdbm] ) dev-python/pygobject:3[python_targets_python3_12(-)?,python_targets_python3_13(-)?,python_targets_python3_14(-)?] x11-libs/gtk+:3[introspection]
+DESCRIPTION=A fork of nicotine, a Soulseek client in Python
+EAPI=8
+HOMEPAGE=https://github.com/Nicotine-Plus/nicotine-plus
+IDEPEND=dev-util/desktop-file-utils x11-misc/shared-mime-info
+INHERIT=distutils-r1 git-r3 xdg
+IUSE=test python_targets_python3_12 python_targets_python3_13 python_targets_python3_14
+LICENSE=GPL-3 LGPL-3
+PROPERTIES=live
+RDEPEND=python_targets_python3_12? ( dev-lang/python:3.12[gdbm] ) python_targets_python3_13? ( dev-lang/python:3.13[gdbm] ) python_targets_python3_14? ( dev-lang/python:3.14[gdbm] ) dev-python/pygobject:3[python_targets_python3_12(-)?,python_targets_python3_13(-)?,python_targets_python3_14(-)?] x11-libs/gtk+:3[introspection] python_targets_python3_12? ( dev-lang/python:3.12[gdbm] ) python_targets_python3_13? ( dev-lang/python:3.13[gdbm] ) python_targets_python3_14? ( dev-lang/python:3.14[gdbm] )
+REQUIRED_USE=|| ( python_targets_python3_12 python_targets_python3_13 python_targets_python3_14 )
+RESTRICT=!test? ( test )
+SLOT=0
+_eclasses_=toolchain-funcs	58a918e3a42d0156f010dcfd43725be5	flag-o-matic	fd3558f73f6503093adee69adf41020d	out-of-source-utils	8e5093bd27b7f541a1913271f25d633a	multibuild	83db098a835f71feb71761f72a694aa2	multilib	fc812e8eb2170022c28272d80a1f9e77	multiprocessing	45d0620f25c2f063ad6276ecd9ed9399	ninja-utils	d063ea1900a793f93eb095010d6d9156	python-utils-r1	66a06bbd35f9beac984b377a81053f37	python-r1	fa20a4abee4aa6a3b47c7362cfa8251f	distutils-r1	20f2de98de352d5dae53d6972cf12f63	git-r3	2f8cdb10b033f92c3136aa6488a31c98	xdg-utils	42869b3c8d86a70ef3cf75165a395e09	xdg	3ef49a87c52c8b77c476351195dfe575
+_md5_=94327e21dc901513c745ac2e045578e2

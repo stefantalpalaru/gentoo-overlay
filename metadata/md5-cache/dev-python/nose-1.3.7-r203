@@ -1,0 +1,17 @@
+BDEPEND=python_targets_python2_7? ( dev-lang/python:2.7[threads(+)] ) dev-python/setuptools[python_targets_python2_7(-)?]
+DEFINED_PHASES=compile configure install prepare test
+DEPEND=coverage? ( dev-python/coverage:python2[python_targets_python2_7(-)?] ) !<dev-python/nose-1.3.7-r8[python_targets_python2_7(-)?] test? ( !hppa? ( dev-python/coverage[python_targets_python2_7(-)?] ) )
+DESCRIPTION=Unittest extension with automatic test suite discovery and easy test authoring
+EAPI=8
+HOMEPAGE=https://pypi.org/project/nose/ https://nose.readthedocs.io/en/latest/ https://github.com/nose-devs/nose
+INHERIT=distutils-r1 pypi
+IUSE=coverage examples test python_targets_python2_7
+KEYWORDS=~alpha amd64 arm arm64 hppa ~m68k ~mips ppc ppc64 ~riscv s390 sparc x86 ~x64-macos ~x64-solaris
+LICENSE=LGPL-2.1
+RDEPEND=coverage? ( dev-python/coverage:python2[python_targets_python2_7(-)?] ) !<dev-python/nose-1.3.7-r8[python_targets_python2_7(-)?] python_targets_python2_7? ( dev-lang/python:2.7[threads(+)] ) dev-python/setuptools[python_targets_python2_7(-)?]
+REQUIRED_USE=|| ( python_targets_python2_7 )
+RESTRICT=mirror !test? ( test )
+SLOT=python2
+SRC_URI=https://files.pythonhosted.org/packages/source/n/nose/nose-1.3.7.tar.gz
+_eclasses_=toolchain-funcs	58a918e3a42d0156f010dcfd43725be5	flag-o-matic	fd3558f73f6503093adee69adf41020d	out-of-source-utils	8e5093bd27b7f541a1913271f25d633a	multibuild	83db098a835f71feb71761f72a694aa2	multilib	fc812e8eb2170022c28272d80a1f9e77	multiprocessing	45d0620f25c2f063ad6276ecd9ed9399	ninja-utils	d063ea1900a793f93eb095010d6d9156	python-utils-r1	66a06bbd35f9beac984b377a81053f37	python-r1	fa20a4abee4aa6a3b47c7362cfa8251f	distutils-r1	20f2de98de352d5dae53d6972cf12f63	pypi	a451be5a08e8eb46f927fc6dd163583f
+_md5_=4903e8ea2b0d9db85e33c8625bfdd31a
