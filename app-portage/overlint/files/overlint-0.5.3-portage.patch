@@ -1,0 +1,11 @@
+--- a/overlint/cli.py	2026-03-14 11:37:11.603590573 +0100
++++ b/overlint/cli.py	2026-03-14 11:37:20.613498653 +0100
+@@ -126,7 +126,7 @@
+ 
+ 
+ def sorted_versions(versions):
+-	return sorted(versions, key=portage.versions.cmp_sort_key(portage.vercmp))
++	return sorted(versions, key=portage.util.cmp_sort_key(portage.vercmp))
+ 
+ 
+ def dump_tree(tree, title):
