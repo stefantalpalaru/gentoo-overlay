@@ -5,7 +5,7 @@ EAPI=8
 
 GENTOO_DEPEND_ON_PERL="no"
 QA_PKGCONFIG_VERSION=$(ver_cut 1-3)
-inherit autotools flag-o-matic perl-module toolchain-funcs
+inherit autotools flag-o-matic perl-module toolchain-funcs unpacker
 
 if [[ ${PV} == 9999 ]] ; then
 	EGIT_REPO_URI="https://github.com/ImageMagick/ImageMagick.git"
@@ -14,7 +14,7 @@ if [[ ${PV} == 9999 ]] ; then
 else
 	MY_PV="$(ver_rs 3 '-')"
 	MY_P="ImageMagick-${MY_PV}"
-	SRC_URI="mirror://imagemagick/${MY_P}.tar.xz"
+	SRC_URI="https://github.com/ImageMagick/ImageMagick/releases/download/${MY_PV}/${MY_P}.7z"
 	KEYWORDS="~alpha amd64 arm arm64 ~hppa ~loong ~m68k ~mips ppc ppc64 ~riscv ~s390 ~sparc x86 ~arm64-macos ~x64-macos ~x64-solaris"
 fi
 
@@ -22,7 +22,7 @@ DESCRIPTION="A collection of tools and libraries for many image formats"
 HOMEPAGE="https://imagemagick.org/index.php"
 S="${WORKDIR}/${MY_P}"
 LICENSE="imagemagick"
-# Please check this on bumps, SONAME is often not updated! Use abidiff on old/new.
+# Please check this on bumps, SONAME is often not updated! Use abidiff (from dev-util/libabigail) on old/new.
 # If ABI is broken, change the bit after the '-'.
 SLOT="0/$(ver_cut 1-3)-18"
 IUSE="bzip2 corefonts +cxx djvu fftw fontconfig fpx graphviz hardened hdri heif"
@@ -91,7 +91,10 @@ DEPEND="
 	${RDEPEND}
 	X? ( x11-base/xorg-proto )
 "
-BDEPEND="virtual/pkgconfig"
+BDEPEND="
+	$(unpacker_src_uri_depends)
+	virtual/pkgconfig
+"
 
 PATCHES=(
 	"${FILESDIR}/${PN}-9999-nocputuning.patch"
