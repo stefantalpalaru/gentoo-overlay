@@ -955,7 +955,7 @@ net-misc/freerdp 3.26.0: Free implementation of the Remote Desktop Protocol
 net-misc/magic-wormhole 0.11.2-r201: Securely and simply transfer data between computers
 net-misc/magic-wormhole-mailbox-server 0.4.1-r201: Rendezvous / mailbox server for Magic-Wormhole
 net-misc/magic-wormhole-transit-relay 0.2.1-r201: Transit Relay server for Magic-Wormhole
-net-misc/megasync 6.3.1.0: The official Qt-based program for syncing your MEGA account in your PC
+net-misc/megasync 6.4.0.2: The official Qt-based program for syncing your MEGA account in your PC
 net-misc/s3cmd 2.4.0-r1: Command line client for Amazon S3
 net-misc/ssvnc 1.0.29-r4: VNC viewer that adds encryption security to VNC connections
 net-misc/streamtuner2 2.2.2_p20240918-r1: Internet radio browser
