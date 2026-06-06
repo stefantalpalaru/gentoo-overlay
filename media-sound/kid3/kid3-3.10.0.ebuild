@@ -10,7 +10,7 @@ DESCRIPTION="Simple tag editor based on Qt"
 HOMEPAGE="https://kid3.kde.org/"
 
 if [[ ${KDE_BUILD_TYPE} != live ]]; then
-	SRC_URI="mirror://kde/stable/${PN}/${PV}/${P}.tar.xz"
+	SRC_URI="https://github.com/KDE/kid3/archive/refs/tags/v${PV}.tar.gz -> ${P}.tar.gz"
 	KEYWORDS="amd64 ~x86"
 fi
 
