@@ -1,0 +1,16 @@
+diff '--color=auto' -ur liquid-dsp-1.8.0.orig/CMakeLists.txt liquid-dsp-1.8.0/CMakeLists.txt
+--- liquid-dsp-1.8.0.orig/CMakeLists.txt	2026-06-07 18:47:52.028515580 +0200
++++ liquid-dsp-1.8.0/CMakeLists.txt	2026-06-07 18:50:31.161167785 +0200
+@@ -515,10 +515,10 @@
+     LIBRARY
+         COMPONENT Runtime
+         NAMELINK_COMPONENT Development
+-        DESTINATION lib
++        DESTINATION ${CMAKE_INSTALL_LIBDIR}
+     ARCHIVE
+         COMPONENT Runtime
+-        DESTINATION lib
++        DESTINATION ${CMAKE_INSTALL_LIBDIR}
+     PUBLIC_HEADER
+         COMPONENT Development
+         DESTINATION ${CMAKE_INSTALL_INCLUDEDIR}/liquid
