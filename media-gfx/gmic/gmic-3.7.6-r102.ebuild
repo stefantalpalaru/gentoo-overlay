@@ -90,6 +90,7 @@ src_prepare() {
 		cd ../${GMIC_QT_DIR}
 		patch -p1 -i "${FILESDIR}/gmic-3.1.6-stripping.patch" || die
 		patch -p1 -i "${FILESDIR}/gmic-3.2.0-system-gmic.patch" || die
+		patch -p1 -i "${FILESDIR}/gmic-3.7.6-lrelease.patch" || die
 		cd -
 		cmake_src_prepare
 	fi

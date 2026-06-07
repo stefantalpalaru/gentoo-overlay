@@ -14,4 +14,4 @@ RESTRICT=mirror network-sandbox
 SLOT=0
 SRC_URI=https://github.com/GreycLab/gmic/archive/73017a21f014c8a0a1cb3d3095433f6a73db6708.tar.gz -> gmic-73017a21f014c8a0a1cb3d3095433f6a73db6708.gh.tar.gz https://gmic.eu/gmic_stdlib_community376.h gimp? ( https://github.com/GreycLab/gmic-qt/archive/6e596125d2abab16159cb68bef1fa3a465efd000.tar.gz -> gmic-qt-6e596125d2abab16159cb68bef1fa3a465efd000.gh.tar.gz ) gui? ( https://github.com/GreycLab/gmic-qt/archive/6e596125d2abab16159cb68bef1fa3a465efd000.tar.gz -> gmic-qt-6e596125d2abab16159cb68bef1fa3a465efd000.gh.tar.gz )
 _eclasses_=toolchain-funcs	58a918e3a42d0156f010dcfd43725be5	bash-completion-r1	9e91505e030725688d1e953321a47501	flag-o-matic	fd3558f73f6503093adee69adf41020d	multiprocessing	45d0620f25c2f063ad6276ecd9ed9399	ninja-utils	d063ea1900a793f93eb095010d6d9156	xdg-utils	42869b3c8d86a70ef3cf75165a395e09	cmake	3395ce6618fc5c7af03335471b896644	qmake-utils	28f99dba9219112f4785f46ed426a021
-_md5_=b5eb99fce9d86138d33054e629b52a69
+_md5_=ad479403d7604d83f754ba1673f51007

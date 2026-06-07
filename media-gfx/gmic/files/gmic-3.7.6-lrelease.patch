@@ -1,0 +1,14 @@
+diff '--color=auto' -ur gmic-qt-6e596125d2abab16159cb68bef1fa3a465efd000.orig/translations/lrelease.sh gmic-qt-6e596125d2abab16159cb68bef1fa3a465efd000/translations/lrelease.sh
+--- gmic-qt-6e596125d2abab16159cb68bef1fa3a465efd000.orig/translations/lrelease.sh	2026-03-18 23:32:31.000000000 +0100
++++ gmic-qt-6e596125d2abab16159cb68bef1fa3a465efd000/translations/lrelease.sh	2026-06-07 14:41:13.593331476 +0200
+@@ -28,7 +28,9 @@
+ [[ ! -e "$in" ]] && die "File not found: $in"
+ [[ ! $in =~ .*\.ts$  ]] && die "Not a ts file: $in"
+ 
+-if exists lrelease-qt5 ; then
++if exists lrelease6 ; then
++  exec lrelease6 -compress "$in"
++elif exists lrelease-qt5 ; then
+   exec lrelease-qt5 -compress "$in"
+ elif exists lrelease ; then
+   exec lrelease -compress "$in"
