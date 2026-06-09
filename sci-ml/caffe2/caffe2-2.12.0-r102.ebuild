@@ -62,7 +62,7 @@ RDEPEND="
 	cuda? (
 		dev-libs/cudnn:=
 		>=sci-ml/cudnn-frontend-1.0.3:0=
-		cudss? ( dev-libs/cudss )
+		cudss? ( <dev-libs/cudss-0.8 )
 		>=dev-util/nvidia-cuda-toolkit-12.9:=[profiler]
 		cusparselt? ( dev-libs/cusparselt )
 	)
@@ -157,6 +157,7 @@ PATCHES=(
 	"${FILESDIR}"/caffe2-2.9.0-CUDA-13.patch
 	"${FILESDIR}"/caffe2-2.10.0-nvrtc.patch
 	"${FILESDIR}"/caffe2-2.11.0-mimalloc.patch
+	"${FILESDIR}"/caffe2-2.12.0-cudss.patch
 )
 
 src_prepare() {

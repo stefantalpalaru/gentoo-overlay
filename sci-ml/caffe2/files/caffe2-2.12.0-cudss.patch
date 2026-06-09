@@ -1,0 +1,25 @@
+From ee86adde066dfb3eb63d76cc5796eed4d3c58aae Mon Sep 17 00:00:00 2001
+From: marek-racev <marek.racev@gmail.com>
+Date: Fri, 23 Jan 2026 18:09:02 +0100
+Subject: [PATCH] Fixed call of cudssMatrixCreateCsr for CUDA 13.0
+
+Function cudssMatrixCreateCsr provides interface for both 3-array CSR and 4-array CSR. By passing 6th parameter rowEnd other than nullptr function assumes 4-array CSR which is currently unsupported. Therefore currently the only valid value of 6-th parameter is nullptr. The original code worked in CUDA 12.x because function did not read that parameter at all. However in CUDA 13.0 they added check for NULL and if anything different is passed, function returns CUDSS_STATUS_NOT_SUPPORTED.
+
+For more information see the official documentation: https://docs.nvidia.com/cuda/archive/13.0.0/cudss/functions.html#cudssmatrixcreatecsr
+---
+ aten/src/ATen/native/sparse/cuda/SparseCsrTensorMath.cu | 2 +-
+ 1 file changed, 1 insertion(+), 1 deletion(-)
+
+diff --git a/aten/src/ATen/native/sparse/cuda/SparseCsrTensorMath.cu b/aten/src/ATen/native/sparse/cuda/SparseCsrTensorMath.cu
+index bb4b095d7f12e..e8dbf603ad98f 100644
+--- a/aten/src/ATen/native/sparse/cuda/SparseCsrTensorMath.cu
++++ b/aten/src/ATen/native/sparse/cuda/SparseCsrTensorMath.cu
+@@ -757,7 +757,7 @@ void _apply_sparse_csr_linear_solve(
+     auto CUDA_R_TYP = std::is_same_v<scalar_t, double> ? CUDA_R_64F : CUDA_R_32F;
+     TORCH_CUDSS_CHECK(cudssMatrixCreateDn(&b_mt, b.size(0), 1, b.size(0), b_ptr, CUDA_R_TYP, CUDSS_LAYOUT_COL_MAJOR));
+     TORCH_CUDSS_CHECK(cudssMatrixCreateDn(&x_mt, x.size(0), 1, x.size(0), x_ptr, CUDA_R_TYP, CUDSS_LAYOUT_COL_MAJOR));
+-    TORCH_CUDSS_CHECK(cudssMatrixCreateCsr(&A_mt, A.size(0), A.size(1),  A._nnz(), rowOffsets, rowOffsets + crow.size(0), colIndices, values_ptr, CUDA_R_32I, CUDA_R_TYP, CUDSS_MTYPE_GENERAL, CUDSS_MVIEW_FULL, CUDSS_BASE_ZERO));
++    TORCH_CUDSS_CHECK(cudssMatrixCreateCsr(&A_mt, A.size(0), A.size(1),  A._nnz(), rowOffsets, nullptr, colIndices, values_ptr, CUDA_R_32I, CUDA_R_TYP, CUDSS_MTYPE_GENERAL, CUDSS_MVIEW_FULL, CUDSS_BASE_ZERO));
+   }));
+   TORCH_CUDSS_CHECK(cudssExecute(handle, CUDSS_PHASE_ANALYSIS, config, cudss_data, A_mt, x_mt, b_mt));
+   TORCH_CUDSS_CHECK(cudssExecute(handle, CUDSS_PHASE_FACTORIZATION, config, cudss_data, A_mt, x_mt, b_mt));
