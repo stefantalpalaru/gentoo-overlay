@@ -9,10 +9,10 @@ PYTHON_COMPAT=( python3_{11..14} )
 inherit check-reqs edo toolchain-funcs
 inherit python-r1
 
-DRIVER_PV="595.58.03"
+DRIVER_PV="575.57.08"
 # https://docs.nvidia.com/cuda/cuda-installation-guide-linux/index.html
-GCC_MAX_VER="15"
-CLANG_MAX_VER="21"
+GCC_MAX_VER="14"
+CLANG_MAX_VER="19"
 
 DESCRIPTION="NVIDIA CUDA Toolkit (compiler and friends)"
 HOMEPAGE="https://developer.nvidia.com/cuda-zone"
@@ -48,7 +48,8 @@ RDEPEND="
 		<llvm-core/clang-$(( CLANG_MAX_VER + 1 ))_pre
 	)
 	cuda-minor-compat? (
-		>=x11-drivers/nvidia-drivers-580
+		>=x11-drivers/nvidia-drivers-525
+		<x11-drivers/nvidia-drivers-580
 	)
 	sys-process/numactl
 	debugger? (
@@ -157,8 +158,12 @@ src_unpack() {
 }
 
 src_prepare() {
-	pushd "builds/cuda_cccl/targets/${narch}-linux" >/dev/null || die
-	eapply -p4 "${FILESDIR}/nvidia-cuda-toolkit-13.2.0-cccl.patch"
+	pushd "builds/cuda_nvcc/targets/${narch}-linux" >/dev/null || die
+	eapply -p5 "${FILESDIR}/nvidia-cuda-toolkit-glibc-2.41-r1.patch"
+	popd >/dev/null || die
+
+	pushd "builds/cuda_nvcc/targets/${narch}-linux" >/dev/null || die
+	eapply -p5 "${FILESDIR}/nvidia-cuda-toolkit-glibc-2.42.patch"
 	popd >/dev/null || die
 
 	default
@@ -292,7 +297,7 @@ src_install() {
 	fi
 
 	# Add include and lib symlinks
-	#dosym -r "${CUDA_PATH}/targets/${narch}-linux/include" "${CUDA_PATH}/include"
+	dosym -r "${CUDA_PATH}/targets/${narch}-linux/include" "${CUDA_PATH}/include"
 	dosym -r "${CUDA_PATH}/targets/${narch}-linux/lib" "${CUDA_PATH}/$(get_libdir)"
 
 	find "${ED}/${CUDA_PATH}" -empty -delete || die
