@@ -1,0 +1,14 @@
+diff '--color=auto' -ur audacity-sources-3.7.8.orig/cmake-proxies/cmake-modules/dependencies/rapidjson.cmake audacity-sources-3.7.8/cmake-proxies/cmake-modules/dependencies/rapidjson.cmake
+--- audacity-sources-3.7.8.orig/cmake-proxies/cmake-modules/dependencies/rapidjson.cmake	2026-06-11 11:17:06.000000000 +0200
++++ audacity-sources-3.7.8/cmake-proxies/cmake-modules/dependencies/rapidjson.cmake	2026-06-11 16:49:12.363943063 +0200
+@@ -2,8 +2,8 @@
+ 
+ if(NOT ${_OPT}use_rapidjson STREQUAL "off")
+    if(NOT TARGET rapidjson::rapidjson)
+-      if(TARGET rapidjson)
+-         add_library( rapidjson::rapidjson ALIAS rapidjson )
++      if(TARGET RapidJSON)
++         add_library( rapidjson::rapidjson ALIAS RapidJSON )
+       else()
+          # At least on Arch RapidJSONConfig.cmake does not define a target at all
+          # so we have to do it ourselves
