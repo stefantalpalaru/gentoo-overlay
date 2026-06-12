@@ -1,0 +1,12 @@
+diff '--color=auto' -ur qtbase-everywhere-src-5.15.19.orig/src/network/configure.json qtbase-everywhere-src-5.15.19/src/network/configure.json
+--- qtbase-everywhere-src-5.15.19.orig/src/network/configure.json	2025-11-20 13:50:34.000000000 +0100
++++ qtbase-everywhere-src-5.15.19/src/network/configure.json	2026-06-13 01:03:52.108870821 +0200
+@@ -53,7 +53,7 @@
+             },
+             "headers": "proxy.h",
+             "sources": [
+-                "-lproxy"
++                { "type": "pkgConfig", "args": "libproxy-1.0" }
+             ]
+         },
+         "openssl_headers": {

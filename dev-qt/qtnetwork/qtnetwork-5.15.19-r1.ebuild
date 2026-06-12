@@ -41,6 +41,10 @@ QT5_GENTOO_PRIVATE_CONFIG=(
 	:network
 )
 
+PATCHES=(
+	"${FILESDIR}"/qtnetwork-5.15.19-libproxy.patch
+)
+
 src_configure() {
 	local myconf=(
 		$(qt_use gssapi feature-gssapi)
