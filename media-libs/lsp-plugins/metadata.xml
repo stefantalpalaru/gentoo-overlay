@@ -14,6 +14,8 @@
 		<flag name="clap">Build CLAP plugins</flag>
 		<flag name="gstreamer">Build GStreamer plugins</flag>
 		<flag name="lv2">Build LV2 plugins</flag>
+		<flag name="pipewire">Pipewire support for standalone plugins</flag>
+		<flag name="standalone">Build standalone plugins (needed for JACK/Pipewire)</flag>
 		<flag name="vst">Build VST2/LinuxVST plugins</flag>
 		<flag name="vst3">Build VST3 plugins</flag>
 	</use>

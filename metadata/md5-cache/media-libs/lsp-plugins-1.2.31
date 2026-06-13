@@ -1,0 +1,18 @@
+BDEPEND=doc? ( dev-lang/php:* )
+DEFINED_PHASES=compile configure install postinst postrm preinst
+DEPEND=media-libs/libglvnd[X] media-libs/libsndfile clap? ( media-libs/freetype x11-libs/cairo[X] x11-libs/libX11 x11-libs/libXrandr ) gstreamer? ( media-libs/freetype media-libs/gstreamer:1.0 x11-libs/cairo[X] x11-libs/libX11 x11-libs/libXrandr ) jack? ( virtual/jack ) ladspa? ( media-libs/ladspa-sdk ) lv2? ( media-libs/freetype media-libs/lv2 x11-libs/cairo[X] x11-libs/libX11 x11-libs/libXrandr ) standalone? ( media-libs/freetype x11-libs/cairo[X] x11-libs/libX11 x11-libs/libXrandr ) pipewire? ( media-video/pipewire:= ) vst? ( media-libs/freetype x11-libs/cairo[X] x11-libs/libX11 x11-libs/libXrandr ) vst3? ( media-libs/freetype x11-libs/cairo[X] x11-libs/libX11 x11-libs/libXrandr )
+DESCRIPTION=Linux Studio Plugins
+EAPI=8
+HOMEPAGE=https://lsp-plug.in
+IDEPEND=dev-util/desktop-file-utils x11-misc/shared-mime-info
+INHERIT=flag-o-matic toolchain-funcs xdg
+IUSE=clap doc gstreamer jack ladspa +lv2 pipewire standalone test vst vst3 X
+KEYWORDS=~amd64 ~arm ~arm64 ~ppc ~ppc64 ~x86
+LICENSE=LGPL-3
+RDEPEND=media-libs/libglvnd[X] media-libs/libsndfile clap? ( media-libs/freetype x11-libs/cairo[X] x11-libs/libX11 x11-libs/libXrandr ) gstreamer? ( media-libs/freetype media-libs/gstreamer:1.0 x11-libs/cairo[X] x11-libs/libX11 x11-libs/libXrandr ) jack? ( virtual/jack ) ladspa? ( media-libs/ladspa-sdk ) lv2? ( media-libs/freetype media-libs/lv2 x11-libs/cairo[X] x11-libs/libX11 x11-libs/libXrandr ) standalone? ( media-libs/freetype x11-libs/cairo[X] x11-libs/libX11 x11-libs/libXrandr ) pipewire? ( media-video/pipewire:= ) vst? ( media-libs/freetype x11-libs/cairo[X] x11-libs/libX11 x11-libs/libXrandr ) vst3? ( media-libs/freetype x11-libs/cairo[X] x11-libs/libX11 x11-libs/libXrandr )
+REQUIRED_USE=|| ( clap gstreamer standalone ladspa lv2 vst vst3 ) jack? ( standalone ) pipewire? ( standalone ) test? ( jack )
+RESTRICT=!test? ( test )
+SLOT=0
+SRC_URI=https://github.com/lsp-plugins/lsp-plugins/releases/download/1.2.31/lsp-plugins-src-1.2.31.tar.gz -> lsp-plugins-1.2.31.gh.tar.gz
+_eclasses_=toolchain-funcs	58a918e3a42d0156f010dcfd43725be5	flag-o-matic	fd3558f73f6503093adee69adf41020d	xdg-utils	42869b3c8d86a70ef3cf75165a395e09	xdg	3ef49a87c52c8b77c476351195dfe575
+_md5_=8654c7269cae84cd2bb92f6011db1d79

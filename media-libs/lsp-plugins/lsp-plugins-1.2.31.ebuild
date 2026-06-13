@@ -1,4 +1,4 @@
-# Copyright 2019-2025 Gentoo Authors
+# Copyright 2019-2026 Gentoo Authors
 # Distributed under the terms of the GNU General Public License v2
 
 EAPI=8
@@ -11,10 +11,13 @@ SRC_URI="https://github.com/lsp-plugins/lsp-plugins/releases/download/${PV}/${PN
 S="${WORKDIR}/${PN}"
 LICENSE="LGPL-3"
 SLOT="0"
-KEYWORDS="amd64 ~arm arm64 ~ppc ~ppc64 x86"
-IUSE="clap doc gstreamer jack ladspa +lv2 test vst vst3 X"
-REQUIRED_USE="|| ( clap gstreamer jack ladspa lv2 vst vst3 )
-	test? ( jack )"
+KEYWORDS="~amd64 ~arm ~arm64 ~ppc ~ppc64 ~x86"
+IUSE="clap doc gstreamer jack ladspa +lv2 pipewire standalone test vst vst3 X"
+REQUIRED_USE="|| ( clap gstreamer standalone ladspa lv2 vst vst3 )
+	jack? ( standalone )
+	pipewire? ( standalone )
+	test? ( jack )
+"
 
 RESTRICT="!test? ( test )"
 
@@ -35,13 +38,7 @@ DEPEND="
 		x11-libs/libX11
 		x11-libs/libXrandr
 	)
-	jack? (
-		media-libs/freetype
-		virtual/jack
-		x11-libs/cairo[X]
-		x11-libs/libX11
-		x11-libs/libXrandr
-	)
+	jack? ( virtual/jack )
 	ladspa? ( media-libs/ladspa-sdk )
 	lv2? (
 		media-libs/freetype
@@ -50,6 +47,13 @@ DEPEND="
 		x11-libs/libX11
 		x11-libs/libXrandr
 	)
+	standalone? (
+		media-libs/freetype
+		x11-libs/cairo[X]
+		x11-libs/libX11
+		x11-libs/libXrandr
+	)
+	pipewire? ( media-video/pipewire:= )
 	vst? (
 		media-libs/freetype
 		x11-libs/cairo[X]
@@ -84,6 +88,7 @@ src_configure() {
 	use jack && MODULES+=" jack"
 	use ladspa && MODULES+=" ladspa"
 	use lv2 && MODULES+=" lv2"
+	use standalone && MODULES+=" standalone"
 	use vst && MODULES+=" vst2"
 	use vst3 && MODULES+=" vst3"
 	use X && MODULES+=" xdg"
