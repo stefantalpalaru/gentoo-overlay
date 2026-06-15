@@ -3,7 +3,7 @@
 
 EAPI=8
 DISTUTILS_UPSTREAM_PEP517=standalone
-DISTUTILS_USE_PEP517=setuptools
+DISTUTILS_USE_PEP517=scikit-build-core
 DISTUTILS_EXT=1
 PYTHON_COMPAT=( python3_{11..14} )
 inherit distutils-r1 cmake
@@ -44,7 +44,7 @@ src_configure() {
 	mycmakeargs=(
 		-DONNX_USE_PROTOBUF_SHARED_LIBS=ON
 		-DONNX_USE_LITE_PROTO=ON
-		-DBUILD_SHARED_LIBS=ON
+		-DBUILD_SHARED_LIBS=OFF #incompatible with Python bindings, for some reason
 		-DONNX_DISABLE_STATIC_REGISTRATION=$(usex disableStaticReg ON OFF)
 	)
 	cmake_src_configure
