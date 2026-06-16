@@ -68,7 +68,7 @@ dev-libs/lthread 1.0_pre20150617-r3 9999-r3: multicore enabled coroutine library
 dev-libs/openssl 1.1.1w-r1: Full-strength general purpose cryptography library (including SSL and TLS)
 dev-libs/protobuf 3.13.0-r2: Google's Protocol Buffers - Extensible mechanism for serializing structured data
 dev-libs/protobuf-c 1.5.2-r2: Protocol Buffers implementation in C
-dev-libs/pugixml 1.15: Light-weight, simple, and fast XML parser for C++ with XPath support
+dev-libs/pugixml 1.16: Light-weight, simple, and fast XML parser for C++ with XPath support
 dev-libs/qtkeychain 0.14.3 0.15.0: Qt API for storing passwords securely
 dev-libs/sleef 3.9.0-r100: Implements vectorized versions of C standard math functions
 dev-nim/c2nim 0.9.19-r1 9999-r3: a tool to translate ANSI C code to Nim
