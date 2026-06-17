@@ -130,10 +130,6 @@ There are pretty html docs available at https://conky.cc/.
 
 Also see https://github.com/brndnmtthws/conky/wiki or https://wiki.gentoo.org/wiki/Conky"
 
-PATCHES=(
-	"${FILESDIR}"/conky-1.24.0-mouse.patch
-)
-
 pkg_setup() {
 	linux-info_pkg_setup
 	lua-single_pkg_setup
