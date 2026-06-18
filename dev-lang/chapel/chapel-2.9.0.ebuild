@@ -1,0 +1,155 @@
+# Copyright 2024-2026 Gentoo Authors
+# Distributed under the terms of the GNU General Public License v2
+
+EAPI=8
+LLVM_COMPAT=( {17..22} )
+PYTHON_COMPAT=( python3_{10..14} )
+
+inherit llvm-r2 multiprocessing python-any-r1
+
+DESCRIPTION="Chapel programming language compiler"
+HOMEPAGE="https://chapel-lang.org/
+		https://github.com/chapel-lang/chapel"
+SRC_URI="https://github.com/chapel-lang/chapel/releases/download/${PV}/chapel-${PV}.tar.gz"
+LICENSE="Apache-2.0"
+SLOT="0"
+KEYWORDS="~amd64"
+IUSE="chplvis protobuf test vim-syntax"
+RESTRICT="
+	strip
+	network-sandbox
+	!test? ( test )
+	mirror
+"
+
+DEPEND="
+	chplvis? ( x11-libs/fltk )
+	dev-lang/perl
+	dev-libs/gmp
+	dev-libs/jemalloc
+	$(llvm_gen_dep '
+		llvm-core/clang:${LLVM_SLOT}
+		llvm-core/llvm:${LLVM_SLOT}
+	')
+	protobuf? ( dev-libs/protobuf )
+	sys-libs/libunwind
+	vim-syntax? ( app-vim/chapel-syntax )
+"
+RDEPEND="${DEPEND}"
+
+PATCHES=(
+	"${FILESDIR}"/chapel-2.0.0-no-default-config.patch
+	"${FILESDIR}"/chapel-2.8.0-jemalloc.patch
+)
+
+pkg_setup() {
+	llvm-r2_pkg_setup
+}
+
+src_prepare() {
+	default
+
+	export CHPL_TASKS=qthreads
+	export CHPL_HOST_COMPILER=llvm
+	export CHPL_HOST_CC=clang-${LLVM_SLOT}
+	export CHPL_HOST_CXX=clang++-${LLVM_SLOT}
+	export CHPL_TARGET_COMPILER=llvm
+	export CHPL_LLVM=system
+	export CHPL_LLVM_CONFIG="$(get_llvm_prefix)/bin/llvm-config"
+	export CHPL_LLVM_GCC_INSTALL_DIR=none
+	export CHPL_RE2=bundled
+	export CHPL_GMP=system
+	# System hwloc is usually linked to libudev which tries to access the
+	# X.org socket for the :0 display, resulting in an error message messing
+	# our tests.
+	# This bundled version is built without libudev support.
+	export CHPL_HWLOC=bundled
+	export CHPL_UNWIND=system
+	export CHPL_HOST_JEMALLOC=system
+	export CHPL_TARGET_JEMALLOC=system
+	export CHPL_ALWAYS_BUILD_CHPLDOC=1
+	export CHPL_ALWAYS_BUILD_MASON=1
+	export CHPL_ALWAYS_BUILD_CHAPEL_PY=1
+	export CHPL_ALWAYS_BUILD_CHPLCHECK=1
+	export CHPL_ALWAYS_BUILD_CHPL_LANGUAGE_SERVER=1
+	export CHPL_LIB_PIC=pic
+
+	export XAUTHORITY=~/.Xauthority
+
+	sed -i \
+		-e 's/ln -s /ln -sr /' \
+		util/buildRelease/install.sh || die
+}
+
+src_configure() {
+	unset CHPL_HOME
+	unset CHPL_LLVM_CONFIG
+	source util/setchplenv.bash
+
+	./configure --prefix="${EPREFIX}/usr"
+}
+
+src_compile() {
+	unset CHPL_HOME
+	unset CHPL_LLVM_CONFIG
+	source util/setchplenv.bash
+
+	emake VERBOSE=1 all c2chapel chpl-parallel-dbg
+	if use protobuf; then
+		emake VERBOSE=1 protoc-gen-chpl
+	fi
+	if use chplvis; then
+		emake VERBOSE=1 chplvis
+	fi
+
+	#export CHPL_CHECK_DEBUG=1
+	emake VERBOSE=1 check
+}
+
+src_install() {
+	unset CHPL_HOME
+	unset CHPL_LLVM_CONFIG
+	source util/setchplenv.bash
+
+	default
+
+	if use protobuf; then
+		dobin bin/linux64-x86_64/protoc-gen-chpl
+	fi
+	if use chplvis; then
+		dobin bin/linux64-x86_64/chplvis
+	fi
+
+	# "${CHPL_HOME}/util/printchplenv" gets confused about some build options,
+	# for a --prefix install, so we put them in the environment.
+	local envd="${T}/90chapel"
+	cat > "${envd}" <<-EOF
+		CHPL_HOME="${EPREFIX}/usr/share/chapel/$(ver_cut 1-2)"
+		CHPL_LLVM_CONFIG="$(get_llvm_prefix)/bin/llvm-config"
+		CHPL_RE2=bundled
+		CHPL_GMP=system
+		CHPL_HWLOC=bundled
+		CHPL_UNWIND=system
+	EOF
+	doenvd "${envd}"
+}
+
+src_test() {
+	unset CHPL_HOME
+	unset CHPL_LLVM_CONFIG
+	source util/setchplenv.bash
+
+	emake test-venv
+	cd examples
+	mkdir Logs
+	# This test runner's exit code is always zero.
+	../util/test/paratest.local -dirs . -nodepara $(makeopts_jobs)
+	grep -q '#Failures = 0' Logs/portage.linux64.log.summary || die
+}
+
+pkg_postinst() {
+	elog "
+/etc/env.d is updated during ${PN} installation. Please run:\n
+'env-update && source /etc/profile'
+"
+}

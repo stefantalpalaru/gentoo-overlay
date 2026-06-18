@@ -56,6 +56,8 @@ dev-db/postgis:topology - Build topology spatial types and functions
 dev-db/redis:tcmalloc - Use tcmalloc from dev-util/google-perftools for allocations.
 dev-db/valkey:tcmalloc - Use tcmalloc from dev-util/google-perftools for allocations.
 dev-debug/valgrind:lto - Build with link time optimization (LTO)
+dev-lang/chapel:chplvis - Build the tasks and communication GUI debug tool.
+dev-lang/chapel:protobuf - Protocol Buffers support.
 dev-lang/nim:boehm-gc - Enable Hans Boehm's garbage collector (dev-libs/boehm-gc).
 dev-lang/php:argon2 - Enable password hashing algorithm from app-crypt/argon2
 dev-lang/php:bcmath - Add support for libbcmath
