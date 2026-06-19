@@ -104,15 +104,15 @@ PATCHES=(
 	"${FILESDIR}/system-onnx-r7.patch"
 	"${FILESDIR}/system-protobuf-r1.patch"
 	"${FILESDIR}/system-mp11.patch"
-	"${FILESDIR}/system-gsl-r6.patch"
+	"${FILESDIR}/system-gsl-r7.patch"
 	"${FILESDIR}/shared-build-fix.patch"
 	"${FILESDIR}/contrib-ops.patch"
 	"${FILESDIR}/disabled_rules_and_transformers.patch"
 	"${FILESDIR}/Werror.patch"
-	"${FILESDIR}/onnxruntime-1.19.0-abseil.patch"
+	"${FILESDIR}/onnxruntime-1.27.0-abseil.patch"
 	"${FILESDIR}/onnxruntime-1.19.0-eigen.patch"
 	"${FILESDIR}/onnxruntime-1.21.0-system-eigen.patch"
-	"${FILESDIR}/onnxruntime-1.20.0-cudnn_frontend.patch"
+	"${FILESDIR}/onnxruntime-1.27.0-cudnn_frontend.patch"
 	"${FILESDIR}/onnxruntime-1.25.0-external-downloads.patch"
 	"${FILESDIR}/onnxruntime-1.23.0-include.patch"
 	"${FILESDIR}/onnxruntime-1.24.1-string-view.patch"
@@ -131,7 +131,7 @@ src_prepare() {
 		python_setup
 	fi
 
-	use cuda && cuda_src_prepare
+	use cuda && cuda_src_prepare_extra
 
 	# Workaround for binary drivers.
 	addpredict /dev/ati
@@ -258,7 +258,7 @@ src_configure() {
 			-Donnxruntime_CUDNN_HOME=/usr
 			-DCMAKE_CUDA_ARCHITECTURES="${cuda_architectures_real%%;}"
 			-DCMAKE_CUDA_COMPILER="nvcc"
-			-DCMAKE_CUDA_HOST_COMPILER="$(cuda_gccdir)"
+			-DCMAKE_CUDA_HOST_COMPILER="$(cuda_gcc)"
 			-DCMAKE_CUDA_FLAGS="-forward-unknown-opts -fno-lto ${NVCCFLAGS}"
 			-DCMAKE_CUDA_STANDARD_REQUIRED=ON
 			-DCMAKE_CXX_STANDARD_REQUIRED=ON

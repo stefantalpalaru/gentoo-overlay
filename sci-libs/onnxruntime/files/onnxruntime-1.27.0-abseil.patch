@@ -1,0 +1,29 @@
+diff '--color=auto' -ur onnxruntime-1.27.0.orig/cmake/external/abseil-cpp.cmake onnxruntime-1.27.0/cmake/external/abseil-cpp.cmake
+--- onnxruntime-1.27.0.orig/cmake/external/abseil-cpp.cmake	2026-06-12 17:12:02.000000000 +0200
++++ onnxruntime-1.27.0/cmake/external/abseil-cpp.cmake	2026-06-20 00:33:34.930134894 +0200
+@@ -40,25 +40,6 @@
+     FIND_PACKAGE_ARGS 20250814 NAMES absl
+ )
+ 
+-onnxruntime_fetchcontent_makeavailable(abseil_cpp)
+-FetchContent_GetProperties(abseil_cpp)
+-if(abseil_cpp_SOURCE_DIR)
+-  set(ABSEIL_SOURCE_DIR ${abseil_cpp_SOURCE_DIR})
+-endif()
+-
+-# abseil_cpp_SOURCE_DIR is non-empty if we build it from source
+-message(STATUS "Abseil source dir:" ${ABSEIL_SOURCE_DIR})
+-# abseil_cpp_VERSION  is non-empty if we find a preinstalled ABSL
+-if(abseil_cpp_VERSION)
+-  message(STATUS "Abseil version:" ${abseil_cpp_VERSION})
+-endif()
+-if (GDK_PLATFORM)
+-  # Abseil considers any partition that is NOT in the WINAPI_PARTITION_APP a viable platform
+-  # for Win32 symbolize code (which depends on dbghelp.lib); this logic should really be flipped
+-  # to only include partitions that are known to support it (e.g. DESKTOP). As a workaround we
+-  # tell Abseil to pretend we're building an APP.
+-  target_compile_definitions(absl_symbolize PRIVATE WINAPI_FAMILY=WINAPI_FAMILY_DESKTOP_APP)
+-endif()
+ 
+ # TODO: since multiple ORT's dependencies depend on Abseil, the list below would vary from version to version.
+ # We'd better to not manually manage the list.
