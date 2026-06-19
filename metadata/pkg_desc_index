@@ -887,7 +887,7 @@ media-gfx/gmic 3.5.0-r102 3.7.6-r103: GREYC's Magic Image Converter
 media-gfx/imagemagick 7.1.2.25: A collection of tools and libraries for many image formats
 media-gfx/inkscape 1.4.4-r3: SVG based generic vector-drawing program
 media-gfx/opencomic-bin 1.6.5: Comic and Manga reader, written with Node.js and using Electron
-media-gfx/opentoonz 1.7.1-r1: An open-source full-featured 2D animation creation software
+media-gfx/opentoonz 1.8.0: An open-source full-featured 2D animation creation software
 media-gfx/openvdb 13.0.0-r1: Library for the efficient manipulation of volumetric data
 media-gfx/yomikiru-bin 2.24.0: manga, manhwa, comic, and novel reader for desktop
 media-gfx/zart 3.2.2_p20231127: G'MIC GUI for video streams

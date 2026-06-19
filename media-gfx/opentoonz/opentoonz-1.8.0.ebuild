@@ -9,10 +9,10 @@ inherit cmake flag-o-matic xdg-utils
 DESCRIPTION="An open-source full-featured 2D animation creation software"
 HOMEPAGE="https://github.com/opentoonz/opentoonz"
 SRC_URI="https://github.com/opentoonz/opentoonz/archive/v${PV}.tar.gz -> ${P}.tar.gz"
-
 LICENSE="BSD libtiff"
 SLOT="0"
 KEYWORDS="~amd64 ~x86"
+RESTRICT="mirror"
 
 BDEPEND="
 	dev-qt/linguist-tools:5
