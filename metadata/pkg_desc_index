@@ -235,6 +235,7 @@ dev-python/flask-script 2.0.6-r4: Flask support for writing external scripts
 dev-python/flask-sphinx-themes 1.0.2-r4: Sphinx Themes for Flask related projects and Flask itself
 dev-python/flask-sqlalchemy 2.4.1-r5: SQLAlchemy support for Flask applications
 dev-python/flask-wtf 0.14.2-r201: Simple integration of Flask and WTForms
+dev-python/flatbuffers 25.12.19: RFC 7049 - Concise Binary Object Representation
 dev-python/flup 1.0.2-r4: Random assortment of WSGI servers
 dev-python/foolscap 0.13.1-r201: RPC protocol for Twisted
 dev-python/fpconst 0.7.3-r4: Python Module for handling IEEE 754 floating point special values
