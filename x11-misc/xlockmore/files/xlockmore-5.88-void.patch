@@ -1,0 +1,57 @@
+diff '--color=auto' -ur xlockmore-5.88.orig/xglock/xglock.c xlockmore-5.88/xglock/xglock.c
+--- xlockmore-5.88.orig/xglock/xglock.c	2020-04-03 04:39:51.000000000 +0200
++++ xlockmore-5.88/xglock/xglock.c	2026-06-22 00:14:38.438960709 +0200
+@@ -714,7 +714,7 @@
+     struct_option_fntcol_callback *cbs_ptr =(struct_option_fntcol_callback *)udata;
+     gtk_widget_hide(cbs_ptr->fntcol_dialog);
+     gtk_widget_destroy(cbs_ptr->fntcol_dialog);
+-    (void) g_free(udata);
++    g_free(udata);
+ }
+ 
+ /*
+@@ -777,7 +777,7 @@
+     gtk_entry_set_text( GTK_ENTRY(cbs_ptr->entry), colorstr );
+     gtk_widget_hide( cbs_ptr->fntcol_dialog );
+     gtk_widget_destroy(cbs_ptr->fntcol_dialog);
+-    (void) g_free(udata);
++    g_free(udata);
+ }
+ 
+ /*
+@@ -910,7 +910,7 @@
+     struct_option_fntcol_callback *cbs_ptr = (struct_option_fntcol_callback *)udata;
+     gtk_widget_hide(cbs_ptr->fntcol_dialog);
+     gtk_widget_destroy(cbs_ptr->fntcol_dialog);
+-    (void) g_free(udata);
++    g_free(udata);
+ }
+ 
+ /*
+@@ -927,7 +927,7 @@
+     gtk_entry_set_text(GTK_ENTRY(cbs_ptr->entry),
+                        gtk_font_selection_dialog_get_font_name(GTK_FONT_SELECTION_DIALOG(cbs_ptr->fntcol_dialog)));
+     gtk_widget_destroy(cbs_ptr->fntcol_dialog);
+-    (void) g_free(udata);
++    g_free(udata);
+ }
+ 
+ /*
+@@ -979,7 +979,7 @@
+     struct_option_fntcol_callback *cbs_ptr= (struct_option_fntcol_callback *)udata;
+     gtk_widget_hide( cbs_ptr->fntcol_dialog );
+     gtk_widget_destroy( cbs_ptr->fntcol_dialog );
+-    (void) g_free(udata);
++    g_free(udata);
+ }
+ 
+ /*
+@@ -1002,7 +1002,7 @@
+         gtk_widget_hide(cbs_ptr->fntcol_dialog);
+         gtk_entry_set_text(GTK_ENTRY(cbs_ptr->entry), filename);
+         gtk_widget_destroy(cbs_ptr->fntcol_dialog);
+-        (void) g_free(udata);
++        g_free(udata);
+     }
+ }
+ 

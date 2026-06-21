@@ -1,4 +1,4 @@
-# Copyright 1999-2025 Gentoo Authors
+# Copyright 1999-2026 Gentoo Authors
 # Distributed under the terms of the GNU General Public License v2
 
 EAPI=8
@@ -55,6 +55,7 @@ PATCHES=(
 	"${FILESDIR}"/xlockmore-5.47-strip.patch
 	"${FILESDIR}"/xlockmore-5.71-fix-build-for-clang16.patch
 	"${FILESDIR}"/xlockmore-5.84-runpath.patch
+	"${FILESDIR}"/xlockmore-5.88-void.patch
 )
 
 src_prepare() {

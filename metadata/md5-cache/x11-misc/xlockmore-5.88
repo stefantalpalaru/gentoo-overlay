@@ -11,6 +11,6 @@ LICENSE=BSD GPL-2
 RDEPEND=x11-libs/libX11 x11-libs/libXext x11-libs/libXmu x11-libs/libXpm x11-libs/libXt gtk? ( x11-libs/gtk+:2 ) imagemagick? ( media-gfx/imagemagick:= ) motif? ( >=x11-libs/motif-2.3:0 ) nas? ( media-libs/nas ) opengl? ( virtual/opengl virtual/glu truetype? ( >=media-libs/ftgl-2.1.3_rc5 ) ) pam? ( sys-libs/pam ) truetype? ( media-libs/freetype:2 ) xinerama? ( x11-libs/libXinerama )
 REQUIRED_USE=|| ( crypt pam ) pam? ( !xlockrc ) xlockrc? ( !pam )
 SLOT=0
-SRC_URI=https://www.sillycycle.com/xlock/xlockmore-5.84.tar.xz https://www.sillycycle.com/xlock/recent-releases/xlockmore-5.84.tar.xz
+SRC_URI=https://www.sillycycle.com/xlock/xlockmore-5.88.tar.xz https://www.sillycycle.com/xlock/recent-releases/xlockmore-5.88.tar.xz
 _eclasses_=gnuconfig	b4fa4889c6f586d6b069215a86dd9e53	toolchain-funcs	58a918e3a42d0156f010dcfd43725be5	libtool	6a96cd90e5da8c7c615015479f46f1a4	autotools	0698802996fcfe9a604eac3c1f6e7112	flag-o-matic	fd3558f73f6503093adee69adf41020d	pam	b56d0c9c20fc5b553f13c8ae165a10a5
-_md5_=a4f3d7680120e45b760fc25a3fd0963d
+_md5_=e9e559ae5152da575123de093cd142cc
