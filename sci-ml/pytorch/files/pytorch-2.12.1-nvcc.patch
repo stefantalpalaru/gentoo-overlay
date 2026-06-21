@@ -1,0 +1,30 @@
+diff '--color=auto' -ur pytorch-2.12.1.orig/torch/utils/cpp_extension.py pytorch-2.12.1/torch/utils/cpp_extension.py
+--- pytorch-2.12.1.orig/torch/utils/cpp_extension.py	2026-06-20 16:44:20.914830969 +0200
++++ pytorch-2.12.1/torch/utils/cpp_extension.py	2026-06-20 16:49:44.870586406 +0200
+@@ -800,7 +800,7 @@
+             try:
+                 original_compiler = self.compiler.compiler_so
+                 if _is_cuda_file(src):
+-                    nvcc = [_join_rocm_home('bin', 'hipcc') if IS_HIP_EXTENSION else _join_cuda_home('bin', 'nvcc')]
++                    nvcc = [_join_rocm_home('bin', 'hipcc') if IS_HIP_EXTENSION else 'nvcc']
+                     self.compiler.set_executable('compiler_so', nvcc)
+                     if isinstance(cflags, dict):
+                         cflags = cflags['nvcc']
+@@ -1000,7 +1000,7 @@
+                         if IS_HIP_EXTENSION:
+                             nvcc = _get_hipcc_path()
+                         else:
+-                            nvcc = _join_cuda_home('bin', 'nvcc')
++                            nvcc = 'nvcc'
+                         if isinstance(self.cflags, dict):
+                             cflags = self.cflags['nvcc']
+                         elif isinstance(self.cflags, list):
+@@ -3040,7 +3040,7 @@
+             if IS_HIP_EXTENSION:
+                 nvcc = _get_hipcc_path()
+             else:
+-                nvcc = _join_cuda_home('bin', 'nvcc')
++                nvcc = 'nvcc'
+         config.append(f'nvcc = {nvcc}')
+     if with_sycl or sycl_dlink_post_cflags:
+         sycl = 'icx' if IS_WINDOWS else 'icpx'

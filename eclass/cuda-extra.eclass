@@ -122,7 +122,7 @@ cuda_gcc() {
 
 	if [[ -n ${gcc_bin} ]]; then
 		if [[ -n ${flag} ]]; then
-			echo "${flag}\"${gcc_bin%/}\""
+			echo "${flag}${gcc_bin%/}"
 		else
 			echo "${gcc_bin%/}"
 		fi

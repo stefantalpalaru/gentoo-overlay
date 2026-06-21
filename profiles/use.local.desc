@@ -699,9 +699,6 @@ sci-ml/gloo:redis - Enable Redis backend for storage via dev-libs/hiredis
 sci-ml/gloo:rocm - Enable ROCm GPU computing support
 sci-ml/onnx:disableStaticReg - Disable Static Registration
 sci-ml/torchvision:rocm - Enable ROCm gpu computing support
-sys-cluster/openmpi:cma - Enable the CMA (Cross Memory Attach) MCA
-sys-cluster/openmpi:peruse - Enable PERUSE interface
-sys-cluster/openmpi:romio - Build the ROMIO MPI-IO component
 sys-fs/zfs:dist-kernel-cap - Prevents upgrading to an unsupported kernel version when combined with USE=dist-kernel
 sys-fs/zfs:minimal - Don't install python scripts (arcstat, dbufstat etc) and avoid dependency on dev-lang/python
 sys-fs/zfs:pam - Install zfs_key pam module, for automatically loading zfs encryption keys for home datasets

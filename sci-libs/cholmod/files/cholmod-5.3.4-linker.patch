@@ -1,0 +1,16 @@
+diff '--color=auto' -ur CHOLMOD.orig/CMakeLists.txt CHOLMOD/CMakeLists.txt
+--- CHOLMOD.orig/CMakeLists.txt	2026-06-20 19:44:15.333353118 +0200
++++ CHOLMOD/CMakeLists.txt	2026-06-20 19:47:55.774618340 +0200
+@@ -389,10 +389,10 @@
+         set_target_properties ( CHOLMOD PROPERTIES
+             POSITION_INDEPENDENT_CODE ON
+             CUDA_SEPARABLE_COMPILATION ON
+-            LINKER_LANGUAGE CUDA )
++            LINKER_LANGUAGE CXX )
+     else ( )
+         set_target_properties ( CHOLMOD PROPERTIES
+-            LINKER_LANGUAGE C )
++            LINKER_LANGUAGE CXX )
+     endif ( )
+ 
+     if ( ${CMAKE_VERSION} VERSION_GREATER_EQUAL "3.25" )

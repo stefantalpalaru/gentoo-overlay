@@ -1,0 +1,39 @@
+diff '--color=auto' -ur blender-5.1.2.orig/intern/cycles/kernel/device/cuda/CMakeLists.txt blender-5.1.2/intern/cycles/kernel/device/cuda/CMakeLists.txt
+--- blender-5.1.2.orig/intern/cycles/kernel/device/cuda/CMakeLists.txt	2026-06-21 00:28:09.361003530 +0200
++++ blender-5.1.2/intern/cycles/kernel/device/cuda/CMakeLists.txt	2026-06-21 00:38:06.774245163 +0200
+@@ -25,7 +25,7 @@
+ )
+ 
+ function(cuda_get_version out_version)
+-  execute_process(COMMAND ${CUDA_NVCC_EXECUTABLE} "--version" OUTPUT_VARIABLE NVCC_OUT)
++  execute_process(COMMAND nvcc "--version" OUTPUT_VARIABLE NVCC_OUT)
+   string(REGEX REPLACE ".*release ([0-9]+)\\.([0-9]+).*" "\\1" CUDA_VERSION_MAJOR "${NVCC_OUT}")
+   string(REGEX REPLACE ".*release ([0-9]+)\\.([0-9]+).*" "\\2" CUDA_VERSION_MINOR "${NVCC_OUT}")
+   set(${out_version} "${CUDA_VERSION_MAJOR}${CUDA_VERSION_MINOR}" PARENT_SCOPE)
+@@ -138,12 +138,12 @@
+     if(WITH_COMPILER_CCACHE AND CCACHE_PROGRAM)
+       add_custom_command(
+         OUTPUT ${cuda_file}
+-        COMMAND ${CCACHE_PROGRAM} ${cuda_nvcc_executable} ${_cuda_nvcc_args}
++        COMMAND ${CCACHE_PROGRAM} nvcc ${_cuda_nvcc_args}
+         DEPENDS ${kernel_sources})
+     else()
+       add_custom_command(
+         OUTPUT ${cuda_file}
+-        COMMAND ${cuda_nvcc_executable} ${_cuda_nvcc_args}
++        COMMAND nvcc ${_cuda_nvcc_args}
+         DEPENDS ${kernel_sources})
+     endif()
+ 
+diff '--color=auto' -ur blender-5.1.2.orig/intern/cycles/kernel/device/optix/CMakeLists.txt blender-5.1.2/intern/cycles/kernel/device/optix/CMakeLists.txt
+--- blender-5.1.2.orig/intern/cycles/kernel/device/optix/CMakeLists.txt	2026-06-21 00:28:09.335569487 +0200
++++ blender-5.1.2/intern/cycles/kernel/device/optix/CMakeLists.txt	2026-06-21 00:38:04.764252773 +0200
+@@ -77,7 +77,7 @@
+         ${SRC_KERNEL_DEVICE_OPTIX_HEADERS}
+         $<TARGET_PROPERTY:cycles_kernel,INTERFACE_SOURCES>
+       COMMAND
+-        ${cuda_nvcc_executable}
++        nvcc
+         --ptx
+         -arch=${arch}
+         ${CUDA_NVCC_FLAGS}
