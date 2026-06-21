@@ -1,0 +1,20 @@
+diff '--color=auto' -ur ansel-4.0.0_pre20260621.orig/CMakeLists.txt ansel-4.0.0_pre20260621/CMakeLists.txt
+--- ansel-4.0.0_pre20260621.orig/CMakeLists.txt	2026-06-21 02:56:09.120163727 +0200
++++ ansel-4.0.0_pre20260621/CMakeLists.txt	2026-06-21 02:59:24.376315410 +0200
+@@ -246,7 +246,7 @@
+ 
+ if(NOT CUSTOM_CFLAGS)
+ 
+-  include(march-mtune)
++  set(MARCH "")
+ 
+   # -------------------------------------------------------------------------
+   # Base flags (shared across all build types)
+diff '--color=auto' -ur ansel-4.0.0_pre20260621.orig/src/external/rawspeed/cmake/compiler-flags.cmake ansel-4.0.0_pre20260621/src/external/rawspeed/cmake/compiler-flags.cmake
+--- ansel-4.0.0_pre20260621.orig/src/external/rawspeed/cmake/compiler-flags.cmake	2026-06-21 02:56:07.377170922 +0200
++++ ansel-4.0.0_pre20260621/src/external/rawspeed/cmake/compiler-flags.cmake	2026-06-21 02:57:35.874805595 +0200
+@@ -1,4 +1,3 @@
+-include(CpuMarch)
+ 
+ set(CMAKE_CXX_STANDARD 20)
+ set(CMAKE_CXX_STANDARD_REQUIRED ON)

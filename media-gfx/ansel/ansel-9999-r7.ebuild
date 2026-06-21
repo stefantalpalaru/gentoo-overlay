@@ -1,18 +1,15 @@
-# Copyright 1999-2025 Gentoo Authors
+# Copyright 1999-2026 Gentoo Authors
 # Distributed under the terms of the GNU General Public License v2
 
 EAPI=8
-LUA_COMPAT=( lua5-4 )
 
 inherit cmake flag-o-matic git-r3 plocale toolchain-funcs xdg
 
 DESCRIPTION="Darktable 4.0 fork"
 HOMEPAGE="https://ansel.photos/en/"
 EGIT_REPO_URI="https://github.com/aurelienpierreeng/ansel"
-EGIT_COMMIT="15fdc3cd38db32af7d4d9dde1f8f2765e387719a"
 LICENSE="GPL-3 CC-BY-3.0"
 SLOT="0"
-KEYWORDS="~amd64 ~arm64 -x86"
 PLOCALES="af ca cs da de el eo es fi fr gl he hu it ja nb nl pl pt_BR pt_PT ro ru sk sl sq sr sr@latin sv th tr uk zh_CN zh_TW"
 IUSE="avif colord cpu_flags_x86_avx cpu_flags_x86_sse3 cups geolocation gmic keyring graphicsmagick heif jpeg2k kwallet lto nls opencl openmp openexr test webp"
 RESTRICT="!test? ( test )"
@@ -65,9 +62,8 @@ RDEPEND="${DEPEND}
 	kwallet? ( >=kde-frameworks/kwallet-5.34.0-r1 )"
 
 PATCHES=(
-	"${FILESDIR}"/ansel-4.0.0_cmake-march-autodetection-r1.patch
+	"${FILESDIR}"/ansel-4.0.0_cmake-march-autodetection-r2.patch
 	"${FILESDIR}"/ansel-4.0.0_jsonschema-automagic.patch
-	"${FILESDIR}"/ansel-4.0.0_libxcf-cmake.patch
 	"${FILESDIR}"/ansel-4.0.0_cmake-musl.patch
 	"${FILESDIR}"/ansel-4.0.0_rawspeed-cmake.patch
 )
@@ -97,8 +93,6 @@ src_prepare() {
 
 	sed -i -e 's:/appdata:/metainfo:g' data/CMakeLists.txt || die
 
-	plocale_find_changes "po" "" ".po"
-
 	cmake_src_prepare
 }
 
@@ -118,8 +112,6 @@ src_configure() {
 		-DUSE_GRAPHICSMAGICK=$(usex graphicsmagick)
 		-DUSE_KWALLET=$(usex kwallet)
 		-DUSE_LIBSECRET=$(usex keyring)
-		-DUSE_LUA=OFF
-		-DUSE_BUNDLED_LUA=OFF
 		-DUSE_MAP=$(usex geolocation)
 		-DUSE_NLS=$(usex nls)
 		-DUSE_OPENCL=$(usex opencl)
