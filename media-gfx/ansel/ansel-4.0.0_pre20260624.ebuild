@@ -8,7 +8,7 @@ inherit cmake flag-o-matic git-r3 plocale toolchain-funcs xdg
 DESCRIPTION="Darktable 4.0 fork"
 HOMEPAGE="https://ansel.photos/en/"
 EGIT_REPO_URI="https://github.com/aurelienpierreeng/ansel"
-EGIT_COMMIT="8f7c553fb6fff2cfb569096dd516b8cda4b3e6ee"
+EGIT_COMMIT="5a88a9010e947a296f3ae4608190c61371ef2f74"
 LICENSE="GPL-3 CC-BY-3.0"
 SLOT="0"
 KEYWORDS="~amd64 ~arm64 ~x86"
