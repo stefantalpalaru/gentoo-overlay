@@ -16,7 +16,7 @@ IUSE="test"
 RESTRICT="!test? ( test ) mirror network-sandbox"
 
 BDEPEND="
-	>=dev-lang/go-1.26.3:=
+	>=dev-lang/go-1.26.4:=
 "
 
 src_compile() {
