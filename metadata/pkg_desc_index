@@ -1035,7 +1035,7 @@ virtual/python-greenlet 1.0-r7: A virtual for Python greenlet module
 virtual/python-ipaddress 1.0-r5: A virtual for Python ipaddress module
 virtual/python-pathlib 1.0-r4: A virtual for Python pathlib module
 virtual/python-typing 0-r6: A virtual for the Python typing module
-www-apache/mod_wsgi 6.0.4: An Apache2 module for running Python WSGI applications
+www-apache/mod_wsgi 6.0.5: An Apache2 module for running Python WSGI applications
 www-apps/jackett-bin 0.24.185-r1: API Support for your favorite torrent trackers
 www-misc/kiwix-desktop 2.5.1: cross-platform viewer/manager for ZIM archives
 www-misc/libkiwix 14.2.1: Kiwix software suite core: code shared by all Kiwix ports
