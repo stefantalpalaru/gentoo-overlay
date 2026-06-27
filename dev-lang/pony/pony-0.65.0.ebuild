@@ -2,7 +2,7 @@
 # Distributed under the terms of the GNU General Public License v2
 
 EAPI=8
-LLVM_COMPAT=( 17 18 19 20 21 )
+LLVM_COMPAT=( 17 18 19 20 21 22 )
 CMAKE_IN_SOURCE_BUILD=1
 
 inherit cmake git-r3 llvm-r2
@@ -37,10 +37,6 @@ BDEPEND="
 	virtual/pkgconfig
 "
 
-PATCHES=(
-	"${FILESDIR}"/pony-0.61.1-lld.patch
-)
-
 pkg_setup() {
 	llvm-r2_pkg_setup
 
@@ -62,7 +58,7 @@ src_prepare() {
 		Makefile || die
 }
 
-export common_make_args="config=release verbose=yes PONY_USES=\"-DPONY_LINKER=\${LD}\""
+export common_make_args="config=release verbose=yes"
 
 src_configure() {
 	emake ${common_make_args} build_flags="${MAKEOPTS}" libs
@@ -84,4 +80,5 @@ src_test() {
 
 src_install() {
 	emake ${common_make_args} build_flags="${MAKEOPTS}" prefix="${ED}/usr" install
+	rm -rf "${ED}/usr/include"
 }
