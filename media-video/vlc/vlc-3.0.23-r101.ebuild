@@ -438,6 +438,8 @@ src_configure() {
 	append-flags -fno-strict-aliasing
 	filter-lto
 
+	append-flags -fpermissive
+
 	# Compatibility fix for Samba 4.
 	use samba && append-cppflags "-I${ESYSROOT}/usr/include/samba-4.0"
 
