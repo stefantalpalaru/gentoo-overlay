@@ -158,6 +158,8 @@ PATCHES=(
 	"${FILESDIR}"/caffe2-2.10.0-nvrtc.patch
 	"${FILESDIR}"/caffe2-2.11.0-mimalloc.patch
 	"${FILESDIR}"/caffe2-2.12.0-cudss.patch
+	"${FILESDIR}"/caffe2-2.12.0-rocm-distributed-link.patch
+	"${FILESDIR}"/caffe2-2.12.0-rocm-assert-fix.patch
 )
 
 src_prepare() {
