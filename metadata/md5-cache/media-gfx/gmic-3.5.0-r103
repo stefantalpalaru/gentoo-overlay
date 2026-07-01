@@ -4,7 +4,7 @@ DEPEND=fftw? ( sci-libs/fftw:3.0=[threads] ) gimp? ( >=media-gfx/gimp-2.8.0:0/2 
 DESCRIPTION=GREYC's Magic Image Converter
 EAPI=8
 HOMEPAGE=http://gmic.eu/ https://github.com/GreycLab/gmic https://framagit.org/dtschump/gmic https://github.com/GreycLab/gmic-qt
-INHERIT=bash-completion-r1 cmake flag-o-matic qmake-utils toolchain-funcs
+INHERIT=cmake flag-o-matic qmake-utils shell-completion toolchain-funcs
 IUSE=bash-completion +cli ffmpeg +fftw gimp graphicsmagick gui jpeg opencv openexr +openmp png static-libs tiff X
 KEYWORDS=~amd64 ~arm64 ~x86
 LICENSE=CeCILL-2 GPL-3
@@ -13,5 +13,5 @@ REQUIRED_USE=|| ( cli gimp gui ) gimp? ( png fftw X ) gui? ( png fftw X )
 RESTRICT=mirror network-sandbox
 SLOT=0
 SRC_URI=https://github.com/GreycLab/gmic/archive/v.3.5.0.tar.gz -> gmic-3.5.0.gh.tar.gz https://gmic.eu/gmic_stdlib_community350.h gimp? ( https://github.com/GreycLab/gmic-qt/archive/v.3.5.0.tar.gz -> gmic-qt-3.5.0.gh.tar.gz ) gui? ( https://github.com/GreycLab/gmic-qt/archive/v.3.5.0.tar.gz -> gmic-qt-3.5.0.gh.tar.gz )
-_eclasses_=toolchain-funcs	58a918e3a42d0156f010dcfd43725be5	shell-completion	63a62de3ca49c798ee6e89f190e45d0e	bash-completion-r1	4386cfb12ede6cd8f0c1987d2e88da5f	flag-o-matic	fd3558f73f6503093adee69adf41020d	multiprocessing	45d0620f25c2f063ad6276ecd9ed9399	ninja-utils	d063ea1900a793f93eb095010d6d9156	xdg-utils	42869b3c8d86a70ef3cf75165a395e09	cmake	c54f532543a549f7318d6c49aaf8e953	qmake-utils	28f99dba9219112f4785f46ed426a021
-_md5_=b6870b058163d91cec4971d9eef12a5c
+_eclasses_=toolchain-funcs	58a918e3a42d0156f010dcfd43725be5	flag-o-matic	fd3558f73f6503093adee69adf41020d	multiprocessing	45d0620f25c2f063ad6276ecd9ed9399	ninja-utils	d063ea1900a793f93eb095010d6d9156	xdg-utils	42869b3c8d86a70ef3cf75165a395e09	cmake	c54f532543a549f7318d6c49aaf8e953	qmake-utils	28f99dba9219112f4785f46ed426a021	shell-completion	63a62de3ca49c798ee6e89f190e45d0e
+_md5_=219a2be39d8a549804d346136e8b0c19

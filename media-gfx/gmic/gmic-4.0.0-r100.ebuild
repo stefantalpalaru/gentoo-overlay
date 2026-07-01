@@ -4,11 +4,11 @@
 EAPI=8
 CMAKE_MAKEFILE_GENERATOR="emake"
 CMAKE_BUILD_TYPE=Release
-GMIC_COMMIT="73017a21f014c8a0a1cb3d3095433f6a73db6708"
-GMIC_QT_COMMIT="6e596125d2abab16159cb68bef1fa3a465efd000"
+GMIC_COMMIT="3699550b719b198694764b26ac133812345ad0e0"
+GMIC_QT_COMMIT="6ae9edc8853a1b22359750a79b38fe3cdaffa78d"
 GMIC_QT_URI="https://github.com/GreycLab/gmic-qt/archive/${GMIC_QT_COMMIT}.tar.gz -> gmic-qt-${GMIC_QT_COMMIT}.gh.tar.gz"
 
-inherit bash-completion-r1 cmake flag-o-matic qmake-utils toolchain-funcs
+inherit cmake flag-o-matic qmake-utils shell-completion toolchain-funcs
 
 DESCRIPTION="GREYC's Magic Image Converter"
 HOMEPAGE="http://gmic.eu/

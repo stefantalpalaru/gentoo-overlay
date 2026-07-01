@@ -1,11 +1,11 @@
-# Copyright 1999-2025 Gentoo Authors
+# Copyright 1999-2026 Gentoo Authors
 # Distributed under the terms of the GNU General Public License v2
 
 EAPI=8
 CMAKE_MAKEFILE_GENERATOR="emake"
 CMAKE_BUILD_TYPE=Release
 
-inherit bash-completion-r1 cmake flag-o-matic qmake-utils toolchain-funcs
+inherit cmake flag-o-matic qmake-utils shell-completion toolchain-funcs
 
 DESCRIPTION="GREYC's Magic Image Converter"
 HOMEPAGE="http://gmic.eu/
