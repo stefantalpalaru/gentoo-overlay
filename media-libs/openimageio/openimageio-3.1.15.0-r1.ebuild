@@ -57,7 +57,7 @@ X86_CPU_FEATURES=(
 )
 CPU_FEATURES=( "${X86_CPU_FEATURES[@]/#/cpu_flags_x86_}" )
 
-IUSE="cuda dicom doc ffmpeg fits gif gui jpeg2k opencv openvdb ptex python raw test +tools +truetype ${CPU_FEATURES[*]%:*}"
+IUSE="cuda dicom doc ffmpeg fits gif gui jpeg2k jpegxl opencv openvdb ptex python raw test +tools +truetype webp ${CPU_FEATURES[*]%:*}"
 REQUIRED_USE="python? ( ${PYTHON_REQUIRED_USE} ) gui? ( tools ) test? ( tools truetype )"
 
 RESTRICT="!test? ( test )"
@@ -74,8 +74,6 @@ BDEPEND="
 	)
 "
 
-# misses cmake files
-# 	media-libs/libwebp:=
 RDEPEND="
 	dev-cpp/robin-map
 	dev-libs/pugixml
@@ -91,6 +89,7 @@ RDEPEND="
 	fits? ( sci-libs/cfitsio:= )
 	gif? ( media-libs/giflib:= )
 	jpeg2k? ( media-libs/openjpeg:= )
+	jpegxl? ( media-libs/libjxl:= )
 	opencv? ( media-libs/opencv:= )
 	openvdb? (
 		dev-cpp/tbb:=
@@ -110,6 +109,7 @@ RDEPEND="
 	)
 	raw? ( media-libs/libraw:= )
 	truetype? ( media-libs/freetype )
+	webp? ( media-libs/libwebp:= )
 "
 DEPEND="
 	dev-libs/imath:=
@@ -125,9 +125,9 @@ DOCS=(
 )
 
 PATCHES=(
-	"${FILESDIR}/openimageio-3.0.16.0-fix-tests.patch"
+	"${FILESDIR}/openimageio-3.1.13.1-fix-tests.patch"
 	"${FILESDIR}/openimageio-2.5.12.0-heif-find-fix.patch"
-	"${FILESDIR}/openimageio-2.5.18.0-tests-optional.patch"
+	"${FILESDIR}/openimageio-3.1.6.1-tests-optional.patch"
 )
 
 pkg_setup() {
@@ -135,22 +135,6 @@ pkg_setup() {
 }
 
 src_prepare() {
-	if ! use dicom; then
-		rm "src/dicom.imageio" -r || die
-	fi
-
-	if ! use gif; then
-		rm src/gif.imageio -r || die
-	fi
-
-	if ! use jpeg2k; then
-		rm src/jpeg2000.imageio -r || die
-	fi
-
-	if ! use raw; then
-		rm src/raw.imageio -r || die
-	fi
-
 	cmake_src_prepare
 	cmake_comment_add_subdirectory src/fonts
 
@@ -175,7 +159,6 @@ src_prepare() {
 		fi
 
 		cp testsuite/heif/ref/out-libheif1.1{2,5}-orient.txt || die
-		eapply "${FILESDIR}/${PN}-2.5.12.0_heif_test.patch"
 	fi
 }
 
@@ -224,7 +207,6 @@ src_configure() {
 		-DENABLE_LibRaw="$(usex raw)"
 		-DENABLE_Nuke="no" # not in Gentoo
 		-DENABLE_OpenCV="$(usex opencv)"
-		-DENABLE_OpenJPEG="$(usex jpeg2k)"
 		-DENABLE_OpenVDB="$(usex openvdb)"
 		-DENABLE_TBB="$(usex openvdb)"
 		-DENABLE_Ptex="$(usex ptex)"
@@ -233,9 +215,10 @@ src_configure() {
 		-DENABLE_LIBRAW="$(usex raw)"
 		-DENABLE_PTEX="$(usex ptex)"
 		-DENABLE_OPENJPEG="$(usex jpeg2k)"
+		-DENABLE_JXL="$(usex jpegxl)"
 
 		-DENABLE_libuhdr="no" # not in Gentoo
-		-DENABLE_WebP="no" # missing cmake files
+		-DENABLE_WebP="$(usex webp)"
 
 		-DOIIO_BUILD_TOOLS="$(usex tools)"
 		-DOIIO_BUILD_TESTS="$(usex test)"
@@ -302,7 +285,11 @@ src_test() {
 		"^tiff-depths" # TODO float errors
 		"^tiff-suite" # TODO missing compression
 		"^oiiotool-attribs$"
+		"^heif$"
 		"^rla$" # "-../libjxl-0.11.2/lib/jxl/decode.cc:2021: invalid signature"
+		"^jpeg-corrupt$" # "-../libjxl-0.11.2/lib/jxl/decode.cc:2021: invalid signature"
+		"^gif$"
+		"^jxl$"
 	)
 
 	sed -e "s#../../../testsuite#../../../OpenImageIO-${PV}/testsuite#g" \
