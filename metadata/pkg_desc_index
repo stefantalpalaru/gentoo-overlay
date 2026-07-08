@@ -856,6 +856,7 @@ dev-qt/qtxmlpatterns 5.15.19: XPath, XQuery, XSLT, and XML Schema validation lib
 dev-util/exercism 3.5.8: Command line client for https://exercism.io
 dev-util/gotags 1.4.1-r2: ctags-compatible tag generator for Go
 dev-util/nvidia-cuda-toolkit 12.9.2 13.3.0: NVIDIA CUDA Toolkit (compiler and friends)
+dev-util/shadowman 5-r100: Unified compiler shadow link directory updater
 dev-util/tla-toolbox-bin 1.8.0-r1: IDE for TLA+
 dev-vcs/bzr 2.7.1_pre-r4: Bazaar is a next generation distributed version control system
 dev-vcs/hg-fast-export 260405-r1: mercurial to git converter using git-fast-import
