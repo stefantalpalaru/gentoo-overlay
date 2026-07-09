@@ -1,0 +1,42 @@
+diff '--color=auto' -ur pytorch-v2.13.0.orig/c10/util/Exception.cpp pytorch-v2.13.0/c10/util/Exception.cpp
+--- pytorch-v2.13.0.orig/c10/util/Exception.cpp	2026-07-08 19:44:27.000000000 +0200
++++ pytorch-v2.13.0/c10/util/Exception.cpp	2026-07-08 22:08:30.722494389 +0200
+@@ -265,7 +265,7 @@
+   // During static initialization (before InitGoogleLogging), glog's global
+   // flags may not be constructed yet. Accessing them causes SIOF crashes
+   // (T253115013, D96553733). Fall back to stderr in that case.
+-  if (!::google::glog_internal_namespace_::IsGoogleLoggingInitialized()) {
++  if (!::google::IsGoogleLoggingInitialized()) {
+     std::cerr << warning.source_location().file << ':'
+               << warning.source_location().line
+               << ": Warning: " << warning.msg() << " (function "
+diff '--color=auto' -ur pytorch-v2.13.0.orig/c10/util/Logging.cpp pytorch-v2.13.0/c10/util/Logging.cpp
+--- pytorch-v2.13.0.orig/c10/util/Logging.cpp	2026-07-08 22:07:44.484591273 +0200
++++ pytorch-v2.13.0/c10/util/Logging.cpp	2026-07-08 21:04:54.437815039 +0200
+@@ -385,23 +385,13 @@
+     google::GLOG_WARNING,
+     "The minimum log level that caffe2 will output.");
+ 
+-// Google glog's api does not have an external function that allows one to check
+-// if glog is initialized or not. It does have an internal function - so we are
+-// declaring it here. This is a hack but has been used by a bunch of others too
+-// (e.g. Torch).
+-namespace google {
+-namespace glog_internal_namespace_ {
+-bool IsGoogleLoggingInitialized();
+-} // namespace glog_internal_namespace_
+-} // namespace google
+-
+ namespace c10 {
+ namespace {
+ 
+ void initGoogleLogging(char const* name) {
+ #if !defined(_MSC_VER)
+   // This trick can only be used on UNIX platforms
+-  if (!::google::glog_internal_namespace_::IsGoogleLoggingInitialized())
++  if (!::google::IsGoogleLoggingInitialized())
+ #endif
+   {
+     ::google::InitGoogleLogging(name);
+Only in pytorch-v2.13.0.orig/c10/util: Logging.cpp.orig
+Only in pytorch-v2.13.0: .cache

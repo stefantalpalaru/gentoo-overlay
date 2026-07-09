@@ -1,0 +1,26 @@
+diff '--color=auto' -ur pytorch-v2.13.0.orig/caffe2/CMakeLists.txt pytorch-v2.13.0/caffe2/CMakeLists.txt
+--- pytorch-v2.13.0.orig/caffe2/CMakeLists.txt	2026-07-08 20:53:23.704816367 +0200
++++ pytorch-v2.13.0/caffe2/CMakeLists.txt	2026-07-08 20:55:10.217549263 +0200
+@@ -944,7 +944,7 @@
+   # Use CXX linker (clang-cl) which handles MSVC-style link flags natively.
+   # HIP device code is compiled with -fno-gpu-rdc so no device link step needed.
+   set_target_properties(torch_hip PROPERTIES LINKER_LANGUAGE CXX)
+-  if(USE_FLASH_ATTENTION OR USE_MEM_EFF_ATTENTION)
++  if(USE_FLASH_ATTENTION)
+     target_link_libraries(torch_hip PRIVATE __caffe2_aotriton)
+   endif()
+   set(CUDA_LINK_LIBRARIES_KEYWORD)
+diff '--color=auto' -ur pytorch-v2.13.0.orig/cmake/External/aotriton.cmake pytorch-v2.13.0/cmake/External/aotriton.cmake
+--- pytorch-v2.13.0.orig/cmake/External/aotriton.cmake	2026-07-08 20:53:23.315306949 +0200
++++ pytorch-v2.13.0/cmake/External/aotriton.cmake	2026-07-08 20:55:55.265436295 +0200
+@@ -240,10 +240,6 @@
+ 
+   # Note it is INSTALL"ED"
+   if(DEFINED ENV{AOTRITON_INSTALLED_PREFIX})
+-    install(DIRECTORY
+-            $ENV{AOTRITON_INSTALLED_PREFIX}/${CMAKE_INSTALL_LIBDIR}
+-            $ENV{AOTRITON_INSTALLED_PREFIX}/include
+-            DESTINATION ${__AOTRITON_INSTALL_DIR})
+     set(__AOTRITON_INSTALL_DIR "$ENV{AOTRITON_INSTALLED_PREFIX}")
+     message(STATUS "Using Preinstalled AOTriton at ${__AOTRITON_INSTALL_DIR}")
+   elseif(DEFINED ENV{AOTRITON_INSTALL_FROM_SOURCE})

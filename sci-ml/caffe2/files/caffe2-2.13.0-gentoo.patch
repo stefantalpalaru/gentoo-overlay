@@ -1,0 +1,279 @@
+diff '--color=auto' -ur pytorch-v2.13.0.orig/aten/src/ATen/CMakeLists.txt pytorch-v2.13.0/aten/src/ATen/CMakeLists.txt
+--- pytorch-v2.13.0.orig/aten/src/ATen/CMakeLists.txt	2026-07-09 14:33:47.519895647 +0200
++++ pytorch-v2.13.0/aten/src/ATen/CMakeLists.txt	2026-07-09 14:27:05.874836696 +0200
+@@ -585,9 +585,6 @@
+ 
+ if(USE_CUDA)
+   list(APPEND ATen_CUDA_INCLUDE ${CMAKE_CURRENT_SOURCE_DIR}/cuda)
+-  # Next two lines are needed because TunableOp uses third-party/fmt
+-  list(APPEND ATen_CUDA_INCLUDE $<TARGET_PROPERTY:fmt::fmt-header-only,INTERFACE_INCLUDE_DIRECTORIES>)
+-  list(APPEND ATen_CUDA_DEPENDENCY_LIBS fmt::fmt-header-only)
+   list(APPEND ATen_CUDA_CU_SRCS
+     ${cuda_cu}
+     ${native_cuda_cu}
+@@ -646,9 +643,6 @@
+     )
+   endif()
+ 
+-  # Next two lines are needed because TunableOp uses third-party/fmt
+-  list(APPEND ATen_HIP_INCLUDE $<TARGET_PROPERTY:fmt::fmt-header-only,INTERFACE_INCLUDE_DIRECTORIES>)
+-  list(APPEND ATen_HIP_DEPENDENCY_LIBS fmt::fmt-header-only)
+   if(USE_FLASH_ATTENTION AND USE_ROCM_CK_SDPA)
+     list(APPEND ATen_HIP_INCLUDE ${CMAKE_CURRENT_SOURCE_DIR}/native/transformers/hip/flash_attn/ck)
+   endif()
+diff '--color=auto' -ur pytorch-v2.13.0.orig/c10/CMakeLists.txt pytorch-v2.13.0/c10/CMakeLists.txt
+--- pytorch-v2.13.0.orig/c10/CMakeLists.txt	2026-07-09 14:33:47.519975217 +0200
++++ pytorch-v2.13.0/c10/CMakeLists.txt	2026-07-09 14:27:06.145788247 +0200
+@@ -92,7 +92,7 @@
+   endif()
+ 
+   target_link_libraries(c10 PUBLIC headeronly)
+-  target_link_libraries(c10 PRIVATE fmt::fmt-header-only)
++  target_link_libraries(c10 PRIVATE fmt)
+   target_link_libraries(c10 PRIVATE nlohmann)
+   target_link_libraries(c10 PRIVATE moodycamel)
+ 
+diff '--color=auto' -ur pytorch-v2.13.0.orig/caffe2/CMakeLists.txt pytorch-v2.13.0/caffe2/CMakeLists.txt
+--- pytorch-v2.13.0.orig/caffe2/CMakeLists.txt	2026-07-09 14:33:47.520070036 +0200
++++ pytorch-v2.13.0/caffe2/CMakeLists.txt	2026-07-09 14:27:06.119960965 +0200
+@@ -90,7 +90,7 @@
+ # Note: the folders that are being commented out have not been properly
+ # addressed yet.
+ 
+-if(NOT MSVC AND USE_XNNPACK)
++if(FALSE)
+   if(NOT TARGET fxdiv)
+     set(FXDIV_BUILD_TESTS OFF CACHE BOOL "")
+     set(FXDIV_BUILD_BENCHMARKS OFF CACHE BOOL "")
+@@ -1224,7 +1224,6 @@
+ endif()
+ 
+ if(NOT MSVC AND USE_XNNPACK)
+-  TARGET_LINK_LIBRARIES(torch_cpu PRIVATE fxdiv)
+ endif()
+ 
+ # ==========================================================
+diff '--color=auto' -ur pytorch-v2.13.0.orig/cmake/Codegen.cmake pytorch-v2.13.0/cmake/Codegen.cmake
+--- pytorch-v2.13.0.orig/cmake/Codegen.cmake	2026-07-09 14:33:47.520165166 +0200
++++ pytorch-v2.13.0/cmake/Codegen.cmake	2026-07-09 14:27:05.681406012 +0200
+@@ -64,7 +64,7 @@
+   if(MSVC)
+     set(OPT_FLAG "/fp:strict ")
+   else(MSVC)
+-    set(OPT_FLAG "-O3 ")
++    set(OPT_FLAG " ")
+     if("${CMAKE_BUILD_TYPE}" MATCHES "Debug")
+       set(OPT_FLAG " ")
+     endif()
+diff '--color=auto' -ur pytorch-v2.13.0.orig/cmake/Dependencies.cmake pytorch-v2.13.0/cmake/Dependencies.cmake
+--- pytorch-v2.13.0.orig/cmake/Dependencies.cmake	2026-07-09 14:33:47.520237856 +0200
++++ pytorch-v2.13.0/cmake/Dependencies.cmake	2026-07-09 14:27:05.723643786 +0200
+@@ -1636,7 +1636,6 @@
+ set(FMT_INSTALL ON)
+ set(TEMP_BUILD_SHARED_LIBS ${BUILD_SHARED_LIBS})
+ set(BUILD_SHARED_LIBS OFF CACHE BOOL "Build shared libs" FORCE)
+-add_subdirectory(${PROJECT_SOURCE_DIR}/third_party/fmt)
+ 
+ # Disable compiler feature checks for `fmt`.
+ #
+@@ -1645,7 +1644,6 @@
+ # CMAKE_CXX_FLAGS in ways that break feature checks. Since we already know
+ # `fmt` is compatible with a superset of the compilers that PyTorch is, it
+ # shouldn't be too bad to just disable the checks.
+-set_target_properties(fmt-header-only PROPERTIES INTERFACE_COMPILE_FEATURES "")
+ 
+ # Keep fmt's header-only type layout stable across mixed C++ modes by forcing
+ # one no_unique_address spelling for all translation units.
+@@ -1654,11 +1652,8 @@
+ else()
+   set(_fmt_no_unique_address "[[no_unique_address]]")
+ endif()
+-target_compile_definitions(fmt PUBLIC "FMT_NO_UNIQUE_ADDRESS=${_fmt_no_unique_address}")
+-target_compile_definitions(fmt-header-only INTERFACE "FMT_NO_UNIQUE_ADDRESS=${_fmt_no_unique_address}")
+ unset(_fmt_no_unique_address)
+ 
+-list(APPEND Caffe2_DEPENDENCY_LIBS fmt::fmt-header-only)
+ set(BUILD_SHARED_LIBS ${TEMP_BUILD_SHARED_LIBS} CACHE BOOL "Build shared libs" FORCE)
+ 
+ # ---[ Kineto
+diff '--color=auto' -ur pytorch-v2.13.0.orig/cmake/External/nnpack.cmake pytorch-v2.13.0/cmake/External/nnpack.cmake
+--- pytorch-v2.13.0.orig/cmake/External/nnpack.cmake	2026-07-09 14:33:47.520309166 +0200
++++ pytorch-v2.13.0/cmake/External/nnpack.cmake	2026-07-09 14:27:05.681647961 +0200
+@@ -56,7 +56,7 @@
+   set(PTHREADPOOL_SOURCE_DIR "${CAFFE2_THIRD_PARTY_ROOT}/pthreadpool" CACHE STRING "pthreadpool source directory")
+   set(GOOGLETEST_SOURCE_DIR "${CAFFE2_THIRD_PARTY_ROOT}/googletest" CACHE STRING "Google Test source directory")
+ 
+-  if(NOT TARGET nnpack)
++  if(FALSE)
+     set(NNPACK_BUILD_TESTS OFF CACHE BOOL "")
+     set(NNPACK_BUILD_BENCHMARKS OFF CACHE BOOL "")
+     set(NNPACK_LIBRARY_TYPE "static" CACHE STRING "")
+diff '--color=auto' -ur pytorch-v2.13.0.orig/cmake/PostBuildSteps.cmake pytorch-v2.13.0/cmake/PostBuildSteps.cmake
+--- pytorch-v2.13.0.orig/cmake/PostBuildSteps.cmake	2026-07-09 14:33:47.520340765 +0200
++++ pytorch-v2.13.0/cmake/PostBuildSteps.cmake	2026-07-09 14:33:24.109698479 +0200
+@@ -21,7 +21,7 @@
+   execute_process(
+     COMMAND \"${_python_exe}\"
+       \"${_project_src}/tools/wrap_headers.py\"
+-      \"\${CMAKE_INSTALL_PREFIX}/${TORCH_INSTALL_INCLUDE_DIR}\"
++      \"\${CMAKE_INSTALL_INCLUDEDIR}\"
+     COMMAND_ERROR_IS_FATAL ANY
+   )
+ ")
+@@ -49,12 +49,12 @@
+     # The DLL lives in bin/ next to the lib/ that contains the import library.
+     set(_omp_dll "${_omp_prefix}/bin/libiomp5md.dll")
+     if(EXISTS "${_omp_dll}")
+-      install(FILES "${_omp_dll}" DESTINATION "${TORCH_INSTALL_LIB_DIR}")
++      install(FILES "${_omp_dll}" DESTINATION "${CMAKE_INSTALL_LIBDIR}")
+     else()
+       # Fallback: DLL in the same directory as the import library.
+       file(GLOB _omp_dll_fallback "${_omp_lib_dir}/libiomp5md.dll")
+       if(_omp_dll_fallback)
+-        install(FILES ${_omp_dll_fallback} DESTINATION "${TORCH_INSTALL_LIB_DIR}")
++        install(FILES ${_omp_dll_fallback} DESTINATION "${CMAKE_INSTALL_LIBDIR}")
+       endif()
+     endif()
+     # Also install the stubs library if present (libiompstubs5md.dll).
+@@ -63,7 +63,7 @@
+       file(GLOB _omp_stubs "${_omp_lib_dir}/libiompstubs5md.dll")
+     endif()
+     if(_omp_stubs)
+-      install(FILES ${_omp_stubs} DESTINATION "${TORCH_INSTALL_LIB_DIR}")
++      install(FILES ${_omp_stubs} DESTINATION "${CMAKE_INSTALL_LIBDIR}")
+     endif()
+   endif()
+ 
+@@ -72,11 +72,11 @@
+   # fall back to libuv_ROOT/bin/uv.dll which Windows CI sets.
+   if(USE_DISTRIBUTED)
+     if(libuv_DLL_PATH AND EXISTS "${libuv_DLL_PATH}")
+-      install(FILES "${libuv_DLL_PATH}" DESTINATION "${TORCH_INSTALL_LIB_DIR}")
++      install(FILES "${libuv_DLL_PATH}" DESTINATION "${CMAKE_INSTALL_LIBDIR}")
+     elseif(DEFINED ENV{libuv_ROOT})
+       file(GLOB _uv_dll "$ENV{libuv_ROOT}/bin/uv.dll")
+       if(_uv_dll)
+-        install(FILES ${_uv_dll} DESTINATION "${TORCH_INSTALL_LIB_DIR}")
++        install(FILES ${_uv_dll} DESTINATION "${CMAKE_INSTALL_LIBDIR}")
+       endif()
+     endif()
+   endif()
+@@ -105,20 +105,20 @@
+     foreach(_pattern ${_cuda_dll_patterns})
+       file(GLOB _dlls "${_pattern}")
+       if(_dlls)
+-        install(FILES ${_dlls} DESTINATION "${TORCH_INSTALL_LIB_DIR}")
++        install(FILES ${_dlls} DESTINATION "${CMAKE_INSTALL_LIBDIR}")
+       endif()
+     endforeach()
+ 
+     # NvToolsExt (legacy, may not exist on all systems).
+     set(_nvtoolsext "C:/Program Files/NVIDIA Corporation/NvToolsExt/bin/x64/nvToolsExt64_1.dll")
+     if(EXISTS "${_nvtoolsext}")
+-      install(FILES "${_nvtoolsext}" DESTINATION "${TORCH_INSTALL_LIB_DIR}")
++      install(FILES "${_nvtoolsext}" DESTINATION "${CMAKE_INSTALL_LIBDIR}")
+     endif()
+ 
+     # zlibwapi (needed by some CUDA libraries).
+     if(EXISTS "C:/Windows/System32/zlibwapi.dll")
+       install(FILES "C:/Windows/System32/zlibwapi.dll"
+-              DESTINATION "${TORCH_INSTALL_LIB_DIR}")
++              DESTINATION "${CMAKE_INSTALL_LIBDIR}")
+     endif()
+   endif()
+ endif()
+@@ -133,7 +133,7 @@
+   # of the OpenMP shared library (e.g. /path/to/libomp.dylib).
+   if(OpenMP_libomp_LIBRARY AND EXISTS "${OpenMP_libomp_LIBRARY}")
+     install(FILES "${OpenMP_libomp_LIBRARY}"
+-            DESTINATION "${TORCH_INSTALL_LIB_DIR}")
++            DESTINATION "${CMAKE_INSTALL_LIBDIR}")
+     # Install omp.h so Inductor's C++ backend can find it at runtime.
+     # FindOpenMP doesn't export an include-dir variable; OpenMP_C_FLAGS
+     # carries -I<path> on macOS, so parse it for the header location.
+@@ -158,7 +158,7 @@
+         COMMAND \"${_python_exe}\"
+           \"${_project_src}/tools/embed_libomp_macos.py\"
+           --libomp-path \"${OpenMP_libomp_LIBRARY}\"
+-          --lib-dir \"\${CMAKE_INSTALL_PREFIX}/${TORCH_INSTALL_LIB_DIR}\"
++          --lib-dir \"\${CMAKE_INSTALL_LIBDIR}\"
+         COMMAND_ERROR_IS_FATAL ANY
+       )
+     ")
+diff '--color=auto' -ur pytorch-v2.13.0.orig/CMakeLists.txt pytorch-v2.13.0/CMakeLists.txt
+--- pytorch-v2.13.0.orig/CMakeLists.txt	2026-07-09 14:33:47.520399975 +0200
++++ pytorch-v2.13.0/CMakeLists.txt	2026-07-09 14:27:23.248599847 +0200
+@@ -1092,7 +1092,6 @@
+   set(CMAKE_COLOR_DIAGNOSTICS ON)
+ endif()
+ if(NOT MSVC)
+-  string(APPEND CMAKE_CXX_FLAGS " -O2 -fPIC")
+ 
+   # This prevents use of `c10::optional`, `c10::nullopt` etc within the codebase
+   string(APPEND CMAKE_CXX_FLAGS " -DC10_NODEPRECATED")
+@@ -1103,7 +1102,6 @@
+   # Details at http://eigen.tuxfamily.org/bz/show_bug.cgi?id=1459
+   string(APPEND CMAKE_CXX_FLAGS " -Wall")
+   string(APPEND CMAKE_CXX_FLAGS " -Wextra")
+-  append_cxx_flag_if_supported("-Werror=return-type" CMAKE_CXX_FLAGS)
+   append_cxx_flag_if_supported("-Werror=non-virtual-dtor" CMAKE_CXX_FLAGS)
+   append_cxx_flag_if_supported("-Werror=braced-scalar-init" CMAKE_CXX_FLAGS)
+   append_cxx_flag_if_supported("-Werror=range-loop-construct" CMAKE_CXX_FLAGS)
+@@ -1194,7 +1192,6 @@
+   endif()
+   append_cxx_flag_if_supported("-fno-math-errno" CMAKE_CXX_FLAGS)
+   append_cxx_flag_if_supported("-fno-trapping-math" CMAKE_CXX_FLAGS)
+-  append_cxx_flag_if_supported("-Werror=format" CMAKE_CXX_FLAGS)
+   if(CMAKE_COMPILER_IS_GNUCXX AND CMAKE_CXX_COMPILER_VERSION VERSION_GREATER_EQUAL 13)
+     append_cxx_flag_if_supported("-Wno-dangling-reference" CMAKE_CXX_FLAGS)
+     append_cxx_flag_if_supported("-Wno-error=dangling-reference" CMAKE_CXX_FLAGS)
+diff '--color=auto' -ur pytorch-v2.13.0.orig/test/cpp/c10d/CMakeLists.txt pytorch-v2.13.0/test/cpp/c10d/CMakeLists.txt
+--- pytorch-v2.13.0.orig/test/cpp/c10d/CMakeLists.txt	2026-07-09 14:33:47.520468795 +0200
++++ pytorch-v2.13.0/test/cpp/c10d/CMakeLists.txt	2026-07-09 14:27:06.015647329 +0200
+@@ -26,10 +26,9 @@
+   target_include_directories(${test_name} PRIVATE
+       $<BUILD_INTERFACE:${TORCH_SRC_DIR}/test/cpp/c10d/hip>
+       $<BUILD_INTERFACE:${TORCH_SRC_DIR}/csrc/distributed>
+-      $<TARGET_PROPERTY:fmt::fmt-header-only,INTERFACE_INCLUDE_DIRECTORIES>
+   )
+   target_link_libraries(${test_name} PRIVATE
+-    fmt::fmt-header-only
++    fmt
+     ${ARG_LINK_LIBRARIES}
+   )
+   add_test(NAME ${test_name} COMMAND $<TARGET_FILE:${test_name}>)
+diff '--color=auto' -ur pytorch-v2.13.0.orig/torch/CMakeLists.txt pytorch-v2.13.0/torch/CMakeLists.txt
+--- pytorch-v2.13.0.orig/torch/CMakeLists.txt	2026-07-09 14:33:47.520518485 +0200
++++ pytorch-v2.13.0/torch/CMakeLists.txt	2026-07-09 14:27:05.925424534 +0200
+@@ -56,14 +56,6 @@
+     ${CMAKE_BINARY_DIR}
+     ${CMAKE_BINARY_DIR}/aten/src
+     ${CMAKE_BINARY_DIR}/caffe2/aten/src
+-    ${CMAKE_BINARY_DIR}/third_party
+-    ${CMAKE_BINARY_DIR}/third_party/onnx
+-
+-    ${TORCH_ROOT}/third_party/valgrind-headers
+-
+-    ${TORCH_ROOT}/third_party/gloo
+-    ${TORCH_ROOT}/third_party/onnx
+-    ${TORCH_ROOT}/third_party/flatbuffers/include
+     ${TORCH_ROOT}/third_party/kineto/libkineto/include
+     ${TORCH_ROOT}/third_party/cpp-httplib
+     ${TORCH_ROOT}/third_party/nlohmann/include
+@@ -83,7 +75,6 @@
+     nlohmann
+     moodycamel
+     shm
+-    fmt::fmt-header-only
+     ATEN_CPU_FILES_GEN_LIB)
+ 
+ if(USE_ASAN AND TARGET Sanitizer::address)
+@@ -513,7 +504,7 @@
+   else()
+     target_link_libraries(nnapi_backend PRIVATE torch)
+   endif()
+-  target_link_libraries(nnapi_backend PRIVATE torch_python pybind::pybind11 fmt::fmt-header-only)
++  target_link_libraries(nnapi_backend PRIVATE torch_python pybind::pybind11 fmt)
+   if(MSVC AND TORCH_PYTHON_LINK_FLAGS)
+     set_target_properties(nnapi_backend PROPERTIES LINK_FLAGS "${TORCH_PYTHON_LINK_FLAGS}")
+   endif()

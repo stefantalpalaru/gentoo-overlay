@@ -1,0 +1,146 @@
+diff '--color=auto' -ur pytorch-v2.13.0.orig/cmake/FileMirroring.cmake pytorch-v2.13.0/cmake/FileMirroring.cmake
+--- pytorch-v2.13.0.orig/cmake/FileMirroring.cmake	2026-07-08 19:44:27.000000000 +0200
++++ pytorch-v2.13.0/cmake/FileMirroring.cmake	2026-07-09 19:10:35.586593642 +0200
+@@ -11,7 +11,7 @@
+ # <source>/torch, so the correct fallback is the project source directory
+ # (the parent of torch/, torchgen/, tools/, etc.).
+ if(NOT DEFINED SKBUILD_PLATLIB_DIR)
+-  set(SKBUILD_PLATLIB_DIR "${PROJECT_SOURCE_DIR}")
++  set(SKBUILD_PLATLIB_DIR "torch")
+ endif()
+ 
+ # --- mirror_files_into_torchgen ---
+@@ -39,7 +39,7 @@
+ # on CUDA-enabled builds (cutlass submodule should be present).
+ set(_cutedsl_src "${PROJECT_SOURCE_DIR}/third_party/cutlass/examples/python/CuTeDSL/blackwell/grouped_gemm.py")
+ if(EXISTS "${_cutedsl_src}")
+-  set(_cutedsl_dest "${SKBUILD_PLATLIB_DIR}/torch/_inductor/kernel/vendored_templates/cutedsl/kernels")
++  set(_cutedsl_dest "${SKBUILD_PLATLIB_DIR}/_inductor/kernel/vendored_templates/cutedsl/kernels")
+   install(FILES "${_cutedsl_src}"
+     DESTINATION "${_cutedsl_dest}"
+     RENAME "cutedsl_grouped_gemm.py"
+@@ -68,9 +68,9 @@
+ )
+ install(FILES
+   "${PROJECT_SOURCE_DIR}/third_party/valgrind-headers/callgrind.h"
+-  DESTINATION "${SKBUILD_PLATLIB_DIR}/torch/utils/benchmark/utils/valgrind_wrapper"
++  DESTINATION "${SKBUILD_PLATLIB_DIR}/utils/benchmark/utils/valgrind_wrapper"
+ )
+ install(FILES
+   "${PROJECT_SOURCE_DIR}/third_party/valgrind-headers/valgrind.h"
+-  DESTINATION "${SKBUILD_PLATLIB_DIR}/torch/utils/benchmark/utils/valgrind_wrapper"
++  DESTINATION "${SKBUILD_PLATLIB_DIR}/utils/benchmark/utils/valgrind_wrapper"
+ )
+diff '--color=auto' -ur pytorch-v2.13.0.orig/cmake/PackageData.cmake pytorch-v2.13.0/cmake/PackageData.cmake
+--- pytorch-v2.13.0.orig/cmake/PackageData.cmake	2026-07-08 19:44:27.000000000 +0200
++++ pytorch-v2.13.0/cmake/PackageData.cmake	2026-07-09 19:05:24.726370882 +0200
+@@ -18,7 +18,7 @@
+ 
+ # Type stubs
+ install(DIRECTORY "${TORCH_SRC_DIR}/"
+-  DESTINATION "."
++  DESTINATION "torch"
+   FILES_MATCHING
+   PATTERN "*.pyi"
+   PATTERN "py.typed"
+@@ -31,7 +31,7 @@
+ # (*.h files are copied from third_party/ by FileMirroring.cmake; the pattern
+ # here picks them up if already present.)
+ install(DIRECTORY "${TORCH_SRC_DIR}/utils/benchmark/utils/"
+-  DESTINATION "utils/benchmark/utils"
++  DESTINATION "torch/utils/benchmark/utils"
+   FILES_MATCHING PATTERN "*.cpp" PATTERN "*.h"
+ )
+ 
+@@ -39,37 +39,37 @@
+ install(FILES
+   "${TORCH_SRC_DIR}/utils/model_dump/skeleton.html"
+   "${TORCH_SRC_DIR}/utils/model_dump/code.js"
+-  DESTINATION "utils/model_dump"
++  DESTINATION "torch/utils/model_dump"
+   OPTIONAL
+ )
+ install(DIRECTORY "${TORCH_SRC_DIR}/utils/model_dump/"
+-  DESTINATION "utils/model_dump"
++  DESTINATION "torch/utils/model_dump"
+   FILES_MATCHING PATTERN "*.mjs"
+ )
+ 
+ # Inductor data files
+ install(FILES "${TORCH_SRC_DIR}/_inductor/script.ld"
+-  DESTINATION "_inductor"
++  DESTINATION "torch/_inductor"
+   OPTIONAL
+ )
+ install(DIRECTORY "${TORCH_SRC_DIR}/_inductor/codegen/"
+-  DESTINATION "_inductor/codegen"
++  DESTINATION "torch/_inductor/codegen"
+   FILES_MATCHING
+   PATTERN "*.h"
+   PATTERN "*.cpp"
+ )
+ install(DIRECTORY "${TORCH_SRC_DIR}/_inductor/kernel/flex/templates/"
+-  DESTINATION "_inductor/kernel/flex/templates"
++  DESTINATION "torch/_inductor/kernel/flex/templates"
+   FILES_MATCHING PATTERN "*.jinja"
+ )
+ install(DIRECTORY "${TORCH_SRC_DIR}/_inductor/kernel/templates/"
+-  DESTINATION "_inductor/kernel/templates"
++  DESTINATION "torch/_inductor/kernel/templates"
+   FILES_MATCHING PATTERN "*.jinja"
+ )
+ 
+ # Export serde data
+ install(DIRECTORY "${TORCH_SRC_DIR}/_export/serde/"
+-  DESTINATION "_export/serde"
++  DESTINATION "torch/_export/serde"
+   FILES_MATCHING
+   PATTERN "*.yaml"
+   PATTERN "*.thrift"
+@@ -77,18 +77,18 @@
+ 
+ # AOTI runtime header
+ install(FILES "${TORCH_SRC_DIR}/csrc/inductor/aoti_runtime/model.h"
+-  DESTINATION "csrc/inductor/aoti_runtime"
++  DESTINATION "torch/csrc/inductor/aoti_runtime"
+   OPTIONAL
+ )
+ 
+ # Generated testing Python module (gitignored so not picked up by scikit-build-core
+ # package scanning; install explicitly so it ends up in the wheel).
+ install(FILES "${TORCH_SRC_DIR}/testing/_internal/generated/annotated_fn_args.py"
+-  DESTINATION "testing/_internal/generated"
++  DESTINATION "torch/testing/_internal/generated"
+ )
+ 
+ # Dynamo data
+ install(FILES "${TORCH_SRC_DIR}/_dynamo/graph_break_registry.json"
+-  DESTINATION "_dynamo"
++  DESTINATION "torch/_dynamo"
+   OPTIONAL
+ )
+diff '--color=auto' -ur pytorch-v2.13.0.orig/torch/CMakeLists.txt pytorch-v2.13.0/torch/CMakeLists.txt
+--- pytorch-v2.13.0.orig/torch/CMakeLists.txt	2026-07-09 17:59:49.547881126 +0200
++++ pytorch-v2.13.0/torch/CMakeLists.txt	2026-07-09 19:07:11.618125606 +0200
+@@ -455,9 +455,9 @@
+   # alongside the other import libs in torch/lib/, matching the layout that
+   # setup.py used before _C moved to CMake.
+   install(TARGETS _C
+-    RUNTIME DESTINATION "."
+-    LIBRARY DESTINATION "."
+-    ARCHIVE DESTINATION "lib"
++    RUNTIME DESTINATION "torch"
++    LIBRARY DESTINATION "torch"
++    ARCHIVE DESTINATION "torch/lib"
+   )
+ endif()
+ 
+@@ -488,7 +488,7 @@
+ add_dependencies(torch_python gen_torch_version)
+ # version.py is gitignored (generated), so scikit-build-core won't include it
+ # via Python package collection. Install it explicitly via cmake instead.
+-install(FILES "${TORCH_SRC_DIR}/version.py" DESTINATION ".")
++install(FILES "${TORCH_SRC_DIR}/version.py" DESTINATION "torch")
+ 
+ # Skip building this library under MacOS, since it is currently failing to build on Mac
+ # Github issue #61930

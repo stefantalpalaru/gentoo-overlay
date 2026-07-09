@@ -2,7 +2,11 @@
 # Distributed under the terms of the GNU General Public License v2
 
 EAPI=8
-PYTHON_COMPAT=( python3_{11..14} )
+
+DISTUTILS_USE_PEP517=setuptools
+DISTUTILS_SINGLE_IMPL=1
+DISTUTILS_EXT=1
+PYTHON_COMPAT=( python3_{11..15} )
 ROCM_VERSION=6.1
 MYPN=pytorch
 MYP=${MYPN}-${PV}
@@ -11,7 +15,7 @@ MYP=${MYPN}-${PV}
 CK_COMMIT=7fe50dc3da2069d6645d9deb8c017a876472a977
 CK_P=composable_kernel-${CK_COMMIT:0:8}
 
-inherit python-single-r1 cmake cuda cuda-extra flag-o-matic prefix rocm toolchain-funcs
+inherit distutils-r1 cmake cuda cuda-extra flag-o-matic prefix rocm toolchain-funcs
 
 DESCRIPTION="A deep learning framework"
 HOMEPAGE="https://pytorch.org/"
@@ -79,6 +83,10 @@ RDEPEND="
 	') )
 	onednn? ( sci-ml/oneDNN )
 	opencl? ( virtual/opencl )
+	$(python_gen_cond_dep '
+		dev-python/sympy[${PYTHON_USEDEP}]
+		dev-python/typing-extensions[${PYTHON_USEDEP}]
+	')
 	qnnpack? (
 		dev-libs/pthreadpool
 		sci-ml/gemmlowp
@@ -138,12 +146,13 @@ DEPEND="
 		>=sci-libs/rocThrust-6.3:= <sci-libs/rocThrust-7.3:=
 	)
 	qnnpack? ( dev-libs/clog )
+	!!<sci-ml/pytorch-2.13.0-r100
 "
 
 PATCHES=(
-	"${FILESDIR}"/caffe2-2.10.0-gentoo.patch
+	"${FILESDIR}"/caffe2-2.13.0-gentoo.patch
 	"${FILESDIR}"/caffe2-2.6.0-install-dirs.patch
-	"${FILESDIR}"/caffe2-1.12.0-glog-0.6.0.patch
+	"${FILESDIR}"/caffe2-2.13.0-glog-0.6.0.patch
 	"${FILESDIR}"/caffe2-2.9.0-tensorpipe.patch
 	"${FILESDIR}"/caffe2-2.3.0-cudnn_include_fix.patch
 	"${FILESDIR}"/caffe2-2.1.2-fix-rpath.patch
@@ -151,8 +160,8 @@ PATCHES=(
 	"${FILESDIR}"/caffe2-2.11.0-rocm-fix-std-cpp17.patch
 	"${FILESDIR}"/caffe2-2.4.0-cpp-httplib.patch
 	"${FILESDIR}"/caffe2-2.7.0-glog-0.7.1.patch
-	"${FILESDIR}"/caffe2-2.12.0-aotriton-fixes.patch
-	"${FILESDIR}"/caffe2-2.12.0-kineto.patch
+	"${FILESDIR}"/caffe2-2.13.0-aotriton-fixes.patch
+	"${FILESDIR}"/caffe2-2.13.0-kineto.patch
 	"${FILESDIR}"/caffe2-2.8.0-rocm-minus-flash.patch
 	"${FILESDIR}"/caffe2-2.9.0-CUDA-13.patch
 	"${FILESDIR}"/caffe2-2.10.0-nvrtc.patch
@@ -160,6 +169,15 @@ PATCHES=(
 	"${FILESDIR}"/caffe2-2.12.0-cudss.patch
 	"${FILESDIR}"/caffe2-2.12.0-rocm-distributed-link.patch
 	"${FILESDIR}"/caffe2-2.12.0-rocm-assert-fix.patch
+	"${FILESDIR}"/caffe2-2.13.0-cmake-install-fix.patch
+
+	"${FILESDIR}"/pytorch-2.9.0-dontbuildagain.patch
+	"${FILESDIR}"/pytorch-2.9.0-Change-library-directory-according-to-CMake-build.patch
+	"${FILESDIR}"/pytorch-2.10.0-global-dlopen.patch
+	"${FILESDIR}"/pytorch-2.5.0-torch_shm_manager.patch
+	"${FILESDIR}"/pytorch-2.10.0-cpp-extension-multilib.patch
+	"${FILESDIR}"/pytorch-2.10.0-cuda.patch
+	"${FILESDIR}"/pytorch-2.13.0-nvcc.patch
 )
 
 src_prepare() {
@@ -197,6 +215,7 @@ src_prepare() {
 		cmake/public/LoadHIP.cmake \
 		cmake/public/cuda.cmake \
 		cmake/Dependencies.cmake \
+		tools/setup_helpers/env.py \
 		torch/CMakeLists.txt \
 		CMakeLists.txt
 
@@ -234,6 +253,30 @@ src_prepare() {
 	fi
 
 	rm -rf third_party/flatbuffers
+
+	# From "sci-ml/pytorch":
+	PATCHES=() # Already applied.
+	distutils-r1_src_prepare
+
+	# Replace placeholders added by cpp-extension.patch
+	sed -i \
+		-e "s/%LIB_DIR%/$(get_libdir)/g" \
+		torch/utils/cpp_extension.py \
+		torch/__init__.py \
+		|| die
+
+	# Set build dir for pytorch's setup
+	sed -i \
+		-e "/BUILD_DIR/s|build|/var/lib/caffe2/|" \
+		tools/setup_helpers/env.py \
+		|| die
+
+	# Drop legacy from pyproject.toml
+	sed -i \
+		-e "/build-backend/s|:__legacy__||" \
+		pyproject.toml \
+		|| die
+
 }
 
 src_configure() {
@@ -372,16 +415,26 @@ src_configure() {
 	cmake_src_configure
 }
 
+python_compile() {
+	PYTORCH_BUILD_VERSION=${PV} \
+	PYTORCH_BUILD_NUMBER=0 \
+	USE_SYSTEM_LIBS=ON \
+	CMAKE_BUILD_DIR="${BUILD_DIR}" \
+	distutils-r1_python_compile
+}
+
 src_compile() {
 	PYTORCH_BUILD_VERSION=${PV} \
 	PYTORCH_BUILD_NUMBER=0 \
 	cmake_src_compile
+
+	distutils-r1_src_compile
 }
 
 python_install() {
 	python_domodule python/torch
+	python_domodule functorch
 	mkdir "${D}"$(python_get_sitedir)/torch/bin || die
-	mkdir "${D}"$(python_get_sitedir)/torch/lib || die
 	mkdir "${D}"$(python_get_sitedir)/torch/include || die
 	ln -s ../../../../../include/torch \
 		"${D}$(python_get_sitedir)"/torch/include/torch || die # bug 923269
@@ -389,6 +442,8 @@ python_install() {
 		"${D}"$(python_get_sitedir)/torch/bin/torch_shm_manager || die
 	ln -s ../../../../../$(get_libdir)/libtorch_global_deps.so \
 		"${D}"$(python_get_sitedir)/torch/lib/libtorch_global_deps.so || die
+
+	USE_SYSTEM_LIBS=ON distutils-r1_python_install
 }
 
 src_install() {
@@ -401,7 +456,9 @@ src_install() {
 		"${ED}"/usr/$(get_libdir)/pkgconfig/mimalloc.pc
 
 	rm -rf python
-	mkdir -p python/torch || die
-	cp torch/version.py python/torch/ || die
-	python_install
+	mkdir -p python || die
+	mv "${ED}"/usr/torch python/ || die
+	dolib.so "${BUILD_DIR}"/lib/libtorch_python.so
+
+	distutils-r1_src_install
 }
