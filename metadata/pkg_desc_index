@@ -892,7 +892,7 @@ media-gfx/opencomic-bin 1.6.5: Comic and Manga reader, written with Node.js and 
 media-gfx/opentoonz 1.8.0: An open-source full-featured 2D animation creation software
 media-gfx/openvdb 13.0.0-r1: Library for the efficient manipulation of volumetric data
 media-gfx/yomikiru-bin 2.24.0: manga, manhwa, comic, and novel reader for desktop
-media-gfx/zart 3.2.2_p20231127: G'MIC GUI for video streams
+media-gfx/zart 3.2.2_p20231127-r1: G'MIC GUI for video streams
 media-libs/chromaprint 1.5.1-r5: Library implementing a custom algorithm for extracting audio fingerprints
 media-libs/cimg 3.5.0-r101 4.0.2-r100: C++ template image processing toolkit
 media-libs/hydrogen-drumkits 1.2.3-r1: free drumkits for hydrogen
@@ -908,6 +908,7 @@ media-libs/lsp-plugins 1.2.33: Linux Studio Plugins
 media-libs/nv-codec-headers 8.1.24.15 11.0.10.3 11.1.5.3 12.0.16.1 12.1.14.0 12.2.72.0 13.0.19.0: FFmpeg version of headers required to interface with Nvidias codec APIs
 media-libs/oidn 2.5.0-r1301: Intel Open Image Denoise library
 media-libs/opencolorio 2.5.2: Color management framework for visual effects and animation
+media-libs/opencv 4.13.0: A collection of algorithms and sample code for various computer vision problems
 media-libs/openexr 3.1.12-r2: ILM's OpenEXR high dynamic-range image file format libraries
 media-libs/openimageio 3.0.20.0-r1 3.1.15.0-r1: A library for reading and writing images
 media-libs/opensubdiv 3.6.1-r102: An Open-Source subdivision surface library
@@ -1025,7 +1026,7 @@ sys-auth/polkit-qt 0.200.0: Qt wrapper around polkit-1 client libraries
 sys-devel/bison 2.7.1-r4: A general-purpose (yacc-compatible) parser generator
 sys-devel/flamegraph 1.0-r2: stack trace visualizer
 sys-devel/pyflame 1.6.7: a ptracing profiler for Python
-sys-fs/zfs 2.4.3: Linux kernel module and userland utilities for ZFS
+sys-fs/zfs 2.4.3-r1: Linux kernel module and userland utilities for ZFS
 sys-kernel/zenpower3 0.2.0_p20250617: Linux kernel driver for reading sensors of AMD Zen family CPUs
 sys-kernel/zenstats 0.1.0: kernel driver for AMD Zen sensors (zenpower3 fork)
 virtual/python-cffi 1-r5: A virtual for the Python cffi package

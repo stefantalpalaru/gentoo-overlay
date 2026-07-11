@@ -1,0 +1,24 @@
+diff '--color=auto' -ur opencv-4.13.0.orig/CMakeLists.txt opencv-4.13.0/CMakeLists.txt
+--- opencv-4.13.0.orig/CMakeLists.txt	2026-07-10 21:26:14.236985002 +0200
++++ opencv-4.13.0/CMakeLists.txt	2026-07-10 21:27:53.345767605 +0200
+@@ -1576,7 +1576,7 @@
+ 
+ if(HAVE_OPENJPEG)
+   status("    JPEG 2000:" OpenJPEG_FOUND
+-      THEN "OpenJPEG (ver ${OPENJPEG_VERSION})"
++      THEN "OpenJPEG (ver ${OPENJPEG_MAJOR_VERSION}.${OPENJPEG_MINOR_VERSION}.${OPENJPEG_BUILD_VERSION})"
+       ELSE "build (ver ${OPENJPEG_VERSION})"
+   )
+ elseif(HAVE_JASPER)
+diff '--color=auto' -ur opencv-4.13.0.orig/modules/videoio/cmake/detect_ffmpeg.cmake opencv-4.13.0/modules/videoio/cmake/detect_ffmpeg.cmake
+--- opencv-4.13.0.orig/modules/videoio/cmake/detect_ffmpeg.cmake	2025-12-30 08:52:05.000000000 +0100
++++ opencv-4.13.0/modules/videoio/cmake/detect_ffmpeg.cmake	2026-07-10 21:27:12.178857906 +0200
+@@ -28,7 +28,7 @@
+   ocv_check_modules(FFMPEG libavcodec libavformat libavutil libswscale)
+   if(FFMPEG_FOUND)
+     if(OPENCV_FFMPEG_ENABLE_LIBAVDEVICE)
+-      ocv_check_modules(FFMPEG_libavdevice libavdevice) # optional
++      #ocv_check_modules(FFMPEG_libavdevice libavdevice) # optional
+       if(FFMPEG_libavdevice_FOUND)
+         list(APPEND FFMPEG_LIBRARIES ${FFMPEG_libavdevice_LIBRARIES})
+         list(APPEND _used_ffmpeg_libraries libavdevice)

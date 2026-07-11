@@ -410,6 +410,39 @@ media-libs/oidn:apps - Build the standalone denoise, self test, and benchmark bi
 media-libs/oidn:hip - Build OIDN with AMD HIP support.
 media-libs/oidn:openimageio - Enable OpenImageIO Support
 media-libs/opencolorio:apps - Build the OCIO command line apps
+media-libs/opencv:atlas - Use sci-libs/atlas for blas, lapack and sparse blas routines (Experimental!)
+media-libs/opencv:contrib - Install user contributed scripts from opencv_contrib (Experimental!)
+media-libs/opencv:contribcvv - Enable CVV in contrib
+media-libs/opencv:contribdnn - Enable DNN module
+media-libs/opencv:contribfreetype - Enable Drawing UTF-8 strings with media-libs/freetype&media-libs/harfbuzz
+media-libs/opencv:contribhdf - Enable HDF module (requires sci-libs/hdf5)
+media-libs/opencv:contribovis - Enable OGRE vision module support (dev-games/ogre)
+media-libs/opencv:contribsfm - Enable SFM module (requires USE="eigen gflags glog")
+media-libs/opencv:contribxfeatures2d - Enables xfeatures2d and autodownload of samples in contrib
+media-libs/opencv:cuda - Enable NVIDIA Cuda computations support (Experimental!)
+media-libs/opencv:cudnn - Enable support for nVidia cuDNN library
+media-libs/opencv:eigen - Enable usage of dev-cpp/eigen for computations
+media-libs/opencv:features2d - Enable features2d module
+media-libs/opencv:gdal - Enable support for sci-libs/gdal library
+media-libs/opencv:gflags - Use Google's C++ argument parsing library (dev-cpp/gflags)
+media-libs/opencv:glog - Use Google's C++ logging library (dev-cpp/glog)
+media-libs/opencv:gtk3 - Enable x11-libs/gtk+:3 support
+media-libs/opencv:jasper - Use media-libs/jasper for jpeg2k support
+media-libs/opencv:mkl - Use sci-libs/mkl for blas, lapack and sparse blas routines
+media-libs/opencv:non-free - Enable non-free components
+media-libs/opencv:opencvapps - Enable compilation with opencvapps
+media-libs/opencv:openni - Adds support for Kinect-like 3D sensors devices with dev-libs/OpenNI
+media-libs/opencv:openni2 - Adds support for Kinect-like 3D sensors devices with dev-libs/OpenNI2 (should be preferred over openni)
+media-libs/opencv:quirc - Enable qrcode decoding via media-libs/quirc
+media-libs/opencv:spng - Use media-libs/libspng for png support
+media-libs/opencv:tbb - Enable multithreading with the Intel Threads Building Block (dev-cpp/tbb)
+media-libs/opencv:tesseract - Use Google's OCR Engine
+media-libs/opencv:testprograms - Build and install programs for testing OpenCV (performance)
+media-libs/opencv:truetype - Enable media-libs/freetype support for gapi module
+media-libs/opencv:video_cards_intel - Enable Video Acceleration API for hardware decoding for Intel cards
+media-libs/opencv:vtk - Build new 3D visualization module viz based on sci-libs/vtk
+media-libs/opencv:vulkan - Enable experimental Vulkan backend
+media-libs/opencv:wechat-qrcode - Enable wechat_qrcode module
 media-libs/openexr:large-stack - Enables code to take advantage of large stack support.
 media-libs/openexr:utils - Build several binary tools for verifying and manipulating EXR files.
 media-libs/openimageio:dicom - Enable DICOM medical image file support via sci-libs/dcmtk

@@ -1,0 +1,25 @@
+diff '--color=auto' -ur opencv_contrib-4.13.0.orig/modules/videostab/src/cuda/global_motion.cu opencv_contrib-4.13.0/modules/videostab/src/cuda/global_motion.cu
+--- opencv_contrib-4.13.0.orig/modules/videostab/src/cuda/global_motion.cu	2025-12-16 11:59:36.000000000 +0100
++++ opencv_contrib-4.13.0/modules/videostab/src/cuda/global_motion.cu	2026-07-10 22:41:52.807644568 +0200
+@@ -42,6 +42,7 @@
+ 
+ #if !defined CUDA_DISABLER
+ 
++#include <cuda/std/tuple>
+ #include <thrust/device_ptr.h>
+ #include <thrust/remove.h>
+ #include <thrust/functional.h>
+@@ -63,10 +64,10 @@
+     thrust::device_ptr<float2> dpoints1((float2*)points1);
+     thrust::device_ptr<const uchar> dmask(mask);
+ 
+-    return (int)(thrust::remove_if(thrust::make_zip_iterator(thrust::make_tuple(dpoints0, dpoints1)),
+-                             thrust::make_zip_iterator(thrust::make_tuple(dpoints0 + N, dpoints1 + N)),
++    return (int)(thrust::remove_if(thrust::make_zip_iterator(::cuda::std::make_tuple(dpoints0, dpoints1)),
++                             thrust::make_zip_iterator(::cuda::std::make_tuple(dpoints0 + N, dpoints1 + N)),
+                              dmask, is_zero())
+-           - thrust::make_zip_iterator(make_tuple(dpoints0, dpoints1)));
++           - thrust::make_zip_iterator(::cuda::std::make_tuple(dpoints0, dpoints1)));
+ }
+ 
+ 
