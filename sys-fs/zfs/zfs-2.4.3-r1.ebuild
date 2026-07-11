@@ -21,7 +21,7 @@ inherit linux-mod-r1 multiprocessing pam systemd udev usr-ldscript
 DESCRIPTION="Linux kernel module and userland utilities for ZFS"
 HOMEPAGE="https://github.com/openzfs/zfs"
 
-MODULES_KERNEL_MAX=7.0
+MODULES_KERNEL_MAX=7.1
 MODULES_KERNEL_MIN=4.18
 
 if [[ ${PV} == "9999" ]]; then
@@ -253,6 +253,7 @@ src_configure() {
 		--sbindir="${EPREFIX}/sbin"
 		--enable-shared
 		--enable-sysvinit
+		--enable-linux-experimental
 		--localstatedir="${EPREFIX}/var"
 		--sbindir="${EPREFIX}/sbin"
 		--with-config="$(usex modules all user)"
