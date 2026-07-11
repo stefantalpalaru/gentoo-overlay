@@ -1,0 +1,14 @@
+diff '--color=auto' -ur zart-d014169343f835381ad232ee11e077326561c9eb.orig/src/ZArt.cpp zart-d014169343f835381ad232ee11e077326561c9eb/src/ZArt.cpp
+--- zart-d014169343f835381ad232ee11e077326561c9eb.orig/src/ZArt.cpp	2023-11-27 10:50:27.000000000 +0100
++++ zart-d014169343f835381ad232ee11e077326561c9eb/src/ZArt.cpp	2026-07-10 23:13:47.979870284 +0200
+@@ -99,9 +99,7 @@
+     WebcamSource::clearSavedSettings();
+   }
+   WebcamSource::retrieveWebcamResolutions(WebcamSource::getWebcamList(), &splashScreen);
+-  if (!gmic::init_rc()) {
+-    cerr << "[ZArt] Warning: Could not create resources directory.\n";
+-  }
++  gmic::init_rc();
+   MainWindow mainWindow;
+   QStringList args = QApplication::arguments();
+   if ((args.size() > 1) && QFileInfo(args.back()).isReadable()) {

@@ -1,4 +1,4 @@
-# Copyright 1999-2024 Gentoo Authors
+# Copyright 1999-2026 Gentoo Authors
 # Distributed under the terms of the GNU General Public License v2
 
 EAPI=8
@@ -29,7 +29,8 @@ DEPEND="${RDEPEND}
 "
 
 PATCHES=(
-	"${FILESDIR}"/${PN}-3.2.2-dynamic-linking-r2.patch
+	"${FILESDIR}"/zart-3.2.2-dynamic-linking-r2.patch
+	"${FILESDIR}"/zart-3.2.2-gmic-4.patch
 )
 
 pkg_pretend() {
