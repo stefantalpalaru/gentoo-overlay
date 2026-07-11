@@ -390,13 +390,17 @@ media-libs/libextractor:gsf - Enable OLE2 (MS Office) plug-in support using gnom
 media-libs/libextractor:midi - Enable MIDI support through media-libs/libsmf
 media-libs/libheif:aom - Use media-libs/libaom for AVIF encoding/decoding
 media-libs/libheif:dav1d - Use media-libs/dav1d for AVIF decoding
+media-libs/libheif:de265 - Enable H.265 support using media-libs/libde265
 media-libs/libheif:ffmpeg - Use media-video/ffmpeg for HEIC decoding
 media-libs/libheif:gdk-pixbuf - Enable x11-libs/gdk-pixbuf plugin
+media-libs/libheif:gui - Build heif-view (requires USE=tools)
+media-libs/libheif:kvazaar - Enable H.265/HEVC encoding support via media-libs/kvazaar
 media-libs/libheif:openh264 - USE media-libs/openh264 for AVC decoding
 media-libs/libheif:rav1e - Use media-video/rav1e for AVIF encoding
 media-libs/libheif:svt-av1 - Use media-libs/svt-av1 for AVIF encoding
+media-libs/libheif:test-full - Allow tests that rely on options not normally enabled
 media-libs/libheif:tools - Enable various tools (what upstream calls "examples")
-media-libs/libheif:tools-heif-view - Enable "heif-view" (needs media-libs/libsdl2)
+media-libs/libheif:webp - Enable high-quality YCbCr/RGB color space conversion algorithms
 media-libs/libheif:x264 - Use media-libs/x264 for AVC encoding
 media-libs/libheif:x265 - Use media-libs/x265 for HEIF encoding
 media-libs/lsp-plugins:clap - Build CLAP plugins
