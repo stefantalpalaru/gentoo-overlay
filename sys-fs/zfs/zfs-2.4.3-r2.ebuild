@@ -127,6 +127,7 @@ RESTRICT="test"
 
 PATCHES=(
 	"${FILESDIR}"/zfs-2.1.11-gentoo.patch
+	"${FILESDIR}"/zfs-2.4.3-zed-init-script.patch
 )
 
 pkg_pretend() {

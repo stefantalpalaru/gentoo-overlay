@@ -1,0 +1,11 @@
+diff '--color=auto' -ur zfs-2.4.3.orig/etc/init.d/zfs-zed.in zfs-2.4.3/etc/init.d/zfs-zed.in
+--- zfs-2.4.3.orig/etc/init.d/zfs-zed.in	2026-06-11 18:59:05.149399219 +0200
++++ zfs-2.4.3/etc/init.d/zfs-zed.in	2026-07-12 16:17:14.512713828 +0200
+@@ -126,6 +126,6 @@
+ 	depend() { do_depend; }
+ 	start() { do_start; }
+ 	stop() { do_stop; }
+-	status() { do_status; }
++	#status() { do_status; } # https://bugs.gentoo.org/977584
+ 	reload() { do_reload; }
+ fi

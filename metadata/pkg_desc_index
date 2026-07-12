@@ -1026,7 +1026,7 @@ sys-auth/polkit-qt 0.200.0: Qt wrapper around polkit-1 client libraries
 sys-devel/bison 2.7.1-r4: A general-purpose (yacc-compatible) parser generator
 sys-devel/flamegraph 1.0-r2: stack trace visualizer
 sys-devel/pyflame 1.6.7: a ptracing profiler for Python
-sys-fs/zfs 2.4.3-r1: Linux kernel module and userland utilities for ZFS
+sys-fs/zfs 2.4.3-r2: Linux kernel module and userland utilities for ZFS
 sys-kernel/zenpower3 0.2.0_p20250617: Linux kernel driver for reading sensors of AMD Zen family CPUs
 sys-kernel/zenstats 0.1.0: kernel driver for AMD Zen sensors (zenpower3 fork)
 virtual/python-cffi 1-r5: A virtual for the Python cffi package
