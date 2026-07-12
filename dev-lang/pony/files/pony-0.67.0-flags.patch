@@ -1,0 +1,14 @@
+diff '--color=auto' -ur pony-0.67.0.orig/CMakePresets.json pony-0.67.0/CMakePresets.json
+--- pony-0.67.0.orig/CMakePresets.json	2026-07-12 01:24:24.674156555 +0200
++++ pony-0.67.0/CMakePresets.json	2026-07-12 01:25:42.550834850 +0200
+@@ -30,9 +30,7 @@
+       "hidden": true,
+       "inherits": "base",
+       "cacheVariables": {
+-        "PONY_ARCH": "x86-64",
+-        "CMAKE_C_FLAGS": "-march=x86-64 -mtune=generic",
+-        "CMAKE_CXX_FLAGS": "-march=x86-64 -mtune=generic"
++        "PONY_ARCH": "x86-64"
+       }
+     },
+     {
