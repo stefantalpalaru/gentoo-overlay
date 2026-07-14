@@ -138,7 +138,7 @@ DEPEND="
 		dev-python/pyyaml[${PYTHON_USEDEP}]
 		dev-python/typing-extensions[${PYTHON_USEDEP}]
 	')
-	cuda? ( >=dev-libs/cutlass-3.9.2[tools(+)] )
+	cuda? ( >=dev-libs/cutlass-3.9.2:=[tools(+)] )
 	onednn? ( sci-ml/ideep )
 	rocm? (
 		>=sci-libs/hipCUB-6.3:=    <sci-libs/hipCUB-7.3:=

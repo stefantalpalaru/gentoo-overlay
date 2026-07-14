@@ -27,7 +27,7 @@ RDEPEND="
 	dev-lang/ispc
 	cuda? (
 		>=dev-util/nvidia-cuda-toolkit-13:=
-		dev-libs/cutlass
+		dev-libs/cutlass:=
 	)
 	hip? (
 		dev-util/hip:=
