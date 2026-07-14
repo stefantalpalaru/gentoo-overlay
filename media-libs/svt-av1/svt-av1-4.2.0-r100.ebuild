@@ -15,7 +15,7 @@ S="${WORKDIR}/SVT-AV1-v${PV}"
 LICENSE="BSD-2 Apache-2.0 BSD ISC LGPL-2.1+ MIT"
 SLOT="0/4"
 KEYWORDS="~amd64 ~arm64 ~hppa ~loong ~ppc ~ppc64 ~riscv ~sparc ~x86"
-IUSE="+lto +pgo cpu_flags_x86_avx512f"
+IUSE="+lto +pgo ssp cpu_flags_x86_avx512f"
 RESTRICT="mirror"
 
 BDEPEND="
@@ -67,6 +67,7 @@ multilib_src_configure() {
 		-DCMAKE_OUTPUT_DIRECTORY="${BUILD_DIR}"
 		-DENABLE_AVX512=$(usex cpu_flags_x86_avx512f)
 		-DEXCLUDE_HASH=ON
+		-DENABLE_STACK_PROTECTOR=$(usex ssp)
 	)
 
 	cmake_src_configure

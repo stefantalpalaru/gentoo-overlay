@@ -18,5 +18,6 @@
 	<use>
 		<flag name="lto">Build with link-time optimizations (LTO)</flag>
 		<flag name="pgo">Build with profile guided optimizations (PGO)</flag>
+		<flag name="ssp">Build with -fstack-protector-strong</flag>
 	</use>
 </pkgmetadata>

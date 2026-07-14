@@ -463,6 +463,7 @@ media-libs/opensubdiv:tbb - Enable multithreading with the Intel Threads Buildin
 media-libs/opensubdiv:tutorials - Install the tutorials
 media-libs/svt-av1:lto - Build with link-time optimizations (LTO)
 media-libs/svt-av1:pgo - Build with profile guided optimizations (PGO)
+media-libs/svt-av1:ssp - Build with -fstack-protector-strong
 media-libs/zmusic:mpg123 - Enable support for MPEG audio playback via media-sound/mpg123
 media-plugins/calf:experimental - Enable experimental features/plugins
 media-plugins/calf:lv2 - Add support for Ladspa V2
