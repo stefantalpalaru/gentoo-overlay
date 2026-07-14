@@ -1,0 +1,36 @@
+diff '--color=auto' -ur blender-5.2.0.orig/intern/cycles/blender/geometry.cpp blender-5.2.0/intern/cycles/blender/geometry.cpp
+--- blender-5.2.0.orig/intern/cycles/blender/geometry.cpp	2026-06-03 15:03:48.000000000 +0200
++++ blender-5.2.0/intern/cycles/blender/geometry.cpp	2026-07-14 16:04:39.540701729 +0200
+@@ -124,16 +124,16 @@
+   if (geom == nullptr) {
+     /* Add new geometry if it did not exist yet. */
+     if (geom_type == Geometry::POINT_LIGHT) {
+-      geom = scene->create_light_node<PointLight>();
++      geom = scene->create_node<PointLight>();
+     }
+     else if (geom_type == Geometry::SPOT_LIGHT) {
+-      geom = scene->create_light_node<SpotLight>();
++      geom = scene->create_node<SpotLight>();
+     }
+     else if (geom_type == Geometry::SUN_LIGHT) {
+-      geom = scene->create_light_node<SunLight>();
++      geom = scene->create_node<SunLight>();
+     }
+     else if (geom_type == Geometry::AREA_LIGHT) {
+-      geom = scene->create_light_node<AreaLight>();
++      geom = scene->create_node<AreaLight>();
+     }
+     else if (geom_type == Geometry::HAIR) {
+       geom = scene->create_node<Hair>();
+diff '--color=auto' -ur blender-5.2.0.orig/intern/cycles/blender/light.cpp blender-5.2.0/intern/cycles/blender/light.cpp
+--- blender-5.2.0.orig/intern/cycles/blender/light.cpp	2026-06-03 15:03:48.000000000 +0200
++++ blender-5.2.0/intern/cycles/blender/light.cpp	2026-07-14 16:04:53.740643013 +0200
+@@ -112,7 +112,7 @@
+       update |= geometry_map.update(geom, &b_world->id);
+     }
+     else {
+-      geom = scene->create_light_node<BackgroundLight>();
++      geom = scene->create_node<BackgroundLight>();
+       geometry_map.add(geom_key, geom);
+       object->set_geometry(geom);
+       update = true;

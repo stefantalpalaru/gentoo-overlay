@@ -1,0 +1,11 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE pkgmetadata SYSTEM "https://www.gentoo.org/dtd/metadata.dtd">
+<pkgmetadata>
+  <maintainer type="person">
+    <email>iohann.s.titov@gmail.com</email>
+    <name>Iohann S. Titov</name>
+  </maintainer>
+  <upstream>
+    <remote-id type="github">google/draco</remote-id>
+  </upstream>
+</pkgmetadata>

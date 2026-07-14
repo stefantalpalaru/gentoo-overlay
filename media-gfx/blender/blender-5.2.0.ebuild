@@ -11,8 +11,6 @@
 # 	https://github.com/PixarAnimationStudios/OpenUSD
 # - Package MaterialX
 # 	https://github.com/AcademySoftwareFoundation/MaterialX
-# - Package Draco
-# 	https://github.com/google/draco
 # - Package Audaspace
 # 	https://github.com/neXyon/audaspace
 
@@ -65,9 +63,9 @@ SLOT="${BLENDER_BRANCH}"
 # NOTE +openpgl breaks on very old amd64 hardware
 # potentially mirror cpu_flags_x86 + REQUIRED_USE
 IUSE="
-	alembic +bullet +color-management cuda +cycles +cycles-bin-kernels
+	alembic +bullet cuda +cycles +cycles-bin-kernels
 	debug doc +embree +ffmpeg +fftw +fluid +gmp gnome hip jack
-	jpeg2k man +manifold +nanovdb ndof nls +oidn openal +openexr +opengl +openpgl
+	jpeg2k man +manifold +nanovdb ndof nls +oidn openal +opengl +openpgl
 	+opensubdiv +openvdb optix osl pipewire +pdf +potrace +pugixml pulseaudio
 	renderdoc sdl +sndfile +tbb test +tiff +truetype valgrind vulkan wayland +webp X
 "
@@ -80,18 +78,16 @@ RESTRICT="!test? ( test )"
 
 REQUIRED_USE="${PYTHON_REQUIRED_USE}
 	|| ( opengl vulkan )
-	alembic? ( openexr )
 	cuda? ( cycles )
-	cycles? ( openexr tiff tbb )
+	cycles? ( tiff tbb )
 	fluid? ( tbb )
 	gnome? ( wayland )
 	hip? ( cycles )
 	nanovdb? ( openvdb )
-	openvdb? ( tbb openexr )
+	openvdb? ( tbb )
 	optix? ( cuda )
 	osl? ( cycles pugixml )
 	test? (
-		color-management
 		jpeg2k
 	)
 "
@@ -111,11 +107,13 @@ RDEPEND="${PYTHON_DEPS}
 		dev-python/requests[${PYTHON_USEDEP}]
 		dev-python/zstandard[${PYTHON_USEDEP}]
 	')
+	media-libs/draco:=
 	media-libs/freetype:=[brotli]
 	media-libs/libepoxy:=
 	media-libs/libjpeg-turbo:=
 	media-libs/libpng:=
-	media-libs/libsamplerate
+	media-libs/libsamplerate:=
+	media-libs/meshoptimizer:=
 	>=media-libs/openimageio-2.5.6.0:=
 	sys-libs/zlib:=
 	virtual/glu
@@ -123,7 +121,7 @@ RDEPEND="${PYTHON_DEPS}
 	virtual/opengl[X?]
 	alembic? ( >=media-gfx/alembic-1.8.3-r2[hdf(+)] )
 	bullet? ( sci-physics/bullet:=[double-precision] )
-	color-management? ( media-libs/opencolorio:= )
+	media-libs/opencolorio:=
 	cuda? ( dev-util/nvidia-cuda-toolkit:= )
 	embree? ( media-libs/embree:=[raymask] )
 	ffmpeg? ( media-video/ffmpeg:=[encode(+),lame(-),jpeg2k?,opus,theora,vorbis,vpx,x264,xvid] )
@@ -146,10 +144,8 @@ RDEPEND="${PYTHON_DEPS}
 	nls? ( virtual/libiconv )
 	openal? ( media-libs/openal )
 	oidn? ( >=media-libs/oidn-2.1.0 )
-	openexr? (
-		>=dev-libs/imath-3.1.7:=
-		>=media-libs/openexr-3.2.1:0=
-	)
+	>=dev-libs/imath-3.1.7:=
+	>=media-libs/openexr-3.2.1:0=
 	openpgl? ( media-libs/openpgl:= )
 	opensubdiv? ( >=media-libs/opensubdiv-3.6.0-r2[opengl,cuda?,tbb?] )
 	openvdb? (
@@ -248,9 +244,10 @@ PATCHES=(
 	"${FILESDIR}"/blender-4.1.1-FindLLVM.patch
 	"${FILESDIR}"/blender-4.3.2-system-glog.patch
 	"${FILESDIR}"/blender-5.1.0-optix-compile-flags.patch
-	"${FILESDIR}"/blender-5.0.0-CUDA-13.patch
+	"${FILESDIR}"/blender-5.2.0-CUDA-13.patch
 	"${FILESDIR}"/blender-5.0.0-system-eigen3.patch
 	"${FILESDIR}"/blender-5.1.2-nvcc.patch
+	"${FILESDIR}"/blender-5.2.0-template-symbols.patch
 )
 
 blender_check_requirements() {
@@ -429,7 +426,6 @@ src_configure() {
 		-DWITH_MANIFOLD="$(usex manifold)"
 		-DWITH_MATERIALX="no" # TODO: Package MaterialX
 		-DWITH_NANOVDB="$(usex nanovdb)"
-		-DWITH_OPENCOLORIO="$(usex color-management)"
 		-DWITH_OPENGL_BACKEND="$(usex opengl)"
 		-DWITH_OPENIMAGEDENOISE="$(usex oidn)"
 		-DWITH_OPENSUBDIV="$(usex opensubdiv)"
@@ -474,7 +470,6 @@ src_configure() {
 
 		# Image Formats:
 		# -DWITH_IMAGE_CINEON=ON
-		-DWITH_IMAGE_OPENEXR="$(usex openexr)"
 		-DWITH_IMAGE_OPENJPEG="$(usex jpeg2k)"
 		-DWITH_IMAGE_WEBP="$(usex webp)" # unlisted
 
@@ -505,7 +500,8 @@ src_configure() {
 		-DPYTHON_INCLUDE_DIR="$(python_get_includedir)"
 		-DPYTHON_LIBRARY="$(python_get_library_path)"
 		-DPYTHON_VERSION="${EPYTHON/python/}"
-		-DWITH_DRACO="yes" # TODO: Package Draco # NOTE use bundled for now
+		-DWITH_DRACO="yes"
+		-DWITH_MESHOPTIMIZER=ON
 
 		# Modifiers:
 		-DWITH_MOD_FLUID="$(usex fluid)"

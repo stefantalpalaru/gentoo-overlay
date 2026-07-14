@@ -1,0 +1,24 @@
+diff '--color=auto' -ur blender-5.2.0.orig/build_files/build_environment/cmake/osl.cmake blender-5.2.0/build_files/build_environment/cmake/osl.cmake
+--- blender-5.2.0.orig/build_files/build_environment/cmake/osl.cmake	2026-06-03 15:03:48.000000000 +0200
++++ blender-5.2.0/build_files/build_environment/cmake/osl.cmake	2026-07-14 14:08:15.885416369 +0200
+@@ -60,7 +60,7 @@
+ if(NOT (APPLE OR BLENDER_PLATFORM_WINDOWS_ARM))
+   list(APPEND OSL_EXTRA_ARGS
+     -DOSL_USE_OPTIX=ON
+-    -DCUDA_TARGET_ARCH=sm_50
++    -DCUDA_TARGET_ARCH=sm_75
+     -DCUDA_TOOLKIT_ROOT_DIR=${CUDAToolkit_ROOT}
+   )
+ endif()
+diff '--color=auto' -ur blender-5.2.0.orig/CMakeLists.txt blender-5.2.0/CMakeLists.txt
+--- blender-5.2.0.orig/CMakeLists.txt	2026-07-14 14:07:24.916184655 +0200
++++ blender-5.2.0/CMakeLists.txt	2026-07-14 14:09:36.781101897 +0200
+@@ -648,7 +648,7 @@
+ 
+   option(WITH_CYCLES_CUDA_BINARIES "Build Cycles NVIDIA CUDA binaries" OFF)
+   set(CYCLES_CUDA_BINARIES_ARCH
+-    sm_50 sm_52 sm_60 sm_70 sm_75 sm_86 sm_120 compute_75
++    sm_75 sm_86 sm_120 compute_75
+     CACHE STRING "CUDA architectures to build binaries for"
+   )
+   option(WITH_CYCLES_CUDA_BUILD_SERIAL "\
