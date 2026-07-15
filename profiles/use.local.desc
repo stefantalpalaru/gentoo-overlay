@@ -403,6 +403,7 @@ media-libs/libheif:tools - Enable various tools (what upstream calls "examples")
 media-libs/libheif:webp - Enable high-quality YCbCr/RGB color space conversion algorithms
 media-libs/libheif:x264 - Use media-libs/x264 for AVC encoding
 media-libs/libheif:x265 - Use media-libs/x265 for HEIF encoding
+media-libs/libvmaf:embed-models - Compile default vmaf models into the library (needs app-editors/vim-core)
 media-libs/lsp-plugins:clap - Build CLAP plugins
 media-libs/lsp-plugins:gstreamer - Build GStreamer plugins
 media-libs/lsp-plugins:lv2 - Build LV2 plugins
