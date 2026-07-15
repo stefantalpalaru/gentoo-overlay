@@ -9,27 +9,21 @@ inherit cuda cuda-extra cmake python-any-r1 flag-o-matic toolchain-funcs
 
 DESCRIPTION="CUDA Templates for Linear Algebra Subroutines"
 HOMEPAGE="https://github.com/NVIDIA/cutlass"
-SRC_URI="https://github.com/NVIDIA/${PN}/archive/refs/tags/v${PV}.tar.gz
-	-> ${P}.tar.gz"
-
+SRC_URI="https://github.com/NVIDIA/${PN}/archive/refs/tags/v${PV}.tar.gz -> ${P}.gh.tar.gz"
 LICENSE="BSD"
-SLOT="0"
+SLOT="0/${PV}"
 KEYWORDS="~amd64 ~arm64"
-
 X86_CPU_FEATURES=(
 	f16c:f16c
 )
 CPU_FEATURES=( "${X86_CPU_FEATURES[@]/#/cpu_flags_x86_}" )
-
 IUSE="clang-cuda cublas cudnn doc dot examples +headers-only jumbo-build performance profiler test tools ${CPU_FEATURES[*]%:*}"
-
 REQUIRED_USE="
 	headers-only? (
 		!examples !test
 	)
 	test? ( tools )
 "
-
 RESTRICT="!test? ( test )"
 
 RDEPEND="
