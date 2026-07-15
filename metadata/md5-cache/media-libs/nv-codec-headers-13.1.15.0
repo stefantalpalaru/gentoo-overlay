@@ -4,6 +4,6 @@ EAPI=8
 HOMEPAGE=https://git.videolan.org/?p=ffmpeg/nv-codec-headers.git
 KEYWORDS=amd64 ~arm64
 LICENSE=MIT
-SLOT=0
-SRC_URI=https://github.com/FFmpeg/nv-codec-headers/releases/download/n11.1.5.3/nv-codec-headers-11.1.5.3.tar.gz
-_md5_=c930caea4e995d84fe9d165881dead27
+SLOT=0/13.1.15.0
+SRC_URI=https://github.com/FFmpeg/nv-codec-headers/releases/download/n13.1.15.0/nv-codec-headers-13.1.15.0.tar.gz
+_md5_=f5778315a779c498ba730f51733ab4a9

@@ -1,4 +1,4 @@
-# Copyright 1999-2025 Gentoo Authors
+# Copyright 1999-2026 Gentoo Authors
 # Distributed under the terms of the GNU General Public License v2
 
 EAPI=8
@@ -8,7 +8,7 @@ HOMEPAGE="https://git.videolan.org/?p=ffmpeg/nv-codec-headers.git"
 SRC_URI="https://github.com/FFmpeg/nv-codec-headers/releases/download/n${PV}/${P}.tar.gz"
 
 LICENSE="MIT"
-SLOT="0"
+SLOT="0/${PV}"
 KEYWORDS="amd64 ~arm64"
 
 src_compile() {

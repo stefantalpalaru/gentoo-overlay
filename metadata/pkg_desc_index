@@ -908,7 +908,7 @@ media-libs/libtheora 1.1.1-r3: The Theora Video Compression Codec
 media-libs/libvmaf 3.2.0: C library for Netflix's Perceptual video quality assessment
 media-libs/lsp-plugins 1.2.33: Linux Studio Plugins
 media-libs/meshoptimizer 1.2: Mesh optimization library that makes meshes smaller and faster to render
-media-libs/nv-codec-headers 8.1.24.15 11.0.10.3 11.1.5.3 12.0.16.1 12.1.14.0 12.2.72.0 13.0.19.0: FFmpeg version of headers required to interface with Nvidias codec APIs
+media-libs/nv-codec-headers 8.1.24.15 11.0.10.3 11.1.5.4 12.0.16.2 12.1.14.1 12.2.72.0 13.0.19.1 13.1.15.0: FFmpeg version of headers required to interface with Nvidias codec APIs
 media-libs/oidn 2.5.0-r1302: Intel Open Image Denoise library
 media-libs/opencolorio 2.5.2: Color management framework for visual effects and animation
 media-libs/opencv 4.13.0: A collection of algorithms and sample code for various computer vision problems
