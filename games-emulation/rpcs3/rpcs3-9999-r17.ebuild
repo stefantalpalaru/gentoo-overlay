@@ -29,7 +29,8 @@ RDEPEND="
 	joystick? ( dev-libs/libevdev )
 	media-libs/glew:0
 	media-libs/libpng:*
-	media-libs/openal
+	media-libs/opencv:=
+	media-libs/openal:=
 	pulseaudio? ( media-libs/libpulse )
 	sdl? ( media-libs/libsdl3 )
 	sys-libs/zlib

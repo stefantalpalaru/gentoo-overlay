@@ -367,7 +367,6 @@ PATCHES=(
 	"${FILESDIR}/${PN}-3.4.1-cuda-add-relaxed-constexpr.patch"
 	"${FILESDIR}/${PN}-4.1.2-opencl-license.patch"
 	"${FILESDIR}/${PN}-4.4.0-disable-native-cpuflag-detect.patch"
-	"${FILESDIR}/${PN}-4.12.0-link-with-cblas-for-lapack.patch"
 
 	"${FILESDIR}/${PN}-4.13.0-use-system-flatbuffers.patch"
 	"${FILESDIR}/${PN}-4.8.1-use-system-opencl.patch"
@@ -491,8 +490,7 @@ src_prepare() {
 		pushd "${WORKDIR}/${PN}_contrib-${PV}" >/dev/null || die
 		eapply "${FILESDIR}/${PN}_contrib-4.8.1-rgbd.patch"
 		eapply "${FILESDIR}/${PN}_contrib-4.8.1-NVIDIAOpticalFlowSDK-2.0.tar.gz.patch"
-		eapply "${FILESDIR}"/opencv_contrib-4.13.0-cuda-13.2.patch
-		eapply "${FILESDIR}"/opencv_contrib-4.13.0-cuda-include-dir.patch
+		eapply "${FILESDIR}"/opencv_contrib-4.14.0-cuda-include-dir.patch
 		eapply "${FILESDIR}"/opencv_contrib-4.13.0-cuda-make_tuple.patch
 		[[ -n "${PATCHES_CONTRIB_USER[*]}" ]] && eapply "${PATCHES_CONTRIB_USER[@]}"
 		popd >/dev/null || die
