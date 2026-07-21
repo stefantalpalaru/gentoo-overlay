@@ -45,7 +45,7 @@ DEPEND="
 "
 
 PATCHES=(
-	"${FILESDIR}"/subliminal-2.3.0-version.patch
+	"${FILESDIR}"/subliminal-2.7.0-version.patch
 )
 
 src_prepare() {
