@@ -1,0 +1,400 @@
+END USER LICENSE AGREEMENT
+
+THIS SOFTWARE PRODUCT IS PARTIALLY BASED ON THE “Ariga Atlas” OPEN-SOURCE PROJECT
+AVAILABLE AT: https://github.com/ariga/atlas (THE “PROJECT”). THE PROJECT IS LICENSED UNDER THE
+APACHE LICENSE, VERSION 2.0, AND YOU CAN OBTAIN A COPY OF THE SOURCE CODE OF THE
+PROJECT VIA THIS LINK. ADDITIONAL LICENSE INFORMATION CAN BE FOUND IN OUR FAQ AT:
+https://atlasgo.io/about.
+
+THIS END USER LICENSE AGREEMENT (THE “AGREEMENT”) IS A LEGAL AGREEMENT BETWEEN YOU,
+EITHER AS AN INDIVIDUAL, COMPANY OR OTHER LEGAL ENTITY (“YOU” or “you”, AS FURTHER DEFINED
+BELOW) AND ARIGA TECHNOLOGIES INC. (THE “COMPANY”, “us” or “we”). PLEASE READ THIS
+AGREEMENT CAREFULLY BEFORE INSTALLING THE “ATLAS” SOFTWARE. ANY USE OF THE “ATLAS”
+SOFTWARE INCLUDING ANY REVISIONS, MODIFICATIONS, ENHANCEMENTS, UPDATES AND/OR
+UPGRADES THERETO (HEREINAFTER “SOFTWARE”) AND CLOUD CONNECTED SERVICES (AS DEFINED
+BELOW) SUPPLIED BY THE COMPANY ARE AND SHALL BE, SUBJECT TO THE TERMS AND CONDITIONS
+SET FORTH IN THIS AGREEMENT, UNLESS YOU AND THE COMPANY HAVE EXECUTED A SEPARATE
+AGREEMENT IN WRITING, SIGNED BY BOTH YOU AND THE COMPANY WHICH EXPRESSLY SUPERSEDES
+THIS AGREEMENT.
+
+“YOU or you” MEANS INDIVIDUAL(S) INSTALLING OR USING THE SOFTWARE ON THEIR OWN BEHALF OR
+WHO ARE LEGALLY USING A COPY OF THE SOFTWARE; OR, IF THE SOFTWARE IS BEING DOWNLOADED
+OR INSTALLED ON BEHALF OF AN ORGANIZATION, SUCH AS AN EMPLOYER, "YOU" FURTHER MEANS
+THE ORGANIZATION FOR WHICH THE SOFTWARE IS DOWNLOADED OR INSTALLED AND IT IS
+REPRESENTED HEREBY THAT SUCH ORGANIZATION HAS AUTHORIZED THE PERSON ACCEPTING THIS
+AGREEMENT TO DO SO ON ITS BEHALF.
+BY DOWNLOADING, INSTALLING, OPERATING OR OTHERWISE USING THE SOFTWARE, YOU ARE
+EXPRESSLY AND EXPLICITLY ACCEPTING THIS AGREEMENT AND AGREEING TO BE BOUND BY ITS
+TERMS AND CONDITIONS. IF YOU DO NOT AGREE TO THIS AGREEMENT OR ARE NOT WILLING TO
+BE BOUND BY IT, DO NOT DOWNLOAD, INSTALL, OPERATE OR OTHERWISE USE THE SOFTWARE
+AND YOU MUST PROMPTLY UNINSTALL THE SOFTWARE, AND ANY PART THEREOF, FROM YOUR
+SYSTEM.
+
+1. License grant and restrictions.
+
+1.1 The Software. The commercial Software is proprietary software provided to you in binary executable form for the
+regular and standard purposes the Software was designed for, all in accordance with the terms set forth in this
+Agreement. The term "Software" includes the Software and its binary code, compilation of data, or visual display
+resulting from the operation of the Software, and any associated materials, equipment, systems, specifications,
+API and Documentation (as such terms are defined below).
+
+1.2 License. Subject to the terms and conditions of this Agreement, the Company hereby grants you, and you accept a
+limited, non-exclusive, non-sublicensable, non-transferable and fully revocable license to install the Software,
+solely in binary form, on computer systems owned or controlled by you and to use the Software solely for your
+internal business purposes and solely in binary form all in accordance with the terms contained in this Agreement
+and in accordance with the Software's Documentation (as defined below). All other rights in the Software are
+expressly reserved by the Company.
+
+1.3 Authorized Users. You shall ensure that all authorized consultants, service providers or employees whose duties
+require access to the Software shall abide by the terms of this Agreement. You shall bear full responsibility for any
+damage, loss or harm caused to the Company due to the breach of the terms of this Agreement by such persons or
+entities.
+
+1.4 Documentation. The Company may make available certain Documentation related to the use, installation, access,
+deployment or integration of any portion of the Software. “Documentation” means the Company's standard user
+documentation, whether in hard copy, or in any electronic form or other media (generally made available by the
+Company to its customers), describing the use, features and operation of the Software. Unless context otherwise
+requires, the term “Software” shall include the Documentation.
+
+1.5 Prohibited Uses. Except as specifically permitted herein, without the prior written consent of the Company you
+agree not to, directly or indirectly: (i) use, modify, incorporate into or with other software, or create a derivative
+work of any part of the Software; (ii) sell, resell, license (or sub-license), lease, assign, transfer, pledge, or share
+your rights under this Agreement with or to anyone else; (iii) copy, distribute, publish or reproduce the Software;
+(iv) use or permit the Software to be use to perform services for third parties, whether on a service bureau or time
+sharing basis or otherwise, without the express authorization of the Company; (v) disclose, publish or otherwise
+make publicly available the results of any benchmarking of the Software, or use such results for your own
+competing software development activities; (vi) modify, disassemble, decompile, reverse engineer, revise or
+enhance the Software or attempt to reconstruct or discover any source code or underlying ideas or algorithms of
+the Software, except to the extent otherwise permitted under applicable law, in the jurisdiction of use,
+notwithstanding this prohibition; (vii) remove or otherwise alter any of the Company's trademarks, logos,
+copyrights, notices or other proprietary notices or indicia, if any, fixed or attached to the Software as delivered to
+you; (viii) ship, transfer or export the Software into any country, or make available or use the Software in any
+manner which is in violation of applicable export control laws, restrictions or regulations;(ix) disclose, provide or
+otherwise make available trade secrets contained within the Software and related documentation in any form to
+any third party without the prior written consent of the Company. You shall implement reasonable security
+measures to protect such trade secrets; (x) bypass, circumvent, disable or otherwise interfere with any measures
+we may use to prevent or restrict access to the Software, or features that enforce limitations on the use of the
+Software; (xi) use any automated means, including bots, or unauthorized tokens (including use of tokens or
+equivalent measures not for the purpose for which they are intended) to access or use the Software; (xii) exceed or
+abuse any limitations on the use of the Software (including limitation relating to the number of permitted seats or
+API calls); and/or (xiii) access, store, distribute, or transmit during the course of its use of the Software any
+malicious code (i.e., software viruses, Trojan horses, worms, malware or other computer instructions, devices, or
+techniques that erase data or programming, infect, disrupt, damage, disable, or shut down a computer system or
+any component of such computer system), or unlawful or infringing materials. Unless context otherwise requires,
+the term “Software” as used in this Section 1.5 includes the API and the Cloud Connected Services (as such terms
+are defined below).
+
+1.6 Lawful Use. You hereby declare and agree that you shall only use the Software and the Cloud Connected Services
+(as defined below) in a manner that complies with all applicable laws in the jurisdiction in which you use the
+Software, including, but not limited to, applicable restrictions concerning the protection of privacy and intellectual
+property including copyrights and any other intellectual property rights. The Software should be installed in
+accordance with the instructions of the Company and in accordance with the instructions set forth in the
+Documentation.
+
+1.7 Affiliates. If your Affiliate (as defined below) us the Software and/or the Cloud Connected Services, you shall: (i)
+provide each such Affiliate with a copy of this Agreement; (ii) ensure that each such Affiliate complies with the
+terms and conditions therein; and (iii) be responsible for any breach of these terms and conditions by any such
+Affiliate. For purposes of this Agreement, "Affiliate" means any entity that Controls, is Controlled by, or is under
+common Control with you, where "Control" means ownership, directly or indirectly, of 50% or more of the voting
+interest.
+
+1.8 Anonymous Information. As part of your use of the Software certain information, (such as bug reports, metadata
+(including timestamps), metrics and other hashed data) relating to your use of the Software will be transmitted to
+the Company’s servers and you hereby consent to such practices. You may opt-out of sending us such information,
+at any time, by using the relevant functionality within the Software. The Company will be permitted to process,
+disclose, and use in any other manner such information in order to provide and improve the Software and its
+functionality and the Company's other programs and services and for other legitimate business purposes. The
+Company is and shall remain the owner of any such information. Please refer to Section 2.6 below regarding
+collection of anonymous information as part of our Cloud Connected Services (as defined below).
+
+1.9 AI Features. The Software and Cloud Connected Services (as defined below) may incorporate AI-powered
+features that enable you to ask questions about their operation and make other queries in connection with their use.
+Such inputs and queries and related Customer’s Data and metadata are processed in Company severs and through
+third-party service providers, including but not limited to OpenAI, to generate responses. Due to the inherent
+nature and limitations of artificial intelligence technology, we cannot guarantee the accuracy, completeness, or
+appropriateness of any AI-generated responses or outputs. You acknowledge that human review and oversight
+should be employed when using these features, and any reliance on AI-generated content is at your sole discretion
+and risk. The AI features are not designed or intended to process personal data (as defined under applicable data
+protection laws), and you are strictly prohibited from uploading or including any personal data when using these
+features. To improve our services and for research and development purposes, we retain records of all queries
+made through the AI features. By using these features, you understand and agree that the generated responses are
+intended as an assistive tool for informational purposes only and should not be considered professional advice or a
+substitute for human judgment. Without derogating from other terms of this Agreement, the Company expressly
+disclaims all warranties, whether express or implied, and any liability with respect to your use of said AI features
+and your use of or reliance on any outputs provided by them.
+
+2. Cloud Connected Services.
+The following terms and condition shall apply to the extent that you have subscribed to our Cloud Connected Services,
+as detailed below:
+
+1.1 Cloud Connected Services. Downloading, installing and using the Software is currently free of charge. However,
+certain features or services available via Software are subject to the purchase of a subscription license from the
+Company (the “Subscription Plan”) and the payment of certain fees (the “Subscription Fees”), all as detailed on
+our website at: https://ariga.io (collectively, the “Cloud Connected Services”, and respectively the “Website”).
+We reserve the right to charge fees for any use of the Software in the future. We may offer or cease to offer
+free-of-charge Subscription Plans to the Cloud Connected Services, at any time and at our sole discretion
+(“Free-Tier”), in accordance with the terms and conditions specified on the Website. We may impose limitations
+on your use of the Cloud Connected Services, including limits regarding the number API calls, number of seats, or
+data volume that you may process via the Cloud Connected Services (such limitations may be detailed on our
+Website and/or any order form issued by us in connection with your use of the Cloud Connected Services, and
+such terms and limitation are hereby incorporated into this Agreement by reference).
+
+1.2 Free-Tier. Please note that we may restrict access to certain features or services of the Cloud Connected Services
+under the Free-Tier model. The Free-Tier period and specific limitations and terms are stipulated on the Website
+(e.g., limitation on the availability of to certain features and services, limitations on seats per Account and so
+forth) and are hereby incorporated into this Agreement by reference. We reserve the right to cease the provision of
+Free-Tier model, or modify its terms, at any time and at our sole discretion, including with respect to existing
+Free-Tier users, and to provide the Software solely on a payment-based model. Notwithstanding anything to the
+contrary in this Agreement, under the Free-Tier model the Software is provided on an “as is” and “as available”
+basis without any warranty whatsoever and the Company will have no warranty, indemnity, maintenance and
+support or other obligations or liabilities with respect to the Free-Tier.
+
+1.3 Subscription License. To the extent that you have signed up for a Subscription Plan to use the Cloud Connected
+Services, and subject to the payment of all Subscription Fees (as applicable) and to the terms and conditions of the
+Subscription Plan (including those terms and conditions stipulated on the Website), the Company hereby grants
+you a limited, personal, non-exclusive, non-sublicensable, non-transferable, non-assignable and revocable license
+to access and use the Cloud Connected Services, during the Subscription Term (as defined below), solely in
+conjunction with the Software and for your internal business purposes.
+
+1.4 Account. In order to access and use the Cloud Connected Services, you must create an account via our Website
+(the “Account”). The Account will be accessed and/or used solely by your employees or service providers who
+are explicitly authorized by you to use the Software (each, a “Permitted User”). You hereby acknowledge and
+agree: (i) to keep, and ensure that the Permitted Users will keep, the Account login details and passwords secured
+at all times, and otherwise comply with the terms of this Agreement; (ii) to remain solely responsible and liable for
+the activity that occurs in the Account and for any breach of this Agreement by a Permitted User; and (iii) to
+promptly notify the Company in writing if you become aware of any unauthorized access or use of the Account.
+
+1.5 Privacy Policy. We respect your privacy and are committed to protect the information you share with us. We
+believe that you have a right to know our practices regarding the information we collect when you open an
+Account and use the Cloud Connected Services. Our policy and practices and the type of information collected are
+described in detail in our Privacy Policy at https://ariga.io/legal/privacy which is incorporated herein by reference.
+
+1.6 Direct Marketing. To the extent you have opened an Account, you hereby agree that the Company may use the
+contact details you have provided (including, without limitation, e-mail address and phone number) for the
+purpose of providing you commercial and/or non-commercial materials related to the Company's current and/or
+future products and services. You may withdraw your consent by sending a written notice to the e-mail address
+which appears in the Website or alternatively follow the instructions for removing yourself from the mailing list
+which are available in the message transmitted to you.
+
+1.7 Customer’s Data. In order to be able to provide you the Cloud Connected Services, we may be required to
+receive access to the Software, as installed on your computer environment, and to certain data included therein
+(including personal data, as such term or its equivalent is defined under applicable data protection laws,
+hereinafter: “Customer’s Personal Data”, and collectively the “Customer’s Data”), via a programming interface
+embedded in the Software (the “API”). For such purpose, you hereby grant us a limited, non-exclusive, revocable,
+sublicensable (solely to our authorized vendors and service providers) and non-transferable license to access and
+use the Software as installed on your computer environment, and to access, retrieve and use the Customer Data all
+to the extent required to provide you the Cloud Connected Services. As between the parties, all Customer's Data
+provided to the Company under this Agreement, and all intellectual property rights therein shall be solely owned
+by you. When using the Cloud Connected Services and notwithstanding Section 1.8, the Company may collect,
+disclose, publish and use in any other manner anonymous information which is derived from the use of such
+services and/or the Customer Data (i.e., non-identifiable information, aggregated and analytics information that
+does not identify an individual person) (collectively, "Analytics Information"), in order to provide and improve the
+Company's Software and Cloud Connected Services, for R&D purposes and for any other legitimate business
+purpose. The Company is and shall remain the sole owner of the Analytics Information.
+
+1.8 Personal Data. The following shall apply to Customer’s Personal Data: The Company shall serve as “processor”
+of the Customer’ Personal Data on your behalf. You hereby instruct Company (and authorize Company to instruct
+its sub-processors) to: (i) process Customer's Personal Data as reasonably necessary for the provision of the
+services associated with the Cloud Connected Services and any other personal data processing performed
+hereunder; and (ii) transfer such Customer's Personal Data to jurisdictions other than those of your operations
+(including, where applicable, outside the EEA) in accordance with applicable law. Company undertakes with
+respect to Customer's Personal Data to: (i) take appropriate technical and organizational measures to ensure a level
+of security appropriate to the Customer's Personal Data; (ii) ensure that all individuals who engage in the
+processing of Customer's Personal Data on its behalf are subject to confidentiality undertakings; (iii) assist you in
+exercising data subjects' rights under applicable law; (iv) inform you without undue delay of any breach of
+security leading to the accidental or unlawful destruction, loss, alteration, unauthorized disclosure of, or access to,
+personal data transmitted, stored or otherwise processed by the Company on your behalf; and (iv) either delete,
+anonymize or return all Customer's Personal Data to you upon termination of this Agreement. You hereby
+authorize Company to appoint further sub-processors, as necessary for the personal data processing activities
+under this Agreement. You shall have sole responsibility for the accuracy, quality and legality of the Customer's
+Personal Data and the means by which you acquired such personal data. You hereby warrant and undertake that
+Customer's Personal Data has been collected, processed and transferred to the Company in accordance with
+applicable laws, including if required by applicable law, you have provided the required notice and received all
+required consents from affected data subjects for the processing of their personal data by the Company, including
+with respect to the transfer of their data to a third country (including outside of the EU/EEA).
+
+1.9 Subscription Terms and Consideration. The terms and conditions of your Subscription shall be in accordance
+with the subscription plan detailed on the Website, and which is selected and purchased by you (the “Subscription
+Plan”). Unless otherwise stated in the Subscription Plan, all fees stipulated in the Subscription Plan shall be billed
+in advance every thirty (30) days, and any Subscription Plan term will renew automatically for successive renewal
+periods, unless you provide the Company with written notice of cancellation, at least thirty (30) days prior to the
+commencement of the following renewal period, or unless terminated by either party in accordance with the
+provisions of this Agreement. To the extent applicable, if your payment information becomes invalid, your use of
+the Cloud Connected Services may be suspended until valid payment information is provided. Company reserves
+the right to modify the Subscription Fees at any time and at its sole discretion. Such pricing changes will NOT
+affect your already paid-up Subscription Plan term and the Company will inform you in advance of any such
+change. If you fail to pay your Subscription Fee on time, or if your credit card payment information is entered in
+error or does not go through for processing and you do not update payment information upon our request, your
+entire Subscription may be suspended or cancelled. Unless otherwise expressly stated herein, all payments
+hereunder are quoted and shall be paid in United States Dollars. Payment shall be made without any right or
+set-off or deduction and are irrevocable and nonrefundable. All amounts payable under this Agreement are
+exclusive of sales, use, value-added, withholding, and other taxes and duties. You will pay all taxes and duties
+assessed in connection with this Agreement by any authority, except for taxes payable on Company's net income.
+
+1.10 Online Payment Services. Subscription Fees are processed via certain third-party online payment service
+providers (“Online Payment Processors”). We may add or change the Online Payment Processors in our sole
+discretion. The Online Payment Processors enable you to send payments securely online using a credit card, debit
+card or bank account. We do not control and are not affiliated with such Online Payment Processors. These Online
+Payment Processors are independent contractors and have no employment or agency relationship with us. The
+Company is not responsible in any way for the actions or performance (or lack thereof) of the Online Payment
+Processors. The use of the Online Payment Processors is at your own risk. It is your responsibility to abide by all
+the terms specified by the Online Payment Processors in their terms of use and privacy policies. You acknowledge
+that you are fully assuming the risks of conducting any transactions via the Online Payment Processors.
+
+1.11 Reference Customer. You agree that the Company may identify you as a user of the Cloud Connected Services
+and use your trademark and/or logo (i) in sales presentations, promotional/marketing materials, and press releases,
+and (ii) in order to develop a brief customer profile for use by the Company on the Company's Website for
+promotional purposes.
+
+3. Title & Ownership. The Software, the API, the Cloud Connected Services and the related Documentation are licensed
+and not sold. The Company and its licensors are and shall retain all right, interest and ownership in and to the Software,
+the Cloud Connected Services, the API and the related Documentation, including without limitation in and to any and
+all intellectual property rights (including, without limitation, copyrights, trade secrets, trademarks, etc.) evidenced by or
+embodied in and/or attached/connected/related to the Software and/or the API and/or the Cloud Connected Services
+and/or the related Documentation. This Agreement does not convey to you an interest in or to the Software and/or the
+API and/or the Cloud Connected Services and/or the related Documentation, but only a limited revocable right to use
+the Software and/or the API and/or the Cloud Connected Services and/or the related Documentation in accordance with
+the terms of this Agreement. Nothing in this Agreement constitutes a waiver of the Company’s intellectual property
+rights under any law. If you contact the Company with feedback data (e.g., questions, comments, suggestions or the
+like) regarding the Software (collectively, “Feedback”), such Feedback shall be deemed non-confidential, and the
+Company shall have a non-exclusive, worldwide royalty-free and perpetual license to use or incorporate such Feedback
+into the Software and/or other current or future products or services of the Company (without your approval and
+without further compensation to you).
+
+4. Warranties and Disclaimers.
+
+4.1 Mutual Warranties. Each party represents and warrants (a) that it is duly organized, validly existing and in good
+standing under the laws of its jurisdiction of incorporation or organization; and (b) that the execution and
+performance of this Agreement will not conflict with any obligations it has towards third parties, or violate any
+provision of any applicable law.
+
+4.2 Disclaimers. OTHER THAN AS EXPLICITLY STATED UNDER THIS AGREEMENT TO THE EXTENT
+PERMITTED BY APPLICABLE LAW, THE SOFTWARE, THE API, THE CLOUD CONNECTED SERVICES
+AND THE DOCUMENTATION ARE PROVIDED ON AN “AS IS” BASIS. THE COMPANY DOES NOT
+WARRANT THAT THE SOFTWARE AND/OR THE API AND/OR THE CLOUD CONNECTED SERVICES
+AND/OR THE DOCUMENTATION WILL MEET YOUR REQUIREMENTS OR THAT THE SOFTWARE'S
+OPERATION WILL BE SECURE, UNINTERRUPTED, ERROR-FREE, FREE OF VIRUSES, BUGS, WORMS,
+OTHER HARMFUL COMPONENTS OR OTHER PROGRAM LIMITATIONS. TO THE EXTENT ALLOWED
+BY LAW, THE COMPANY EXPRESSLY DISCLAIMS ALL EXPRESS WARRANTIES, ALL IMPLIED
+WARRANTIES, AND ALL CONDITIONS, INCLUDING, BUT NOT LIMITED TO, THE IMPLIED
+WARRANTIES OR CONDITION OF MERCHANTABILITY, NON-INTERFERENCE,
+NON-INFRINGEMENT, FITNESS FOR A PARTICULAR PURPOSE, SATISFACTORY QUALITY AND ANY
+WARRANTIES ARISING OUT OF COURSE OF DEALING OR USAGE OF TRADE. IN ADDITION, DUE
+TO THE CONTINUAL DEVELOPMENT OF NEW TECHNIQUES FOR INTRUDING UPON AND
+ATTACKING NETWORKS, COMPANY DOES NOT WARRANT THAT THE SOFTWARE AND/OR THE API
+AND/OR THE CLOUD CONNECTED SERVICES AND/OR THE DOCUMENTATION OR ANY
+EQUIPMENT OR SYSTEM SUPPLIED BY THE COMPANY WITH THE SOFTWARE (IF ANY), WILL BE
+FREE OF VULNERABILITY TO INTRUSION OR ATTACK. SOME STATES (COUNTRIES AND
+PROVINCES) DO NOT ALLOW LIMITATIONS ON HOW LONG AN IMPLIED WARRANTY (OR
+CONDITION) MAY LAST, SO THE LIMITATION DESCRIBED ABOVE MAY NOT APPLY TO YOU.
+
+4.3 Limitation of Liability. TO THE FULLEST EXTENT PERMITTED BY APPLICABLE LAW (A) THE
+COMPANY OR ITS SUPPLIERS AND/OR LICENSORS SHALL NOT BE LIABLE WHETHER UNDER
+CONTRACT, TORT OR OTHERWISE, TO YOU OR ANY THIRD PARTY FOR ANY INDIRECT,
+INCIDENTAL, PUNITIVE, EXEMPLARY, SPECIAL OR CONSEQUENTIAL DAMAGES OF ANY KIND
+(INCLUDING BUT NOT LIMITED TO, ANY LOSS OR DAMAGE TO BUSINESS EARNINGS, LOST
+PROFITS OR GOODWILL AND LOST OR DAMAGED DATA OR DOCUMENTATION), SUFFERED BY
+ANY PERSON, ARISING FROM AND/OR RELATED WITH AND/OR CONNECTED TO THE
+INSTALLATION OF THE SOFTWARE OR ANY EQUIPMENT OR SYSTEM SUPPLIED BY THE
+COMPANY (IF ANY) AND/OR ANY USE OF OR INABILITY TO USE THE SOFTWARE AND/OR THE API
+AND/OR THE CLOUD CONNECTED SERVICES AND/OR THE DOCUMENTATION, OR ANY
+EQUIPMENT OR SYSTEM SUPPLIED BY THE COMPANY (IF ANY), EVEN IF THE COMPANY WAS
+ADVISED OF THE POSSIBILITY OF SUCH DAMAGES; AND (B) IN NO EVENT SHALL THE
+COMPANY'S TOTAL LIABILITY ARISING OUT OF OR RELATING TO THIS AGREEMENT FROM ALL
+CLAIMS OR CAUSES OF ACTION AND UNDER ALL THEORIES OF LIABILITY, EXCEED THE TOTAL
+PAYMENTS ACTUALLY MADE TO THE COMPANY FOR THE SOFTWARE AND/OR CLOUD
+CONNECTED SERVICES, IF ANY, DURING THE TWELVE (12) MONTH PERIOD PRIOR TO ANY SUCH
+CLAIM OR CAUSE OF ACTION AROSE. THIS LIMITATION OF LIABILITY IS CUMULATIVE AND NOT
+PER INCIDENT.
+THE COMPANY MAY ENABLE YOU TO DOWNLOAD, FROM TIME TO TIME, SOFTWARE UPDATES
+(INCLUDING SECURITY PATCHES), BY WAY OF DIRECTING YOU TO OUR WEBSITE (AS DEFINED
+BELOW) OR BY ANY OTHER MEANS THAT THE COMPANY DEEMS APPROPRIATE, AT ITS SOLE
+DISCRETION. IT IS RECOMMENDED THAT YOU INSTALL ALL SUCH UPDATES PROMPTLY ON ALL
+WORKSTATIONS AND ENVIRONMENTS WHERE THE SOFTWARE HAS BEEN INSTALLED, TO
+ENSURE THAT THE SOFTWARE WILL FUNCTION CORRECTLY AND WILL BE KEPT UP TO DATE.
+YOU HEREBY DISCHARGE THE COMPANY FROM ANY LIABILITY AND WAIVE ANY CLAIM
+AGAINST THE COMPANY RESULTING FROM YOUR FAILURE TO USE AN UPDATED VERSION OF
+THE SOFTWARE. WE DO NOT GUARANTEE THAT ANY VERSION OF THE SOFTWARE WILL
+SUPPORT ALL HARDWARE/SOFTWARE ENVIRONMENTS. THE LICENSE GRANTED UNDER THIS
+AGREEMENT WILL APPLY TO SUCH UPDATES AND UPON INSTALLATION THEREOF, ALL RIGHTS
+IN RESPECT OF THE PREVIOUS VERSION OF THE SOFTWARE WILL LAPSE AND NO FURTHER USE
+OF THE PREVIOUS VERSION OF THE SOFTWARE SHALL BE PERMITTED.
+
+5. Third Party Software. The Software is based on software which is developed and owned by the Company and/or its
+licensors. The Software may use or include third party software, files and components that are subject to open source
+and third party license terms ("Third Party Components"). Your right to use such Third Party Components as part of,
+or in connection with the Software is subject to any applicable acknowledgements and license terms accompanying
+such Third Party Components contained therein or related thereto. If there is a conflict between the licensing terms of
+such Third Party Components and this Agreement, the licensing terms of the Third Party Components shall prevail in
+connection with the related Third Party Components. Such Third Party Components are provided on an “AS IS” basis
+without any warranty of any kind and shall be subject to any and all limitations and conditions required by such third
+parties. You hereby agree to such terms associated with the Third Party Components. Under no circumstances shall the
+Software or any portion thereof (except for the Third Party Components contained therein) be deemed "open source" or
+"publicly available" software.
+A list of Third Party Components is available in the Software or its documentation (the "About Box") and will be
+updated from time to time. The licenses of certain Third Party Components may require the provision of the source
+code of these Third Party Components. With respect to any licenses of Third Party Components that require the
+provision of the open source code of these Components, the Company will provide you and any third party, during a
+period set forth by each such license, for a charge of no more than Company's cost of physically performing source
+distribution, a complete machine-readable copy of the corresponding source code, on a medium customarily used for
+software interchange. For that purpose, you should contact the Company at: hello@ariga.io.
+
+6. Indemnification. You agree to defend, indemnify and hold harmless the Company, its officers, directors,
+employees and agents, from and against any and all claims, damages, obligations, losses, liabilities, costs,
+debts, and expenses (including but not limited to attorney's fees) arising from: (i) your unauthorized use of
+the Software and/or the Cloud Connected Services; and/or (ii) your violation of any term of this Agreement.
+
+7. Termination. This Agreement is effective upon downloading, installing, operating or otherwise using the Software.
+This Agreement will remain in force until terminated in accordance with this Agreement. The Company may terminate
+this Agreement immediately without notice if you fail to comply or breach any provision of this Agreement. You may
+terminate this Agreement upon written notice to the Company, provided that any active Subscription shall remain in
+effect and terminate at the expiry of the Subscription Plan term in which such notice was provided. Upon termination of
+this Agreement: (i) the licenses granted to you in this Agreement shall expire and you, upon termination, shall
+discontinue all further use of the Software; (ii) you shall promptly remove the Software from all hard drives, networks
+and other storage media and destroy all copies of the Software in your possession or under your control. Upon the
+Company's request you shall within three (3) days certify destruction of, all full or partial copies of the Software,
+Documentation and related materials provided to you by the Company or on its behalf; and (iii) any sums paid by you
+until the date of termination are non-refundable, and you shall not be relieved of your duty to discharge in full all due
+sums owed by you to the Company under this Agreement, which sums shall become immediately due and payable on
+the date of termination of the Agreement. The provisions of this Agreement that, by their nature and content, must
+survive the termination of this Agreement in order to achieve the fundamental purposes of this Agreement shall so
+survive. Termination of this Agreement shall not limit either Party from pursuing any other remedies available to it
+under applicable law.
+
+8. Export and Sanctions. You hereby represent and warrant that you and your subsidiaries, affiliates, directors, officers,
+and employees are not: the subject or target of any sanctions or trade embargos administered or enforced by any
+relevant government authority, including, but not limited to, the U.S. Department of the Treasury’s Office of Foreign
+Assets Control, the U.S. Department of State, the U.S. Department of Commerce, the United Nations Security Council,
+the European Union, or Her Majesty’s Treasury (collectively, “Sanctions”); and (ii) located, organized or resident and
+do not operate in a country or territory that is the subject or target of Sanctions (including but not limited to Cuba, Iran,
+North Korea, Crimea Region, Russia, Lebanon and Syria). You further represent and warrant that you and your
+subsidiaries, affiliates, directors, officers and employees will comply with all applicable Sanctions and will not take any
+action to cause the Company to violate Sanctions. Notwithstanding anything to the contrary and without derogating
+from any other remedy available to the Company in law or equity, or otherwise provided under this Agreement, in the
+event that (1) you violate Sanctions or any applicable export control laws, or (2) it becomes unlawful under Sanctions
+or applicable export control laws for the Company to continue to perform under this Agreement, the Company may
+immediately, upon issuance of written notice and with no opportunity to cure, terminate this Agreement, in each case as
+determined by the Company in its sole discretion.
+
+9. Maintenance and Support. The Company has no obligation to provide support, maintenance, upgrades, modifications,
+or new releases under this Agreement, unless otherwise agreed in writing between you and the Company.
+
+10. Miscellaneous. This Agreement shall be construed and governed in accordance with the laws of the New York, US
+(except for conflict of law provisions) and the competent courts of New York City, NY shall have exclusive jurisdiction
+in any conflict or dispute arising out of this Agreement. The application of the United Nations Convention of Contracts
+for the International Sale of Goods is expressly excluded. This Agreement represents the complete agreement
+concerning the license granted herein and the subject matter hereof. The Company may, at its sole discretion, change
+the terms contained herein by providing you a written notice. The failure of either party to enforce any rights granted
+hereunder or to take action against the other party in the event of any breach hereunder shall not be deemed a waiver by
+that party as to subsequent enforcement of rights or subsequent actions in the event of future breaches. If any provision
+of this Agreement is held to be unenforceable, such provision shall be reformed only to the extent necessary to make it
+enforceable. You may not assign your rights or obligations under this Agreement without the prior written consent of
+the Company. The Company may assign or transfer its rights and/or obligations under this Agreement without
+restriction or notification.
+
+BY DOWNLOADING AND/OR INSTALLING AND/OR YUR USE OF THE SOFTWARE , YOU
+ACKNOWLEDGE THAT (A) YOU HAVE READ AND REVIEWED THIS AGREEMENT IN ITS
+ENTIRETY, (B) YOU AGREE TO BE BOUND BY THIS AGREEMENT, (C) YOU HAVE AUTHORITY
+AND LEGAL RIGHT TO ENTER INTO THIS AGREEMENT ON BEHALF OF YOUR ORGANIZATION,
+AND (D) THIS AGREEMENT CONSTITUTES BINDING AND ENFORCEABLE OBLIGATIONS ON
+YOUR BEHALF.
