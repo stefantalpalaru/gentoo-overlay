@@ -912,7 +912,7 @@ media-libs/meshoptimizer 1.2: Mesh optimization library that makes meshes smalle
 media-libs/nv-codec-headers 8.1.24.15 11.0.10.3 11.1.5.4 12.0.16.2 12.1.14.1 12.2.72.0 13.0.19.1 13.1.15.0: FFmpeg version of headers required to interface with Nvidias codec APIs
 media-libs/oidn 2.5.0-r1302: Intel Open Image Denoise library
 media-libs/opencolorio 2.5.2: Color management framework for visual effects and animation
-media-libs/opencv 4.14.0: A collection of algorithms and sample code for various computer vision problems
+media-libs/opencv 4.14.0 5.0.0: A collection of algorithms and sample code for various computer vision problems
 media-libs/openexr 3.1.12-r2: ILM's OpenEXR high dynamic-range image file format libraries
 media-libs/openimageio 3.0.20.0-r1 3.1.15.0-r1: A library for reading and writing images
 media-libs/opensubdiv 3.6.1-r102: An Open-Source subdivision surface library
