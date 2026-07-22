@@ -39,7 +39,7 @@ RDEPEND="
 	media-libs/libjpeg-turbo
 	>=media-libs/libmypaint-1.3.0:=
 	media-libs/libpng:=
-	media-libs/opencv:=[features2d]
+	media-libs/opencv:0=[features2d]
 	>=sci-libs/superlu-4.1:=
 	sys-libs/zlib
 	virtual/cblas

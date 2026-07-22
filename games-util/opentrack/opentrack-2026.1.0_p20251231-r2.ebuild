@@ -19,7 +19,7 @@ DEPEND="
 	dev-qt/qtbase:6[gui,network,widgets]
 	dev-qt/qtserialport:6
 	dev-qt/qttools:6[linguist]
-	media-libs/opencv:=
+	media-libs/opencv:0=
 	neuralnet? (
 		sci-libs/onnxruntime:=
 	)

@@ -1,13 +1,13 @@
 DEFINED_PHASES=configure install pretend
-DEPEND=dev-qt/qtcore:5 dev-qt/qtgui:5 dev-qt/qtnetwork:5 dev-qt/qtxml:5 media-gfx/gmic[fftw,opencv,openmp] >=media-libs/opencv-4:= sci-libs/fftw:3.0[threads] sys-libs/zlib media-libs/cimg
+DEPEND=dev-qt/qtcore:5 dev-qt/qtgui:5 dev-qt/qtnetwork:5 dev-qt/qtxml:5 media-gfx/gmic[fftw,opencv,openmp] >=media-libs/opencv-4:0= sci-libs/fftw:3.0[threads] sys-libs/zlib media-libs/cimg
 DESCRIPTION=G'MIC GUI for video streams
 EAPI=8
 HOMEPAGE=https://github.com/c-koi/zart
 INHERIT=flag-o-matic qmake-utils toolchain-funcs
 KEYWORDS=~amd64 ~arm64 ~x86
 LICENSE=CeCILL-2
-RDEPEND=dev-qt/qtcore:5 dev-qt/qtgui:5 dev-qt/qtnetwork:5 dev-qt/qtxml:5 media-gfx/gmic[fftw,opencv,openmp] >=media-libs/opencv-4:= sci-libs/fftw:3.0[threads] sys-libs/zlib
+RDEPEND=dev-qt/qtcore:5 dev-qt/qtgui:5 dev-qt/qtnetwork:5 dev-qt/qtxml:5 media-gfx/gmic[fftw,opencv,openmp] >=media-libs/opencv-4:0= sci-libs/fftw:3.0[threads] sys-libs/zlib
 SLOT=0
 SRC_URI=https://github.com/c-koi/zart/archive/d014169343f835381ad232ee11e077326561c9eb.tar.gz -> zart-3.2.2_p20231127.tar.gz
 _eclasses_=toolchain-funcs	58a918e3a42d0156f010dcfd43725be5	flag-o-matic	fd3558f73f6503093adee69adf41020d	qmake-utils	28f99dba9219112f4785f46ed426a021
-_md5_=0915bd6e80b549a1a913166a1fbb0d47
+_md5_=3c5d46210e0c577faeac4607ef6935f9

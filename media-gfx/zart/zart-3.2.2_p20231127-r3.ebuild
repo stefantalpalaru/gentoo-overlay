@@ -20,7 +20,7 @@ RDEPEND="
 	dev-qt/qtnetwork:5
 	dev-qt/qtxml:5
 	media-gfx/gmic[fftw,opencv,openmp]
-	>=media-libs/opencv-4:=
+	>=media-libs/opencv-4:0=
 	sci-libs/fftw:3.0[threads]
 	sys-libs/zlib
 "

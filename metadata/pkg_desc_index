@@ -862,7 +862,7 @@ dev-util/tla-toolbox-bin 1.8.0-r1: IDE for TLA+
 dev-vcs/bzr 2.7.1_pre-r4: Bazaar is a next generation distributed version control system
 dev-vcs/hg-fast-export 260405-r1: mercurial to git converter using git-fast-import
 games-emulation/dbgl-bin 0.99: DOSBox Game Launcher
-games-emulation/rpcs3 9999-r17: PlayStation 3 emulator
+games-emulation/rpcs3 9999-r18: PlayStation 3 emulator
 games-emulation/snes9x 1.63-r1: Super Nintendo Entertainment System (SNES) emulator
 games-fps/gzdoom 4.14.2: A modder-friendly OpenGL source port based on the DOOM engine
 games-fps/uzdoom 4.14.3: A modder-friendly OpenGL source port based on the DOOM engine
@@ -873,7 +873,7 @@ games-strategy/hedgewars 1.0.3: A turn-based strategy, artillery, action and com
 games-strategy/warzone2100 4.7.0: 3D real-time strategy game
 games-util/mangohud 0.8.4: Vulkan and OpenGL overlay for monitoring FPS, sensors, system load and more
 games-util/new-lg4ff 0.5.0 9999-r1: Experimental Logitech force feedback module
-games-util/opentrack 2026.1.0_p20251231-r1: Head tracking software for MS Windows, Linux, and Apple OSX
+games-util/opentrack 2026.1.0_p20251231-r2: Head tracking software for MS Windows, Linux, and Apple OSX
 games-util/oversteer 0.8.3-r2 9999-r3: Steering Wheel Manager for Linux
 games-util/qzdl 3.1.1-r1: Qt version of BioHazard's ZDoom Launcher (ZDL)
 gnome-base/libgnome-keyring 3.12.0-r6: Compatibility library for accessing secrets
@@ -890,10 +890,10 @@ media-gfx/gmic 3.5.0-r103 4.0.3-r100: GREYC's Magic Image Converter
 media-gfx/imagemagick 7.1.2.27: A collection of tools and libraries for many image formats
 media-gfx/inkscape 1.4.4-r3: SVG based generic vector-drawing program
 media-gfx/opencomic-bin 1.6.5: Comic and Manga reader, written with Node.js and using Electron
-media-gfx/opentoonz 1.8.0: An open-source full-featured 2D animation creation software
+media-gfx/opentoonz 1.8.0-r1: An open-source full-featured 2D animation creation software
 media-gfx/openvdb 13.0.0-r1: Library for the efficient manipulation of volumetric data
 media-gfx/yomikiru-bin 2.24.0: manga, manhwa, comic, and novel reader for desktop
-media-gfx/zart 3.2.2_p20231127-r2: G'MIC GUI for video streams
+media-gfx/zart 3.2.2_p20231127-r3: G'MIC GUI for video streams
 media-libs/chromaprint 1.5.1-r5: Library implementing a custom algorithm for extracting audio fingerprints
 media-libs/cimg 3.5.0-r101 4.0.3-r100: C++ template image processing toolkit
 media-libs/draco 1.5.7: 3D mesh and point-cloud compression library
@@ -914,7 +914,7 @@ media-libs/oidn 2.5.0-r1302: Intel Open Image Denoise library
 media-libs/opencolorio 2.5.2: Color management framework for visual effects and animation
 media-libs/opencv 4.14.0 5.0.0: A collection of algorithms and sample code for various computer vision problems
 media-libs/openexr 3.1.12-r2: ILM's OpenEXR high dynamic-range image file format libraries
-media-libs/openimageio 3.0.20.0-r1 3.1.15.0-r1: A library for reading and writing images
+media-libs/openimageio 3.0.20.0-r2 3.1.15.0-r2: A library for reading and writing images
 media-libs/opensubdiv 3.6.1-r102: An Open-Source subdivision surface library
 media-libs/portaudio 19.07.00-r5: A free, cross-platform, open-source, audio I/O library
 media-libs/rtaudio 5.2.0-r1: A set of cross-platform C++ classes for realtime audio I/O
