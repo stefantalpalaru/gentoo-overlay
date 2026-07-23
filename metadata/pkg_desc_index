@@ -38,7 +38,7 @@ dev-db/atlas 1.2.3: declarative schema migrations with schema-as-code workflows
 dev-db/atlas-bin 1.2.4: declarative schema migrations - binary package
 dev-db/metakit 2.4.9.7_p20110819-r1: Embedded database library
 dev-db/postgis 3.6.4: Geographic Objects for PostgreSQL
-dev-db/redis 8.8.0-r101: A persistent caching system, key-value, and data structures database
+dev-db/redis 8.8.1-r100: A persistent caching system, key-value, and data structures database
 dev-db/valkey 9.1.1: Redis fork
 dev-debug/valgrind 3.27.1-r100: An open-source memory debugger for GNU/Linux
 dev-go/golangci-lint 2.12.2-r100: Fast linters runner for Go
