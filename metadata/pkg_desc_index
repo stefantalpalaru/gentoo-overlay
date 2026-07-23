@@ -949,7 +949,7 @@ media-video/aegisub 3.4.2: Advanced subtitle editor
 media-video/ffmpeg 4.4.8: Complete solution to record/convert/stream audio and video. Includes libavcodec
 media-video/mlvapp 1.16 9999-r2: Magic Lantern Video (MLV) processing suite
 media-video/smplayer 25.6.0-r1: Great Qt GUI front-end for mplayer/mpv
-media-video/subliminal 2.7.0 9999-r13: Python library to search and download subtitles
+media-video/subliminal 2.7.1 9999-r13: Python library to search and download subtitles
 media-video/vlc 3.0.23-r101: Media player and framework with support for most multimedia files and streaming
 media-video/vobsub2srt 1.0_pre20171219-r3: Converts VobSub subtitles (.sub/.idx) to .srt text subtitles using tesseract
 net-analyzer/goaccess 1.11: A real-time web log analyzer and interactive viewer in a terminal
