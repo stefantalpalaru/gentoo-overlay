@@ -266,7 +266,8 @@ _DISTUTILS_R1_ECLASS=1
 case ${EAPI} in
 	6)
 		inherit eutils xdg-utils ;;
-	7|8) ;;
+	7) ;;
+	8) inherit eapi9-pipestatus ;;
 	*) die "${ECLASS}: EAPI ${EAPI:-0} not supported" ;;
 esac
 
@@ -1599,9 +1600,9 @@ distutils_pep517_install() {
 					ninjaopts = shlex.split(os.environ["NINJAOPTS"])
 					print(json.dumps({
 						"build.tool-args": ninjaopts,
+						"build.verbose": True,
 						"cmake.args": ";".join(sys.argv[1:]),
 						"cmake.build-type": "${CMAKE_BUILD_TYPE}",
-						"cmake.verbose": True,
 						"install.strip": False,
 					}))
 				EOF
