@@ -4,6 +4,9 @@
 EAPI=8
 CMAKE_MAKEFILE_GENERATOR="emake"
 CMAKE_BUILD_TYPE=Release
+GMIC_COMMIT="d30310b8fa366c313381db54db8b80ed8fef4f94"
+GMIC_QT_COMMIT="aee7e94d7306825c5537222c920531086a107eb3"
+GMIC_QT_URI="https://github.com/GreycLab/gmic-qt/archive/${GMIC_QT_COMMIT}.tar.gz -> gmic-qt-${GMIC_QT_COMMIT}.gh.tar.gz"
 
 inherit cmake flag-o-matic qmake-utils shell-completion toolchain-funcs
 
@@ -12,13 +15,12 @@ HOMEPAGE="http://gmic.eu/
 	https://github.com/GreycLab/gmic
 	https://framagit.org/dtschump/gmic
 	https://github.com/GreycLab/gmic-qt"
-GMIC_QT_URI="https://github.com/GreycLab/gmic-qt/archive/v.${PV}.tar.gz -> gmic-qt-${PV}.gh.tar.gz"
-SRC_URI="https://github.com/GreycLab/gmic/archive/v.${PV}.tar.gz -> ${P}.gh.tar.gz
+SRC_URI="https://github.com/GreycLab/gmic/archive/${GMIC_COMMIT}.tar.gz -> ${PN}-${GMIC_COMMIT}.gh.tar.gz
 	https://gmic.eu/gmic_stdlib_community$(ver_rs 1- '').h
 	gimp? ( ${GMIC_QT_URI} )
 	gui? ( ${GMIC_QT_URI} )
 "
-S="${WORKDIR}/${PN}-v.${PV}"
+S="${WORKDIR}/${PN}-${GMIC_COMMIT}"
 LICENSE="CeCILL-2 GPL-3"
 SLOT="0"
 KEYWORDS="~amd64 ~arm64 ~x86"
@@ -31,15 +33,13 @@ REQUIRED_USE="
 RESTRICT="mirror network-sandbox"
 
 QT_DEPS="
-	dev-qt/qtcore:5=
-	dev-qt/qtgui:5=
-	dev-qt/qtnetwork:5=
-	dev-qt/qtwidgets:5=
+	dev-qt/qtbase:6[gui,network,widgets]
+	dev-qt/qttools[linguist]
 "
 COMMON_DEPEND="
 	fftw? ( sci-libs/fftw:3.0=[threads] )
 	gimp? (
-		>=media-gfx/gimp-2.8.0:0/2
+		media-gfx/gimp:0/3
 		${QT_DEPS}
 	)
 	graphicsmagick? ( media-gfx/graphicsmagick:0= )
@@ -64,12 +64,10 @@ RDEPEND="${COMMON_DEPEND}
 	ffmpeg? ( media-video/ffmpeg:0= )
 "
 DEPEND="${COMMON_DEPEND}
-	gimp? ( dev-qt/linguist-tools:5 )
-	gui? ( dev-qt/linguist-tools:5 )
 	virtual/pkgconfig
 "
 
-GMIC_QT_DIR="gmic-qt-v.${PV}"
+GMIC_QT_DIR="gmic-qt-${GMIC_QT_COMMIT}"
 
 pkg_pretend() {
 	if use openmp; then
@@ -82,7 +80,7 @@ src_prepare() {
 	cmake_src_prepare
 	PATCHES=()
 
-	ln -sr ../${PN}-v.${PV} ../${PN}
+	ln -sr ../${PN}-${GMIC_COMMIT} ../${PN}
 
 	if use gimp || use gui ; then
 		sed -i \
@@ -92,6 +90,7 @@ src_prepare() {
 		cd ../${GMIC_QT_DIR}
 		patch -p1 -i "${FILESDIR}/gmic-3.1.6-stripping.patch" || die
 		patch -p1 -i "${FILESDIR}/gmic-3.2.0-system-gmic.patch" || die
+		patch -p1 -i "${FILESDIR}/gmic-3.7.6-lrelease.patch" || die
 		cd -
 		cmake_src_prepare
 	fi
@@ -99,7 +98,7 @@ src_prepare() {
 
 src_configure() {
 	# for "lrelease"
-	local PATH="${PATH}:$(qt5_get_bindir)"
+	local PATH="${PATH}:$(qt6_get_bindir)"
 
 	local mycmakeargs=(
 		-DBUILD_LIB=ON
@@ -128,16 +127,18 @@ src_configure() {
 	# gmic-qt
 	local CMAKE_USE_DIR="${WORKDIR}/${GMIC_QT_DIR}"
 	append-cppflags -I"${WORKDIR}/gmic/src"
-	append-ldflags -L"${WORKDIR}/gmic-v.${PV}_build"
+	append-ldflags -L"${WORKDIR}/gmic-${GMIC_COMMIT}_build"
 	mycmakeargs=(
 		-DENABLE_DYNAMIC_LINKING=ON
 		-DENABLE_SYSTEM_GMIC=ON
-		-DGMIC_LIB_PATH="${WORKDIR}/gmic-v.${PV}_build"
+		-DGMIC_PATH="${WORKDIR}/gmic/src"
+		-DGMIC_LIB_PATH="${WORKDIR}/gmic-${GMIC_COMMIT}_build"
+		-DBUILD_WITH_QT6=ON
 	)
 	local BUILD_DIR
 	if use gimp; then
 		BUILD_DIR=${WORKDIR}/gimp_build
-		mycmakeargs+=( -DGMIC_QT_HOST=gimp )
+		mycmakeargs+=( -DGMIC_QT_HOST=gimp3 )
 		cmake_src_configure
 	fi
 	if use gui; then
@@ -172,7 +173,7 @@ src_install() {
 	#   might mean that this big file will be automatically downloaded in
 	#   "~/.config/gmic/" when the user runs a tool before updating and sourcing
 	#   the new environment
-	local PLUGIN_DIR="/usr/$(get_libdir)/gimp/2.0/plug-ins/"
+	local PLUGIN_DIR="/usr/$(get_libdir)/gimp/3.0/plug-ins/gmic_gimp_qt"
 	insinto "${PLUGIN_DIR}"
 	doins resources/*.gmz
 
@@ -185,7 +186,7 @@ src_install() {
 	# using the installed "gmic.h".
 	sed -i -e '/^#define cimg.*_plugin/d' "${ED}/usr/include/gmic.h" || die "sed failed"
 
-	use cli && use bash-completion && newbashcomp "${WORKDIR}/${PN}-v.${PV}_build/resources/${PN}_bashcompletion.sh" ${PN}
+	use cli && use bash-completion && newbashcomp "${BUILD_DIR}/resources/${PN}_bashcompletion.sh" ${PN}
 
 	# gmic-qt
 	if use gimp; then
