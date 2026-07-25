@@ -112,8 +112,8 @@ PATCHES=(
 	"${FILESDIR}/onnxruntime-1.27.0-abseil.patch"
 	"${FILESDIR}/onnxruntime-1.19.0-eigen.patch"
 	"${FILESDIR}/onnxruntime-1.21.0-system-eigen.patch"
-	"${FILESDIR}/onnxruntime-1.27.0-cudnn_frontend.patch"
-	"${FILESDIR}/onnxruntime-1.25.0-external-downloads.patch"
+	"${FILESDIR}/onnxruntime-1.28.0-cudnn_frontend.patch"
+	"${FILESDIR}/onnxruntime-1.28.0-external-downloads.patch"
 	"${FILESDIR}/onnxruntime-1.23.0-include.patch"
 	"${FILESDIR}/onnxruntime-1.24.1-string-view.patch"
 )
