@@ -1,0 +1,12 @@
+diff '--color=auto' -ur chapel-2.9.0.orig/tools/protoc-gen-chpl/Makefile chapel-2.9.0/tools/protoc-gen-chpl/Makefile
+--- chapel-2.9.0.orig/tools/protoc-gen-chpl/Makefile	2026-06-12 20:03:45.000000000 +0200
++++ chapel-2.9.0/tools/protoc-gen-chpl/Makefile	2026-07-25 01:38:44.740406033 +0200
+@@ -32,7 +32,7 @@
+ SOURCES=$(wildcard *.cpp)
+ HEADERS=$(wildcard *.h)
+ LDFLAGS = $(shell pkg-config --libs protobuf 2>/dev/null) -lprotoc
+-CPPFLAGS = $(shell pkg-config --cflags protobuf 2>/dev/null) -std=c++17
++CPPFLAGS = $(shell pkg-config --cflags protobuf 2>/dev/null) -std=c++23
+ 
+ ifeq ($(CHPL_MAKE_PLATFORM),darwin)
+ 	PROTOC_LIB_LOC=$(dir $(shell which protoc))../lib
