@@ -21,7 +21,7 @@ app-portage/overlint 0.5.3-r7: Simple tool for static analysis of overlays
 app-text/djview 4.12.3: Portable DjVu viewer using Qt
 app-text/doxygen 1.15.0-r1: Documentation system for most programming languages
 app-text/fbreader 0.99.4-r9: E-Book Reader. Supports many e-book formats
-app-text/koreader-bin 2026.03: ebook reader application
+app-text/koreader-bin 2026.07: ebook reader application
 app-text/multitail 7.1.5-r1: Tail with multiple windows
 app-text/pinfo 0.6.13-r3: Hypertext info and man viewer based on (n)curses
 app-text/zettlr-bin 4.7.0: A Markdown Editor for the 21st century
