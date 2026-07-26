@@ -15,10 +15,6 @@ KEYWORDS="~amd64 ~x86"
 DEPEND="sci-libs/fftw:3.0"
 RDEPEND="${DEPEND}"
 
-PATCHES=(
-	"${FILESDIR}"/liquid-dsp-1.8.0-libdir.patch
-)
-
 src_prepare() {
 	cmake_src_prepare
 	append-flags -ffast-math
