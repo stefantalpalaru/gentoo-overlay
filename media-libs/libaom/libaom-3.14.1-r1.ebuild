@@ -141,5 +141,5 @@ multilib_src_install() {
 }
 
 multilib_src_install_all() {
-	find "${ED}" -type f \( -name "*.a" -o -name "*.la" \) -delete || die
+	find "${ED}" -type f -name "*.la" -delete || die
 }
