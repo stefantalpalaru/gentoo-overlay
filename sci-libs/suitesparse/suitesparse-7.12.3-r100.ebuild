@@ -16,11 +16,11 @@ RDEPEND="
 	~sci-libs/btf-2.3.3
 	~sci-libs/camd-3.3.5[doc?]
 	~sci-libs/ccolamd-3.3.5
-	~sci-libs/cholmod-5.3.4[cuda?,partition?,lapack?]
+	~sci-libs/cholmod-5.3.5[cuda?,partition?,lapack?]
 	~sci-libs/colamd-3.3.5
 	~sci-libs/cxsparse-4.4.2
-	~sci-libs/graphblas-10.3.1[doc?]
+	~sci-libs/graphblas-10.3.2[doc?]
 	~sci-libs/klu-2.3.6[doc?]
 	~sci-libs/ldl-3.3.3[doc?]
 	~sci-libs/spqr-4.3.6[doc?]
-	~sci-libs/umfpack-6.3.7[doc?]"
+	~sci-libs/umfpack-6.3.8[doc?]"

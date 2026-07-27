@@ -5,20 +5,24 @@ EAPI=8
 
 inherit cmake toolchain-funcs
 
-Sparse_PV=$(ver_rs 3 '.')
+Sparse_PV="7.12.3"
 Sparse_P="SuiteSparse-${Sparse_PV}"
-DESCRIPTION="Common configurations for all packages in suitesparse"
+DESCRIPTION="Unsymmetric multifrontal sparse LU factorization library"
 HOMEPAGE="https://people.engr.tamu.edu/davis/suitesparse.html"
 SRC_URI="https://github.com/DrTimothyAldenDavis/SuiteSparse/archive/refs/tags/v${Sparse_PV}.tar.gz -> ${Sparse_P}.gh.tar.gz"
-S="${WORKDIR}/${Sparse_P}/SuiteSparse_config"
-LICENSE="BSD"
-SLOT="0/7"
+S="${WORKDIR}/${Sparse_P}/${PN^^}"
+LICENSE="GPL-2+"
+SLOT="0/6"
 KEYWORDS="amd64 arm arm64 ~hppa ~loong ~mips ~ppc ~ppc64 ~riscv ~s390 ~sparc x86"
-IUSE="openmp static-libs"
+IUSE="doc openmp static-libs test"
+RESTRICT="!test? ( test )"
 
-# BLAS availability is checked for at configuration time and will fail if it is not present.
-DEPEND="virtual/blas"
+DEPEND=">=sci-libs/suitesparseconfig-${Sparse_PV}
+	>=sci-libs/amd-3.3.3
+	>=sci-libs/cholmod-5.3.3[openmp=]
+	virtual/blas"
 RDEPEND="${DEPEND}"
+BDEPEND="doc? ( virtual/latex-base )"
 
 pkg_pretend() {
 	[[ ${MERGE_TYPE} != binary ]] && use openmp && tc-check-openmp
@@ -29,13 +33,12 @@ pkg_setup() {
 }
 
 src_configure() {
-	# Make sure we always include the Fortran interface.
-	# It doesn't require a Fortran compiler to be present
-	# and simplifies the configuration for dependencies.
+	# Fortran is only used to compile additional demo programs that can be tested.
 	local mycmakeargs=(
 		-DBUILD_STATIC_LIBS=$(usex static-libs)
 		-DSUITESPARSE_USE_FORTRAN=ON
 		-DSUITESPARSE_USE_OPENMP=$(usex openmp)
+		-DSUITESPARSE_DEMOS=$(usex test)
 	)
 
 	if has_version 'virtual/blas[index64]'; then
@@ -47,7 +50,24 @@ src_configure() {
 	else
 		mycmakeargs+=( -DBLA_VENDOR=Generic )
 	fi
-	# TODO: Figure out how to make sci-libs/mkl work. Bug 974246
 
 	cmake_src_configure
+}
+
+src_test() {
+	# Run simple demo first
+	# Other demo files have issues making them unsuitable for testing
+	cd "${BUILD_DIR}"
+	./umfpack_simple || die "failed testing umfpack_simple"
+}
+
+src_install() {
+	if use doc; then
+		pushd "${S}/Doc"
+		rm -rf *.pdf
+		emake
+		popd
+		DOCS="${S}/Doc/*.pdf"
+	fi
+	cmake_src_install
 }

@@ -2,7 +2,7 @@
 # Distributed under the terms of the GNU General Public License v2
 
 EAPI=8
-Sparse_PV="7.12.2"
+Sparse_PV="7.12.3"
 Sparse_P="SuiteSparse-${Sparse_PV}"
 
 inherit cmake cuda cuda-extra toolchain-funcs
