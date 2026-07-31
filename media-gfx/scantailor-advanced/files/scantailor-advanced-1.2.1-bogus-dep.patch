@@ -1,0 +1,70 @@
+diff '--color=auto' -ur scantailor-advanced-1.2.1.orig/CMakeLists.txt scantailor-advanced-1.2.1/CMakeLists.txt
+--- scantailor-advanced-1.2.1.orig/CMakeLists.txt	2026-07-31 01:57:08.798927074 +0200
++++ scantailor-advanced-1.2.1/CMakeLists.txt	2026-07-31 01:59:35.363252583 +0200
+@@ -221,13 +221,13 @@
+ 
+ find_package(
+     Qt6
+-    COMPONENTS Core Gui Widgets Xml Network LinguistTools OpenGL Svg OpenGLWidgets Test
++    COMPONENTS Core Gui Widgets Xml LinguistTools OpenGL Svg OpenGLWidgets Test
+     CONFIG)
+ if (Qt6_FOUND)
+     set(QT_BINDIR "${QT6_INSTALL_PREFIX}/bin")
+ else()
+   find_package(Qt5 ${qt_min_version}
+-    COMPONENTS Core Gui Widgets Xml Network LinguistTools OpenGL Svg Test
++    COMPONENTS Core Gui Widgets Xml LinguistTools OpenGL Svg Test
+     CONFIG REQUIRED)
+     set(QT_BINDIR "${QT5_INSTALL_PREFIX}/bin")
+ endif()
+@@ -235,7 +235,6 @@
+ if(Qt6_FOUND)
+   set(Qt_Core_lib Qt::Core)
+   set(Qt_Gui_lib Qt::Gui)
+-  set(Qt_Network_lib Qt::Network)
+   set(Qt_OpenGL_lib Qt::OpenGL)
+   set(Qt_Svg_lib Qt::Svg)
+   set(Qt_Widgets_lib Qt::Widgets)
+@@ -245,7 +244,6 @@
+ else()
+   set(Qt_Core_lib Qt5::Core)
+   set(Qt_Gui_lib Qt5::Gui)
+-  set(Qt_Network_lib Qt5::Network)
+   set(Qt_OpenGL_lib Qt5::OpenGL)
+   set(Qt_Svg_lib Qt5::Svg)
+   set(Qt_Widgets_lib Qt5::Widgets)
+@@ -385,12 +383,12 @@
+     set(dep_libs
+         JPEG::JPEG PNG::PNG ZLIB::ZLIB TIFF::TIFF
+         Qt::Core Qt::Gui Qt::Widgets Qt::Xml
+-        Qt::Network Qt::OpenGL Qt::Svg Qt6::OpenGLWidgets)
++        Qt::OpenGL Qt::Svg Qt6::OpenGLWidgets)
+   else()
+     set(dep_libs
+         JPEG::JPEG PNG::PNG ZLIB::ZLIB TIFF::TIFF
+         Qt5::Core Qt5::Gui Qt5::Widgets Qt5::Xml
+-        Qt5::Network Qt5::OpenGL Qt5::Svg)
++        Qt5::OpenGL Qt5::Svg)
+   endif()
+ 
+   foreach (_target ${dep_libs})
+diff '--color=auto' -ur scantailor-advanced-1.2.1.orig/src/core/CMakeLists.txt scantailor-advanced-1.2.1/src/core/CMakeLists.txt
+--- scantailor-advanced-1.2.1.orig/src/core/CMakeLists.txt	2026-07-31 01:57:08.779256684 +0200
++++ scantailor-advanced-1.2.1/src/core/CMakeLists.txt	2026-07-31 02:00:15.661067132 +0200
+@@ -123,14 +123,14 @@
+   target_link_libraries(
+     core
+     PRIVATE TIFF::TIFF PNG::PNG ZLIB::ZLIB JPEG::JPEG
+-    PUBLIC Qt::Core Qt::Gui Qt::Widgets Qt::Xml Qt::Network Qt::OpenGL Qt::Svg Qt::OpenGLWidgets
++    PUBLIC Qt::Core Qt::Gui Qt::Widgets Qt::Xml Qt::OpenGL Qt::Svg Qt::OpenGLWidgets
+     imageproc zones
+     fix_orientation page_split deskew select_content page_layout output)
+ else()
+   target_link_libraries(
+     core
+     PRIVATE TIFF::TIFF PNG::PNG ZLIB::ZLIB JPEG::JPEG
+-    PUBLIC Qt5::Core Qt5::Gui Qt5::Widgets Qt5::Xml Qt5::Network Qt5::OpenGL Qt5::Svg
++    PUBLIC Qt5::Core Qt5::Gui Qt5::Widgets Qt5::Xml Qt5::OpenGL Qt5::Svg
+     imageproc zones
+     fix_orientation page_split deskew select_content page_layout output)
+ endif()
