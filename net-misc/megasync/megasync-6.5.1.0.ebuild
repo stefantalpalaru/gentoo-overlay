@@ -11,7 +11,7 @@ HOMEPAGE="
 	https://github.com/meganz/MEGAsync
 "
 
-MEGA_SDK_REV="056f19fa296a651a3e936492cb5f15a923dd601f" # commit of src/MEGASync/mega submodule
+MEGA_SDK_REV="e11a1a4648bdee70dac67ecb2200c1507e4de53c" # commit of src/MEGASync/mega submodule
 MEGA_TAG_SUFFIX="Linux"
 SRC_URI="
 	https://github.com/meganz/MEGAsync/archive/v${PV}_${MEGA_TAG_SUFFIX}.tar.gz -> ${P}.tar.gz
@@ -90,7 +90,6 @@ PATCHES=(
 	"${FILESDIR}/${PN}-5.7.0.0-rename-libcryptopp.patch"
 	"${FILESDIR}/${PN}-5.10.0.2-link-zlib.patch"
 	"${FILESDIR}/${PN}-6.0.0.3-cmake4.patch"
-	"${FILESDIR}/${PN}-6.2.2.0-link-icu.patch"
 	"${FILESDIR}/${PN}-6.2.2.0-static-internal-libs.patch"
 )
 
