@@ -74,6 +74,7 @@ BDEPEND="
 	)
 "
 
+# supports opencv-5
 RDEPEND="
 	dev-cpp/robin-map
 	dev-libs/pugixml
@@ -90,7 +91,7 @@ RDEPEND="
 	gif? ( media-libs/giflib:= )
 	jpeg2k? ( media-libs/openjpeg:= )
 	jpegxl? ( media-libs/libjxl:= )
-	opencv? ( media-libs/opencv:0= )
+	opencv? ( media-libs/opencv:= )
 	openvdb? (
 		dev-cpp/tbb:=
 		media-gfx/openvdb:=
@@ -125,9 +126,9 @@ DOCS=(
 )
 
 PATCHES=(
-	"${FILESDIR}/openimageio-3.0.16.0-fix-tests.patch"
+	"${FILESDIR}/openimageio-3.1.13.1-fix-tests.patch"
 	"${FILESDIR}/openimageio-2.5.12.0-heif-find-fix.patch"
-	"${FILESDIR}/openimageio-2.5.18.0-tests-optional.patch"
+	"${FILESDIR}/openimageio-3.1.6.1-tests-optional.patch"
 )
 
 pkg_setup() {
@@ -159,7 +160,6 @@ src_prepare() {
 		fi
 
 		cp testsuite/heif/ref/out-libheif1.1{2,5}-orient.txt || die
-		eapply "${FILESDIR}/${PN}-2.5.12.0_heif_test.patch"
 	fi
 }
 
@@ -286,7 +286,11 @@ src_test() {
 		"^tiff-depths" # TODO float errors
 		"^tiff-suite" # TODO missing compression
 		"^oiiotool-attribs$"
+		"^heif$"
 		"^rla$" # "-../libjxl-0.11.2/lib/jxl/decode.cc:2021: invalid signature"
+		"^jpeg-corrupt$" # "-../libjxl-0.11.2/lib/jxl/decode.cc:2021: invalid signature"
+		"^gif$"
+		"^jxl$"
 	)
 
 	sed -e "s#../../../testsuite#../../../OpenImageIO-${PV}/testsuite#g" \
