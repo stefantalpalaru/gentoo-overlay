@@ -1,4 +1,4 @@
-# Copyright 1999-2024 Gentoo Authors
+# Copyright 1999-2026 Gentoo Authors
 # Distributed under the terms of the GNU General Public License v2
 
 EAPI=8
@@ -22,8 +22,8 @@ S=${WORKDIR}/${MY_P}
 LICENSE="|| ( GPL-2 GPL-3 SIP )"
 SLOT="python2/12"
 KEYWORDS="~amd64 ~arm ~arm64 ~ppc ~ppc64 ~x86"
-
 REQUIRED_USE="${PYTHON_REQUIRED_USE}"
+RESTRICT="mirror"
 
 DEPEND="${PYTHON_DEPS}"
 RDEPEND="${DEPEND}

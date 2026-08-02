@@ -11,7 +11,7 @@ inherit distutils-r1 pypi
 
 DESCRIPTION="sip extension module for PyQt5"
 HOMEPAGE="https://pypi.org/project/PyQt5-sip/"
-
 LICENSE="BSD-2"
 SLOT="0/$(ver_cut 1)"
 KEYWORDS="~amd64 ~arm ~arm64 ~loong ~ppc ~ppc64 ~riscv ~x86"
+RESTRICT="mirror"
