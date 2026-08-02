@@ -5,15 +5,14 @@ EAPI=8
 # wget https://atlasbinaries.com/atlas/atlas-linux-amd64-latest
 # chmod 755 atlas-linux-amd64-latest
 # ./atlas-linux-amd64-latest version
-MY_EXTRA_VERSION="0e75495-canary"
 
 inherit shell-completion
 
 DESCRIPTION="declarative schema migrations - binary package"
 HOMEPAGE="https://atlasgo.io/"
 SRC_URI="
-	amd64? ( https://atlasbinaries.com/atlas/atlas-linux-amd64-v${PV}-${MY_EXTRA_VERSION} )
-	arm64? ( https://atlasbinaries.com/atlas/atlas-linux-arm64-v${PV}-${MY_EXTRA_VERSION} )
+	amd64? ( https://atlasbinaries.com/atlas/atlas-linux-amd64-v${PV} )
+	arm64? ( https://atlasbinaries.com/atlas/atlas-linux-arm64-v${PV} )
 "
 LICENSE="Atlas-EULA"
 SLOT="0"
