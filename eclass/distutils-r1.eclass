@@ -1,4 +1,4 @@
-# Copyright 1999-2025 Gentoo Authors
+# Copyright 1999-2026 Gentoo Authors
 # Distributed under the terms of the GNU General Public License v2
 
 # @ECLASS: distutils-r1.eclass
@@ -119,13 +119,13 @@ esac
 # The variable specifies the build system used.  Currently,
 # the following values are supported:
 #
-# - flit - flit-core backend
+# - flit, flit-core - flit-core backend
 #
-# - flit_scm - flit_scm backend
+# - flit_scm, flit-scm - flit_scm backend
 #
 # - hatchling - hatchling backend (from hatch)
 #
-# - jupyter - jupyter_packaging backend
+# - jupyter, jupyter-packaging - jupyter_packaging backend
 #
 # - maturin - maturin backend
 #
@@ -137,7 +137,7 @@ esac
 #
 # - pdm-backend - pdm.backend backend
 #
-# - poetry - poetry-core backend
+# - poetry, poetry-core - poetry-core backend
 #
 # - scikit-build-core - scikit-build-core backend
 #
@@ -295,12 +295,12 @@ _distutils_set_globals() {
 			>=dev-python/gpep517-16[${PYTHON_USEDEP}]
 		'
 		case ${DISTUTILS_USE_PEP517} in
-			flit)
+			flit|flit-core)
 				bdep+='
 					>=dev-python/flit-core-3.11.0[${PYTHON_USEDEP}]
 				'
 				;;
-			flit_scm)
+			flit_scm|flit-scm)
 				bdep+='
 					>=dev-python/flit-core-3.11.0[${PYTHON_USEDEP}]
 					>=dev-python/flit-scm-1.7.0[${PYTHON_USEDEP}]
@@ -311,7 +311,7 @@ _distutils_set_globals() {
 					>=dev-python/hatchling-1.27.0[${PYTHON_USEDEP}]
 				'
 				;;
-			jupyter)
+			jupyter|jupyter-packaging)
 				bdep+='
 					>=dev-python/jupyter-packaging-0.12.3[${PYTHON_USEDEP}]
 				'
@@ -340,7 +340,7 @@ _distutils_set_globals() {
 					>=dev-python/pdm-backend-2.4.3[${PYTHON_USEDEP}]
 				'
 				;;
-			poetry)
+			poetry|poetry-core)
 				bdep+='
 					>=dev-python/poetry-core-2.1.1[${PYTHON_USEDEP}]
 				'
@@ -1003,12 +1003,12 @@ _distutils-r1_print_package_versions() {
 			)
 		fi
 		case ${DISTUTILS_USE_PEP517} in
-			flit)
+			flit|flit-core)
 				packages+=(
 					dev-python/flit-core
 				)
 				;;
-			flit_scm)
+			flit_scm|flit-scm)
 				packages+=(
 					dev-python/flit-core
 					dev-python/flit-scm
@@ -1022,7 +1022,7 @@ _distutils-r1_print_package_versions() {
 					dev-python/hatch-vcs
 				)
 				;;
-			jupyter)
+			jupyter|jupyter-packaging)
 				packages+=(
 					dev-python/jupyter-packaging
 					dev-python/setuptools
@@ -1056,7 +1056,7 @@ _distutils-r1_print_package_versions() {
 					dev-python/setuptools
 				)
 				;;
-			poetry)
+			poetry|poetry-core)
 				packages+=(
 					dev-python/poetry-core
 				)
@@ -1299,16 +1299,16 @@ _distutils-r1_key_to_backend() {
 
 	local key=${1}
 	case ${key} in
-		flit)
+		flit|flit-core)
 			echo flit_core.buildapi
 			;;
-		flit_scm)
+		flit_scm|flit-scm)
 			echo flit_scm:buildapi
 			;;
 		hatchling)
 			echo hatchling.build
 			;;
-		jupyter)
+		jupyter|jupyter-packaging)
 			echo jupyter_packaging.build_api
 			;;
 		maturin)
@@ -1323,7 +1323,7 @@ _distutils-r1_key_to_backend() {
 		pdm-backend)
 			echo pdm.backend
 			;;
-		poetry)
+		poetry|poetry-core)
 			echo poetry.core.masonry.api
 			;;
 		scikit-build-core)
