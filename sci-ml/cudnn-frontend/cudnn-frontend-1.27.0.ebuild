@@ -6,7 +6,7 @@ EAPI=8
 DESCRIPTION="A c++ wrapper for the cudnn backend API"
 HOMEPAGE="https://github.com/NVIDIA/cudnn-frontend"
 SRC_URI="https://github.com/NVIDIA/cudnn-frontend/archive/refs/tags/v${PV}.tar.gz -> ${P}.tar.gz"
-LICENSE="MIT"
+LICENSE="Apache-2.0 MIT"
 SLOT="0/$(ver_cut 1-2)"
 KEYWORDS="~amd64"
 

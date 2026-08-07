@@ -4,8 +4,8 @@ DESCRIPTION=A c++ wrapper for the cudnn backend API
 EAPI=8
 HOMEPAGE=https://github.com/NVIDIA/cudnn-frontend
 KEYWORDS=~amd64
-LICENSE=MIT
+LICENSE=Apache-2.0 MIT
 RDEPEND=>=dev-libs/cudnn-9:0
-SLOT=0/1.26
-SRC_URI=https://github.com/NVIDIA/cudnn-frontend/archive/refs/tags/v1.26.0.tar.gz -> cudnn-frontend-1.26.0.tar.gz
-_md5_=cf6b9c977d61698323f82f44e0269b1d
+SLOT=0/1.27
+SRC_URI=https://github.com/NVIDIA/cudnn-frontend/archive/refs/tags/v1.27.0.tar.gz -> cudnn-frontend-1.27.0.tar.gz
+_md5_=d08f514357f27ebca9003143c3c814a5
