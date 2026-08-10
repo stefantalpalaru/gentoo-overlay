@@ -82,7 +82,7 @@ COMMON_DEPEND="
 			dev-python/pyyaml[${PYTHON_USEDEP}]
 			dev-python/requests[${PYTHON_USEDEP}]
 			>=dev-python/qscintilla-2.10.1[qt5,${PYTHON_USEDEP}]
-			dev-python/sip:=[${PYTHON_USEDEP}]
+			<dev-python/sip-6.16.0:=[${PYTHON_USEDEP}]
 			postgres? ( dev-python/psycopg:2[${PYTHON_USEDEP}] )
 		')
 	)
