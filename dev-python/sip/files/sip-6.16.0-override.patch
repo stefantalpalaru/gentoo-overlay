@@ -1,0 +1,28 @@
+From 997dc09b3e53fdf02ad040b020f51ee6167e3aa3 Mon Sep 17 00:00:00 2001
+From: Phil Thompson <phil@riverbankcomputing.com>
+Date: Mon, 3 Aug 2026 11:48:36 +0100
+Subject: [PATCH] Bug fixes
+
+- Reverted a change in SIP v6.16.0 that allowed options specified as
+  arguments t o a `sipbuild.Project` sub-class in a `project.py` file to be
+  overridden on the command line or in a `pyproject.toml` file.
+---
+ sipbuild/configurable.py | 5 +++++
+ 1 file changed, 5 insertions(+)
+
+diff --git a/sipbuild/configurable.py b/sipbuild/configurable.py
+index b69d974c..ab7df456 100644
+--- a/sipbuild/configurable.py
++++ b/sipbuild/configurable.py
+@@ -24,6 +24,11 @@ def add_command_line_options(self, parser, tool, all_options, options=None):
+             options = self.get_options()
+ 
+         for option in options:
++            # If it has already been set explicitly by a 'Project' sub-class in
++            # project.py then the user cannot change it.
++            if getattr(self, option.name) is not None:
++                continue
++
+             # If there is no help then the user can never specify it.
+             if option.help is None:
+                 continue
