@@ -3,34 +3,28 @@
 
 EAPI=8
 
-inherit cmake toolchain-funcs
+FORTRAN_NEEDED="fortran"
+inherit cmake fortran-2
 
-Sparse_PV="7.12.3"
+Sparse_PV="7.13.0"
 Sparse_P="SuiteSparse-${Sparse_PV}"
-DESCRIPTION="Sparse LU factorization for circuit simulation"
+DESCRIPTION="Library to order a sparse matrix prior to Cholesky factorization"
 HOMEPAGE="https://people.engr.tamu.edu/davis/suitesparse.html"
 SRC_URI="https://github.com/DrTimothyAldenDavis/SuiteSparse/archive/refs/tags/v${Sparse_PV}.tar.gz -> ${Sparse_P}.gh.tar.gz"
-S="${WORKDIR}/${Sparse_P}/GraphBLAS"
-LICENSE="LGPL-2.1+"
-SLOT="0/2"
-KEYWORDS="amd64 arm arm64 ~hppa ~ppc ~ppc64 ~riscv ~sparc x86"
-IUSE="doc jit +openmp static-libs"
+S="${WORKDIR}/${Sparse_P}/${PN^^}"
+LICENSE="BSD"
+SLOT="0/3"
+KEYWORDS="amd64 arm arm64 ~hppa ~loong ~mips ~ppc ~ppc64 ~riscv ~s390 ~sparc x86"
+IUSE="doc fortran static-libs"
 
 DEPEND=">=sci-libs/suitesparseconfig-${Sparse_PV}"
 RDEPEND="${DEPEND}"
 BDEPEND="doc? ( virtual/latex-base )"
 
-src_prepare() {
-	use openmp && tc-check-openmp
-	cmake_src_prepare
-}
-
 src_configure() {
 	local mycmakeargs=(
-		-DBUILD_SHARED_LIBS=$(usex !static-libs)
 		-DBUILD_STATIC_LIBS=$(usex static-libs)
-		-DGRAPHBLAS_USE_OPENMP=$(usex openmp)
-		-DGRAPHBLAS_USE_JIT=$(usex jit)
+		-DSUITESPARSE_USE_FORTRAN=$(usex fortran)
 	)
 	cmake_src_configure
 }
