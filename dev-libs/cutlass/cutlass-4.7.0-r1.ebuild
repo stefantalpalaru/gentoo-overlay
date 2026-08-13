@@ -9,7 +9,7 @@ inherit cuda cuda-extra cmake python-any-r1 flag-o-matic toolchain-funcs
 
 DESCRIPTION="CUDA Templates for Linear Algebra Subroutines"
 HOMEPAGE="https://github.com/NVIDIA/cutlass"
-SRC_URI="https://github.com/NVIDIA/${PN}/archive/refs/tags/${PV}.tar.gz -> ${P}.gh.tar.gz"
+SRC_URI="https://github.com/NVIDIA/${PN}/archive/refs/tags/v${PV}.tar.gz -> ${P}.gh.tar.gz"
 LICENSE="BSD"
 SLOT="0/${PV}"
 KEYWORDS="~amd64 ~arm64"
