@@ -1,0 +1,14 @@
+diff '--color=auto' -ur lsp-plugins.orig/modules/lsp-ws-lib/src/main/freetype/library.cpp lsp-plugins/modules/lsp-ws-lib/src/main/freetype/library.cpp
+--- lsp-plugins.orig/modules/lsp-ws-lib/src/main/freetype/library.cpp	2026-08-14 23:51:28.214203267 +0200
++++ lsp-plugins/modules/lsp-ws-lib/src/main/freetype/library.cpp	2026-08-15 15:22:21.336163446 +0200
+@@ -116,8 +116,8 @@
+                 // Custom FreeType library may clash with built-in host's FreeType library,
+                 // so we keep the option of loading of system FreeType library on user's
+                 // own risk.
+-                if (!check_env_option_enabled("LSP_WS_FORCE_SYSTEM_FREETYPE"))
+-                    return STATUS_OK;
++                //if (!check_env_option_enabled("LSP_WS_FORCE_SYSTEM_FREETYPE"))
++                    //return STATUS_OK;
+ 
+                 // Try to load FreeType library
+                 FT_Error error = FT_Err_Ok;

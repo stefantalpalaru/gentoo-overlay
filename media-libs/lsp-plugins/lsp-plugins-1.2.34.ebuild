@@ -69,6 +69,10 @@ DEPEND="
 "
 RDEPEND="${DEPEND}"
 
+PATCHES=(
+	"${FILESDIR}"/lsp-plugins-1.2.34-system-freetype.patch
+)
+
 src_configure() {
 	# -Werror=odr
 	# https://bugs.gentoo.org/875833
