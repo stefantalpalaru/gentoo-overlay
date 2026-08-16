@@ -1,4 +1,4 @@
-# Copyright 1999-2025 Gentoo Authors
+# Copyright 1999-2026 Gentoo Authors
 # Distributed under the terms of the GNU General Public License v2
 
 EAPI=8
@@ -16,7 +16,7 @@ HOMEPAGE="https://github.com/Diaoul/subliminal
 SRC_URI="https://github.com/Diaoul/subliminal/archive/${PV}.tar.gz -> ${P}.gh.tar.gz"
 LICENSE="MIT"
 SLOT="0"
-KEYWORDS="~amd64 ~x86"
+KEYWORDS="~amd64 ~arm ~arm64 ~x86"
 # Tests don't work in 2.0.5. Recheck in later versions. See Gentoo bug 630114.
 RESTRICT=test
 
