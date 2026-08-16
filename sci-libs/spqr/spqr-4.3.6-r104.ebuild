@@ -5,7 +5,7 @@ EAPI=8
 
 inherit cmake cuda cuda-extra toolchain-funcs
 
-Sparse_PV="7.13.0"
+Sparse_PV="7.14.0"
 Sparse_P="SuiteSparse-${Sparse_PV}"
 DESCRIPTION="Multithreaded multifrontal sparse QR factorization library"
 HOMEPAGE="https://people.engr.tamu.edu/davis/suitesparse.html"

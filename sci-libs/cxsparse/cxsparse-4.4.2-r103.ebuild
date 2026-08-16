@@ -5,14 +5,14 @@ EAPI=8
 
 inherit cmake
 
-Sparse_PV="7.13.0"
+Sparse_PV="7.14.0"
 Sparse_P="SuiteSparse-${Sparse_PV}"
-DESCRIPTION="Algorithm for matrix permutation into block triangular form"
+DESCRIPTION="Extended sparse matrix package"
 HOMEPAGE="https://people.engr.tamu.edu/davis/suitesparse.html"
 SRC_URI="https://github.com/DrTimothyAldenDavis/SuiteSparse/archive/refs/tags/v${Sparse_PV}.tar.gz -> ${Sparse_P}.gh.tar.gz"
-S="${WORKDIR}/${Sparse_P}/${PN^^}"
+S="${WORKDIR}/${Sparse_P}/CXSparse"
 LICENSE="LGPL-2.1"
-SLOT="0/2"
+SLOT="0/4"
 KEYWORDS="amd64 arm arm64 ~hppa ~ppc ~ppc64 ~riscv ~sparc x86"
 IUSE="static-libs"
 
