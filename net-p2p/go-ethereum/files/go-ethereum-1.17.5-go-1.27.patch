@@ -1,0 +1,12 @@
+diff '--color=auto' -ur go-ethereum-1.17.5.orig/build/ci.go go-ethereum-1.17.5/build/ci.go
+--- go-ethereum-1.17.5.orig/build/ci.go	2026-07-27 10:14:16.000000000 +0200
++++ go-ethereum-1.17.5/build/ci.go	2026-08-19 23:55:49.047440446 +0200
+@@ -254,7 +254,7 @@
+ 		tc.Root = build.DownloadGo(csdb)
+ 	}
+ 	// Disable CLI markdown doc generation in release builds.
+-	buildTags := []string{"urfave_cli_no_docs"}
++	buildTags := []string{"urfave_cli_no_docs", "untested_go_version"}
+ 
+ 	// Enable linking the CKZG library since we can make it work with additional flags.
+ 	if env.UbuntuVersion != "trusty" {

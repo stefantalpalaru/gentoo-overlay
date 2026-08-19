@@ -19,6 +19,10 @@ DEPEND="
 "
 RDEPEND="${DEPEND}"
 
+PATCHES=(
+	"${FILESDIR}"/go-ethereum-1.17.5-go-1.27.patch
+)
+
 src_compile() {
 	emake $(usex devtools all geth)
 }
