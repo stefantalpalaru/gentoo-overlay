@@ -1,8 +1,8 @@
-# Copyright 2020-2025 Gentoo Authors
+# Copyright 2020-2026 Gentoo Authors
 # Distributed under the terms of the GNU General Public License v2
 
 EAPI=8
-MY_COMMIT="41e042935ee9840c0b9dd55d61b6ddd58bc4fde6"
+MY_COMMIT="a05f47c704f550f0e94808b1d23d8eb1fbc77209"
 
 inherit linux-mod-r1
 
@@ -16,7 +16,9 @@ KEYWORDS="~amd64"
 
 CONFIG_CHECK="HWMON PCI AMD_NB"
 
-PATCHES="${FILESDIR}/zenpower3-0.2.0-use-symlink-to-detect-kernel-version.patch"
+PATCHES=(
+	"${FILESDIR}"/zenpower3-0.2.0-use-symlink-to-detect-kernel-version.patch
+)
 
 src_compile() {
 	export TARGET=${KV_FULL}
