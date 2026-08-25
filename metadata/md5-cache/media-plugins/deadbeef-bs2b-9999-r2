@@ -9,5 +9,5 @@ LICENSE=MIT
 PROPERTIES=live
 RDEPEND=media-sound/deadbeef
 SLOT=0
-_eclasses_=git-r3	2f8cdb10b033f92c3136aa6488a31c98
+_eclasses_=git-r3	e6c2f983e006e805160436c75a0c1562
 _md5_=5a4dd9f1fe80f6cba466734af69d1a0a

@@ -7,5 +7,5 @@ INHERIT=git-r3
 LICENSE=all-rights-reserved freedist ISC
 PROPERTIES=live
 SLOT=0
-_eclasses_=git-r3	2f8cdb10b033f92c3136aa6488a31c98
+_eclasses_=git-r3	e6c2f983e006e805160436c75a0c1562
 _md5_=c06f943254c3506911affa89a3e3c26c
