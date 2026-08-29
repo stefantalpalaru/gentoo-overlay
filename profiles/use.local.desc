@@ -293,12 +293,12 @@ games-emulation/rpcs3:llvm - LLVM recompiler support
 games-emulation/rpcs3:vulkan - Vulkan video output support
 games-emulation/snes9x:libretro - Build libretro port
 games-emulation/snes9x:netplay - Enable playing ROMs over the network (not recommended)
+games-engines/uzdoom:gles2 - Enable GLES2 backend
+games-engines/uzdoom:non-free - Enable non-free components
+games-engines/uzdoom:swr - Enable software renderer
 games-fps/gzdoom:gles2 - Enable GLES2 backend
 games-fps/gzdoom:non-free - Enable non-free components
 games-fps/gzdoom:swr - Enable software renderer
-games-fps/uzdoom:gles2 - Enable GLES2 backend
-games-fps/uzdoom:non-free - Enable non-free components
-games-fps/uzdoom:swr - Enable software renderer
 games-strategy/0ad:editor - Include Atlas scenario editor projects
 games-strategy/0ad:lobby - Enable the use of net-libs/gloox and the multiplayer lobby
 games-strategy/0ad:nvtt - Support for some uncompressed data formats (might be needed for some mods)

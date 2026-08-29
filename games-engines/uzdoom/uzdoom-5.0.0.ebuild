@@ -14,7 +14,7 @@ LICENSE="Apache-2.0 BSD BZIP2 GPL-3 LGPL-2.1+ LGPL-3 MIT
 	non-free? ( Activision ChexQuest3 DOOM-COLLECTORS-EDITION freedist WidePix )"
 SLOT="0"
 KEYWORDS="~amd64 ~arm64"
-IUSE="debug gles2 gtk +non-free openmp +swr telemetry vulkan"
+IUSE="debug gles2 +non-free openmp +swr telemetry vulkan"
 
 DEPEND="
 	app-arch/bzip2
@@ -23,14 +23,12 @@ DEPEND="
 	media-libs/libvpx:=
 	media-libs/libwebp:=
 	media-libs/openal
-	>=media-libs/zmusic-1.1.14
 	sys-libs/zlib
-	gtk? ( x11-libs/gtk+:3 )
 	!games-fps/gzdoom"
 RDEPEND="${DEPEND}"
 
 PATCHES=(
-	"${FILESDIR}"/gzdoom-4.7.1-Introduce-the-BUILD_NONFREE-option.patch
+	"${FILESDIR}"/uzdoom-5.0.0-Introduce-the-BUILD_NONFREE-option.patch
 )
 
 src_prepare() {
@@ -54,7 +52,6 @@ src_configure() {
 		-DINSTALL_PK3_PATH="${EPREFIX}/usr/share/doom"
 		-DINSTALL_SOUNDFONT_PATH="${EPREFIX}/usr/share/doom"
 		-DDYN_OPENAL=OFF
-		-DNO_GTK="$(usex !gtk)"
 		-DNO_OPENAL=OFF
 		-DHAVE_VULKAN="$(usex vulkan)"
 		-DHAVE_GLES2="$(usex gles2)"
@@ -62,6 +59,8 @@ src_configure() {
 		-DZDOOM_ENABLE_SWR="$(usex swr)"
 		-DBUILD_NONFREE="$(usex non-free)"
 		-DSEND_ANON_STATS="$(usex telemetry)"
+		-DUSE_UPDATER=OFF
+		-DZMUSIC_SYSTEM_INSTALL=OFF
 	)
 
 	# multiple GCC-13 failures when precompiled headers are disabled
@@ -78,6 +77,8 @@ src_install() {
 	newicon src/posix/zdoom.xpm "${PN}.xpm"
 	make_desktop_entry "${PN}" "UZDoom" "${PN}" "Game;ActionGame"
 	cmake_src_install
+	# https://github.com/UZDoom/UZDoom/issues/1766
+	rm -rf "${ED}/usr/$(get_libdir)" "${ED}/usr/include"
 }
 
 pkg_postinst() {
