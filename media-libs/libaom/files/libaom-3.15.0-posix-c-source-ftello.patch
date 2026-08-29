@@ -1,0 +1,11 @@
+diff '--color=auto' -ur libaom-3.15.0.orig/CMakeLists.txt libaom-3.15.0/CMakeLists.txt
+--- libaom-3.15.0.orig/CMakeLists.txt	2026-08-29 03:20:04.831668397 +0200
++++ libaom-3.15.0/CMakeLists.txt	2026-08-29 03:24:28.071287993 +0200
+@@ -311,6 +311,7 @@
+ 
+ if(ENABLE_APPS)
+   # Only used by aomenc.
++  add_definitions(-D_POSIX_C_SOURCE=200112L)
+   add_library(aom_encoder_stats OBJECT ${AOM_ENCODER_STATS_SOURCES})
+   set(AOM_LIB_TARGETS ${AOM_LIB_TARGETS} aom_encoder_stats)
+ endif()

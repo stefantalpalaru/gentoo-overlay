@@ -10,7 +10,7 @@ DESCRIPTION="Alliance for Open Media AV1 Codec SDK"
 HOMEPAGE="https://aomedia.org https://aomedia.googlesource.com/aom/"
 SRC_URI="https://storage.googleapis.com/aom-releases/${P}.tar.gz"
 LICENSE="BSD-2"
-SLOT="0/3"
+SLOT="0/$(ver_cut 1-2)"
 KEYWORDS="~alpha amd64 arm arm64 ~loong ppc64 ~riscv x86"
 IUSE="big-endian debug doc +examples test"
 IUSE="${IUSE} cpu_flags_x86_mmx cpu_flags_x86_sse cpu_flags_x86_sse2 cpu_flags_x86_sse3 cpu_flags_x86_ssse3"
@@ -35,8 +35,7 @@ BDEPEND="${PYTHON_DEPS}
 DOCS=( PATENTS )
 
 PATCHES=(
-	"${FILESDIR}"/${PN}-3.4.0-posix-c-source-ftello.patch
-	"${FILESDIR}"/${PN}-3.7.0-allow-fortify-source.patch
+	"${FILESDIR}"/${PN}-3.15.0-posix-c-source-ftello.patch
 	"${FILESDIR}"/${PN}-3.8.1-tests-parallel.patch
 )
 
