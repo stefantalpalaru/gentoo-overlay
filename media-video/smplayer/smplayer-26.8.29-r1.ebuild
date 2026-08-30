@@ -37,7 +37,6 @@ PATCHES=(
 	"${FILESDIR}"/smplayer-25.6.0_p20250903-disable-update-checker.patch #bug #479902
 	"${FILESDIR}"/smplayer-25.6.0_p20250903-no-man-compress.patch
 	"${FILESDIR}"/smplayer-25.6.0_p20250903-no-googledns.patch # thx to Debian
-	"${FILESDIR}"/smplayer-26.8.29-qml.patch
 	"${FILESDIR}"/smplayer-26.8.29-qt6.patch
 )
 

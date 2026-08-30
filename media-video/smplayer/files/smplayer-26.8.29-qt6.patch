@@ -1,6 +1,54 @@
-diff '--color=auto' -ur smplayer-26.8.29.orig/src/actionseditor.cpp smplayer-26.8.29/src/actionseditor.cpp
---- smplayer-26.8.29.orig/src/actionseditor.cpp	2026-08-30 09:16:46.000000000 +0200
-+++ smplayer-26.8.29/src/actionseditor.cpp	2026-08-30 14:41:56.146895981 +0200
+From ac672707c2fae6331670b4c82d65ab3e63af5e81 Mon Sep 17 00:00:00 2001
+From: smplayer-dev <10128951+smplayer-dev@users.noreply.github.com>
+Date: Mon, 1 Sep 2025 12:21:33 +0200
+Subject: [PATCH 1/9] Apply patch #1224 for Qt 6 support
+
+---
+ .gitignore                                  |  3 +
+ src/actionseditor.cpp                       | 15 ++++-
+ src/basegui.cpp                             | 75 +++++++++++++++++----
+ src/baseguiplus.cpp                         | 10 +++
+ src/colorutils.cpp                          |  3 +
+ src/defaultgui.cpp                          |  3 +
+ src/deviceinfo.cpp                          |  3 +
+ src/favorites.cpp                           | 13 +++-
+ src/findsubtitles/findsubtitleswindow.cpp   |  4 ++
+ src/globalshortcuts/globalshortcuts.h       |  7 +-
+ src/globalshortcuts/globalshortcuts_win.cpp | 10 ++-
+ src/helper.cpp                              | 16 ++++-
+ src/myapplication.cpp                       |  2 +-
+ src/paths.cpp                               | 13 +++-
+ src/playlist.cpp                            | 61 ++++++++++++++---
+ src/prefassociations.cpp                    | 17 ++++-
+ src/preferences.cpp                         | 21 ++++--
+ src/prefinterface.cpp                       |  3 +
+ src/prefperformance.cpp                     | 13 +++-
+ src/qtsingleapplication/qtlocalpeer.cpp     |  7 ++
+ src/smplayer.cpp                            | 11 ++-
+ src/smplayer.pro                            | 34 +++++++---
+ src/subreader.cpp                           |  4 ++
+ src/winfileassoc.cpp                        | 15 +++++
+ src/winscreensaver.cpp                      | 26 +++++--
+ src/winscreensaver.h                        |  2 +
+ src/youtube/codedownloader.cpp              |  3 +
+ webserver/mongoose.h                        |  2 +-
+ 28 files changed, 335 insertions(+), 61 deletions(-)
+
+diff --git a/.gitignore b/.gitignore
+index d2652689e..6a66aa0fd 100644
+--- a/.gitignore
++++ b/.gitignore
+@@ -16,3 +16,6 @@
+ # binaries
+ /src/smplayer
+ /webserver/simple_web_server
++webserver/simple_web_server.exe
++version
++src/smplayer.pro.user
+diff --git a/src/actionseditor.cpp b/src/actionseditor.cpp
+index 8d21fa58c..abbba28a7 100644
+--- a/src/actionseditor.cpp
++++ b/src/actionseditor.cpp
 @@ -37,6 +37,9 @@
  #include <QMessageBox>
  #include <QFileInfo>
@@ -11,7 +59,7 @@ diff '--color=auto' -ur smplayer-26.8.29.orig/src/actionseditor.cpp smplayer-26.
  #include <QApplication>
  #include <QAction>
  #include <QDebug>
-@@ -539,7 +542,9 @@
+@@ -539,7 +542,9 @@ bool ActionsEditor::saveActionsTable(const QString & filename) {
  	QFile f( filename );
  	if ( f.open( QIODevice::WriteOnly ) ) {
  		QTextStream stream( &f );
@@ -21,7 +69,7 @@ diff '--color=auto' -ur smplayer-26.8.29.orig/src/actionseditor.cpp smplayer-26.
  
  		for (int row = 0; row < table->rowCount(); row++) {
  			stream << table->item(row, COL_NAME)->text() << "\t" 
-@@ -580,7 +585,9 @@
+@@ -580,7 +585,9 @@ bool ActionsEditor::loadActionsTable(const QString & filename) {
  		#endif
  
  		QTextStream stream( &f );
@@ -32,7 +80,7 @@ diff '--color=auto' -ur smplayer-26.8.29.orig/src/actionseditor.cpp smplayer-26.
  
  		QString line;
  		while ( !stream.atEnd() ) {
-@@ -588,7 +595,11 @@
+@@ -588,7 +595,11 @@ bool ActionsEditor::loadActionsTable(const QString & filename) {
  			qDebug() << "ActionsEditor::loadActions: line:" << line;
  			QString name;
  			QString accelText;
@@ -45,9 +93,10 @@ diff '--color=auto' -ur smplayer-26.8.29.orig/src/actionseditor.cpp smplayer-26.
  			//qDebug() << "ActionsEditor::loadActions: pos:" << pos;
  			if (pos == -1) {
  				name = line;
-diff '--color=auto' -ur smplayer-26.8.29.orig/src/basegui.cpp smplayer-26.8.29/src/basegui.cpp
---- smplayer-26.8.29.orig/src/basegui.cpp	2026-08-30 14:41:46.465312576 +0200
-+++ smplayer-26.8.29/src/basegui.cpp	2026-08-30 14:41:56.147257780 +0200
+diff --git a/src/basegui.cpp b/src/basegui.cpp
+index e709a6d27..793bbc3b6 100644
+--- a/src/basegui.cpp
++++ b/src/basegui.cpp
 @@ -39,7 +39,11 @@
  #include <QInputDialog>
  #include <QClipboard>
@@ -60,7 +109,7 @@ diff '--color=auto' -ur smplayer-26.8.29.orig/src/basegui.cpp smplayer-26.8.29/s
  
  #include <QtCore/qmath.h>
  
-@@ -3834,7 +3838,11 @@
+@@ -3826,7 +3830,11 @@ void BaseGui::updateRecents() {
  			//if (fi.exists()) filename = fi.fileName(); // Can be slow
  
  			// Let's see if it looks like a file (no dvd://1 or something)
@@ -73,7 +122,7 @@ diff '--color=auto' -ur smplayer-26.8.29.orig/src/basegui.cpp smplayer-26.8.29/s
  
  			if (filename.size() > 85) {
  				filename = filename.left(80) + "...";
-@@ -4841,9 +4849,13 @@
+@@ -4831,9 +4839,13 @@ void BaseGui::toggleFullscreen(bool b) {
  
  		aboutToEnterFullscreen();
  
@@ -89,7 +138,7 @@ diff '--color=auto' -ur smplayer-26.8.29.orig/src/basegui.cpp smplayer-26.8.29/s
  			if (!pref->pause_when_hidden) hide();
  		}
  		#endif
-@@ -5551,7 +5563,11 @@
+@@ -5541,7 +5553,11 @@ void BaseGui::resizeMainWindow(int w, int h) {
  	int diff_height = this->height() - panel->height();
  
  #if 1
@@ -101,7 +150,7 @@ diff '--color=auto' -ur smplayer-26.8.29.orig/src/basegui.cpp smplayer-26.8.29/s
  	QSize desktop_size = QSize(desktop_rect.width(), desktop_rect.height());
  
  	if (w + diff_width > desktop_size.width() || h + diff_height > desktop_size.height()) {
-@@ -5619,8 +5635,12 @@
+@@ -5609,8 +5625,12 @@ void BaseGui::resizeMainWindow(int w, int h) {
  	// Check if a part of the window is outside of the desktop
  	// and center the window in that case
  	if ((pref->center_window_if_outside) && (!core->mdat.novideo)) {
@@ -116,7 +165,7 @@ diff '--color=auto' -ur smplayer-26.8.29.orig/src/basegui.cpp smplayer-26.8.29/s
  		qDebug("BaseGui::resizeWindow: right bottom point: %d, %d", right_bottom.x(), right_bottom.y());;
  		if (!screen_rect.contains(right_bottom) || !screen_rect.contains(this->pos())) {
  			qDebug("BaseGui::resizeWindow: the window is outside of the desktop, it will be moved");
-@@ -5665,8 +5685,12 @@
+@@ -5655,8 +5675,12 @@ void BaseGui::hidePanel() {
  void BaseGui::centerWindow() {
  	qDebug("BaseGui::centerWindow");
  	if (pref->center_window && !pref->fullscreen && isVisible()) {
@@ -131,7 +180,7 @@ diff '--color=auto' -ur smplayer-26.8.29.orig/src/basegui.cpp smplayer-26.8.29/s
  		qDebug() << "BaseGui::centerWindow: desktop rect:" << r;
  		int x = r.x() + ((r.width() - width()) / 2);
  		int y = r.y() + ((r.height() - height()) / 2);
-@@ -5832,8 +5856,13 @@
+@@ -5822,8 +5846,13 @@ QString BaseGui::loadQss(QString filename) {
  		path = current.relativeFilePath(td);
  	}
  #endif
@@ -145,7 +194,7 @@ diff '--color=auto' -ur smplayer-26.8.29.orig/src/basegui.cpp smplayer-26.8.29/s
  	//qDebug("BaseGui::loadQss: styleSheet: %s", stylesheet.toUtf8().constData());
  	return stylesheet;
  }
-@@ -6418,18 +6447,30 @@
+@@ -6408,18 +6437,30 @@ bool BaseGui::winEvent ( MSG * m, long * result ) {
  		QString text = QString::fromWCharArray((TCHAR*)m->lParam);
  		qDebug() << "BaseGui::winEvent: WM_SETTINGCHANGE:" << text;
  
@@ -180,7 +229,7 @@ diff '--color=auto' -ur smplayer-26.8.29.orig/src/basegui.cpp smplayer-26.8.29/s
  		
  		*result = 0;
  		return true;
-@@ -6478,7 +6519,11 @@
+@@ -6468,7 +6509,11 @@ bool BaseGui::nativeEvent(const QByteArray &eventType, void * message, long * re
  
  void BaseGui::checkSystemTabletMode() {
  	#if ((QT_VERSION >= 0x040807 && QT_VERSION < 0x050000) || (QT_VERSION >= 0x050500))
@@ -193,7 +242,7 @@ diff '--color=auto' -ur smplayer-26.8.29.orig/src/basegui.cpp smplayer-26.8.29/s
  		// Windows 10 code (don't know if this works on Windows 8)
  		QSettings set("HKEY_CURRENT_USER\\SOFTWARE\\Microsoft\\Windows\\CurrentVersion\\ImmersiveShell", QSettings::NativeFormat);
  		QVariant v = set.value("TabletMode");
-@@ -6489,8 +6534,12 @@
+@@ -6479,8 +6524,12 @@ void BaseGui::checkSystemTabletMode() {
  		}
  	}
  	else
@@ -207,10 +256,11 @@ diff '--color=auto' -ur smplayer-26.8.29.orig/src/basegui.cpp smplayer-26.8.29/s
  	{
  		bool slate_mode = (GetSystemMetrics(SM_CONVERTIBLESLATEMODE) == 0);
  		qDebug() << "BaseGui::checkSystemTabletMode: slate_mode:" << slate_mode;
-diff '--color=auto' -ur smplayer-26.8.29.orig/src/baseguiplus.cpp smplayer-26.8.29/src/baseguiplus.cpp
---- smplayer-26.8.29.orig/src/baseguiplus.cpp	2026-08-30 09:16:46.000000000 +0200
-+++ smplayer-26.8.29/src/baseguiplus.cpp	2026-08-30 14:41:56.147530349 +0200
-@@ -37,7 +37,9 @@
+diff --git a/src/baseguiplus.cpp b/src/baseguiplus.cpp
+index 81134b56c..31c93cbd2 100644
+--- a/src/baseguiplus.cpp
++++ b/src/baseguiplus.cpp
+@@ -35,7 +35,9 @@
  #include <QMenu>
  #include <QCloseEvent>
  #include <QApplication>
@@ -220,7 +270,7 @@ diff '--color=auto' -ur smplayer-26.8.29.orig/src/baseguiplus.cpp smplayer-26.8.
  #include <QTime>
  
  #ifdef PLAYLIST_DOCKABLE
-@@ -641,8 +643,16 @@
+@@ -624,8 +626,16 @@ void BaseGuiPlus::aboutToEnterFullscreen() {
  	if (!playlist->isWindow() && playlistdock) {
  		playlistdock->setAllowedAreas(Qt::NoDockWidgetArea);
  
@@ -237,9 +287,10 @@ diff '--color=auto' -ur smplayer-26.8.29.orig/src/baseguiplus.cpp smplayer-26.8.
  		qDebug("BaseGuiPlus::aboutToEnterFullscreen: mainwindow screen: %d, playlist screen: %d", mainwindow_screen, playlist_screen);
  
  		fullscreen_playlist_was_visible = playlistdock->isVisible();
-diff '--color=auto' -ur smplayer-26.8.29.orig/src/colorutils.cpp smplayer-26.8.29/src/colorutils.cpp
---- smplayer-26.8.29.orig/src/colorutils.cpp	2026-08-30 09:16:46.000000000 +0200
-+++ smplayer-26.8.29/src/colorutils.cpp	2026-08-30 14:41:56.147593039 +0200
+diff --git a/src/colorutils.cpp b/src/colorutils.cpp
+index 1000f97f6..a8ea962f7 100644
+--- a/src/colorutils.cpp
++++ b/src/colorutils.cpp
 @@ -18,6 +18,9 @@
  
  #include "colorutils.h"
@@ -250,9 +301,10 @@ diff '--color=auto' -ur smplayer-26.8.29.orig/src/colorutils.cpp smplayer-26.8.2
  #include <QDebug>
  #include "qtcompat.h"
  
-diff '--color=auto' -ur smplayer-26.8.29.orig/src/defaultgui.cpp smplayer-26.8.29/src/defaultgui.cpp
---- smplayer-26.8.29.orig/src/defaultgui.cpp	2026-08-30 09:16:46.000000000 +0200
-+++ smplayer-26.8.29/src/defaultgui.cpp	2026-08-30 14:41:56.147690528 +0200
+diff --git a/src/defaultgui.cpp b/src/defaultgui.cpp
+index f27d4b10f..a223b23ee 100644
+--- a/src/defaultgui.cpp
++++ b/src/defaultgui.cpp
 @@ -47,6 +47,9 @@
  #include <QMenuBar>
  #include <QMovie>
@@ -263,9 +315,10 @@ diff '--color=auto' -ur smplayer-26.8.29.orig/src/defaultgui.cpp smplayer-26.8.2
  
  #define TOOLBAR_VERSION "2"
  #define CONTROLWIDGET_VERSION "1"
-diff '--color=auto' -ur smplayer-26.8.29.orig/src/deviceinfo.cpp smplayer-26.8.29/src/deviceinfo.cpp
---- smplayer-26.8.29.orig/src/deviceinfo.cpp	2026-08-30 09:16:46.000000000 +0200
-+++ smplayer-26.8.29/src/deviceinfo.cpp	2026-08-30 14:41:56.147790608 +0200
+diff --git a/src/deviceinfo.cpp b/src/deviceinfo.cpp
+index f4acefbca..399e0d8be 100644
+--- a/src/deviceinfo.cpp
++++ b/src/deviceinfo.cpp
 @@ -21,6 +21,9 @@
  #include <QProcess>
  #include <QFile>
@@ -276,9 +329,10 @@ diff '--color=auto' -ur smplayer-26.8.29.orig/src/deviceinfo.cpp smplayer-26.8.2
  #include <QDebug>
  
  #ifdef Q_OS_WIN
-diff '--color=auto' -ur smplayer-26.8.29.orig/src/favorites.cpp smplayer-26.8.29/src/favorites.cpp
---- smplayer-26.8.29.orig/src/favorites.cpp	2026-08-30 09:16:46.000000000 +0200
-+++ smplayer-26.8.29/src/favorites.cpp	2026-08-30 14:41:56.147835348 +0200
+diff --git a/src/favorites.cpp b/src/favorites.cpp
+index c06e97ac9..223ac0697 100644
+--- a/src/favorites.cpp
++++ b/src/favorites.cpp
 @@ -25,6 +25,9 @@
  #include <QTextStream>
  #include <QInputDialog>
@@ -289,7 +343,7 @@ diff '--color=auto' -ur smplayer-26.8.29.orig/src/favorites.cpp smplayer-26.8.29
  
  //#define FIRST_MENU_ENTRY 4
  #define FIRST_MENU_ENTRY 3
-@@ -270,7 +273,11 @@
+@@ -270,7 +273,11 @@ void Favorites::save() {
  	QFile f( _filename );
      if ( f.open( QIODevice::WriteOnly ) ) {
          QTextStream stream( &f );
@@ -301,7 +355,7 @@ diff '--color=auto' -ur smplayer-26.8.29.orig/src/favorites.cpp smplayer-26.8.29
  
  		stream << "#EXTM3U" << "\n";
  		for (int n = 0; n < f_list.count(); n++) {
-@@ -299,7 +306,11 @@
+@@ -299,7 +306,11 @@ void Favorites::load() {
  		Favorite fav;
  
  		QTextStream stream( &f );
@@ -314,10 +368,11 @@ diff '--color=auto' -ur smplayer-26.8.29.orig/src/favorites.cpp smplayer-26.8.29
  
  		QString line;
  		while ( !stream.atEnd() ) {
-diff '--color=auto' -ur smplayer-26.8.29.orig/src/findsubtitles/findsubtitleswindow.cpp smplayer-26.8.29/src/findsubtitles/findsubtitleswindow.cpp
---- smplayer-26.8.29.orig/src/findsubtitles/findsubtitleswindow.cpp	2026-08-30 09:16:46.000000000 +0200
-+++ smplayer-26.8.29/src/findsubtitles/findsubtitleswindow.cpp	2026-08-30 14:41:56.147896877 +0200
-@@ -359,7 +359,11 @@
+diff --git a/src/findsubtitles/findsubtitleswindow.cpp b/src/findsubtitles/findsubtitleswindow.cpp
+index 40ae27ff5..b9731ee52 100644
+--- a/src/findsubtitles/findsubtitleswindow.cpp
++++ b/src/findsubtitles/findsubtitleswindow.cpp
+@@ -359,7 +359,11 @@ void FindSubtitlesWindow::currentItemChanged(const QModelIndex & current, const
  }
  
  void FindSubtitlesWindow::applyFilter(const QString & filter) {
@@ -329,10 +384,11 @@ diff '--color=auto' -ur smplayer-26.8.29.orig/src/findsubtitles/findsubtitleswin
  }
  
  void FindSubtitlesWindow::applyCurrentFilter() {
-diff '--color=auto' -ur smplayer-26.8.29.orig/src/globalshortcuts/globalshortcuts.h smplayer-26.8.29/src/globalshortcuts/globalshortcuts.h
---- smplayer-26.8.29.orig/src/globalshortcuts/globalshortcuts.h	2026-08-30 09:16:46.000000000 +0200
-+++ smplayer-26.8.29/src/globalshortcuts/globalshortcuts.h	2026-08-30 14:41:56.147943977 +0200
-@@ -42,7 +42,12 @@
+diff --git a/src/globalshortcuts/globalshortcuts.h b/src/globalshortcuts/globalshortcuts.h
+index ee4e9ffb4..906b5b5c6 100644
+--- a/src/globalshortcuts/globalshortcuts.h
++++ b/src/globalshortcuts/globalshortcuts.h
+@@ -42,7 +42,12 @@ class GlobalShortcuts : public QObject, public QAbstractNativeEventFilter
  	void setGrabbedKeys(MediaKeys keys);
  	MediaKeys grabbedKeys() { return grabbed_keys; };
  
@@ -346,35 +402,10 @@ diff '--color=auto' -ur smplayer-26.8.29.orig/src/globalshortcuts/globalshortcut
  
  public slots:
  	void setEnabled(bool);
-diff '--color=auto' -ur smplayer-26.8.29.orig/src/globalshortcuts/globalshortcuts_linux.cpp smplayer-26.8.29/src/globalshortcuts/globalshortcuts_linux.cpp
---- smplayer-26.8.29.orig/src/globalshortcuts/globalshortcuts_linux.cpp	2026-08-30 09:16:46.000000000 +0200
-+++ smplayer-26.8.29/src/globalshortcuts/globalshortcuts_linux.cpp	2026-08-30 14:42:39.321374021 +0200
-@@ -20,6 +20,10 @@
- #include <X11/XF86keysym.h>
- #include <qpa/qplatformnativeinterface.h>
- #include <xcb/xcb.h>
-+#include <QDebug>
-+#if QT_VERSION_MAJOR >= 6
-+#include "globalshortcuts.h"
-+#endif
- 
- class X11Data {
- public:
-@@ -52,7 +56,11 @@
- };
- 
- 
-+#if QT_VERSION_MAJOR < 6
- bool GlobalShortcuts::nativeEventFilter(const QByteArray & eventType, void * message, long * /*result*/) {
-+#else
-+bool GlobalShortcuts::nativeEventFilter(const QByteArray & eventType, void * message, qintptr * /*result*/) {
-+#endif
- 	//qDebug() << "GlobalShortcuts::nativeEventFilter";
- 
- 	if (!isEnabled()) return false;
-diff '--color=auto' -ur smplayer-26.8.29.orig/src/globalshortcuts/globalshortcuts_win.cpp smplayer-26.8.29/src/globalshortcuts/globalshortcuts_win.cpp
---- smplayer-26.8.29.orig/src/globalshortcuts/globalshortcuts_win.cpp	2026-08-30 09:16:46.000000000 +0200
-+++ smplayer-26.8.29/src/globalshortcuts/globalshortcuts_win.cpp	2026-08-30 14:41:56.148002797 +0200
+diff --git a/src/globalshortcuts/globalshortcuts_win.cpp b/src/globalshortcuts/globalshortcuts_win.cpp
+index 08e0219cf..39d71f847 100644
+--- a/src/globalshortcuts/globalshortcuts_win.cpp
++++ b/src/globalshortcuts/globalshortcuts_win.cpp
 @@ -17,9 +17,17 @@
  */
  
@@ -394,9 +425,10 @@ diff '--color=auto' -ur smplayer-26.8.29.orig/src/globalshortcuts/globalshortcut
  
  	if (!isEnabled()) return false;
  
-diff '--color=auto' -ur smplayer-26.8.29.orig/src/helper.cpp smplayer-26.8.29/src/helper.cpp
---- smplayer-26.8.29.orig/src/helper.cpp	2026-08-30 09:16:46.000000000 +0200
-+++ smplayer-26.8.29/src/helper.cpp	2026-08-30 14:41:56.148037377 +0200
+diff --git a/src/helper.cpp b/src/helper.cpp
+index 944f29152..f8463a61e 100644
+--- a/src/helper.cpp
++++ b/src/helper.cpp
 @@ -24,6 +24,10 @@
  #include <QDir>
  #include <QTextCodec>
@@ -408,7 +440,7 @@ diff '--color=auto' -ur smplayer-26.8.29.orig/src/helper.cpp smplayer-26.8.29/sr
  #include <QDebug>
  #include "config.h"
  #include "extensions.h"
-@@ -253,7 +257,11 @@
+@@ -253,7 +257,11 @@ QStringList Helper::searchForConsecutiveFiles(const QString & initial_file) {
  		digits = rx.cap(1).length();
  		current_number = rx.cap(1).toInt() + 1;
  		next_name = basename.left(pos) + QString("%1").arg(current_number, digits, 10, QLatin1Char('0'));
@@ -421,7 +453,7 @@ diff '--color=auto' -ur smplayer-26.8.29.orig/src/helper.cpp smplayer-26.8.29/sr
  		next_name += "*." + extension;
  		qDebug("Helper::searchForConsecutiveFiles: next name = %s",next_name.toUtf8().constData());
  		matching_files = dir.entryList((QStringList)next_name);
-@@ -277,7 +285,11 @@
+@@ -277,7 +285,11 @@ QStringList Helper::searchForConsecutiveFiles(const QString & initial_file) {
  			files_to_add << filename;
  			current_number++;
  			next_name = basename.left(pos) + QString("%1").arg(current_number, digits, 10, QLatin1Char('0'));
@@ -434,10 +466,11 @@ diff '--color=auto' -ur smplayer-26.8.29.orig/src/helper.cpp smplayer-26.8.29/sr
  			next_name += "*." + extension;
  			matching_files = dir.entryList((QStringList)next_name);
  			qDebug("Helper::searchForConsecutiveFiles: looking for '%s'", next_name.toUtf8().constData());
-diff '--color=auto' -ur smplayer-26.8.29.orig/src/myapplication.cpp smplayer-26.8.29/src/myapplication.cpp
---- smplayer-26.8.29.orig/src/myapplication.cpp	2026-08-30 09:16:46.000000000 +0200
-+++ smplayer-26.8.29/src/myapplication.cpp	2026-08-30 14:41:56.148071967 +0200
-@@ -53,7 +53,7 @@
+diff --git a/src/myapplication.cpp b/src/myapplication.cpp
+index f8564343a..64debc5a0 100644
+--- a/src/myapplication.cpp
++++ b/src/myapplication.cpp
+@@ -53,7 +53,7 @@ MyApplication::MyApplication (const QString & /*appId*/, int & argc, char ** arg
  	: QApplication(argc, argv)
  #endif
  {
@@ -446,9 +479,10 @@ diff '--color=auto' -ur smplayer-26.8.29.orig/src/myapplication.cpp smplayer-26.
  	setFallbackSessionManagementEnabled(false);
  #endif
  #if QT_VERSION >= 0x050000
-diff '--color=auto' -ur smplayer-26.8.29.orig/src/paths.cpp smplayer-26.8.29/src/paths.cpp
---- smplayer-26.8.29.orig/src/paths.cpp	2026-08-30 09:16:46.000000000 +0200
-+++ smplayer-26.8.29/src/paths.cpp	2026-08-30 14:41:56.148104367 +0200
+diff --git a/src/paths.cpp b/src/paths.cpp
+index a38f8b1a6..cbb80ba63 100644
+--- a/src/paths.cpp
++++ b/src/paths.cpp
 @@ -20,7 +20,9 @@
  #include <QLibraryInfo>
  #include <QLocale>
@@ -460,7 +494,7 @@ diff '--color=auto' -ur smplayer-26.8.29.orig/src/paths.cpp smplayer-26.8.29/src
  #include <QDir>
  
  #ifndef Q_OS_WIN
-@@ -123,8 +125,13 @@
+@@ -123,8 +125,13 @@ QString Paths::doc(QString file, QString locale, bool english_fallback) {
  	qDebug("Helper:doc: checking '%s'", f.toUtf8().data());
  	if (QFile::exists(f)) return f;
  
@@ -476,9 +510,10 @@ diff '--color=auto' -ur smplayer-26.8.29.orig/src/paths.cpp smplayer-26.8.29/src
  		f = docPath() + "/" + locale + "/" + file;
  		qDebug("Helper:doc: checking '%s'", f.toUtf8().data());
  		if (QFile::exists(f)) return f;
-diff '--color=auto' -ur smplayer-26.8.29.orig/src/playlist.cpp smplayer-26.8.29/src/playlist.cpp
---- smplayer-26.8.29.orig/src/playlist.cpp	2026-08-30 09:16:46.000000000 +0200
-+++ smplayer-26.8.29/src/playlist.cpp	2026-08-30 14:41:56.148202096 +0200
+diff --git a/src/playlist.cpp b/src/playlist.cpp
+index cfa10a4de..ec07a40fc 100644
+--- a/src/playlist.cpp
++++ b/src/playlist.cpp
 @@ -46,6 +46,11 @@
  #include <QDomDocument>
  #include <QDesktopServices>
@@ -491,7 +526,7 @@ diff '--color=auto' -ur smplayer-26.8.29.orig/src/playlist.cpp smplayer-26.8.29/
  #include <QDebug>
  
  #if QT_VERSION >= 0x050000
-@@ -969,7 +974,11 @@
+@@ -931,7 +936,11 @@ void Playlist::addItem(QString filename, QString name, double duration, QStringL
  		if (name.isEmpty()) {
  			QFileInfo fi(filename);
  			// Let's see if it looks like a file (no dvd://1 or something)
@@ -504,7 +539,7 @@ diff '--color=auto' -ur smplayer-26.8.29.orig/src/playlist.cpp smplayer-26.8.29/
  				// Local file
  				name = fi.fileName();
  			} else {
-@@ -1058,9 +1067,21 @@
+@@ -1020,9 +1029,21 @@ void Playlist::load_m3u(QString file, M3UFormat format) {
  		QTextStream stream( &f );
  
  		if (utf8)
@@ -528,7 +563,7 @@ diff '--color=auto' -ur smplayer-26.8.29.orig/src/playlist.cpp smplayer-26.8.29/
  
  		QString line;
  		while ( !stream.atEnd() ) {
-@@ -1212,9 +1233,15 @@
+@@ -1174,9 +1195,15 @@ void Playlist::loadXSPF(const QString & filename) {
  	}
  
  	QDomDocument dom_document;
@@ -547,7 +582,7 @@ diff '--color=auto' -ur smplayer-26.8.29.orig/src/playlist.cpp smplayer-26.8.29/
  
  	QDomNode root = dom_document.documentElement();
  	qDebug() << "Playlist::loadXSPF: tagname:" << root.toElement().tagName();
-@@ -1285,9 +1312,21 @@
+@@ -1247,9 +1274,21 @@ bool Playlist::save_m3u(QString file) {
  		QTextStream stream( &f );
  
  		if (utf8)
@@ -572,7 +607,7 @@ diff '--color=auto' -ur smplayer-26.8.29.orig/src/playlist.cpp smplayer-26.8.29/
  
  		QString filename;
  		QString name;
-@@ -1389,7 +1428,11 @@
+@@ -1351,7 +1390,11 @@ bool Playlist::saveXSPF(const QString & filename) {
  	QFile f(filename);
  	if (f.open( QIODevice::WriteOnly)) {
  		QTextStream stream(&f);
@@ -584,9 +619,10 @@ diff '--color=auto' -ur smplayer-26.8.29.orig/src/playlist.cpp smplayer-26.8.29/
  
  		stream << "<?xml version=\"1.0\" encoding=\"UTF-8\"?>\n";
  		stream << "<playlist version=\"1\" xmlns=\"http://xspf.org/ns/0/\">\n";
-diff '--color=auto' -ur smplayer-26.8.29.orig/src/prefassociations.cpp smplayer-26.8.29/src/prefassociations.cpp
---- smplayer-26.8.29.orig/src/prefassociations.cpp	2026-08-30 09:16:46.000000000 +0200
-+++ smplayer-26.8.29/src/prefassociations.cpp	2026-08-30 14:41:56.148311526 +0200
+diff --git a/src/prefassociations.cpp b/src/prefassociations.cpp
+index 0f238ee9a..433cc29b1 100644
+--- a/src/prefassociations.cpp
++++ b/src/prefassociations.cpp
 @@ -27,6 +27,9 @@
  #include <QSettings>
  #include <QApplication>
@@ -597,7 +633,7 @@ diff '--color=auto' -ur smplayer-26.8.29.orig/src/prefassociations.cpp smplayer-
  #include "winfileassoc.h"
  #include "extensions.h"
  
-@@ -48,10 +51,14 @@
+@@ -48,10 +51,14 @@ PrefAssociations::PrefAssociations(QWidget * parent, Qt::WindowFlags f)
  
  	connect(selectAll, SIGNAL(clicked(bool)), this, SLOT(selectAllClicked(bool)));
  	connect(selectNone, SIGNAL(clicked(bool)), this, SLOT(selectNoneClicked(bool)));
@@ -614,7 +650,7 @@ diff '--color=auto' -ur smplayer-26.8.29.orig/src/prefassociations.cpp smplayer-
  	{
  		//Hide Select None - One cannot restore an association in Vista. Go figure.
  		selectNone->hide(); 
-@@ -148,7 +155,11 @@
+@@ -148,7 +155,11 @@ void PrefAssociations::refreshList()
  				pItem->setCheckState(Qt::Checked);
  				//Don't allow de-selection in windows VISTA if extension is registered.
  				//VISTA doesn't seem to support extension 'restoration' in the API.
@@ -627,10 +663,11 @@ diff '--color=auto' -ur smplayer-26.8.29.orig/src/prefassociations.cpp smplayer-
  					pItem->setFlags(QFlag(0));
  				}
  			}
-diff '--color=auto' -ur smplayer-26.8.29.orig/src/preferences.cpp smplayer-26.8.29/src/preferences.cpp
---- smplayer-26.8.29.orig/src/preferences.cpp	2026-08-30 09:16:46.000000000 +0200
-+++ smplayer-26.8.29/src/preferences.cpp	2026-08-30 14:41:56.148387416 +0200
-@@ -44,6 +44,9 @@
+diff --git a/src/preferences.cpp b/src/preferences.cpp
+index 40b7452e0..1265f9e31 100644
+--- a/src/preferences.cpp
++++ b/src/preferences.cpp
+@@ -40,6 +40,9 @@
  #if QT_VERSION >= 0x040400
  #include <QDesktopServices>
  #endif
@@ -640,7 +677,7 @@ diff '--color=auto' -ur smplayer-26.8.29.orig/src/preferences.cpp smplayer-26.8.
  
  #ifdef YOUTUBE_SUPPORT
  #include "retrieveyoutubeurl.h"
-@@ -88,10 +91,14 @@
+@@ -84,10 +87,14 @@ void Preferences::reset() {
  #endif
  
  #if defined(Q_OS_WIN) || defined(Q_OS_OS2)
@@ -658,7 +695,7 @@ diff '--color=auto' -ur smplayer-26.8.29.orig/src/preferences.cpp smplayer-26.8.
  #else
  	mplayer_bin = "mpv";
  #endif
-@@ -1921,9 +1928,13 @@
+@@ -1911,9 +1918,13 @@ void Preferences::load() {
  		}
  		if (config_version <= 5) {
  			#ifdef Q_OS_WIN
@@ -674,9 +711,10 @@ diff '--color=auto' -ur smplayer-26.8.29.orig/src/preferences.cpp smplayer-26.8.
  			#else
  			use_audio_equalizer = false;
  			initial_volnorm = false;
-diff '--color=auto' -ur smplayer-26.8.29.orig/src/prefinterface.cpp smplayer-26.8.29/src/prefinterface.cpp
---- smplayer-26.8.29.orig/src/prefinterface.cpp	2026-08-30 09:16:46.000000000 +0200
-+++ smplayer-26.8.29/src/prefinterface.cpp	2026-08-30 14:41:56.148472755 +0200
+diff --git a/src/prefinterface.cpp b/src/prefinterface.cpp
+index 1fb5f784d..5131ee871 100644
+--- a/src/prefinterface.cpp
++++ b/src/prefinterface.cpp
 @@ -29,6 +29,9 @@
  #include <QDir>
  #include <QStyleFactory>
@@ -687,9 +725,10 @@ diff '--color=auto' -ur smplayer-26.8.29.orig/src/prefinterface.cpp smplayer-26.
  #include <QDebug>
  
  #ifdef HDPI_SUPPORT
-diff '--color=auto' -ur smplayer-26.8.29.orig/src/prefperformance.cpp smplayer-26.8.29/src/prefperformance.cpp
---- smplayer-26.8.29.orig/src/prefperformance.cpp	2026-08-30 09:16:46.000000000 +0200
-+++ smplayer-26.8.29/src/prefperformance.cpp	2026-08-30 14:41:56.148523845 +0200
+diff --git a/src/prefperformance.cpp b/src/prefperformance.cpp
+index b11d5f0e3..7944e5743 100644
+--- a/src/prefperformance.cpp
++++ b/src/prefperformance.cpp
 @@ -22,6 +22,9 @@
  #include "global.h"
  #include "preferences.h"
@@ -700,7 +739,7 @@ diff '--color=auto' -ur smplayer-26.8.29.orig/src/prefperformance.cpp smplayer-2
  
  using namespace Global;
  
-@@ -51,11 +54,15 @@
+@@ -51,11 +54,15 @@ PrefPerformance::PrefPerformance(QWidget * parent, Qt::WindowFlags f)
  	#ifdef Q_OS_WIN
  	hwdec_combo->addItem("dxva2", "dxva2");
  	hwdec_combo->addItem("dxva2-copy", "dxva2-copy");
@@ -719,9 +758,10 @@ diff '--color=auto' -ur smplayer-26.8.29.orig/src/prefperformance.cpp smplayer-2
  	#endif
  	hwdec_combo->addItem("nvdec", "nvdec");
  	hwdec_combo->addItem("nvdec-copy", "nvdec-copy");
-diff '--color=auto' -ur smplayer-26.8.29.orig/src/qtsingleapplication/qtlocalpeer.cpp smplayer-26.8.29/src/qtsingleapplication/qtlocalpeer.cpp
---- smplayer-26.8.29.orig/src/qtsingleapplication/qtlocalpeer.cpp	2026-08-30 09:16:46.000000000 +0200
-+++ smplayer-26.8.29/src/qtsingleapplication/qtlocalpeer.cpp	2026-08-30 14:41:56.148562625 +0200
+diff --git a/src/qtsingleapplication/qtlocalpeer.cpp b/src/qtsingleapplication/qtlocalpeer.cpp
+index c7ce52762..fdfae383a 100644
+--- a/src/qtsingleapplication/qtlocalpeer.cpp
++++ b/src/qtsingleapplication/qtlocalpeer.cpp
 @@ -43,6 +43,9 @@
  #include <QCoreApplication>
  #include <QDataStream>
@@ -732,7 +772,7 @@ diff '--color=auto' -ur smplayer-26.8.29.orig/src/qtsingleapplication/qtlocalpee
  
  #if defined(Q_OS_WIN)
  #include <QLibrary>
-@@ -78,7 +81,11 @@
+@@ -78,7 +81,11 @@ QtLocalPeer::QtLocalPeer(QObject* parent, const QString &appId)
  #endif
          prefix = id.section(QLatin1Char('/'), -1);
      }
@@ -744,9 +784,10 @@ diff '--color=auto' -ur smplayer-26.8.29.orig/src/qtsingleapplication/qtlocalpee
      prefix.truncate(6);
  
      QByteArray idc = id.toUtf8();
-diff '--color=auto' -ur smplayer-26.8.29.orig/src/smplayer.cpp smplayer-26.8.29/src/smplayer.cpp
---- smplayer-26.8.29.orig/src/smplayer.cpp	2026-08-30 09:16:46.000000000 +0200
-+++ smplayer-26.8.29/src/smplayer.cpp	2026-08-30 14:41:56.148606505 +0200
+diff --git a/src/smplayer.cpp b/src/smplayer.cpp
+index 6269a5613..c4b16b28e 100644
+--- a/src/smplayer.cpp
++++ b/src/smplayer.cpp
 @@ -46,6 +46,9 @@
  #include <QDir>
  #include <QUrl>
@@ -757,7 +798,7 @@ diff '--color=auto' -ur smplayer-26.8.29.orig/src/smplayer.cpp smplayer-26.8.29/
  #include <stdio.h>
  
  #ifdef Q_OS_WIN
-@@ -580,8 +583,9 @@
+@@ -580,8 +583,9 @@ void SMPlayer::createFontFile() {
  
  void SMPlayer::showInfo() {
  #ifdef Q_OS_WIN
@@ -769,7 +810,7 @@ diff '--color=auto' -ur smplayer-26.8.29.orig/src/smplayer.cpp smplayer-26.8.29/
  		case QSysInfo::WV_2000: win_ver = "Windows 2000"; break;
  		case QSysInfo::WV_XP: win_ver = "Windows XP"; break;
  		case QSysInfo::WV_2003: win_ver = "Windows XP Professional x64/Server 2003"; break;
-@@ -601,6 +605,9 @@
+@@ -601,6 +605,9 @@ void SMPlayer::showInfo() {
  		case QSysInfo::WV_NT_based: win_ver = "NT-based Windows"; break;
  		default: win_ver = QString("Unknown/Unsupported Windows OS"); break;
  	}
@@ -779,9 +820,10 @@ diff '--color=auto' -ur smplayer-26.8.29.orig/src/smplayer.cpp smplayer-26.8.29/
  #endif
  	QString s = QObject::tr("This is SMPlayer v. %1 running on %2")
             .arg(Version::printable())
-diff '--color=auto' -ur smplayer-26.8.29.orig/src/smplayer.pro smplayer-26.8.29/src/smplayer.pro
---- smplayer-26.8.29.orig/src/smplayer.pro	2026-08-30 14:41:46.489739521 +0200
-+++ smplayer-26.8.29/src/smplayer.pro	2026-08-30 14:41:56.148700655 +0200
+diff --git a/src/smplayer.pro b/src/smplayer.pro
+index 8389f4981..2d24ba425 100644
+--- a/src/smplayer.pro
++++ b/src/smplayer.pro
 @@ -1,8 +1,8 @@
  TEMPLATE = app
  LANGUAGE = C++
@@ -793,7 +835,43 @@ diff '--color=auto' -ur smplayer-26.8.29.orig/src/smplayer.pro smplayer-26.8.29/
  #CONFIG += debug
  
  QT += network xml
-@@ -639,10 +658,6 @@
+@@ -61,6 +61,25 @@ greaterThan(QT_MAJOR_VERSION, 4):greaterThan(QT_MINOR_VERSION, 3) {
+ 
+ #DEFINES += QT_DISABLE_DEPRECATED_BEFORE=0x050F00
+ 
++win32 {
++    CONFIG(debug, debug|release) {
++        BUILD_SUBDIR = debug
++    } else {
++        BUILD_SUBDIR = release
++    }
++    QM_SRC_DIR = $${OUT_PWD}/$${BUILD_SUBDIR}
++    QM_DST_DIR = $${OUT_PWD}/$${BUILD_SUBDIR}/translations
++    QMAKE_POST_LINK += $$quote(cmd /c if not exist $$shell_quote($$replace(QM_DST_DIR,"/","\\")) mkdir $$shell_quote($$replace(QM_DST_DIR,"/","\\")))$$escape_expand(\n\t)
++    QMAKE_POST_LINK += $$quote(cmd /c copy /y $$shell_quote($$replace(QM_SRC_DIR,"/","\\")\\)*.qm $$shell_quote($$replace(QM_DST_DIR,"/","\\")))$$escape_expand(\n\t)
++    QMAKE_CLEAN += $${QM_DST_DIR}/*.qm
++} else {
++    QM_SRC_DIR = $${OUT_PWD}
++    QM_DST_DIR = $${OUT_PWD}/translations
++    QMAKE_POST_LINK += mkdir -p $${QM_DST_DIR}$$escape_expand(\n\t)
++    QMAKE_POST_LINK += cp $${QM_SRC_DIR}/*.qm $${QM_DST_DIR}$$escape_expand(\n\t)
++    QMAKE_CLEAN += $${QM_DST_DIR}/*.qm
++}
++
+ contains( DEFINES, SIMPLE_BUILD ) {
+ 	DEFINES -= SINGLE_INSTANCE
+ 	DEFINES -= FIND_SUBTITLES
+@@ -416,7 +436,8 @@ contains( DEFINES, FIND_SUBTITLES ) {
+ 	SOURCES += findsubtitles/qrestapi/qRestAPI.cpp findsubtitles/qrestapi/qRestResult.cpp \
+                findsubtitles/qrestapi/qGirderAPI.cpp findsubtitles/osclient.cpp
+ 
+-	isEqual(QT_MAJOR_VERSION, 5) {
++        I
++	greaterThan(QT_MAJOR_VERSION, 4) {
+ 		QT += qml
+ 	} else {
+ 		QT += script
+@@ -639,10 +660,6 @@ contains( DEFINES, USE_SHM|USE_COREVIDEO_BUFFER ) {
  		LIBS += -framework Cocoa
  	}
  
@@ -804,7 +882,7 @@ diff '--color=auto' -ur smplayer-26.8.29.orig/src/smplayer.pro smplayer-26.8.29/
  	contains( DEFINES, USE_GL_WINDOW ) {
  		HEADERS += openglrenderer.h
  		SOURCES += openglrenderer.cpp
-@@ -663,7 +678,7 @@
+@@ -663,7 +680,7 @@ contains( DEFINES, USE_SHM|USE_COREVIDEO_BUFFER ) {
  
  contains(DEFINES, USE_SMTUBE_LIB) {
  	LIBS += -L../smtube -lsmtube
@@ -813,14 +891,15 @@ diff '--color=auto' -ur smplayer-26.8.29.orig/src/smplayer.pro smplayer-26.8.29/
  		QT += webkitwidgets widgets gui
  	} else {
  		QT += webkit
-@@ -773,4 +788,3 @@
+@@ -773,4 +790,3 @@ TRANSLATIONS = translations/smplayer_es.ts translations/smplayer_es_ES.ts \
                 translations/smplayer_sq_AL.ts translations/smplayer_am.ts \
                 translations/smplayer_fa.ts translations/smplayer_en_US.ts \
                 translations/smplayer_nb_NO.ts
 -
-diff '--color=auto' -ur smplayer-26.8.29.orig/src/subreader.cpp smplayer-26.8.29/src/subreader.cpp
---- smplayer-26.8.29.orig/src/subreader.cpp	2026-08-30 09:16:46.000000000 +0200
-+++ smplayer-26.8.29/src/subreader.cpp	2026-08-30 14:41:56.148777834 +0200
+diff --git a/src/subreader.cpp b/src/subreader.cpp
+index f5f696ce9..c29910d0a 100644
+--- a/src/subreader.cpp
++++ b/src/subreader.cpp
 @@ -26,7 +26,11 @@
  
  #define NL QString("\r\n")
@@ -833,9 +912,10 @@ diff '--color=auto' -ur smplayer-26.8.29.orig/src/subreader.cpp smplayer-26.8.29
  
  SubReader::SubReader() {
  	input_codec = "ISO-8859-1";
-diff '--color=auto' -ur smplayer-26.8.29.orig/src/winfileassoc.cpp smplayer-26.8.29/src/winfileassoc.cpp
---- smplayer-26.8.29.orig/src/winfileassoc.cpp	2026-08-30 09:16:46.000000000 +0200
-+++ smplayer-26.8.29/src/winfileassoc.cpp	2026-08-30 14:41:56.148822284 +0200
+diff --git a/src/winfileassoc.cpp b/src/winfileassoc.cpp
+index 1404da6e4..7707b473e 100644
+--- a/src/winfileassoc.cpp
++++ b/src/winfileassoc.cpp
 @@ -40,6 +40,9 @@
  #include <QSettings>
  #include <QApplication>
@@ -846,7 +926,7 @@ diff '--color=auto' -ur smplayer-26.8.29.orig/src/winfileassoc.cpp smplayer-26.8
  #include <windows.h>
  
  WinFileAssoc::WinFileAssoc(const QString ClassId, const QString AppName)
-@@ -53,7 +56,11 @@
+@@ -53,7 +56,11 @@ WinFileAssoc::WinFileAssoc(const QString ClassId, const QString AppName)
  // Returns number of extensions processed successfully.
  int WinFileAssoc::CreateFileAssociations(const QStringList &fileExtensions)
  {
@@ -858,7 +938,7 @@ diff '--color=auto' -ur smplayer-26.8.29.orig/src/winfileassoc.cpp smplayer-26.8
          return VistaSetAppsAsDefault(fileExtensions);
      }
  
-@@ -122,7 +129,11 @@
+@@ -122,7 +129,11 @@ bool WinFileAssoc::GetRegisteredExtensions(const QStringList &extensionsToCheck,
  {
      registeredExtensions.clear();
  
@@ -870,7 +950,7 @@ diff '--color=auto' -ur smplayer-26.8.29.orig/src/winfileassoc.cpp smplayer-26.8
          return VistaGetDefaultApps(extensionsToCheck, registeredExtensions);
      }
  
-@@ -170,7 +181,11 @@
+@@ -170,7 +181,11 @@ bool WinFileAssoc::GetRegisteredExtensions(const QStringList &extensionsToCheck,
  // Returns number of extensions successfully processed (error if fileExtensions.count() != return value && count > 0).
  int WinFileAssoc::RestoreFileAssociations(const QStringList &fileExtensions)
  {
@@ -882,9 +962,10 @@ diff '--color=auto' -ur smplayer-26.8.29.orig/src/winfileassoc.cpp smplayer-26.8
          return 0; // Not supported by the API
  
      QSettings RegCR("HKEY_CLASSES_ROOT", QSettings::NativeFormat);
-diff '--color=auto' -ur smplayer-26.8.29.orig/src/winscreensaver.cpp smplayer-26.8.29/src/winscreensaver.cpp
---- smplayer-26.8.29.orig/src/winscreensaver.cpp	2026-08-30 09:16:46.000000000 +0200
-+++ smplayer-26.8.29/src/winscreensaver.cpp	2026-08-30 14:41:56.148869904 +0200
+diff --git a/src/winscreensaver.cpp b/src/winscreensaver.cpp
+index 2b104c8db..5ed960c3a 100644
+--- a/src/winscreensaver.cpp
++++ b/src/winscreensaver.cpp
 @@ -16,8 +16,12 @@
      Foundation, Inc., 59 Temple Place, Suite 330, Boston, MA  02111-1307  USA
  */
@@ -899,7 +980,7 @@ diff '--color=auto' -ur smplayer-26.8.29.orig/src/winscreensaver.cpp smplayer-26
  #include "winscreensaver.h"
  #ifndef Q_OS_OS2
  #include <windows.h>
-@@ -53,7 +57,11 @@
+@@ -53,7 +57,11 @@ void WinScreenSaver::retrieveState() {
  	
  	if (!state_saved) {
  #ifndef Q_OS_OS2
@@ -911,7 +992,7 @@ diff '--color=auto' -ur smplayer-26.8.29.orig/src/winscreensaver.cpp smplayer-26
  			// Not supported on Windows Vista
  			SystemParametersInfo(SPI_GETLOWPOWERTIMEOUT, 0, &lowpower, 0);
  			SystemParametersInfo(SPI_GETPOWEROFFTIMEOUT, 0, &poweroff, 0);
-@@ -79,8 +87,12 @@
+@@ -79,8 +87,12 @@ void WinScreenSaver::restoreState() {
  	
  	if (state_saved) {
  #ifndef Q_OS_OS2
@@ -926,7 +1007,7 @@ diff '--color=auto' -ur smplayer-26.8.29.orig/src/winscreensaver.cpp smplayer-26
  			SystemParametersInfo(SPI_SETLOWPOWERTIMEOUT, lowpower, NULL, 0);
  			SystemParametersInfo(SPI_SETPOWEROFFTIMEOUT, poweroff, NULL, 0);
  		}
-@@ -112,8 +124,12 @@
+@@ -112,8 +124,12 @@ void WinScreenSaver::disable() {
  	qDebug("WinScreenSaver::disable");
  
  #ifndef Q_OS_OS2
@@ -941,9 +1022,10 @@ diff '--color=auto' -ur smplayer-26.8.29.orig/src/winscreensaver.cpp smplayer-26
  		SystemParametersInfo(SPI_SETLOWPOWERTIMEOUT, 0, NULL, 0);
  		SystemParametersInfo(SPI_SETPOWEROFFTIMEOUT, 0, NULL, 0);
  	}
-diff '--color=auto' -ur smplayer-26.8.29.orig/src/winscreensaver.h smplayer-26.8.29/src/winscreensaver.h
---- smplayer-26.8.29.orig/src/winscreensaver.h	2026-08-30 09:16:46.000000000 +0200
-+++ smplayer-26.8.29/src/winscreensaver.h	2026-08-30 14:41:56.148894014 +0200
+diff --git a/src/winscreensaver.h b/src/winscreensaver.h
+index 1c80095ab..91fb66dc2 100644
+--- a/src/winscreensaver.h
++++ b/src/winscreensaver.h
 @@ -24,9 +24,11 @@
  #ifdef Q_OS_OS2
  #include <QLibrary>
@@ -956,9 +1038,10 @@ diff '--color=auto' -ur smplayer-26.8.29.orig/src/winscreensaver.h smplayer-26.8
  
  class WinScreenSaver
  {
-diff '--color=auto' -ur smplayer-26.8.29.orig/src/youtube/codedownloader.cpp smplayer-26.8.29/src/youtube/codedownloader.cpp
---- smplayer-26.8.29.orig/src/youtube/codedownloader.cpp	2026-08-30 09:16:46.000000000 +0200
-+++ smplayer-26.8.29/src/youtube/codedownloader.cpp	2026-08-30 14:41:56.148925214 +0200
+diff --git a/src/youtube/codedownloader.cpp b/src/youtube/codedownloader.cpp
+index 9bc1c95aa..c25b31fb2 100644
+--- a/src/youtube/codedownloader.cpp
++++ b/src/youtube/codedownloader.cpp
 @@ -20,6 +20,9 @@
  #include "retrieveyoutubeurl.h"
  #include <QFile>
@@ -969,9 +1052,10 @@ diff '--color=auto' -ur smplayer-26.8.29.orig/src/youtube/codedownloader.cpp smp
  #include <QDebug>
  
  #include <QDir>
-diff '--color=auto' -ur smplayer-26.8.29.orig/webserver/mongoose.h smplayer-26.8.29/webserver/mongoose.h
---- smplayer-26.8.29.orig/webserver/mongoose.h	2026-08-30 09:16:46.000000000 +0200
-+++ smplayer-26.8.29/webserver/mongoose.h	2026-08-30 14:41:56.149124583 +0200
+diff --git a/webserver/mongoose.h b/webserver/mongoose.h
+index cd1d92c3d..3e92b883f 100644
+--- a/webserver/mongoose.h
++++ b/webserver/mongoose.h
 @@ -210,7 +210,7 @@
  #include <windows.h>
  #include <process.h>
@@ -981,3 +1065,361 @@ diff '--color=auto' -ur smplayer-26.8.29.orig/webserver/mongoose.h smplayer-26.8
  typedef int bool;
  #else
  #include <stdbool.h>
+
+From c7e8e370b1ef3fde641f6d72050fea945f1b99d1 Mon Sep 17 00:00:00 2001
+From: smplayer-dev <10128951+smplayer-dev@users.noreply.github.com>
+Date: Mon, 1 Sep 2025 12:41:07 +0200
+Subject: [PATCH 2/9] Disable GLOBALSHORTCUTS, it fails to compile
+
+---
+ src/smplayer.pro | 2 +-
+ 1 file changed, 1 insertion(+), 1 deletion(-)
+
+diff --git a/src/smplayer.pro b/src/smplayer.pro
+index 2d24ba425..b25a73595 100644
+--- a/src/smplayer.pro
++++ b/src/smplayer.pro
+@@ -31,7 +31,7 @@ DEFINES += AUTO_SHUTDOWN_PC
+ #DEFINES += CAPTURE_STREAM
+ DEFINES += BOOKMARKS
+ DEFINES += MOUSE_GESTURES
+-DEFINES += GLOBALSHORTCUTS
++#DEFINES += GLOBALSHORTCUTS
+ DEFINES += ADD_BLACKBORDERS_FS
+ DEFINES += INITIAL_BLACKBORDERS
+ DEFINES += CHROMECAST_SUPPORT
+
+From 9cd5f731f58aa0cbe2bff408f6923255cce9aafc Mon Sep 17 00:00:00 2001
+From: smplayer-dev <10128951+smplayer-dev@users.noreply.github.com>
+Date: Mon, 1 Sep 2025 12:42:47 +0200
+Subject: [PATCH 3/9] Fix slider connections for Qt 6.2
+
+---
+ src/eqslider.cpp      | 2 ++
+ src/eqslider.ui       | 4 ----
+ src/playlist.cpp      | 2 +-
+ src/prefadvanced.cpp  | 2 ++
+ src/prefadvanced.ui   | 4 ----
+ src/prefinterface.cpp | 4 ++++
+ src/prefinterface.ui  | 8 --------
+ src/prefsubtitles.cpp | 2 ++
+ src/prefsubtitles.ui  | 4 ----
+ 9 files changed, 11 insertions(+), 21 deletions(-)
+
+diff --git a/src/eqslider.cpp b/src/eqslider.cpp
+index d05823ea0..d7653c707 100644
+--- a/src/eqslider.cpp
++++ b/src/eqslider.cpp
+@@ -27,6 +27,8 @@ EqSlider::EqSlider( QWidget* parent, Qt::WindowFlags f)
+ 	: QWidget(parent, f)
+ {
+ 	setupUi(this);
++	connect(_slider, SIGNAL(valueChanged(int)),
++            value_label, SLOT(setNum(int)));
+ 
+ 	_icon->setText( QString() );
+ 	_slider->setFocusPolicy( Qt::StrongFocus );
+diff --git a/src/eqslider.ui b/src/eqslider.ui
+index 54741bf6a..a3bee67d4 100644
+--- a/src/eqslider.ui
++++ b/src/eqslider.ui
+@@ -104,10 +104,6 @@
+  <resources/>
+  <connections>
+   <connection>
+-   <sender>_slider</sender>
+-   <signal>valueChanged(int)</signal>
+-   <receiver>value_label</receiver>
+-   <slot>setNum(int)</slot>
+    <hints>
+     <hint type="sourcelabel" >
+      <x>64</x>
+diff --git a/src/playlist.cpp b/src/playlist.cpp
+index ec07a40fc..6f59828e8 100644
+--- a/src/playlist.cpp
++++ b/src/playlist.cpp
+@@ -1201,7 +1201,7 @@ void Playlist::loadXSPF(const QString & filename) {
+     if (!ok) return;
+ #else
+     auto ok = dom_document.setContent(f.readAll());
+-    qDebug() << "Playlist::loadXSPF: success:" << ok.errorMessage;
++    qDebug() << "Playlist::loadXSPF: success:" << ok;
+     if (!ok) return;
+ #endif
+ 
+diff --git a/src/prefadvanced.cpp b/src/prefadvanced.cpp
+index a51e0f58a..858a44ea3 100644
+--- a/src/prefadvanced.cpp
++++ b/src/prefadvanced.cpp
+@@ -30,6 +30,8 @@ PrefAdvanced::PrefAdvanced(QWidget * parent, Qt::WindowFlags f)
+ 	: PrefWidget(parent, f )
+ {
+ 	setupUi(this);
++	connect(osd_pos_slider, SIGNAL(valueChanged(int)),
++            osd_pos_label, SLOT(setNum(int)));
+ 
+ #ifndef Q_OS_WIN
+ 	shortnames_check->hide();
+diff --git a/src/prefadvanced.ui b/src/prefadvanced.ui
+index 74846d7ef..e303ff395 100644
+--- a/src/prefadvanced.ui
++++ b/src/prefadvanced.ui
+@@ -876,10 +876,6 @@
+    </hints>
+   </connection>
+   <connection>
+-   <sender>osd_pos_slider</sender>
+-   <signal>valueChanged(int)</signal>
+-   <receiver>osd_pos_label</receiver>
+-   <slot>setNum(int)</slot>
+    <hints>
+     <hint type="sourcelabel">
+      <x>305</x>
+diff --git a/src/prefinterface.cpp b/src/prefinterface.cpp
+index 5131ee871..ae33a0c2f 100644
+--- a/src/prefinterface.cpp
++++ b/src/prefinterface.cpp
+@@ -49,6 +49,10 @@ PrefInterface::PrefInterface(QWidget * parent, Qt::WindowFlags f)
+ 	: PrefWidget(parent, f )
+ {
+ 	setupUi(this);
++	connect(floating_width_slider, SIGNAL(valueChanged(int)),
++            floating_width_label, SLOT(setNum(int)));
++	connect(floating_margin_slider, SIGNAL(valueChanged(int)),
++            floating_margin_label, SLOT(setNum(int)));
+ 	/* volume_icon->hide(); */
+ 
+ 	// Style combo
+diff --git a/src/prefinterface.ui b/src/prefinterface.ui
+index 99016b82c..38dc11b31 100644
+--- a/src/prefinterface.ui
++++ b/src/prefinterface.ui
+@@ -1125,10 +1125,6 @@
+  <resources/>
+  <connections>
+   <connection>
+-   <sender>floating_width_slider</sender>
+-   <signal>valueChanged(int)</signal>
+-   <receiver>floating_width_label</receiver>
+-   <slot>setNum(int)</slot>
+    <hints>
+     <hint type="sourcelabel">
+      <x>282</x>
+@@ -1141,10 +1137,6 @@
+    </hints>
+   </connection>
+   <connection>
+-   <sender>floating_margin_slider</sender>
+-   <signal>valueChanged(int)</signal>
+-   <receiver>floating_margin_label</receiver>
+-   <slot>setNum(int)</slot>
+    <hints>
+     <hint type="sourcelabel">
+      <x>332</x>
+diff --git a/src/prefsubtitles.cpp b/src/prefsubtitles.cpp
+index 7b357bb19..1171ab421 100644
+--- a/src/prefsubtitles.cpp
++++ b/src/prefsubtitles.cpp
+@@ -32,6 +32,8 @@ PrefSubtitles::PrefSubtitles(QWidget * parent, Qt::WindowFlags f)
+ 	: PrefWidget(parent, f )
+ {
+ 	setupUi(this);
++	connect(opacity_slider, SIGNAL(valueChanged(int)),
++            opacity_num, SLOT(setNum(int)));
+ 
+ 	ass_subs->setEnabled(false);
+ 
+diff --git a/src/prefsubtitles.ui b/src/prefsubtitles.ui
+index ce29ce4be..986a5f457 100644
+--- a/src/prefsubtitles.ui
++++ b/src/prefsubtitles.ui
+@@ -926,10 +926,6 @@
+    </hints>
+   </connection>
+   <connection>
+-   <sender>opacity_slider</sender>
+-   <signal>valueChanged(int)</signal>
+-   <receiver>opacity_num</receiver>
+-   <slot>setNum(int)</slot>
+    <hints>
+     <hint type="sourcelabel">
+      <x>275</x>
+
+From 90778a98be1805369fd637cdd0afa0683d851e56 Mon Sep 17 00:00:00 2001
+From: smplayer-dev <10128951+smplayer-dev@users.noreply.github.com>
+Date: Mon, 1 Sep 2025 13:08:39 +0200
+Subject: [PATCH 4/9] Fix installation of the qm files
+
+---
+ src/smplayer.pro | 2 +-
+ 1 file changed, 1 insertion(+), 1 deletion(-)
+
+diff --git a/src/smplayer.pro b/src/smplayer.pro
+index b25a73595..e283499ef 100644
+--- a/src/smplayer.pro
++++ b/src/smplayer.pro
+@@ -73,7 +73,7 @@ win32 {
+     QMAKE_POST_LINK += $$quote(cmd /c copy /y $$shell_quote($$replace(QM_SRC_DIR,"/","\\")\\)*.qm $$shell_quote($$replace(QM_DST_DIR,"/","\\")))$$escape_expand(\n\t)
+     QMAKE_CLEAN += $${QM_DST_DIR}/*.qm
+ } else {
+-    QM_SRC_DIR = $${OUT_PWD}
++    QM_SRC_DIR = $${OUT_PWD}/.qm
+     QM_DST_DIR = $${OUT_PWD}/translations
+     QMAKE_POST_LINK += mkdir -p $${QM_DST_DIR}$$escape_expand(\n\t)
+     QMAKE_POST_LINK += cp $${QM_SRC_DIR}/*.qm $${QM_DST_DIR}$$escape_expand(\n\t)
+
+From 3267ab4d61dc71068f18d5f7c29bf3b67690cc77 Mon Sep 17 00:00:00 2001
+From: smplayer-dev <10128951+smplayer-dev@users.noreply.github.com>
+Date: Mon, 1 Sep 2025 13:15:45 +0200
+Subject: [PATCH 5/9] Enable HDPI_SUPPORT
+
+---
+ src/smplayer.pro | 3 +--
+ 1 file changed, 1 insertion(+), 2 deletions(-)
+
+diff --git a/src/smplayer.pro b/src/smplayer.pro
+index e283499ef..29c481063 100644
+--- a/src/smplayer.pro
++++ b/src/smplayer.pro
+@@ -51,8 +51,7 @@ DEFINES += MPLAYER_SUPPORT
+ #DEFINES += SHARE_ACTIONS
+ #DEFINES += SHARE_WIDGET
+ 
+-# If Qt >= 5.4
+-greaterThan(QT_MAJOR_VERSION, 4):greaterThan(QT_MINOR_VERSION, 3) {
++greaterThan(QT_VERSION, 0x050400) {
+ 	DEFINES += HDPI_SUPPORT
+ }
+ 
+
+From 0e67529ddc48f9b032f9e3849eb7765219d7c1c2 Mon Sep 17 00:00:00 2001
+From: smplayer-dev <10128951+smplayer-dev@users.noreply.github.com>
+Date: Tue, 2 Sep 2025 14:39:39 +0200
+Subject: [PATCH 6/9] Fix GLOBALSHORTCUTS on Linux
+
+---
+ src/globalshortcuts/globalshortcuts_linux.cpp | 4 ++++
+ src/smplayer.pro                              | 2 +-
+ 2 files changed, 5 insertions(+), 1 deletion(-)
+
+diff --git a/src/globalshortcuts/globalshortcuts_linux.cpp b/src/globalshortcuts/globalshortcuts_linux.cpp
+index 386032a0c..62b948d88 100644
+--- a/src/globalshortcuts/globalshortcuts_linux.cpp
++++ b/src/globalshortcuts/globalshortcuts_linux.cpp
+@@ -52,7 +52,11 @@ class X11Data {
+ };
+ 
+ 
++#if QT_VERSION_MAJOR < 6
+ bool GlobalShortcuts::nativeEventFilter(const QByteArray & eventType, void * message, long * /*result*/) {
++#else
++bool GlobalShortcuts::nativeEventFilter(const QByteArray & eventType, void * message, qintptr * /*result*/) {
++#endif
+ 	//qDebug() << "GlobalShortcuts::nativeEventFilter";
+ 
+ 	if (!isEnabled()) return false;
+diff --git a/src/smplayer.pro b/src/smplayer.pro
+index 29c481063..fce8553b0 100644
+--- a/src/smplayer.pro
++++ b/src/smplayer.pro
+@@ -31,7 +31,7 @@ DEFINES += AUTO_SHUTDOWN_PC
+ #DEFINES += CAPTURE_STREAM
+ DEFINES += BOOKMARKS
+ DEFINES += MOUSE_GESTURES
+-#DEFINES += GLOBALSHORTCUTS
++DEFINES += GLOBALSHORTCUTS
+ DEFINES += ADD_BLACKBORDERS_FS
+ DEFINES += INITIAL_BLACKBORDERS
+ DEFINES += CHROMECAST_SUPPORT
+
+From 1c32b339d484d5926ddb4ddf095f2ec30b7e44ca Mon Sep 17 00:00:00 2001
+From: smplayer-dev <10128951+smplayer-dev@users.noreply.github.com>
+Date: Wed, 3 Sep 2025 14:53:13 +0200
+Subject: [PATCH 7/9] Try to fix an error
+
+---
+ src/playlist.cpp | 4 ++--
+ 1 file changed, 2 insertions(+), 2 deletions(-)
+
+diff --git a/src/playlist.cpp b/src/playlist.cpp
+index 6f59828e8..754542a54 100644
+--- a/src/playlist.cpp
++++ b/src/playlist.cpp
+@@ -1195,13 +1195,13 @@ void Playlist::loadXSPF(const QString & filename) {
+ 	}
+ 
+ 	QDomDocument dom_document;
+-#if QT_VERSION_MAJOR < 6
++#if QT_VERSION < QT_VERSION_CHECK(6, 5, 0)
+     bool ok = dom_document.setContent(f.readAll());
+     qDebug() << "Playlist::loadXSPF: success:" << ok;
+     if (!ok) return;
+ #else
+     auto ok = dom_document.setContent(f.readAll());
+-    qDebug() << "Playlist::loadXSPF: success:" << ok;
++    qDebug() << "Playlist::loadXSPF: success:" << ok.errorMessage;
+     if (!ok) return;
+ #endif
+ 
+
+From 9ae798111f8887b23e8703bb4e1376869c0c5486 Mon Sep 17 00:00:00 2001
+From: smplayer-dev <10128951+smplayer-dev@users.noreply.github.com>
+Date: Sat, 16 May 2026 13:08:11 +0200
+Subject: [PATCH 8/9] Fix for opengl
+
+---
+ src/openglrenderer.cpp | 2 +-
+ src/smplayer.pro       | 3 +++
+ 2 files changed, 4 insertions(+), 1 deletion(-)
+
+diff --git a/src/openglrenderer.cpp b/src/openglrenderer.cpp
+index 6aa0fced2..5469ffa88 100644
+--- a/src/openglrenderer.cpp
++++ b/src/openglrenderer.cpp
+@@ -18,7 +18,7 @@
+ 
+ #include "openglrenderer.h"
+ 
+-#include <QGLShaderProgram>
++#include <QOpenGLShaderProgram>
+ #include <QRegularExpression>
+ #include <QFile>
+ #include <QDebug>
+diff --git a/src/smplayer.pro b/src/smplayer.pro
+index 198e17dc9..3b120ba07 100644
+--- a/src/smplayer.pro
++++ b/src/smplayer.pro
+@@ -664,6 +664,9 @@ contains( DEFINES, USE_SHM|USE_COREVIDEO_BUFFER ) {
+ 		SOURCES += openglrenderer.cpp
+ 		RESOURCES += glsl.qrc
+ 		QT += opengl
++		greaterThan(QT_MAJOR_VERSION, 5) {
++			QT += openglwidgets
++		}
+ 	} else {
+ 		LIBS += -lswscale
+ 		mac {
+
+From 66362ee1238c11258d9c3b86fb1a0332d998e085 Mon Sep 17 00:00:00 2001
+From: smplayer-dev <10128951+smplayer-dev@users.noreply.github.com>
+Date: Sun, 31 May 2026 12:55:11 +0200
+Subject: [PATCH 9/9] Use playlistdock->screen instead of
+ playlistdock->windowHandle()->screen
+
+---
+ src/baseguiplus.cpp | 2 +-
+ 1 file changed, 1 insertion(+), 1 deletion(-)
+
+diff --git a/src/baseguiplus.cpp b/src/baseguiplus.cpp
+index 31c93cbd2..4e8120135 100644
+--- a/src/baseguiplus.cpp
++++ b/src/baseguiplus.cpp
+@@ -632,7 +632,7 @@ void BaseGuiPlus::aboutToEnterFullscreen() {
+ #else
+         const QList<QScreen *> screens = QGuiApplication::screens();
+         QScreen *primaryScreen = QGuiApplication::primaryScreen();
+-        QScreen *pldockScreen = playlistdock->windowHandle()->screen();
++        QScreen *pldockScreen = playlistdock->screen();
+         int playlist_screen = screens.indexOf(pldockScreen);
+         int mainwindow_screen = screens.indexOf(primaryScreen);
+ #endif
