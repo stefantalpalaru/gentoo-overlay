@@ -1,0 +1,983 @@
+diff '--color=auto' -ur smplayer-26.8.29.orig/src/actionseditor.cpp smplayer-26.8.29/src/actionseditor.cpp
+--- smplayer-26.8.29.orig/src/actionseditor.cpp	2026-08-30 09:16:46.000000000 +0200
++++ smplayer-26.8.29/src/actionseditor.cpp	2026-08-30 14:41:56.146895981 +0200
+@@ -37,6 +37,9 @@
+ #include <QMessageBox>
+ #include <QFileInfo>
+ #include <QRegExp>
++#if QT_VERSION_MAJOR >= 6
++#include <QRegularExpression>
++#endif
+ #include <QApplication>
+ #include <QAction>
+ #include <QDebug>
+@@ -539,7 +542,9 @@
+ 	QFile f( filename );
+ 	if ( f.open( QIODevice::WriteOnly ) ) {
+ 		QTextStream stream( &f );
++#if QT_VERSION_MAJOR < 6
+ 		stream.setCodec("UTF-8");
++#endif
+ 
+ 		for (int row = 0; row < table->rowCount(); row++) {
+ 			stream << table->item(row, COL_NAME)->text() << "\t" 
+@@ -580,7 +585,9 @@
+ 		#endif
+ 
+ 		QTextStream stream( &f );
+-		stream.setCodec("UTF-8");
++#if QT_VERSION_MAJOR < 6
++        stream.setCodec("UTF-8");
++#endif
+ 
+ 		QString line;
+ 		while ( !stream.atEnd() ) {
+@@ -588,7 +595,11 @@
+ 			qDebug() << "ActionsEditor::loadActions: line:" << line;
+ 			QString name;
+ 			QString accelText;
+-			int pos = line.indexOf(QRegExp("\\t|\\s"));
++#if QT_VERSION_MAJOR < 6
++            int pos = line.indexOf(QRegExp("\\t|\\s"));
++#else
++            int pos = line.indexOf(QRegularExpression("\\t|\\s"));
++#endif
+ 			//qDebug() << "ActionsEditor::loadActions: pos:" << pos;
+ 			if (pos == -1) {
+ 				name = line;
+diff '--color=auto' -ur smplayer-26.8.29.orig/src/basegui.cpp smplayer-26.8.29/src/basegui.cpp
+--- smplayer-26.8.29.orig/src/basegui.cpp	2026-08-30 14:41:46.465312576 +0200
++++ smplayer-26.8.29/src/basegui.cpp	2026-08-30 14:41:56.147257780 +0200
+@@ -39,7 +39,11 @@
+ #include <QInputDialog>
+ #include <QClipboard>
+ #include <QMimeData>
++#if QT_VERSION_MAJOR < 6
+ #include <QDesktopWidget>
++#else
++#include <QOperatingSystemVersion>
++#endif
+ 
+ #include <QtCore/qmath.h>
+ 
+@@ -3834,7 +3838,11 @@
+ 			//if (fi.exists()) filename = fi.fileName(); // Can be slow
+ 
+ 			// Let's see if it looks like a file (no dvd://1 or something)
+-			if (fullname.indexOf(QRegExp("^.*://.*")) == -1) filename = fi.fileName();
++#if QT_VERSION_MAJOR < 6
++            if (fullname.indexOf(QRegExp("^.*://.*")) == -1) filename = fi.fileName();
++#else
++            if (fullname.indexOf(QRegularExpression("^.*://.*")) == -1) filename = fi.fileName();
++#endif
+ 
+ 			if (filename.size() > 85) {
+ 				filename = filename.left(80) + "...";
+@@ -4841,9 +4849,13 @@
+ 
+ 		aboutToEnterFullscreen();
+ 
+-		#ifdef Q_OS_WIN
++        #ifdef Q_OS_WIN
+ 		// Hack to avoid the windows taskbar to be visible on Windows XP
+-		if (QSysInfo::WindowsVersion < QSysInfo::WV_VISTA) {
++#if QT_VERSION_MAJOR < 6
++        if (QSysInfo::WindowsVersion < QSysInfo::WV_VISTA) {
++#else
++        if (QOperatingSystemVersion::current() < QOperatingSystemVersionBase{ QOperatingSystemVersionBase::Windows, 6, 0 }) {
++#endif
+ 			if (!pref->pause_when_hidden) hide();
+ 		}
+ 		#endif
+@@ -5551,7 +5563,11 @@
+ 	int diff_height = this->height() - panel->height();
+ 
+ #if 1
++#if QT_VERSION_MAJOR < 6
+ 	QRect desktop_rect = QApplication::desktop()->availableGeometry(this);
++#else
++    QRect desktop_rect = QGuiApplication::primaryScreen()->availableGeometry();
++#endif
+ 	QSize desktop_size = QSize(desktop_rect.width(), desktop_rect.height());
+ 
+ 	if (w + diff_width > desktop_size.width() || h + diff_height > desktop_size.height()) {
+@@ -5619,8 +5635,12 @@
+ 	// Check if a part of the window is outside of the desktop
+ 	// and center the window in that case
+ 	if ((pref->center_window_if_outside) && (!core->mdat.novideo)) {
+-		QRect screen_rect = QApplication::desktop()->availableGeometry(this);
+-		QPoint right_bottom = QPoint(this->pos().x() + this->width(), this->pos().y() + this->height());
++#if QT_VERSION_MAJOR < 6
++        QRect screen_rect = QApplication::desktop()->availableGeometry(this);
++#else
++        QRect screen_rect = QGuiApplication::primaryScreen()->availableGeometry();
++#endif
++        QPoint right_bottom = QPoint(this->pos().x() + this->width(), this->pos().y() + this->height());
+ 		qDebug("BaseGui::resizeWindow: right bottom point: %d, %d", right_bottom.x(), right_bottom.y());;
+ 		if (!screen_rect.contains(right_bottom) || !screen_rect.contains(this->pos())) {
+ 			qDebug("BaseGui::resizeWindow: the window is outside of the desktop, it will be moved");
+@@ -5665,8 +5685,12 @@
+ void BaseGui::centerWindow() {
+ 	qDebug("BaseGui::centerWindow");
+ 	if (pref->center_window && !pref->fullscreen && isVisible()) {
+-		QRect r = QApplication::desktop()->screenGeometry(this);
+-		// r.setX(500); r.setY(150); // Test
++#if QT_VERSION_MAJOR < 6
++        QRect r = QApplication::desktop()->availableGeometry(this);
++#else
++        QRect r = QGuiApplication::primaryScreen()->availableGeometry();
++#endif
++        // r.setX(500); r.setY(150); // Test
+ 		qDebug() << "BaseGui::centerWindow: desktop rect:" << r;
+ 		int x = r.x() + ((r.width() - width()) / 2);
+ 		int y = r.y() + ((r.height() - height()) / 2);
+@@ -5832,8 +5856,13 @@
+ 		path = current.relativeFilePath(td);
+ 	}
+ #endif
++#if QT_VERSION_MAJOR < 6
+ 	stylesheet.replace(QRegExp("url\\s*\\(\\s*([^\\);]+)\\s*\\)", Qt::CaseSensitive, QRegExp::RegExp2),
+ 						QString("url(%1\\1)").arg(path + "/"));
++#else
++    stylesheet.replace(QRegularExpression("url\\s*\\(\\s*([^\\);]+)\\s*\\)", QRegularExpression::CaseInsensitiveOption),
++                       QString("url(%1\\1)").arg(path + "/"));
++#endif
+ 	//qDebug("BaseGui::loadQss: styleSheet: %s", stylesheet.toUtf8().constData());
+ 	return stylesheet;
+ }
+@@ -6418,18 +6447,30 @@
+ 		QString text = QString::fromWCharArray((TCHAR*)m->lParam);
+ 		qDebug() << "BaseGui::winEvent: WM_SETTINGCHANGE:" << text;
+ 
+-		#if ((QT_VERSION >= 0x040807 && QT_VERSION < 0x050000) || (QT_VERSION >= 0x050500))
++        #if ((QT_VERSION >= 0x040807 && QT_VERSION < 0x050000) || (QT_VERSION >= 0x050500))
++#if QT_VERSION_MAJOR < 6
+ 		if (QSysInfo::windowsVersion() >= QSysInfo::WV_WINDOWS10) {
++#else
++        if (QOperatingSystemVersion::current() >= QOperatingSystemVersion::Windows10) {
++#endif
+ 			// Windows 10 check
+ 			if (text == "UserInteractionMode") {
+ 				QTimer::singleShot(1000, this, SLOT(checkSystemTabletMode()));
+ 			}
+ 		}
+ 		else 
+-		if (QSysInfo::windowsVersion() == QSysInfo::WV_WINDOWS8_1) {
+-			if (text == "ConvertibleSlateMode") checkSystemTabletMode();
++#if QT_VERSION_MAJOR < 6
++        if (QSysInfo::windowsVersion() == QSysInfo::WV_WINDOWS8_1) {
++#else
++        if (QOperatingSystemVersion::current() >= QOperatingSystemVersion::Windows8_1 && QOperatingSystemVersion::current() <= QOperatingSystemVersion::Windows8_1) {
++#endif
++            if (text == "ConvertibleSlateMode") checkSystemTabletMode();
+ 		}
+-		#endif
++        #else
++        if (text == "UserInteractionMode") {
++            QTimer::singleShot(1000, this, SLOT(checkSystemTabletMode()));
++        }
++        #endif
+ 		
+ 		*result = 0;
+ 		return true;
+@@ -6478,7 +6519,11 @@
+ 
+ void BaseGui::checkSystemTabletMode() {
+ 	#if ((QT_VERSION >= 0x040807 && QT_VERSION < 0x050000) || (QT_VERSION >= 0x050500))
+-	if (QSysInfo::windowsVersion() >= QSysInfo::WV_WINDOWS10) {
++    #if QT_VERSION_MAJOR < 6
++    if (QSysInfo::windowsVersion() >= QSysInfo::WV_WINDOWS10) {
++    #else
++    if (QOperatingSystemVersion::current() >= QOperatingSystemVersion::Windows10) {
++    #endif
+ 		// Windows 10 code (don't know if this works on Windows 8)
+ 		QSettings set("HKEY_CURRENT_USER\\SOFTWARE\\Microsoft\\Windows\\CurrentVersion\\ImmersiveShell", QSettings::NativeFormat);
+ 		QVariant v = set.value("TabletMode");
+@@ -6489,8 +6534,12 @@
+ 		}
+ 	}
+ 	else
+-	if (QSysInfo::windowsVersion() == QSysInfo::WV_WINDOWS8_1 || 
++#if QT_VERSION_MAJOR < 6
++    if (QSysInfo::windowsVersion() == QSysInfo::WV_WINDOWS8_1 ||
+         QSysInfo::windowsVersion() == QSysInfo::WV_WINDOWS8)
++#else
++    if (QOperatingSystemVersion::current() >= QOperatingSystemVersion::Windows8 && QOperatingSystemVersion::current() <= QOperatingSystemVersion::Windows8_1)
++#endif
+ 	{
+ 		bool slate_mode = (GetSystemMetrics(SM_CONVERTIBLESLATEMODE) == 0);
+ 		qDebug() << "BaseGui::checkSystemTabletMode: slate_mode:" << slate_mode;
+diff '--color=auto' -ur smplayer-26.8.29.orig/src/baseguiplus.cpp smplayer-26.8.29/src/baseguiplus.cpp
+--- smplayer-26.8.29.orig/src/baseguiplus.cpp	2026-08-30 09:16:46.000000000 +0200
++++ smplayer-26.8.29/src/baseguiplus.cpp	2026-08-30 14:41:56.147530349 +0200
+@@ -37,7 +37,9 @@
+ #include <QMenu>
+ #include <QCloseEvent>
+ #include <QApplication>
++#if QT_VERSION_MAJOR < 6
+ #include <QDesktopWidget>
++#endif
+ #include <QTime>
+ 
+ #ifdef PLAYLIST_DOCKABLE
+@@ -641,8 +643,16 @@
+ 	if (!playlist->isWindow() && playlistdock) {
+ 		playlistdock->setAllowedAreas(Qt::NoDockWidgetArea);
+ 
++#if QT_VERSION_MAJOR < 6
+ 		int playlist_screen = QApplication::desktop()->screenNumber(playlistdock);
+ 		int mainwindow_screen = QApplication::desktop()->screenNumber(this);
++#else
++        const QList<QScreen *> screens = QGuiApplication::screens();
++        QScreen *primaryScreen = QGuiApplication::primaryScreen();
++        QScreen *pldockScreen = playlistdock->windowHandle()->screen();
++        int playlist_screen = screens.indexOf(pldockScreen);
++        int mainwindow_screen = screens.indexOf(primaryScreen);
++#endif
+ 		qDebug("BaseGuiPlus::aboutToEnterFullscreen: mainwindow screen: %d, playlist screen: %d", mainwindow_screen, playlist_screen);
+ 
+ 		fullscreen_playlist_was_visible = playlistdock->isVisible();
+diff '--color=auto' -ur smplayer-26.8.29.orig/src/colorutils.cpp smplayer-26.8.29/src/colorutils.cpp
+--- smplayer-26.8.29.orig/src/colorutils.cpp	2026-08-30 09:16:46.000000000 +0200
++++ smplayer-26.8.29/src/colorutils.cpp	2026-08-30 14:41:56.147593039 +0200
+@@ -18,6 +18,9 @@
+ 
+ #include "colorutils.h"
+ #include <QWidget>
++#if QT_VERSION_MAJOR >= 6
++#include <QRegExp>
++#endif
+ #include <QDebug>
+ #include "qtcompat.h"
+ 
+diff '--color=auto' -ur smplayer-26.8.29.orig/src/defaultgui.cpp smplayer-26.8.29/src/defaultgui.cpp
+--- smplayer-26.8.29.orig/src/defaultgui.cpp	2026-08-30 09:16:46.000000000 +0200
++++ smplayer-26.8.29/src/defaultgui.cpp	2026-08-30 14:41:56.147690528 +0200
+@@ -47,6 +47,9 @@
+ #include <QMenuBar>
+ #include <QMovie>
+ #include <QtCore/qmath.h>
++#if QT_VERSION_MAJOR >= 6
++#include <QActionGroup>
++#endif
+ 
+ #define TOOLBAR_VERSION "2"
+ #define CONTROLWIDGET_VERSION "1"
+diff '--color=auto' -ur smplayer-26.8.29.orig/src/deviceinfo.cpp smplayer-26.8.29/src/deviceinfo.cpp
+--- smplayer-26.8.29.orig/src/deviceinfo.cpp	2026-08-30 09:16:46.000000000 +0200
++++ smplayer-26.8.29/src/deviceinfo.cpp	2026-08-30 14:41:56.147790608 +0200
+@@ -21,6 +21,9 @@
+ #include <QProcess>
+ #include <QFile>
+ #include <QSettings>
++#if QT_VERSION_MAJOR >= 6
++#include <QRegExp>
++#endif
+ #include <QDebug>
+ 
+ #ifdef Q_OS_WIN
+diff '--color=auto' -ur smplayer-26.8.29.orig/src/favorites.cpp smplayer-26.8.29/src/favorites.cpp
+--- smplayer-26.8.29.orig/src/favorites.cpp	2026-08-30 09:16:46.000000000 +0200
++++ smplayer-26.8.29/src/favorites.cpp	2026-08-30 14:41:56.147835348 +0200
+@@ -25,6 +25,9 @@
+ #include <QTextStream>
+ #include <QInputDialog>
+ #include <QFileInfo>
++#if QT_VERSION_MAJOR >= 6
++#include <QRegExp>
++#endif
+ 
+ //#define FIRST_MENU_ENTRY 4
+ #define FIRST_MENU_ENTRY 3
+@@ -270,7 +273,11 @@
+ 	QFile f( _filename );
+     if ( f.open( QIODevice::WriteOnly ) ) {
+         QTextStream stream( &f );
++#if QT_VERSION_MAJOR < 6
+ 		stream.setCodec("UTF-8");
++#else
++        stream.setEncoding(QStringConverter::Utf8);
++#endif
+ 
+ 		stream << "#EXTM3U" << "\n";
+ 		for (int n = 0; n < f_list.count(); n++) {
+@@ -299,7 +306,11 @@
+ 		Favorite fav;
+ 
+ 		QTextStream stream( &f );
+-		stream.setCodec("UTF-8");
++#if QT_VERSION_MAJOR < 6
++        stream.setCodec("UTF-8");
++#else
++        stream.setEncoding(QStringConverter::Utf8);
++#endif
+ 
+ 		QString line;
+ 		while ( !stream.atEnd() ) {
+diff '--color=auto' -ur smplayer-26.8.29.orig/src/findsubtitles/findsubtitleswindow.cpp smplayer-26.8.29/src/findsubtitles/findsubtitleswindow.cpp
+--- smplayer-26.8.29.orig/src/findsubtitles/findsubtitleswindow.cpp	2026-08-30 09:16:46.000000000 +0200
++++ smplayer-26.8.29/src/findsubtitles/findsubtitleswindow.cpp	2026-08-30 14:41:56.147896877 +0200
+@@ -359,7 +359,11 @@
+ }
+ 
+ void FindSubtitlesWindow::applyFilter(const QString & filter) {
++#if QT_VERSION_MAJOR < 6
+ 	proxy_model->setFilterRegExp(filter);
++#else
++    proxy_model->setFilterRegularExpression(filter);
++#endif
+ }
+ 
+ void FindSubtitlesWindow::applyCurrentFilter() {
+diff '--color=auto' -ur smplayer-26.8.29.orig/src/globalshortcuts/globalshortcuts.h smplayer-26.8.29/src/globalshortcuts/globalshortcuts.h
+--- smplayer-26.8.29.orig/src/globalshortcuts/globalshortcuts.h	2026-08-30 09:16:46.000000000 +0200
++++ smplayer-26.8.29/src/globalshortcuts/globalshortcuts.h	2026-08-30 14:41:56.147943977 +0200
+@@ -42,7 +42,12 @@
+ 	void setGrabbedKeys(MediaKeys keys);
+ 	MediaKeys grabbedKeys() { return grabbed_keys; };
+ 
+-	virtual bool nativeEventFilter(const QByteArray & eventType, void * message, long * result);
++#if QT_VERSION_MAJOR < 6
++    virtual bool nativeEventFilter(const QByteArray & eventType, void * message, long * result);
++#else
++    virtual bool nativeEventFilter(const QByteArray & eventType, void * message, qintptr * result);
++#endif
++
+ 
+ public slots:
+ 	void setEnabled(bool);
+diff '--color=auto' -ur smplayer-26.8.29.orig/src/globalshortcuts/globalshortcuts_linux.cpp smplayer-26.8.29/src/globalshortcuts/globalshortcuts_linux.cpp
+--- smplayer-26.8.29.orig/src/globalshortcuts/globalshortcuts_linux.cpp	2026-08-30 09:16:46.000000000 +0200
++++ smplayer-26.8.29/src/globalshortcuts/globalshortcuts_linux.cpp	2026-08-30 14:42:39.321374021 +0200
+@@ -20,6 +20,10 @@
+ #include <X11/XF86keysym.h>
+ #include <qpa/qplatformnativeinterface.h>
+ #include <xcb/xcb.h>
++#include <QDebug>
++#if QT_VERSION_MAJOR >= 6
++#include "globalshortcuts.h"
++#endif
+ 
+ class X11Data {
+ public:
+@@ -52,7 +56,11 @@
+ };
+ 
+ 
++#if QT_VERSION_MAJOR < 6
+ bool GlobalShortcuts::nativeEventFilter(const QByteArray & eventType, void * message, long * /*result*/) {
++#else
++bool GlobalShortcuts::nativeEventFilter(const QByteArray & eventType, void * message, qintptr * /*result*/) {
++#endif
+ 	//qDebug() << "GlobalShortcuts::nativeEventFilter";
+ 
+ 	if (!isEnabled()) return false;
+diff '--color=auto' -ur smplayer-26.8.29.orig/src/globalshortcuts/globalshortcuts_win.cpp smplayer-26.8.29/src/globalshortcuts/globalshortcuts_win.cpp
+--- smplayer-26.8.29.orig/src/globalshortcuts/globalshortcuts_win.cpp	2026-08-30 09:16:46.000000000 +0200
++++ smplayer-26.8.29/src/globalshortcuts/globalshortcuts_win.cpp	2026-08-30 14:41:56.148002797 +0200
+@@ -17,9 +17,17 @@
+ */
+ 
+ #include <windows.h>
++#include <QDebug>
++#if QT_VERSION_MAJOR >= 6
++#include "globalshortcuts.h"
++#endif
+ 
++#if QT_VERSION_MAJOR < 6
+ bool GlobalShortcuts::nativeEventFilter(const QByteArray & /*eventType*/, void * message, long * /*result*/) {
+-	//qDebug() << "GlobalShortcuts::nativeEventFilter";
++#else
++bool GlobalShortcuts::nativeEventFilter(const QByteArray & /*eventType*/, void * message, qintptr * /*result*/) {
++#endif
++    //qDebug() << "GlobalShortcuts::nativeEventFilter";
+ 
+ 	if (!isEnabled()) return false;
+ 
+diff '--color=auto' -ur smplayer-26.8.29.orig/src/helper.cpp smplayer-26.8.29/src/helper.cpp
+--- smplayer-26.8.29.orig/src/helper.cpp	2026-08-30 09:16:46.000000000 +0200
++++ smplayer-26.8.29/src/helper.cpp	2026-08-30 14:41:56.148037377 +0200
+@@ -24,6 +24,10 @@
+ #include <QDir>
+ #include <QTextCodec>
+ #include <QWidget>
++#if QT_VERSION_MAJOR >= 6
++#include <QRegExp>
++#include <QRegularExpression>
++#endif
+ #include <QDebug>
+ #include "config.h"
+ #include "extensions.h"
+@@ -253,7 +257,11 @@
+ 		digits = rx.cap(1).length();
+ 		current_number = rx.cap(1).toInt() + 1;
+ 		next_name = basename.left(pos) + QString("%1").arg(current_number, digits, 10, QLatin1Char('0'));
+-		next_name.replace(QRegExp("([\\[\\]?*])"), "[\\1]");
++#if QT_VERSION_MAJOR < 6
++        next_name.replace(QRegExp("([\\[\\]?*])"), "[\\1]");
++#else
++        next_name.replace(QRegularExpression("([\\[\\]?*])"), "[\\1]");
++#endif
+ 		next_name += "*." + extension;
+ 		qDebug("Helper::searchForConsecutiveFiles: next name = %s",next_name.toUtf8().constData());
+ 		matching_files = dir.entryList((QStringList)next_name);
+@@ -277,7 +285,11 @@
+ 			files_to_add << filename;
+ 			current_number++;
+ 			next_name = basename.left(pos) + QString("%1").arg(current_number, digits, 10, QLatin1Char('0'));
+-			next_name.replace(QRegExp("([\\[\\]?*])"), "[\\1]");
++#if QT_VERSION_MAJOR < 6
++            next_name.replace(QRegExp("([\\[\\]?*])"), "[\\1]");
++#else
++            next_name.replace(QRegularExpression("([\\[\\]?*])"), "[\\1]");
++#endif
+ 			next_name += "*." + extension;
+ 			matching_files = dir.entryList((QStringList)next_name);
+ 			qDebug("Helper::searchForConsecutiveFiles: looking for '%s'", next_name.toUtf8().constData());
+diff '--color=auto' -ur smplayer-26.8.29.orig/src/myapplication.cpp smplayer-26.8.29/src/myapplication.cpp
+--- smplayer-26.8.29.orig/src/myapplication.cpp	2026-08-30 09:16:46.000000000 +0200
++++ smplayer-26.8.29/src/myapplication.cpp	2026-08-30 14:41:56.148071967 +0200
+@@ -53,7 +53,7 @@
+ 	: QApplication(argc, argv)
+ #endif
+ {
+-#if QT_VERSION >= 0x050600
++#if QT_VERSION >= 0x050600 && QT_VERSION_MAJOR < 6
+ 	setFallbackSessionManagementEnabled(false);
+ #endif
+ #if QT_VERSION >= 0x050000
+diff '--color=auto' -ur smplayer-26.8.29.orig/src/paths.cpp smplayer-26.8.29/src/paths.cpp
+--- smplayer-26.8.29.orig/src/paths.cpp	2026-08-30 09:16:46.000000000 +0200
++++ smplayer-26.8.29/src/paths.cpp	2026-08-30 14:41:56.148104367 +0200
+@@ -20,7 +20,9 @@
+ #include <QLibraryInfo>
+ #include <QLocale>
+ #include <QFile>
+-#include <QRegExp>
++#if QT_VERSION_MAJOR >= 6
++#include <QRegularExpression>
++#endif
+ #include <QDir>
+ 
+ #ifndef Q_OS_WIN
+@@ -123,8 +125,13 @@
+ 	qDebug("Helper:doc: checking '%s'", f.toUtf8().data());
+ 	if (QFile::exists(f)) return f;
+ 
+-	if (locale.indexOf(QRegExp("_[A-Z]+")) != -1) {
+-		locale.replace(QRegExp("_[A-Z]+"), "");
++#if QT_VERSION_MAJOR < 6
++    if (locale.indexOf(QRegExp("_[A-Z]+")) != -1) {
++        locale.replace(QRegExp("_[A-Z]+"), "");
++#else
++    if (locale.indexOf(QRegularExpression("_[A-Z]+")) != -1) {
++        locale.replace(QRegularExpression("_[A-Z]+"), "");
++#endif
+ 		f = docPath() + "/" + locale + "/" + file;
+ 		qDebug("Helper:doc: checking '%s'", f.toUtf8().data());
+ 		if (QFile::exists(f)) return f;
+diff '--color=auto' -ur smplayer-26.8.29.orig/src/playlist.cpp smplayer-26.8.29/src/playlist.cpp
+--- smplayer-26.8.29.orig/src/playlist.cpp	2026-08-30 09:16:46.000000000 +0200
++++ smplayer-26.8.29/src/playlist.cpp	2026-08-30 14:41:56.148202096 +0200
+@@ -46,6 +46,11 @@
+ #include <QDomDocument>
+ #include <QDesktopServices>
+ #include <QClipboard>
++#if QT_VERSION_MAJOR >= 6
++#include <QRegExp>
++#include <QRegularExpression>
++#include <QStringConverter>
++#endif
+ #include <QDebug>
+ 
+ #if QT_VERSION >= 0x050000
+@@ -969,7 +974,11 @@
+ 		if (name.isEmpty()) {
+ 			QFileInfo fi(filename);
+ 			// Let's see if it looks like a file (no dvd://1 or something)
+-			if (filename.indexOf(QRegExp("^.*://.*")) == -1) {
++#if QT_VERSION_MAJOR < 6
++            if (filename.indexOf(QRegExp("^.*://.*")) == -1) {
++#else
++            if (filename.indexOf(QRegularExpression("^.*://.*")) == -1) {
++#endif
+ 				// Local file
+ 				name = fi.fileName();
+ 			} else {
+@@ -1058,9 +1067,21 @@
+ 		QTextStream stream( &f );
+ 
+ 		if (utf8)
+-			stream.setCodec("UTF-8");
++#if QT_VERSION_MAJOR < 6
++            stream.setCodec("UTF-8");
++#else
++            stream.setEncoding(QStringConverter::Utf8);
++#endif
+ 		else
+-			stream.setCodec(QTextCodec::codecForLocale());
++#if QT_VERSION_MAJOR < 6
++            stream.setCodec(QTextCodec::codecForLocale());
++#else
++        {
++            std::optional<QStringEncoder::Encoding> encodingOpt = QStringConverter::encodingForName(QTextCodec::codecForLocale()->name());
++            QStringEncoder::Encoding encoding = encodingOpt == std::nullopt ? QStringConverter::Utf8 : encodingOpt.value();
++            stream.setEncoding(encoding);
++        }
++#endif
+ 
+ 		QString line;
+ 		while ( !stream.atEnd() ) {
+@@ -1212,9 +1233,15 @@
+ 	}
+ 
+ 	QDomDocument dom_document;
+-	bool ok = dom_document.setContent(f.readAll());
+-	qDebug() << "Playlist::loadXSPF: success:" << ok;
+-	if (!ok) return;
++#if QT_VERSION_MAJOR < 6
++    bool ok = dom_document.setContent(f.readAll());
++    qDebug() << "Playlist::loadXSPF: success:" << ok;
++    if (!ok) return;
++#else
++    auto ok = dom_document.setContent(f.readAll());
++    qDebug() << "Playlist::loadXSPF: success:" << ok.errorMessage;
++    if (!ok) return;
++#endif
+ 
+ 	QDomNode root = dom_document.documentElement();
+ 	qDebug() << "Playlist::loadXSPF: tagname:" << root.toElement().tagName();
+@@ -1285,9 +1312,21 @@
+ 		QTextStream stream( &f );
+ 
+ 		if (utf8)
+-			stream.setCodec("UTF-8");
+-		else
+-			stream.setCodec(QTextCodec::codecForLocale());
++#if QT_VERSION_MAJOR < 6
++            stream.setCodec("UTF-8");
++#else
++            stream.setEncoding(QStringConverter::Utf8);
++#endif
++        else
++#if QT_VERSION_MAJOR < 6
++            stream.setCodec(QTextCodec::codecForLocale());
++#else
++        {
++            std::optional<QStringEncoder::Encoding> encodingOpt = QStringConverter::encodingForName(QTextCodec::codecForLocale()->name());
++            QStringEncoder::Encoding encoding = encodingOpt == std::nullopt ? QStringConverter::Utf8 : encodingOpt.value();
++            stream.setEncoding(encoding);
++        }
++#endif
+ 
+ 		QString filename;
+ 		QString name;
+@@ -1389,7 +1428,11 @@
+ 	QFile f(filename);
+ 	if (f.open( QIODevice::WriteOnly)) {
+ 		QTextStream stream(&f);
++#if QT_VERSION_MAJOR < 6
+ 		stream.setCodec("UTF-8");
++#else
++        stream.setEncoding(QStringConverter::Utf8);
++#endif
+ 
+ 		stream << "<?xml version=\"1.0\" encoding=\"UTF-8\"?>\n";
+ 		stream << "<playlist version=\"1\" xmlns=\"http://xspf.org/ns/0/\">\n";
+diff '--color=auto' -ur smplayer-26.8.29.orig/src/prefassociations.cpp smplayer-26.8.29/src/prefassociations.cpp
+--- smplayer-26.8.29.orig/src/prefassociations.cpp	2026-08-30 09:16:46.000000000 +0200
++++ smplayer-26.8.29/src/prefassociations.cpp	2026-08-30 14:41:56.148311526 +0200
+@@ -27,6 +27,9 @@
+ #include <QSettings>
+ #include <QApplication>
+ #include <QMessageBox>
++#if QT_VERSION_MAJOR >= 6
++#include <QOperatingSystemVersion>
++#endif
+ #include "winfileassoc.h"
+ #include "extensions.h"
+ 
+@@ -48,10 +51,14 @@
+ 
+ 	connect(selectAll, SIGNAL(clicked(bool)), this, SLOT(selectAllClicked(bool)));
+ 	connect(selectNone, SIGNAL(clicked(bool)), this, SLOT(selectNoneClicked(bool)));
+-	connect(listWidget, SIGNAL(itemClicked(QListWidgetItem*)), this, SLOT(listItemClicked(QListWidgetItem*))); 
+-	connect(listWidget, SIGNAL(itemPressed(QListWidgetItem*)), this, SLOT(listItemPressed(QListWidgetItem*))); 
++    connect(listWidget, SIGNAL(itemClicked(QListWidgetItem*)), this, SLOT(listItemClicked(QListWidgetItem*)));
++    connect(listWidget, SIGNAL(itemPressed(QListWidgetItem*)), this, SLOT(listItemPressed(QListWidgetItem*)));
+ 
++#if QT_VERSION_MAJOR < 6
+ 	if (QSysInfo::WindowsVersion >= QSysInfo::WV_VISTA)
++#else
++    if (QOperatingSystemVersion::current() >= QOperatingSystemVersionBase{ QOperatingSystemVersionBase::Windows, 6, 0 })
++#endif
+ 	{
+ 		//Hide Select None - One cannot restore an association in Vista. Go figure.
+ 		selectNone->hide(); 
+@@ -148,7 +155,11 @@
+ 				pItem->setCheckState(Qt::Checked);
+ 				//Don't allow de-selection in windows VISTA if extension is registered.
+ 				//VISTA doesn't seem to support extension 'restoration' in the API.
+-				if (QSysInfo::WindowsVersion >= QSysInfo::WV_VISTA) {
++#if QT_VERSION_MAJOR < 6
++                if (QSysInfo::WindowsVersion >= QSysInfo::WV_VISTA) {
++#else
++                if (QOperatingSystemVersion::current() >= QOperatingSystemVersionBase{ QOperatingSystemVersionBase::Windows, 6, 0 }) {
++#endif
+ 					pItem->setFlags(QFlag(0));
+ 				}
+ 			}
+diff '--color=auto' -ur smplayer-26.8.29.orig/src/preferences.cpp smplayer-26.8.29/src/preferences.cpp
+--- smplayer-26.8.29.orig/src/preferences.cpp	2026-08-30 09:16:46.000000000 +0200
++++ smplayer-26.8.29/src/preferences.cpp	2026-08-30 14:41:56.148387416 +0200
+@@ -44,6 +44,9 @@
+ #if QT_VERSION >= 0x040400
+ #include <QDesktopServices>
+ #endif
++#if QT_VERSION_MAJOR >= 6
++#include <QOperatingSystemVersion>
++#endif
+ 
+ #ifdef YOUTUBE_SUPPORT
+ #include "retrieveyoutubeurl.h"
+@@ -88,10 +91,14 @@
+ #endif
+ 
+ #if defined(Q_OS_WIN) || defined(Q_OS_OS2)
+-	mplayer_bin= "mpv/mpv.exe";
+-	if (QSysInfo::WindowsVersion < QSysInfo::WV_WINDOWS7) {
++    mplayer_bin= "mpv/mpv.exe";
++#if QT_VERSION_MAJOR < 6
++    if (QSysInfo::WindowsVersion < QSysInfo::WV_WINDOWS7) {
++#else
++    if (QOperatingSystemVersion::current() < QOperatingSystemVersion::Windows7) {
++#endif
+ 		mplayer_bin= "mplayer/mplayer.exe";
+-	}
++    }
+ #else
+ 	mplayer_bin = "mpv";
+ #endif
+@@ -1921,9 +1928,13 @@
+ 		}
+ 		if (config_version <= 5) {
+ 			#ifdef Q_OS_WIN
+-			if (QSysInfo::WindowsVersion < QSysInfo::WV_WINDOWS7) {
++            #if QT_VERSION_MAJOR < 6
++            if (QSysInfo::WindowsVersion < QSysInfo::WV_WINDOWS7) {
++            #else
++            if (QOperatingSystemVersion::current() < QOperatingSystemVersion::Windows7) {
++            #endif
+ 				mplayer_bin= "mplayer/mplayer.exe";
+-			}
++            }
+ 			#else
+ 			use_audio_equalizer = false;
+ 			initial_volnorm = false;
+diff '--color=auto' -ur smplayer-26.8.29.orig/src/prefinterface.cpp smplayer-26.8.29/src/prefinterface.cpp
+--- smplayer-26.8.29.orig/src/prefinterface.cpp	2026-08-30 09:16:46.000000000 +0200
++++ smplayer-26.8.29/src/prefinterface.cpp	2026-08-30 14:41:56.148472755 +0200
+@@ -29,6 +29,9 @@
+ #include <QDir>
+ #include <QStyleFactory>
+ #include <QFontDialog>
++#if QT_VERSION_MAJOR >= 6
++#include <QRegExp>
++#endif
+ #include <QDebug>
+ 
+ #ifdef HDPI_SUPPORT
+diff '--color=auto' -ur smplayer-26.8.29.orig/src/prefperformance.cpp smplayer-26.8.29/src/prefperformance.cpp
+--- smplayer-26.8.29.orig/src/prefperformance.cpp	2026-08-30 09:16:46.000000000 +0200
++++ smplayer-26.8.29/src/prefperformance.cpp	2026-08-30 14:41:56.148523845 +0200
+@@ -22,6 +22,9 @@
+ #include "global.h"
+ #include "preferences.h"
+ #include "playerid.h"
++#if QT_VERSION_MAJOR >= 6
++#include <QOperatingSystemVersion>
++#endif
+ 
+ using namespace Global;
+ 
+@@ -51,11 +54,15 @@
+ 	#ifdef Q_OS_WIN
+ 	hwdec_combo->addItem("dxva2", "dxva2");
+ 	hwdec_combo->addItem("dxva2-copy", "dxva2-copy");
+-	if (QSysInfo::WindowsVersion >= QSysInfo::WV_WINDOWS8) {
+-		// Windows 8+
++    #if QT_VERSION_MAJOR < 6
++    if (QSysInfo::WindowsVersion >= QSysInfo::WV_WINDOWS8) {
++    #else
++    if (QOperatingSystemVersion::current() >= QOperatingSystemVersion::Windows8) {
++    #endif
++        // Windows 8+
+ 		hwdec_combo->addItem("d3d11va", "d3d11va");
+ 		hwdec_combo->addItem("d3d11va-copy", "d3d11va-copy");
+-	}
++    }
+ 	#endif
+ 	hwdec_combo->addItem("nvdec", "nvdec");
+ 	hwdec_combo->addItem("nvdec-copy", "nvdec-copy");
+diff '--color=auto' -ur smplayer-26.8.29.orig/src/qtsingleapplication/qtlocalpeer.cpp smplayer-26.8.29/src/qtsingleapplication/qtlocalpeer.cpp
+--- smplayer-26.8.29.orig/src/qtsingleapplication/qtlocalpeer.cpp	2026-08-30 09:16:46.000000000 +0200
++++ smplayer-26.8.29/src/qtsingleapplication/qtlocalpeer.cpp	2026-08-30 14:41:56.148562625 +0200
+@@ -43,6 +43,9 @@
+ #include <QCoreApplication>
+ #include <QDataStream>
+ #include <QTime>
++#if QT_VERSION_MAJOR >= 6
++#include <QRegularExpression>
++#endif
+ 
+ #if defined(Q_OS_WIN)
+ #include <QLibrary>
+@@ -78,7 +81,11 @@
+ #endif
+         prefix = id.section(QLatin1Char('/'), -1);
+     }
++#if QT_VERSION_MAJOR < 6
+     prefix.remove(QRegExp("[^a-zA-Z]"));
++#else
++    prefix.remove(QRegularExpression("[^a-zA-Z]"));
++#endif
+     prefix.truncate(6);
+ 
+     QByteArray idc = id.toUtf8();
+diff '--color=auto' -ur smplayer-26.8.29.orig/src/smplayer.cpp smplayer-26.8.29/src/smplayer.cpp
+--- smplayer-26.8.29.orig/src/smplayer.cpp	2026-08-30 09:16:46.000000000 +0200
++++ smplayer-26.8.29/src/smplayer.cpp	2026-08-30 14:41:56.148606505 +0200
+@@ -46,6 +46,9 @@
+ #include <QDir>
+ #include <QUrl>
+ #include <QTime>
++#if QT_VERSION_MAJOR >= 6
++#include <QRegExp>
++#endif
+ #include <stdio.h>
+ 
+ #ifdef Q_OS_WIN
+@@ -580,8 +583,9 @@
+ 
+ void SMPlayer::showInfo() {
+ #ifdef Q_OS_WIN
+-	QString win_ver;
+-	switch (QSysInfo::WindowsVersion) {
++#if QT_VERSION_MAJOR < 6
++    QString win_ver;
++    switch (QSysInfo::WindowsVersion) {
+ 		case QSysInfo::WV_2000: win_ver = "Windows 2000"; break;
+ 		case QSysInfo::WV_XP: win_ver = "Windows XP"; break;
+ 		case QSysInfo::WV_2003: win_ver = "Windows XP Professional x64/Server 2003"; break;
+@@ -601,6 +605,9 @@
+ 		case QSysInfo::WV_NT_based: win_ver = "NT-based Windows"; break;
+ 		default: win_ver = QString("Unknown/Unsupported Windows OS"); break;
+ 	}
++#else
++    QString win_ver("Windows " + QSysInfo::productVersion());
++#endif
+ #endif
+ 	QString s = QObject::tr("This is SMPlayer v. %1 running on %2")
+            .arg(Version::printable())
+diff '--color=auto' -ur smplayer-26.8.29.orig/src/smplayer.pro smplayer-26.8.29/src/smplayer.pro
+--- smplayer-26.8.29.orig/src/smplayer.pro	2026-08-30 14:41:46.489739521 +0200
++++ smplayer-26.8.29/src/smplayer.pro	2026-08-30 14:41:56.148700655 +0200
+@@ -1,8 +1,8 @@
+ TEMPLATE = app
+ LANGUAGE = C++
+ 
+-CONFIG += qt warn_on
+-CONFIG += release
++CONFIG += qt warn_on lrelease
++#CONFIG += release
+ #CONFIG += debug
+ 
+ QT += network xml
+@@ -639,10 +658,6 @@
+ 		LIBS += -framework Cocoa
+ 	}
+ 
+-	isEqual(QT_MAJOR_VERSION, 5) {
+-		#DEFINES += USE_GL_WINDOW
+-	}
+-
+ 	contains( DEFINES, USE_GL_WINDOW ) {
+ 		HEADERS += openglrenderer.h
+ 		SOURCES += openglrenderer.cpp
+@@ -663,7 +678,7 @@
+ 
+ contains(DEFINES, USE_SMTUBE_LIB) {
+ 	LIBS += -L../smtube -lsmtube
+-	isEqual(QT_MAJOR_VERSION, 5) {
++	greaterThan(QT_MAJOR_VERSION, 4) {
+ 		QT += webkitwidgets widgets gui
+ 	} else {
+ 		QT += webkit
+@@ -773,4 +788,3 @@
+                translations/smplayer_sq_AL.ts translations/smplayer_am.ts \
+                translations/smplayer_fa.ts translations/smplayer_en_US.ts \
+                translations/smplayer_nb_NO.ts
+-
+diff '--color=auto' -ur smplayer-26.8.29.orig/src/subreader.cpp smplayer-26.8.29/src/subreader.cpp
+--- smplayer-26.8.29.orig/src/subreader.cpp	2026-08-30 09:16:46.000000000 +0200
++++ smplayer-26.8.29/src/subreader.cpp	2026-08-30 14:41:56.148777834 +0200
+@@ -26,7 +26,11 @@
+ 
+ #define NL QString("\r\n")
+ #define BNL QByteArray("\r\n")
++#if QT_VERSION_MAJOR < 6
+ #define BOM QString(0xFEFF)
++#else
++#define BOM QString(QByteArray('0xFE', '0xFF'))
++#endif
+ 
+ SubReader::SubReader() {
+ 	input_codec = "ISO-8859-1";
+diff '--color=auto' -ur smplayer-26.8.29.orig/src/winfileassoc.cpp smplayer-26.8.29/src/winfileassoc.cpp
+--- smplayer-26.8.29.orig/src/winfileassoc.cpp	2026-08-30 09:16:46.000000000 +0200
++++ smplayer-26.8.29/src/winfileassoc.cpp	2026-08-30 14:41:56.148822284 +0200
+@@ -40,6 +40,9 @@
+ #include <QSettings>
+ #include <QApplication>
+ #include <QFileInfo>
++#if QT_VERSION_MAJOR >= 6
++#include <QOperatingSystemVersion>
++#endif
+ #include <windows.h>
+ 
+ WinFileAssoc::WinFileAssoc(const QString ClassId, const QString AppName)
+@@ -53,7 +56,11 @@
+ // Returns number of extensions processed successfully.
+ int WinFileAssoc::CreateFileAssociations(const QStringList &fileExtensions)
+ {
++#if QT_VERSION_MAJOR < 6
+     if (QSysInfo::WindowsVersion >= QSysInfo::WV_VISTA) {
++#else
++    if (QOperatingSystemVersion::current() >= QOperatingSystemVersionBase{ QOperatingSystemVersionBase::Windows, 6, 0 }) {
++#endif
+         return VistaSetAppsAsDefault(fileExtensions);
+     }
+ 
+@@ -122,7 +129,11 @@
+ {
+     registeredExtensions.clear();
+ 
++#if QT_VERSION_MAJOR < 6
+     if (QSysInfo::WindowsVersion >= QSysInfo::WV_VISTA) {
++#else
++    if (QOperatingSystemVersion::current() >= QOperatingSystemVersionBase{ QOperatingSystemVersionBase::Windows, 6, 0 }) {
++#endif
+         return VistaGetDefaultApps(extensionsToCheck, registeredExtensions);
+     }
+ 
+@@ -170,7 +181,11 @@
+ // Returns number of extensions successfully processed (error if fileExtensions.count() != return value && count > 0).
+ int WinFileAssoc::RestoreFileAssociations(const QStringList &fileExtensions)
+ {
++#if QT_VERSION_MAJOR < 6
+     if (QSysInfo::WindowsVersion >= QSysInfo::WV_VISTA)
++#else
++    if (QOperatingSystemVersion::current() >= QOperatingSystemVersionBase{ QOperatingSystemVersionBase::Windows, 6, 0 })
++#endif
+         return 0; // Not supported by the API
+ 
+     QSettings RegCR("HKEY_CLASSES_ROOT", QSettings::NativeFormat);
+diff '--color=auto' -ur smplayer-26.8.29.orig/src/winscreensaver.cpp smplayer-26.8.29/src/winscreensaver.cpp
+--- smplayer-26.8.29.orig/src/winscreensaver.cpp	2026-08-30 09:16:46.000000000 +0200
++++ smplayer-26.8.29/src/winscreensaver.cpp	2026-08-30 14:41:56.148869904 +0200
+@@ -16,8 +16,12 @@
+     Foundation, Inc., 59 Temple Place, Suite 330, Boston, MA  02111-1307  USA
+ */
+ 
+-#include <Qt>
+ #include <QSysInfo>
++#if QT_VERSION_MAJOR < 6
++#include <Qt>
++#else
++#include <QOperatingSystemVersion>
++#endif
+ #include "winscreensaver.h"
+ #ifndef Q_OS_OS2
+ #include <windows.h>
+@@ -53,7 +57,11 @@
+ 	
+ 	if (!state_saved) {
+ #ifndef Q_OS_OS2
++#if QT_VERSION_MAJOR < 6
+ 		if (QSysInfo::WindowsVersion < QSysInfo::WV_VISTA) {
++#else
++        if (QOperatingSystemVersion::current() < QOperatingSystemVersionBase{ QOperatingSystemVersionBase::Windows, 6, 0 }) {
++#endif
+ 			// Not supported on Windows Vista
+ 			SystemParametersInfo(SPI_GETLOWPOWERTIMEOUT, 0, &lowpower, 0);
+ 			SystemParametersInfo(SPI_GETPOWEROFFTIMEOUT, 0, &poweroff, 0);
+@@ -79,8 +87,12 @@
+ 	
+ 	if (state_saved) {
+ #ifndef Q_OS_OS2
+-		if (QSysInfo::WindowsVersion < QSysInfo::WV_VISTA) {
+-			// Not supported on Windows Vista
++#if QT_VERSION_MAJOR < 6
++        if (QSysInfo::WindowsVersion < QSysInfo::WV_VISTA) {
++#else
++        if (QOperatingSystemVersion::current() < QOperatingSystemVersionBase{ QOperatingSystemVersionBase::Windows, 6, 0 }) {
++#endif
++            // Not supported on Windows Vista
+ 			SystemParametersInfo(SPI_SETLOWPOWERTIMEOUT, lowpower, NULL, 0);
+ 			SystemParametersInfo(SPI_SETPOWEROFFTIMEOUT, poweroff, NULL, 0);
+ 		}
+@@ -112,8 +124,12 @@
+ 	qDebug("WinScreenSaver::disable");
+ 
+ #ifndef Q_OS_OS2
+-	if (QSysInfo::WindowsVersion < QSysInfo::WV_VISTA) {
+-		// Not supported on Windows Vista
++#if QT_VERSION_MAJOR < 6
++    if (QSysInfo::WindowsVersion < QSysInfo::WV_VISTA) {
++#else
++    if (QOperatingSystemVersion::current() < QOperatingSystemVersionBase{ QOperatingSystemVersionBase::Windows, 6, 0 }) {
++#endif
++        // Not supported on Windows Vista
+ 		SystemParametersInfo(SPI_SETLOWPOWERTIMEOUT, 0, NULL, 0);
+ 		SystemParametersInfo(SPI_SETPOWEROFFTIMEOUT, 0, NULL, 0);
+ 	}
+diff '--color=auto' -ur smplayer-26.8.29.orig/src/winscreensaver.h smplayer-26.8.29/src/winscreensaver.h
+--- smplayer-26.8.29.orig/src/winscreensaver.h	2026-08-30 09:16:46.000000000 +0200
++++ smplayer-26.8.29/src/winscreensaver.h	2026-08-30 14:41:56.148894014 +0200
+@@ -24,9 +24,11 @@
+ #ifdef Q_OS_OS2
+ #include <QLibrary>
+ #else
++#if QT_VERSION_MAJOR < 6
+ #undef _WIN32_WINNT
+ #define _WIN32_WINNT 0x0501
+ #endif
++#endif
+ 
+ class WinScreenSaver
+ {
+diff '--color=auto' -ur smplayer-26.8.29.orig/src/youtube/codedownloader.cpp smplayer-26.8.29/src/youtube/codedownloader.cpp
+--- smplayer-26.8.29.orig/src/youtube/codedownloader.cpp	2026-08-30 09:16:46.000000000 +0200
++++ smplayer-26.8.29/src/youtube/codedownloader.cpp	2026-08-30 14:41:56.148925214 +0200
+@@ -20,6 +20,9 @@
+ #include "retrieveyoutubeurl.h"
+ #include <QFile>
+ #include <QMessageBox>
++#if QT_VERSION_MAJOR >= 6
++#include <QRegExp>
++#endif
+ #include <QDebug>
+ 
+ #include <QDir>
+diff '--color=auto' -ur smplayer-26.8.29.orig/webserver/mongoose.h smplayer-26.8.29/webserver/mongoose.h
+--- smplayer-26.8.29.orig/webserver/mongoose.h	2026-08-30 09:16:46.000000000 +0200
++++ smplayer-26.8.29/webserver/mongoose.h	2026-08-30 14:41:56.149124583 +0200
+@@ -210,7 +210,7 @@
+ #include <windows.h>
+ #include <process.h>
+ 
+-#if _MSC_VER < 1700
++#if defined( _MSC_VER ) && _MSC_VER < 1700
+ typedef int bool;
+ #else
+ #include <stdbool.h>
