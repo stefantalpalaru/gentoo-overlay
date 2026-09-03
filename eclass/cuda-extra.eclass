@@ -23,7 +23,7 @@ esac
 if [[ ! ${_CUDA_EXTRA_ECLASS} ]]; then
 _CUDA_EXTRA_ECLASS=1
 
-inherit toolchain-funcs
+inherit cuda toolchain-funcs
 
 # @FUNCTION: cuda_check_permissions
 # @DESCRIPTION:
@@ -154,6 +154,8 @@ cuda_sanitize_extra() {
 
 	debug-print "Using ${NVCCFLAGS} for cuda"
 	export NVCCFLAGS
+
+	export CUDA_PATH="${ESYSROOT}/opt/cuda"
 }
 
 # @FUNCTION: cuda_src_prepare_extra
