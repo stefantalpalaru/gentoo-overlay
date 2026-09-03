@@ -3,7 +3,7 @@
 
 EAPI=8
 
-DISTUTILS_USE_PEP517=setuptools
+DISTUTILS_USE_PEP517=scikit-build-core
 DISTUTILS_SINGLE_IMPL=1
 DISTUTILS_EXT=1
 PYTHON_COMPAT=( python3_{11..15} )
@@ -31,7 +31,7 @@ LICENSE="BSD"
 SLOT="0"
 KEYWORDS="~amd64 ~arm64"
 IUSE="cuda cusparselt cudss distributed fbgemm flash gloo memefficient mimalloc mkl
-	mpi nccl nnpack +numpy onednn openblas opencl openmp qnnpack rocm vulkan xnnpack
+	mpi nccl nnpack +numpy onednn openblas openmp qnnpack rocm vulkan xnnpack
 	cpu_flags_x86_avx cpu_flags_x86_avx2 cpu_flags_x86_avx512f"
 RESTRICT="test"
 REQUIRED_USE="
@@ -82,7 +82,6 @@ RDEPEND="
 		dev-python/numpy[${PYTHON_USEDEP}]
 	') )
 	onednn? ( sci-ml/oneDNN )
-	opencl? ( virtual/opencl )
 	$(python_gen_cond_dep '
 		dev-python/sympy[${PYTHON_USEDEP}]
 		dev-python/typing-extensions[${PYTHON_USEDEP}]
@@ -171,12 +170,10 @@ PATCHES=(
 	"${FILESDIR}"/caffe2-2.12.0-rocm-assert-fix.patch
 	"${FILESDIR}"/caffe2-2.13.0-cmake-install-fix.patch
 
-	"${FILESDIR}"/pytorch-2.9.0-dontbuildagain.patch
-	"${FILESDIR}"/pytorch-2.9.0-Change-library-directory-according-to-CMake-build.patch
 	"${FILESDIR}"/pytorch-2.10.0-global-dlopen.patch
 	"${FILESDIR}"/pytorch-2.5.0-torch_shm_manager.patch
 	"${FILESDIR}"/pytorch-2.10.0-cpp-extension-multilib.patch
-	"${FILESDIR}"/pytorch-2.10.0-cuda.patch
+	"${FILESDIR}"/pytorch-2.14.0-cuda.patch
 	"${FILESDIR}"/pytorch-2.13.0-nvcc.patch
 )
 
@@ -265,18 +262,11 @@ src_prepare() {
 		torch/__init__.py \
 		|| die
 
-	# Set build dir for pytorch's setup
-	sed -i \
-		-e "/BUILD_DIR/s|build|/var/lib/caffe2/|" \
-		tools/setup_helpers/env.py \
-		|| die
-
 	# Drop legacy from pyproject.toml
 	sed -i \
 		-e "/build-backend/s|:__legacy__||" \
 		pyproject.toml \
 		|| die
-
 }
 
 src_configure() {
@@ -322,7 +312,6 @@ src_configure() {
 		-DUSE_NUMA=OFF
 		-DUSE_NUMPY=$(usex numpy)
 		-DUSE_NVRTC=$(usex cuda)
-		-DUSE_OPENCL=$(usex opencl)
 		-DUSE_OPENMP=$(usex openmp)
 		-DUSE_PYTORCH_QNNPACK=$(usex qnnpack)
 		-DUSE_PYTORCH_METAL=OFF
@@ -338,12 +327,12 @@ src_configure() {
 		-DUSE_SYSTEM_PTHREADPOOL=ON
 		-DUSE_SYSTEM_PYBIND11=ON
 		-DUSE_SYSTEM_SLEEF=ON
-		-DUSE_SYSTEM_XNNPACK=$(usex xnnpack)
 		-DUSE_TENSORPIPE=$(usex distributed $(usex !rocm))
 		-DUSE_UCC=OFF
 		-DUSE_VALGRIND=OFF
 		-DUSE_VULKAN=$(usex vulkan)
 		-DUSE_XNNPACK=$(usex xnnpack)
+		-DUSE_SYSTEM_XNNPACK=$(usex xnnpack)
 		-DUSE_XPU=OFF
 		-DC_AVX_FOUND=$(usex cpu_flags_x86_avx)
 		-DC_AVX2_FOUND=$(usex cpu_flags_x86_avx2)
@@ -374,12 +363,14 @@ src_configure() {
 			-DUSE_NCCL=OFF # TODO: NVIDIA Collective Communication Library
 			-DCUDA_TOOLKIT_ROOT_DIR="${EPREFIX}/opt/cuda"
 			-DCMAKE_CUDA_COMPILER="nvcc"
+			-DCMAKE_CUDA_HOST_COMPILER="$(cuda_gcc)"
 			-DCMAKE_CUDA_FLAGS="-forward-unknown-opts -fno-lto ${NVCCFLAGS//\"/\'}"
 			-DUSE_CUDSS=$(usex cudss)
 			-DUSE_CUSPARSELT=$(usex cusparselt)
 		)
 
 		[[ -v CUDACXX ]] && export PYTORCH_NVCC="${CUDACXX}"
+		export CMAKE_CUDA_HOST_COMPILER="$(cuda_gcc)" # for python_compile()
 
 		if use flash; then
 			export FLASH_ATTENTION_FORCE_BUILD="TRUE"
@@ -416,10 +407,10 @@ src_configure() {
 }
 
 python_compile() {
-	PYTORCH_BUILD_VERSION=${PV} \
-	PYTORCH_BUILD_NUMBER=0 \
-	USE_SYSTEM_LIBS=ON \
-	CMAKE_BUILD_DIR="${BUILD_DIR}" \
+	export BUILD_DIR="${WORKDIR}/pytorch-v${PV}_build"
+	# Don't run CMake again.
+	export SKBUILD_WHEEL_CMAKE="false"
+
 	distutils-r1_python_compile
 }
 
@@ -432,8 +423,9 @@ src_compile() {
 }
 
 python_install() {
-	python_domodule python/torch
-	python_domodule functorch
+	export BUILD_DIR="${WORKDIR}/pytorch-v${PV}_build"
+	distutils-r1_python_install
+
 	mkdir "${D}"$(python_get_sitedir)/torch/bin || die
 	mkdir "${D}"$(python_get_sitedir)/torch/include || die
 	ln -s ../../../../../include/torch \
@@ -442,12 +434,11 @@ python_install() {
 		"${D}"$(python_get_sitedir)/torch/bin/torch_shm_manager || die
 	ln -s ../../../../../$(get_libdir)/libtorch_global_deps.so \
 		"${D}"$(python_get_sitedir)/torch/lib/libtorch_global_deps.so || die
-
-	USE_SYSTEM_LIBS=ON distutils-r1_python_install
 }
 
 src_install() {
 	cmake_src_install
+	distutils-r1_src_install
 
 	# Clean up third-party software installs.
 	rm -rf "${ED}"/usr/share/cmake/{kineto,fbgemm} \
@@ -455,10 +446,8 @@ src_install() {
 		"${ED}"/usr/$(get_libdir)/cmake/asmjit \
 		"${ED}"/usr/$(get_libdir)/pkgconfig/mimalloc.pc
 
-	rm -rf python
-	mkdir -p python || die
-	mv "${ED}"/usr/torch python/ || die
-	dolib.so "${BUILD_DIR}"/lib/libtorch_python.so
+	cp -a "${ED}"/usr/torch "${ED}"$(python_get_sitedir)/ || die
+	rm -rf "${ED}"/usr/torch
 
-	distutils-r1_src_install
+	python_optimize
 }

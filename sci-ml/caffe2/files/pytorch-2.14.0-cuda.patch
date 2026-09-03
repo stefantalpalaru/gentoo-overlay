@@ -1,8 +1,8 @@
-diff '--color=auto' -ur pytorch-2.10.0.orig/torch/__init__.py pytorch-2.10.0/torch/__init__.py
---- pytorch-2.10.0.orig/torch/__init__.py	2026-03-10 13:11:57.780508267 +0100
-+++ pytorch-2.10.0/torch/__init__.py	2026-03-10 13:14:00.556890150 +0100
-@@ -307,15 +307,13 @@
-     assert platform.system() == "Linux", "Should only be called on Linux"
+diff '--color=auto' -ur pytorch-v2.14.0.orig/torch/__init__.py pytorch-v2.14.0/torch/__init__.py
+--- pytorch-v2.14.0.orig/torch/__init__.py	2026-09-02 21:13:02.944339768 +0200
++++ pytorch-v2.14.0/torch/__init__.py	2026-09-02 21:16:34.297917402 +0200
+@@ -337,15 +337,13 @@
+         raise AssertionError(f"Should only be called on Linux, got {platform.system()}")
  
      lib_path = None
 -    for path in sys.path:
@@ -20,12 +20,12 @@ diff '--color=auto' -ur pytorch-2.10.0.orig/torch/__init__.py pytorch-2.10.0/tor
 +        ctypes.CDLL(lib_path, mode=ctypes.RTLD_GLOBAL)
  
  
- def _preload_cuda_deps(err: OSError | None = None) -> None:
-@@ -345,7 +343,7 @@
- 
-     # Otherwise, try to preload dependencies from site-packages
+ def _preload_cuda_deps(err: OSError | None = None, required: bool = True) -> None:
+@@ -383,7 +381,7 @@
+     # some of these wheels (e.g. just a cupti wheel alongside a system CUDA)
+     # preloads the ones present instead of aborting on the first missing one.
      for lib_folder, lib_name in cuda_libs:
--        _preload_cuda_lib(lib_folder, lib_name)
+-        _preload_cuda_lib(lib_folder, lib_name, required=required)
 +        _preload_cuda_lib(lib_folder, lib_name, required=False)
  
      # libnvToolsExt is Optional Dependency
