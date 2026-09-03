@@ -1,0 +1,14 @@
+DEFINED_PHASES=install postinst postrm preinst
+DESCRIPTION=itch.io game browser, installer and launcher
+EAPI=8
+HOMEPAGE=https://itch.io/
+IDEPEND=dev-util/desktop-file-utils x11-misc/shared-mime-info
+INHERIT=desktop xdg
+KEYWORDS=~amd64
+LICENSE=MIT
+RDEPEND=dev-libs/libbsd dev-libs/libpcre dev-libs/nss media-gfx/graphite2 media-libs/alsa-lib media-libs/freetype media-libs/libpng:* media-libs/mesa media-libs/vulkan-loader net-dns/libidn2 net-libs/gnutls sys-apps/util-linux x11-libs/gtk+:3[X,cups] x11-libs/libXtst x11-libs/libdrm x11-libs/libxkbcommon x11-libs/pixman
+RESTRICT=mirror
+SLOT=0
+SRC_URI=https://github.com/itchio/itch/releases/download/v26.20.0/itch-v26.20.0-linux-amd64.tar.gz -> itch-bin-26.20.0.gh.tar.gz
+_eclasses_=desktop	e447b5f77146d69797e9f03ff177f3f1	xdg-utils	42869b3c8d86a70ef3cf75165a395e09	xdg	3ef49a87c52c8b77c476351195dfe575
+_md5_=8df31e2927dcab470c4c5c668607efa3
