@@ -865,7 +865,7 @@ dev-vcs/hg-fast-export 260405-r1: mercurial to git converter using git-fast-impo
 games-emulation/dbgl-bin 0.99: DOSBox Game Launcher
 games-emulation/rpcs3 9999-r18: PlayStation 3 emulator
 games-emulation/snes9x 1.63-r1: Super Nintendo Entertainment System (SNES) emulator
-games-engines/uzdoom 5.0.0: A modder-friendly OpenGL source port based on the DOOM engine
+games-engines/uzdoom 5.0.1: A modder-friendly OpenGL source port based on the DOOM engine
 games-fps/gzdoom 4.14.2: A modder-friendly OpenGL source port based on the DOOM engine
 games-misc/bsd-games 2.17_p28-r2: Collection of games from NetBSD
 games-sports/trigger 0.6.6.1-r1: Free OpenGL rally car racing game
