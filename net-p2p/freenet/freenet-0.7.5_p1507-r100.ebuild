@@ -4,6 +4,7 @@
 EAPI=8
 JAVA_PKG_IUSE="doc source test"
 JAVA_TESTING_FRAMEWORKS="junit-4"
+# https://github.com/hyphanet/seedrefs
 MY_SEEDNODE_COMMIT="b34dbc4d021c58c4a108214a71a9e1ab986c4e14"
 
 inherit java-pkg-2 java-pkg-simple systemd verify-sig
