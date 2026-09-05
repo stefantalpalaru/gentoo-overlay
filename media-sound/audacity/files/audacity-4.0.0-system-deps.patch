@@ -1,0 +1,109 @@
+diff '--color=auto' -ur audacity-4.0.0.orig/buildscripts/cmake/DependencyManifest.cmake audacity-4.0.0/buildscripts/cmake/DependencyManifest.cmake
+--- audacity-4.0.0.orig/buildscripts/cmake/DependencyManifest.cmake	2026-09-03 10:35:12.683388607 +0200
++++ audacity-4.0.0/buildscripts/cmake/DependencyManifest.cmake	2026-09-03 23:30:59.039064911 +0200
+@@ -1,4 +1,4 @@
+-require_dep(expat)
++require_dep(expat SYSTEM)
+ 
+ if (AU_USE_LIBCURL)
+     if (NOT OS_IS_WIN)
+@@ -7,29 +7,29 @@
+     require_dep(libcurl SYSTEM)
+ endif()
+ 
+-require_dep(ogg)
+-require_dep(vorbis)
+-require_dep(flac)
+-require_dep(opus)
+-require_dep(opusfile)
+-require_dep(lame)
++require_dep(ogg SYSTEM)
++require_dep(vorbis SYSTEM)
++require_dep(flac SYSTEM)
++require_dep(opus SYSTEM)
++require_dep(opusfile SYSTEM)
++require_dep(lame SYSTEM)
+ 
+ # mpg123 asm optimizations on windows require yasm
+ if (OS_IS_WIN AND NOT CMAKE_CXX_COMPILER_ARCHITECTURE_ID MATCHES "[Aa][Rr][Mm]64")
+     require_tool(yasm)
+ endif()
+ 
+-require_dep(mpg123)
+-require_dep(wavpack)
+-require_dep(libsndfile)
++require_dep(mpg123 SYSTEM)
++require_dep(wavpack SYSTEM)
++require_dep(libsndfile SYSTEM)
+ if (OS_IS_WIN)
+     require_source_dep(asiosdk)
+     require_dep(portaudio REBUILD)
+ else()
+-    require_dep(portaudio)
++    require_dep(portaudio SYSTEM)
+ endif()
+-require_dep(libpng)
+-require_dep(wxwidgets)
++require_dep(libpng SYSTEM)
++require_dep(wxwidgets SYSTEM)
+ 
+ 
+ if (AU_MODULE_EFFECTS_LV2)
+diff '--color=auto' -ur audacity-4.0.0.orig/muse/buildscripts/cmake/ExtDepsManifest.cmake audacity-4.0.0/muse/buildscripts/cmake/ExtDepsManifest.cmake
+--- audacity-4.0.0.orig/muse/buildscripts/cmake/ExtDepsManifest.cmake	2026-09-03 10:35:44.136709830 +0200
++++ audacity-4.0.0/muse/buildscripts/cmake/ExtDepsManifest.cmake	2026-09-03 23:32:02.822259603 +0200
+@@ -1,25 +1,25 @@
+-require_dep(zlib)
++require_dep(zlib SYSTEM)
+ 
+ if (MUSE_MODULE_VST)
+     require_source_dep(vst3sdk)
+ endif()
+ 
+ if (MUSE_MODULE_DRAW)
+-    require_dep(libpng)
++    require_dep(libpng SYSTEM)
+ 
+     if (MUSE_MODULE_DRAW_USE_STATIC_DEPS)
+         require_dep(freetype STATIC)
+         require_dep(harfbuzz STATIC)
+     else()
+-        require_dep(freetype)
+-        require_dep(harfbuzz)
++        require_dep(freetype SYSTEM)
++        require_dep(harfbuzz SYSTEM)
+     endif()
+ 
+     if (NOT MUSE_MODULE_DRAW_USE_QTTEXTDRAW)
+         if (MUSE_MODULE_DRAW_USE_STATIC_DEPS)
+             require_dep(msdfgen STATIC)
+         else()
+-            require_dep(msdfgen)
++            require_dep(msdfgen SYSTEM)
+         endif()
+     endif()
+ endif()
+@@ -33,16 +33,16 @@
+ endif()
+ 
+ if (MUSE_MODULE_AUDIO AND MUSE_MODULE_AUDIO_EXPORT)
+-    require_dep(ogg) # flac and opusenc link against ogg
+-    require_dep(fdk-aac)
+-    require_dep(flac)
+-    require_dep(lame)
+-    require_dep(opus)
+-    require_dep(opusenc)
++    require_dep(ogg SYSTEM) # flac and opusenc link against ogg
++    require_dep(fdk-aac SYSTEM)
++    require_dep(flac SYSTEM)
++    require_dep(lame SYSTEM)
++    require_dep(opus SYSTEM)
++    require_dep(opusenc SYSTEM)
+ endif()
+ 
+ if (MUSE_MODULE_AUDIO AND MUSE_MODULE_AUDIO_PIPEWIRE)
+-    require_dep(pipewire)
++    require_dep(pipewire SYSTEM)
+ endif()
+ 
+ require_source_dep(picojson)

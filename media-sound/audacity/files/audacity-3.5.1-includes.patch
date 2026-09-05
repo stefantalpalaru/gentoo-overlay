@@ -1,6 +1,17 @@
+diff '--color=auto' -ur audacity-sources-3.5.1.orig/libraries/lib-cloud-audiocom/UploadService.h audacity-sources-3.5.1/libraries/lib-cloud-audiocom/UploadService.h
+--- audacity-sources-3.5.1.orig/libraries/lib-cloud-audiocom/UploadService.h	2024-04-24 13:00:43.000000000 +0200
++++ audacity-sources-3.5.1/libraries/lib-cloud-audiocom/UploadService.h	2026-09-05 04:39:44.494509712 +0200
+@@ -10,6 +10,7 @@
+ **********************************************************************/
+ #pragma once
+ 
++#include <cstdint>
+ #include <functional>
+ #include <memory>
+ #include <utility>
 diff '--color=auto' -ur audacity-sources-3.5.1.orig/libraries/lib-components/EffectInterface.h audacity-sources-3.5.1/libraries/lib-components/EffectInterface.h
 --- audacity-sources-3.5.1.orig/libraries/lib-components/EffectInterface.h	2024-04-24 13:00:43.000000000 +0200
-+++ audacity-sources-3.5.1/libraries/lib-components/EffectInterface.h	2025-05-22 14:44:52.455905842 +0200
++++ audacity-sources-3.5.1/libraries/lib-components/EffectInterface.h	2026-09-05 04:40:11.520894927 +0200
 @@ -47,6 +47,7 @@
  #include "EffectAutomationParameters.h"
  

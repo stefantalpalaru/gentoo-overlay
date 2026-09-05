@@ -1,0 +1,3462 @@
+diff '--color=auto' -ur audacity-4.0.0.orig/muse/buildscripts/pch/pch.h audacity-4.0.0/muse/buildscripts/pch/pch.h
+--- audacity-4.0.0.orig/muse/buildscripts/pch/pch.h	2026-09-03 10:35:44.142637258 +0200
++++ audacity-4.0.0/muse/buildscripts/pch/pch.h	2026-09-05 04:32:18.931413700 +0200
+@@ -119,11 +119,11 @@
+ #include <QFont> //30
+ 
+ // QtQml includes
+-#include <QQmlEngine> //26+62(qqml.h)
+-#include <QJSValue> //41
++#include <QtQml/QQmlEngine> //26+62(qqml.h)
++#include <QtQml/QJSValue> //41
+ #include <QQmlListProperty> //30
+ 
+ // QtQuick includes
+-#include <QQuickItem> //106
++#include <QtQuick/QQuickItem> //106
+ 
+ #endif // NO_QT_SUPPORT
+diff '--color=auto' -ur audacity-4.0.0.orig/muse/framework/accessibility/internal/accessiblestub.cpp audacity-4.0.0/muse/framework/accessibility/internal/accessiblestub.cpp
+--- audacity-4.0.0.orig/muse/framework/accessibility/internal/accessiblestub.cpp	2026-09-03 10:35:44.144991954 +0200
++++ audacity-4.0.0/muse/framework/accessibility/internal/accessiblestub.cpp	2026-09-05 04:32:18.931462570 +0200
+@@ -21,7 +21,7 @@
+  */
+ #include "accessiblestub.h"
+ 
+-#include <QQuickItem>
++#include <QtQuick/QQuickItem>
+ 
+ using namespace muse::accessibility;
+ 
+diff '--color=auto' -ur audacity-4.0.0.orig/muse/framework/cloud/internal/abstractcloudservice.cpp audacity-4.0.0/muse/framework/cloud/internal/abstractcloudservice.cpp
+--- audacity-4.0.0.orig/muse/framework/cloud/internal/abstractcloudservice.cpp	2026-09-03 10:35:44.197802413 +0200
++++ audacity-4.0.0/muse/framework/cloud/internal/abstractcloudservice.cpp	2026-09-05 04:32:18.939357184 +0200
+@@ -29,6 +29,7 @@
+ #include <QUrlQuery>
+ #include <QHttpMultiPart>
+ #include <QRandomGenerator>
++#include <QTimer>
+ 
+ #include "clouderrors.h"
+ #include "multiwindows/resourcelockguard.h"
+diff '--color=auto' -ur audacity-4.0.0.orig/muse/framework/cloud/qml/Muse/Cloud/cloudsmodel.h audacity-4.0.0/muse/framework/cloud/qml/Muse/Cloud/cloudsmodel.h
+--- audacity-4.0.0.orig/muse/framework/cloud/qml/Muse/Cloud/cloudsmodel.h	2026-09-03 10:35:44.199304791 +0200
++++ audacity-4.0.0/muse/framework/cloud/qml/Muse/Cloud/cloudsmodel.h	2026-09-05 04:32:18.931500970 +0200
+@@ -24,7 +24,7 @@
+ 
+ #include <QAbstractListModel>
+ #include <QVariant>
+-#include <qqmlintegration.h>
++#include <QtQmlIntegration/qqmlintegration.h>
+ 
+ #include "modularity/ioc.h"
+ #include "async/asyncable.h"
+diff '--color=auto' -ur audacity-4.0.0.orig/muse/framework/cloud/qml/Muse/Cloud/enums.h audacity-4.0.0/muse/framework/cloud/qml/Muse/Cloud/enums.h
+--- audacity-4.0.0.orig/muse/framework/cloud/qml/Muse/Cloud/enums.h	2026-09-03 10:35:44.199452087 +0200
++++ audacity-4.0.0/muse/framework/cloud/qml/Muse/Cloud/enums.h	2026-09-05 04:32:18.931526810 +0200
+@@ -22,7 +22,7 @@
+ 
+ #pragma once
+ 
+-#include <qqmlintegration.h>
++#include <QtQmlIntegration/qqmlintegration.h>
+ 
+ #include "cloud/cloudtypes.h"
+ 
+diff '--color=auto' -ur audacity-4.0.0.orig/muse/framework/cloud/qml/Muse/Cloud/musescorecomauthorizationmodel.h audacity-4.0.0/muse/framework/cloud/qml/Muse/Cloud/musescorecomauthorizationmodel.h
+--- audacity-4.0.0.orig/muse/framework/cloud/qml/Muse/Cloud/musescorecomauthorizationmodel.h	2026-09-03 10:35:44.199883434 +0200
++++ audacity-4.0.0/muse/framework/cloud/qml/Muse/Cloud/musescorecomauthorizationmodel.h	2026-09-05 04:32:18.931552990 +0200
+@@ -23,7 +23,7 @@
+ #pragma once
+ 
+ #include <QObject>
+-#include <qqmlintegration.h>
++#include <QtQmlIntegration/qqmlintegration.h>
+ 
+ #include "modularity/ioc.h"
+ #include "async/asyncable.h"
+diff '--color=auto' -ur audacity-4.0.0.orig/muse/framework/diagnostics/qml/Muse/Diagnostics/actionsviewmodel.h audacity-4.0.0/muse/framework/diagnostics/qml/Muse/Diagnostics/actionsviewmodel.h
+--- audacity-4.0.0.orig/muse/framework/diagnostics/qml/Muse/Diagnostics/actionsviewmodel.h	2026-09-03 10:35:44.203619421 +0200
++++ audacity-4.0.0/muse/framework/diagnostics/qml/Muse/Diagnostics/actionsviewmodel.h	2026-09-05 04:32:18.931645609 +0200
+@@ -22,7 +22,7 @@
+ #pragma once
+ 
+ #include <QAbstractListModel>
+-#include <qqmlintegration.h>
++#include <QtQmlIntegration/qqmlintegration.h>
+ 
+ #include "modularity/ioc.h"
+ #include "actions/iactionsdispatcher.h"
+diff '--color=auto' -ur audacity-4.0.0.orig/muse/framework/diagnostics/qml/Muse/Diagnostics/devtools/crashhandlerdevtoolsmodel.h audacity-4.0.0/muse/framework/diagnostics/qml/Muse/Diagnostics/devtools/crashhandlerdevtoolsmodel.h
+--- audacity-4.0.0.orig/muse/framework/diagnostics/qml/Muse/Diagnostics/devtools/crashhandlerdevtoolsmodel.h	2026-09-03 10:35:44.203832511 +0200
++++ audacity-4.0.0/muse/framework/diagnostics/qml/Muse/Diagnostics/devtools/crashhandlerdevtoolsmodel.h	2026-09-05 04:32:18.931699339 +0200
+@@ -23,7 +23,7 @@
+ #pragma once
+ 
+ #include <QObject>
+-#include <qqmlintegration.h>
++#include <QtQmlIntegration/qqmlintegration.h>
+ 
+ namespace muse::diagnostics {
+ class CrashHandlerDevToolsModel : public QObject
+diff '--color=auto' -ur audacity-4.0.0.orig/muse/framework/diagnostics/qml/Muse/Diagnostics/diagnosticaccessiblemodel.h audacity-4.0.0/muse/framework/diagnostics/qml/Muse/Diagnostics/diagnosticaccessiblemodel.h
+--- audacity-4.0.0.orig/muse/framework/diagnostics/qml/Muse/Diagnostics/diagnosticaccessiblemodel.h	2026-09-03 10:35:44.203985807 +0200
++++ audacity-4.0.0/muse/framework/diagnostics/qml/Muse/Diagnostics/diagnosticaccessiblemodel.h	2026-09-05 04:32:18.931728789 +0200
+@@ -25,7 +25,7 @@
+ #include <QAbstractItemModel>
+ #include <QHash>
+ #include <QTimer>
+-#include <qqmlintegration.h>
++#include <QtQmlIntegration/qqmlintegration.h>
+ 
+ #include "modularity/ioc.h"
+ #include "accessibility/iaccessibilitycontroller.h"
+diff '--color=auto' -ur audacity-4.0.0.orig/muse/framework/diagnostics/qml/Muse/Diagnostics/diagnosticspathsmodel.h audacity-4.0.0/muse/framework/diagnostics/qml/Muse/Diagnostics/diagnosticspathsmodel.h
+--- audacity-4.0.0.orig/muse/framework/diagnostics/qml/Muse/Diagnostics/diagnosticspathsmodel.h	2026-09-03 10:35:44.204119311 +0200
++++ audacity-4.0.0/muse/framework/diagnostics/qml/Muse/Diagnostics/diagnosticspathsmodel.h	2026-09-05 04:32:18.931753139 +0200
+@@ -23,7 +23,7 @@
+ #pragma once
+ 
+ #include <QAbstractListModel>
+-#include <qqmlintegration.h>
++#include <QtQmlIntegration/qqmlintegration.h>
+ 
+ #include "modularity/ioc.h"
+ #include "idiagnosticspathsregister.h"
+diff '--color=auto' -ur audacity-4.0.0.orig/muse/framework/diagnostics/qml/Muse/Diagnostics/keynav/abstractkeynavdevitem.h audacity-4.0.0/muse/framework/diagnostics/qml/Muse/Diagnostics/keynav/abstractkeynavdevitem.h
+--- audacity-4.0.0.orig/muse/framework/diagnostics/qml/Muse/Diagnostics/keynav/abstractkeynavdevitem.h	2026-09-03 10:35:44.204340359 +0200
++++ audacity-4.0.0/muse/framework/diagnostics/qml/Muse/Diagnostics/keynav/abstractkeynavdevitem.h	2026-09-05 04:32:18.931774349 +0200
+@@ -24,7 +24,7 @@
+ 
+ #include <QObject>
+ #include <QVariant>
+-#include <qqmlintegration.h>
++#include <QtQmlIntegration/qqmlintegration.h>
+ 
+ #include "ui/inavigation.h"
+ #include "async/asyncable.h"
+diff '--color=auto' -ur audacity-4.0.0.orig/muse/framework/diagnostics/qml/Muse/Diagnostics/keynav/diagnosticnavigationmodel.h audacity-4.0.0/muse/framework/diagnostics/qml/Muse/Diagnostics/keynav/diagnosticnavigationmodel.h
+--- audacity-4.0.0.orig/muse/framework/diagnostics/qml/Muse/Diagnostics/keynav/diagnosticnavigationmodel.h	2026-09-03 10:35:44.204489405 +0200
++++ audacity-4.0.0/muse/framework/diagnostics/qml/Muse/Diagnostics/keynav/diagnosticnavigationmodel.h	2026-09-05 04:32:18.931793939 +0200
+@@ -24,7 +24,7 @@
+ 
+ #include <QObject>
+ #include <QTimer>
+-#include <qqmlintegration.h>
++#include <QtQmlIntegration/qqmlintegration.h>
+ 
+ #include "modularity/ioc.h"
+ #include "ui/inavigationcontroller.h"
+diff '--color=auto' -ur audacity-4.0.0.orig/muse/framework/diagnostics/qml/Muse/Diagnostics/keynav/keynavdevcontrol.h audacity-4.0.0/muse/framework/diagnostics/qml/Muse/Diagnostics/keynav/keynavdevcontrol.h
+--- audacity-4.0.0.orig/muse/framework/diagnostics/qml/Muse/Diagnostics/keynav/keynavdevcontrol.h	2026-09-03 10:35:44.204649827 +0200
++++ audacity-4.0.0/muse/framework/diagnostics/qml/Muse/Diagnostics/keynav/keynavdevcontrol.h	2026-09-05 04:32:18.931816179 +0200
+@@ -23,7 +23,7 @@
+ #pragma once
+ 
+ #include <QObject>
+-#include <qqmlintegration.h>
++#include <QtQmlIntegration/qqmlintegration.h>
+ 
+ #include "abstractkeynavdevitem.h"
+ 
+diff '--color=auto' -ur audacity-4.0.0.orig/muse/framework/diagnostics/qml/Muse/Diagnostics/system/graphicsinfomodel.h audacity-4.0.0/muse/framework/diagnostics/qml/Muse/Diagnostics/system/graphicsinfomodel.h
+--- audacity-4.0.0.orig/muse/framework/diagnostics/qml/Muse/Diagnostics/system/graphicsinfomodel.h	2026-09-03 10:35:44.205192426 +0200
++++ audacity-4.0.0/muse/framework/diagnostics/qml/Muse/Diagnostics/system/graphicsinfomodel.h	2026-09-05 04:32:18.931840279 +0200
+@@ -22,7 +22,7 @@
+ #pragma once
+ 
+ #include <QObject>
+-#include <qqmlintegration.h>
++#include <QtQmlIntegration/qqmlintegration.h>
+ 
+ #include "modularity/ioc.h"
+ #include "ui/iuiengine.h"
+diff '--color=auto' -ur audacity-4.0.0.orig/muse/framework/diagnostics/qml/Muse/Diagnostics/system/profilerviewmodel.h audacity-4.0.0/muse/framework/diagnostics/qml/Muse/Diagnostics/system/profilerviewmodel.h
+--- audacity-4.0.0.orig/muse/framework/diagnostics/qml/Muse/Diagnostics/system/profilerviewmodel.h	2026-09-03 10:35:44.205356973 +0200
++++ audacity-4.0.0/muse/framework/diagnostics/qml/Muse/Diagnostics/system/profilerviewmodel.h	2026-09-05 04:32:18.931867309 +0200
+@@ -23,7 +23,7 @@
+ #pragma once
+ 
+ #include <QAbstractListModel>
+-#include <qqmlintegration.h>
++#include <QtQmlIntegration/qqmlintegration.h>
+ 
+ namespace muse::diagnostics {
+ class ProfilerViewModel : public QAbstractListModel
+diff '--color=auto' -ur audacity-4.0.0.orig/muse/framework/dockwindow/docktypes.h audacity-4.0.0/muse/framework/dockwindow/docktypes.h
+--- audacity-4.0.0.orig/muse/framework/dockwindow/docktypes.h	2026-09-03 10:35:44.206345586 +0200
++++ audacity-4.0.0/muse/framework/dockwindow/docktypes.h	2026-09-05 04:32:18.931894689 +0200
+@@ -26,7 +26,7 @@
+ #include <QVariant>
+ #include <QRect>
+ 
+-#include <qqmlintegration.h>
++#include <QtQmlIntegration/qqmlintegration.h>
+ 
+ namespace muse::dock {
+ constexpr const char* CONTEXT_MENU_MODEL_PROPERTY("contextMenuModel");
+diff '--color=auto' -ur audacity-4.0.0.orig/muse/framework/dockwindow/idockwindow.h audacity-4.0.0/muse/framework/dockwindow/idockwindow.h
+--- audacity-4.0.0.orig/muse/framework/dockwindow/idockwindow.h	2026-09-03 10:35:44.206437422 +0200
++++ audacity-4.0.0/muse/framework/dockwindow/idockwindow.h	2026-09-05 04:32:18.931915379 +0200
+@@ -22,7 +22,7 @@
+ #ifndef MUSE_DOCK_IDOCKWINDOW_H
+ #define MUSE_DOCK_IDOCKWINDOW_H
+ 
+-#include <QQuickItem>
++#include <QtQuick/QQuickItem>
+ #include <QString>
+ 
+ #include "async/channel.h"
+diff '--color=auto' -ur audacity-4.0.0.orig/muse/framework/dockwindow/internal/dockbase.h audacity-4.0.0/muse/framework/dockwindow/internal/dockbase.h
+--- audacity-4.0.0.orig/muse/framework/dockwindow/internal/dockbase.h	2026-09-03 10:35:44.206737639 +0200
++++ audacity-4.0.0/muse/framework/dockwindow/internal/dockbase.h	2026-09-05 04:32:18.931945758 +0200
+@@ -22,8 +22,8 @@
+ 
+ #pragma once
+ 
+-#include <QQuickItem>
+-#include <qqmlintegration.h>
++#include <QtQuick/QQuickItem>
++#include <QtQmlIntegration/qqmlintegration.h>
+ 
+ #include "global/modularity/ioc.h"
+ 
+diff '--color=auto' -ur audacity-4.0.0.orig/muse/framework/dockwindow/internal/dockseparator.h audacity-4.0.0/muse/framework/dockwindow/internal/dockseparator.h
+--- audacity-4.0.0.orig/muse/framework/dockwindow/internal/dockseparator.h	2026-09-03 10:35:44.206934520 +0200
++++ audacity-4.0.0/muse/framework/dockwindow/internal/dockseparator.h	2026-09-05 04:32:18.931975918 +0200
+@@ -23,7 +23,7 @@
+ #ifndef MUSE_DOCK_DOCKSEPARATOR_H
+ #define MUSE_DOCK_DOCKSEPARATOR_H
+ 
+-#include <QQuickItem>
++#include <QtQuick/QQuickItem>
+ 
+ #include "thirdparty/KDDockWidgets/src/private/multisplitter/Separator_p.h"
+ #include "thirdparty/KDDockWidgets/src/private/multisplitter/Widget_quick.h"
+diff '--color=auto' -ur audacity-4.0.0.orig/muse/framework/dockwindow/internal/docktabbar.h audacity-4.0.0/muse/framework/dockwindow/internal/docktabbar.h
+--- audacity-4.0.0.orig/muse/framework/dockwindow/internal/docktabbar.h	2026-09-03 10:35:44.207120234 +0200
++++ audacity-4.0.0/muse/framework/dockwindow/internal/docktabbar.h	2026-09-05 04:32:18.932000278 +0200
+@@ -23,7 +23,7 @@
+ #ifndef MUSE_DOCK_DOCKTABBAR_H
+ #define MUSE_DOCK_DOCKTABBAR_H
+ 
+-#include <QQuickItem>
++#include <QtQuick/QQuickItem>
+ 
+ #include "thirdparty/KDDockWidgets/src/private/quick/TabBarQuick_p.h"
+ 
+diff '--color=auto' -ur audacity-4.0.0.orig/muse/framework/dockwindow/qml/Muse/Dock/dockframemodel.cpp audacity-4.0.0/muse/framework/dockwindow/qml/Muse/Dock/dockframemodel.cpp
+--- audacity-4.0.0.orig/muse/framework/dockwindow/qml/Muse/Dock/dockframemodel.cpp	2026-09-03 10:35:44.209348176 +0200
++++ audacity-4.0.0/muse/framework/dockwindow/qml/Muse/Dock/dockframemodel.cpp	2026-09-05 04:32:18.932035088 +0200
+@@ -22,7 +22,7 @@
+ 
+ #include "dockframemodel.h"
+ 
+-#include <QQuickItem>
++#include <QtQuick/QQuickItem>
+ #include <QApplication>
+ 
+ #include "private/TitleBar_p.h"
+diff '--color=auto' -ur audacity-4.0.0.orig/muse/framework/dockwindow/qml/Muse/Dock/dockframemodel.h audacity-4.0.0/muse/framework/dockwindow/qml/Muse/Dock/dockframemodel.h
+--- audacity-4.0.0.orig/muse/framework/dockwindow/qml/Muse/Dock/dockframemodel.h	2026-09-03 10:35:44.209412178 +0200
++++ audacity-4.0.0/muse/framework/dockwindow/qml/Muse/Dock/dockframemodel.h	2026-09-05 04:32:18.932063978 +0200
+@@ -23,8 +23,8 @@
+ #pragma once
+ 
+ #include <QPointer>
+-#include <QQuickItem>
+-#include <qqmlintegration.h>
++#include <QtQuick/QQuickItem>
++#include <QtQmlIntegration/qqmlintegration.h>
+ 
+ #include "modularity/ioc.h"
+ #include "actions/iactionsdispatcher.h"
+diff '--color=auto' -ur audacity-4.0.0.orig/muse/framework/dockwindow/qml/Muse/Dock/dockpageview.h audacity-4.0.0/muse/framework/dockwindow/qml/Muse/Dock/dockpageview.h
+--- audacity-4.0.0.orig/muse/framework/dockwindow/qml/Muse/Dock/dockpageview.h	2026-09-03 10:35:44.209718604 +0200
++++ audacity-4.0.0/muse/framework/dockwindow/qml/Muse/Dock/dockpageview.h	2026-09-05 04:32:18.932090208 +0200
+@@ -22,8 +22,8 @@
+ 
+ #pragma once
+ 
+-#include <QQuickItem>
+-#include <qqmlintegration.h>
++#include <QtQuick/QQuickItem>
++#include <QtQmlIntegration/qqmlintegration.h>
+ 
+ #include "uicomponents/qml/Muse/UiComponents/qmllistproperty.h"
+ 
+diff '--color=auto' -ur audacity-4.0.0.orig/muse/framework/dockwindow/qml/Muse/Dock/docktabsmodel.h audacity-4.0.0/muse/framework/dockwindow/qml/Muse/Dock/docktabsmodel.h
+--- audacity-4.0.0.orig/muse/framework/dockwindow/qml/Muse/Dock/docktabsmodel.h	2026-09-03 10:35:44.210125116 +0200
++++ audacity-4.0.0/muse/framework/dockwindow/qml/Muse/Dock/docktabsmodel.h	2026-09-05 04:32:18.932114838 +0200
+@@ -24,7 +24,7 @@
+ 
+ #include <QAbstractListModel>
+ #include <QObject>
+-#include <qqmlintegration.h>
++#include <QtQmlIntegration/qqmlintegration.h>
+ 
+ #include "thirdparty/KDDockWidgets/src/DockWidgetBase.h"
+ 
+diff '--color=auto' -ur audacity-4.0.0.orig/muse/framework/dockwindow/qml/Muse/Dock/dockwindow.h audacity-4.0.0/muse/framework/dockwindow/qml/Muse/Dock/dockwindow.h
+--- audacity-4.0.0.orig/muse/framework/dockwindow/qml/Muse/Dock/dockwindow.h	2026-09-03 10:35:44.210433042 +0200
++++ audacity-4.0.0/muse/framework/dockwindow/qml/Muse/Dock/dockwindow.h	2026-09-05 04:32:18.932140138 +0200
+@@ -22,8 +22,8 @@
+ 
+ #pragma once
+ 
+-#include <QQuickItem>
+-#include <qqmlintegration.h>
++#include <QtQuick/QQuickItem>
++#include <QtQmlIntegration/qqmlintegration.h>
+ 
+ #include "async/asyncable.h"
+ #include "uicomponents/qml/Muse/UiComponents/qmllistproperty.h"
+diff '--color=auto' -ur audacity-4.0.0.orig/muse/framework/dockwindow/qml/Muse/Dock/foreign.h audacity-4.0.0/muse/framework/dockwindow/qml/Muse/Dock/foreign.h
+--- audacity-4.0.0.orig/muse/framework/dockwindow/qml/Muse/Dock/foreign.h	2026-09-03 10:35:44.210556296 +0200
++++ audacity-4.0.0/muse/framework/dockwindow/qml/Muse/Dock/foreign.h	2026-09-05 04:32:18.932164298 +0200
+@@ -22,7 +22,7 @@
+ 
+ #pragma once
+ 
+-#include <qqmlintegration.h>
++#include <QtQmlIntegration/qqmlintegration.h>
+ 
+ #include "internal/dockbase.h" // IWYU pragma: keep
+ #include "docktypes.h" // IWYU pragma: keep
+diff '--color=auto' -ur audacity-4.0.0.orig/muse/framework/dockwindow/thirdparty/KDDockWidgets/src/Config.cpp audacity-4.0.0/muse/framework/dockwindow/thirdparty/KDDockWidgets/src/Config.cpp
+--- audacity-4.0.0.orig/muse/framework/dockwindow/thirdparty/KDDockWidgets/src/Config.cpp	2026-09-03 10:35:44.230177593 +0200
++++ audacity-4.0.0/muse/framework/dockwindow/thirdparty/KDDockWidgets/src/Config.cpp	2026-09-05 04:32:18.932203278 +0200
+@@ -29,8 +29,8 @@
+ 
+ #ifdef KDDOCKWIDGETS_QTQUICK
+ #include "private/quick/Helpers_p.h"
+-#include <QQmlEngine>
+-#include <QQmlContext>
++#include <QtQml/QQmlEngine>
++#include <QtQml/QQmlContext>
+ #endif
+ 
+ #include "ContextData.h"
+diff '--color=auto' -ur audacity-4.0.0.orig/muse/framework/dockwindow/thirdparty/KDDockWidgets/src/DockWidgetQuick.cpp audacity-4.0.0/muse/framework/dockwindow/thirdparty/KDDockWidgets/src/DockWidgetQuick.cpp
+--- audacity-4.0.0.orig/muse/framework/dockwindow/thirdparty/KDDockWidgets/src/DockWidgetQuick.cpp	2026-09-03 10:35:44.231046536 +0200
++++ audacity-4.0.0/muse/framework/dockwindow/thirdparty/KDDockWidgets/src/DockWidgetQuick.cpp	2026-09-05 04:32:18.932239088 +0200
+@@ -17,7 +17,7 @@
+ #include "private/quick/FrameQuick_p.h"
+ 
+ #include <Config.h>
+-#include <QQuickItem>
++#include <QtQuick/QQuickItem>
+ #include <QCloseEvent>
+ 
+ /**
+diff '--color=auto' -ur audacity-4.0.0.orig/muse/framework/dockwindow/thirdparty/KDDockWidgets/src/private/indicators/ClassicIndicatorsWindow.cpp audacity-4.0.0/muse/framework/dockwindow/thirdparty/KDDockWidgets/src/private/indicators/ClassicIndicatorsWindow.cpp
+--- audacity-4.0.0.orig/muse/framework/dockwindow/thirdparty/KDDockWidgets/src/private/indicators/ClassicIndicatorsWindow.cpp	2026-09-03 10:35:44.244816032 +0200
++++ audacity-4.0.0/muse/framework/dockwindow/thirdparty/KDDockWidgets/src/private/indicators/ClassicIndicatorsWindow.cpp	2026-09-05 04:32:18.932279487 +0200
+@@ -262,7 +262,7 @@
+ 
+ #else
+ 
+-#include <QQmlContext>
++#include <QtQml/QQmlContext>
+ 
+ IndicatorWindow::IndicatorWindow(KDDockWidgets::ClassicIndicators *classicIndicators)
+     : QQuickView()
+diff '--color=auto' -ur audacity-4.0.0.orig/muse/framework/dockwindow/thirdparty/KDDockWidgets/src/private/indicators/ClassicIndicatorsWindow_p.h audacity-4.0.0/muse/framework/dockwindow/thirdparty/KDDockWidgets/src/private/indicators/ClassicIndicatorsWindow_p.h
+--- audacity-4.0.0.orig/muse/framework/dockwindow/thirdparty/KDDockWidgets/src/private/indicators/ClassicIndicatorsWindow_p.h	2026-09-03 10:35:44.244885826 +0200
++++ audacity-4.0.0/muse/framework/dockwindow/thirdparty/KDDockWidgets/src/private/indicators/ClassicIndicatorsWindow_p.h	2026-09-05 04:32:18.932316047 +0200
+@@ -81,7 +81,7 @@
+ 
+ #else
+ 
+-#include <QQuickView>
++#include <QtQuick/QQuickView>
+ 
+ namespace KDDockWidgets {
+ class ClassicIndicators;
+diff '--color=auto' -ur audacity-4.0.0.orig/muse/framework/dockwindow/thirdparty/KDDockWidgets/src/private/multisplitter/MultiSplitterConfig.cpp audacity-4.0.0/muse/framework/dockwindow/thirdparty/KDDockWidgets/src/private/multisplitter/MultiSplitterConfig.cpp
+--- audacity-4.0.0.orig/muse/framework/dockwindow/thirdparty/KDDockWidgets/src/private/multisplitter/MultiSplitterConfig.cpp	2026-09-03 10:35:44.245888106 +0200
++++ audacity-4.0.0/muse/framework/dockwindow/thirdparty/KDDockWidgets/src/private/multisplitter/MultiSplitterConfig.cpp	2026-09-05 04:32:18.932343757 +0200
+@@ -15,7 +15,7 @@
+ #include "Separator_p.h"
+ 
+ #ifdef KDMULTISPLITTER_QTQUICK
+-#include <QQmlEngine>
++#include <QtQml/QQmlEngine>
+ #endif
+ 
+ namespace Layouting {
+diff '--color=auto' -ur audacity-4.0.0.orig/muse/framework/dockwindow/thirdparty/KDDockWidgets/src/private/multisplitter/Rubberband_quick.h audacity-4.0.0/muse/framework/dockwindow/thirdparty/KDDockWidgets/src/private/multisplitter/Rubberband_quick.h
+--- audacity-4.0.0.orig/muse/framework/dockwindow/thirdparty/KDDockWidgets/src/private/multisplitter/Rubberband_quick.h	2026-09-03 10:35:44.246254117 +0200
++++ audacity-4.0.0/muse/framework/dockwindow/thirdparty/KDDockWidgets/src/private/multisplitter/Rubberband_quick.h	2026-09-05 04:32:18.932368557 +0200
+@@ -15,7 +15,7 @@
+ #include "kddockwidgets/docks_export.h"
+ #include "Widget_quick.h"
+ 
+-#include <QQuickItem>
++#include <QtQuick/QQuickItem>
+ 
+ namespace Layouting {
+ 
+diff '--color=auto' -ur audacity-4.0.0.orig/muse/framework/dockwindow/thirdparty/KDDockWidgets/src/private/multisplitter/Separator_quick.h audacity-4.0.0/muse/framework/dockwindow/thirdparty/KDDockWidgets/src/private/multisplitter/Separator_quick.h
+--- audacity-4.0.0.orig/muse/framework/dockwindow/thirdparty/KDDockWidgets/src/private/multisplitter/Separator_quick.h	2026-09-03 10:35:44.246590877 +0200
++++ audacity-4.0.0/muse/framework/dockwindow/thirdparty/KDDockWidgets/src/private/multisplitter/Separator_quick.h	2026-09-05 04:32:18.932392477 +0200
+@@ -16,7 +16,7 @@
+ #include "Separator_p.h"
+ #include "Widget_quick.h"
+ 
+-#include <QQuickItem>
++#include <QtQuick/QQuickItem>
+ 
+ namespace Layouting {
+ 
+diff '--color=auto' -ur audacity-4.0.0.orig/muse/framework/dockwindow/thirdparty/KDDockWidgets/src/private/multisplitter/Widget_quick.cpp audacity-4.0.0/muse/framework/dockwindow/thirdparty/KDDockWidgets/src/private/multisplitter/Widget_quick.cpp
+--- audacity-4.0.0.orig/muse/framework/dockwindow/thirdparty/KDDockWidgets/src/private/multisplitter/Widget_quick.cpp	2026-09-03 10:35:44.246964263 +0200
++++ audacity-4.0.0/muse/framework/dockwindow/thirdparty/KDDockWidgets/src/private/multisplitter/Widget_quick.cpp	2026-09-05 04:32:18.932418907 +0200
+@@ -12,7 +12,7 @@
+ #include "Widget_quick.h"
+ 
+ #include <QDebug>
+-#include <QQmlEngine>
++#include <QtQml/QQmlEngine>
+ 
+ using namespace Layouting;
+ 
+diff '--color=auto' -ur audacity-4.0.0.orig/muse/framework/dockwindow/thirdparty/KDDockWidgets/src/private/multisplitter/Widget_quick.h audacity-4.0.0/muse/framework/dockwindow/thirdparty/KDDockWidgets/src/private/multisplitter/Widget_quick.h
+--- audacity-4.0.0.orig/muse/framework/dockwindow/thirdparty/KDDockWidgets/src/private/multisplitter/Widget_quick.h	2026-09-03 10:35:44.247032723 +0200
++++ audacity-4.0.0/muse/framework/dockwindow/thirdparty/KDDockWidgets/src/private/multisplitter/Widget_quick.h	2026-09-05 04:32:18.932442837 +0200
+@@ -13,7 +13,7 @@
+ 
+ #include "Widget.h"
+ 
+-#include <QQuickItem>
++#include <QtQuick/QQuickItem>
+ 
+ QT_BEGIN_NAMESPACE
+ class QQuickItem;
+diff '--color=auto' -ur audacity-4.0.0.orig/muse/framework/dockwindow/thirdparty/KDDockWidgets/src/private/quick/DockWidgetInstantiator.cpp audacity-4.0.0/muse/framework/dockwindow/thirdparty/KDDockWidgets/src/private/quick/DockWidgetInstantiator.cpp
+--- audacity-4.0.0.orig/muse/framework/dockwindow/thirdparty/KDDockWidgets/src/private/quick/DockWidgetInstantiator.cpp	2026-09-03 10:35:44.247505279 +0200
++++ audacity-4.0.0/muse/framework/dockwindow/thirdparty/KDDockWidgets/src/private/quick/DockWidgetInstantiator.cpp	2026-09-05 04:32:18.932474247 +0200
+@@ -9,7 +9,7 @@
+   Contact KDAB at <info@kdab.com> for commercial licensing options.
+ */
+ 
+-#include <QQmlContext>
++#include <QtQml/QQmlContext>
+ 
+ #include "DockWidgetInstantiator_p.h"
+ #include "DockWidgetQuick.h"
+diff '--color=auto' -ur audacity-4.0.0.orig/muse/framework/dockwindow/thirdparty/KDDockWidgets/src/private/quick/DockWidgetInstantiator_p.h audacity-4.0.0/muse/framework/dockwindow/thirdparty/KDDockWidgets/src/private/quick/DockWidgetInstantiator_p.h
+--- audacity-4.0.0.orig/muse/framework/dockwindow/thirdparty/KDDockWidgets/src/private/quick/DockWidgetInstantiator_p.h	2026-09-03 10:35:44.247577323 +0200
++++ audacity-4.0.0/muse/framework/dockwindow/thirdparty/KDDockWidgets/src/private/quick/DockWidgetInstantiator_p.h	2026-09-05 04:32:18.932503937 +0200
+@@ -14,8 +14,8 @@
+ 
+ #include "DockWidgetQuick.h"
+ 
+-#include <QQmlParserStatus>
+-#include <QQuickItem>
++#include <QtQml/QQmlParserStatus>
++#include <QtQuick/QQuickItem>
+ #include <QString>
+ 
+ #include <optional>
+diff '--color=auto' -ur audacity-4.0.0.orig/muse/framework/dockwindow/thirdparty/KDDockWidgets/src/private/quick/FloatingWindowQuick.cpp audacity-4.0.0/muse/framework/dockwindow/thirdparty/KDDockWidgets/src/private/quick/FloatingWindowQuick.cpp
+--- audacity-4.0.0.orig/muse/framework/dockwindow/thirdparty/KDDockWidgets/src/private/quick/FloatingWindowQuick.cpp	2026-09-03 10:35:44.247659409 +0200
++++ audacity-4.0.0/muse/framework/dockwindow/thirdparty/KDDockWidgets/src/private/quick/FloatingWindowQuick.cpp	2026-09-05 04:32:18.932534867 +0200
+@@ -21,7 +21,7 @@
+ #include "../DropArea_p.h"
+ #include "../WidgetResizeHandler_p.h"
+ 
+-#include <QQuickView>
++#include <QtQuick/QQuickView>
+ #include <QDebug>
+ 
+ using namespace KDDockWidgets;
+diff '--color=auto' -ur audacity-4.0.0.orig/muse/framework/dockwindow/thirdparty/KDDockWidgets/src/private/quick/Helpers.cpp audacity-4.0.0/muse/framework/dockwindow/thirdparty/KDDockWidgets/src/private/quick/Helpers.cpp
+--- audacity-4.0.0.orig/muse/framework/dockwindow/thirdparty/KDDockWidgets/src/private/quick/Helpers.cpp	2026-09-03 10:35:44.247952001 +0200
++++ audacity-4.0.0/muse/framework/dockwindow/thirdparty/KDDockWidgets/src/private/quick/Helpers.cpp	2026-09-05 04:32:18.932560647 +0200
+@@ -12,7 +12,7 @@
+ #include "Helpers_p.h"
+ #include "QWidgetAdapter.h"
+ 
+-#include <QQuickItem>
++#include <QtQuick/QQuickItem>
+ 
+ using namespace KDDockWidgets;
+ 
+diff '--color=auto' -ur audacity-4.0.0.orig/muse/framework/dockwindow/thirdparty/KDDockWidgets/src/private/quick/LayoutSaverInstantiator.cpp audacity-4.0.0/muse/framework/dockwindow/thirdparty/KDDockWidgets/src/private/quick/LayoutSaverInstantiator.cpp
+--- audacity-4.0.0.orig/muse/framework/dockwindow/thirdparty/KDDockWidgets/src/private/quick/LayoutSaverInstantiator.cpp	2026-09-03 10:35:44.248089922 +0200
++++ audacity-4.0.0/muse/framework/dockwindow/thirdparty/KDDockWidgets/src/private/quick/LayoutSaverInstantiator.cpp	2026-09-05 04:32:18.932583596 +0200
+@@ -18,8 +18,8 @@
+ 
+ #include "LayoutSaverInstantiator_p.h"
+ 
+-#include <QQmlContext>
+-#include <QQmlEngine>
++#include <QtQml/QQmlContext>
++#include <QtQml/QQmlEngine>
+ 
+ using namespace KDDockWidgets;
+ 
+diff '--color=auto' -ur audacity-4.0.0.orig/muse/framework/dockwindow/thirdparty/KDDockWidgets/src/private/quick/LayoutSaverInstantiator_p.h audacity-4.0.0/muse/framework/dockwindow/thirdparty/KDDockWidgets/src/private/quick/LayoutSaverInstantiator_p.h
+--- audacity-4.0.0.orig/muse/framework/dockwindow/thirdparty/KDDockWidgets/src/private/quick/LayoutSaverInstantiator_p.h	2026-09-03 10:35:44.248160257 +0200
++++ audacity-4.0.0/muse/framework/dockwindow/thirdparty/KDDockWidgets/src/private/quick/LayoutSaverInstantiator_p.h	2026-09-05 04:32:18.932606176 +0200
+@@ -16,7 +16,7 @@
+ #include "LayoutSaver.h"
+ 
+ #include <QObject>
+-#include <QQmlParserStatus>
++#include <QtQml/QQmlParserStatus>
+ 
+ class QQuickItem;
+ 
+diff '--color=auto' -ur audacity-4.0.0.orig/muse/framework/dockwindow/thirdparty/KDDockWidgets/src/private/quick/MainWindowInstantiator.cpp audacity-4.0.0/muse/framework/dockwindow/thirdparty/KDDockWidgets/src/private/quick/MainWindowInstantiator.cpp
+--- audacity-4.0.0.orig/muse/framework/dockwindow/thirdparty/KDDockWidgets/src/private/quick/MainWindowInstantiator.cpp	2026-09-03 10:35:44.248231968 +0200
++++ audacity-4.0.0/muse/framework/dockwindow/thirdparty/KDDockWidgets/src/private/quick/MainWindowInstantiator.cpp	2026-09-05 04:32:18.932633136 +0200
+@@ -9,7 +9,7 @@
+   Contact KDAB at <info@kdab.com> for commercial licensing options.
+ */
+ 
+-#include <QQmlContext>
++#include <QtQml/QQmlContext>
+ 
+ #include "MainWindowInstantiator_p.h"
+ #include "MainWindowQuick_p.h"
+diff '--color=auto' -ur audacity-4.0.0.orig/muse/framework/dockwindow/thirdparty/KDDockWidgets/src/private/quick/MainWindowInstantiator_p.h audacity-4.0.0/muse/framework/dockwindow/thirdparty/KDDockWidgets/src/private/quick/MainWindowInstantiator_p.h
+--- audacity-4.0.0.orig/muse/framework/dockwindow/thirdparty/KDDockWidgets/src/private/quick/MainWindowInstantiator_p.h	2026-09-03 10:35:44.248305428 +0200
++++ audacity-4.0.0/muse/framework/dockwindow/thirdparty/KDDockWidgets/src/private/quick/MainWindowInstantiator_p.h	2026-09-05 04:32:18.932670036 +0200
+@@ -15,7 +15,7 @@
+ #include "kddockwidgets/docks_export.h"
+ #include "kddockwidgets/KDDockWidgets.h"
+ 
+-#include <QQuickItem>
++#include <QtQuick/QQuickItem>
+ 
+ namespace KDDockWidgets {
+ 
+diff '--color=auto' -ur audacity-4.0.0.orig/muse/framework/dockwindow/thirdparty/KDDockWidgets/src/private/quick/QmlTypes.cpp audacity-4.0.0/muse/framework/dockwindow/thirdparty/KDDockWidgets/src/private/quick/QmlTypes.cpp
+--- audacity-4.0.0.orig/muse/framework/dockwindow/thirdparty/KDDockWidgets/src/private/quick/QmlTypes.cpp	2026-09-03 10:35:44.248685440 +0200
++++ audacity-4.0.0/muse/framework/dockwindow/thirdparty/KDDockWidgets/src/private/quick/QmlTypes.cpp	2026-09-05 04:32:18.932718796 +0200
+@@ -20,7 +20,7 @@
+ #include "MainWindowInstantiator_p.h"
+ #include "LayoutSaverInstantiator_p.h"
+ 
+-#include <QQmlEngine>
++#include <QtQml/QQmlEngine>
+ #include <QDebug>
+ 
+ void KDDockWidgets::registerQmlTypes()
+diff '--color=auto' -ur audacity-4.0.0.orig/muse/framework/dockwindow/thirdparty/KDDockWidgets/src/private/quick/QWidgetAdapter_quick.cpp audacity-4.0.0/muse/framework/dockwindow/thirdparty/KDDockWidgets/src/private/quick/QWidgetAdapter_quick.cpp
+--- audacity-4.0.0.orig/muse/framework/dockwindow/thirdparty/KDDockWidgets/src/private/quick/QWidgetAdapter_quick.cpp	2026-09-03 10:35:44.248509059 +0200
++++ audacity-4.0.0/muse/framework/dockwindow/thirdparty/KDDockWidgets/src/private/quick/QWidgetAdapter_quick.cpp	2026-09-05 04:32:18.932784516 +0200
+@@ -28,9 +28,9 @@
+ #include <QResizeEvent>
+ #include <QMouseEvent>
+ #include <QQmlComponent>
+-#include <QQuickItem>
+-#include <QQmlEngine>
+-#include <QQuickView>
++#include <QtQuick/QQuickItem>
++#include <QtQml/QQmlEngine>
++#include <QtQuick/QQuickView>
+ #include <QScopedValueRollback>
+ 
+ #include <qpa/qplatformwindow.h>
+diff '--color=auto' -ur audacity-4.0.0.orig/muse/framework/dockwindow/thirdparty/KDDockWidgets/src/private/quick/QWidgetAdapter_quick_p.h audacity-4.0.0/muse/framework/dockwindow/thirdparty/KDDockWidgets/src/private/quick/QWidgetAdapter_quick_p.h
+--- audacity-4.0.0.orig/muse/framework/dockwindow/thirdparty/KDDockWidgets/src/private/quick/QWidgetAdapter_quick_p.h	2026-09-03 10:35:44.248619729 +0200
++++ audacity-4.0.0/muse/framework/dockwindow/thirdparty/KDDockWidgets/src/private/quick/QWidgetAdapter_quick_p.h	2026-09-05 04:32:18.932832076 +0200
+@@ -24,10 +24,10 @@
+ #include "kddockwidgets/docks_export.h"
+ #include "kddockwidgets/Qt5Qt6Compat_p.h"
+ 
+-#include <QQuickItem>
++#include <QtQuick/QQuickItem>
+ #include <QObject>
+ #include <QCloseEvent>
+-#include <QQuickWindow>
++#include <QtQuick/QQuickWindow>
+ #include <QScreen>
+ 
+ QT_BEGIN_NAMESPACE
+diff '--color=auto' -ur audacity-4.0.0.orig/muse/framework/dockwindow/thirdparty/KDDockWidgets/src/private/quick/TabWidgetQuick_p.h audacity-4.0.0/muse/framework/dockwindow/thirdparty/KDDockWidgets/src/private/quick/TabWidgetQuick_p.h
+--- audacity-4.0.0.orig/muse/framework/dockwindow/thirdparty/KDDockWidgets/src/private/quick/TabWidgetQuick_p.h	2026-09-03 10:35:44.249149454 +0200
++++ audacity-4.0.0/muse/framework/dockwindow/thirdparty/KDDockWidgets/src/private/quick/TabWidgetQuick_p.h	2026-09-05 04:32:18.932858846 +0200
+@@ -22,7 +22,7 @@
+ #include "../TabWidget_p.h"
+ #include "QWidgetAdapter_quick_p.h"
+ 
+-#include <QQuickItem>
++#include <QtQuick/QQuickItem>
+ #include <QAbstractListModel>
+ 
+ namespace KDDockWidgets {
+diff '--color=auto' -ur audacity-4.0.0.orig/muse/framework/dockwindow/thirdparty/KDDockWidgets/src/private/Utils_p.h audacity-4.0.0/muse/framework/dockwindow/thirdparty/KDDockWidgets/src/private/Utils_p.h
+--- audacity-4.0.0.orig/muse/framework/dockwindow/thirdparty/KDDockWidgets/src/private/Utils_p.h	2026-09-03 10:35:44.244044550 +0200
++++ audacity-4.0.0/muse/framework/dockwindow/thirdparty/KDDockWidgets/src/private/Utils_p.h	2026-09-05 04:32:18.932897245 +0200
+@@ -23,8 +23,8 @@
+ #ifdef KDDOCKWIDGETS_QTQUICK
+ #include "private/quick/TitleBarQuick_p.h"
+ 
+-#include <QQuickItem>
+-#include <QQuickView>
++#include <QtQuick/QQuickItem>
++#include <QtQuick/QQuickView>
+ #include <QGuiApplication>
+ #else
+ #include <QApplication>
+diff '--color=auto' -ur audacity-4.0.0.orig/muse/framework/dockwindow_v2/docktypes.h audacity-4.0.0/muse/framework/dockwindow_v2/docktypes.h
+--- audacity-4.0.0.orig/muse/framework/dockwindow_v2/docktypes.h	2026-09-03 10:35:44.252043707 +0200
++++ audacity-4.0.0/muse/framework/dockwindow_v2/docktypes.h	2026-09-05 04:32:18.932927045 +0200
+@@ -26,7 +26,7 @@
+ #include <QVariant>
+ #include <QRect>
+ 
+-#include <qqmlintegration.h>
++#include <QtQmlIntegration/qqmlintegration.h>
+ 
+ namespace muse::dock {
+ constexpr const char* CONTEXT_MENU_MODEL_PROPERTY("contextMenuModel");
+diff '--color=auto' -ur audacity-4.0.0.orig/muse/framework/dockwindow_v2/idockwindow.h audacity-4.0.0/muse/framework/dockwindow_v2/idockwindow.h
+--- audacity-4.0.0.orig/muse/framework/dockwindow_v2/idockwindow.h	2026-09-03 10:35:44.252108084 +0200
++++ audacity-4.0.0/muse/framework/dockwindow_v2/idockwindow.h	2026-09-05 04:32:18.932946165 +0200
+@@ -22,7 +22,7 @@
+ #ifndef MUSE_DOCK_IDOCKWINDOW_H
+ #define MUSE_DOCK_IDOCKWINDOW_H
+ 
+-#include <QQuickItem>
++#include <QtQuick/QQuickItem>
+ #include <QString>
+ 
+ #include "async/channel.h"
+diff '--color=auto' -ur audacity-4.0.0.orig/muse/framework/dockwindow_v2/internal/dockbase.h audacity-4.0.0/muse/framework/dockwindow_v2/internal/dockbase.h
+--- audacity-4.0.0.orig/muse/framework/dockwindow_v2/internal/dockbase.h	2026-09-03 10:35:44.252423052 +0200
++++ audacity-4.0.0/muse/framework/dockwindow_v2/internal/dockbase.h	2026-09-05 04:32:18.932972025 +0200
+@@ -22,8 +22,8 @@
+ 
+ #pragma once
+ 
+-#include <QQuickItem>
+-#include <qqmlintegration.h>
++#include <QtQuick/QQuickItem>
++#include <QtQmlIntegration/qqmlintegration.h>
+ 
+ #include "global/modularity/ioc.h"
+ 
+diff '--color=auto' -ur audacity-4.0.0.orig/muse/framework/dockwindow_v2/internal/docktabbar.h audacity-4.0.0/muse/framework/dockwindow_v2/internal/docktabbar.h
+--- audacity-4.0.0.orig/muse/framework/dockwindow_v2/internal/docktabbar.h	2026-09-03 10:35:44.252910025 +0200
++++ audacity-4.0.0/muse/framework/dockwindow_v2/internal/docktabbar.h	2026-09-05 04:32:18.932996425 +0200
+@@ -23,7 +23,7 @@
+ #ifndef MUSE_DOCK_DOCKTABBAR_H
+ #define MUSE_DOCK_DOCKTABBAR_H
+ 
+-#include <QQuickItem>
++#include <QtQuick/QQuickItem>
+ 
+ #include "kddockwidgets/src/qtquick/views/TabBar.h"
+ 
+diff '--color=auto' -ur audacity-4.0.0.orig/muse/framework/dockwindow_v2/qml/Muse/Dock/dockframemodel.cpp audacity-4.0.0/muse/framework/dockwindow_v2/qml/Muse/Dock/dockframemodel.cpp
+--- audacity-4.0.0.orig/muse/framework/dockwindow_v2/qml/Muse/Dock/dockframemodel.cpp	2026-09-03 10:35:44.255166051 +0200
++++ audacity-4.0.0/muse/framework/dockwindow_v2/qml/Muse/Dock/dockframemodel.cpp	2026-09-05 04:32:18.933027145 +0200
+@@ -22,7 +22,7 @@
+ 
+ #include "dockframemodel.h"
+ 
+-#include <QQuickItem>
++#include <QtQuick/QQuickItem>
+ #include <QGuiApplication>
+ 
+ #include "kddockwidgets/src/core/Group.h"
+diff '--color=auto' -ur audacity-4.0.0.orig/muse/framework/dockwindow_v2/qml/Muse/Dock/dockframemodel.h audacity-4.0.0/muse/framework/dockwindow_v2/qml/Muse/Dock/dockframemodel.h
+--- audacity-4.0.0.orig/muse/framework/dockwindow_v2/qml/Muse/Dock/dockframemodel.h	2026-09-03 10:35:44.255224386 +0200
++++ audacity-4.0.0/muse/framework/dockwindow_v2/qml/Muse/Dock/dockframemodel.h	2026-09-05 04:32:18.933051155 +0200
+@@ -23,8 +23,8 @@
+ #pragma once
+ 
+ #include <QPointer>
+-#include <QQuickItem>
+-#include <qqmlintegration.h>
++#include <QtQuick/QQuickItem>
++#include <QtQmlIntegration/qqmlintegration.h>
+ 
+ #include "modularity/ioc.h"
+ #include "actions/iactionsdispatcher.h"
+diff '--color=auto' -ur audacity-4.0.0.orig/muse/framework/dockwindow_v2/qml/Muse/Dock/dockpageview.h audacity-4.0.0/muse/framework/dockwindow_v2/qml/Muse/Dock/dockpageview.h
+--- audacity-4.0.0.orig/muse/framework/dockwindow_v2/qml/Muse/Dock/dockpageview.h	2026-09-03 10:35:44.255478935 +0200
++++ audacity-4.0.0/muse/framework/dockwindow_v2/qml/Muse/Dock/dockpageview.h	2026-09-05 04:32:18.933071765 +0200
+@@ -22,8 +22,8 @@
+ 
+ #pragma once
+ 
+-#include <QQuickItem>
+-#include <qqmlintegration.h>
++#include <QtQuick/QQuickItem>
++#include <QtQmlIntegration/qqmlintegration.h>
+ 
+ #include "uicomponents/qml/Muse/UiComponents/qmllistproperty.h"
+ 
+diff '--color=auto' -ur audacity-4.0.0.orig/muse/framework/dockwindow_v2/qml/Muse/Dock/docktabsmodel.h audacity-4.0.0/muse/framework/dockwindow_v2/qml/Muse/Dock/docktabsmodel.h
+--- audacity-4.0.0.orig/muse/framework/dockwindow_v2/qml/Muse/Dock/docktabsmodel.h	2026-09-03 10:35:44.255848738 +0200
++++ audacity-4.0.0/muse/framework/dockwindow_v2/qml/Muse/Dock/docktabsmodel.h	2026-09-05 04:32:18.933092145 +0200
+@@ -24,7 +24,7 @@
+ 
+ #include <QAbstractListModel>
+ #include <QObject>
+-#include <qqmlintegration.h>
++#include <QtQmlIntegration/qqmlintegration.h>
+ 
+ namespace KDDockWidgets {
+ namespace Core {
+diff '--color=auto' -ur audacity-4.0.0.orig/muse/framework/dockwindow_v2/qml/Muse/Dock/dockwindow.h audacity-4.0.0/muse/framework/dockwindow_v2/qml/Muse/Dock/dockwindow.h
+--- audacity-4.0.0.orig/muse/framework/dockwindow_v2/qml/Muse/Dock/dockwindow.h	2026-09-03 10:35:44.257513621 +0200
++++ audacity-4.0.0/muse/framework/dockwindow_v2/qml/Muse/Dock/dockwindow.h	2026-09-05 04:32:18.933113255 +0200
+@@ -22,8 +22,8 @@
+ 
+ #pragma once
+ 
+-#include <QQuickItem>
+-#include <qqmlintegration.h>
++#include <QtQuick/QQuickItem>
++#include <QtQmlIntegration/qqmlintegration.h>
+ 
+ #include "async/asyncable.h"
+ #include "uicomponents/qml/Muse/UiComponents/qmllistproperty.h"
+diff '--color=auto' -ur audacity-4.0.0.orig/muse/framework/dockwindow_v2/qml/Muse/Dock/foreign.h audacity-4.0.0/muse/framework/dockwindow_v2/qml/Muse/Dock/foreign.h
+--- audacity-4.0.0.orig/muse/framework/dockwindow_v2/qml/Muse/Dock/foreign.h	2026-09-03 10:35:44.257624666 +0200
++++ audacity-4.0.0/muse/framework/dockwindow_v2/qml/Muse/Dock/foreign.h	2026-09-05 04:32:18.933132125 +0200
+@@ -22,7 +22,7 @@
+ 
+ #pragma once
+ 
+-#include <qqmlintegration.h>
++#include <QtQmlIntegration/qqmlintegration.h>
+ 
+ #include "internal/dockbase.h" // IWYU pragma: keep
+ #include "docktypes.h" // IWYU pragma: keep
+diff '--color=auto' -ur audacity-4.0.0.orig/muse/framework/extensions/api/v1/extapiv1.cpp audacity-4.0.0/muse/framework/extensions/api/v1/extapiv1.cpp
+--- audacity-4.0.0.orig/muse/framework/extensions/api/v1/extapiv1.cpp	2026-09-03 10:35:44.282905383 +0200
++++ audacity-4.0.0/muse/framework/extensions/api/v1/extapiv1.cpp	2026-09-05 04:32:18.933156685 +0200
+@@ -21,7 +21,7 @@
+  */
+ #include "extapiv1.h"
+ 
+-#include <qqml.h>
++#include <QtQml/qqml.h>
+ 
+ #include "messagedialog.h"
+ #include "filedialog.h"
+diff '--color=auto' -ur audacity-4.0.0.orig/muse/framework/extensions/api/v1/iapiv1object.h audacity-4.0.0/muse/framework/extensions/api/v1/iapiv1object.h
+--- audacity-4.0.0.orig/muse/framework/extensions/api/v1/iapiv1object.h	2026-09-03 10:35:44.283321187 +0200
++++ audacity-4.0.0/muse/framework/extensions/api/v1/iapiv1object.h	2026-09-05 04:32:18.933175854 +0200
+@@ -22,7 +22,7 @@
+ #ifndef MUSE_EXTENSIONS_APIV1_IAPIV1OBJECT_H
+ #define MUSE_EXTENSIONS_APIV1_IAPIV1OBJECT_H
+ 
+-#include <QJSValue>
++#include <QtQml/QJSValue>
+ 
+ namespace muse::extensions::apiv1 {
+ class IApiV1Object
+diff '--color=auto' -ur audacity-4.0.0.orig/muse/framework/extensions/iextensionsession.h audacity-4.0.0/muse/framework/extensions/iextensionsession.h
+--- audacity-4.0.0.orig/muse/framework/extensions/iextensionsession.h	2026-09-03 10:35:44.284627851 +0200
++++ audacity-4.0.0/muse/framework/extensions/iextensionsession.h	2026-09-05 04:32:18.933193874 +0200
+@@ -18,7 +18,7 @@
+  */
+ #pragma once
+ 
+-#include <QJSValue>
++#include <QtQml/QJSValue>
+ #include <QVariant>
+ 
+ #include "global/types/retval.h"
+diff '--color=auto' -ur audacity-4.0.0.orig/muse/framework/extensions/internal/extensionsession.h audacity-4.0.0/muse/framework/extensions/internal/extensionsession.h
+--- audacity-4.0.0.orig/muse/framework/extensions/internal/extensionsession.h	2026-09-03 10:35:44.285886889 +0200
++++ audacity-4.0.0/muse/framework/extensions/internal/extensionsession.h	2026-09-05 04:32:18.933212354 +0200
+@@ -19,6 +19,7 @@
+ #pragma once
+ 
+ #include "../iextensionsession.h"
++#include "../extensionstypes.h"
+ #include "scriptengine.h"
+ 
+ namespace muse::extensions {
+diff '--color=auto' -ur audacity-4.0.0.orig/muse/framework/extensions/internal/extensionsuiengine.cpp audacity-4.0.0/muse/framework/extensions/internal/extensionsuiengine.cpp
+--- audacity-4.0.0.orig/muse/framework/extensions/internal/extensionsuiengine.cpp	2026-09-03 10:35:44.286735873 +0200
++++ audacity-4.0.0/muse/framework/extensions/internal/extensionsuiengine.cpp	2026-09-05 04:32:18.933232204 +0200
+@@ -21,8 +21,8 @@
+  */
+ #include "extensionsuiengine.h"
+ 
+-#include <QQmlEngine>
+-#include <QQmlContext>
++#include <QtQml/QQmlEngine>
++#include <QtQml/QQmlContext>
+ 
+ #include "global/api/apiutils.h"
+ 
+diff '--color=auto' -ur audacity-4.0.0.orig/muse/framework/extensions/internal/jsmoduleloader.h audacity-4.0.0/muse/framework/extensions/internal/jsmoduleloader.h
+--- audacity-4.0.0.orig/muse/framework/extensions/internal/jsmoduleloader.h	2026-09-03 10:35:44.286969922 +0200
++++ audacity-4.0.0/muse/framework/extensions/internal/jsmoduleloader.h	2026-09-05 04:32:18.933251964 +0200
+@@ -23,7 +23,7 @@
+ #define MUSE_EXTENSIONS__H
+ 
+ #include <QObject>
+-#include <QJSValue>
++#include <QtQml/QJSValue>
+ #include <QList>
+ 
+ #include "modularity/ioc.h"
+diff '--color=auto' -ur audacity-4.0.0.orig/muse/framework/extensions/internal/scriptengine.h audacity-4.0.0/muse/framework/extensions/internal/scriptengine.h
+--- audacity-4.0.0.orig/muse/framework/extensions/internal/scriptengine.h	2026-09-03 10:35:44.287556397 +0200
++++ audacity-4.0.0/muse/framework/extensions/internal/scriptengine.h	2026-09-05 04:32:18.933271004 +0200
+@@ -23,8 +23,8 @@
+ #define MUSE_EXTENSIONS_SCRIPTENGINE_H
+ 
+ #include <QString>
+-#include <QJSValue>
+-#include <QJSEngine>
++#include <QtQml/QJSValue>
++#include <QtQml/QJSEngine>
+ #include <QVariantMap>
+ #include <QByteArray>
+ 
+diff '--color=auto' -ur audacity-4.0.0.orig/muse/framework/extensions/qml/Muse/Extensions/devtools/apidumpmodel.h audacity-4.0.0/muse/framework/extensions/qml/Muse/Extensions/devtools/apidumpmodel.h
+--- audacity-4.0.0.orig/muse/framework/extensions/qml/Muse/Extensions/devtools/apidumpmodel.h	2026-09-03 10:35:44.288454924 +0200
++++ audacity-4.0.0/muse/framework/extensions/qml/Muse/Extensions/devtools/apidumpmodel.h	2026-09-05 04:32:18.933294414 +0200
+@@ -24,7 +24,7 @@
+ #include <QAbstractListModel>
+ #include <QList>
+ #include <QString>
+-#include <qqmlintegration.h>
++#include <QtQmlIntegration/qqmlintegration.h>
+ 
+ #include "modularity/ioc.h"
+ #include "global/api/iapiregister.h"
+diff '--color=auto' -ur audacity-4.0.0.orig/muse/framework/extensions/qml/Muse/Extensions/devtools/devextensionslistmodel.h audacity-4.0.0/muse/framework/extensions/qml/Muse/Extensions/devtools/devextensionslistmodel.h
+--- audacity-4.0.0.orig/muse/framework/extensions/qml/Muse/Extensions/devtools/devextensionslistmodel.h	2026-09-03 10:35:44.288599679 +0200
++++ audacity-4.0.0/muse/framework/extensions/qml/Muse/Extensions/devtools/devextensionslistmodel.h	2026-09-05 04:32:18.933314614 +0200
+@@ -23,7 +23,7 @@
+ #pragma once
+ 
+ #include <QObject>
+-#include <qqmlintegration.h>
++#include <QtQmlIntegration/qqmlintegration.h>
+ 
+ #include "modularity/ioc.h"
+ #include "iextensionsprovider.h"
+diff '--color=auto' -ur audacity-4.0.0.orig/muse/framework/extensions/qml/Muse/Extensions/extensionbuilder.cpp audacity-4.0.0/muse/framework/extensions/qml/Muse/Extensions/extensionbuilder.cpp
+--- audacity-4.0.0.orig/muse/framework/extensions/qml/Muse/Extensions/extensionbuilder.cpp	2026-09-03 10:35:44.288745808 +0200
++++ audacity-4.0.0/muse/framework/extensions/qml/Muse/Extensions/extensionbuilder.cpp	2026-09-05 04:32:18.933351664 +0200
+@@ -21,7 +21,7 @@
+  */
+ #include "extensionbuilder.h"
+ 
+-#include <QQmlEngine>
++#include <QtQml/QQmlEngine>
+ 
+ #include "global/types/number.h"
+ #include "global/async/async.h"
+diff '--color=auto' -ur audacity-4.0.0.orig/muse/framework/extensions/qml/Muse/Extensions/extensionbuilder.h audacity-4.0.0/muse/framework/extensions/qml/Muse/Extensions/extensionbuilder.h
+--- audacity-4.0.0.orig/muse/framework/extensions/qml/Muse/Extensions/extensionbuilder.h	2026-09-03 10:35:44.288997941 +0200
++++ audacity-4.0.0/muse/framework/extensions/qml/Muse/Extensions/extensionbuilder.h	2026-09-05 04:32:18.933372854 +0200
+@@ -24,8 +24,8 @@
+ 
+ #include <QObject>
+ #include <QQmlComponent>
+-#include <QQuickItem>
+-#include <qqmlintegration.h>
++#include <QtQuick/QQuickItem>
++#include <QtQmlIntegration/qqmlintegration.h>
+ 
+ #include "modularity/ioc.h"
+ #include "iextensionsprovider.h"
+diff '--color=auto' -ur audacity-4.0.0.orig/muse/framework/extensions/qml/Muse/Extensions/extensionslistmodel.h audacity-4.0.0/muse/framework/extensions/qml/Muse/Extensions/extensionslistmodel.h
+--- audacity-4.0.0.orig/muse/framework/extensions/qml/Muse/Extensions/extensionslistmodel.h	2026-09-03 10:35:44.289191613 +0200
++++ audacity-4.0.0/muse/framework/extensions/qml/Muse/Extensions/extensionslistmodel.h	2026-09-05 04:32:18.933392584 +0200
+@@ -24,8 +24,8 @@
+ 
+ #include <QAbstractListModel>
+ #include <QList>
+-#include <QQmlParserStatus>
+-#include <qqmlintegration.h>
++#include <QtQml/QQmlParserStatus>
++#include <QtQmlIntegration/qqmlintegration.h>
+ 
+ #include "async/asyncable.h"
+ 
+diff '--color=auto' -ur audacity-4.0.0.orig/muse/framework/global/api/apiutils.h audacity-4.0.0/muse/framework/global/api/apiutils.h
+--- audacity-4.0.0.orig/muse/framework/global/api/apiutils.h	2026-09-03 10:35:44.291756398 +0200
++++ audacity-4.0.0/muse/framework/global/api/apiutils.h	2026-09-05 04:32:18.933417594 +0200
+@@ -25,7 +25,8 @@
+ #include <string>
+ #include <vector>
+ #include <QString>
+-#include <QJSValue>
++#include <QtQml/QJSValue>
++#include <QMetaEnum>
+ 
+ #include "apitypes.h"
+ #include "iapiengine.h"
+diff '--color=auto' -ur audacity-4.0.0.orig/muse/framework/global/api/iapiengine.h audacity-4.0.0/muse/framework/global/api/iapiengine.h
+--- audacity-4.0.0.orig/muse/framework/global/api/iapiengine.h	2026-09-03 10:35:44.291949613 +0200
++++ audacity-4.0.0/muse/framework/global/api/iapiengine.h	2026-09-05 04:32:18.933438454 +0200
+@@ -24,8 +24,8 @@
+ #include <string>
+ #include <utility>
+ 
+-#include <QJSValue>
+-#include <QJSEngine>
++#include <QtQml/QJSValue>
++#include <QtQml/QJSEngine>
+ #include <QObject>
+ 
+ #include "io/path.h"
+diff '--color=auto' -ur audacity-4.0.0.orig/muse/framework/global/api/internal/apiregister.cpp audacity-4.0.0/muse/framework/global/api/internal/apiregister.cpp
+--- audacity-4.0.0.orig/muse/framework/global/api/internal/apiregister.cpp	2026-09-03 10:35:44.292143660 +0200
++++ audacity-4.0.0/muse/framework/global/api/internal/apiregister.cpp	2026-09-05 04:32:18.933469354 +0200
+@@ -21,7 +21,7 @@
+  */
+ #include "apiregister.h"
+ 
+-#include <QQmlEngine>
++#include <QtQml/QQmlEngine>
+ #include <QMetaObject>
+ #include <QMetaMethod>
+ 
+diff '--color=auto' -ur audacity-4.0.0.orig/muse/framework/global/io/internal/filesystem.h audacity-4.0.0/muse/framework/global/io/internal/filesystem.h
+--- audacity-4.0.0.orig/muse/framework/global/io/internal/filesystem.h	2026-09-03 10:35:44.298841778 +0200
++++ audacity-4.0.0/muse/framework/global/io/internal/filesystem.h	2026-09-05 04:32:18.933497083 +0200
+@@ -28,7 +28,7 @@
+ 
+ #include "../ifilesystem.h"
+ 
+-class QFile;
++#include <QFile>
+ 
+ namespace muse::io {
+ class FileSystem : public IFileSystem
+diff '--color=auto' -ur audacity-4.0.0.orig/muse/framework/global/modularity/ioccontext.cpp audacity-4.0.0/muse/framework/global/modularity/ioccontext.cpp
+--- audacity-4.0.0.orig/muse/framework/global/modularity/ioccontext.cpp	2026-09-03 10:35:44.300786628 +0200
++++ audacity-4.0.0/muse/framework/global/modularity/ioccontext.cpp	2026-09-05 04:32:18.933516773 +0200
+@@ -25,8 +25,8 @@
+ #include "log.h"
+ 
+ #ifndef NO_QT_SUPPORT
+-#include <QQmlEngine>
+-#include <QQmlContext>
++#include <QtQml/QQmlEngine>
++#include <QtQml/QQmlContext>
+ #include <QWidget>
+ 
+ muse::Contextable::GetContext muse::iocCtxForQmlObject(const QObject* o)
+diff '--color=auto' -ur audacity-4.0.0.orig/muse/framework/interactive/api/interactiveapi.cpp audacity-4.0.0/muse/framework/interactive/api/interactiveapi.cpp
+--- audacity-4.0.0.orig/muse/framework/interactive/api/interactiveapi.cpp	2026-09-03 10:35:44.322551156 +0200
++++ audacity-4.0.0/muse/framework/interactive/api/interactiveapi.cpp	2026-09-05 04:32:18.933538833 +0200
+@@ -23,6 +23,7 @@
+ #include "interactiveapi.h"
+ 
+ #include <QUrl>
++#include <QMetaEnum>
+ 
+ using namespace muse::interactive;
+ 
+diff '--color=auto' -ur audacity-4.0.0.orig/muse/framework/interactive/iinteractive.h audacity-4.0.0/muse/framework/interactive/iinteractive.h
+--- audacity-4.0.0.orig/muse/framework/interactive/iinteractive.h	2026-09-03 10:35:44.323587562 +0200
++++ audacity-4.0.0/muse/framework/interactive/iinteractive.h	2026-09-05 04:32:18.933564173 +0200
+@@ -32,7 +32,7 @@
+ #include "async/promise.h"
+ #include "progress.h"
+ 
+-class QWindow;
++#include <QWindow>
+ 
+ namespace muse {
+ class IInteractive : MODULE_CONTEXT_INTERFACE
+diff '--color=auto' -ur audacity-4.0.0.orig/muse/framework/interactive/internal/iinteractiveprovider.h audacity-4.0.0/muse/framework/interactive/internal/iinteractiveprovider.h
+--- audacity-4.0.0.orig/muse/framework/interactive/internal/iinteractiveprovider.h	2026-09-03 10:35:44.324079785 +0200
++++ audacity-4.0.0/muse/framework/interactive/internal/iinteractiveprovider.h	2026-09-05 04:32:18.933589093 +0200
+@@ -24,6 +24,7 @@
+ 
+ #include <QObject>
+ #include <QVariant>
++#include <QWindow>
+ 
+ #include "global/async/channel.h"
+ 
+diff '--color=auto' -ur audacity-4.0.0.orig/muse/framework/interactive/internal/interactive.cpp audacity-4.0.0/muse/framework/interactive/internal/interactive.cpp
+--- audacity-4.0.0.orig/muse/framework/interactive/internal/interactive.cpp	2026-09-03 10:35:44.324232206 +0200
++++ audacity-4.0.0/muse/framework/interactive/internal/interactive.cpp	2026-09-05 04:32:18.933647873 +0200
+@@ -28,6 +28,7 @@
+ #include <QGuiApplication>
+ #include <QMetaProperty>
+ #include <QMetaType>
++#include <QtQml/QQmlEngine>
+ #include <QUrl>
+ #include <QWidget>
+ #include <QWindow>
+diff '--color=auto' -ur audacity-4.0.0.orig/muse/framework/interactive/internal/interactive.h audacity-4.0.0/muse/framework/interactive/internal/interactive.h
+--- audacity-4.0.0.orig/muse/framework/interactive/internal/interactive.h	2026-09-03 10:35:44.324491381 +0200
++++ audacity-4.0.0/muse/framework/interactive/internal/interactive.h	2026-09-05 04:32:18.933699933 +0200
+@@ -26,6 +26,7 @@
+ #include <QVariant>
+ #include <QMap>
+ #include <QStack>
++#include <QWindow>
+ 
+ #include "async/asyncable.h"
+ 
+diff '--color=auto' -ur audacity-4.0.0.orig/muse/framework/interactive/qml/Muse/Interactive/dev/interactivetestsmodel.h audacity-4.0.0/muse/framework/interactive/qml/Muse/Interactive/dev/interactivetestsmodel.h
+--- audacity-4.0.0.orig/muse/framework/interactive/qml/Muse/Interactive/dev/interactivetestsmodel.h	2026-09-03 10:35:44.328116448 +0200
++++ audacity-4.0.0/muse/framework/interactive/qml/Muse/Interactive/dev/interactivetestsmodel.h	2026-09-05 04:32:18.933728263 +0200
+@@ -24,7 +24,7 @@
+ 
+ #include <QObject>
+ 
+-#include <qqmlintegration.h>
++#include <QtQmlIntegration/qqmlintegration.h>
+ 
+ #include "modularity/ioc.h"
+ #include "async/asyncable.h"
+diff '--color=auto' -ur audacity-4.0.0.orig/muse/framework/interactive/qml/Muse/Interactive/errordetailsmodel.h audacity-4.0.0/muse/framework/interactive/qml/Muse/Interactive/errordetailsmodel.h
+--- audacity-4.0.0.orig/muse/framework/interactive/qml/Muse/Interactive/errordetailsmodel.h	2026-09-03 10:35:44.328260202 +0200
++++ audacity-4.0.0/muse/framework/interactive/qml/Muse/Interactive/errordetailsmodel.h	2026-09-05 04:32:18.933747273 +0200
+@@ -24,7 +24,7 @@
+ 
+ #include <QAbstractListModel>
+ 
+-#include <qqmlintegration.h>
++#include <QtQmlIntegration/qqmlintegration.h>
+ 
+ namespace muse::interactive {
+ class ErrorDetailsModel : public QAbstractListModel
+diff '--color=auto' -ur audacity-4.0.0.orig/muse/framework/interactive/qml/Muse/Interactive/interactiveprovidermodel.h audacity-4.0.0/muse/framework/interactive/qml/Muse/Interactive/interactiveprovidermodel.h
+--- audacity-4.0.0.orig/muse/framework/interactive/qml/Muse/Interactive/interactiveprovidermodel.h	2026-09-03 10:35:44.328434041 +0200
++++ audacity-4.0.0/muse/framework/interactive/qml/Muse/Interactive/interactiveprovidermodel.h	2026-09-05 04:32:18.933766223 +0200
+@@ -23,8 +23,9 @@
+ #pragma once
+ 
+ #include <QObject>
+-#include <QQmlParserStatus>
+-#include <qqmlintegration.h>
++#include <QtQml/QQmlParserStatus>
++#include <QtQmlIntegration/qqmlintegration.h>
++#include <QWindow>
+ 
+ #include "global/async/asyncable.h"
+ 
+diff '--color=auto' -ur audacity-4.0.0.orig/muse/framework/interactive/qml/Muse/Interactive/interactiveqmltypes.h audacity-4.0.0/muse/framework/interactive/qml/Muse/Interactive/interactiveqmltypes.h
+--- audacity-4.0.0.orig/muse/framework/interactive/qml/Muse/Interactive/interactiveqmltypes.h	2026-09-03 10:35:44.328583670 +0200
++++ audacity-4.0.0/muse/framework/interactive/qml/Muse/Interactive/interactiveqmltypes.h	2026-09-05 04:32:18.933784302 +0200
+@@ -22,7 +22,7 @@
+ 
+ #pragma once
+ 
+-#include <qqmlintegration.h>
++#include <QtQmlIntegration/qqmlintegration.h>
+ 
+ #include "interactivetypes.h"
+ 
+diff '--color=auto' -ur audacity-4.0.0.orig/muse/framework/interactive/qml/Muse/Interactive/progressdialogmodel.h audacity-4.0.0/muse/framework/interactive/qml/Muse/Interactive/progressdialogmodel.h
+--- audacity-4.0.0.orig/muse/framework/interactive/qml/Muse/Interactive/progressdialogmodel.h	2026-09-03 10:35:44.328723799 +0200
++++ audacity-4.0.0/muse/framework/interactive/qml/Muse/Interactive/progressdialogmodel.h	2026-09-05 04:32:18.933804902 +0200
+@@ -24,7 +24,7 @@
+ 
+ #include <QObject>
+ 
+-#include <qqmlintegration.h>
++#include <QtQmlIntegration/qqmlintegration.h>
+ 
+ #include "async/asyncable.h"
+ #include "progress.h"
+diff '--color=auto' -ur audacity-4.0.0.orig/muse/framework/interactive/tests/mocks/interactivemock.h audacity-4.0.0/muse/framework/interactive/tests/mocks/interactivemock.h
+--- audacity-4.0.0.orig/muse/framework/interactive/tests/mocks/interactivemock.h	2026-09-03 10:35:44.328943014 +0200
++++ audacity-4.0.0/muse/framework/interactive/tests/mocks/interactivemock.h	2026-09-05 04:32:18.933826062 +0200
+@@ -23,6 +23,7 @@
+ #pragma once
+ 
+ #include <gmock/gmock.h>
++#include <QWindow>
+ 
+ #include "interactive/iinteractive.h"
+ 
+diff '--color=auto' -ur audacity-4.0.0.orig/muse/framework/languages/internal/languagesservice.cpp audacity-4.0.0/muse/framework/languages/internal/languagesservice.cpp
+--- audacity-4.0.0.orig/muse/framework/languages/internal/languagesservice.cpp	2026-09-03 10:35:44.329474739 +0200
++++ audacity-4.0.0/muse/framework/languages/internal/languagesservice.cpp	2026-09-05 04:32:18.933860032 +0200
+@@ -28,7 +28,7 @@
+ #include <QJsonDocument>
+ #include <QJsonObject>
+ #include <QJsonParseError>
+-#include <QQmlEngine>
++#include <QtQml/QQmlEngine>
+ #include <QTranslator>
+ 
+ #include "languageserrors.h"
+diff '--color=auto' -ur audacity-4.0.0.orig/muse/framework/midiremote/qml/Muse/MidiRemote/editmidimappingmodel.h audacity-4.0.0/muse/framework/midiremote/qml/Muse/MidiRemote/editmidimappingmodel.h
+--- audacity-4.0.0.orig/muse/framework/midiremote/qml/Muse/MidiRemote/editmidimappingmodel.h	2026-09-03 10:35:44.368966507 +0200
++++ audacity-4.0.0/muse/framework/midiremote/qml/Muse/MidiRemote/editmidimappingmodel.h	2026-09-05 04:32:18.933894802 +0200
+@@ -23,7 +23,7 @@
+ #pragma once
+ 
+ #include <QObject>
+-#include <qqmlintegration.h>
++#include <QtQmlIntegration/qqmlintegration.h>
+ 
+ #include "modularity/ioc.h"
+ #include "async/asyncable.h"
+diff '--color=auto' -ur audacity-4.0.0.orig/muse/framework/midiremote/qml/Muse/MidiRemote/mididevicemappingmodel.h audacity-4.0.0/muse/framework/midiremote/qml/Muse/MidiRemote/mididevicemappingmodel.h
+--- audacity-4.0.0.orig/muse/framework/midiremote/qml/Muse/MidiRemote/mididevicemappingmodel.h	2026-09-03 10:35:44.369379311 +0200
++++ audacity-4.0.0/muse/framework/midiremote/qml/Muse/MidiRemote/mididevicemappingmodel.h	2026-09-05 04:32:18.933914002 +0200
+@@ -24,7 +24,7 @@
+ 
+ #include <QAbstractListModel>
+ #include <QItemSelection>
+-#include <qqmlintegration.h>
++#include <QtQmlIntegration/qqmlintegration.h>
+ 
+ #include "async/asyncable.h"
+ 
+diff '--color=auto' -ur audacity-4.0.0.orig/muse/framework/mpe/qml/Muse/Mpe/articulationpatternitem.h audacity-4.0.0/muse/framework/mpe/qml/Muse/Mpe/articulationpatternitem.h
+--- audacity-4.0.0.orig/muse/framework/mpe/qml/Muse/Mpe/articulationpatternitem.h	2026-09-03 10:35:44.372405068 +0200
++++ audacity-4.0.0/muse/framework/mpe/qml/Muse/Mpe/articulationpatternitem.h	2026-09-05 04:32:18.933937292 +0200
+@@ -24,7 +24,7 @@
+ 
+ #include <QAbstractListModel>
+ #include <QList>
+-#include <qqmlintegration.h>
++#include <QtQmlIntegration/qqmlintegration.h>
+ 
+ #include "mpetypes.h"
+ #include "articulationpatternsegmentitem.h"
+diff '--color=auto' -ur audacity-4.0.0.orig/muse/framework/mpe/qml/Muse/Mpe/articulationpatternsegmentitem.h audacity-4.0.0/muse/framework/mpe/qml/Muse/Mpe/articulationpatternsegmentitem.h
+--- audacity-4.0.0.orig/muse/framework/mpe/qml/Muse/Mpe/articulationpatternsegmentitem.h	2026-09-03 10:35:44.372582823 +0200
++++ audacity-4.0.0/muse/framework/mpe/qml/Muse/Mpe/articulationpatternsegmentitem.h	2026-09-05 04:32:18.933961172 +0200
+@@ -25,7 +25,7 @@
+ #include <QObject>
+ #include <QList>
+ #include <QPoint>
+-#include <qqmlintegration.h>
++#include <QtQmlIntegration/qqmlintegration.h>
+ 
+ #include "mpetypes.h"
+ 
+diff '--color=auto' -ur audacity-4.0.0.orig/muse/framework/mpe/qml/Muse/Mpe/articulationsprofileeditormodel.h audacity-4.0.0/muse/framework/mpe/qml/Muse/Mpe/articulationsprofileeditormodel.h
+--- audacity-4.0.0.orig/muse/framework/mpe/qml/Muse/Mpe/articulationsprofileeditormodel.h	2026-09-03 10:35:44.372802622 +0200
++++ audacity-4.0.0/muse/framework/mpe/qml/Muse/Mpe/articulationsprofileeditormodel.h	2026-09-05 04:32:18.933983322 +0200
+@@ -24,7 +24,7 @@
+ 
+ #include <QObject>
+ #include <QList>
+-#include <qqmlintegration.h>
++#include <QtQmlIntegration/qqmlintegration.h>
+ 
+ #include "modularity/ioc.h"
+ #include "interactive/iinteractive.h"
+diff '--color=auto' -ur audacity-4.0.0.orig/muse/framework/multiwindows/internal/multiprocess/ipc/ipc.cpp audacity-4.0.0/muse/framework/multiwindows/internal/multiprocess/ipc/ipc.cpp
+--- audacity-4.0.0.orig/muse/framework/multiwindows/internal/multiprocess/ipc/ipc.cpp	2026-09-03 10:35:44.376023510 +0200
++++ audacity-4.0.0/muse/framework/multiwindows/internal/multiprocess/ipc/ipc.cpp	2026-09-05 04:32:18.934010362 +0200
+@@ -27,7 +27,7 @@
+ #include <QJsonObject>
+ #include <QJsonArray>
+ 
+-#include <QLocalSocket>
++#include <QtNetwork/QLocalSocket>
+ 
+ #include "ipclog.h"
+ 
+diff '--color=auto' -ur audacity-4.0.0.orig/muse/framework/multiwindows/internal/multiprocess/ipc/ipcserver.cpp audacity-4.0.0/muse/framework/multiwindows/internal/multiprocess/ipc/ipcserver.cpp
+--- audacity-4.0.0.orig/muse/framework/multiwindows/internal/multiprocess/ipc/ipcserver.cpp	2026-09-03 10:35:44.377302424 +0200
++++ audacity-4.0.0/muse/framework/multiwindows/internal/multiprocess/ipc/ipcserver.cpp	2026-09-05 04:32:18.934037572 +0200
+@@ -21,8 +21,8 @@
+  */
+ #include "ipcserver.h"
+ 
+-#include <QLocalServer>
+-#include <QLocalSocket>
++#include <QtNetwork/QLocalServer>
++#include <QtNetwork/QLocalSocket>
+ #include <QThread>
+ 
+ #include "async/async.h"
+diff '--color=auto' -ur audacity-4.0.0.orig/muse/framework/multiwindows/internal/multiprocess/ipc/ipcsocket.cpp audacity-4.0.0/muse/framework/multiwindows/internal/multiprocess/ipc/ipcsocket.cpp
+--- audacity-4.0.0.orig/muse/framework/multiwindows/internal/multiprocess/ipc/ipcsocket.cpp	2026-09-03 10:35:44.377463137 +0200
++++ audacity-4.0.0/muse/framework/multiwindows/internal/multiprocess/ipc/ipcsocket.cpp	2026-09-05 04:32:18.934063322 +0200
+@@ -21,7 +21,7 @@
+  */
+ #include "ipcsocket.h"
+ 
+-#include <QLocalSocket>
++#include <QtNetwork/QLocalSocket>
+ #include <QUuid>
+ 
+ #include "async/async.h"
+diff '--color=auto' -ur audacity-4.0.0.orig/muse/framework/multiwindows/internal/singleinstance.cpp audacity-4.0.0/muse/framework/multiwindows/internal/singleinstance.cpp
+--- audacity-4.0.0.orig/muse/framework/multiwindows/internal/singleinstance.cpp	2026-09-03 10:35:44.378195992 +0200
++++ audacity-4.0.0/muse/framework/multiwindows/internal/singleinstance.cpp	2026-09-05 04:32:18.934086911 +0200
+@@ -22,8 +22,8 @@
+ 
+ #include "../singleinstance.h"
+ 
+-#include <QLocalServer>
+-#include <QLocalSocket>
++#include <QtNetwork/QLocalServer>
++#include <QtNetwork/QLocalSocket>
+ 
+ #include "multiprocess/ipc/ipc.h"
+ #include "multiprocess/ipc/ipclock.h"
+diff '--color=auto' -ur audacity-4.0.0.orig/muse/framework/multiwindows/internal/singleprocess/singleprocessprovider.cpp audacity-4.0.0/muse/framework/multiwindows/internal/singleprocess/singleprocessprovider.cpp
+--- audacity-4.0.0.orig/muse/framework/multiwindows/internal/singleprocess/singleprocessprovider.cpp	2026-09-03 10:35:44.378491626 +0200
++++ audacity-4.0.0/muse/framework/multiwindows/internal/singleprocess/singleprocessprovider.cpp	2026-09-05 04:32:18.934113541 +0200
+@@ -28,6 +28,8 @@
+ 
+  #include "log.h"
+ 
++#include <QCoreApplication>
++
+ using namespace muse;
+ using namespace muse::mi;
+ 
+diff '--color=auto' -ur audacity-4.0.0.orig/muse/framework/multiwindows/qml/Muse/MultiWindows/multiinstancesdevmodel.h audacity-4.0.0/muse/framework/multiwindows/qml/Muse/MultiWindows/multiinstancesdevmodel.h
+--- audacity-4.0.0.orig/muse/framework/multiwindows/qml/Muse/MultiWindows/multiinstancesdevmodel.h	2026-09-03 10:35:44.379554658 +0200
++++ audacity-4.0.0/muse/framework/multiwindows/qml/Muse/MultiWindows/multiinstancesdevmodel.h	2026-09-05 04:32:18.934139161 +0200
+@@ -23,7 +23,9 @@
+ #pragma once
+ 
+ #include <QObject>
+-#include <qqmlintegration.h>
++#include <QtQmlIntegration/qqmlintegration.h>
++#include <QVariant>
++#include <QVariantList>
+ 
+ #include "modularity/ioc.h"
+ #include "internal/multiprocess/imultiprocessprovider.h"
+diff '--color=auto' -ur audacity-4.0.0.orig/muse/framework/network/api/websocketapi.h audacity-4.0.0/muse/framework/network/api/websocketapi.h
+--- audacity-4.0.0.orig/muse/framework/network/api/websocketapi.h	2026-09-03 10:35:44.382778754 +0200
++++ audacity-4.0.0/muse/framework/network/api/websocketapi.h	2026-09-05 04:32:18.934161591 +0200
+@@ -22,7 +22,7 @@
+ #pragma once
+ 
+ #include <map>
+-#include <QJSValue>
++#include <QtQml/QJSValue>
+ #include <QUrl>
+ 
+ #include "global/api/apiobject.h"
+diff '--color=auto' -ur audacity-4.0.0.orig/muse/framework/network/networktypes.h audacity-4.0.0/muse/framework/network/networktypes.h
+--- audacity-4.0.0.orig/muse/framework/network/networktypes.h	2026-09-03 10:35:44.384070835 +0200
++++ audacity-4.0.0/muse/framework/network/networktypes.h	2026-09-05 04:32:18.934180821 +0200
+@@ -23,7 +23,7 @@
+ #pragma once
+ 
+ #include <QVariantMap>
+-#include <QNetworkRequest>
++#include <QtNetwork/QNetworkRequest>
+ 
+ class QHttpMultiPart;
+ class QIODevice;
+diff '--color=auto' -ur audacity-4.0.0.orig/muse/framework/rcommand/qml/Muse/RCommand/commandlistmodel.h audacity-4.0.0/muse/framework/rcommand/qml/Muse/RCommand/commandlistmodel.h
+--- audacity-4.0.0.orig/muse/framework/rcommand/qml/Muse/RCommand/commandlistmodel.h	2026-09-03 10:35:44.386548576 +0200
++++ audacity-4.0.0/muse/framework/rcommand/qml/Muse/RCommand/commandlistmodel.h	2026-09-05 04:32:18.934203491 +0200
+@@ -20,7 +20,7 @@
+ #pragma once
+ 
+ #include <QAbstractListModel>
+-#include <QQmlParserStatus>
++#include <QtQml/QQmlParserStatus>
+ 
+ #include "global/async/asyncable.h"
+ 
+diff '--color=auto' -ur audacity-4.0.0.orig/muse/framework/rcontrol/mcp/transport/tcptransport.cpp audacity-4.0.0/muse/framework/rcontrol/mcp/transport/tcptransport.cpp
+--- audacity-4.0.0.orig/muse/framework/rcontrol/mcp/transport/tcptransport.cpp	2026-09-03 10:35:44.387935243 +0200
++++ audacity-4.0.0/muse/framework/rcontrol/mcp/transport/tcptransport.cpp	2026-09-05 04:32:18.934241321 +0200
+@@ -19,8 +19,8 @@
+ 
+ #include "tcptransport.h"
+ 
+-#include <QTcpServer>
+-#include <QTcpSocket>
++#include <QtNetwork/QTcpServer>
++#include <QtNetwork/QTcpSocket>
+ 
+ #include "global/serialization/json.h"
+ 
+diff '--color=auto' -ur audacity-4.0.0.orig/muse/framework/shortcuts/qml/Muse/Shortcuts/editshortcutmodel.h audacity-4.0.0/muse/framework/shortcuts/qml/Muse/Shortcuts/editshortcutmodel.h
+--- audacity-4.0.0.orig/muse/framework/shortcuts/qml/Muse/Shortcuts/editshortcutmodel.h	2026-09-03 10:35:44.390203644 +0200
++++ audacity-4.0.0/muse/framework/shortcuts/qml/Muse/Shortcuts/editshortcutmodel.h	2026-09-05 04:32:18.934268281 +0200
+@@ -24,7 +24,7 @@
+ 
+ #include <QObject>
+ #include <QKeySequence>
+-#include <qqmlintegration.h>
++#include <QtQmlIntegration/qqmlintegration.h>
+ 
+ #include "global/async/asyncable.h"
+ 
+diff '--color=auto' -ur audacity-4.0.0.orig/muse/framework/shortcuts/qml/Muse/Shortcuts/platform/macos/macosshortcutsinstancemodel.h audacity-4.0.0/muse/framework/shortcuts/qml/Muse/Shortcuts/platform/macos/macosshortcutsinstancemodel.h
+--- audacity-4.0.0.orig/muse/framework/shortcuts/qml/Muse/Shortcuts/platform/macos/macosshortcutsinstancemodel.h	2026-09-03 10:35:44.390648324 +0200
++++ audacity-4.0.0/muse/framework/shortcuts/qml/Muse/Shortcuts/platform/macos/macosshortcutsinstancemodel.h	2026-09-05 04:32:18.934291791 +0200
+@@ -23,7 +23,7 @@
+ #pragma once
+ 
+ #include <QObject>
+-#include <qqmlintegration.h>
++#include <QtQmlIntegration/qqmlintegration.h>
+ 
+ #include "../../shortcutsinstancemodel.h"
+ 
+diff '--color=auto' -ur audacity-4.0.0.orig/muse/framework/shortcuts/qml/Muse/Shortcuts/shortcutsinstancemodel.h audacity-4.0.0/muse/framework/shortcuts/qml/Muse/Shortcuts/shortcutsinstancemodel.h
+--- audacity-4.0.0.orig/muse/framework/shortcuts/qml/Muse/Shortcuts/shortcutsinstancemodel.h	2026-09-03 10:35:44.391139464 +0200
++++ audacity-4.0.0/muse/framework/shortcuts/qml/Muse/Shortcuts/shortcutsinstancemodel.h	2026-09-05 04:32:18.934311331 +0200
+@@ -25,7 +25,7 @@
+ #include <QObject>
+ #include <QString>
+ #include <QList>
+-#include <qqmlintegration.h>
++#include <QtQmlIntegration/qqmlintegration.h>
+ 
+ #include "async/asyncable.h"
+ 
+diff '--color=auto' -ur audacity-4.0.0.orig/muse/framework/shortcuts/qml/Muse/Shortcuts/shortcutsmodel.h audacity-4.0.0/muse/framework/shortcuts/qml/Muse/Shortcuts/shortcutsmodel.h
+--- audacity-4.0.0.orig/muse/framework/shortcuts/qml/Muse/Shortcuts/shortcutsmodel.h	2026-09-03 10:35:44.391344220 +0200
++++ audacity-4.0.0/muse/framework/shortcuts/qml/Muse/Shortcuts/shortcutsmodel.h	2026-09-05 04:32:18.934330371 +0200
+@@ -24,7 +24,7 @@
+ 
+ #include <QAbstractListModel>
+ #include <QItemSelection>
+-#include <qqmlintegration.h>
++#include <QtQmlIntegration/qqmlintegration.h>
+ 
+ #include "modularity/ioc.h"
+ #include "ishortcutsregister.h"
+diff '--color=auto' -ur audacity-4.0.0.orig/muse/framework/shortcuts_v2/qml/Muse/Shortcuts/editshortcutmodel.h audacity-4.0.0/muse/framework/shortcuts_v2/qml/Muse/Shortcuts/editshortcutmodel.h
+--- audacity-4.0.0.orig/muse/framework/shortcuts_v2/qml/Muse/Shortcuts/editshortcutmodel.h	2026-09-03 10:35:44.394422271 +0200
++++ audacity-4.0.0/muse/framework/shortcuts_v2/qml/Muse/Shortcuts/editshortcutmodel.h	2026-09-05 04:32:18.934355271 +0200
+@@ -24,7 +24,7 @@
+ 
+ #include <QObject>
+ #include <QKeySequence>
+-#include <qqmlintegration.h>
++#include <QtQmlIntegration/qqmlintegration.h>
+ 
+ #include "global/async/asyncable.h"
+ 
+diff '--color=auto' -ur audacity-4.0.0.orig/muse/framework/shortcuts_v2/qml/Muse/Shortcuts/platform/macos/macosshortcutsinstancemodel.h audacity-4.0.0/muse/framework/shortcuts_v2/qml/Muse/Shortcuts/platform/macos/macosshortcutsinstancemodel.h
+--- audacity-4.0.0.orig/muse/framework/shortcuts_v2/qml/Muse/Shortcuts/platform/macos/macosshortcutsinstancemodel.h	2026-09-03 10:35:44.394922119 +0200
++++ audacity-4.0.0/muse/framework/shortcuts_v2/qml/Muse/Shortcuts/platform/macos/macosshortcutsinstancemodel.h	2026-09-05 04:32:18.934379481 +0200
+@@ -23,7 +23,7 @@
+ #pragma once
+ 
+ #include <QObject>
+-#include <qqmlintegration.h>
++#include <QtQmlIntegration/qqmlintegration.h>
+ 
+ #include "../../shortcutsinstancemodel.h"
+ 
+diff '--color=auto' -ur audacity-4.0.0.orig/muse/framework/shortcuts_v2/qml/Muse/Shortcuts/shortcutsinstancemodel.h audacity-4.0.0/muse/framework/shortcuts_v2/qml/Muse/Shortcuts/shortcutsinstancemodel.h
+--- audacity-4.0.0.orig/muse/framework/shortcuts_v2/qml/Muse/Shortcuts/shortcutsinstancemodel.h	2026-09-03 10:35:44.395586972 +0200
++++ audacity-4.0.0/muse/framework/shortcuts_v2/qml/Muse/Shortcuts/shortcutsinstancemodel.h	2026-09-05 04:32:18.934398390 +0200
+@@ -25,7 +25,7 @@
+ #include <QObject>
+ #include <QString>
+ #include <QList>
+-#include <qqmlintegration.h>
++#include <QtQmlIntegration/qqmlintegration.h>
+ 
+ #include "async/asyncable.h"
+ 
+diff '--color=auto' -ur audacity-4.0.0.orig/muse/framework/shortcuts_v2/qml/Muse/Shortcuts/shortcutsmodel.h audacity-4.0.0/muse/framework/shortcuts_v2/qml/Muse/Shortcuts/shortcutsmodel.h
+--- audacity-4.0.0.orig/muse/framework/shortcuts_v2/qml/Muse/Shortcuts/shortcutsmodel.h	2026-09-03 10:35:44.395762477 +0200
++++ audacity-4.0.0/muse/framework/shortcuts_v2/qml/Muse/Shortcuts/shortcutsmodel.h	2026-09-05 04:32:18.934417650 +0200
+@@ -24,7 +24,7 @@
+ 
+ #include <QAbstractListModel>
+ #include <QItemSelection>
+-#include <qqmlintegration.h>
++#include <QtQmlIntegration/qqmlintegration.h>
+ #include <QList>
+ 
+ #include "modularity/ioc.h"
+diff '--color=auto' -ur audacity-4.0.0.orig/muse/framework/testflow/internal/api/contextapi.h audacity-4.0.0/muse/framework/testflow/internal/api/contextapi.h
+--- audacity-4.0.0.orig/muse/framework/testflow/internal/api/contextapi.h	2026-09-03 10:35:44.411471074 +0200
++++ audacity-4.0.0/muse/framework/testflow/internal/api/contextapi.h	2026-09-05 04:32:18.934440560 +0200
+@@ -22,7 +22,7 @@
+ #ifndef MUSE_TESTFLOW_API_CONTEXTAPI_H
+ #define MUSE_TESTFLOW_API_CONTEXTAPI_H
+ 
+-#include <QJSValue>
++#include <QtQml/QJSValue>
+ #include <QHash>
+ 
+ #include "api/apiobject.h"
+diff '--color=auto' -ur audacity-4.0.0.orig/muse/framework/testflow/internal/api/testflowapi.h audacity-4.0.0/muse/framework/testflow/internal/api/testflowapi.h
+--- audacity-4.0.0.orig/muse/framework/testflow/internal/api/testflowapi.h	2026-09-03 10:35:44.411799333 +0200
++++ audacity-4.0.0/muse/framework/testflow/internal/api/testflowapi.h	2026-09-05 04:32:18.934458650 +0200
+@@ -22,7 +22,7 @@
+ #ifndef MUSE_TESTFLOW_API_TESTFLOWAPI_H
+ #define MUSE_TESTFLOW_API_TESTFLOWAPI_H
+ 
+-#include <QJSValue>
++#include <QtQml/QJSValue>
+ 
+ #include "api/apiobject.h"
+ #include "async/asyncable.h"
+diff '--color=auto' -ur audacity-4.0.0.orig/muse/framework/testflow/internal/jsmoduleloader.h audacity-4.0.0/muse/framework/testflow/internal/jsmoduleloader.h
+--- audacity-4.0.0.orig/muse/framework/testflow/internal/jsmoduleloader.h	2026-09-03 10:35:44.412170261 +0200
++++ audacity-4.0.0/muse/framework/testflow/internal/jsmoduleloader.h	2026-09-05 04:32:18.934477140 +0200
+@@ -23,7 +23,7 @@
+ #define MUSE_TESTFLOW_JSMODULELOADER_H
+ 
+ #include <QObject>
+-#include <QJSValue>
++#include <QtQml/QJSValue>
+ #include <QList>
+ 
+ #include "modularity/ioc.h"
+diff '--color=auto' -ur audacity-4.0.0.orig/muse/framework/testflow/internal/scriptengine.h audacity-4.0.0/muse/framework/testflow/internal/scriptengine.h
+--- audacity-4.0.0.orig/muse/framework/testflow/internal/scriptengine.h	2026-09-03 10:35:44.412330058 +0200
++++ audacity-4.0.0/muse/framework/testflow/internal/scriptengine.h	2026-09-05 04:32:18.934495650 +0200
+@@ -23,8 +23,8 @@
+ #define MUSE_TESTFLOW_SCRIPTENGINE_H
+ 
+ #include <QString>
+-#include <QJSValue>
+-#include <QJSEngine>
++#include <QtQml/QJSValue>
++#include <QtQml/QJSEngine>
+ #include <QVariantMap>
+ #include <QByteArray>
+ 
+diff '--color=auto' -ur audacity-4.0.0.orig/muse/framework/testflow/internal/testcaserunner.h audacity-4.0.0/muse/framework/testflow/internal/testcaserunner.h
+--- audacity-4.0.0.orig/muse/framework/testflow/internal/testcaserunner.h	2026-09-03 10:35:44.412831114 +0200
++++ audacity-4.0.0/muse/framework/testflow/internal/testcaserunner.h	2026-09-05 04:32:18.934513520 +0200
+@@ -24,7 +24,7 @@
+ 
+ #include <vector>
+ #include <memory>
+-#include <QJSValue>
++#include <QtQml/QJSValue>
+ #include <QEventLoop>
+ #include <QElapsedTimer>
+ 
+diff '--color=auto' -ur audacity-4.0.0.orig/muse/framework/testflow/itestcasecontext.h audacity-4.0.0/muse/framework/testflow/itestcasecontext.h
+--- audacity-4.0.0.orig/muse/framework/testflow/itestcasecontext.h	2026-09-03 10:35:44.413865229 +0200
++++ audacity-4.0.0/muse/framework/testflow/itestcasecontext.h	2026-09-05 04:32:18.934532030 +0200
+@@ -25,7 +25,7 @@
+ #include <memory>
+ #include <vector>
+ #include <map>
+-#include <QJSValue>
++#include <QtQml/QJSValue>
+ #include <QString>
+ 
+ namespace muse::testflow {
+diff '--color=auto' -ur audacity-4.0.0.orig/muse/framework/testflow/itestflow.h audacity-4.0.0/muse/framework/testflow/itestflow.h
+--- audacity-4.0.0.orig/muse/framework/testflow/itestflow.h	2026-09-03 10:35:44.413926564 +0200
++++ audacity-4.0.0/muse/framework/testflow/itestflow.h	2026-09-05 04:32:18.934549540 +0200
+@@ -23,7 +23,7 @@
+ #define MUSE_TESTFLOW_ITESTFLOW_H
+ 
+ #include <vector>
+-#include <QJSValue>
++#include <QtQml/QJSValue>
+ 
+ #include "modularity/imoduleinterface.h"
+ #include "io/path.h"
+diff '--color=auto' -ur audacity-4.0.0.orig/muse/framework/testflow/qml/Muse/Testflow/testcaserunmodel.h audacity-4.0.0/muse/framework/testflow/qml/Muse/Testflow/testcaserunmodel.h
+--- audacity-4.0.0.orig/muse/framework/testflow/qml/Muse/Testflow/testcaserunmodel.h	2026-09-03 10:35:44.415153934 +0200
++++ audacity-4.0.0/muse/framework/testflow/qml/Muse/Testflow/testcaserunmodel.h	2026-09-05 04:32:18.934572070 +0200
+@@ -23,7 +23,7 @@
+ 
+ #include <QObject>
+ #include <QVariant>
+-#include <qqmlintegration.h>
++#include <QtQmlIntegration/qqmlintegration.h>
+ 
+ #include "async/asyncable.h"
+ #include "modularity/ioc.h"
+diff '--color=auto' -ur audacity-4.0.0.orig/muse/framework/testflow/qml/Muse/Testflow/testflowfilesmodel.h audacity-4.0.0/muse/framework/testflow/qml/Muse/Testflow/testflowfilesmodel.h
+--- audacity-4.0.0.orig/muse/framework/testflow/qml/Muse/Testflow/testflowfilesmodel.h	2026-09-03 10:35:44.415312814 +0200
++++ audacity-4.0.0/muse/framework/testflow/qml/Muse/Testflow/testflowfilesmodel.h	2026-09-05 04:32:18.934591370 +0200
+@@ -23,7 +23,7 @@
+ #pragma once
+ 
+ #include <QAbstractListModel>
+-#include <qqmlintegration.h>
++#include <QtQmlIntegration/qqmlintegration.h>
+ 
+ #include "modularity/ioc.h"
+ #include "itestflow.h"
+diff '--color=auto' -ur audacity-4.0.0.orig/muse/framework/testflow/qml/Muse/Testflow/testflowscriptsmodel.h audacity-4.0.0/muse/framework/testflow/qml/Muse/Testflow/testflowscriptsmodel.h
+--- audacity-4.0.0.orig/muse/framework/testflow/qml/Muse/Testflow/testflowscriptsmodel.h	2026-09-03 10:35:44.415455693 +0200
++++ audacity-4.0.0/muse/framework/testflow/qml/Muse/Testflow/testflowscriptsmodel.h	2026-09-05 04:32:18.934610850 +0200
+@@ -25,7 +25,7 @@
+ #include <QAbstractListModel>
+ #include <QList>
+ #include <QMap>
+-#include <qqmlintegration.h>
++#include <QtQmlIntegration/qqmlintegration.h>
+ 
+ #include "async/asyncable.h"
+ #include "modularity/ioc.h"
+diff '--color=auto' -ur audacity-4.0.0.orig/muse/framework/testflow/testflowtypes.h audacity-4.0.0/muse/framework/testflow/testflowtypes.h
+--- audacity-4.0.0.orig/muse/framework/testflow/testflowtypes.h	2026-09-03 10:35:44.415665908 +0200
++++ audacity-4.0.0/muse/framework/testflow/testflowtypes.h	2026-09-05 04:32:18.934630820 +0200
+@@ -22,7 +22,7 @@
+ #pragma once
+ 
+ #include <vector>
+-#include <QJSValue>
++#include <QtQml/QJSValue>
+ 
+ #include "io/path.h"
+ #include "types/ret.h"
+diff '--color=auto' -ur audacity-4.0.0.orig/muse/framework/testflow/testflowutils.h audacity-4.0.0/muse/framework/testflow/testflowutils.h
+--- audacity-4.0.0.orig/muse/framework/testflow/testflowutils.h	2026-09-03 10:35:44.415737118 +0200
++++ audacity-4.0.0/muse/framework/testflow/testflowutils.h	2026-09-05 04:32:18.934667000 +0200
+@@ -22,7 +22,7 @@
+ #ifndef MUSE_TESTFLOW_TESTFLOWUTILS_H
+ #define MUSE_TESTFLOW_TESTFLOWUTILS_H
+ 
+-#include <QJSValue>
++#include <QtQml/QJSValue>
+ 
+ #include "global/types/ret.h"
+ #include "global/serialization/json.h"
+diff '--color=auto' -ur audacity-4.0.0.orig/muse/framework/toast/qml/Muse/Toast/dev/toasttestsmodel.h audacity-4.0.0/muse/framework/toast/qml/Muse/Toast/dev/toasttestsmodel.h
+--- audacity-4.0.0.orig/muse/framework/toast/qml/Muse/Toast/dev/toasttestsmodel.h	2026-09-03 10:35:44.418110981 +0200
++++ audacity-4.0.0/muse/framework/toast/qml/Muse/Toast/dev/toasttestsmodel.h	2026-09-05 04:32:18.934693139 +0200
+@@ -23,7 +23,7 @@
+ 
+ #include <QObject>
+ 
+-#include <qqmlintegration.h>
++#include <QtQmlIntegration/qqmlintegration.h>
+ 
+ #include "global/async/asyncable.h"
+ 
+diff '--color=auto' -ur audacity-4.0.0.orig/muse/framework/toast/qml/Muse/Toast/toastlistmodel.h audacity-4.0.0/muse/framework/toast/qml/Muse/Toast/toastlistmodel.h
+--- audacity-4.0.0.orig/muse/framework/toast/qml/Muse/Toast/toastlistmodel.h	2026-09-03 10:35:44.418252194 +0200
++++ audacity-4.0.0/muse/framework/toast/qml/Muse/Toast/toastlistmodel.h	2026-09-05 04:32:18.934711469 +0200
+@@ -26,7 +26,7 @@
+ #include <QByteArray>
+ #include <QHash>
+ 
+-#include <qqmlintegration.h>
++#include <QtQmlIntegration/qqmlintegration.h>
+ 
+ #include "global/async/asyncable.h"
+ 
+diff '--color=auto' -ur audacity-4.0.0.orig/muse/framework/tours/internal/toursprovider.h audacity-4.0.0/muse/framework/tours/internal/toursprovider.h
+--- audacity-4.0.0.orig/muse/framework/tours/internal/toursprovider.h	2026-09-03 10:35:44.419098302 +0200
++++ audacity-4.0.0/muse/framework/tours/internal/toursprovider.h	2026-09-05 04:32:18.934732789 +0200
+@@ -23,9 +23,9 @@
+ #pragma once
+ 
+ #include <QObject>
+-#include <QQuickItem>
++#include <QtQuick/QQuickItem>
+ #include <QTimer>
+-#include <qqmlintegration.h>
++#include <QtQmlIntegration/qqmlintegration.h>
+ 
+ #include "async/asyncable.h"
+ 
+diff '--color=auto' -ur audacity-4.0.0.orig/muse/framework/tours/qml/Muse/Tours/toursprovidermodel.h audacity-4.0.0/muse/framework/tours/qml/Muse/Tours/toursprovidermodel.h
+--- audacity-4.0.0.orig/muse/framework/tours/qml/Muse/Tours/toursprovidermodel.h	2026-09-03 10:35:44.419974787 +0200
++++ audacity-4.0.0/muse/framework/tours/qml/Muse/Tours/toursprovidermodel.h	2026-09-05 04:32:18.934754609 +0200
+@@ -23,8 +23,8 @@
+ #pragma once
+ 
+ #include <QObject>
+-#include <QQmlParserStatus>
+-#include <qqmlintegration.h>
++#include <QtQml/QQmlParserStatus>
++#include <QtQmlIntegration/qqmlintegration.h>
+ 
+ #include "modularity/ioc.h"
+ #include "internal/toursprovider.h"
+diff '--color=auto' -ur audacity-4.0.0.orig/muse/framework/ui/api/navigationapi.h audacity-4.0.0/muse/framework/ui/api/navigationapi.h
+--- audacity-4.0.0.orig/muse/framework/ui/api/navigationapi.h	2026-09-03 10:35:44.420705309 +0200
++++ audacity-4.0.0/muse/framework/ui/api/navigationapi.h	2026-09-05 04:32:18.934777649 +0200
+@@ -23,7 +23,7 @@
+ #define MUSE_API_NAVIGATIONAPI_H
+ 
+ #include <QString>
+-#include <QJSValue>
++#include <QtQml/QJSValue>
+ 
+ #include "api/apiobject.h"
+ #include "modularity/ioc.h"
+diff '--color=auto' -ur audacity-4.0.0.orig/muse/framework/ui/api/themeapi.cpp audacity-4.0.0/muse/framework/ui/api/themeapi.cpp
+--- audacity-4.0.0.orig/muse/framework/ui/api/themeapi.cpp	2026-09-03 10:35:44.420826063 +0200
++++ audacity-4.0.0/muse/framework/ui/api/themeapi.cpp	2026-09-05 04:32:18.934799799 +0200
+@@ -22,6 +22,8 @@
+ 
+ #include "themeapi.h"
+ 
++#include <QFontMetricsF>
++
+ using namespace muse::ui;
+ using namespace muse::api;
+ 
+diff '--color=auto' -ur audacity-4.0.0.orig/muse/framework/ui/api/themeapi.h audacity-4.0.0/muse/framework/ui/api/themeapi.h
+--- audacity-4.0.0.orig/muse/framework/ui/api/themeapi.h	2026-09-03 10:35:44.420933899 +0200
++++ audacity-4.0.0/muse/framework/ui/api/themeapi.h	2026-09-05 04:32:18.934826829 +0200
+@@ -24,7 +24,7 @@
+ 
+ #include <QFont>
+ 
+-#include <qqmlintegration.h>
++#include <QtQmlIntegration/qqmlintegration.h>
+ 
+ #include "global/api/apiobject.h"
+ #include "modularity/ioc.h"
+diff '--color=auto' -ur audacity-4.0.0.orig/muse/framework/ui/graphicsapiprovider.cpp audacity-4.0.0/muse/framework/ui/graphicsapiprovider.cpp
+--- audacity-4.0.0.orig/muse/framework/ui/graphicsapiprovider.cpp	2026-09-03 10:35:44.421887678 +0200
++++ audacity-4.0.0/muse/framework/ui/graphicsapiprovider.cpp	2026-09-05 04:32:18.934856959 +0200
+@@ -22,7 +22,7 @@
+ #include "graphicsapiprovider.h"
+ 
+ #include <QFile>
+-#include <QQuickWindow>
++#include <QtQuick/QQuickWindow>
+ #include <QSGRendererInterface>
+ 
+ #include "global/internal/globalconfiguration.h"
+diff '--color=auto' -ur audacity-4.0.0.orig/muse/framework/ui/graphicsapiprovider.h audacity-4.0.0/muse/framework/ui/graphicsapiprovider.h
+--- audacity-4.0.0.orig/muse/framework/ui/graphicsapiprovider.h	2026-09-03 10:35:44.421953180 +0200
++++ audacity-4.0.0/muse/framework/ui/graphicsapiprovider.h	2026-09-05 04:32:18.934879159 +0200
+@@ -24,7 +24,7 @@
+ #include <functional>
+ #include <QString>
+ #include <QTimer>
+-#include <QQuickPaintedItem>
++#include <QtQuick/QQuickPaintedItem>
+ 
+ #include "global/types/version.h"
+ #include "uitypes.h"
+diff '--color=auto' -ur audacity-4.0.0.orig/muse/framework/ui/internal/guiapplication.cpp audacity-4.0.0/muse/framework/ui/internal/guiapplication.cpp
+--- audacity-4.0.0.orig/muse/framework/ui/internal/guiapplication.cpp	2026-09-03 10:35:44.422463278 +0200
++++ audacity-4.0.0/muse/framework/ui/internal/guiapplication.cpp	2026-09-05 04:32:18.934904069 +0200
+@@ -23,9 +23,9 @@
+ #include "guiapplication.h"
+ 
+ #include <QTimer>
+-#include <QQuickWindow>
++#include <QtQuick/QQuickWindow>
+ #include <QQmlApplicationEngine>
+-#include <QQmlContext>
++#include <QtQml/QQmlContext>
+ #include <QQmlComponent>
+ 
+ #include "ui/graphicsapiprovider.h"
+diff '--color=auto' -ur audacity-4.0.0.orig/muse/framework/ui/internal/platform/windows/winwindowscontroller.cpp audacity-4.0.0/muse/framework/ui/internal/platform/windows/winwindowscontroller.cpp
+--- audacity-4.0.0.orig/muse/framework/ui/internal/platform/windows/winwindowscontroller.cpp	2026-09-03 10:35:44.424378711 +0200
++++ audacity-4.0.0/muse/framework/ui/internal/platform/windows/winwindowscontroller.cpp	2026-09-05 04:32:18.934941379 +0200
+@@ -31,7 +31,7 @@
+ #include <dwmapi.h>
+ 
+ #include <QScreen>
+-#include <QQuickWindow>
++#include <QtQuick/QQuickWindow>
+ 
+ #include "log.h"
+ 
+diff '--color=auto' -ur audacity-4.0.0.orig/muse/framework/ui/internal/uiengine.cpp audacity-4.0.0/muse/framework/ui/internal/uiengine.cpp
+--- audacity-4.0.0.orig/muse/framework/ui/internal/uiengine.cpp	2026-09-03 10:35:44.425391075 +0200
++++ audacity-4.0.0/muse/framework/ui/internal/uiengine.cpp	2026-09-05 04:32:18.934973269 +0200
+@@ -24,7 +24,7 @@
+ 
+ #include <QQmlApplicationEngine>
+ #include <QDir>
+-#include <QQmlContext>
++#include <QtQml/QQmlContext>
+ #include <QEventLoop>
+ #include <QFontDatabase>
+ #include <QTimer>
+diff '--color=auto' -ur audacity-4.0.0.orig/muse/framework/ui/internal/uiengine.h audacity-4.0.0/muse/framework/ui/internal/uiengine.h
+--- audacity-4.0.0.orig/muse/framework/ui/internal/uiengine.h	2026-09-03 10:35:44.425469827 +0200
++++ audacity-4.0.0/muse/framework/ui/internal/uiengine.h	2026-09-05 04:32:18.934993718 +0200
+@@ -23,7 +23,7 @@
+ #pragma once
+ 
+ #include <QObject>
+-#include <qqmlintegration.h>
++#include <QtQmlIntegration/qqmlintegration.h>
+ 
+ #include "global/modularity/ioc.h"
+ #include "languages/ilanguagesservice.h"
+diff '--color=auto' -ur audacity-4.0.0.orig/muse/framework/ui/qml/Muse/Ui/abstractnavigation.cpp audacity-4.0.0/muse/framework/ui/qml/Muse/Ui/abstractnavigation.cpp
+--- audacity-4.0.0.orig/muse/framework/ui/qml/Muse/Ui/abstractnavigation.cpp	2026-09-03 10:35:44.426682697 +0200
++++ audacity-4.0.0/muse/framework/ui/qml/Muse/Ui/abstractnavigation.cpp	2026-09-05 04:32:18.935019458 +0200
+@@ -21,7 +21,7 @@
+  */
+ #include "abstractnavigation.h"
+ 
+-#include <QQuickWindow>
++#include <QtQuick/QQuickWindow>
+ 
+ #include "qmlaccessible.h"
+ 
+diff '--color=auto' -ur audacity-4.0.0.orig/muse/framework/ui/qml/Muse/Ui/abstractnavigation.h audacity-4.0.0/muse/framework/ui/qml/Muse/Ui/abstractnavigation.h
+--- audacity-4.0.0.orig/muse/framework/ui/qml/Muse/Ui/abstractnavigation.h	2026-09-03 10:35:44.426749449 +0200
++++ audacity-4.0.0/muse/framework/ui/qml/Muse/Ui/abstractnavigation.h	2026-09-05 04:32:18.935041838 +0200
+@@ -23,8 +23,8 @@
+ #pragma once
+ 
+ #include <QObject>
+-#include <QQmlParserStatus>
+-#include <qqmlintegration.h>
++#include <QtQml/QQmlParserStatus>
++#include <QtQmlIntegration/qqmlintegration.h>
+ 
+ #include "async/asyncable.h"
+ #include "modularity/ioc.h"
+diff '--color=auto' -ur audacity-4.0.0.orig/muse/framework/ui/qml/Muse/Ui/foreign.h audacity-4.0.0/muse/framework/ui/qml/Muse/Ui/foreign.h
+--- audacity-4.0.0.orig/muse/framework/ui/qml/Muse/Ui/foreign.h	2026-09-03 10:35:44.426881369 +0200
++++ audacity-4.0.0/muse/framework/ui/qml/Muse/Ui/foreign.h	2026-09-05 04:32:18.935059908 +0200
+@@ -22,7 +22,7 @@
+ 
+ #pragma once
+ 
+-#include <qqmlintegration.h>
++#include <QtQmlIntegration/qqmlintegration.h>
+ 
+ #include "ui/internal/uiengine.h"
+ #include "ui/api/themeapi.h"
+diff '--color=auto' -ur audacity-4.0.0.orig/muse/framework/ui/qml/Muse/Ui/graphicstestobject.h audacity-4.0.0/muse/framework/ui/qml/Muse/Ui/graphicstestobject.h
+--- audacity-4.0.0.orig/muse/framework/ui/qml/Muse/Ui/graphicstestobject.h	2026-09-03 10:35:44.427012165 +0200
++++ audacity-4.0.0/muse/framework/ui/qml/Muse/Ui/graphicstestobject.h	2026-09-05 04:32:18.935078588 +0200
+@@ -22,8 +22,8 @@
+ 
+ #pragma once
+ 
+-#include <QQuickPaintedItem>
+-#include <qqmlintegration.h>
++#include <QtQuick/QQuickPaintedItem>
++#include <QtQmlIntegration/qqmlintegration.h>
+ 
+ namespace muse::ui {
+ class GraphicsTestObject : public QQuickPaintedItem
+diff '--color=auto' -ur audacity-4.0.0.orig/muse/framework/ui/qml/Muse/Ui/initialletternavigation.cpp audacity-4.0.0/muse/framework/ui/qml/Muse/Ui/initialletternavigation.cpp
+--- audacity-4.0.0.orig/muse/framework/ui/qml/Muse/Ui/initialletternavigation.cpp	2026-09-03 10:35:44.427094251 +0200
++++ audacity-4.0.0/muse/framework/ui/qml/Muse/Ui/initialletternavigation.cpp	2026-09-05 04:32:18.935104508 +0200
+@@ -26,6 +26,8 @@
+ 
+ #include "navigationpanel.h"
+ 
++#include <QRegularExpression>
++
+ using namespace muse::ui;
+ 
+ static QSet<Qt::Key> NAVIGATION_KEYS = {
+diff '--color=auto' -ur audacity-4.0.0.orig/muse/framework/ui/qml/Muse/Ui/initialletternavigation.h audacity-4.0.0/muse/framework/ui/qml/Muse/Ui/initialletternavigation.h
+--- audacity-4.0.0.orig/muse/framework/ui/qml/Muse/Ui/initialletternavigation.h	2026-09-03 10:35:44.427168420 +0200
++++ audacity-4.0.0/muse/framework/ui/qml/Muse/Ui/initialletternavigation.h	2026-09-05 04:32:18.935124868 +0200
+@@ -23,7 +23,8 @@
+ #pragma once
+ 
+ #include <QObject>
+-#include <qqmlintegration.h>
++#include <QTimer>
++#include <QtQmlIntegration/qqmlintegration.h>
+ 
+ #include "abstractnavigation.h"
+ 
+diff '--color=auto' -ur audacity-4.0.0.orig/muse/framework/ui/qml/Muse/Ui/navigationcontrol.h audacity-4.0.0/muse/framework/ui/qml/Muse/Ui/navigationcontrol.h
+--- audacity-4.0.0.orig/muse/framework/ui/qml/Muse/Ui/navigationcontrol.h	2026-09-03 10:35:44.427329466 +0200
++++ audacity-4.0.0/muse/framework/ui/qml/Muse/Ui/navigationcontrol.h	2026-09-05 04:32:18.935142728 +0200
+@@ -23,9 +23,9 @@
+ #pragma once
+ 
+ #include <QObject>
+-#include <QQuickItem>
++#include <QtQuick/QQuickItem>
+ 
+-#include <qqmlintegration.h>
++#include <QtQmlIntegration/qqmlintegration.h>
+ 
+ #include "abstractnavigation.h"
+ 
+diff '--color=auto' -ur audacity-4.0.0.orig/muse/framework/ui/qml/Muse/Ui/navigationevent.h audacity-4.0.0/muse/framework/ui/qml/Muse/Ui/navigationevent.h
+--- audacity-4.0.0.orig/muse/framework/ui/qml/Muse/Ui/navigationevent.h	2026-09-03 10:35:44.427489346 +0200
++++ audacity-4.0.0/muse/framework/ui/qml/Muse/Ui/navigationevent.h	2026-09-05 04:32:18.935159538 +0200
+@@ -23,7 +23,7 @@
+ #pragma once
+ 
+ #include <QObject>
+-#include <qqmlintegration.h>
++#include <QtQmlIntegration/qqmlintegration.h>
+ 
+ #include "ui/inavigation.h"
+ 
+diff '--color=auto' -ur audacity-4.0.0.orig/muse/framework/ui/qml/Muse/Ui/navigationpanel.h audacity-4.0.0/muse/framework/ui/qml/Muse/Ui/navigationpanel.h
+--- audacity-4.0.0.orig/muse/framework/ui/qml/Muse/Ui/navigationpanel.h	2026-09-03 10:35:44.427649601 +0200
++++ audacity-4.0.0/muse/framework/ui/qml/Muse/Ui/navigationpanel.h	2026-09-05 04:32:18.935177838 +0200
+@@ -25,7 +25,7 @@
+ #include <QObject>
+ #include <QList>
+ 
+-#include <qqmlintegration.h>
++#include <QtQmlIntegration/qqmlintegration.h>
+ 
+ #include "abstractnavigation.h"
+ #include "navigationcontrol.h"
+diff '--color=auto' -ur audacity-4.0.0.orig/muse/framework/ui/qml/Muse/Ui/navigationpopuppanel.h audacity-4.0.0/muse/framework/ui/qml/Muse/Ui/navigationpopuppanel.h
+--- audacity-4.0.0.orig/muse/framework/ui/qml/Muse/Ui/navigationpopuppanel.h	2026-09-03 10:35:44.427788105 +0200
++++ audacity-4.0.0/muse/framework/ui/qml/Muse/Ui/navigationpopuppanel.h	2026-09-05 04:32:18.935193908 +0200
+@@ -24,7 +24,7 @@
+ 
+ #include <QObject>
+ 
+-#include <qqmlintegration.h>
++#include <QtQmlIntegration/qqmlintegration.h>
+ 
+ #include "navigationpanel.h"
+ 
+diff '--color=auto' -ur audacity-4.0.0.orig/muse/framework/ui/qml/Muse/Ui/navigationsection.cpp audacity-4.0.0/muse/framework/ui/qml/Muse/Ui/navigationsection.cpp
+--- audacity-4.0.0.orig/muse/framework/ui/qml/Muse/Ui/navigationsection.cpp	2026-09-03 10:35:44.427856899 +0200
++++ audacity-4.0.0/muse/framework/ui/qml/Muse/Ui/navigationsection.cpp	2026-09-05 04:32:18.935213908 +0200
+@@ -22,7 +22,7 @@
+ 
+ #include "navigationsection.h"
+ 
+-#include <QQuickWindow>
++#include <QtQuick/QQuickWindow>
+ 
+ #include "log.h"
+ 
+diff '--color=auto' -ur audacity-4.0.0.orig/muse/framework/ui/qml/Muse/Ui/navigationsection.h audacity-4.0.0/muse/framework/ui/qml/Muse/Ui/navigationsection.h
+--- audacity-4.0.0.orig/muse/framework/ui/qml/Muse/Ui/navigationsection.h	2026-09-03 10:35:44.427918151 +0200
++++ audacity-4.0.0/muse/framework/ui/qml/Muse/Ui/navigationsection.h	2026-09-05 04:32:18.935235338 +0200
+@@ -25,7 +25,7 @@
+ #include <QObject>
+ #include <QList>
+ 
+-#include <qqmlintegration.h>
++#include <QtQmlIntegration/qqmlintegration.h>
+ 
+ #include "abstractnavigation.h"
+ #include "navigationpanel.h"
+diff '--color=auto' -ur audacity-4.0.0.orig/muse/framework/ui/qml/Muse/Ui/qmlaccessible.cpp audacity-4.0.0/muse/framework/ui/qml/Muse/Ui/qmlaccessible.cpp
+--- audacity-4.0.0.orig/muse/framework/ui/qml/Muse/Ui/qmlaccessible.cpp	2026-09-03 10:35:44.428011820 +0200
++++ audacity-4.0.0/muse/framework/ui/qml/Muse/Ui/qmlaccessible.cpp	2026-09-05 04:32:18.935264418 +0200
+@@ -22,7 +22,7 @@
+ 
+ #include "qmlaccessible.h"
+ 
+-#include <QQuickWindow>
++#include <QtQuick/QQuickWindow>
+ #include <QTextBoundaryFinder>
+ 
+ #include "log.h"
+diff '--color=auto' -ur audacity-4.0.0.orig/muse/framework/ui/qml/Muse/Ui/qmlaccessible.h audacity-4.0.0/muse/framework/ui/qml/Muse/Ui/qmlaccessible.h
+--- audacity-4.0.0.orig/muse/framework/ui/qml/Muse/Ui/qmlaccessible.h	2026-09-03 10:35:44.428119407 +0200
++++ audacity-4.0.0/muse/framework/ui/qml/Muse/Ui/qmlaccessible.h	2026-09-05 04:32:18.935295457 +0200
+@@ -23,11 +23,11 @@
+ #pragma once
+ 
+ #include <QObject>
+-#include <QQmlParserStatus>
+-#include <QQuickItem>
++#include <QtQml/QQmlParserStatus>
++#include <QtQuick/QQuickItem>
+ #include <QMap>
+ 
+-#include <qqmlintegration.h>
++#include <QtQmlIntegration/qqmlintegration.h>
+ 
+ #include "accessibility/iaccessible.h"
+ #include "modularity/ioc.h"
+diff '--color=auto' -ur audacity-4.0.0.orig/muse/framework/ui/qml/Muse/Ui/qmldrag.h audacity-4.0.0/muse/framework/ui/qml/Muse/Ui/qmldrag.h
+--- audacity-4.0.0.orig/muse/framework/ui/qml/Muse/Ui/qmldrag.h	2026-09-03 10:35:44.428268536 +0200
++++ audacity-4.0.0/muse/framework/ui/qml/Muse/Ui/qmldrag.h	2026-09-05 04:32:18.935315697 +0200
+@@ -22,7 +22,7 @@
+ #pragma once
+ 
+ #include <QObject>
+-#include <QQuickItem>
++#include <QtQuick/QQuickItem>
+ 
+ #include "global/modularity/ioc.h"
+ #include "idragcontroller.h"
+diff '--color=auto' -ur audacity-4.0.0.orig/muse/framework/ui/qml/Muse/Ui/windowsmodel.h audacity-4.0.0/muse/framework/ui/qml/Muse/Ui/windowsmodel.h
+--- audacity-4.0.0.orig/muse/framework/ui/qml/Muse/Ui/windowsmodel.h	2026-09-03 10:35:44.428608004 +0200
++++ audacity-4.0.0/muse/framework/ui/qml/Muse/Ui/windowsmodel.h	2026-09-05 04:32:18.935331997 +0200
+@@ -24,7 +24,7 @@
+ 
+ #include <QObject>
+ 
+-#include <qqmlintegration.h>
++#include <QtQmlIntegration/qqmlintegration.h>
+ 
+ #include "modularity/ioc.h"
+ #include "ui/iwindowscontroller.h"
+diff '--color=auto' -ur audacity-4.0.0.orig/muse/framework/ui/tests/navigationcontroller_tests.cpp audacity-4.0.0/muse/framework/ui/tests/navigationcontroller_tests.cpp
+--- audacity-4.0.0.orig/muse/framework/ui/tests/navigationcontroller_tests.cpp	2026-09-03 10:35:44.429336110 +0200
++++ audacity-4.0.0/muse/framework/ui/tests/navigationcontroller_tests.cpp	2026-09-05 04:32:18.935368617 +0200
+@@ -24,7 +24,7 @@
+ #include <vector>
+ 
+ #include <QWindow>
+-#include <QQuickWindow>
++#include <QtQuick/QQuickWindow>
+ 
+ #include "ui/internal/navigationcontroller.h"
+ #include "rcommand/internal/commanddispatcher.h"
+diff '--color=auto' -ur audacity-4.0.0.orig/muse/framework/ui/uimodule.cpp audacity-4.0.0/muse/framework/ui/uimodule.cpp
+--- audacity-4.0.0.orig/muse/framework/ui/uimodule.cpp	2026-09-03 10:35:44.429803624 +0200
++++ audacity-4.0.0/muse/framework/ui/uimodule.cpp	2026-09-05 04:32:18.935403397 +0200
+@@ -22,7 +22,7 @@
+ #include "uimodule.h"
+ 
+ #include <QFontDatabase>
+-#include <qqml.h>
++#include <QtQml/qqml.h>
+ 
+ #include "modularity/ioc.h"
+ 
+diff '--color=auto' -ur audacity-4.0.0.orig/muse/framework/ui/uitypes.h audacity-4.0.0/muse/framework/ui/uitypes.h
+--- audacity-4.0.0.orig/muse/framework/ui/uitypes.h	2026-09-03 10:35:44.429958462 +0200
++++ audacity-4.0.0/muse/framework/ui/uitypes.h	2026-09-05 04:32:18.935425347 +0200
+@@ -27,9 +27,9 @@
+ #include <QString>
+ #include <QMetaType>
+ #include <QMap>
+-#include <QQuickItem>
++#include <QtQuick/QQuickItem>
+ 
+-#include <qqmlintegration.h>
++#include <QtQmlIntegration/qqmlintegration.h>
+ 
+ #include "view/iconcodes.h" // IWYU pragma: export
+ #include "workspace/workspacetypes.h"
+diff '--color=auto' -ur audacity-4.0.0.orig/muse/framework/ui/view/qmldataformatter.cpp audacity-4.0.0/muse/framework/ui/view/qmldataformatter.cpp
+--- audacity-4.0.0.orig/muse/framework/ui/view/qmldataformatter.cpp	2026-09-03 10:35:44.431019369 +0200
++++ audacity-4.0.0/muse/framework/ui/view/qmldataformatter.cpp	2026-09-05 04:32:18.935447777 +0200
+@@ -23,6 +23,8 @@
+ 
+ #include "global/dataformatter.h"
+ 
++#include <QLocale>
++
+ using namespace muse::ui;
+ 
+ QmlDataFormatter::QmlDataFormatter(QObject* parent)
+diff '--color=auto' -ur audacity-4.0.0.orig/muse/framework/ui/view/qmldataformatter.h audacity-4.0.0/muse/framework/ui/view/qmldataformatter.h
+--- audacity-4.0.0.orig/muse/framework/ui/view/qmldataformatter.h	2026-09-03 10:35:44.431092829 +0200
++++ audacity-4.0.0/muse/framework/ui/view/qmldataformatter.h	2026-09-05 04:32:18.935463427 +0200
+@@ -22,7 +22,7 @@
+ #pragma once
+ 
+ #include <QObject>
+-#include <qqmlintegration.h>
++#include <QtQmlIntegration/qqmlintegration.h>
+ 
+ namespace muse::ui {
+ class QmlDataFormatter : public QObject
+diff '--color=auto' -ur audacity-4.0.0.orig/muse/framework/ui/view/qmltooltip.h audacity-4.0.0/muse/framework/ui/view/qmltooltip.h
+--- audacity-4.0.0.orig/muse/framework/ui/view/qmltooltip.h	2026-09-03 10:35:44.431393088 +0200
++++ audacity-4.0.0/muse/framework/ui/view/qmltooltip.h	2026-09-05 04:32:18.935480337 +0200
+@@ -23,10 +23,10 @@
+ #pragma once
+ 
+ #include <QObject>
+-#include <QQuickItem>
++#include <QtQuick/QQuickItem>
+ #include <QTimer>
+ 
+-#include <qqmlintegration.h>
++#include <QtQmlIntegration/qqmlintegration.h>
+ 
+ #include "async/asyncable.h"
+ 
+diff '--color=auto' -ur audacity-4.0.0.orig/muse/framework/ui/view/widgetstyle.cpp audacity-4.0.0/muse/framework/ui/view/widgetstyle.cpp
+--- audacity-4.0.0.orig/muse/framework/ui/view/widgetstyle.cpp	2026-09-03 10:35:44.431993939 +0200
++++ audacity-4.0.0/muse/framework/ui/view/widgetstyle.cpp	2026-09-05 04:32:18.935512507 +0200
+@@ -27,6 +27,7 @@
+ #include <QGroupBox>
+ #include <QLineEdit>
+ #include <QMenu>
++#include <QPainter>
+ #include <QPalette>
+ #include <QStyle>
+ #include <QStyleFactory>
+diff '--color=auto' -ur audacity-4.0.0.orig/muse/framework/uicomponents/qml/Muse/UiComponents/abstractmenumodel.h audacity-4.0.0/muse/framework/uicomponents/qml/Muse/UiComponents/abstractmenumodel.h
+--- audacity-4.0.0.orig/muse/framework/uicomponents/qml/Muse/UiComponents/abstractmenumodel.h	2026-09-03 10:35:44.440939208 +0200
++++ audacity-4.0.0/muse/framework/uicomponents/qml/Muse/UiComponents/abstractmenumodel.h	2026-09-05 04:32:18.935564777 +0200
+@@ -21,7 +21,7 @@
+  */
+ #pragma once
+ 
+-#include <qqmlintegration.h>
++#include <QtQmlIntegration/qqmlintegration.h>
+ 
+ #include <QAbstractListModel>
+ 
+diff '--color=auto' -ur audacity-4.0.0.orig/muse/framework/uicomponents/qml/Muse/UiComponents/abstracttableviewmodel.cpp audacity-4.0.0/muse/framework/uicomponents/qml/Muse/UiComponents/abstracttableviewmodel.cpp
+--- audacity-4.0.0.orig/muse/framework/uicomponents/qml/Muse/UiComponents/abstracttableviewmodel.cpp	2026-09-03 10:35:44.441040378 +0200
++++ audacity-4.0.0/muse/framework/uicomponents/qml/Muse/UiComponents/abstracttableviewmodel.cpp	2026-09-05 04:32:18.935595157 +0200
+@@ -22,6 +22,7 @@
+ #include "abstracttableviewmodel.h"
+ 
+ #include <QSet>
++#include <QTimer>
+ 
+ #include "internal/tableviewlistcell.h"
+ 
+diff '--color=auto' -ur audacity-4.0.0.orig/muse/framework/uicomponents/qml/Muse/UiComponents/abstracttableviewmodel.h audacity-4.0.0/muse/framework/uicomponents/qml/Muse/UiComponents/abstracttableviewmodel.h
+--- audacity-4.0.0.orig/muse/framework/uicomponents/qml/Muse/UiComponents/abstracttableviewmodel.h	2026-09-03 10:35:44.441119005 +0200
++++ audacity-4.0.0/muse/framework/uicomponents/qml/Muse/UiComponents/abstracttableviewmodel.h	2026-09-05 04:32:18.935622206 +0200
+@@ -21,7 +21,7 @@
+  */
+ #pragma once
+ 
+-#include <qqmlintegration.h>
++#include <QtQmlIntegration/qqmlintegration.h>
+ 
+ #include <QAbstractTableModel>
+ 
+diff '--color=auto' -ur audacity-4.0.0.orig/muse/framework/uicomponents/qml/Muse/UiComponents/abstracttoolbarmodel.h audacity-4.0.0/muse/framework/uicomponents/qml/Muse/UiComponents/abstracttoolbarmodel.h
+--- audacity-4.0.0.orig/muse/framework/uicomponents/qml/Muse/UiComponents/abstracttoolbarmodel.h	2026-09-03 10:35:44.441294427 +0200
++++ audacity-4.0.0/muse/framework/uicomponents/qml/Muse/UiComponents/abstracttoolbarmodel.h	2026-09-05 04:32:18.935649686 +0200
+@@ -21,7 +21,7 @@
+  */
+ #pragma once
+ 
+-#include <qqmlintegration.h>
++#include <QtQmlIntegration/qqmlintegration.h>
+ 
+ #include <QAbstractListModel>
+ #include <QObject>
+diff '--color=auto' -ur audacity-4.0.0.orig/muse/framework/uicomponents/qml/Muse/UiComponents/buttonboxmodel.h audacity-4.0.0/muse/framework/uicomponents/qml/Muse/UiComponents/buttonboxmodel.h
+--- audacity-4.0.0.orig/muse/framework/uicomponents/qml/Muse/UiComponents/buttonboxmodel.h	2026-09-03 10:35:44.441508433 +0200
++++ audacity-4.0.0/muse/framework/uicomponents/qml/Muse/UiComponents/buttonboxmodel.h	2026-09-05 04:32:18.935676316 +0200
+@@ -23,8 +23,8 @@
+ #pragma once
+ 
+ #include <QObject>
+-#include <QQuickItem>
+-#include <qqmlintegration.h>
++#include <QtQuick/QQuickItem>
++#include <QtQmlIntegration/qqmlintegration.h>
+ 
+ #include "translation.h"
+ #include "qmllistproperty.h"
+diff '--color=auto' -ur audacity-4.0.0.orig/muse/framework/uicomponents/qml/Muse/UiComponents/colorpickermodel.h audacity-4.0.0/muse/framework/uicomponents/qml/Muse/UiComponents/colorpickermodel.h
+--- audacity-4.0.0.orig/muse/framework/uicomponents/qml/Muse/UiComponents/colorpickermodel.h	2026-09-03 10:35:44.441646979 +0200
++++ audacity-4.0.0/muse/framework/uicomponents/qml/Muse/UiComponents/colorpickermodel.h	2026-09-05 04:32:18.935696286 +0200
+@@ -23,7 +23,7 @@
+ #pragma once
+ 
+ #include <QObject>
+-#include <qqmlintegration.h>
++#include <QtQmlIntegration/qqmlintegration.h>
+ 
+ #include "global/async/asyncable.h"
+ 
+diff '--color=auto' -ur audacity-4.0.0.orig/muse/framework/uicomponents/qml/Muse/UiComponents/dialogview.cpp audacity-4.0.0/muse/framework/uicomponents/qml/Muse/UiComponents/dialogview.cpp
+--- audacity-4.0.0.orig/muse/framework/uicomponents/qml/Muse/UiComponents/dialogview.cpp	2026-09-03 10:35:44.441731565 +0200
++++ audacity-4.0.0/muse/framework/uicomponents/qml/Muse/UiComponents/dialogview.cpp	2026-09-05 04:32:18.935720406 +0200
+@@ -22,7 +22,7 @@
+ 
+ #include "dialogview.h"
+ 
+-#include <QQuickView>
++#include <QtQuick/QQuickView>
+ #include <QScreen>
+ 
+ #ifdef Q_OS_MAC
+diff '--color=auto' -ur audacity-4.0.0.orig/muse/framework/uicomponents/qml/Muse/UiComponents/dialogview.h audacity-4.0.0/muse/framework/uicomponents/qml/Muse/UiComponents/dialogview.h
+--- audacity-4.0.0.orig/muse/framework/uicomponents/qml/Muse/UiComponents/dialogview.h	2026-09-03 10:35:44.441805859 +0200
++++ audacity-4.0.0/muse/framework/uicomponents/qml/Muse/UiComponents/dialogview.h	2026-09-05 04:32:18.935743556 +0200
+@@ -22,7 +22,7 @@
+ 
+ #pragma once
+ 
+-#include <qqmlintegration.h>
++#include <QtQmlIntegration/qqmlintegration.h>
+ 
+ #include "types/ret.h"
+ 
+diff '--color=auto' -ur audacity-4.0.0.orig/muse/framework/uicomponents/qml/Muse/UiComponents/dropdownview.h audacity-4.0.0/muse/framework/uicomponents/qml/Muse/UiComponents/dropdownview.h
+--- audacity-4.0.0.orig/muse/framework/uicomponents/qml/Muse/UiComponents/dropdownview.h	2026-09-03 10:35:44.441992739 +0200
++++ audacity-4.0.0/muse/framework/uicomponents/qml/Muse/UiComponents/dropdownview.h	2026-09-05 04:32:18.935760696 +0200
+@@ -21,7 +21,7 @@
+  */
+ #pragma once
+ 
+-#include <qqmlintegration.h>
++#include <QtQmlIntegration/qqmlintegration.h>
+ 
+ #include "popupview.h"
+ 
+diff '--color=auto' -ur audacity-4.0.0.orig/muse/framework/uicomponents/qml/Muse/UiComponents/filepickermodel.h audacity-4.0.0/muse/framework/uicomponents/qml/Muse/UiComponents/filepickermodel.h
+--- audacity-4.0.0.orig/muse/framework/uicomponents/qml/Muse/UiComponents/filepickermodel.h	2026-09-03 10:35:44.442135327 +0200
++++ audacity-4.0.0/muse/framework/uicomponents/qml/Muse/UiComponents/filepickermodel.h	2026-09-05 04:32:18.935779456 +0200
+@@ -23,7 +23,7 @@
+ #pragma once
+ 
+ #include <QObject>
+-#include <qqmlintegration.h>
++#include <QtQmlIntegration/qqmlintegration.h>
+ 
+ #include "modularity/ioc.h"
+ #include "interactive/iinteractive.h"
+diff '--color=auto' -ur audacity-4.0.0.orig/muse/framework/uicomponents/qml/Muse/UiComponents/filteredflyoutmodel.h audacity-4.0.0/muse/framework/uicomponents/qml/Muse/UiComponents/filteredflyoutmodel.h
+--- audacity-4.0.0.orig/muse/framework/uicomponents/qml/Muse/UiComponents/filteredflyoutmodel.h	2026-09-03 10:35:44.442283832 +0200
++++ audacity-4.0.0/muse/framework/uicomponents/qml/Muse/UiComponents/filteredflyoutmodel.h	2026-09-05 04:32:18.935798006 +0200
+@@ -23,7 +23,9 @@
+ #pragma once
+ 
+ #include <QObject>
+-#include <qqmlintegration.h>
++#include <QVariant>
++#include <QVariantMap>
++#include <QtQmlIntegration/qqmlintegration.h>
+ 
+ namespace muse::uicomponents {
+ class FilteredFlyoutModel : public QObject
+diff '--color=auto' -ur audacity-4.0.0.orig/muse/framework/uicomponents/qml/Muse/UiComponents/filtervalue.h audacity-4.0.0/muse/framework/uicomponents/qml/Muse/UiComponents/filtervalue.h
+--- audacity-4.0.0.orig/muse/framework/uicomponents/qml/Muse/UiComponents/filtervalue.h	2026-09-03 10:35:44.442455253 +0200
++++ audacity-4.0.0/muse/framework/uicomponents/qml/Muse/UiComponents/filtervalue.h	2026-09-05 04:32:18.935816216 +0200
+@@ -22,7 +22,7 @@
+ 
+ #pragma once
+ 
+-#include <qqmlintegration.h>
++#include <QtQmlIntegration/qqmlintegration.h>
+ 
+ #include <QObject>
+ #include <QVariant>
+diff '--color=auto' -ur audacity-4.0.0.orig/muse/framework/uicomponents/qml/Muse/UiComponents/iconview.h audacity-4.0.0/muse/framework/uicomponents/qml/Muse/UiComponents/iconview.h
+--- audacity-4.0.0.orig/muse/framework/uicomponents/qml/Muse/UiComponents/iconview.h	2026-09-03 10:35:44.442602549 +0200
++++ audacity-4.0.0/muse/framework/uicomponents/qml/Muse/UiComponents/iconview.h	2026-09-05 04:32:18.935833966 +0200
+@@ -22,7 +22,7 @@
+ 
+ #pragma once
+ 
+-#include <qqmlintegration.h>
++#include <QtQmlIntegration/qqmlintegration.h>
+ 
+ #include <QIcon>
+ #include <QColor>
+diff '--color=auto' -ur audacity-4.0.0.orig/muse/framework/uicomponents/qml/Muse/UiComponents/internal/focuslistener.h audacity-4.0.0/muse/framework/uicomponents/qml/Muse/UiComponents/internal/focuslistener.h
+--- audacity-4.0.0.orig/muse/framework/uicomponents/qml/Muse/UiComponents/internal/focuslistener.h	2026-09-03 10:35:44.444243140 +0200
++++ audacity-4.0.0/muse/framework/uicomponents/qml/Muse/UiComponents/internal/focuslistener.h	2026-09-05 04:32:18.935853216 +0200
+@@ -22,9 +22,9 @@
+ 
+ #pragma once
+ 
+-#include <QQuickItem>
++#include <QtQuick/QQuickItem>
+ 
+-#include <qqmlintegration.h>
++#include <QtQmlIntegration/qqmlintegration.h>
+ 
+ namespace muse::uicomponents {
+ class FocusListener : public QObject
+diff '--color=auto' -ur audacity-4.0.0.orig/muse/framework/uicomponents/qml/Muse/UiComponents/internal/popupviewclosecontroller.cpp audacity-4.0.0/muse/framework/uicomponents/qml/Muse/UiComponents/internal/popupviewclosecontroller.cpp
+--- audacity-4.0.0.orig/muse/framework/uicomponents/qml/Muse/UiComponents/internal/popupviewclosecontroller.cpp	2026-09-03 10:35:44.445160293 +0200
++++ audacity-4.0.0/muse/framework/uicomponents/qml/Muse/UiComponents/internal/popupviewclosecontroller.cpp	2026-09-05 04:32:18.935878806 +0200
+@@ -23,7 +23,7 @@
+ #include "popupviewclosecontroller.h"
+ 
+ #include <QGuiApplication>
+-#include <QQuickWindow>
++#include <QtQuick/QQuickWindow>
+ 
+ using namespace muse::uicomponents;
+ 
+diff '--color=auto' -ur audacity-4.0.0.orig/muse/framework/uicomponents/qml/Muse/UiComponents/internal/popupviewclosecontroller.h audacity-4.0.0/muse/framework/uicomponents/qml/Muse/UiComponents/internal/popupviewclosecontroller.h
+--- audacity-4.0.0.orig/muse/framework/uicomponents/qml/Muse/UiComponents/internal/popupviewclosecontroller.h	2026-09-03 10:35:44.445235128 +0200
++++ audacity-4.0.0/muse/framework/uicomponents/qml/Muse/UiComponents/internal/popupviewclosecontroller.h	2026-09-05 04:32:18.935909446 +0200
+@@ -22,7 +22,7 @@
+ #pragma once
+ 
+ #include <QObject>
+-#include <QQuickItem>
++#include <QtQuick/QQuickItem>
+ 
+ #include "async/notification.h"
+ #include "async/asyncable.h"
+diff '--color=auto' -ur audacity-4.0.0.orig/muse/framework/uicomponents/qml/Muse/UiComponents/internal/tableviewcell.h audacity-4.0.0/muse/framework/uicomponents/qml/Muse/UiComponents/internal/tableviewcell.h
+--- audacity-4.0.0.orig/muse/framework/uicomponents/qml/Muse/UiComponents/internal/tableviewcell.h	2026-09-03 10:35:44.445381341 +0200
++++ audacity-4.0.0/muse/framework/uicomponents/qml/Muse/UiComponents/internal/tableviewcell.h	2026-09-05 04:32:18.935931485 +0200
+@@ -21,7 +21,7 @@
+  */
+ #pragma once
+ 
+-#include <qqmlintegration.h>
++#include <QtQmlIntegration/qqmlintegration.h>
+ 
+ #include <QObject>
+ 
+diff '--color=auto' -ur audacity-4.0.0.orig/muse/framework/uicomponents/qml/Muse/UiComponents/internal/tableviewheader.h audacity-4.0.0/muse/framework/uicomponents/qml/Muse/UiComponents/internal/tableviewheader.h
+--- audacity-4.0.0.orig/muse/framework/uicomponents/qml/Muse/UiComponents/internal/tableviewheader.h	2026-09-03 10:35:44.445527179 +0200
++++ audacity-4.0.0/muse/framework/uicomponents/qml/Muse/UiComponents/internal/tableviewheader.h	2026-09-05 04:32:18.935952745 +0200
+@@ -21,7 +21,7 @@
+  */
+ #pragma once
+ 
+-#include <qqmlintegration.h>
++#include <QtQmlIntegration/qqmlintegration.h>
+ 
+ #include <QObject>
+ 
+diff '--color=auto' -ur audacity-4.0.0.orig/muse/framework/uicomponents/qml/Muse/UiComponents/internal/tableviewlistcell.h audacity-4.0.0/muse/framework/uicomponents/qml/Muse/UiComponents/internal/tableviewlistcell.h
+--- audacity-4.0.0.orig/muse/framework/uicomponents/qml/Muse/UiComponents/internal/tableviewlistcell.h	2026-09-03 10:35:44.445672391 +0200
++++ audacity-4.0.0/muse/framework/uicomponents/qml/Muse/UiComponents/internal/tableviewlistcell.h	2026-09-05 04:32:18.935971465 +0200
+@@ -21,7 +21,7 @@
+  */
+ #pragma once
+ 
+-#include <qqmlintegration.h>
++#include <QtQmlIntegration/qqmlintegration.h>
+ 
+ #include <QObject>
+ 
+diff '--color=auto' -ur audacity-4.0.0.orig/muse/framework/uicomponents/qml/Muse/UiComponents/itemmultiselectionmodel.h audacity-4.0.0/muse/framework/uicomponents/qml/Muse/UiComponents/itemmultiselectionmodel.h
+--- audacity-4.0.0.orig/muse/framework/uicomponents/qml/Muse/UiComponents/itemmultiselectionmodel.h	2026-09-03 10:35:44.445833230 +0200
++++ audacity-4.0.0/muse/framework/uicomponents/qml/Muse/UiComponents/itemmultiselectionmodel.h	2026-09-05 04:32:18.936000845 +0200
+@@ -22,7 +22,7 @@
+ 
+  #pragma once
+ 
+-#include <qqmlintegration.h>
++#include <QtQmlIntegration/qqmlintegration.h>
+ 
+ #include <QItemSelectionModel>
+ 
+diff '--color=auto' -ur audacity-4.0.0.orig/muse/framework/uicomponents/qml/Muse/UiComponents/LegacyTreeView/qquickabstractstyle_p.h audacity-4.0.0/muse/framework/uicomponents/qml/Muse/UiComponents/LegacyTreeView/qquickabstractstyle_p.h
+--- audacity-4.0.0.orig/muse/framework/uicomponents/qml/Muse/UiComponents/LegacyTreeView/qquickabstractstyle_p.h	2026-09-03 10:35:44.436142647 +0200
++++ audacity-4.0.0/muse/framework/uicomponents/qml/Muse/UiComponents/LegacyTreeView/qquickabstractstyle_p.h	2026-09-05 04:32:18.936023045 +0200
+@@ -42,7 +42,7 @@
+ 
+ #include <QtCore/qobject.h>
+ #include <QtQml/qqmllist.h>
+-#include <qqmlintegration.h>
++#include <QtQmlIntegration/qqmlintegration.h>
+ #include "qquickpadding_p.h"
+ 
+ QT_BEGIN_NAMESPACE
+diff '--color=auto' -ur audacity-4.0.0.orig/muse/framework/uicomponents/qml/Muse/UiComponents/LegacyTreeView/qquickpadding_p.h audacity-4.0.0/muse/framework/uicomponents/qml/Muse/UiComponents/LegacyTreeView/qquickpadding_p.h
+--- audacity-4.0.0.orig/muse/framework/uicomponents/qml/Muse/UiComponents/LegacyTreeView/qquickpadding_p.h	2026-09-03 10:35:44.436204191 +0200
++++ audacity-4.0.0/muse/framework/uicomponents/qml/Muse/UiComponents/LegacyTreeView/qquickpadding_p.h	2026-09-05 04:32:18.936043935 +0200
+@@ -41,7 +41,7 @@
+ #define QQUICKPADDING_H
+ 
+ #include <QtCore/qobject.h>
+-#include <qqmlintegration.h>
++#include <QtQmlIntegration/qqmlintegration.h>
+ 
+ QT_BEGIN_NAMESPACE
+ 
+diff '--color=auto' -ur audacity-4.0.0.orig/muse/framework/uicomponents/qml/Muse/UiComponents/LegacyTreeView/qquickselectionmode_p.h audacity-4.0.0/muse/framework/uicomponents/qml/Muse/UiComponents/LegacyTreeView/qquickselectionmode_p.h
+--- audacity-4.0.0.orig/muse/framework/uicomponents/qml/Muse/UiComponents/LegacyTreeView/qquickselectionmode_p.h	2026-09-03 10:35:44.436289402 +0200
++++ audacity-4.0.0/muse/framework/uicomponents/qml/Muse/UiComponents/LegacyTreeView/qquickselectionmode_p.h	2026-09-05 04:32:18.936063125 +0200
+@@ -40,7 +40,7 @@
+ #ifndef QQUICKSELECTIONMODE_P_H
+ #define QQUICKSELECTIONMODE_P_H
+ 
+-#include <qqmlintegration.h>
++#include <QtQmlIntegration/qqmlintegration.h>
+ 
+ QT_BEGIN_NAMESPACE
+ 
+diff '--color=auto' -ur audacity-4.0.0.orig/muse/framework/uicomponents/qml/Muse/UiComponents/LegacyTreeView/qquicktreemodeladaptor_p.h audacity-4.0.0/muse/framework/uicomponents/qml/Muse/UiComponents/LegacyTreeView/qquicktreemodeladaptor_p.h
+--- audacity-4.0.0.orig/muse/framework/uicomponents/qml/Muse/UiComponents/LegacyTreeView/qquicktreemodeladaptor_p.h	2026-09-03 10:35:44.436495408 +0200
++++ audacity-4.0.0/muse/framework/uicomponents/qml/Muse/UiComponents/LegacyTreeView/qquicktreemodeladaptor_p.h	2026-09-05 04:32:18.936084725 +0200
+@@ -55,7 +55,7 @@
+ #include <QtCore/qpointer.h>
+ #include <QtCore/qabstractitemmodel.h>
+ #include <QtCore/qitemselectionmodel.h>
+-#include <qqmlintegration.h>
++#include <QtQmlIntegration/qqmlintegration.h>
+ 
+ QT_BEGIN_NAMESPACE
+ 
+diff '--color=auto' -ur audacity-4.0.0.orig/muse/framework/uicomponents/qml/Muse/UiComponents/menuitem.h audacity-4.0.0/muse/framework/uicomponents/qml/Muse/UiComponents/menuitem.h
+--- audacity-4.0.0.orig/muse/framework/uicomponents/qml/Muse/UiComponents/menuitem.h	2026-09-03 10:35:44.445986484 +0200
++++ audacity-4.0.0/muse/framework/uicomponents/qml/Muse/UiComponents/menuitem.h	2026-09-05 04:32:18.936112395 +0200
+@@ -22,7 +22,7 @@
+ 
+ #pragma once
+ 
+-#include <qqmlintegration.h>
++#include <QtQmlIntegration/qqmlintegration.h>
+ 
+ #include <QObject>
+ #include <QString>
+diff '--color=auto' -ur audacity-4.0.0.orig/muse/framework/uicomponents/qml/Muse/UiComponents/menuview.h audacity-4.0.0/muse/framework/uicomponents/qml/Muse/UiComponents/menuview.h
+--- audacity-4.0.0.orig/muse/framework/uicomponents/qml/Muse/UiComponents/menuview.h	2026-09-03 10:35:44.446323078 +0200
++++ audacity-4.0.0/muse/framework/uicomponents/qml/Muse/UiComponents/menuview.h	2026-09-05 04:32:18.936132515 +0200
+@@ -21,7 +21,7 @@
+  */
+ #pragma once
+ 
+-#include <qqmlintegration.h>
++#include <QtQmlIntegration/qqmlintegration.h>
+ 
+ #include "popupview.h"
+ 
+diff '--color=auto' -ur audacity-4.0.0.orig/muse/framework/uicomponents/qml/Muse/UiComponents/polylineplot.cpp audacity-4.0.0/muse/framework/uicomponents/qml/Muse/UiComponents/polylineplot.cpp
+--- audacity-4.0.0.orig/muse/framework/uicomponents/qml/Muse/UiComponents/polylineplot.cpp	2026-09-03 10:35:44.446425372 +0200
++++ audacity-4.0.0/muse/framework/uicomponents/qml/Muse/UiComponents/polylineplot.cpp	2026-09-05 04:32:18.936178475 +0200
+@@ -28,6 +28,7 @@
+ #include <QBrush>
+ #include <QHoverEvent>
+ #include <QMouseEvent>
++#include <QCursor>
+ 
+ #include <algorithm>
+ #include <cmath>
+diff '--color=auto' -ur audacity-4.0.0.orig/muse/framework/uicomponents/qml/Muse/UiComponents/polylineplot.h audacity-4.0.0/muse/framework/uicomponents/qml/Muse/UiComponents/polylineplot.h
+--- audacity-4.0.0.orig/muse/framework/uicomponents/qml/Muse/UiComponents/polylineplot.h	2026-09-03 10:35:44.446554585 +0200
++++ audacity-4.0.0/muse/framework/uicomponents/qml/Muse/UiComponents/polylineplot.h	2026-09-05 04:32:18.936230875 +0200
+@@ -24,9 +24,9 @@
+ 
+ #include <QColor>
+ #include <QPointF>
+-#include <QQuickPaintedItem>
++#include <QtQuick/QQuickPaintedItem>
+ #include <QVector>
+-#include <qqmlintegration.h>
++#include <QtQmlIntegration/qqmlintegration.h>
+ 
+ #include "actions/actionable.h"
+ #include "async/asyncable.h"
+diff '--color=auto' -ur audacity-4.0.0.orig/muse/framework/uicomponents/qml/Muse/UiComponents/popupview.h audacity-4.0.0/muse/framework/uicomponents/qml/Muse/UiComponents/popupview.h
+--- audacity-4.0.0.orig/muse/framework/uicomponents/qml/Muse/UiComponents/popupview.h	2026-09-03 10:35:44.446728673 +0200
++++ audacity-4.0.0/muse/framework/uicomponents/qml/Muse/UiComponents/popupview.h	2026-09-05 04:32:18.936257554 +0200
+@@ -21,7 +21,7 @@
+  */
+ #pragma once
+ 
+-#include <qqmlintegration.h>
++#include <QtQmlIntegration/qqmlintegration.h>
+ 
+ #include "windowview.h"
+ 
+diff '--color=auto' -ur audacity-4.0.0.orig/muse/framework/uicomponents/qml/Muse/UiComponents/quickpaintedview.h audacity-4.0.0/muse/framework/uicomponents/qml/Muse/UiComponents/quickpaintedview.h
+--- audacity-4.0.0.orig/muse/framework/uicomponents/qml/Muse/UiComponents/quickpaintedview.h	2026-09-03 10:35:44.447071558 +0200
++++ audacity-4.0.0/muse/framework/uicomponents/qml/Muse/UiComponents/quickpaintedview.h	2026-09-05 04:32:18.936276414 +0200
+@@ -21,7 +21,7 @@
+  */
+ #pragma once
+ 
+-#include <QQuickPaintedItem>
++#include <QtQuick/QQuickPaintedItem>
+ 
+ namespace muse::uicomponents {
+ class QuickPaintedView : public QQuickPaintedItem
+diff '--color=auto' -ur audacity-4.0.0.orig/muse/framework/uicomponents/qml/Muse/UiComponents/selectableitemlistmodel.h audacity-4.0.0/muse/framework/uicomponents/qml/Muse/UiComponents/selectableitemlistmodel.h
+--- audacity-4.0.0.orig/muse/framework/uicomponents/qml/Muse/UiComponents/selectableitemlistmodel.h	2026-09-03 10:35:44.447229146 +0200
++++ audacity-4.0.0/muse/framework/uicomponents/qml/Muse/UiComponents/selectableitemlistmodel.h	2026-09-05 04:32:18.936296314 +0200
+@@ -22,7 +22,7 @@
+ 
+ #pragma once
+ 
+-#include <qqmlintegration.h>
++#include <QtQmlIntegration/qqmlintegration.h>
+ #include <QAbstractListModel>
+ 
+ #include "itemmultiselectionmodel.h"
+diff '--color=auto' -ur audacity-4.0.0.orig/muse/framework/uicomponents/qml/Muse/UiComponents/selectmultipledirectoriesmodel.h audacity-4.0.0/muse/framework/uicomponents/qml/Muse/UiComponents/selectmultipledirectoriesmodel.h
+--- audacity-4.0.0.orig/muse/framework/uicomponents/qml/Muse/UiComponents/selectmultipledirectoriesmodel.h	2026-09-03 10:35:44.447400610 +0200
++++ audacity-4.0.0/muse/framework/uicomponents/qml/Muse/UiComponents/selectmultipledirectoriesmodel.h	2026-09-05 04:32:18.936315864 +0200
+@@ -21,7 +21,7 @@
+  */
+ #pragma once
+ 
+-#include <qqmlintegration.h>
++#include <QtQmlIntegration/qqmlintegration.h>
+ 
+ #include <QAbstractListModel>
+ #include <QItemSelection>
+diff '--color=auto' -ur audacity-4.0.0.orig/muse/framework/uicomponents/qml/Muse/UiComponents/shortcutoverridemodel.h audacity-4.0.0/muse/framework/uicomponents/qml/Muse/UiComponents/shortcutoverridemodel.h
+--- audacity-4.0.0.orig/muse/framework/uicomponents/qml/Muse/UiComponents/shortcutoverridemodel.h	2026-09-03 10:35:44.447567282 +0200
++++ audacity-4.0.0/muse/framework/uicomponents/qml/Muse/UiComponents/shortcutoverridemodel.h	2026-09-05 04:32:18.936335134 +0200
+@@ -23,7 +23,7 @@
+ #pragma once
+ 
+ #include <QObject>
+-#include <qqmlintegration.h>
++#include <QtQmlIntegration/qqmlintegration.h>
+ 
+ #include "async/asyncable.h"
+ 
+diff '--color=auto' -ur audacity-4.0.0.orig/muse/framework/uicomponents/qml/Muse/UiComponents/sortervalue.h audacity-4.0.0/muse/framework/uicomponents/qml/Muse/UiComponents/sortervalue.h
+--- audacity-4.0.0.orig/muse/framework/uicomponents/qml/Muse/UiComponents/sortervalue.h	2026-09-03 10:35:44.447711453 +0200
++++ audacity-4.0.0/muse/framework/uicomponents/qml/Muse/UiComponents/sortervalue.h	2026-09-05 04:32:18.936353404 +0200
+@@ -22,7 +22,7 @@
+ 
+ #pragma once
+ 
+-#include <qqmlintegration.h>
++#include <QtQmlIntegration/qqmlintegration.h>
+ 
+ #include <QObject>
+ 
+diff '--color=auto' -ur audacity-4.0.0.orig/muse/framework/uicomponents/qml/Muse/UiComponents/sortfilterproxymodel.h audacity-4.0.0/muse/framework/uicomponents/qml/Muse/UiComponents/sortfilterproxymodel.h
+--- audacity-4.0.0.orig/muse/framework/uicomponents/qml/Muse/UiComponents/sortfilterproxymodel.h	2026-09-03 10:35:44.447891541 +0200
++++ audacity-4.0.0/muse/framework/uicomponents/qml/Muse/UiComponents/sortfilterproxymodel.h	2026-09-05 04:32:18.936373234 +0200
+@@ -21,7 +21,7 @@
+  */
+ #pragma once
+ 
+-#include <qqmlintegration.h>
++#include <QtQmlIntegration/qqmlintegration.h>
+ 
+ #include <QSortFilterProxyModel>
+ 
+diff '--color=auto' -ur audacity-4.0.0.orig/muse/framework/uicomponents/qml/Muse/UiComponents/tablesortfilterproxymodel.h audacity-4.0.0/muse/framework/uicomponents/qml/Muse/UiComponents/tablesortfilterproxymodel.h
+--- audacity-4.0.0.orig/muse/framework/uicomponents/qml/Muse/UiComponents/tablesortfilterproxymodel.h	2026-09-03 10:35:44.448053088 +0200
++++ audacity-4.0.0/muse/framework/uicomponents/qml/Muse/UiComponents/tablesortfilterproxymodel.h	2026-09-05 04:32:18.936392934 +0200
+@@ -21,7 +21,7 @@
+  */
+ #pragma once
+ 
+-#include <qqmlintegration.h>
++#include <QtQmlIntegration/qqmlintegration.h>
+ 
+ #include <QSortFilterProxyModel>
+ #include <QItemSelectionModel>
+diff '--color=auto' -ur audacity-4.0.0.orig/muse/framework/uicomponents/qml/Muse/UiComponents/testtableviewmodel.h audacity-4.0.0/muse/framework/uicomponents/qml/Muse/UiComponents/testtableviewmodel.h
+--- audacity-4.0.0.orig/muse/framework/uicomponents/qml/Muse/UiComponents/testtableviewmodel.h	2026-09-03 10:35:44.448531311 +0200
++++ audacity-4.0.0/muse/framework/uicomponents/qml/Muse/UiComponents/testtableviewmodel.h	2026-09-05 04:32:18.936410734 +0200
+@@ -21,7 +21,7 @@
+  */
+ #pragma once
+ 
+-#include <qqmlintegration.h>
++#include <QtQmlIntegration/qqmlintegration.h>
+ 
+ #include "abstracttableviewmodel.h"
+ 
+diff '--color=auto' -ur audacity-4.0.0.orig/muse/framework/uicomponents/qml/Muse/UiComponents/toolbaritem.h audacity-4.0.0/muse/framework/uicomponents/qml/Muse/UiComponents/toolbaritem.h
+--- audacity-4.0.0.orig/muse/framework/uicomponents/qml/Muse/UiComponents/toolbaritem.h	2026-09-03 10:35:44.448712108 +0200
++++ audacity-4.0.0/muse/framework/uicomponents/qml/Muse/UiComponents/toolbaritem.h	2026-09-05 04:32:18.936435724 +0200
+@@ -21,7 +21,7 @@
+  */
+ #pragma once
+ 
+-#include <qqmlintegration.h>
++#include <QtQmlIntegration/qqmlintegration.h>
+ 
+ #include <QObject>
+ #include <QString>
+diff '--color=auto' -ur audacity-4.0.0.orig/muse/framework/uicomponents/qml/Muse/UiComponents/validators/doubleinputvalidator.h audacity-4.0.0/muse/framework/uicomponents/qml/Muse/UiComponents/validators/doubleinputvalidator.h
+--- audacity-4.0.0.orig/muse/framework/uicomponents/qml/Muse/UiComponents/validators/doubleinputvalidator.h	2026-09-03 10:35:44.448940864 +0200
++++ audacity-4.0.0/muse/framework/uicomponents/qml/Muse/UiComponents/validators/doubleinputvalidator.h	2026-09-05 04:32:18.936456654 +0200
+@@ -22,7 +22,7 @@
+ 
+ #pragma once
+ 
+-#include <qqmlintegration.h>
++#include <QtQmlIntegration/qqmlintegration.h>
+ 
+ #include <QString>
+ #include <QValidator>
+diff '--color=auto' -ur audacity-4.0.0.orig/muse/framework/uicomponents/qml/Muse/UiComponents/validators/intinputvalidator.h audacity-4.0.0/muse/framework/uicomponents/qml/Muse/UiComponents/validators/intinputvalidator.h
+--- audacity-4.0.0.orig/muse/framework/uicomponents/qml/Muse/UiComponents/validators/intinputvalidator.h	2026-09-03 10:35:44.449113578 +0200
++++ audacity-4.0.0/muse/framework/uicomponents/qml/Muse/UiComponents/validators/intinputvalidator.h	2026-09-05 04:32:18.936474464 +0200
+@@ -22,7 +22,7 @@
+ 
+ #pragma once
+ 
+-#include <qqmlintegration.h>
++#include <QtQmlIntegration/qqmlintegration.h>
+ 
+ #include <QString>
+ #include <QValidator>
+diff '--color=auto' -ur audacity-4.0.0.orig/muse/framework/uicomponents/qml/Muse/UiComponents/widgetview.h audacity-4.0.0/muse/framework/uicomponents/qml/Muse/UiComponents/widgetview.h
+--- audacity-4.0.0.orig/muse/framework/uicomponents/qml/Muse/UiComponents/widgetview.h	2026-09-03 10:35:44.449260291 +0200
++++ audacity-4.0.0/muse/framework/uicomponents/qml/Muse/UiComponents/widgetview.h	2026-09-05 04:32:18.936492304 +0200
+@@ -22,7 +22,7 @@
+ 
+ #pragma once
+ 
+-#include <qqmlintegration.h>
++#include <QtQmlIntegration/qqmlintegration.h>
+ 
+ #include "quickpaintedview.h"
+ 
+diff '--color=auto' -ur audacity-4.0.0.orig/muse/framework/uicomponents/qml/Muse/UiComponents/windowview.cpp audacity-4.0.0/muse/framework/uicomponents/qml/Muse/UiComponents/windowview.cpp
+--- audacity-4.0.0.orig/muse/framework/uicomponents/qml/Muse/UiComponents/windowview.cpp	2026-09-03 10:35:44.449555925 +0200
++++ audacity-4.0.0/muse/framework/uicomponents/qml/Muse/UiComponents/windowview.cpp	2026-09-05 04:32:18.936520104 +0200
+@@ -22,7 +22,7 @@
+ 
+ #include "windowview.h"
+ 
+-#include <QQuickView>
++#include <QtQuick/QQuickView>
+ #include <QScreen>
+ #include <QTimer>
+ #include <QUrl>
+diff '--color=auto' -ur audacity-4.0.0.orig/muse/framework/uicomponents/qml/Muse/UiComponents/windowview.h audacity-4.0.0/muse/framework/uicomponents/qml/Muse/UiComponents/windowview.h
+--- audacity-4.0.0.orig/muse/framework/uicomponents/qml/Muse/UiComponents/windowview.h	2026-09-03 10:35:44.449641761 +0200
++++ audacity-4.0.0/muse/framework/uicomponents/qml/Muse/UiComponents/windowview.h	2026-09-05 04:32:18.936550444 +0200
+@@ -21,12 +21,12 @@
+  */
+ #pragma once
+ 
+-#include <qqmlintegration.h>
++#include <QtQmlIntegration/qqmlintegration.h>
+ 
+-#include <QQmlParserStatus>
+-#include <QQuickItem>
+-#include <QQuickView>
+-#include <QQmlEngine>
++#include <QtQml/QQmlParserStatus>
++#include <QtQuick/QQuickItem>
++#include <QtQuick/QQuickView>
++#include <QtQml/QQmlEngine>
+ 
+ #include "async/asyncable.h"
+ 
+diff '--color=auto' -ur audacity-4.0.0.orig/muse/framework/update/qml/Muse/Update/appupdatemodel.h audacity-4.0.0/muse/framework/update/qml/Muse/Update/appupdatemodel.h
+--- audacity-4.0.0.orig/muse/framework/update/qml/Muse/Update/appupdatemodel.h	2026-09-03 10:35:44.452770146 +0200
++++ audacity-4.0.0/muse/framework/update/qml/Muse/Update/appupdatemodel.h	2026-09-05 04:32:18.936574803 +0200
+@@ -23,7 +23,7 @@
+ #pragma once
+ 
+ #include <QObject>
+-#include <qqmlintegration.h>
++#include <QtQmlIntegration/qqmlintegration.h>
+ 
+ #include "modularity/ioc.h"
+ #include "async/asyncable.h"
+diff '--color=auto' -ur audacity-4.0.0.orig/muse/framework/vst/qml/Muse/Vst/vstview.cpp audacity-4.0.0/muse/framework/vst/qml/Muse/Vst/vstview.cpp
+--- audacity-4.0.0.orig/muse/framework/vst/qml/Muse/Vst/vstview.cpp	2026-09-03 10:35:44.457684627 +0200
++++ audacity-4.0.0/muse/framework/vst/qml/Muse/Vst/vstview.cpp	2026-09-05 04:32:18.936602903 +0200
+@@ -21,7 +21,7 @@
+  */
+ #include "vstview.h"
+ 
+-#include <QQuickWindow>
++#include <QtQuick/QQuickWindow>
+ 
+ #include "ivstplugininstance.h"
+ 
+diff '--color=auto' -ur audacity-4.0.0.orig/muse/framework/vst/qml/Muse/Vst/vstview.h audacity-4.0.0/muse/framework/vst/qml/Muse/Vst/vstview.h
+--- audacity-4.0.0.orig/muse/framework/vst/qml/Muse/Vst/vstview.h	2026-09-03 10:35:44.457765754 +0200
++++ audacity-4.0.0/muse/framework/vst/qml/Muse/Vst/vstview.h	2026-09-05 04:32:18.936627503 +0200
+@@ -21,10 +21,10 @@
+  */
+ #pragma once
+ 
+-#include <QQuickItem>
++#include <QtQuick/QQuickItem>
+ #include <QAbstractNativeEventFilter>
+ #include <QTimer>
+-#include <qqmlintegration.h>
++#include <QtQmlIntegration/qqmlintegration.h>
+ 
+ #include "global/modularity/ioc.h"
+ #include "ivstinstancesregister.h"
+diff '--color=auto' -ur audacity-4.0.0.orig/muse/framework/workspace/qml/Muse/Workspace/newworkspacemodel.h audacity-4.0.0/muse/framework/workspace/qml/Muse/Workspace/newworkspacemodel.h
+--- audacity-4.0.0.orig/muse/framework/workspace/qml/Muse/Workspace/newworkspacemodel.h	2026-09-03 10:35:44.460885473 +0200
++++ audacity-4.0.0/muse/framework/workspace/qml/Muse/Workspace/newworkspacemodel.h	2026-09-05 04:32:18.936658763 +0200
+@@ -24,7 +24,7 @@
+ 
+ #include <QObject>
+ #include <QVariant>
+-#include <qqmlintegration.h>
++#include <QtQmlIntegration/qqmlintegration.h>
+ 
+ namespace muse::workspace {
+ class NewWorkspaceModel : public QObject
+diff '--color=auto' -ur audacity-4.0.0.orig/muse/framework/workspace/qml/Muse/Workspace/workspacelistmodel.h audacity-4.0.0/muse/framework/workspace/qml/Muse/Workspace/workspacelistmodel.h
+--- audacity-4.0.0.orig/muse/framework/workspace/qml/Muse/Workspace/workspacelistmodel.h	2026-09-03 10:35:44.461214274 +0200
++++ audacity-4.0.0/muse/framework/workspace/qml/Muse/Workspace/workspacelistmodel.h	2026-09-05 04:32:18.936680563 +0200
+@@ -23,7 +23,7 @@
+ #pragma once
+ 
+ #include <QAbstractListModel>
+-#include <qqmlintegration.h>
++#include <QtQmlIntegration/qqmlintegration.h>
+ 
+ #include "global/async/asyncable.h"
+ 
+diff '--color=auto' -ur audacity-4.0.0.orig/muse/framework/workspace/qml/Muse/Workspace/workspacesmenumodel.h audacity-4.0.0/muse/framework/workspace/qml/Muse/Workspace/workspacesmenumodel.h
+--- audacity-4.0.0.orig/muse/framework/workspace/qml/Muse/Workspace/workspacesmenumodel.h	2026-09-03 10:35:44.461353029 +0200
++++ audacity-4.0.0/muse/framework/workspace/qml/Muse/Workspace/workspacesmenumodel.h	2026-09-05 04:32:18.936699233 +0200
+@@ -22,7 +22,7 @@
+ 
+ #pragma once
+ 
+-#include <qqmlintegration.h>
++#include <QtQmlIntegration/qqmlintegration.h>
+ 
+ #include "modularity/ioc.h"
+ #include "ui/iuiactionsregister.h"
+diff '--color=auto' -ur audacity-4.0.0.orig/src/appshell/appshellmodule.cpp audacity-4.0.0/src/appshell/appshellmodule.cpp
+--- audacity-4.0.0.orig/src/appshell/appshellmodule.cpp	2026-09-03 10:35:12.939828391 +0200
++++ audacity-4.0.0/src/appshell/appshellmodule.cpp	2026-09-05 04:32:18.936728153 +0200
+@@ -22,7 +22,7 @@
+ 
+ #include "appshellmodule.h"
+ 
+-#include <QQmlEngine>
++#include <QtQml/QQmlEngine>
+ 
+ #include "framework/global/iapplicationeventcontroller.h"
+ #include "framework/global/modularity/ioc.h"
+diff '--color=auto' -ur audacity-4.0.0.orig/src/appshell/qml/Audacity/AppShell/FirstLaunchSetup/themespagemodel.h audacity-4.0.0/src/appshell/qml/Audacity/AppShell/FirstLaunchSetup/themespagemodel.h
+--- audacity-4.0.0.orig/src/appshell/qml/Audacity/AppShell/FirstLaunchSetup/themespagemodel.h	2026-09-03 10:35:12.955024972 +0200
++++ audacity-4.0.0/src/appshell/qml/Audacity/AppShell/FirstLaunchSetup/themespagemodel.h	2026-09-05 04:32:18.936756323 +0200
+@@ -29,6 +29,7 @@
+ 
+ #include "modularity/ioc.h"
+ #include "ui/iuiconfiguration.h"
++#include "translation.h"
+ 
+ namespace au::appshell {
+ class ThemesPageModel : public QObject, public muse::async::Asyncable
+diff '--color=auto' -ur audacity-4.0.0.orig/src/appshell/qml/Audacity/AppShell/welcomedialogmodel.h audacity-4.0.0/src/appshell/qml/Audacity/AppShell/welcomedialogmodel.h
+--- audacity-4.0.0.orig/src/appshell/qml/Audacity/AppShell/welcomedialogmodel.h	2026-09-03 10:35:12.959816783 +0200
++++ audacity-4.0.0/src/appshell/qml/Audacity/AppShell/welcomedialogmodel.h	2026-09-05 04:32:18.936777283 +0200
+@@ -26,7 +26,7 @@
+ 
+ #include <QObject>
+ #include <qcontainerfwd.h>
+-#include <qqmlintegration.h>
++#include <QtQmlIntegration/qqmlintegration.h>
+ 
+ #include "framework/global/async/asyncable.h"
+ #include "framework/global/modularity/ioc.h"
+diff '--color=auto' -ur audacity-4.0.0.orig/src/appshell/qml/Audacity/AppShell/windowdroparea.h audacity-4.0.0/src/appshell/qml/Audacity/AppShell/windowdroparea.h
+--- audacity-4.0.0.orig/src/appshell/qml/Audacity/AppShell/windowdroparea.h	2026-09-03 10:35:12.959946370 +0200
++++ audacity-4.0.0/src/appshell/qml/Audacity/AppShell/windowdroparea.h	2026-09-05 04:32:18.936797673 +0200
+@@ -23,7 +23,7 @@
+ #ifndef AU_APPSHELL_WINDOWDROPAREA_H
+ #define AU_APPSHELL_WINDOWDROPAREA_H
+ 
+-#include <QQuickItem>
++#include <QtQuick/QQuickItem>
+ #include <QtQml/qqmlregistration.h>
+ 
+ #include "modularity/ioc.h"
+diff '--color=auto' -ur audacity-4.0.0.orig/src/au3cloud/au3cloudmodule.cpp audacity-4.0.0/src/au3cloud/au3cloudmodule.cpp
+--- audacity-4.0.0.orig/src/au3cloud/au3cloudmodule.cpp	2026-09-03 10:35:12.967525056 +0200
++++ audacity-4.0.0/src/au3cloud/au3cloudmodule.cpp	2026-09-05 04:32:18.936818763 +0200
+@@ -1,8 +1,8 @@
+ /*
+ * Audacity: A Digital Audio Editor
+ */
+-#include <QQmlEngine>
+-#include <QtQml>
++#include <QtQml/QQmlEngine>
++#include <QtQml/QtQml>
+ 
+ #include "au3cloudmodule.h"
+ 
+diff '--color=auto' -ur audacity-4.0.0.orig/src/au3cloud/view/accountmodel.cpp audacity-4.0.0/src/au3cloud/view/accountmodel.cpp
+--- audacity-4.0.0.orig/src/au3cloud/view/accountmodel.cpp	2026-09-03 10:35:12.970139551 +0200
++++ audacity-4.0.0/src/au3cloud/view/accountmodel.cpp	2026-09-05 04:32:18.940379661 +0200
+@@ -6,6 +6,8 @@
+ #include "framework/global/io/path.h"
+ #include "framework/global/types/retval.h"
+ 
++#include <QDateTime>
++
+ using namespace au::au3cloud;
+ 
+ AccountModel::AccountModel(QObject* parent)
+diff '--color=auto' -ur audacity-4.0.0.orig/src/automation/automationmodule.cpp audacity-4.0.0/src/automation/automationmodule.cpp
+--- audacity-4.0.0.orig/src/automation/automationmodule.cpp	2026-09-03 10:35:12.979521916 +0200
++++ audacity-4.0.0/src/automation/automationmodule.cpp	2026-09-05 04:32:18.936837793 +0200
+@@ -4,6 +4,8 @@
+ 
+ #include "view/clipgainmodel.h"
+ 
++#include <QtQml/qqml.h>
++
+ using namespace au::automation;
+ 
+ static const std::string mname("automation");
+diff '--color=auto' -ur audacity-4.0.0.orig/src/effects/audio_unit/view/audiounitview.cpp audacity-4.0.0/src/effects/audio_unit/view/audiounitview.cpp
+--- audacity-4.0.0.orig/src/effects/audio_unit/view/audiounitview.cpp	2026-09-03 10:35:12.983409658 +0200
++++ audacity-4.0.0/src/effects/audio_unit/view/audiounitview.cpp	2026-09-05 04:32:18.936862233 +0200
+@@ -3,7 +3,7 @@
+  */
+ #include "audiounitview.h"
+ 
+-#include <QQuickWindow>
++#include <QtQuick/QQuickWindow>
+ 
+ #include "framework/global/log.h"
+ 
+diff '--color=auto' -ur audacity-4.0.0.orig/src/effects/audio_unit/view/audiounitview.h audacity-4.0.0/src/effects/audio_unit/view/audiounitview.h
+--- audacity-4.0.0.orig/src/effects/audio_unit/view/audiounitview.h	2026-09-03 10:35:12.983465951 +0200
++++ audacity-4.0.0/src/effects/audio_unit/view/audiounitview.h	2026-09-05 04:32:18.936895392 +0200
+@@ -3,7 +3,7 @@
+  */
+ #pragma once
+ 
+-#include <QQuickItem>
++#include <QtQuick/QQuickItem>
+ 
+ #include "global/modularity/ioc.h"
+ #include "effects/effects_base/ieffectinstancesregister.h"
+diff '--color=auto' -ur audacity-4.0.0.orig/src/effects/builtin/view/builtineffectviewloader.cpp audacity-4.0.0/src/effects/builtin/view/builtineffectviewloader.cpp
+--- audacity-4.0.0.orig/src/effects/builtin/view/builtineffectviewloader.cpp	2026-09-03 10:35:12.985186336 +0200
++++ audacity-4.0.0/src/effects/builtin/view/builtineffectviewloader.cpp	2026-09-05 04:32:18.936918562 +0200
+@@ -23,8 +23,8 @@
+ #include "effects/effects_base/effectstypes.h"
+ #include "effects/effects_base/internal/abstractviewlauncher.h"
+ 
+-#include <QQmlEngine>
+-#include <QQmlContext>
++#include <QtQml/QQmlEngine>
++#include <QtQml/QQmlContext>
+ 
+ #include "au3wrap/internal/wxtypes_convert.h"
+ #include "global/types/number.h"
+diff '--color=auto' -ur audacity-4.0.0.orig/src/effects/builtin/view/builtineffectviewloader.h audacity-4.0.0/src/effects/builtin/view/builtineffectviewloader.h
+--- audacity-4.0.0.orig/src/effects/builtin/view/builtineffectviewloader.h	2026-09-03 10:35:12.985247421 +0200
++++ audacity-4.0.0/src/effects/builtin/view/builtineffectviewloader.h	2026-09-05 04:32:18.936935732 +0200
+@@ -4,8 +4,8 @@
+ #pragma once
+ 
+ #include <QObject>
+-#include <QQmlComponent>
+-#include <QQuickItem>
++#include <QtQml/QQmlComponent>
++#include <QtQuick/QQuickItem>
+ 
+ #include "global/async/asyncable.h"
+ #include "modularity/ioc.h"
+diff '--color=auto' -ur audacity-4.0.0.orig/src/effects/builtin_collection/builtineffectscollectionmodule.cpp audacity-4.0.0/src/effects/builtin_collection/builtineffectscollectionmodule.cpp
+--- audacity-4.0.0.orig/src/effects/builtin_collection/builtineffectscollectionmodule.cpp	2026-09-03 10:35:12.986305161 +0200
++++ audacity-4.0.0/src/effects/builtin_collection/builtineffectscollectionmodule.cpp	2026-09-05 04:32:18.936955932 +0200
+@@ -10,6 +10,8 @@
+ 
+ #include "effects/effects_base/ieffectviewlaunchregister.h"
+ 
++#include <QtQml/qqml.h>
++
+ using namespace au::effects;
+ 
+ static const std::string mname("builtin_effects_collection");
+diff '--color=auto' -ur audacity-4.0.0.orig/src/effects/builtin_collection/common/valuewarper/valuewarper.h audacity-4.0.0/src/effects/builtin_collection/common/valuewarper/valuewarper.h
+--- audacity-4.0.0.orig/src/effects/builtin_collection/common/valuewarper/valuewarper.h	2026-09-03 10:35:12.987959461 +0200
++++ audacity-4.0.0/src/effects/builtin_collection/common/valuewarper/valuewarper.h	2026-09-05 04:32:18.936976292 +0200
+@@ -6,7 +6,7 @@
+ #include "valuewarpertypes.h"
+ 
+ #include <QObject>
+-#include <QQmlParserStatus>
++#include <QtQml/QQmlParserStatus>
+ #include <QVariant>
+ 
+ namespace au::effects {
+diff '--color=auto' -ur audacity-4.0.0.orig/src/effects/builtin_collection/dynamics/timeline/dynamicstimeline.cpp audacity-4.0.0/src/effects/builtin_collection/dynamics/timeline/dynamicstimeline.cpp
+--- audacity-4.0.0.orig/src/effects/builtin_collection/dynamics/timeline/dynamicstimeline.cpp	2026-09-03 10:35:12.990838006 +0200
++++ audacity-4.0.0/src/effects/builtin_collection/dynamics/timeline/dynamicstimeline.cpp	2026-09-05 04:32:18.937004622 +0200
+@@ -8,7 +8,7 @@
+ #include "global/log.h"
+ #include "global/types/number.h"
+ 
+-#include <QSGTransformNode>
++#include <QtQuick/QSGTransformNode>
+ #include <QTimer>
+ #include <QtQuick/qsgflatcolormaterial.h>
+ 
+diff '--color=auto' -ur audacity-4.0.0.orig/src/effects/builtin_collection/dynamics/timeline/dynamicstimeline.h audacity-4.0.0/src/effects/builtin_collection/dynamics/timeline/dynamicstimeline.h
+--- audacity-4.0.0.orig/src/effects/builtin_collection/dynamics/timeline/dynamicstimeline.h	2026-09-03 10:35:12.990904049 +0200
++++ audacity-4.0.0/src/effects/builtin_collection/dynamics/timeline/dynamicstimeline.h	2026-09-05 04:32:18.937030242 +0200
+@@ -6,9 +6,9 @@
+ #include "dynamicstimelinetypes.h"
+ #include "painters/abstractsequencepainter.h"
+ 
+-#include <QQmlParserStatus>
+-#include <QQuickItem>
+-#include <QSGGeometryNode>
++#include <QtQml/QQmlParserStatus>
++#include <QtQuick/QQuickItem>
++#include <QtQuick/QSGGeometryNode>
+ #include <QTimer>
+ 
+ #include <atomic>
+diff '--color=auto' -ur audacity-4.0.0.orig/src/effects/builtin_collection/dynamics/timeline/painters/abstractsequencepainter.h audacity-4.0.0/src/effects/builtin_collection/dynamics/timeline/painters/abstractsequencepainter.h
+--- audacity-4.0.0.orig/src/effects/builtin_collection/dynamics/timeline/painters/abstractsequencepainter.h	2026-09-03 10:35:12.991756450 +0200
++++ audacity-4.0.0/src/effects/builtin_collection/dynamics/timeline/painters/abstractsequencepainter.h	2026-09-05 04:32:18.937049272 +0200
+@@ -3,7 +3,7 @@
+  */
+ #pragma once
+ 
+-#include <QSGGeometry>
++#include <QtQuick/QSGGeometry>
+ 
+ #include <atomic>
+ 
+diff '--color=auto' -ur audacity-4.0.0.orig/src/effects/builtin_collection/dynamics/timeline/timelinesourcemodel.cpp audacity-4.0.0/src/effects/builtin_collection/dynamics/timeline/timelinesourcemodel.cpp
+--- audacity-4.0.0.orig/src/effects/builtin_collection/dynamics/timeline/timelinesourcemodel.cpp	2026-09-03 10:35:12.992265174 +0200
++++ audacity-4.0.0/src/effects/builtin_collection/dynamics/timeline/timelinesourcemodel.cpp	2026-09-05 04:32:18.937069692 +0200
+@@ -8,7 +8,7 @@
+ 
+ #include "global/log.h"
+ 
+-#include <QSGGeometryNode>
++#include <QtQuick/QSGGeometryNode>
+ #include <QTimer>
+ #include <QtQuick/qsgflatcolormaterial.h>
+ 
+diff '--color=auto' -ur audacity-4.0.0.orig/src/effects/builtin_collection/internal/builtincollectionloader.cpp audacity-4.0.0/src/effects/builtin_collection/internal/builtincollectionloader.cpp
+--- audacity-4.0.0.orig/src/effects/builtin_collection/internal/builtincollectionloader.cpp	2026-09-03 10:35:12.994777583 +0200
++++ audacity-4.0.0/src/effects/builtin_collection/internal/builtincollectionloader.cpp	2026-09-05 04:32:18.937093502 +0200
+@@ -3,7 +3,7 @@
+  */
+ #include "builtincollectionloader.h"
+ 
+-#include <QtQml>
++#include <QtQml/QtQml>
+ 
+ #include "global/translation.h"
+ #include "global/log.h"
+diff '--color=auto' -ur audacity-4.0.0.orig/src/effects/effects_base/view/effectsuiengine.cpp audacity-4.0.0/src/effects/effects_base/view/effectsuiengine.cpp
+--- audacity-4.0.0.orig/src/effects/effects_base/view/effectsuiengine.cpp	2026-09-03 10:35:13.012552991 +0200
++++ audacity-4.0.0/src/effects/effects_base/view/effectsuiengine.cpp	2026-09-05 04:32:18.937115462 +0200
+@@ -3,8 +3,8 @@
+ */
+ #include "effectsuiengine.h"
+ 
+-#include <QQmlEngine>
+-#include <QQmlContext>
++#include <QtQml/QQmlEngine>
++#include <QtQml/QQmlContext>
+ 
+ using namespace au::effects;
+ 
+diff '--color=auto' -ur audacity-4.0.0.orig/src/effects/effects_base/view/effectsviewutils.h audacity-4.0.0/src/effects/effects_base/view/effectsviewutils.h
+--- audacity-4.0.0.orig/src/effects/effects_base/view/effectsviewutils.h	2026-09-03 10:35:13.012796624 +0200
++++ audacity-4.0.0/src/effects/effects_base/view/effectsviewutils.h	2026-09-05 04:32:18.937132002 +0200
+@@ -7,6 +7,10 @@
+ 
+ #include "framework/uicomponents/qml/Muse/UiComponents/menuitem.h"
+ 
++#include <QtQml/qqml.h>
++#include <QtQml/QJSEngine>
++#include <QtQml/QQmlEngine>
++
+ #define REGISTER_AUDACITY_EFFECTS_SINGLETON_TYPE(Factory) \
+     qmlRegisterSingletonType<Factory>("Audacity.Effects", 1, 0, #Factory, \
+                                       [] (QQmlEngine*, QJSEngine*) -> QObject* { \
+diff '--color=auto' -ur audacity-4.0.0.orig/src/effects/effects_base/view/pluginmanagertableviewmodel.h audacity-4.0.0/src/effects/effects_base/view/pluginmanagertableviewmodel.h
+--- audacity-4.0.0.orig/src/effects/effects_base/view/pluginmanagertableviewmodel.h	2026-09-03 10:35:13.014831560 +0200
++++ audacity-4.0.0/src/effects/effects_base/view/pluginmanagertableviewmodel.h	2026-09-05 04:32:18.937154082 +0200
+@@ -11,7 +11,7 @@
+ #include "framework/interactive/iinteractive.h"
+ #include "framework/uicomponents/qml/Muse/UiComponents/abstracttableviewmodel.h"
+ 
+-#include <QQmlParserStatus>
++#include <QtQml/QQmlParserStatus>
+ #include <QObject>
+ 
+ #include <functional>
+diff '--color=auto' -ur audacity-4.0.0.orig/src/effects/extensions/internal/extensioneffect.h audacity-4.0.0/src/effects/extensions/internal/extensioneffect.h
+--- audacity-4.0.0.orig/src/effects/extensions/internal/extensioneffect.h	2026-09-03 10:35:13.016406982 +0200
++++ audacity-4.0.0/src/effects/extensions/internal/extensioneffect.h	2026-09-05 04:32:18.937176831 +0200
+@@ -6,7 +6,7 @@
+ #include <memory>
+ #include <string>
+ 
+-#include <QJSValue>
++#include <QtQml/QJSValue>
+ 
+ #include "au3-effects/StatefulEffect.h"
+ 
+diff '--color=auto' -ur audacity-4.0.0.orig/src/effects/extensions/internal/extensioneffectrunner.h audacity-4.0.0/src/effects/extensions/internal/extensioneffectrunner.h
+--- audacity-4.0.0.orig/src/effects/extensions/internal/extensioneffectrunner.h	2026-09-03 10:35:13.016682032 +0200
++++ audacity-4.0.0/src/effects/extensions/internal/extensioneffectrunner.h	2026-09-05 04:32:18.937194491 +0200
+@@ -7,7 +7,7 @@
+ #include <memory>
+ #include <string>
+ 
+-#include <QJSValue>
++#include <QtQml/QJSValue>
+ #include <QObject>
+ 
+ #include "trackedit/api/audiotransform.h"
+diff '--color=auto' -ur audacity-4.0.0.orig/src/effects/extensions/internal/extensioneffectruntime.h audacity-4.0.0/src/effects/extensions/internal/extensioneffectruntime.h
+--- audacity-4.0.0.orig/src/effects/extensions/internal/extensioneffectruntime.h	2026-09-03 10:35:13.017078460 +0200
++++ audacity-4.0.0/src/effects/extensions/internal/extensioneffectruntime.h	2026-09-05 04:32:18.937211661 +0200
+@@ -7,7 +7,7 @@
+ #include <string>
+ #include <vector>
+ 
+-#include <QJSValue>
++#include <QtQml/QJSValue>
+ #include <QVariantMap>
+ 
+ #include "framework/extensions/iextensionsession.h"
+diff '--color=auto' -ur audacity-4.0.0.orig/src/effects/lv2/view/lv2viewmodel.h audacity-4.0.0/src/effects/lv2/view/lv2viewmodel.h
+--- audacity-4.0.0.orig/src/effects/lv2/view/lv2viewmodel.h	2026-09-03 10:35:13.020011798 +0200
++++ audacity-4.0.0/src/effects/lv2/view/lv2viewmodel.h	2026-09-05 04:32:18.937232981 +0200
+@@ -18,7 +18,8 @@
+ #include "modularity/ioc.h"
+ 
+ #include <QObject>
+-#include <QQuickItem>
++#include <QtQuick/QQuickItem>
++#include <QTimer>
+ 
+ class LV2PortUIStates;
+ struct LV2EffectOutputs;
+diff '--color=auto' -ur audacity-4.0.0.orig/src/effects/nyquist/nyquistprompt/nyquistpromptloader.cpp audacity-4.0.0/src/effects/nyquist/nyquistprompt/nyquistpromptloader.cpp
+--- audacity-4.0.0.orig/src/effects/nyquist/nyquistprompt/nyquistpromptloader.cpp	2026-09-03 10:35:13.022410704 +0200
++++ audacity-4.0.0/src/effects/nyquist/nyquistprompt/nyquistpromptloader.cpp	2026-09-05 04:32:18.937252641 +0200
+@@ -2,8 +2,13 @@
+  * Audacity: A Digital Audio Editor
+  */
+ #include "nyquistpromptloader.h"
++#include "nyquistprompteffect.h"
++#include "nyquistpromptviewmodel.h"
+ 
+ #include "au3-effects/LoadEffects.h"
++#include "au3wrap/internal/wxtypes_convert.h"
++
++#include <QtQml/qqml.h>
+ 
+ namespace au::effects {
+ void NyquistPromptLoader::preInit()
+diff '--color=auto' -ur audacity-4.0.0.orig/src/extensions/api/audiotransformapi.cpp audacity-4.0.0/src/extensions/api/audiotransformapi.cpp
+--- audacity-4.0.0.orig/src/extensions/api/audiotransformapi.cpp	2026-09-03 10:35:13.024874861 +0200
++++ audacity-4.0.0/src/extensions/api/audiotransformapi.cpp	2026-09-05 04:32:18.937272631 +0200
+@@ -8,7 +8,7 @@
+ #include <utility>
+ #include <vector>
+ 
+-#include <QJSEngine>
++#include <QtQml/QJSEngine>
+ #include <QPointer>
+ 
+ #include "extensions/native/nativeextension.h"
+diff '--color=auto' -ur audacity-4.0.0.orig/src/extensions/api/audiotransformapi.h audacity-4.0.0/src/extensions/api/audiotransformapi.h
+--- audacity-4.0.0.orig/src/extensions/api/audiotransformapi.h	2026-09-03 10:35:13.024937863 +0200
++++ audacity-4.0.0/src/extensions/api/audiotransformapi.h	2026-09-05 04:32:18.937288731 +0200
+@@ -4,7 +4,7 @@
+  */
+ #pragma once
+ 
+-#include <QJSValue>
++#include <QtQml/QJSValue>
+ #include <QObject>
+ #include <QString>
+ 
+diff '--color=auto' -ur audacity-4.0.0.orig/src/extensions/api/nativeapi.cpp audacity-4.0.0/src/extensions/api/nativeapi.cpp
+--- audacity-4.0.0.orig/src/extensions/api/nativeapi.cpp	2026-09-03 10:35:13.025005157 +0200
++++ audacity-4.0.0/src/extensions/api/nativeapi.cpp	2026-09-05 04:32:18.937306201 +0200
+@@ -6,7 +6,7 @@
+ 
+ #include <limits>
+ 
+-#include <QJSEngine>
++#include <QtQml/QJSEngine>
+ #include <QStringList>
+ 
+ #include "extensions/native/bytebuffer.h"
+diff '--color=auto' -ur audacity-4.0.0.orig/src/extensions/native/bytebuffer.cpp audacity-4.0.0/src/extensions/native/bytebuffer.cpp
+--- audacity-4.0.0.orig/src/extensions/native/bytebuffer.cpp	2026-09-03 10:35:13.025569382 +0200
++++ audacity-4.0.0/src/extensions/native/bytebuffer.cpp	2026-09-05 04:32:18.937338291 +0200
+@@ -4,7 +4,7 @@
+  */
+ #include "bytebuffer.h"
+ 
+-#include <QJSEngine>
++#include <QtQml/QJSEngine>
+ 
+ using namespace muse::extensions;
+ 
+diff '--color=auto' -ur audacity-4.0.0.orig/src/extensions/native/nativelibrary.h audacity-4.0.0/src/extensions/native/nativelibrary.h
+--- audacity-4.0.0.orig/src/extensions/native/nativelibrary.h	2026-09-03 10:35:13.025964436 +0200
++++ audacity-4.0.0/src/extensions/native/nativelibrary.h	2026-09-05 04:32:18.937358301 +0200
+@@ -10,8 +10,8 @@
+ #include <vector>
+ 
+ #include <QByteArray>
+-#include <QJSEngine>
+-#include <QJSValue>
++#include <QtQml/QJSEngine>
++#include <QtQml/QJSValue>
+ #if !defined(Q_OS_WIN)
+ #include <QLibrary>
+ #endif
+diff '--color=auto' -ur audacity-4.0.0.orig/src/importexport/export/exportermodule.cpp audacity-4.0.0/src/importexport/export/exportermodule.cpp
+--- audacity-4.0.0.orig/src/importexport/export/exportermodule.cpp	2026-09-03 10:35:13.026262320 +0200
++++ audacity-4.0.0/src/importexport/export/exportermodule.cpp	2026-09-05 04:32:18.937380601 +0200
+@@ -16,6 +16,8 @@
+ 
+ #include "exportermodule.h"
+ 
++#include <QtQml/qqml.h>
++
+ using namespace au::importexport;
+ using namespace muse;
+ 
+diff '--color=auto' -ur audacity-4.0.0.orig/src/importexport/labels/labelsmodule.cpp audacity-4.0.0/src/importexport/labels/labelsmodule.cpp
+--- audacity-4.0.0.orig/src/importexport/labels/labelsmodule.cpp	2026-09-03 10:35:13.032025534 +0200
++++ audacity-4.0.0/src/importexport/labels/labelsmodule.cpp	2026-09-05 04:32:18.937402131 +0200
+@@ -14,6 +14,8 @@
+ 
+ #include "view/exportlabelsmodel.h"
+ 
++#include <QtQml/qqml.h>
++
+ using namespace au::importexport;
+ 
+ static const std::string mname("iex_labels");
+diff '--color=auto' -ur audacity-4.0.0.orig/src/playback/internal/meters/dblogmeter.cpp audacity-4.0.0/src/playback/internal/meters/dblogmeter.cpp
+--- audacity-4.0.0.orig/src/playback/internal/meters/dblogmeter.cpp	2026-09-03 10:35:13.033714293 +0200
++++ audacity-4.0.0/src/playback/internal/meters/dblogmeter.cpp	2026-09-05 04:32:18.937423191 +0200
+@@ -4,6 +4,7 @@
+ 
+ #include "dblogmeter.h"
+ 
++#include <array>
+ #include <cmath>
+ #include <sstream>
+ #include <iomanip>
+diff '--color=auto' -ur audacity-4.0.0.orig/src/playback/playbackmodule.cpp audacity-4.0.0/src/playback/playbackmodule.cpp
+--- audacity-4.0.0.orig/src/playback/playbackmodule.cpp	2026-09-03 10:35:13.035387927 +0200
++++ audacity-4.0.0/src/playback/playbackmodule.cpp	2026-09-05 04:32:18.937443251 +0200
+@@ -2,8 +2,8 @@
+ * Audacity: A Digital Audio Editor
+ */
+ 
+-#include <QQmlEngine>
+-#include <QtQml>
++#include <QtQml/QQmlEngine>
++#include <QtQml/QtQml>
+ 
+ #include "framework/interactive/iinteractiveuriregister.h"
+ 
+diff '--color=auto' -ur audacity-4.0.0.orig/src/playback/view/common/volumepressuremeteritembase.h audacity-4.0.0/src/playback/view/common/volumepressuremeteritembase.h
+--- audacity-4.0.0.orig/src/playback/view/common/volumepressuremeteritembase.h	2026-09-03 10:35:13.038471020 +0200
++++ audacity-4.0.0/src/playback/view/common/volumepressuremeteritembase.h	2026-09-05 04:32:18.937474861 +0200
+@@ -5,7 +5,7 @@
+ 
+ #include <QColor>
+ #include <QPointer>
+-#include <QQuickPaintedItem>
++#include <QtQuick/QQuickPaintedItem>
+ 
+ #include <vector>
+ 
+diff '--color=auto' -ur audacity-4.0.0.orig/src/preferences/preferencesmodule.cpp audacity-4.0.0/src/preferences/preferencesmodule.cpp
+--- audacity-4.0.0.orig/src/preferences/preferencesmodule.cpp	2026-09-03 10:35:13.039576469 +0200
++++ audacity-4.0.0/src/preferences/preferencesmodule.cpp	2026-09-05 04:32:18.937494510 +0200
+@@ -1,6 +1,6 @@
+ #include "preferencesmodule.h"
+ 
+-#include <QtQml>
++#include <QtQml/QtQml>
+ 
+ #include "framework/global/modularity/ioc.h"
+ 
+diff '--color=auto' -ur audacity-4.0.0.orig/src/preferences/qml/Audacity/Preferences/preferencesmodel.cpp audacity-4.0.0/src/preferences/qml/Audacity/Preferences/preferencesmodel.cpp
+--- audacity-4.0.0.orig/src/preferences/qml/Audacity/Preferences/preferencesmodel.cpp	2026-09-03 10:35:13.047517624 +0200
++++ audacity-4.0.0/src/preferences/qml/Audacity/Preferences/preferencesmodel.cpp	2026-09-05 04:32:18.937522500 +0200
+@@ -20,6 +20,7 @@
+  * along with this program.  If not, see <https://www.gnu.org/licenses/>.
+  */
+ #include <QGuiApplication>
++#include <QCursor>
+ 
+ #include "preferencesmodel.h"
+ 
+diff '--color=auto' -ur audacity-4.0.0.orig/src/project/internal/projectactionscontroller.cpp audacity-4.0.0/src/project/internal/projectactionscontroller.cpp
+--- audacity-4.0.0.orig/src/project/internal/projectactionscontroller.cpp	2026-09-03 10:35:13.050990896 +0200
++++ audacity-4.0.0/src/project/internal/projectactionscontroller.cpp	2026-09-05 04:32:18.937596580 +0200
+@@ -1,6 +1,7 @@
+ #include "projectactionscontroller.h"
+ 
+ #include <QFileDialog>
++#include <QWindow>
+ 
+ #include <variant>
+ 
+diff '--color=auto' -ur audacity-4.0.0.orig/src/project/view/projectthumbnailloader.h audacity-4.0.0/src/project/view/projectthumbnailloader.h
+--- audacity-4.0.0.orig/src/project/view/projectthumbnailloader.h	2026-09-03 10:35:13.068944810 +0200
++++ audacity-4.0.0/src/project/view/projectthumbnailloader.h	2026-09-05 04:32:18.937657240 +0200
+@@ -1,6 +1,7 @@
+ #pragma once
+ 
+ #include <QObject>
++#include <QPixmap>
+ 
+ #include "framework/global/async/asyncable.h"
+ 
+diff '--color=auto' -ur audacity-4.0.0.orig/src/projectscene/projectscenemodule.cpp audacity-4.0.0/src/projectscene/projectscenemodule.cpp
+--- audacity-4.0.0.orig/src/projectscene/projectscenemodule.cpp	2026-09-03 10:35:13.073628659 +0200
++++ audacity-4.0.0/src/projectscene/projectscenemodule.cpp	2026-09-05 04:32:18.937681800 +0200
+@@ -3,7 +3,7 @@
+ */
+ #include "projectscenemodule.h"
+ 
+-#include <QtQml>
++#include <QtQml/QtQml>
+ 
+ #include "types/projectscenetypes.h"
+ 
+diff '--color=auto' -ur audacity-4.0.0.orig/src/projectscene/view/common/customcursor.cpp audacity-4.0.0/src/projectscene/view/common/customcursor.cpp
+--- audacity-4.0.0.orig/src/projectscene/view/common/customcursor.cpp	2026-09-03 10:35:13.103823232 +0200
++++ audacity-4.0.0/src/projectscene/view/common/customcursor.cpp	2026-09-05 04:32:18.937709540 +0200
+@@ -8,7 +8,7 @@
+ #include <QScreen>
+ #include <QPixmap>
+ #include <QWindow>
+-#include <QQuickWindow>
++#include <QtQuick/QQuickWindow>
+ 
+ #include "log.h"
+ 
+diff '--color=auto' -ur audacity-4.0.0.orig/src/projectscene/view/common/customcursor.h audacity-4.0.0/src/projectscene/view/common/customcursor.h
+--- audacity-4.0.0.orig/src/projectscene/view/common/customcursor.h	2026-09-03 10:35:13.103935944 +0200
++++ audacity-4.0.0/src/projectscene/view/common/customcursor.h	2026-09-05 04:32:18.937729710 +0200
+@@ -6,7 +6,7 @@
+ 
+ #include <QObject>
+ #include <QString>
+-#include <QQuickItem>
++#include <QtQuick/QQuickItem>
+ #include <QCursor>
+ 
+ namespace au::projectscene {
+diff '--color=auto' -ur audacity-4.0.0.orig/src/projectscene/view/historypanel/historypanelmodel.h audacity-4.0.0/src/projectscene/view/historypanel/historypanelmodel.h
+--- audacity-4.0.0.orig/src/projectscene/view/historypanel/historypanelmodel.h	2026-09-03 10:35:13.105694997 +0200
++++ audacity-4.0.0/src/projectscene/view/historypanel/historypanelmodel.h	2026-09-05 04:32:18.937748130 +0200
+@@ -4,7 +4,7 @@
+ #pragma once
+ 
+ #include <QAbstractListModel>
+-#include <QQmlParserStatus>
++#include <QtQml/QQmlParserStatus>
+ 
+ #include "async/asyncable.h"
+ 
+diff '--color=auto' -ur audacity-4.0.0.orig/src/projectscene/view/timeline/gridlines.h audacity-4.0.0/src/projectscene/view/timeline/gridlines.h
+--- audacity-4.0.0.orig/src/projectscene/view/timeline/gridlines.h	2026-09-03 10:35:13.106830197 +0200
++++ audacity-4.0.0/src/projectscene/view/timeline/gridlines.h	2026-09-05 04:32:18.937773060 +0200
+@@ -2,7 +2,7 @@
+ * Audacity: A Digital Audio Editor
+ */
+ 
+-#include "qquickpainteditem.h"
++#include <QtQuick/qquickpainteditem.h>
+ #include "view/timeline/timelineruler.h"
+ 
+ class QPainter;
+diff '--color=auto' -ur audacity-4.0.0.orig/src/projectscene/view/timeline/playregioncontroller.h audacity-4.0.0/src/projectscene/view/timeline/playregioncontroller.h
+--- audacity-4.0.0.orig/src/projectscene/view/timeline/playregioncontroller.h	2026-09-03 10:35:13.107017578 +0200
++++ audacity-4.0.0/src/projectscene/view/timeline/playregioncontroller.h	2026-09-05 04:32:18.937792259 +0200
+@@ -5,6 +5,7 @@
+ #pragma once
+ 
+ #include <QObject>
++#include <QCursor>
+ 
+ #include "modularity/ioc.h"
+ #include "context/iuicontextresolver.h"
+diff '--color=auto' -ur audacity-4.0.0.orig/src/projectscene/view/trackruler/dblogbaseruler.h audacity-4.0.0/src/projectscene/view/trackruler/dblogbaseruler.h
+--- audacity-4.0.0.orig/src/projectscene/view/trackruler/dblogbaseruler.h	2026-09-03 10:35:13.111194203 +0200
++++ audacity-4.0.0/src/projectscene/view/trackruler/dblogbaseruler.h	2026-09-05 04:32:18.937811659 +0200
+@@ -4,6 +4,7 @@
+ #pragma once
+ 
+ #include "projectscene/view/trackruler/itrackruler.h"
++#include <string>
+ 
+ namespace au::projectscene {
+ struct DbLogRulerUiSettings {
+diff '--color=auto' -ur audacity-4.0.0.orig/src/projectscene/view/trackruler/itrackruler.h audacity-4.0.0/src/projectscene/view/trackruler/itrackruler.h
+--- audacity-4.0.0.orig/src/projectscene/view/trackruler/itrackruler.h	2026-09-03 10:35:13.111684385 +0200
++++ audacity-4.0.0/src/projectscene/view/trackruler/itrackruler.h	2026-09-05 04:32:18.937828329 +0200
+@@ -2,6 +2,7 @@
+ 
+ #include <cstddef>
+ #include <vector>
++#include <string>
+ 
+ namespace au::projectscene {
+ enum class IsFullWidthTick : bool {
+diff '--color=auto' -ur audacity-4.0.0.orig/src/projectscene/view/trackruler/linearbaseruler.cpp audacity-4.0.0/src/projectscene/view/trackruler/linearbaseruler.cpp
+--- audacity-4.0.0.orig/src/projectscene/view/trackruler/linearbaseruler.cpp	2026-09-03 10:35:13.111828806 +0200
++++ audacity-4.0.0/src/projectscene/view/trackruler/linearbaseruler.cpp	2026-09-05 04:32:18.937848089 +0200
+@@ -4,6 +4,8 @@
+ #include <cassert>
+ #include <iomanip>
+ #include <sstream>
++#include <array>
++#include <utility>
+ 
+ #include "framework/global/realfn.h"
+ 
+diff '--color=auto' -ur audacity-4.0.0.orig/src/projectscene/view/tracksitemsview/labeleditor/addnewlabeltrackmodel.h audacity-4.0.0/src/projectscene/view/tracksitemsview/labeleditor/addnewlabeltrackmodel.h
+--- audacity-4.0.0.orig/src/projectscene/view/tracksitemsview/labeleditor/addnewlabeltrackmodel.h	2026-09-03 10:35:13.114738143 +0200
++++ audacity-4.0.0/src/projectscene/view/tracksitemsview/labeleditor/addnewlabeltrackmodel.h	2026-09-05 04:32:18.937868939 +0200
+@@ -3,7 +3,7 @@
+ */
+ #pragma once
+ 
+-#include <qqmlintegration.h>
++#include <QtQmlIntegration/qqmlintegration.h>
+ 
+ #include "modularity/ioc.h"
+ #include "trackedit/itrackeditinteraction.h"
+diff '--color=auto' -ur audacity-4.0.0.orig/src/projectscene/view/tracksitemsview/labeleditor/labelstableviewmodel.h audacity-4.0.0/src/projectscene/view/tracksitemsview/labeleditor/labelstableviewmodel.h
+--- audacity-4.0.0.orig/src/projectscene/view/tracksitemsview/labeleditor/labelstableviewmodel.h	2026-09-03 10:35:13.114884023 +0200
++++ audacity-4.0.0/src/projectscene/view/tracksitemsview/labeleditor/labelstableviewmodel.h	2026-09-05 04:32:18.937888979 +0200
+@@ -3,7 +3,7 @@
+ */
+ #pragma once
+ 
+-#include <qqmlintegration.h>
++#include <QtQmlIntegration/qqmlintegration.h>
+ 
+ #include "framework/global/modularity/ioc.h"
+ #include "framework/interactive/iinteractive.h"
+diff '--color=auto' -ur audacity-4.0.0.orig/src/projectscene/view/tracksitemsview/labeleditor/labelstableviewverticalheader.h audacity-4.0.0/src/projectscene/view/tracksitemsview/labeleditor/labelstableviewverticalheader.h
+--- audacity-4.0.0.orig/src/projectscene/view/tracksitemsview/labeleditor/labelstableviewverticalheader.h	2026-09-03 10:35:13.115261575 +0200
++++ audacity-4.0.0/src/projectscene/view/tracksitemsview/labeleditor/labelstableviewverticalheader.h	2026-09-05 04:32:18.937906009 +0200
+@@ -3,7 +3,7 @@
+ */
+ #pragma once
+ 
+-#include <qqmlintegration.h>
++#include <QtQmlIntegration/qqmlintegration.h>
+ 
+ #include <QObject>
+ 
+diff '--color=auto' -ur audacity-4.0.0.orig/src/projectscene/view/tracksitemsview/mousehelper.h audacity-4.0.0/src/projectscene/view/tracksitemsview/mousehelper.h
+--- audacity-4.0.0.orig/src/projectscene/view/tracksitemsview/mousehelper.h	2026-09-03 10:35:13.115374579 +0200
++++ audacity-4.0.0/src/projectscene/view/tracksitemsview/mousehelper.h	2026-09-05 04:32:18.937922319 +0200
+@@ -3,7 +3,7 @@
+  */
+ #pragma once
+ 
+-#include <QQuickItem>
++#include <QtQuick/QQuickItem>
+ 
+ namespace au::projectscene {
+ class MouseHelper : public QObject
+diff '--color=auto' -ur audacity-4.0.0.orig/src/projectscene/view/tracksitemsview/waveview.h audacity-4.0.0/src/projectscene/view/tracksitemsview/waveview.h
+--- audacity-4.0.0.orig/src/projectscene/view/tracksitemsview/waveview.h	2026-09-03 10:35:13.118588675 +0200
++++ audacity-4.0.0/src/projectscene/view/tracksitemsview/waveview.h	2026-09-05 04:32:18.937944189 +0200
+@@ -3,7 +3,7 @@
+ */
+ #pragma once
+ 
+-#include <QQuickPaintedItem>
++#include <QtQuick/QQuickPaintedItem>
+ 
+ #include "modularity/ioc.h"
+ #include "context/iglobalcontext.h"
+diff '--color=auto' -ur audacity-4.0.0.orig/src/record/recordmodule.cpp audacity-4.0.0/src/record/recordmodule.cpp
+--- audacity-4.0.0.orig/src/record/recordmodule.cpp	2026-09-03 10:35:13.122817886 +0200
++++ audacity-4.0.0/src/record/recordmodule.cpp	2026-09-05 04:32:18.937968289 +0200
+@@ -3,8 +3,8 @@
+ */
+ #include "recordmodule.h"
+ 
+-#include <QQmlEngine>
+-#include <QtQml>
++#include <QtQml/QQmlEngine>
++#include <QtQml/QtQml>
+ 
+ #include "modularity/ioc.h"
+ 
+diff '--color=auto' -ur audacity-4.0.0.orig/src/spectrogram/view/channelspectralselectionmodel.h audacity-4.0.0/src/spectrogram/view/channelspectralselectionmodel.h
+--- audacity-4.0.0.orig/src/spectrogram/view/channelspectralselectionmodel.h	2026-09-03 10:35:13.132752851 +0200
++++ audacity-4.0.0/src/spectrogram/view/channelspectralselectionmodel.h	2026-09-05 04:32:18.937996759 +0200
+@@ -13,7 +13,7 @@
+ #include "framework/global/async/asyncable.h"
+ 
+ #include <QObject>
+-#include <QQmlParserStatus>
++#include <QtQml/QQmlParserStatus>
+ 
+ #include <utility>
+ 
+diff '--color=auto' -ur audacity-4.0.0.orig/src/spectrogram/view/clipchannelspectrogramview.h audacity-4.0.0/src/spectrogram/view/clipchannelspectrogramview.h
+--- audacity-4.0.0.orig/src/spectrogram/view/clipchannelspectrogramview.h	2026-09-03 10:35:13.133202614 +0200
++++ audacity-4.0.0/src/spectrogram/view/clipchannelspectrogramview.h	2026-09-05 04:32:18.938018799 +0200
+@@ -11,7 +11,7 @@
+ #include "framework/global/async/asyncable.h"
+ #include "framework/global/modularity/ioc.h"
+ 
+-#include <QQuickPaintedItem>
++#include <QtQuick/QQuickPaintedItem>
+ 
+ namespace au::spectrogram {
+ class ClipChannelSpectrogramView : public QQuickPaintedItem, public muse::async::Asyncable, public muse::Contextable
+diff '--color=auto' -ur audacity-4.0.0.orig/src/spectrogram/view/globalspectrogramsettingsmodel.h audacity-4.0.0/src/spectrogram/view/globalspectrogramsettingsmodel.h
+--- audacity-4.0.0.orig/src/spectrogram/view/globalspectrogramsettingsmodel.h	2026-09-03 10:35:13.133649586 +0200
++++ audacity-4.0.0/src/spectrogram/view/globalspectrogramsettingsmodel.h	2026-09-05 04:32:18.938038789 +0200
+@@ -9,7 +9,7 @@
+ #include "framework/global/async/asyncable.h"
+ #include "framework/global/modularity/ioc.h"
+ 
+-#include <QQmlParserStatus>
++#include <QtQml/QQmlParserStatus>
+ 
+ namespace au::spectrogram {
+ class GlobalSpectrogramSettingsModel : public AbstractSpectrogramSettingsModel, public muse::async::Asyncable, public QQmlParserStatus
+diff '--color=auto' -ur audacity-4.0.0.orig/src/spectrogram/view/scalesectionparameterlistmodel.h audacity-4.0.0/src/spectrogram/view/scalesectionparameterlistmodel.h
+--- audacity-4.0.0.orig/src/spectrogram/view/scalesectionparameterlistmodel.h	2026-09-03 10:35:13.133829716 +0200
++++ audacity-4.0.0/src/spectrogram/view/scalesectionparameterlistmodel.h	2026-09-05 04:32:18.938055769 +0200
+@@ -9,7 +9,7 @@
+ #include "framework/global/modularity/ioc.h"
+ #include "framework/global/async/asyncable.h"
+ 
+-#include <QQmlParserStatus>
++#include <QtQml/QQmlParserStatus>
+ 
+ namespace au::spectrogram {
+ class AbstractSpectrogramSettingsModel;
+diff '--color=auto' -ur audacity-4.0.0.orig/src/spectrogram/view/spectrogramchannelrulermodel.h audacity-4.0.0/src/spectrogram/view/spectrogramchannelrulermodel.h
+--- audacity-4.0.0.orig/src/spectrogram/view/spectrogramchannelrulermodel.h	2026-09-03 10:35:13.133973471 +0200
++++ audacity-4.0.0/src/spectrogram/view/spectrogramchannelrulermodel.h	2026-09-05 04:32:18.938073419 +0200
+@@ -13,7 +13,7 @@
+ #include "framework/ui/iuiconfiguration.h"
+ 
+ #include <QObject>
+-#include <QQmlParserStatus>
++#include <QtQml/QQmlParserStatus>
+ #include <QVariantList>
+ 
+ namespace au::spectrogram {
+diff '--color=auto' -ur audacity-4.0.0.orig/src/spectrogram/view/trackspectrogramsettingsmodel.h audacity-4.0.0/src/spectrogram/view/trackspectrogramsettingsmodel.h
+--- audacity-4.0.0.orig/src/spectrogram/view/trackspectrogramsettingsmodel.h	2026-09-03 10:35:13.134683117 +0200
++++ audacity-4.0.0/src/spectrogram/view/trackspectrogramsettingsmodel.h	2026-09-05 04:32:18.938094588 +0200
+@@ -3,7 +3,7 @@
+  */
+ #pragma once
+ 
+-#include <QQmlParserStatus>
++#include <QtQml/QQmlParserStatus>
+ 
+ #include "spectrogram/view/abstractspectrogramsettingsmodel.h"
+ #include "spectrogram/iglobalspectrogramconfiguration.h"
+diff '--color=auto' -ur audacity-4.0.0.orig/src/trackedit/api/projectapi.cpp audacity-4.0.0/src/trackedit/api/projectapi.cpp
+--- audacity-4.0.0.orig/src/trackedit/api/projectapi.cpp	2026-09-03 10:35:13.138544650 +0200
++++ audacity-4.0.0/src/trackedit/api/projectapi.cpp	2026-09-05 04:32:18.938118018 +0200
+@@ -6,7 +6,7 @@
+ #include <algorithm>
+ #include <limits>
+ 
+-#include <QJSEngine>
++#include <QtQml/QJSEngine>
+ 
+ #include "au3-project-rate/ProjectRate.h"
+ #include "au3-project/Project.h"
+diff '--color=auto' -ur audacity-4.0.0.orig/src/trackedit/api/projectapi.h audacity-4.0.0/src/trackedit/api/projectapi.h
+--- audacity-4.0.0.orig/src/trackedit/api/projectapi.h	2026-09-03 10:35:13.138612027 +0200
++++ audacity-4.0.0/src/trackedit/api/projectapi.h	2026-09-05 04:32:18.938135258 +0200
+@@ -3,7 +3,7 @@
+  */
+ #pragma once
+ 
+-#include <QJSValue>
++#include <QtQml/QJSValue>
+ 
+ #include "api/apiobject.h"
+ #include "context/iglobalcontext.h"
+diff '--color=auto' -ur audacity-4.0.0.orig/src/trackedit/api/projectedit.cpp audacity-4.0.0/src/trackedit/api/projectedit.cpp
+--- audacity-4.0.0.orig/src/trackedit/api/projectedit.cpp	2026-09-03 10:35:13.139007997 +0200
++++ audacity-4.0.0/src/trackedit/api/projectedit.cpp	2026-09-05 04:32:18.938163808 +0200
+@@ -12,7 +12,7 @@
+ #include <thread>
+ #include <utility>
+ 
+-#include <QJSEngine>
++#include <QtQml/QJSEngine>
+ 
+ #include "au3-label-track/LabelTrack.h"
+ #include "au3-project/Project.h"
+diff '--color=auto' -ur audacity-4.0.0.orig/src/trackedit/dom/wave.h audacity-4.0.0/src/trackedit/dom/wave.h
+--- audacity-4.0.0.orig/src/trackedit/dom/wave.h	2026-09-03 10:35:13.139892065 +0200
++++ audacity-4.0.0/src/trackedit/dom/wave.h	2026-09-05 04:32:18.938189698 +0200
+@@ -3,6 +3,7 @@
+ */
+ #pragma once
+ 
++#include <cstdint>
+ #include <memory>
+ #include <vector>
+ 
+diff '--color=auto' -ur audacity-4.0.0.orig/src/trackedit/tests/tracknavigationmodel_tests.cpp audacity-4.0.0/src/trackedit/tests/tracknavigationmodel_tests.cpp
+--- audacity-4.0.0.orig/src/trackedit/tests/tracknavigationmodel_tests.cpp	2026-09-03 10:35:13.156625484 +0200
++++ audacity-4.0.0/src/trackedit/tests/tracknavigationmodel_tests.cpp	2026-09-05 04:32:18.938232788 +0200
+@@ -3,8 +3,8 @@
+ */
+ #include <gtest/gtest.h>
+ 
+-#include <QQmlEngine>
+-#include <QQmlContext>
++#include <QtQml/QQmlEngine>
++#include <QtQml/QQmlContext>
+ 
+ #include "../view/tracknavigationmodel.h"
+ 
+diff '--color=auto' -ur audacity-4.0.0.orig/src/trackedit/trackeditmodule.cpp audacity-4.0.0/src/trackedit/trackeditmodule.cpp
+--- audacity-4.0.0.orig/src/trackedit/trackeditmodule.cpp	2026-09-03 10:35:13.157253087 +0200
++++ audacity-4.0.0/src/trackedit/trackeditmodule.cpp	2026-09-05 04:32:18.938268348 +0200
+@@ -21,7 +21,7 @@
+  */
+ #include "trackeditmodule.h"
+ 
+-#include <QtQml>
++#include <QtQml/QtQml>
+ 
+ #include "framework/global/modularity/ioc.h"
+ 
+diff '--color=auto' -ur audacity-4.0.0.orig/src/trackedit/view/tracknavigationmodel.h audacity-4.0.0/src/trackedit/view/tracknavigationmodel.h
+--- audacity-4.0.0.orig/src/trackedit/view/tracknavigationmodel.h	2026-09-03 10:35:13.158053902 +0200
++++ audacity-4.0.0/src/trackedit/view/tracknavigationmodel.h	2026-09-05 04:32:18.938293298 +0200
+@@ -3,7 +3,7 @@
+ #include <optional>
+ 
+ #include <QPointer>
+-#include <QQuickItem>
++#include <QtQuick/QQuickItem>
+ 
+ #include "ui/qml/Muse/Ui/navigationsection.h"
+ #include "ui/qml/Muse/Ui/navigationpanel.h"
+diff '--color=auto' -ur audacity-4.0.0.orig/src/uicomponents/components/internal/numeric/fieldsinteractioncontroller.h audacity-4.0.0/src/uicomponents/components/internal/numeric/fieldsinteractioncontroller.h
+--- audacity-4.0.0.orig/src/uicomponents/components/internal/numeric/fieldsinteractioncontroller.h	2026-09-03 10:35:13.159237896 +0200
++++ audacity-4.0.0/src/uicomponents/components/internal/numeric/fieldsinteractioncontroller.h	2026-09-05 04:32:18.938317078 +0200
+@@ -3,7 +3,7 @@
+ */
+ #pragma once
+ 
+-#include <QQuickItem>
++#include <QtQuick/QQuickItem>
+ 
+ #include "timecodeformatter.h"
+ 
+diff '--color=auto' -ur audacity-4.0.0.orig/src/uicomponents/components/internal/numeric/numericviewmodel.h audacity-4.0.0/src/uicomponents/components/internal/numeric/numericviewmodel.h
+--- audacity-4.0.0.orig/src/uicomponents/components/internal/numeric/numericviewmodel.h	2026-09-03 10:35:13.159712827 +0200
++++ audacity-4.0.0/src/uicomponents/components/internal/numeric/numericviewmodel.h	2026-09-05 04:32:18.938339268 +0200
+@@ -4,7 +4,7 @@
+ #pragma once
+ 
+ #include <QAbstractListModel>
+-#include <QQuickItem>
++#include <QtQuick/QQuickItem>
+ 
+ #include "framework/uicomponents/qml/Muse/UiComponents/menuitem.h"
+ 
+diff '--color=auto' -ur audacity-4.0.0.orig/src/uicomponents/uicomponentsmodule.cpp audacity-4.0.0/src/uicomponents/uicomponentsmodule.cpp
+--- audacity-4.0.0.orig/src/uicomponents/uicomponentsmodule.cpp	2026-09-03 10:35:13.163108762 +0200
++++ audacity-4.0.0/src/uicomponents/uicomponentsmodule.cpp	2026-09-05 04:32:18.938357758 +0200
+@@ -2,8 +2,8 @@
+ * Audacity: A Digital Audio Editor
+ */
+ 
+-#include <QQmlEngine>
+-#include <QtQml>
++#include <QtQml/QQmlEngine>
++#include <QtQml/QtQml>
+ 
+ #include "iapplication.h"
+ 
