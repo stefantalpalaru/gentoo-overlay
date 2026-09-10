@@ -4,20 +4,20 @@
 EAPI=8
 
 DISTUTILS_USE_PEP517=scikit-build-core
+PYTHON_COMPAT=( python3_{12..15} )
 DISTUTILS_SINGLE_IMPL=1
 DISTUTILS_EXT=1
-PYTHON_COMPAT=( python3_{11..15} )
 ROCM_VERSION=6.1
 MYPN=pytorch
 MYP=${MYPN}-${PV}
-# caffe2-2.9.0 depends on future version of composable kernel
+# pytorch-2.13.0 depends on specific commit of composable kernel
 # TODO: replace it with DEPEND in the future
-CK_COMMIT=7fe50dc3da2069d6645d9deb8c017a876472a977
+CK_COMMIT=f1746955fdaf80a3414de814bf32437686dac347
 CK_P=composable_kernel-${CK_COMMIT:0:8}
 
 inherit distutils-r1 cmake cuda cuda-extra flag-o-matic prefix rocm toolchain-funcs
 
-DESCRIPTION="A deep learning framework"
+DESCRIPTION="Tensors and Dynamic neural networks in Python with strong GPU acceleration"
 HOMEPAGE="https://pytorch.org/"
 SRC_URI="https://github.com/pytorch/pytorch/releases/download/v${PV}/pytorch-v${PV}.tar.gz
 	-> ${MYP}-full.tar.gz
@@ -52,43 +52,51 @@ REQUIRED_USE="
 
 RDEPEND="
 	${PYTHON_DEPS}
+	!sci-ml/caffe2
 	dev-cpp/abseil-cpp:=
 	dev-cpp/gflags:=
-	>=dev-cpp/glog-0.5.0:=
+	>=dev-cpp/glog-0.6.0:=
 	dev-cpp/opentelemetry-cpp
-	dev-libs/cpuinfo
+	>=dev-libs/cpuinfo-2025.11.14
 	dev-libs/libfmt:=
 	dev-libs/protobuf:=
 	dev-libs/sleef
 	sci-ml/foxi
 	sci-ml/onnx:=
+	$(python_gen_cond_dep '
+		dev-python/sympy[${PYTHON_USEDEP}]
+		dev-python/typing-extensions[${PYTHON_USEDEP}]
+	')
 	virtual/lapack
+	!mkl? ( !openblas? ( virtual/blas ) )
 	cuda? (
 		dev-libs/cudnn:=
-		>=sci-ml/cudnn-frontend-1.0.3:0=
+		>=sci-ml/cudnn-frontend-1.12.0:0=
 		cudss? ( <dev-libs/cudss-0.8 )
 		>=dev-util/nvidia-cuda-toolkit-12.9:=[profiler]
 		cusparselt? ( dev-libs/cusparselt )
 	)
-	fbgemm? ( sci-ml/FBGEMM )
+	distributed? (
+		!rocm? ( sci-ml/tensorpipe[cuda?] )
+		dev-cpp/cpp-httplib:=
+	)
+	fbgemm? ( >=sci-ml/FBGEMM-1.4 )
 	gloo? ( >=sci-ml/gloo-2025.06.04[cuda?,rocm?] )
 	mimalloc? ( dev-libs/mimalloc )
+	mkl? ( sci-libs/mkl )
 	mpi? ( virtual/mpi )
 	nnpack? (
-		dev-libs/pthreadpool
 		sci-ml/NNPACK
+		dev-libs/pthreadpool
 	)
 	numpy? ( $(python_gen_cond_dep '
 		dev-python/numpy[${PYTHON_USEDEP}]
 	') )
 	onednn? ( sci-ml/oneDNN )
-	$(python_gen_cond_dep '
-		dev-python/sympy[${PYTHON_USEDEP}]
-		dev-python/typing-extensions[${PYTHON_USEDEP}]
-	')
+	openblas? ( sci-libs/openblas )
 	qnnpack? (
-		dev-libs/pthreadpool
 		sci-ml/gemmlowp
+		dev-libs/pthreadpool
 	)
 	rocm? (
 		nccl? ( >=dev-libs/rccl-6.3:= <dev-libs/rccl-7.3:= )
@@ -104,23 +112,17 @@ RDEPEND="
 		>=sci-libs/rocBLAS-6.3:=   <sci-libs/rocBLAS-7.3:=
 		>=sci-libs/rocRAND-6.3:=   <sci-libs/rocRAND-7.3:=
 		>=sci-libs/rocSOLVER-6.3:= <sci-libs/rocSOLVER-7.3:=
-		memefficient? ( =sci-libs/aotriton-bin-0.11*:= )
+		memefficient? ( =sci-libs/aotriton-bin-0.13*:= )
 		distributed? (
 			>=dev-util/rocm-smi-6.3:= <dev-util/rocm-smi-7.3:=
 			>=dev-util/amdsmi-6.3:= <dev-util/amdsmi-7.3:=
 		)
 		cusparselt? ( >=sci-libs/hipsparselt-6.3:= <sci-libs/hipsparselt-7.3:= )
 	)
-	distributed? (
-		!rocm? ( sci-ml/tensorpipe[cuda?] )
-		dev-cpp/cpp-httplib:=
-	)
 	xnnpack? (
-		dev-libs/pthreadpool
 		>=sci-ml/XNNPACK-2024.11
+		dev-libs/pthreadpool
 	)
-	mkl? ( sci-libs/mkl )
-	openblas? ( sci-libs/openblas )
 	vulkan? ( media-libs/vulkan-loader )
 "
 
@@ -137,7 +139,7 @@ DEPEND="
 		dev-python/pyyaml[${PYTHON_USEDEP}]
 		dev-python/typing-extensions[${PYTHON_USEDEP}]
 	')
-	cuda? ( >=dev-libs/cutlass-3.9.2:=[tools(+)] )
+	cuda? ( >=dev-libs/cutlass-4.6.1[tools(+)] )
 	onednn? ( sci-ml/ideep )
 	rocm? (
 		>=sci-libs/hipCUB-6.3:=    <sci-libs/hipCUB-7.3:=
@@ -145,8 +147,9 @@ DEPEND="
 		>=sci-libs/rocThrust-6.3:= <sci-libs/rocThrust-7.3:=
 	)
 	qnnpack? ( dev-libs/clog )
-	!!<sci-ml/pytorch-2.13.0-r100
 "
+
+BDEPEND="dev-build/cmake"
 
 PATCHES=(
 	"${FILESDIR}"/caffe2-2.13.0-gentoo.patch
@@ -221,21 +224,9 @@ src_prepare() {
 			-e "s:lib/cmake:$(get_libdir)/cmake:g" \
 			-i cmake/public/LoadHIP.cmake || die
 
-		# TODO: delete, when caffe2 depends on systemwide composable_kernel
+		# TODO: delete, when pytorch depends on systemwide composable_kernel
 		sed -e "s:third_party/composable_kernel:../composable_kernel-${CK_COMMIT}:g" \
 			-i aten/src/ATen/CMakeLists.txt || die
-
-		# Bug 959808: fix for gfx101x targets
-		pushd "${WORKDIR}/composable_kernel-${CK_COMMIT}" > /dev/null || die
-		eapply "${FILESDIR}"/composable-kernel-7fe50dc-expand-isa.patch
-		popd > /dev/null || die
-
-		if tc-is-clang; then
-			# Systemwide gcc (for absl and at::TensorBase) + hipcc (llvm>=18) need abi-compat=17.
-			# But systemwide clang>=18 + hipcc (>=llvm-18) need opposite!
-			# See also: https://github.com/llvm/llvm-project/issues/102443#issuecomment-2329726287
-			sed -e '/-fclang-abi-compat=17/d' -i cmake/Dependencies.cmake || die
-		fi
 
 		# Workaround for libc++ issue https://github.com/llvm/llvm-project/issues/100802
 		sed -e 's/std::memcpy/memcpy/g' -i torch/headeronly/util/Half.h || die
@@ -251,7 +242,6 @@ src_prepare() {
 
 	rm -rf third_party/flatbuffers
 
-	# From "sci-ml/pytorch":
 	PATCHES=() # Already applied.
 	distutils-r1_src_prepare
 
@@ -271,11 +261,11 @@ src_prepare() {
 
 src_configure() {
 	if use cuda && [[ -z ${TORCH_CUDA_ARCH_LIST} ]]; then
-		ewarn "WARNING: caffe2 is being built with its default CUDA compute capabilities: 5.0 and 7.0."
+		ewarn "WARNING: pytorch is being built with its default CUDA compute capabilities: 5.0 and 7.0."
 		ewarn "These may not be optimal for your GPU."
 		ewarn ""
-		ewarn "To configure caffe2 with the CUDA compute capability that is optimal for your GPU,"
-		ewarn "set TORCH_CUDA_ARCH_LIST in your make.conf, and re-emerge caffe2."
+		ewarn "To configure pytorch with the CUDA compute capability that is optimal for your GPU,"
+		ewarn "set TORCH_CUDA_ARCH_LIST in your make.conf, and re-emerge pytorch."
 		ewarn "For example, to use CUDA capability 7.5, add: TORCH_CUDA_ARCH_LIST=7.5"
 		ewarn "For a Maxwell model GPU, an example value would be: TORCH_CUDA_ARCH_LIST=Maxwell"
 		ewarn ""

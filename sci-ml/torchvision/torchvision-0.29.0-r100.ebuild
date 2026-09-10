@@ -3,7 +3,7 @@
 
 EAPI=8
 
-PYTHON_COMPAT=( python3_{10..15} )
+PYTHON_COMPAT=( python3_{12..15} )
 DISTUTILS_SINGLE_IMPL=1
 DISTUTILS_USE_PEP517=setuptools
 DISTUTILS_EXT=1
@@ -27,8 +27,7 @@ RDEPEND="
 	png? ( media-libs/libpng:= )
 	webp? ( media-libs/libwebp )
 	ffmpeg? ( media-video/ffmpeg )
-	sci-ml/caffe2[cuda?,rocm?]
-	sci-ml/pytorch[${PYTHON_SINGLE_USEDEP}]
+	sci-ml/pytorch[${PYTHON_SINGLE_USEDEP},cuda?,rocm?]
 "
 DEPEND="${RDEPEND}"
 BDEPEND="
