@@ -5,23 +5,23 @@
 
 EAPI=8
 
-PYTHON_COMPAT=( python3_{11..14} )
+PYTHON_COMPAT=( python3_{12..14} )
 inherit check-reqs edo toolchain-funcs
 inherit python-r1
 
-DRIVER_PV="610.43.02"
+#DRIVER_PV="610.43.02"
 # https://docs.nvidia.com/cuda/cuda-installation-guide-linux/index.html
-GCC_MAX_VER="15"
-CLANG_MAX_VER="21"
+GCC_MAX_VER="16"
+CLANG_MAX_VER="22"
 
 DESCRIPTION="NVIDIA CUDA Toolkit (compiler and friends)"
 HOMEPAGE="https://developer.nvidia.com/cuda-zone"
 SRC_URI="
 	amd64? (
-		https://developer.download.nvidia.com/compute/cuda/${PV}/local_installers/cuda_${PV}_${DRIVER_PV}_linux.run
+		https://developer.download.nvidia.com/compute/cuda/${PV}/local_installers/cuda_${PV}_linux.run
 	)
 	arm64? (
-		https://developer.download.nvidia.com/compute/cuda/${PV}/local_installers/cuda_${PV}_${DRIVER_PV}_linux_sbsa.run
+		https://developer.download.nvidia.com/compute/cuda/${PV}/local_installers/cuda_${PV}_linux_sbsa.run
 	)
 "
 S="${WORKDIR}"
@@ -143,7 +143,7 @@ src_unpack() {
 	local exclude=(
 		"cuda-installer"
 		"*-uninstaller"
-		"NVIDIA-Linux-${narch}-${DRIVER_PV}.run"
+		"NVIDIA-Linux-${narch}.run"
 		"builds/cuda_documentation"
 		"builds/cuda_nsight"
 		"builds/cuda_nvvp"
