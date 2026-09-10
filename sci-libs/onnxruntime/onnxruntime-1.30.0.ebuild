@@ -3,12 +3,12 @@
 
 EAPI=8
 CMAKE_IN_SOURCE_BUILD=1
-PYTHON_COMPAT=( python3_{10..14} )
+PYTHON_COMPAT=( python3_{12..14} )
 DISTUTILS_USE_PEP517=setuptools
 DISTUTILS_SINGLE_IMPL=1
 DISTUTILS_EXT=1
 ROCM_VERSION="5.7.1"
-LLVM_COMPAT=( {17..20} )
+LLVM_COMPAT=( {19..22} ) # same as dev-util/hip
 LLVM_OPTIONAL=1
 
 inherit cmake cuda cuda-extra distutils-r1 flag-o-matic llvm-r2 rocm toolchain-funcs
@@ -101,7 +101,7 @@ BDEPEND="
 PATCHES=(
 	"${FILESDIR}/onnxruntime-system-dnnl.patch"
 	"${FILESDIR}/re2-pkg-config-r4.patch"
-	"${FILESDIR}/system-onnx-r7.patch"
+	"${FILESDIR}/system-onnx-r8.patch"
 	"${FILESDIR}/system-protobuf-r1.patch"
 	"${FILESDIR}/system-mp11.patch"
 	"${FILESDIR}/system-gsl-r7.patch"
@@ -113,9 +113,10 @@ PATCHES=(
 	"${FILESDIR}/onnxruntime-1.19.0-eigen.patch"
 	"${FILESDIR}/onnxruntime-1.21.0-system-eigen.patch"
 	"${FILESDIR}/onnxruntime-1.28.0-cudnn_frontend.patch"
-	"${FILESDIR}/onnxruntime-1.28.0-external-downloads.patch"
+	"${FILESDIR}/onnxruntime-1.30.0-external-downloads.patch"
 	"${FILESDIR}/onnxruntime-1.23.0-include.patch"
 	"${FILESDIR}/onnxruntime-1.24.1-string-view.patch"
+	"${FILESDIR}/onnxruntime-1.30.0-cpuinfo.patch"
 )
 
 pkg_setup() {
@@ -137,13 +138,6 @@ src_prepare() {
 	addpredict /dev/ati
 	addpredict /dev/dri
 	addpredict /dev/nvidiactl
-
-	# fix build with gcc12(?), take idea from https://github.com/microsoft/onnxruntime/pull/11667 and https://github.com/microsoft/onnxruntime/pull/10014
-	sed 's|dims)|TensorShape(dims))|g' \
-		-i onnxruntime/contrib_ops/cuda/quantization/qordered_ops/qordered_qdq.cc || die "Sed failed"
-
-	# fix missing #include <iostream>
-	sed '11a#include <iostream>' -i orttraining/orttraining/test/training_api/trainer/trainer.cc
 
 	sed 's/\"-mavx512f\"/\"-mavx512f -Wno-error\"/g' -i cmake/onnxruntime_mlas.cmake || die "Sed failed"
 

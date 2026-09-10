@@ -1,7 +1,7 @@
-diff '--color=auto' -ur onnxruntime-1.28.0.orig/cmake/external/cudnn_frontend.cmake onnxruntime-1.28.0/cmake/external/cudnn_frontend.cmake
---- onnxruntime-1.28.0.orig/cmake/external/cudnn_frontend.cmake	2026-07-25 04:02:42.000000000 +0200
-+++ onnxruntime-1.28.0/cmake/external/cudnn_frontend.cmake	2026-07-25 14:25:22.268678932 +0200
-@@ -3,21 +3,6 @@
+diff '--color=auto' -ur onnxruntime-1.30.0.orig/cmake/external/cudnn_frontend.cmake onnxruntime-1.30.0/cmake/external/cudnn_frontend.cmake
+--- onnxruntime-1.30.0.orig/cmake/external/cudnn_frontend.cmake	2026-09-10 08:09:41.000000000 +0200
++++ onnxruntime-1.30.0/cmake/external/cudnn_frontend.cmake	2026-09-10 21:44:02.937170646 +0200
+@@ -3,22 +3,6 @@
  # their Linux names (libcudart.so.*, libcuda.so.1) when NV_CUDNN_FRONTEND_USE_DYNAMIC_LOADING
  # is enabled. On Windows this always fails (dlopen is mapped to LoadLibrary), so patch the
  # shim to use the Windows DLL names (cudart64_*.dll, nvcuda.dll).
@@ -9,7 +9,8 @@ diff '--color=auto' -ur onnxruntime-1.28.0.orig/cmake/external/cudnn_frontend.cm
 -  cudnn_frontend
 -  URL ${DEP_URL_cudnn_frontend}
 -  URL_HASH SHA1=${DEP_SHA1_cudnn_frontend}
--  PATCH_COMMAND ${Patch_EXECUTABLE} --binary --ignore-whitespace -p1 < ${PROJECT_SOURCE_DIR}/patches/cudnn_frontend/cudnn_frontend_win_dynamic_loading.patch
+-  PATCH_COMMAND ${Patch_EXECUTABLE} --binary --ignore-whitespace -p1 < ${PROJECT_SOURCE_DIR}/patches/cudnn_frontend/cudnn_frontend_win_dynamic_loading.patch &&
+-                ${Patch_EXECUTABLE} --binary --ignore-whitespace -p1 < ${PROJECT_SOURCE_DIR}/patches/cudnn_frontend/cudnn_frontend_win_arm64_compat.patch
 -  EXCLUDE_FROM_ALL
 -)
 -
