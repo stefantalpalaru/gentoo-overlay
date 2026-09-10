@@ -734,6 +734,7 @@ sci-ml/pytorch:openmp - Use OpenMP for parallel code
 sci-ml/pytorch:qnnpack - Use QNNPACK
 sci-ml/pytorch:rocm - Enable ROCm gpu computing support
 sci-ml/pytorch:xnnpack - Use XNNPACK
+sci-ml/torchcodec:rocm - Enable ROCm gpu computing support
 sci-ml/torchvision:rocm - Enable ROCm gpu computing support
 sys-fs/zfs:dist-kernel-cap - Prevents upgrading to an unsupported kernel version when combined with USE=dist-kernel
 sys-fs/zfs:minimal - Don't install python scripts (arcstat, dbufstat etc) and avoid dependency on dev-lang/python
