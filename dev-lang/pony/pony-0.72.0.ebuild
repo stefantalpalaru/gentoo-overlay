@@ -27,6 +27,7 @@ COMMON_DEPEND="
 "
 RDEPEND="
 	${COMMON_DEPEND}
+	dev-libs/openssl:=
 	sys-libs/zlib
 	vim-syntax? ( app-vim/pony-syntax )
 "
