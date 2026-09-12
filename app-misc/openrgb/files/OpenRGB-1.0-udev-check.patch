@@ -1,0 +1,11 @@
+diff '--color=auto' -ur OpenRGB-release_1.0.orig/DetectionManager.cpp OpenRGB-release_1.0/DetectionManager.cpp
+--- OpenRGB-release_1.0.orig/DetectionManager.cpp	2026-09-12 01:06:58.000000000 +0200
++++ OpenRGB-release_1.0/DetectionManager.cpp	2026-09-12 03:27:01.822302395 +0200
+@@ -906,7 +906,6 @@
+     \*-----------------------------------------------------*/
+     if(!in_etc && !in_usr_lib)
+     {
+-        udev_not_exist  = true;
+     }
+     else if(in_etc && in_usr_lib)
+     {

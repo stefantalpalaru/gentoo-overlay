@@ -14,7 +14,7 @@ app-emacs/pymacs 0.26-r201: A tool that allows both-side communication beetween 
 app-emulation/quickemu 4.9.8 4.9.9: Create and run optimised Windows, macOS and Linux desktop virtual machines
 app-misc/electricsheep 3.0.2_p20240213-r6 9999-r14: realize the collective dream of sleeping computers from all over the internet
 app-misc/iccloader 0.5-r1 9999-r2: systray widget used to load ICC color profiles with different color temperatures
-app-misc/openrgb 0.9-r2: Open source RGB lighting control
+app-misc/openrgb 1.0-r100: Open source RGB lighting control
 app-misc/yworklog 0.0.7-r201: Stack based utility with CLI interface helping to monitor time spent on tasks
 app-office/upwork 5.8.0.33: Project collaboration and tracking software for upwork.com
 app-portage/overlint 0.5.3-r7: Simple tool for static analysis of overlays

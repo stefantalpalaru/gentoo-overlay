@@ -1,0 +1,12 @@
+diff '--color=auto' -ur OpenRGB-release_1.0.orig/OpenRGB.pro OpenRGB-release_1.0/OpenRGB.pro
+--- OpenRGB-release_1.0.orig/OpenRGB.pro	2026-09-12 03:53:33.675800307 +0200
++++ OpenRGB-release_1.0/OpenRGB.pro	2026-09-12 03:56:27.678941536 +0200
+@@ -74,7 +74,7 @@
+ 
+ DEFINES +=                                                                                      \
+     VERSION_STRING=\\"\"\"$$VERSION_STR\\"\"\"                                                  \
+-    BUILDDATE_STRING=\\"\"\"$$BUILDDATE\\"\"\"                                                  \
++    BUILDDATE_STRING=\\"\"\"\\"\"\"                                                  \
+     GIT_COMMIT_ID=\\"\"\"$$GIT_COMMIT_ID\\"\"\"                                                 \
+     GIT_COMMIT_DATE=\\"\"\"$$GIT_COMMIT_DATE\\"\"\"                                             \
+     GIT_BRANCH=\\"\"\"$$GIT_BRANCH\\"\"\"
