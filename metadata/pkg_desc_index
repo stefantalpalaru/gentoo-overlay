@@ -883,7 +883,7 @@ media-fonts/breeze-sans 20170821-r5: humanist sans-serif typeface designed by Da
 media-fonts/ipamonafont 1.0.8-r2: Hacked version of IPA fonts, which is suitable for browsing 2ch
 media-gfx/GTS 2.5.1-r1: scanning tool developed by Studio Ghibli
 media-gfx/ansel 4.0.0_pre20260624 9999-r7: Darktable 4.0 fork
-media-gfx/blender 4.5.13 5.2.1: 3D Creation/Animation/Publishing System
+media-gfx/blender 4.5.13 5.2.1-r1: 3D Creation/Animation/Publishing System
 media-gfx/displaycal 3.8.9.3-r5: Display calibration and characterization powered by Argyll CMS
 media-gfx/exiv2 0.27.6-r2: EXIF, IPTC and XMP metadata C++ library and command line utility
 media-gfx/fbcat 0.5.2-r1: utility that takes a screenshot using the framebuffer device
@@ -918,7 +918,7 @@ media-libs/opencolorio 2.5.2: Color management framework for visual effects and 
 media-libs/opencv 4.14.0 5.0.0: A collection of algorithms and sample code for various computer vision problems
 media-libs/openexr 3.1.12-r2: ILM's OpenEXR high dynamic-range image file format libraries
 media-libs/openimageio 3.0.21.0 3.1.17.0: A library for reading and writing images
-media-libs/opensubdiv 3.6.1-r102: An Open-Source subdivision surface library
+media-libs/opensubdiv 3.7.0-r100: An Open-Source subdivision surface library
 media-libs/portaudio 19.07.00-r5: A free, cross-platform, open-source, audio I/O library
 media-libs/rtaudio 5.2.0-r1: A set of cross-platform C++ classes for realtime audio I/O
 media-libs/svt-av1 1.8.0-r105 2.3.0-r100 3.1.2-r102 4.2.0-r100: Scalable Video Technology for AV1 (SVT-AV1 Encoder and Decoder)

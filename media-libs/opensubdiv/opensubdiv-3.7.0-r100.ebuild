@@ -3,14 +3,15 @@
 
 EAPI=8
 
-PYTHON_COMPAT=( python3_{11..14} )
+PYTHON_COMPAT=( python3_{12..14} )
 
 inherit cmake cuda cuda-extra flag-o-matic python-any-r1 toolchain-funcs virtualx xdg
 
 MY_PV="$(ver_rs "1-3" '_')"
 
 DESCRIPTION="An Open-Source subdivision surface library"
-HOMEPAGE="https://graphics.pixar.com/opensubdiv/docs/intro.html"
+HOMEPAGE="https://graphics.pixar.com/opensubdiv/docs/intro.html
+		https://github.com/PixarAnimationStudios/OpenSubdiv"
 SRC_URI="https://github.com/PixarAnimationStudios/OpenSubdiv/archive/v${MY_PV}.tar.gz -> ${P}.tar.gz"
 S="${WORKDIR}/OpenSubdiv-${MY_PV}"
 
@@ -69,8 +70,8 @@ DEPEND="
 "
 
 PATCHES=(
-	"${FILESDIR}/${PN}-3.6.0-use-gnuinstalldirs.patch"
-	"${FILESDIR}/${PN}-3.6.0-cudaflags.patch"
+	"${FILESDIR}"/opensubdiv-3.6.0-use-gnuinstalldirs.patch
+	"${FILESDIR}"/opensubdiv-3.6.0-cudaflags.patch
 	"${FILESDIR}"/opensubdiv-3.6.1-CUDA-13.patch
 )
 

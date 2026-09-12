@@ -147,7 +147,7 @@ RDEPEND="${PYTHON_DEPS}
 	>=dev-libs/imath-3.1.7:=
 	>=media-libs/openexr-3.2.1:0=
 	openpgl? ( media-libs/openpgl:= )
-	opensubdiv? ( >=media-libs/opensubdiv-3.6.0-r2[opengl,cuda?,tbb?] )
+	opensubdiv? ( >=media-libs/opensubdiv-3.6.0-r2:=[opengl,cuda?,tbb?] )
 	openvdb? (
 		>=media-gfx/openvdb-13.0.0:=[nanovdb?]
 		dev-libs/c-blosc:=
