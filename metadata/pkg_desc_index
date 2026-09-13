@@ -1023,7 +1023,7 @@ sci-misc/opengrm-ngram 1.3.16: n-gram language models encoded as weighted finite
 sci-ml/FBGEMM 2025.04.27-r2: Facebook GEneral Matrix Multiplication
 sci-ml/cudnn-frontend 1.29.0: A c++ wrapper for the cudnn backend API
 sci-ml/onnx 1.22.0-r100: Open Neural Network Exchange (ONNX)
-sci-ml/pytorch 2.14.0-r101: Tensors and Dynamic neural networks in Python with strong GPU acceleration
+sci-ml/pytorch 2.14.0-r102: Tensors and Dynamic neural networks in Python with strong GPU acceleration
 sci-ml/tensorpipe 2022.05.13-r100: provides a tensor-aware channel
 sci-ml/torchcodec 0.16.0-r100: Media decoding and encoding for PyTorch: videos, images, and audio
 sci-ml/torchvision 0.29.0-r100: Datasets, transforms and models to specific to computer vision
