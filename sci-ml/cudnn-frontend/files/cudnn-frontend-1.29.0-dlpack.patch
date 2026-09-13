@@ -1,0 +1,12 @@
+diff '--color=auto' -ur cudnn-frontend-1.29.0.orig/python/CMakeLists.txt cudnn-frontend-1.29.0/python/CMakeLists.txt
+--- cudnn-frontend-1.29.0.orig/python/CMakeLists.txt	2026-09-13 14:30:57.903353936 +0200
++++ cudnn-frontend-1.29.0/python/CMakeLists.txt	2026-09-13 14:35:27.204201279 +0200
+@@ -18,7 +18,7 @@
+   # offsetof of DLTensor and DLManagedTensor match -- so this is a
+   # compile-time requirement only; capsules exchanged with a consumer built
+   # against 1.1 are unaffected.
+-  find_package(dlpack 1.3 REQUIRED)
++  find_package(dlpack REQUIRED)
+   if(dlpack_FOUND)
+     message(STATUS "Found system dlpack ${dlpack_VERSION}")
+   else()

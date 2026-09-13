@@ -1,0 +1,16 @@
+diff '--color=auto' -ur cudnn-frontend-1.29.0.orig/setup.py cudnn-frontend-1.29.0/setup.py
+--- cudnn-frontend-1.29.0.orig/setup.py	2026-09-13 07:36:08.000000000 +0200
++++ cudnn-frontend-1.29.0/setup.py	2026-09-13 15:08:32.537580079 +0200
+@@ -104,9 +104,9 @@
+         if not build_temp.exists():
+             build_temp.mkdir(parents=True)
+ 
+-        print(" ".join(cmake_args))
+-        subprocess.run(["cmake", ext.sourcedir, *cmake_args], cwd=build_temp, check=True)
+-        subprocess.run(["cmake", "--build", ".", *build_args], cwd=build_temp, check=True)
++        #print(" ".join(cmake_args))
++        #subprocess.run(["cmake", ext.sourcedir, *cmake_args], cwd=build_temp, check=True)
++        #subprocess.run(["cmake", "--build", ".", *build_args], cwd=build_temp, check=True)
+ 
+ 
+ setup(

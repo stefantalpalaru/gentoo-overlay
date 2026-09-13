@@ -1,0 +1,13 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE pkgmetadata SYSTEM "https://www.gentoo.org/dtd/metadata.dtd">
+<pkgmetadata>
+  <maintainer type="person">
+    <email>iohann.s.titov@gmail.com</email>
+    <name>Ivan S. Titov</name>
+  </maintainer>
+  <upstream>
+    <remote-id type="pypi">apache-tvm-ffi</remote-id>
+    <remote-id type="github">apache/tvm-ffi</remote-id>
+    <bugs-to>https://github.com/apache/tvm-ffi/issues</bugs-to>
+  </upstream>
+</pkgmetadata>

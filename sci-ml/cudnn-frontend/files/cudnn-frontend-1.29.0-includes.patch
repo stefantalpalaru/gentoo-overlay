@@ -1,0 +1,12 @@
+diff '--color=auto' -ur cudnn-frontend-1.29.0.orig/samples/cpp/utils/helpers.h cudnn-frontend-1.29.0/samples/cpp/utils/helpers.h
+--- cudnn-frontend-1.29.0.orig/samples/cpp/utils/helpers.h	2026-09-13 07:36:08.000000000 +0200
++++ cudnn-frontend-1.29.0/samples/cpp/utils/helpers.h	2026-09-13 13:47:21.988550274 +0200
+@@ -12,6 +12,8 @@
+ #include <cuda_runtime.h>
+ #include <cuda_fp16.h>
+ 
++#include <cudnn.h>
++
+ #include <catch2/catch_test_macros.hpp>
+ 
+ static int64_t
