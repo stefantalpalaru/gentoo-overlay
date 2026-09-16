@@ -27,9 +27,6 @@
 		<flag name="abi11-compat">
 			Disables newer features to maintain compatibility with ABI11
 		</flag>
-		<flag name="abi10-compat">
-			Disables newer features to maintain compatibility with ABI10
-		</flag>
 		<flag name="alembic">
 			Add support for Alembic through
 			<pkg>media-gfx/alembic</pkg>.

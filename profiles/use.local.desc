@@ -364,7 +364,6 @@ media-gfx/inkscape:sourceview - Enable syntax highlighting support via x11-libs/
 media-gfx/inkscape:svg2 - Enable support for new SVG2 features
 media-gfx/inkscape:visio - Enable support for Microsoft Visio diagrams via media-libs/libvisio
 media-gfx/inkscape:wpg - Enable support for WordPerfect graphics via app-text/libwpg
-media-gfx/openvdb:abi10-compat - Disables newer features to maintain compatibility with ABI10
 media-gfx/openvdb:abi11-compat - Disables newer features to maintain compatibility with ABI11
 media-gfx/openvdb:abi12-compat - Disables newer features to maintain compatibility with ABI12
 media-gfx/openvdb:abi13-compat - Disables newer features to maintain compatibility with ABI13
