@@ -18,8 +18,6 @@ PATCHES=(
 	"${FILESDIR}/${PN}-5.3.0-gentoo-fixups.patch"
 	"${FILESDIR}/${PN}-5.3.1-backport-pr-2312.patch"
 	"${FILESDIR}/${PN}-5.3.0-aarch64-64kib-page-size.patch" # users can override by passing `--with-lg-pagesize=foo`
-	"${FILESDIR}/${PN}-5.3.0-dont-call-libstdcxx-internals.patch"
-	"${FILESDIR}/${PN}-5.3.0-gcc15-make-check.patch"
 )
 
 MULTILIB_WRAPPED_HEADERS=( /usr/include/jemalloc/jemalloc.h )
