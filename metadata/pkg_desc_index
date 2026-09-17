@@ -86,7 +86,7 @@ dev-python/amqplib 1.0.2-r201: Python client for the Advanced Message Queuing Pr
 dev-python/anyjson 0.3.3-r5: Wraps the best available JSON implementation available in a common interface
 dev-python/anyvc 0.3.7.1-r3: Library to access any version control system
 dev-python/apache-libcloud 1.5.0-r202 2.8.3-r202: Unified Interface to the Cloud - python support libs
-dev-python/apache-tvm-ffi 0.1.14: Lightweight, framework-agnostic FFI module from Apache TVM
+dev-python/apache-tvm-ffi 0.1.14_p0: Lightweight, framework-agnostic FFI module from Apache TVM
 dev-python/apipkg 1.5-r4: Namespace control and lazy-import mechanism
 dev-python/aplpy 1.1.1-r3: Astronomical Plotting Library in Python
 dev-python/appdirs 1.4.4-r4: Module for determining appropriate platform-specific dirs
@@ -858,7 +858,7 @@ dev-qt/qtxml 5.15.19: Implementation of SAX and DOM for the Qt5 framework
 dev-qt/qtxmlpatterns 5.15.19: XPath, XQuery, XSLT, and XML Schema validation library for the Qt5 framework
 dev-util/exercism 3.5.8: Command line client for https://exercism.io
 dev-util/gotags 1.4.1-r2: ctags-compatible tag generator for Go
-dev-util/nvidia-cuda-toolkit 12.9.2 13.4.1: NVIDIA CUDA Toolkit (compiler and friends)
+dev-util/nvidia-cuda-toolkit 12.9.2 13.4.2: NVIDIA CUDA Toolkit (compiler and friends)
 dev-util/shadowman 5-r100: Unified compiler shadow link directory updater
 dev-util/tla-toolbox-bin 1.8.0-r1: IDE for TLA+
 dev-vcs/bzr 2.7.1_pre-r4: Bazaar is a next generation distributed version control system
