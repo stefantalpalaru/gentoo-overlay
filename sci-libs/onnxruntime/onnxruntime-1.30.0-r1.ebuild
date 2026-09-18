@@ -48,7 +48,7 @@ RDEPEND="
 	dev-libs/protobuf:=
 "
 
-BDEPEND="
+DEPEND="
 	${PYTHON_DEPS}
 	app-admin/chrpath
 	benchmark? ( dev-cpp/benchmark )
@@ -99,24 +99,24 @@ BDEPEND="
 "
 
 PATCHES=(
-	"${FILESDIR}/onnxruntime-system-dnnl.patch"
-	"${FILESDIR}/re2-pkg-config-r4.patch"
-	"${FILESDIR}/system-onnx-r8.patch"
-	"${FILESDIR}/system-protobuf-r1.patch"
-	"${FILESDIR}/system-mp11.patch"
-	"${FILESDIR}/system-gsl-r7.patch"
-	"${FILESDIR}/shared-build-fix.patch"
-	"${FILESDIR}/contrib-ops.patch"
-	"${FILESDIR}/disabled_rules_and_transformers.patch"
-	"${FILESDIR}/Werror.patch"
-	"${FILESDIR}/onnxruntime-1.27.0-abseil.patch"
-	"${FILESDIR}/onnxruntime-1.19.0-eigen.patch"
-	"${FILESDIR}/onnxruntime-1.21.0-system-eigen.patch"
-	"${FILESDIR}/onnxruntime-1.28.0-cudnn_frontend.patch"
-	"${FILESDIR}/onnxruntime-1.30.0-external-downloads.patch"
-	"${FILESDIR}/onnxruntime-1.23.0-include.patch"
-	"${FILESDIR}/onnxruntime-1.24.1-string-view.patch"
-	"${FILESDIR}/onnxruntime-1.30.0-cpuinfo.patch"
+	"${FILESDIR}"/onnxruntime-system-dnnl.patch
+	"${FILESDIR}"/re2-pkg-config-r4.patch
+	"${FILESDIR}"/system-onnx-r8.patch
+	"${FILESDIR}"/system-protobuf-r1.patch
+	"${FILESDIR}"/system-mp11.patch
+	"${FILESDIR}"/system-gsl-r7.patch
+	"${FILESDIR}"/shared-build-fix.patch
+	"${FILESDIR}"/contrib-ops.patch
+	"${FILESDIR}"/disabled_rules_and_transformers.patch
+	"${FILESDIR}"/Werror.patch
+	"${FILESDIR}"/onnxruntime-1.27.0-abseil.patch
+	"${FILESDIR}"/onnxruntime-1.19.0-eigen.patch
+	"${FILESDIR}"/onnxruntime-1.21.0-system-eigen.patch
+	"${FILESDIR}"/onnxruntime-1.28.0-cudnn_frontend.patch
+	"${FILESDIR}"/onnxruntime-1.30.0-external-downloads.patch
+	"${FILESDIR}"/onnxruntime-1.23.0-include.patch
+	"${FILESDIR}"/onnxruntime-1.24.1-string-view.patch
+	"${FILESDIR}"/onnxruntime-1.30.0-cpuinfo.patch
 )
 
 pkg_setup() {
