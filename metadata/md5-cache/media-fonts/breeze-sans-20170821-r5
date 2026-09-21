@@ -10,5 +10,5 @@ LICENSE=Apache-2.0
 RESTRICT=mirror
 SLOT=0
 SRC_URI=https://github.com/stefantalpalaru/breeze-sans/archive/refs/tags/20170821.tar.gz -> breeze-sans-20170821.gh.tar.gz
-_eclasses_=font	6d0c60c855c05ae2ba808d300440ded2
+_eclasses_=font	9248ee2e9ac35c888e1ae71773a632f4
 _md5_=60e8b99600c45429e12bad26b785a0b5
