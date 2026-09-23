@@ -15,7 +15,7 @@ RESTRICT="mirror network-sandbox test"
 QA_PRESTRIPPED="/usr/bin/workload /usr/bin/geth-ethkey /usr/bin/geth /usr/bin/evm /usr/bin/era /usr/bin/devp2p /usr/bin/blsync /usr/bin/abigen /usr/bin/abidump /usr/bin/fetchpayload"
 
 DEPEND="
-	>=dev-lang/go-1.24:=
+	>=dev-lang/go-1.25:=
 "
 RDEPEND="${DEPEND}"
 
