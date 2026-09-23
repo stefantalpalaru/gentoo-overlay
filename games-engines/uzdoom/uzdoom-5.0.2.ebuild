@@ -60,7 +60,7 @@ src_configure() {
 		-DBUILD_NONFREE="$(usex non-free)"
 		-DSEND_ANON_STATS="$(usex telemetry)"
 		-DUSE_UPDATER=OFF
-		-DZMUSIC_SYSTEM_INSTALL=OFF
+		-DZMUSIC_INSTALL=OFF
 	)
 
 	# multiple GCC-13 failures when precompiled headers are disabled
