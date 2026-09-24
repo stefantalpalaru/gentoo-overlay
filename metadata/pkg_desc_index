@@ -86,7 +86,7 @@ dev-python/amqplib 1.0.2-r201: Python client for the Advanced Message Queuing Pr
 dev-python/anyjson 0.3.3-r5: Wraps the best available JSON implementation available in a common interface
 dev-python/anyvc 0.3.7.1-r3: Library to access any version control system
 dev-python/apache-libcloud 1.5.0-r202 2.8.3-r202: Unified Interface to the Cloud - python support libs
-dev-python/apache-tvm-ffi 0.1.14_p0: Lightweight, framework-agnostic FFI module from Apache TVM
+dev-python/apache-tvm-ffi 0.1.14_p1: Lightweight, framework-agnostic FFI module from Apache TVM
 dev-python/apipkg 1.5-r4: Namespace control and lazy-import mechanism
 dev-python/aplpy 1.1.1-r3: Astronomical Plotting Library in Python
 dev-python/appdirs 1.4.4-r4: Module for determining appropriate platform-specific dirs
