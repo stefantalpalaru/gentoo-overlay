@@ -1,0 +1,12 @@
+diff '--color=auto' -ur conky-1.25.1.orig/3rdparty/Vc/cmake/VcMacros.cmake conky-1.25.1/3rdparty/Vc/cmake/VcMacros.cmake
+--- conky-1.25.1.orig/3rdparty/Vc/cmake/VcMacros.cmake	2026-09-27 19:24:51.000000000 +0200
++++ conky-1.25.1/3rdparty/Vc/cmake/VcMacros.cmake	2026-09-28 00:26:14.944447919 +0200
+@@ -142,7 +142,7 @@
+    set(CMAKE_CXX_FLAGS_MINSIZEREL "-Os -DNDEBUG" CACHE STRING "Flags used by the compiler during release minsize builds." FORCE)
+    set(CMAKE_CXX_FLAGS_RELEASE "-O3 -DNDEBUG" CACHE STRING "Flags used by the compiler during release builds (/MD /Ob1 /Oi /Ot /Oy /Gs will produce slightly less optimized but smaller files)." FORCE)
+    set(CMAKE_CXX_FLAGS_RELWITHDEBUG "-O3" CACHE STRING "Flags used by the compiler during release builds containing runtime checks." FORCE)
+-   set(CMAKE_CXX_FLAGS_RELWITHDEBINFO "${CMAKE_CXX_FLAGS_RELWITHDEBUG} -g" CACHE STRING "Flags used by the compiler during Release with Debug Info builds." FORCE)
++   set(CMAKE_CXX_FLAGS_RELWITHDEBINFO "" CACHE STRING "Flags used by the compiler during Release with Debug Info builds." FORCE)
+    set(CMAKE_C_FLAGS_DEBUG "${CMAKE_CXX_FLAGS_DEBUG}" CACHE STRING "Flags used by the compiler during debug builds." FORCE)
+    set(CMAKE_C_FLAGS_MINSIZEREL "${CMAKE_CXX_FLAGS_MINSIZEREL}" CACHE STRING "Flags used by the compiler during release minsize builds." FORCE)
+    set(CMAKE_C_FLAGS_RELEASE "${CMAKE_CXX_FLAGS_RELEASE}" CACHE STRING "Flags used by the compiler during release builds (/MD /Ob1 /Oi /Ot /Oy /Gs will produce slightly less optimized but smaller files)." FORCE)

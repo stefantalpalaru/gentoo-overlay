@@ -6,7 +6,7 @@ EAPI=8
 LUA_COMPAT=( lua5-4 )
 PYTHON_COMPAT=( python3_{12..14} )
 
-inherit cmake linux-info lua-single python-any-r1 readme.gentoo-r1 xdg
+inherit cmake flag-o-matic linux-info lua-single python-any-r1 readme.gentoo-r1 xdg
 
 DESCRIPTION="An advanced, highly configurable system monitor for X"
 HOMEPAGE="https://github.com/brndnmtthws/conky"
@@ -134,6 +134,10 @@ There are pretty html docs available at https://conky.cc/.
 
 Also see https://github.com/brndnmtthws/conky/wiki or https://wiki.gentoo.org/wiki/Conky"
 
+PATCHES=(
+	"${FILESDIR}"/conky-1.25.1-flags.patch
+)
+
 pkg_setup() {
 	linux-info_pkg_setup
 	lua-single_pkg_setup
@@ -146,6 +150,8 @@ src_prepare() {
 	# pin lua 5.4
 	sed -i -e 's|Lua "5.3" REQUIRED|Lua "5.4" EXACT|g' \
 		cmake/ConkyPlatformChecks.cmake || die "ConkyPlatformChecks.cmake"
+
+	append-cppflags -DNDEBUG
 
 	cmake_src_prepare
 	xdg_environment_reset
