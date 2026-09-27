@@ -15,10 +15,10 @@ SRC_URI="https://github.com/brndnmtthws/${PN}/archive/v${PV}.tar.gz -> ${P}.tar.
 LICENSE="GPL-3 BSD LGPL-2.1 MIT"
 SLOT="0"
 KEYWORDS="~alpha ~amd64 ~arm ~arm64 ~ppc ~ppc64 ~riscv ~sparc ~x86"
-IUSE="apcupsd bundled-toluapp cmus curl doc extras hddtemp ical iconv imlib
-	intel-backlight iostats irc lua-cairo lua-cairo-xlib lua-imlib lua-rsvg
-	math moc mpd mysql ncurses nvidia +portmon pulseaudio rss systemd test
-	thinkpad truetype wayland webserver wifi X xinerama xmms2"
+IUSE="apcupsd bundled-toluapp cmus +colour-name-map curl doc extras hddtemp
+	ical iconv imlib intel-backlight iostats irc lua-cairo lua-cairo-xlib lua-imlib
+	lua-rsvg math moc mpd mysql ncurses nvidia nvidia-nvml +portmon pulseaudio rss
+	systemd test thinkpad truetype wayland webserver wifi X xinerama xmms2"
 RESTRICT="!test? ( test )"
 
 # Note: toluapp is bundled in conky since 1.11.2
@@ -41,7 +41,7 @@ COMMON_DEPEND="
 	nvidia? ( x11-drivers/nvidia-drivers[tools,static-libs] )
 	pulseaudio? ( media-libs/libpulse )
 	rss? (
-		dev-libs/libxml2
+		dev-libs/libxml2:=
 		dev-libs/glib:2
 	)
 	systemd? ( sys-apps/systemd )
@@ -83,6 +83,9 @@ DEPEND="
 	)
 "
 BDEPEND="
+	colour-name-map? (
+		dev-util/gperf
+	)
 	doc? (
 		virtual/pandoc
 		$(python_gen_any_dep '
@@ -113,6 +116,7 @@ REQUIRED_USE="
 	lua-imlib? ( X bundled-toluapp )
 	lua-rsvg? ( || ( X wayland ) bundled-toluapp )
 	nvidia? ( X )
+	?? ( nvidia nvidia-nvml )
 	rss? ( curl )
 	truetype? ( X )
 	xinerama? ( X )
@@ -171,6 +175,7 @@ src_configure() {
 		-DBUILD_AUDACIOUS=no
 		-DBUILD_BUILTIN_CONFIG=yes
 		-DBUILD_CMUS=$(usex cmus)
+		-DBUILD_COLOUR_NAME_MAP=$(usex colour-name-map)
 		-DBUILD_CURL=$(usex curl)
 		-DBUILD_DOCS=$(usex doc)
 		-DBUILD_EXTRAS=$(usex extras)
@@ -196,6 +201,7 @@ src_configure() {
 		-DBUILD_MYSQL=$(usex mysql)
 		-DBUILD_NCURSES=$(usex ncurses)
 		-DBUILD_NVIDIA=$(usex nvidia)
+		-DBUILD_NVIDIA_NVML=$(usex nvidia-nvml)
 		-DBUILD_OLD_CONFIG=yes
 		-DBUILD_PORT_MONITORS=$(usex portmon)
 		-DBUILD_PULSEAUDIO=$(usex pulseaudio)
@@ -209,6 +215,7 @@ src_configure() {
 		-DDOC_PATH=/usr/share/doc/${PF}
 		-DMAINTAINER_MODE=no
 		-DRELEASE=yes
+		-DUSE_CCACHE=OFF
 	)
 
 	if use doc || use extras; then
@@ -225,11 +232,15 @@ src_install() {
 		insinto /usr/share/vim/vimfiles/ftdetect
 		doins "${S}"/extras/vim/ftdetect/conkyrc.vim
 
+		rm "${ED}"/usr/share/vim/syntax/conkyrc.vim || die
 		insinto /usr/share/vim/vimfiles/syntax
 		doins "${BUILD_DIR}"/extras/vim/syntax/conkyrc.vim
 
 		insinto /usr/share/nano/
 		doins "${BUILD_DIR}"/extras/nano/conky.nanorc
+
+		insinto /usr/share/gtksourceview-4/language-specs
+		doins "${S}"/extras/gedit/conky.lang
 	fi
 
 	readme.gentoo_create_doc
