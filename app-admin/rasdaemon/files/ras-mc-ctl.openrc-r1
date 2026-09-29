@@ -10,11 +10,11 @@ depend() {
 }
 
 command="/usr/sbin/ras-mc-ctl"
-command_args="--register-labels"
+command_args="dimm --register-labels"
 
 start() {
 	ebegin "Loading Motherboard DIMM labels into EDAC driver"
-	"${command}" "${command_args}"
+	"${command}" ${command_args}
 	eend $?
 }
 

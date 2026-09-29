@@ -1,0 +1,12 @@
+diff '--color=auto' -ur rasdaemon-1.0.0.orig/misc/ras-mc-ctl.service.in rasdaemon-1.0.0/misc/ras-mc-ctl.service.in
+--- rasdaemon-1.0.0.orig/misc/ras-mc-ctl.service.in	2026-09-29 15:08:59.000000000 +0200
++++ rasdaemon-1.0.0/misc/ras-mc-ctl.service.in	2026-09-29 18:45:15.130518126 +0200
+@@ -5,7 +5,7 @@
+ 
+ [Service]
+ Type=oneshot
+-ExecStart=@sbindir@/ras-mc-ctl --register-labels
++ExecStart=@sbindir@/ras-mc-ctl dimm --register-labels
+ RemainAfterExit=yes
+ 
+ [Install]
