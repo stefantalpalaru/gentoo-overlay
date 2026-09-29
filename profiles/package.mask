@@ -29,6 +29,7 @@
 -dev-qt/qtwebkit
 -games-fps/gzdoom
 -games-strategy/hedgewars
+-media-libs/zmusic
 -net-misc/megasync
 -net-p2p/retroshare
 -x11-misc/qt5ct
