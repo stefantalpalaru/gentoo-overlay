@@ -1,0 +1,878 @@
+diff '--color=auto' -ur audacity-4.0.1.orig/muse/framework/actions/CMakeLists.txt audacity-4.0.1/muse/framework/actions/CMakeLists.txt
+--- audacity-4.0.1.orig/muse/framework/actions/CMakeLists.txt	2026-09-30 23:46:43.823279727 +0200
++++ audacity-4.0.1/muse/framework/actions/CMakeLists.txt	2026-09-30 23:46:58.125985369 +0200
+@@ -34,6 +34,9 @@
+     internal/actionsdispatcher.h
+ )
+ 
++find_package(Qt6 REQUIRED COMPONENTS Qml Quick)
++target_link_libraries(muse_actions PRIVATE Qt6::Qml Qt6::Quick)
++
+ if (MUSE_MODULE_ACTIONS_TESTS)
+     add_subdirectory(tests)
+ endif()
+diff '--color=auto' -ur audacity-4.0.1.orig/muse/framework/cloud/CMakeLists.txt audacity-4.0.1/muse/framework/cloud/CMakeLists.txt
+--- audacity-4.0.1.orig/muse/framework/cloud/CMakeLists.txt	2026-09-30 23:46:43.859768340 +0200
++++ audacity-4.0.1/muse/framework/cloud/CMakeLists.txt	2026-09-30 23:46:58.126022418 +0200
+@@ -48,7 +48,7 @@
+     target_compile_definitions(muse_cloud PUBLIC MUSE_MODULE_CLOUD_MUSESCORECOM)
+ endif()
+ 
+-target_link_libraries(muse_cloud PRIVATE Qt::Network Qt::NetworkAuth)
++target_link_libraries(muse_cloud PRIVATE Qt::Network Qt::NetworkAuth Qt::Quick)
+ 
+ if (MUSE_MODULE_CLOUD_QML)
+     add_subdirectory(qml/Muse/Cloud)
+diff '--color=auto' -ur audacity-4.0.1.orig/muse/framework/cloud/internal/abstractcloudservice.cpp audacity-4.0.1/muse/framework/cloud/internal/abstractcloudservice.cpp
+--- audacity-4.0.1.orig/muse/framework/cloud/internal/abstractcloudservice.cpp	2026-09-29 17:27:17.059589215 +0200
++++ audacity-4.0.1/muse/framework/cloud/internal/abstractcloudservice.cpp	2026-09-30 23:46:58.126062358 +0200
+@@ -29,6 +29,7 @@
+ #include <QUrlQuery>
+ #include <QHttpMultiPart>
+ #include <QRandomGenerator>
++#include <QTimer>
+ 
+ #include "clouderrors.h"
+ #include "multiwindows/resourcelockguard.h"
+diff '--color=auto' -ur audacity-4.0.1.orig/muse/framework/diagnostics/qml/Muse/Diagnostics/CMakeLists.txt audacity-4.0.1/muse/framework/diagnostics/qml/Muse/Diagnostics/CMakeLists.txt
+--- audacity-4.0.1.orig/muse/framework/diagnostics/qml/Muse/Diagnostics/CMakeLists.txt	2026-09-30 23:46:43.843887655 +0200
++++ audacity-4.0.1/muse/framework/diagnostics/qml/Muse/Diagnostics/CMakeLists.txt	2026-09-30 23:46:58.126101088 +0200
+@@ -44,7 +44,8 @@
+         TARGET muse_uicomponents_qml
+ )
+ 
++target_link_libraries(muse_diagnostics_qml PRIVATE Qt::Quick)
+ fixup_qml_module_dependencies(muse_diagnostics_qml)
+ 
+ # Necessary for the auto-generated sources
+-target_include_directories(muse_diagnostics_qml PRIVATE devtools keynav system)
+\ No newline at end of file
++target_include_directories(muse_diagnostics_qml PRIVATE devtools keynav system)
+diff '--color=auto' -ur audacity-4.0.1.orig/muse/framework/extensions/iextensionsession.h audacity-4.0.1/muse/framework/extensions/iextensionsession.h
+--- audacity-4.0.1.orig/muse/framework/extensions/iextensionsession.h	2026-09-29 17:27:17.147604923 +0200
++++ audacity-4.0.1/muse/framework/extensions/iextensionsession.h	2026-09-30 23:46:58.126122828 +0200
+@@ -22,6 +22,7 @@
+ #include <QVariant>
+ 
+ #include "global/types/retval.h"
++#include "extensionstypes.h"
+ 
+ class QObject;
+ 
+diff '--color=auto' -ur audacity-4.0.1.orig/muse/framework/extensions/qml/Muse/Extensions/CMakeLists.txt audacity-4.0.1/muse/framework/extensions/qml/Muse/Extensions/CMakeLists.txt
+--- audacity-4.0.1.orig/muse/framework/extensions/qml/Muse/Extensions/CMakeLists.txt	2026-09-30 23:46:43.990310973 +0200
++++ audacity-4.0.1/muse/framework/extensions/qml/Muse/Extensions/CMakeLists.txt	2026-09-30 23:46:58.126145808 +0200
+@@ -52,6 +52,7 @@
+         TARGET muse_uicomponents_qml
+ )
+ 
++target_link_libraries(muse_extensions_qml PRIVATE Qt::Quick)
+ fixup_qml_module_dependencies(muse_extensions_qml)
+ 
+ # Necessary for the auto-generated sources
+diff '--color=auto' -ur audacity-4.0.1.orig/muse/framework/global/api/apiutils.h audacity-4.0.1/muse/framework/global/api/apiutils.h
+--- audacity-4.0.1.orig/muse/framework/global/api/apiutils.h	2026-09-29 17:27:17.155074452 +0200
++++ audacity-4.0.1/muse/framework/global/api/apiutils.h	2026-09-30 23:46:58.126168588 +0200
+@@ -26,6 +26,7 @@
+ #include <vector>
+ #include <QString>
+ #include <QJSValue>
++#include <QMetaEnum>
+ 
+ #include "apitypes.h"
+ #include "iapiengine.h"
+diff '--color=auto' -ur audacity-4.0.1.orig/muse/framework/global/CMakeLists.txt audacity-4.0.1/muse/framework/global/CMakeLists.txt
+--- audacity-4.0.1.orig/muse/framework/global/CMakeLists.txt	2026-09-30 23:46:43.743393977 +0200
++++ audacity-4.0.1/muse/framework/global/CMakeLists.txt	2026-09-30 23:46:58.126196228 +0200
+@@ -254,7 +254,7 @@
+     # so that other modules get them transitively.
+     target_link_libraries(muse_global PUBLIC Qt::Core Qt::Gui)
+ 
+-    target_link_libraries(muse_global PRIVATE Qt::Quick Qt::Widgets)
++    target_link_libraries(muse_global PRIVATE Qt::Quick Qt::Widgets Qt::Qml)
+ endif()
+ 
+ target_link_libraries(muse_global PRIVATE ${CMAKE_DL_LIBS})
+diff '--color=auto' -ur audacity-4.0.1.orig/muse/framework/global/io/internal/filesystem.h audacity-4.0.1/muse/framework/global/io/internal/filesystem.h
+--- audacity-4.0.1.orig/muse/framework/global/io/internal/filesystem.h	2026-09-29 17:27:17.162169822 +0200
++++ audacity-4.0.1/muse/framework/global/io/internal/filesystem.h	2026-09-30 23:46:58.126222348 +0200
+@@ -28,7 +28,7 @@
+ 
+ #include "../ifilesystem.h"
+ 
+-class QFile;
++#include <QFile>
+ 
+ namespace muse::io {
+ class FileSystem : public IFileSystem
+diff '--color=auto' -ur audacity-4.0.1.orig/muse/framework/interactive/api/interactiveapi.cpp audacity-4.0.1/muse/framework/interactive/api/interactiveapi.cpp
+--- audacity-4.0.1.orig/muse/framework/interactive/api/interactiveapi.cpp	2026-09-29 17:27:17.187564417 +0200
++++ audacity-4.0.1/muse/framework/interactive/api/interactiveapi.cpp	2026-09-30 23:46:58.126246568 +0200
+@@ -23,6 +23,7 @@
+ #include "interactiveapi.h"
+ 
+ #include <QUrl>
++#include <QMetaEnum>
+ 
+ using namespace muse::interactive;
+ 
+diff '--color=auto' -ur audacity-4.0.1.orig/muse/framework/interactive/internal/iinteractiveprovider.h audacity-4.0.1/muse/framework/interactive/internal/iinteractiveprovider.h
+--- audacity-4.0.1.orig/muse/framework/interactive/internal/iinteractiveprovider.h	2026-09-29 17:27:17.188829053 +0200
++++ audacity-4.0.1/muse/framework/interactive/internal/iinteractiveprovider.h	2026-09-30 23:46:58.126266238 +0200
+@@ -24,6 +24,7 @@
+ 
+ #include <QObject>
+ #include <QVariant>
++#include <QWindow>
+ 
+ #include "global/async/channel.h"
+ 
+diff '--color=auto' -ur audacity-4.0.1.orig/muse/framework/interactive/internal/interactive.cpp audacity-4.0.1/muse/framework/interactive/internal/interactive.cpp
+--- audacity-4.0.1.orig/muse/framework/interactive/internal/interactive.cpp	2026-09-29 17:27:17.189122338 +0200
++++ audacity-4.0.1/muse/framework/interactive/internal/interactive.cpp	2026-09-30 23:46:58.126318017 +0200
+@@ -28,6 +28,7 @@
+ #include <QGuiApplication>
+ #include <QMetaProperty>
+ #include <QMetaType>
++#include <QQmlEngine>
+ #include <QUrl>
+ #include <QWidget>
+ #include <QWindow>
+diff '--color=auto' -ur audacity-4.0.1.orig/muse/framework/midiremote/CMakeLists.txt audacity-4.0.1/muse/framework/midiremote/CMakeLists.txt
+--- audacity-4.0.1.orig/muse/framework/midiremote/CMakeLists.txt	2026-09-30 23:46:43.979316982 +0200
++++ audacity-4.0.1/muse/framework/midiremote/CMakeLists.txt	2026-09-30 23:46:58.126363907 +0200
+@@ -42,6 +42,9 @@
+     internal/mmcdecoderfactory.h
+ )
+ 
++find_package(Qt6 REQUIRED COMPONENTS Quick)
++target_link_libraries(muse_midiremote PRIVATE Qt6::Quick)
++
+ if (MUSE_MODULE_MIDIREMOTE_QML)
+     add_subdirectory(qml/Muse/MidiRemote)
+ endif()
+diff '--color=auto' -ur audacity-4.0.1.orig/muse/framework/multiwindows/CMakeLists.txt audacity-4.0.1/muse/framework/multiwindows/CMakeLists.txt
+--- audacity-4.0.1.orig/muse/framework/multiwindows/CMakeLists.txt	2026-09-30 23:46:44.362399082 +0200
++++ audacity-4.0.1/muse/framework/multiwindows/CMakeLists.txt	2026-09-30 23:46:58.126391147 +0200
+@@ -56,6 +56,9 @@
+     internal/multiprocess/ipc/ipcloop.h
+ )
+ 
++find_package(Qt6 REQUIRED COMPONENTS Core Network)
++target_link_libraries(muse_multiwindows PRIVATE Qt6::Core Qt6::Network)
++
+ if (MUSE_MODULE_MULTIWINDOWS_QML)
+     add_subdirectory(qml/Muse/MultiWindows)
+ endif()
+diff '--color=auto' -ur audacity-4.0.1.orig/muse/framework/multiwindows/internal/singleprocess/singleprocessprovider.cpp audacity-4.0.1/muse/framework/multiwindows/internal/singleprocess/singleprocessprovider.cpp
+--- audacity-4.0.1.orig/muse/framework/multiwindows/internal/singleprocess/singleprocessprovider.cpp	2026-09-29 17:27:17.243296572 +0200
++++ audacity-4.0.1/muse/framework/multiwindows/internal/singleprocess/singleprocessprovider.cpp	2026-09-30 23:46:58.126417347 +0200
+@@ -28,6 +28,8 @@
+ 
+  #include "log.h"
+ 
++ #include <QCoreApplication>
++
+ using namespace muse;
+ using namespace muse::mi;
+ 
+diff '--color=auto' -ur audacity-4.0.1.orig/muse/framework/multiwindows/qml/Muse/MultiWindows/multiinstancesdevmodel.h audacity-4.0.1/muse/framework/multiwindows/qml/Muse/MultiWindows/multiinstancesdevmodel.h
+--- audacity-4.0.1.orig/muse/framework/multiwindows/qml/Muse/MultiWindows/multiinstancesdevmodel.h	2026-09-29 17:27:17.244156968 +0200
++++ audacity-4.0.1/muse/framework/multiwindows/qml/Muse/MultiWindows/multiinstancesdevmodel.h	2026-09-30 23:46:58.126442847 +0200
+@@ -23,6 +23,7 @@
+ #pragma once
+ 
+ #include <QObject>
++#include <QVariant>
+ #include <qqmlintegration.h>
+ 
+ #include "modularity/ioc.h"
+diff '--color=auto' -ur audacity-4.0.1.orig/muse/framework/network/CMakeLists.txt audacity-4.0.1/muse/framework/network/CMakeLists.txt
+--- audacity-4.0.1.orig/muse/framework/network/CMakeLists.txt	2026-09-30 23:46:44.006337727 +0200
++++ audacity-4.0.1/muse/framework/network/CMakeLists.txt	2026-09-30 23:46:58.126462137 +0200
+@@ -37,7 +37,7 @@
+     internal/networkconfiguration.h
+ )
+ 
+-target_link_libraries(muse_network PUBLIC Qt::Network)
++target_link_libraries(muse_network PUBLIC Qt::Network Qt::Qml)
+ 
+ if (MUSE_MODULE_NETWORK_WEBSOCKET)
+     target_sources(muse_network PRIVATE
+diff '--color=auto' -ur audacity-4.0.1.orig/muse/framework/rcommand/CMakeLists.txt audacity-4.0.1/muse/framework/rcommand/CMakeLists.txt
+--- audacity-4.0.1.orig/muse/framework/rcommand/CMakeLists.txt	2026-09-30 23:46:43.772332705 +0200
++++ audacity-4.0.1/muse/framework/rcommand/CMakeLists.txt	2026-09-30 23:46:58.126480067 +0200
+@@ -36,6 +36,9 @@
+     internal/commandsstate.h
+ )
+ 
++find_package(Qt6 REQUIRED COMPONENTS Quick)
++target_link_libraries(muse_rcommand PRIVATE Qt6::Quick)
++
+ if (MUSE_MODULE_RCOMMAND_QML)
+     add_subdirectory(qml/Muse/RCommand)
+ endif()
+diff '--color=auto' -ur audacity-4.0.1.orig/muse/framework/rcommand/qml/Muse/RCommand/CMakeLists.txt audacity-4.0.1/muse/framework/rcommand/qml/Muse/RCommand/CMakeLists.txt
+--- audacity-4.0.1.orig/muse/framework/rcommand/qml/Muse/RCommand/CMakeLists.txt	2026-09-30 23:46:43.767725042 +0200
++++ audacity-4.0.1/muse/framework/rcommand/qml/Muse/RCommand/CMakeLists.txt	2026-09-30 23:46:58.126502157 +0200
+@@ -31,4 +31,5 @@
+         TARGET muse_uicomponents_qml
+ )
+ 
++target_link_libraries(muse_rcommand_qml PRIVATE Qt::Quick)
+ fixup_qml_module_dependencies(muse_rcommand_qml)
+diff '--color=auto' -ur audacity-4.0.1.orig/muse/framework/rcontrol/CMakeLists.txt audacity-4.0.1/muse/framework/rcontrol/CMakeLists.txt
+--- audacity-4.0.1.orig/muse/framework/rcontrol/CMakeLists.txt	2026-09-30 23:46:43.684223414 +0200
++++ audacity-4.0.1/muse/framework/rcontrol/CMakeLists.txt	2026-09-30 23:46:58.126521457 +0200
+@@ -41,6 +41,9 @@
+     RUNTIME_OUTPUT_DIRECTORY "${CMAKE_BINARY_DIR}/bin"
+ )
+ 
++find_package(Qt6 REQUIRED COMPONENTS Network Quick)
++target_link_libraries(muse_rcontrol PRIVATE Qt6::Network Qt6::Quick)
++
+ #if (MUSE_MODULE_RCONTROL_TESTS)
+ #    add_subdirectory(tests)
+ #endif()
+diff '--color=auto' -ur audacity-4.0.1.orig/muse/framework/shortcuts/CMakeLists.txt audacity-4.0.1/muse/framework/shortcuts/CMakeLists.txt
+--- audacity-4.0.1.orig/muse/framework/shortcuts/CMakeLists.txt	2026-09-30 23:46:43.833577681 +0200
++++ audacity-4.0.1/muse/framework/shortcuts/CMakeLists.txt	2026-09-30 23:46:58.126539837 +0200
+@@ -42,7 +42,7 @@
+     internal/shortcutsconfiguration.h
+ )
+ 
+-target_link_libraries(muse_shortcuts PRIVATE Qt::Gui)
++target_link_libraries(muse_shortcuts PRIVATE Qt::Gui Qt::Qml)
+ 
+ if (MUSE_MODULE_SHORTCUTS_QML)
+     add_subdirectory(qml/Muse/Shortcuts)
+diff '--color=auto' -ur audacity-4.0.1.orig/muse/framework/tours/CMakeLists.txt audacity-4.0.1/muse/framework/tours/CMakeLists.txt
+--- audacity-4.0.1.orig/muse/framework/tours/CMakeLists.txt	2026-09-30 23:46:44.117190749 +0200
++++ audacity-4.0.1/muse/framework/tours/CMakeLists.txt	2026-09-30 23:46:58.126559367 +0200
+@@ -36,6 +36,9 @@
+     internal/toursprovider.h
+ )
+ 
++find_package(Qt6 REQUIRED COMPONENTS Quick)
++target_link_libraries(muse_tours PRIVATE Qt6::Quick)
++
+ if (MUSE_MODULE_TOURS_TESTS)
+     # add_subdirectory(tests) # todo
+ endif()
+diff '--color=auto' -ur audacity-4.0.1.orig/muse/framework/tours/qml/Muse/Tours/CMakeLists.txt audacity-4.0.1/muse/framework/tours/qml/Muse/Tours/CMakeLists.txt
+--- audacity-4.0.1.orig/muse/framework/tours/qml/Muse/Tours/CMakeLists.txt	2026-09-30 23:46:44.111909018 +0200
++++ audacity-4.0.1/muse/framework/tours/qml/Muse/Tours/CMakeLists.txt	2026-09-30 23:46:58.126581586 +0200
+@@ -34,4 +34,7 @@
+         TARGET muse_uicomponents_qml
+ )
+ 
++find_package(Qt6 REQUIRED COMPONENTS Quick)
++target_link_libraries(muse_tours_qml PRIVATE Qt6::Quick)
++
+ fixup_qml_module_dependencies(muse_tours_qml)
+diff '--color=auto' -ur audacity-4.0.1.orig/muse/framework/ui/api/themeapi.h audacity-4.0.1/muse/framework/ui/api/themeapi.h
+--- audacity-4.0.1.orig/muse/framework/ui/api/themeapi.h	2026-09-29 17:27:17.282476043 +0200
++++ audacity-4.0.1/muse/framework/ui/api/themeapi.h	2026-09-30 23:46:58.126607766 +0200
+@@ -23,6 +23,7 @@
+ #pragma once
+ 
+ #include <QFont>
++#include <QFontMetricsF>
+ 
+ #include <qqmlintegration.h>
+ 
+diff '--color=auto' -ur audacity-4.0.1.orig/muse/framework/ui/CMakeLists.txt audacity-4.0.1/muse/framework/ui/CMakeLists.txt
+--- audacity-4.0.1.orig/muse/framework/ui/CMakeLists.txt	2026-09-30 23:46:44.212021288 +0200
++++ audacity-4.0.1/muse/framework/ui/CMakeLists.txt	2026-09-30 23:46:58.126643436 +0200
+@@ -165,7 +165,8 @@
+ endif()
+ 
+ if (MUSE_QT_SUPPORT)
+-    target_link_libraries(muse_ui PUBLIC Qt::Quick)
++    find_package(Qt6 REQUIRED COMPONENTS Quick)
++    target_link_libraries(muse_ui PUBLIC Qt6::Quick)
+     target_link_libraries(muse_ui PRIVATE Qt::Widgets)
+ 
+     if (OS_IS_LIN)
+diff '--color=auto' -ur audacity-4.0.1.orig/muse/framework/ui/qml/Muse/Ui/initialletternavigation.h audacity-4.0.1/muse/framework/ui/qml/Muse/Ui/initialletternavigation.h
+--- audacity-4.0.1.orig/muse/framework/ui/qml/Muse/Ui/initialletternavigation.h	2026-09-29 17:27:17.289141007 +0200
++++ audacity-4.0.1/muse/framework/ui/qml/Muse/Ui/initialletternavigation.h	2026-09-30 23:46:58.126674796 +0200
+@@ -23,6 +23,8 @@
+ #pragma once
+ 
+ #include <QObject>
++#include <QTimer>
++#include <QRegularExpression>
+ #include <qqmlintegration.h>
+ 
+ #include "abstractnavigation.h"
+diff '--color=auto' -ur audacity-4.0.1.orig/muse/framework/ui/view/qmldataformatter.h audacity-4.0.1/muse/framework/ui/view/qmldataformatter.h
+--- audacity-4.0.1.orig/muse/framework/ui/view/qmldataformatter.h	2026-09-29 17:27:17.293003247 +0200
++++ audacity-4.0.1/muse/framework/ui/view/qmldataformatter.h	2026-09-30 23:46:58.126694206 +0200
+@@ -22,6 +22,7 @@
+ #pragma once
+ 
+ #include <QObject>
++#include <QLocale>
+ #include <qqmlintegration.h>
+ 
+ namespace muse::ui {
+diff '--color=auto' -ur audacity-4.0.1.orig/muse/framework/ui/view/widgetstyle.cpp audacity-4.0.1/muse/framework/ui/view/widgetstyle.cpp
+--- audacity-4.0.1.orig/muse/framework/ui/view/widgetstyle.cpp	2026-09-29 17:27:17.294108637 +0200
++++ audacity-4.0.1/muse/framework/ui/view/widgetstyle.cpp	2026-09-30 23:46:58.126729806 +0200
+@@ -27,6 +27,7 @@
+ #include <QGroupBox>
+ #include <QLineEdit>
+ #include <QMenu>
++#include <QPainter>
+ #include <QPalette>
+ #include <QStyle>
+ #include <QStyleFactory>
+diff '--color=auto' -ur audacity-4.0.1.orig/muse/framework/uicomponents/qml/Muse/UiComponents/abstracttableviewmodel.cpp audacity-4.0.1/muse/framework/uicomponents/qml/Muse/UiComponents/abstracttableviewmodel.cpp
+--- audacity-4.0.1.orig/muse/framework/uicomponents/qml/Muse/UiComponents/abstracttableviewmodel.cpp	2026-09-29 17:27:17.305463863 +0200
++++ audacity-4.0.1/muse/framework/uicomponents/qml/Muse/UiComponents/abstracttableviewmodel.cpp	2026-09-30 23:46:58.126780736 +0200
+@@ -22,6 +22,7 @@
+ #include "abstracttableviewmodel.h"
+ 
+ #include <QSet>
++#include <QTimer>
+ 
+ #include "internal/tableviewlistcell.h"
+ 
+diff '--color=auto' -ur audacity-4.0.1.orig/muse/framework/uicomponents/qml/Muse/UiComponents/CMakeLists.txt audacity-4.0.1/muse/framework/uicomponents/qml/Muse/UiComponents/CMakeLists.txt
+--- audacity-4.0.1.orig/muse/framework/uicomponents/qml/Muse/UiComponents/CMakeLists.txt	2026-09-30 23:46:43.942427331 +0200
++++ audacity-4.0.1/muse/framework/uicomponents/qml/Muse/UiComponents/CMakeLists.txt	2026-09-30 23:46:58.126811106 +0200
+@@ -238,7 +238,7 @@
+ # Necessary for the auto-generated sources
+ target_include_directories(muse_uicomponents_qml PRIVATE internal validators)
+ 
+-target_link_libraries(muse_uicomponents_qml PRIVATE Qt::Qml)
++target_link_libraries(muse_uicomponents_qml PRIVATE Qt::Qml Qt::Quick)
+ 
+ # For widgetview.cpp
+ target_link_libraries(muse_uicomponents_qml PRIVATE Qt::Widgets)
+diff '--color=auto' -ur audacity-4.0.1.orig/muse/framework/uicomponents/qml/Muse/UiComponents/filteredflyoutmodel.h audacity-4.0.1/muse/framework/uicomponents/qml/Muse/UiComponents/filteredflyoutmodel.h
+--- audacity-4.0.1.orig/muse/framework/uicomponents/qml/Muse/UiComponents/filteredflyoutmodel.h	2026-09-29 17:27:17.306826497 +0200
++++ audacity-4.0.1/muse/framework/uicomponents/qml/Muse/UiComponents/filteredflyoutmodel.h	2026-09-30 23:46:58.126833636 +0200
+@@ -23,6 +23,7 @@
+ #pragma once
+ 
+ #include <QObject>
++#include <QVariant>
+ #include <qqmlintegration.h>
+ 
+ namespace muse::uicomponents {
+diff '--color=auto' -ur audacity-4.0.1.orig/muse/framework/uicomponents/qml/Muse/UiComponents/polylineplot.cpp audacity-4.0.1/muse/framework/uicomponents/qml/Muse/UiComponents/polylineplot.cpp
+--- audacity-4.0.1.orig/muse/framework/uicomponents/qml/Muse/UiComponents/polylineplot.cpp	2026-09-29 17:27:17.311004313 +0200
++++ audacity-4.0.1/muse/framework/uicomponents/qml/Muse/UiComponents/polylineplot.cpp	2026-09-30 23:46:58.126875225 +0200
+@@ -23,6 +23,7 @@
+ #include "polylineplot.h"
+ #include "realfn.h"
+ 
++#include <QCursor>
+ #include <QPainter>
+ #include <QPen>
+ #include <QBrush>
+diff '--color=auto' -ur audacity-4.0.1.orig/muse/framework/update/CMakeLists.txt audacity-4.0.1/muse/framework/update/CMakeLists.txt
+--- audacity-4.0.1.orig/muse/framework/update/CMakeLists.txt	2026-09-30 23:46:44.080200585 +0200
++++ audacity-4.0.1/muse/framework/update/CMakeLists.txt	2026-09-30 23:46:58.126918445 +0200
+@@ -43,7 +43,7 @@
+ )
+ 
+ if (MUSE_QT_SUPPORT)
+-    target_link_libraries(muse_update PRIVATE Qt::Concurrent)
++    target_link_libraries(muse_update PRIVATE Qt::Concurrent Qt::Network)
+ endif()
+ 
+ if (MUSE_MODULE_UPDATE_TESTS)
+@@ -52,4 +52,4 @@
+ 
+ if (MUSE_MODULE_UPDATE_QML)
+     add_subdirectory(qml/Muse/Update)
+-endif()
+\ No newline at end of file
++endif()
+diff '--color=auto' -ur audacity-4.0.1.orig/muse/framework/vst/qml/Muse/Vst/CMakeLists.txt audacity-4.0.1/muse/framework/vst/qml/Muse/Vst/CMakeLists.txt
+--- audacity-4.0.1.orig/muse/framework/vst/qml/Muse/Vst/CMakeLists.txt	2026-09-30 23:46:44.048504210 +0200
++++ audacity-4.0.1/muse/framework/vst/qml/Muse/Vst/CMakeLists.txt	2026-09-30 23:46:58.126939535 +0200
+@@ -23,4 +23,4 @@
+     )
+ endif()
+ 
+-target_link_libraries(muse_vst_qml PRIVATE vst3sdk)
++target_link_libraries(muse_vst_qml PRIVATE vst3sdk Qt::Quick)
+diff '--color=auto' -ur audacity-4.0.1.orig/muse/framework/workspace/qml/Muse/Workspace/CMakeLists.txt audacity-4.0.1/muse/framework/workspace/qml/Muse/Workspace/CMakeLists.txt
+--- audacity-4.0.1.orig/muse/framework/workspace/qml/Muse/Workspace/CMakeLists.txt	2026-09-30 23:46:44.027146854 +0200
++++ audacity-4.0.1/muse/framework/workspace/qml/Muse/Workspace/CMakeLists.txt	2026-09-30 23:46:58.126962245 +0200
+@@ -20,4 +20,5 @@
+         TARGET muse_uicomponents_qml
+ )
+ 
++target_link_libraries(muse_workspace_qml PRIVATE Qt::Quick)
+ fixup_qml_module_dependencies(muse_workspace_qml)
+diff '--color=auto' -ur audacity-4.0.1.orig/src/appshell/qml/Audacity/AppShell/CMakeLists.txt audacity-4.0.1/src/appshell/qml/Audacity/AppShell/CMakeLists.txt
+--- audacity-4.0.1.orig/src/appshell/qml/Audacity/AppShell/CMakeLists.txt	2026-09-30 23:46:42.755206777 +0200
++++ audacity-4.0.1/src/appshell/qml/Audacity/AppShell/CMakeLists.txt	2026-09-30 23:46:58.126995675 +0200
+@@ -145,7 +145,7 @@
+     target_link_libraries(appshell_qml PRIVATE Qt6::GuiPrivate)
+ endif(NOT OS_IS_MAC)
+ 
+-target_link_libraries(appshell_qml PRIVATE Qt::Widgets)
++target_link_libraries(appshell_qml PRIVATE Qt::Widgets Qt::Quick)
+ 
+ fixup_qml_module_dependencies(appshell_qml)
+ 
+diff '--color=auto' -ur audacity-4.0.1.orig/src/appshell/qml/Audacity/AppShell/FirstLaunchSetup/themespagemodel.cpp audacity-4.0.1/src/appshell/qml/Audacity/AppShell/FirstLaunchSetup/themespagemodel.cpp
+--- audacity-4.0.1.orig/src/appshell/qml/Audacity/AppShell/FirstLaunchSetup/themespagemodel.cpp	2026-09-29 17:26:57.177797553 +0200
++++ audacity-4.0.1/src/appshell/qml/Audacity/AppShell/FirstLaunchSetup/themespagemodel.cpp	2026-09-30 23:46:58.127024535 +0200
+@@ -22,6 +22,7 @@
+ #include "themespagemodel.h"
+ 
+ #include "ui/internal/themeconverter.h"
++#include "framework/global/translation.h"
+ 
+ using namespace au::appshell;
+ using namespace muse::ui;
+diff '--color=auto' -ur audacity-4.0.1.orig/src/au3cloud/CMakeLists.txt audacity-4.0.1/src/au3cloud/CMakeLists.txt
+--- audacity-4.0.1.orig/src/au3cloud/CMakeLists.txt	2026-09-30 23:46:42.896125930 +0200
++++ audacity-4.0.1/src/au3cloud/CMakeLists.txt	2026-09-30 23:46:58.127047625 +0200
+@@ -54,6 +54,6 @@
+ 
+ set(MODULE_INCLUDE ${AU3_INCLUDE})
+ set(MODULE_DEF ${AU3_DEF})
+-set(MODULE_LINK au3wrap Qt6::Network Qt6::NetworkAuth)
++set(MODULE_LINK au3wrap Qt6::Network Qt6::NetworkAuth Qt6::Qml)
+ 
+ setup_module()
+diff '--color=auto' -ur audacity-4.0.1.orig/src/au3cloud/view/accountmodel.cpp audacity-4.0.1/src/au3cloud/view/accountmodel.cpp
+--- audacity-4.0.1.orig/src/au3cloud/view/accountmodel.cpp	2026-09-29 17:26:57.200954827 +0200
++++ audacity-4.0.1/src/au3cloud/view/accountmodel.cpp	2026-09-30 23:46:58.127068785 +0200
+@@ -6,6 +6,8 @@
+ #include "framework/global/io/path.h"
+ #include "framework/global/types/retval.h"
+ 
++#include <QDateTime>
++
+ using namespace au::au3cloud;
+ 
+ AccountModel::AccountModel(QObject* parent)
+diff '--color=auto' -ur audacity-4.0.1.orig/src/automation/automationmodule.cpp audacity-4.0.1/src/automation/automationmodule.cpp
+--- audacity-4.0.1.orig/src/automation/automationmodule.cpp	2026-09-29 17:26:57.237449904 +0200
++++ audacity-4.0.1/src/automation/automationmodule.cpp	2026-09-30 23:46:58.127088165 +0200
+@@ -4,6 +4,8 @@
+ 
+ #include "view/clipgainmodel.h"
+ 
++#include <qqml.h>
++
+ using namespace au::automation;
+ 
+ static const std::string mname("automation");
+diff '--color=auto' -ur audacity-4.0.1.orig/src/automation/CMakeLists.txt audacity-4.0.1/src/automation/CMakeLists.txt
+--- audacity-4.0.1.orig/src/automation/CMakeLists.txt	2026-09-30 23:46:42.694795204 +0200
++++ audacity-4.0.1/src/automation/CMakeLists.txt	2026-09-30 23:46:58.127111225 +0200
+@@ -19,7 +19,7 @@
+ )
+ 
+ set(MODULE_USE_UNITY OFF)
+-set(MODULE_LINK au3wrap)
++set(MODULE_LINK au3wrap Qt::Qml)
+ 
+ setup_module()
+ 
+diff '--color=auto' -ur audacity-4.0.1.orig/src/effects/builtin/CMakeLists.txt audacity-4.0.1/src/effects/builtin/CMakeLists.txt
+--- audacity-4.0.1.orig/src/effects/builtin/CMakeLists.txt	2026-09-30 23:46:42.628557195 +0200
++++ audacity-4.0.1/src/effects/builtin/CMakeLists.txt	2026-09-30 23:46:58.127130785 +0200
+@@ -37,7 +37,7 @@
+ set(MODULE_INCLUDE ${AU3_INCLUDE})
+ set(MODULE_DEF ${AU3_DEF})
+ 
+-set(MODULE_LINK au3wrap)
++set(MODULE_LINK au3wrap Qt::Qml Qt::Quick)
+ 
+ set(MODULE_USE_UNITY OFF)
+ 
+diff '--color=auto' -ur audacity-4.0.1.orig/src/effects/builtin_collection/builtineffectscollectionmodule.cpp audacity-4.0.1/src/effects/builtin_collection/builtineffectscollectionmodule.cpp
+--- audacity-4.0.1.orig/src/effects/builtin_collection/builtineffectscollectionmodule.cpp	2026-09-29 17:26:57.248781256 +0200
++++ audacity-4.0.1/src/effects/builtin_collection/builtineffectscollectionmodule.cpp	2026-09-30 23:46:58.127153084 +0200
+@@ -10,6 +10,8 @@
+ 
+ #include "effects/effects_base/ieffectviewlaunchregister.h"
+ 
++#include <qqml.h>
++
+ using namespace au::effects;
+ 
+ static const std::string mname("builtin_effects_collection");
+diff '--color=auto' -ur audacity-4.0.1.orig/src/effects/builtin_collection/CMakeLists.txt audacity-4.0.1/src/effects/builtin_collection/CMakeLists.txt
+--- audacity-4.0.1.orig/src/effects/builtin_collection/CMakeLists.txt	2026-09-30 23:46:42.684571140 +0200
++++ audacity-4.0.1/src/effects/builtin_collection/CMakeLists.txt	2026-09-30 23:46:58.127174044 +0200
+@@ -191,7 +191,7 @@
+     # -DNOTE_TRACK_API=
+ )
+ 
+-set(MODULE_LINK au3wrap libsbsms shared)
++set(MODULE_LINK au3wrap libsbsms shared Qt::Qml Qt::Quick)
+ set(MODULE_LINK_PUBLIC au3-effects au3-builtin-effects)
+ 
+ set(MODULE_USE_UNITY OFF)
+diff '--color=auto' -ur audacity-4.0.1.orig/src/effects/effects_base/CMakeLists.txt audacity-4.0.1/src/effects/effects_base/CMakeLists.txt
+--- audacity-4.0.1.orig/src/effects/effects_base/CMakeLists.txt	2026-09-30 23:46:42.659055339 +0200
++++ audacity-4.0.1/src/effects/effects_base/CMakeLists.txt	2026-09-30 23:46:58.127198914 +0200
+@@ -134,7 +134,7 @@
+ set(MODULE_INCLUDE ${AU3_INCLUDE})
+ set(MODULE_DEF ${AU3_DEF})
+ 
+-set(MODULE_LINK au3wrap uicomponents)
++set(MODULE_LINK au3wrap uicomponents Qt::Qml Qt::QmlIntegration Qt::Quick)
+ 
+ set(MODULE_USE_UNITY OFF)
+ 
+diff '--color=auto' -ur audacity-4.0.1.orig/src/effects/effects_base/view/effectsviewutils.h audacity-4.0.1/src/effects/effects_base/view/effectsviewutils.h
+--- audacity-4.0.1.orig/src/effects/effects_base/view/effectsviewutils.h	2026-09-29 17:26:57.310419685 +0200
++++ audacity-4.0.1/src/effects/effects_base/view/effectsviewutils.h	2026-09-30 23:46:58.127223374 +0200
+@@ -7,6 +7,11 @@
+ 
+ #include "framework/uicomponents/qml/Muse/UiComponents/menuitem.h"
+ 
++#include <qqml.h>
++#include <QQmlEngine>
++#include <QJSEngine>
++#include <QObject>
++
+ #define REGISTER_AUDACITY_EFFECTS_SINGLETON_TYPE(Factory) \
+     qmlRegisterSingletonType<Factory>("Audacity.Effects", 1, 0, #Factory, \
+                                       [] (QQmlEngine*, QJSEngine*) -> QObject* { \
+diff '--color=auto' -ur audacity-4.0.1.orig/src/effects/extensions/CMakeLists.txt audacity-4.0.1/src/effects/extensions/CMakeLists.txt
+--- audacity-4.0.1.orig/src/effects/extensions/CMakeLists.txt	2026-09-30 23:46:42.649191053 +0200
++++ audacity-4.0.1/src/effects/extensions/CMakeLists.txt	2026-09-30 23:46:58.127241854 +0200
+@@ -33,7 +33,7 @@
+ 
+ set(MODULE_INCLUDE ${AU3_INCLUDE})
+ set(MODULE_DEF ${AU3_DEF})
+-set(MODULE_LINK au3wrap trackedit muse::extensions)
++set(MODULE_LINK au3wrap trackedit muse::extensions Qt::Qml Qt::QmlIntegration)
+ set(MODULE_USE_UNITY OFF)
+ 
+ setup_module()
+diff '--color=auto' -ur audacity-4.0.1.orig/src/effects/lv2/CMakeLists.txt audacity-4.0.1/src/effects/lv2/CMakeLists.txt
+--- audacity-4.0.1.orig/src/effects/lv2/CMakeLists.txt	2026-09-30 23:46:42.623031785 +0200
++++ audacity-4.0.1/src/effects/lv2/CMakeLists.txt	2026-09-30 23:46:58.127259794 +0200
+@@ -36,7 +36,7 @@
+     ${CMAKE_CURRENT_LIST_DIR}/view/x11idleui.h
+ )
+ 
+-set(MODULE_LINK effects_base au3wrap lv2sdk X11)
++set(MODULE_LINK effects_base au3wrap lv2sdk X11 Qt::Qml Qt::QmlIntegration Qt::Quick)
+ 
+ # AU3
+ include(${CMAKE_CURRENT_LIST_DIR}/../../au3wrap/au3wrapDefs.cmake)
+diff '--color=auto' -ur audacity-4.0.1.orig/src/effects/lv2/view/lv2viewmodel.h audacity-4.0.1/src/effects/lv2/view/lv2viewmodel.h
+--- audacity-4.0.1.orig/src/effects/lv2/view/lv2viewmodel.h	2026-09-29 17:26:57.316977568 +0200
++++ audacity-4.0.1/src/effects/lv2/view/lv2viewmodel.h	2026-09-30 23:46:58.127279984 +0200
+@@ -19,6 +19,7 @@
+ 
+ #include <QObject>
+ #include <QQuickItem>
++#include <QTimer>
+ 
+ class LV2PortUIStates;
+ struct LV2EffectOutputs;
+diff '--color=auto' -ur audacity-4.0.1.orig/src/effects/nyquist/CMakeLists.txt audacity-4.0.1/src/effects/nyquist/CMakeLists.txt
+--- audacity-4.0.1.orig/src/effects/nyquist/CMakeLists.txt	2026-09-30 23:46:42.643974272 +0200
++++ audacity-4.0.1/src/effects/nyquist/CMakeLists.txt	2026-09-30 23:46:58.127298954 +0200
+@@ -36,7 +36,7 @@
+ set(MODULE_INCLUDE ${AU3_INCLUDE})
+ set(MODULE_DEF ${AU3_DEF})
+ 
+-set(MODULE_LINK au3wrap effects_builtin au3-nyquist-effects)
++set(MODULE_LINK au3wrap effects_builtin au3-nyquist-effects Qt::Qml Qt::QmlIntegration)
+ 
+ add_subdirectory(libnyquist)
+ 
+diff '--color=auto' -ur audacity-4.0.1.orig/src/effects/nyquist/nyquistprompt/nyquistpromptloader.cpp audacity-4.0.1/src/effects/nyquist/nyquistprompt/nyquistpromptloader.cpp
+--- audacity-4.0.1.orig/src/effects/nyquist/nyquistprompt/nyquistpromptloader.cpp	2026-09-29 17:26:57.319735335 +0200
++++ audacity-4.0.1/src/effects/nyquist/nyquistprompt/nyquistpromptloader.cpp	2026-09-30 23:46:58.127317704 +0200
+@@ -2,9 +2,14 @@
+  * Audacity: A Digital Audio Editor
+  */
+ #include "nyquistpromptloader.h"
++#include "nyquistprompteffect.h"
++#include "nyquistpromptviewmodel.h"
+ 
++#include "au3wrap/internal/wxtypes_convert.h"
+ #include "au3-effects/LoadEffects.h"
+ 
++#include <qqml.h>
++
+ namespace au::effects {
+ void NyquistPromptLoader::preInit()
+ {
+diff '--color=auto' -ur audacity-4.0.1.orig/src/effects/vst/CMakeLists.txt audacity-4.0.1/src/effects/vst/CMakeLists.txt
+--- audacity-4.0.1.orig/src/effects/vst/CMakeLists.txt	2026-09-30 23:46:42.664136701 +0200
++++ audacity-4.0.1/src/effects/vst/CMakeLists.txt	2026-09-30 23:46:58.127336654 +0200
+@@ -40,6 +40,8 @@
+ set(MODULE_LINK
+         au3wrap
+         vst_sdk_3 # Note: vst_sdk_3 needed because au3-vst3 public headers expose VST3 SDK types
++        Qt::Qml
++        Qt::QmlIntegration
+ )
+ 
+ if(MUSE_MODULE_VST_QML)
+diff '--color=auto' -ur audacity-4.0.1.orig/src/importexport/export/CMakeLists.txt audacity-4.0.1/src/importexport/export/CMakeLists.txt
+--- audacity-4.0.1.orig/src/importexport/export/CMakeLists.txt	2026-09-30 23:46:42.791184777 +0200
++++ audacity-4.0.1/src/importexport/export/CMakeLists.txt	2026-09-30 23:46:58.127357584 +0200
+@@ -45,7 +45,7 @@
+ 
+ set(MODULE_QML_IMPORT ${CMAKE_CURRENT_LIST_DIR}/qml )
+ 
+-set(MODULE_LINK au3wrap)
++set(MODULE_LINK au3wrap Qt::Qml Qt::QmlIntegration)
+ 
+ set(MODULE_USE_UNITY OFF)
+ 
+diff '--color=auto' -ur audacity-4.0.1.orig/src/importexport/export/exportermodule.cpp audacity-4.0.1/src/importexport/export/exportermodule.cpp
+--- audacity-4.0.1.orig/src/importexport/export/exportermodule.cpp	2026-09-29 17:26:57.324190728 +0200
++++ audacity-4.0.1/src/importexport/export/exportermodule.cpp	2026-09-30 23:46:58.127378964 +0200
+@@ -16,6 +16,8 @@
+ 
+ #include "exportermodule.h"
+ 
++#include <qqml.h>
++
+ using namespace au::importexport;
+ using namespace muse;
+ 
+diff '--color=auto' -ur audacity-4.0.1.orig/src/importexport/labels/CMakeLists.txt audacity-4.0.1/src/importexport/labels/CMakeLists.txt
+--- audacity-4.0.1.orig/src/importexport/labels/CMakeLists.txt	2026-09-30 23:46:42.796278859 +0200
++++ audacity-4.0.1/src/importexport/labels/CMakeLists.txt	2026-09-30 23:46:58.127398104 +0200
+@@ -36,6 +36,6 @@
+ 
+ set(MODULE_INCLUDE ${AU3_INCLUDE})
+ set(MODULE_DEF ${AU3_DEF})
+-set(MODULE_LINK au3wrap)
++set(MODULE_LINK au3wrap Qt::Qml)
+ 
+ setup_module()
+diff '--color=auto' -ur audacity-4.0.1.orig/src/importexport/labels/labelsmodule.cpp audacity-4.0.1/src/importexport/labels/labelsmodule.cpp
+--- audacity-4.0.1.orig/src/importexport/labels/labelsmodule.cpp	2026-09-29 17:26:57.331357513 +0200
++++ audacity-4.0.1/src/importexport/labels/labelsmodule.cpp	2026-09-30 23:46:58.127415224 +0200
+@@ -14,6 +14,8 @@
+ 
+ #include "view/exportlabelsmodel.h"
+ 
++#include <qqml.h>
++
+ using namespace au::importexport;
+ 
+ static const std::string mname("iex_labels");
+diff '--color=auto' -ur audacity-4.0.1.orig/src/playback/CMakeLists.txt audacity-4.0.1/src/playback/CMakeLists.txt
+--- audacity-4.0.1.orig/src/playback/CMakeLists.txt	2026-09-30 23:46:42.720151425 +0200
++++ audacity-4.0.1/src/playback/CMakeLists.txt	2026-09-30 23:46:58.127434293 +0200
+@@ -85,7 +85,7 @@
+ 
+ set(MODULE_INCLUDE ${AU3_INCLUDE})
+ set(MODULE_DEF ${AU3_DEF})
+-set(MODULE_LINK au3wrap uicomponents)
++set(MODULE_LINK au3wrap uicomponents Qt::Qml Qt::Quick)
+ 
+ set(MODULE_USE_UNITY OFF)
+ 
+diff '--color=auto' -ur audacity-4.0.1.orig/src/playback/internal/meters/dblogmeter.cpp audacity-4.0.1/src/playback/internal/meters/dblogmeter.cpp
+--- audacity-4.0.1.orig/src/playback/internal/meters/dblogmeter.cpp	2026-09-29 17:26:57.333540335 +0200
++++ audacity-4.0.1/src/playback/internal/meters/dblogmeter.cpp	2026-09-30 23:46:58.127457193 +0200
+@@ -8,6 +8,7 @@
+ #include <sstream>
+ #include <iomanip>
+ #include <algorithm>
++#include <array>
+ 
+ using namespace au::playback;
+ 
+diff '--color=auto' -ur audacity-4.0.1.orig/src/preferences/CMakeLists.txt audacity-4.0.1/src/preferences/CMakeLists.txt
+--- audacity-4.0.1.orig/src/preferences/CMakeLists.txt	2026-09-30 23:46:42.931230717 +0200
++++ audacity-4.0.1/src/preferences/CMakeLists.txt	2026-09-30 23:46:58.127473583 +0200
+@@ -6,7 +6,7 @@
+     types/preferencestypes.h
+ )
+ 
+-target_link_libraries(preferences PRIVATE importer)
++target_link_libraries(preferences PRIVATE importer Qt::Qml)
+ 
+ add_subdirectory(qml/Audacity/Preferences)
+ 
+diff '--color=auto' -ur audacity-4.0.1.orig/src/preferences/qml/Audacity/Preferences/CMakeLists.txt audacity-4.0.1/src/preferences/qml/Audacity/Preferences/CMakeLists.txt
+--- audacity-4.0.1.orig/src/preferences/qml/Audacity/Preferences/CMakeLists.txt	2026-09-30 23:46:42.926428464 +0200
++++ audacity-4.0.1/src/preferences/qml/Audacity/Preferences/CMakeLists.txt	2026-09-30 23:46:58.127495893 +0200
+@@ -123,4 +123,4 @@
+ 
+ fixup_qml_module_dependencies(preferences_qml)
+ 
+-target_link_libraries(preferences_qml PRIVATE audacity_extensions)
++target_link_libraries(preferences_qml PRIVATE audacity_extensions Qt::Quick)
+diff '--color=auto' -ur audacity-4.0.1.orig/src/preferences/qml/Audacity/Preferences/preferencesmodel.cpp audacity-4.0.1/src/preferences/qml/Audacity/Preferences/preferencesmodel.cpp
+--- audacity-4.0.1.orig/src/preferences/qml/Audacity/Preferences/preferencesmodel.cpp	2026-09-29 17:26:57.352087638 +0200
++++ audacity-4.0.1/src/preferences/qml/Audacity/Preferences/preferencesmodel.cpp	2026-09-30 23:46:58.127524023 +0200
+@@ -20,6 +20,7 @@
+  * along with this program.  If not, see <https://www.gnu.org/licenses/>.
+  */
+ #include <QGuiApplication>
++#include <QCursor>
+ 
+ #include "preferencesmodel.h"
+ 
+diff '--color=auto' -ur audacity-4.0.1.orig/src/project/CMakeLists.txt audacity-4.0.1/src/project/CMakeLists.txt
+--- audacity-4.0.1.orig/src/project/CMakeLists.txt	2026-09-30 23:46:42.745307897 +0200
++++ audacity-4.0.1/src/project/CMakeLists.txt	2026-09-30 23:46:58.127549873 +0200
+@@ -143,7 +143,7 @@
+ 
+ set(MODULE_INCLUDE ${AU3_INCLUDE})
+ set(MODULE_DEF ${AU3_DEF})
+-set(MODULE_LINK au3wrap Qt::Widgets)
++set(MODULE_LINK au3wrap Qt::Widgets Qt::Qml Qt::Quick)
+ if (QT_ADD_CONCURRENT)
+     list(APPEND MODULE_LINK Qt::Concurrent)
+ endif()
+diff '--color=auto' -ur audacity-4.0.1.orig/src/project/internal/projectactionscontroller.cpp audacity-4.0.1/src/project/internal/projectactionscontroller.cpp
+--- audacity-4.0.1.orig/src/project/internal/projectactionscontroller.cpp	2026-09-29 17:26:57.355778423 +0200
++++ audacity-4.0.1/src/project/internal/projectactionscontroller.cpp	2026-09-30 23:46:58.127623343 +0200
+@@ -1,6 +1,7 @@
+ #include "projectactionscontroller.h"
+ 
+ #include <QFileDialog>
++#include <QWindow>
+ 
+ #include <variant>
+ 
+diff '--color=auto' -ur audacity-4.0.1.orig/src/project/view/projectthumbnailloader.h audacity-4.0.1/src/project/view/projectthumbnailloader.h
+--- audacity-4.0.1.orig/src/project/view/projectthumbnailloader.h	2026-09-29 17:26:57.376694044 +0200
++++ audacity-4.0.1/src/project/view/projectthumbnailloader.h	2026-09-30 23:46:58.127696743 +0200
+@@ -1,6 +1,7 @@
+ #pragma once
+ 
+ #include <QObject>
++#include <QPixmap>
+ 
+ #include "framework/global/async/asyncable.h"
+ 
+diff '--color=auto' -ur audacity-4.0.1.orig/src/projectscene/CMakeLists.txt audacity-4.0.1/src/projectscene/CMakeLists.txt
+--- audacity-4.0.1.orig/src/projectscene/CMakeLists.txt	2026-09-30 23:46:42.905937496 +0200
++++ audacity-4.0.1/src/projectscene/CMakeLists.txt	2026-09-30 23:46:58.127723612 +0200
+@@ -241,7 +241,7 @@
+ 
+ set(MODULE_QML_IMPORT ${CMAKE_CURRENT_LIST_DIR}/qml )
+ 
+-set(MODULE_LINK au3wrap trackedit spectrogram uicomponents)
++set(MODULE_LINK au3wrap trackedit spectrogram uicomponents Qt::Qml Qt::Quick)
+ if(MUSE_MODULE_WORKSPACE)
+     set(MODULE_LINK ${MODULE_LINK} muse::workspace_qml)
+ endif()
+diff '--color=auto' -ur audacity-4.0.1.orig/src/projectscene/view/timeline/playregioncontroller.cpp audacity-4.0.1/src/projectscene/view/timeline/playregioncontroller.cpp
+--- audacity-4.0.1.orig/src/projectscene/view/timeline/playregioncontroller.cpp	2026-09-29 17:26:57.397006803 +0200
++++ audacity-4.0.1/src/projectscene/view/timeline/playregioncontroller.cpp	2026-09-30 23:46:58.127761012 +0200
+@@ -5,6 +5,7 @@
+ 
+ #include <cmath>
+ 
++#include <QCursor>
+ #include <QGuiApplication>
+ 
+ #include "framework/global/log.h"
+diff '--color=auto' -ur audacity-4.0.1.orig/src/projectscene/view/trackruler/dblogbaseruler.h audacity-4.0.1/src/projectscene/view/trackruler/dblogbaseruler.h
+--- audacity-4.0.1.orig/src/projectscene/view/trackruler/dblogbaseruler.h	2026-09-29 17:26:57.401364698 +0200
++++ audacity-4.0.1/src/projectscene/view/trackruler/dblogbaseruler.h	2026-09-30 23:46:58.127785502 +0200
+@@ -3,6 +3,8 @@
+ */
+ #pragma once
+ 
++#include <string>
++
+ #include "projectscene/view/trackruler/itrackruler.h"
+ 
+ namespace au::projectscene {
+diff '--color=auto' -ur audacity-4.0.1.orig/src/projectscene/view/trackruler/itrackruler.h audacity-4.0.1/src/projectscene/view/trackruler/itrackruler.h
+--- audacity-4.0.1.orig/src/projectscene/view/trackruler/itrackruler.h	2026-09-29 17:26:57.401827854 +0200
++++ audacity-4.0.1/src/projectscene/view/trackruler/itrackruler.h	2026-09-30 23:46:58.127803212 +0200
+@@ -1,6 +1,7 @@
+ #pragma once
+ 
+ #include <cstddef>
++#include <string>
+ #include <vector>
+ 
+ namespace au::projectscene {
+diff '--color=auto' -ur audacity-4.0.1.orig/src/projectscene/view/trackruler/linearbaseruler.cpp audacity-4.0.1/src/projectscene/view/trackruler/linearbaseruler.cpp
+--- audacity-4.0.1.orig/src/projectscene/view/trackruler/linearbaseruler.cpp	2026-09-29 17:26:57.401907977 +0200
++++ audacity-4.0.1/src/projectscene/view/trackruler/linearbaseruler.cpp	2026-09-30 23:46:58.129023828 +0200
+@@ -1,9 +1,11 @@
+ /*
+ * Audacity: A Digital Audio Editor
+ */
++#include <array>
+ #include <cassert>
+ #include <iomanip>
+ #include <sstream>
++#include <utility>
+ 
+ #include "framework/global/realfn.h"
+ 
+diff '--color=auto' -ur audacity-4.0.1.orig/src/record/CMakeLists.txt audacity-4.0.1/src/record/CMakeLists.txt
+--- audacity-4.0.1.orig/src/record/CMakeLists.txt	2026-09-30 23:46:42.875433692 +0200
++++ audacity-4.0.1/src/record/CMakeLists.txt	2026-09-30 23:46:58.127823352 +0200
+@@ -47,7 +47,7 @@
+ 
+ set(MODULE_INCLUDE ${AU3_INCLUDE})
+ set(MODULE_DEF ${AU3_DEF})
+-set(MODULE_LINK au3wrap)
++set(MODULE_LINK au3wrap Qt::Quick Qt::Qml Qt::QmlIntegration)
+ 
+ set(MODULE_USE_UNITY OFF)
+ 
+diff '--color=auto' -ur audacity-4.0.1.orig/src/spectrogram/CMakeLists.txt audacity-4.0.1/src/spectrogram/CMakeLists.txt
+--- audacity-4.0.1.orig/src/spectrogram/CMakeLists.txt	2026-09-30 23:46:42.710287210 +0200
++++ audacity-4.0.1/src/spectrogram/CMakeLists.txt	2026-09-30 23:46:58.127846612 +0200
+@@ -107,7 +107,7 @@
+ 
+ set(MODULE_QML_IMPORT ${CMAKE_CURRENT_LIST_DIR}/qml)
+ set(MODULE_USE_UNITY OFF)
+-set(MODULE_LINK au3wrap Qt6::Concurrent tft)
++set(MODULE_LINK au3wrap Qt6::Concurrent Qt::Qml Qt::Quick tft)
+ set(MODULE_LINK_PUBLIC shared)
+ 
+ setup_module()
+diff '--color=auto' -ur audacity-4.0.1.orig/src/trackedit/CMakeLists.txt audacity-4.0.1/src/trackedit/CMakeLists.txt
+--- audacity-4.0.1.orig/src/trackedit/CMakeLists.txt	2026-09-30 23:46:42.705099988 +0200
++++ audacity-4.0.1/src/trackedit/CMakeLists.txt	2026-09-30 23:46:58.127867792 +0200
+@@ -113,7 +113,7 @@
+ 
+ set(MODULE_INCLUDE ${AU3_INCLUDE})
+ set(MODULE_DEF ${AU3_DEF})
+-set(MODULE_LINK au3wrap extension_native)
++set(MODULE_LINK au3wrap extension_native Qt::Quick)
+ 
+ set(MODULE_LINK
+     ${MODULE_LINK}
+diff '--color=auto' -ur audacity-4.0.1.orig/src/trackedit/dom/wave.h audacity-4.0.1/src/trackedit/dom/wave.h
+--- audacity-4.0.1.orig/src/trackedit/dom/wave.h	2026-09-29 17:26:57.434640853 +0200
++++ audacity-4.0.1/src/trackedit/dom/wave.h	2026-09-30 23:46:58.127886482 +0200
+@@ -5,6 +5,7 @@
+ 
+ #include <memory>
+ #include <vector>
++#include <cstdint>
+ 
+ namespace au::trackedit {
+ class Wave
+diff '--color=auto' -ur audacity-4.0.1.orig/src/uicomponents/CMakeLists.txt audacity-4.0.1/src/uicomponents/CMakeLists.txt
+--- audacity-4.0.1.orig/src/uicomponents/CMakeLists.txt	2026-09-30 23:46:42.735379132 +0200
++++ audacity-4.0.1/src/uicomponents/CMakeLists.txt	2026-09-30 23:46:58.127904032 +0200
+@@ -40,6 +40,8 @@
+ 
+ set(MODULE_LINK
+     muse::uicomponents_qml
++    Qt::Qml
++    Qt::Quick
+ )
+ 
+ setup_module()

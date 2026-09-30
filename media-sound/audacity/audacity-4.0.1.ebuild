@@ -109,7 +109,7 @@ BDEPEND="
 
 PATCHES=(
 	"${FILESDIR}"/audacity-4.0.0-system-deps.patch
-	"${FILESDIR}"/audacity-4.0.0-headers.patch
+	"${FILESDIR}"/audacity-4.0.1-headers.patch
 )
 
 src_prepare() {
@@ -149,6 +149,12 @@ src_configure() {
 	)
 
 	cmake_src_configure
+}
+
+src_install() {
+	cmake_src_install
+
+	rm -rf "${ED}"/usr/licenses
 }
 
 src_test() {
