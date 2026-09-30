@@ -64,6 +64,7 @@ RDEPEND="
 	sci-ml/foxi
 	sci-ml/onnx:=
 	$(python_gen_cond_dep '
+		dev-python/networkx[${PYTHON_USEDEP}]
 		dev-python/sympy[${PYTHON_USEDEP}]
 		dev-python/typing-extensions[${PYTHON_USEDEP}]
 	')
@@ -229,7 +230,9 @@ src_prepare() {
 			-i aten/src/ATen/CMakeLists.txt || die
 
 		# Workaround for libc++ issue https://github.com/llvm/llvm-project/issues/100802
-		sed -e 's/std::memcpy/memcpy/g' -i torch/headeronly/util/Half.h || die
+		sed -e 's/std::memcpy/memcpy/g' \
+			-i torch/headeronly/util/Half.h \
+			-i aten/src/ATen/native/cuda/int4mm.cu || die
 
 		ebegin "HIPifying cuda sources"
 		FBCODE_BUILD_TOOL="buck" ${EPYTHON} tools/amd_build/build_amd.py || die
