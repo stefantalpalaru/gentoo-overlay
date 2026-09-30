@@ -46,7 +46,7 @@ dev-java/jna 5.13.0-r1: Java Native Access
 dev-lang/chapel 2.10.0: Chapel programming language compiler
 dev-lang/nim 1.0.10-r101 1.2.18-r101 1.4.8-r101 1.6.20-r100 2.0.16-r100 2.2.12-r100 9999-r16: compiled, garbage-collected systems programming language
 dev-lang/php 5.3.29-r11 7.4.33-r11 8.0.30-r6: The PHP language runtime engine
-dev-lang/pony 0.73.0: Compiler for the Pony language
+dev-lang/pony 0.74.0: Compiler for the Pony language
 dev-lang/python 2.7.18_p115: An interpreted, interactive, object-oriented programming language
 dev-lang/python-exec 2.4.10-r101: Python script wrapper
 dev-lang/tauthon 2.8.5-r6 9999-r5: Python 2.7 fork with new syntax, builtins, and libraries backported from Python3
@@ -977,7 +977,7 @@ net-p2p/fms 0.3.86-r1: Spam-resistant message board application for Freenet
 net-p2p/freenet 0.7.5_p1507-r100: An encrypted network without censorship
 net-p2p/go-ethereum 1.17.6: Official golang implementation of the Ethereum protocol
 net-p2p/nicotine+ 3.3.11 9999-r2: A fork of nicotine, a Soulseek client in Python
-net-p2p/nimbus-eth2 26.9.0 9999-r19: Nim implementation of the Ethereum 2.0 blockchain
+net-p2p/nimbus-eth2 26.9.1 9999-r19: Nim implementation of the Ethereum 2.0 blockchain
 net-p2p/pybitmessage 0.6.3.2_p20180521-r4: Reference client for Bitmessage: a P2P communications protocol
 net-p2p/retroshare 0.6.7.2-r100: Decentralized, private and secure communication and sharing platform
 net-p2p/transmission-og 3.07-r1 9999-r4: Transmission 3.00 fork (BitTorrent client)
