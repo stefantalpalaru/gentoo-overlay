@@ -6,7 +6,7 @@ PYTHON_COMPAT=( python2_7 )
 
 inherit distutils-r1 pypi
 
-DESCRIPTION="Finds the correct path to exceptions in the requests library."
+DESCRIPTION="Finds the correct path to exceptions in the requests library"
 HOMEPAGE="https://github.com/openstack-infra/requestsexceptions"
 LICENSE="Apache-2.0"
 SLOT="python2"

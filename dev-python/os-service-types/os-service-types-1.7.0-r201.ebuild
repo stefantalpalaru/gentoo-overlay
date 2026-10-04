@@ -7,7 +7,7 @@ PYPI_NO_NORMALIZE=1
 
 inherit distutils-r1 pypi
 
-DESCRIPTION="A library to handle official service types for OpenStack and it's aliases."
+DESCRIPTION="A library to handle official service types for OpenStack and it's aliases"
 HOMEPAGE="https://github.com/openstack/os-service-types"
 LICENSE="Apache-2.0"
 SLOT="python2"

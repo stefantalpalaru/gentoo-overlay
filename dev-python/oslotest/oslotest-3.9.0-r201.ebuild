@@ -10,7 +10,7 @@ DESCRIPTION="Oslo test framework"
 HOMEPAGE="https://launchpad.net/oslo"
 LICENSE="Apache-2.0"
 SLOT="python2"
-KEYWORDS="amd64 ~arm64 x86 ~amd64-linux ~x86-linux"
+KEYWORDS="amd64 ~arm64 x86 "
 IUSE="doc test"
 RESTRICT="!test? ( test )"
 

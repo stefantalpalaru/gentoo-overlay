@@ -10,7 +10,7 @@ DESCRIPTION="Traceback fiddling library for Python"
 HOMEPAGE="https://github.com/ionelmc/python-tblib"
 LICENSE="BSD"
 SLOT="python2"
-KEYWORDS="~amd64 ~arm64 ~ppc ~ppc64 ~x86 ~amd64-linux ~x86-linux"
+KEYWORDS="~amd64 ~arm64 ~ppc ~ppc64 ~x86 "
 RESTRICT="mirror test"
 
 RDEPEND="dev-python/six[${PYTHON_USEDEP}]

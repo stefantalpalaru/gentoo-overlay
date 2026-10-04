@@ -16,7 +16,7 @@ HOMEPAGE="https://github.com/astropy/astropy-helpers"
 S=${WORKDIR}/${PN}-${MYPV}
 LICENSE="BSD"
 SLOT="0"
-KEYWORDS="~amd64 ~x86 ~amd64-linux ~x86-linux"
+KEYWORDS="~amd64 ~x86 "
 RESTRICT="test"
 
 RDEPEND="${PYTHON_DEPS}"

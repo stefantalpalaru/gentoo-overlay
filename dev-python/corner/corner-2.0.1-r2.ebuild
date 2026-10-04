@@ -11,7 +11,7 @@ DESCRIPTION="Make scatter matrix corner plots"
 HOMEPAGE="http://corner.readthedocs.io/"
 LICENSE="BSD"
 SLOT="0"
-KEYWORDS="~amd64 ~x86 ~amd64-linux ~x86-linux"
+KEYWORDS="~amd64 ~x86 "
 IUSE="test"
 
 RDEPEND="dev-python/matplotlib:python2[${PYTHON_USEDEP}]"

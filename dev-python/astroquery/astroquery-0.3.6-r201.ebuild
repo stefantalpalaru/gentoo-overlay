@@ -12,7 +12,7 @@ HOMEPAGE="https://github.com/astropy/astroquery"
 SRC_URI="https://github.com/astropy/astroquery/archive/v${PV}.tar.gz -> ${P}.gh.tar.gz"
 LICENSE="BSD"
 SLOT="python2"
-KEYWORDS="~amd64 ~x86 ~amd64-linux ~x86-linux"
+KEYWORDS="~amd64 ~x86 "
 IUSE="doc test"
 
 DOCS=( README.rst )

@@ -16,7 +16,7 @@ HOMEPAGE="http://pandas.pydata.org/
 S="${WORKDIR}/${P/_/}"
 LICENSE="BSD"
 SLOT="python2"
-KEYWORDS="~amd64 ~x86 ~amd64-linux ~x86-linux"
+KEYWORDS="~amd64 ~x86 "
 IUSE="doc full-support minimal test X"
 RESTRICT="!test? ( test )"
 

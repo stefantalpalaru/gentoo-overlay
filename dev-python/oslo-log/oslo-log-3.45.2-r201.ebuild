@@ -8,7 +8,7 @@ PYPI_PN="${PN/-/.}"
 
 inherit distutils-r1 pypi
 
-DESCRIPTION="OpenStack logging config library, configuration for all openstack projects."
+DESCRIPTION="OpenStack logging config library, configuration for all openstack projects"
 HOMEPAGE="https://pypi.org/project/oslo.log/
 		https://github.com/openstack/oslo.log"
 S="${WORKDIR}/oslo.log-${PV}"

@@ -12,7 +12,7 @@ HOMEPAGE="https://bitbucket.org/mpi4py/
 		https://pypi.org/project/mpi4py/"
 LICENSE="BSD"
 SLOT="python2"
-KEYWORDS="amd64 ~arm x86 ~amd64-linux ~x86-linux"
+KEYWORDS="amd64 ~arm x86 "
 IUSE="doc examples test"
 RESTRICT="mirror !test? ( test )"
 

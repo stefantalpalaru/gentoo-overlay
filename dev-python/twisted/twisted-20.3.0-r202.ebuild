@@ -16,7 +16,7 @@ SRC_URI="https://github.com/twisted/twisted/archive/refs/tags/${P}.tar.gz -> ${P
 S="${WORKDIR}/twisted-${P}"
 LICENSE="MIT"
 SLOT="python2"
-KEYWORDS="~alpha amd64 arm arm64 ~mips ppc ppc64 s390 sparc x86 ~amd64-linux ~x86-linux"
+KEYWORDS="~alpha amd64 arm arm64 ~mips ppc ppc64 s390 sparc x86 "
 IUSE="conch crypt http2 serial test"
 RESTRICT="!test? ( test )"
 

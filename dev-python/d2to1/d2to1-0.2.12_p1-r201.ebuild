@@ -14,7 +14,7 @@ HOMEPAGE="https://pypi.org/project/d2to1/ https://github.com/embray/d2to1"
 S="${WORKDIR}"/${MY_P}
 LICENSE="BSD"
 SLOT="python2"
-KEYWORDS="amd64 x86 ~amd64-linux ~x86-linux"
+KEYWORDS="amd64 x86 "
 
 RDEPEND="dev-python/six:python2[${PYTHON_USEDEP}]
 	!<dev-python/d2to1-0.2.12_p1-r200[${PYTHON_USEDEP}]

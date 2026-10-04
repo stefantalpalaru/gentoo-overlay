@@ -10,7 +10,7 @@ DESCRIPTION="List processing tools and functional utilities"
 HOMEPAGE="https://pypi.org/project/toolz/"
 LICENSE="BSD"
 SLOT="python2"
-KEYWORDS="amd64 x86 ~amd64-linux ~x86-linux"
+KEYWORDS="amd64 x86 "
 RESTRICT="mirror test"
 
 DEPEND="dev-python/setuptools[${PYTHON_USEDEP}]"

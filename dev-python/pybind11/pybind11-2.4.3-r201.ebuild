@@ -12,7 +12,7 @@ DESCRIPTION="AST-based Python refactoring library"
 HOMEPAGE="https://github.com/pybind/pybind11"
 LICENSE="BSD"
 SLOT="python2"
-KEYWORDS="~amd64 ~arm ~ppc ~ppc64 ~x86 ~amd64-linux ~x86-linux ~ppc-macos"
+KEYWORDS="~amd64 ~arm ~ppc ~ppc64 ~x86 "
 
 RDEPEND="
 	!<dev-python/pybind11-2.4.3-r200[${PYTHON_USEDEP}]

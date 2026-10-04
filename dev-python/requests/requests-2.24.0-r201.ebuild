@@ -13,7 +13,7 @@ HOMEPAGE="https://requests.readthedocs.io/
 		https://github.com/psf/requests"
 LICENSE="Apache-2.0"
 SLOT="python2"
-KEYWORDS="~alpha amd64 arm arm64 hppa  ~mips ppc ppc64 ~riscv s390 sparc x86 ~amd64-linux ~x86-linux"
+KEYWORDS="~alpha amd64 arm arm64 hppa  ~mips ppc ppc64 ~riscv s390 sparc x86 "
 IUSE="socks5 +ssl test"
 RESTRICT="test"
 

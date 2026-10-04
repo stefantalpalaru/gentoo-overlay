@@ -16,7 +16,7 @@ HOMEPAGE="https://pypi.org/project/autobahn/
 S="${WORKDIR}"/${MY_P}
 LICENSE="MIT"
 SLOT="python2"
-KEYWORDS="~amd64 ~arm ~arm64 ~x86 ~amd64-linux ~x86-linux"
+KEYWORDS="~amd64 ~arm ~arm64 ~x86 "
 IUSE="crypt test"
 RESTRICT="!test? ( test )"
 

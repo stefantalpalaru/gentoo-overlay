@@ -10,7 +10,7 @@ DESCRIPTION="Apply JSON-Patches like http://tools.ietf.org/html/draft-pbryan-jso
 HOMEPAGE="https://github.com/stefankoegl/python-json-patch"
 LICENSE="BSD"
 SLOT="python2"
-KEYWORDS="amd64 ~arm64 ppc64 x86 ~amd64-linux ~x86-linux"
+KEYWORDS="amd64 ~arm64 ppc64 x86 "
 IUSE="test"
 RESTRICT="mirror test"
 

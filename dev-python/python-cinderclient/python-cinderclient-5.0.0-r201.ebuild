@@ -12,7 +12,7 @@ HOMEPAGE="https://launchpad.net/python-cinderclient
 		https://github.com/openstack/python-cinderclient"
 LICENSE="Apache-2.0"
 SLOT="python2"
-KEYWORDS="amd64 ~arm64 x86 ~amd64-linux ~x86-linux"
+KEYWORDS="amd64 ~arm64 x86 "
 RESTRICT="test"
 
 CDEPEND=">=dev-python/pbr-2.0.0:python2[${PYTHON_USEDEP}]

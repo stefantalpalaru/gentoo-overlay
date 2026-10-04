@@ -13,7 +13,7 @@ HOMEPAGE="http://urwid.org/
 			https://pypi.org/project/urwid/"
 LICENSE="LGPL-2.1"
 SLOT="python2"
-KEYWORDS="amd64 ~arm ~arm64 ~mips ppc ppc64 ~sparc x86 ~amd64-linux ~x86-linux"
+KEYWORDS="amd64 ~arm ~arm64 ~mips ppc ppc64 ~sparc x86 "
 IUSE="examples"
 RESTRICT="mirror"
 

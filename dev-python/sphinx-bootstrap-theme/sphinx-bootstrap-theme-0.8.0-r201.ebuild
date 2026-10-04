@@ -15,7 +15,7 @@ HOMEPAGE="https://ryan-roemer.github.io/sphinx-bootstrap-theme/README.html
 SRC_URI="https://github.com/ryan-roemer/${PN}/archive/v${PV}.tar.gz -> ${P}.gh.tar.gz"
 LICENSE="MIT"
 SLOT="python2"
-KEYWORDS="~alpha amd64 arm arm64 ~hppa ppc ppc64 s390 sparc x86 ~amd64-linux ~x86-linux"
+KEYWORDS="~alpha amd64 arm arm64 ~hppa ppc ppc64 s390 sparc x86 "
 RESTRICT="mirror"
 
 RDEPEND="

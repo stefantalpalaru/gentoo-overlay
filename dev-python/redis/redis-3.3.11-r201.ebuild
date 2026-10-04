@@ -11,7 +11,7 @@ HOMEPAGE="https://github.com/andymccurdy/redis-py"
 SRC_URI="$(pypi_sdist_url) -> ${PN}-py.${PV}.tar.gz"
 LICENSE="MIT"
 SLOT="python2"
-KEYWORDS="~amd64 ~arm ~arm64 ~hppa ~ppc ~ppc64 ~x86 ~amd64-linux ~x86-linux"
+KEYWORDS="~amd64 ~arm ~arm64 ~hppa ~ppc ~ppc64 ~x86 "
 IUSE="test"
 RESTRICT="!test? ( test )"
 

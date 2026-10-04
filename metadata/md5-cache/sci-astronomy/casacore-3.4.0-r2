@@ -6,7 +6,7 @@ EAPI=8
 HOMEPAGE=https://github.com/casacore/casacore
 INHERIT=cmake toolchain-funcs fortran-2 python-r1
 IUSE=+data doc fftw hdf5 openmp python +threads test python_targets_python2_7
-KEYWORDS=~amd64 ~x86 ~amd64-linux ~x86-linux
+KEYWORDS=~amd64 ~x86
 LICENSE=GPL-2
 RDEPEND=sci-astronomy/wcslib:0= sci-libs/cfitsio:0= sys-libs/readline:0= virtual/blas:= virtual/lapack:= data? ( sci-astronomy/casa-data ) sci-libs/fftw:3.0=[threads] hdf5? ( sci-libs/hdf5:0= ) python? ( python_targets_python2_7? ( dev-lang/python:2.7 ) dev-libs/boost:0=[python,python_targets_python2_7(-)?] dev-python/numpy:python2[python_targets_python2_7(-)?] ) virtual/fortran
 REQUIRED_USE=python? ( || ( python_targets_python2_7 ) )
@@ -14,4 +14,4 @@ RESTRICT=!test? ( test )
 SLOT=0
 SRC_URI=https://github.com/casacore/casacore/archive/v3.4.0.tar.gz -> casacore-3.4.0.gh.tar.gz
 _eclasses_=toolchain-funcs	58a918e3a42d0156f010dcfd43725be5	flag-o-matic	fd3558f73f6503093adee69adf41020d	multiprocessing	45d0620f25c2f063ad6276ecd9ed9399	ninja-utils	d063ea1900a793f93eb095010d6d9156	xdg-utils	42869b3c8d86a70ef3cf75165a395e09	cmake	3530055400d05e64deaba3042af30af6	fortran-2	ae6d43513003405bd4a48698fc20370a	out-of-source-utils	8e5093bd27b7f541a1913271f25d633a	multibuild	83db098a835f71feb71761f72a694aa2	python-utils-r1	66a06bbd35f9beac984b377a81053f37	python-r1	fa20a4abee4aa6a3b47c7362cfa8251f
-_md5_=2b1f826f099664a3c3422a7dc28d897c
+_md5_=24b98876d5f3238637e919fd59b0b1d9

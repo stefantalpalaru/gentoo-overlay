@@ -13,7 +13,7 @@ HOMEPAGE="https://rpy2.github.io/
 	https://pypi.org/project/rpy2/"
 LICENSE="AGPL-3 GPL-2 LGPL-2.1 MPL-1.1"
 SLOT="python2"
-KEYWORDS="amd64 x86 ~amd64-linux ~x86-linux"
+KEYWORDS="amd64 x86 "
 IUSE="test"
 
 # ggplot2 is a test dep but not in portage

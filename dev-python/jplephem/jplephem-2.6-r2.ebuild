@@ -11,7 +11,7 @@ DESCRIPTION="Python version of NASA DE4xx ephemerides for Astronomical Alamanac"
 HOMEPAGE="https://pypi.org/project/jplephem/"
 LICENSE="MIT"
 SLOT="0"
-KEYWORDS="amd64 ~x86 ~amd64-linux ~x86-linux"
+KEYWORDS="amd64 ~x86 "
 IUSE="test"
 RESTRICT="!test? ( test )"
 

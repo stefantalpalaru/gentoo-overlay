@@ -12,7 +12,7 @@ DESCRIPTION="Extension to sphinx to create links to issue trackers"
 HOMEPAGE="http://sphinxcontrib-issuetracker.readthedocs.org/"
 LICENSE="BSD-2"
 SLOT="python2"
-KEYWORDS="~alpha ~amd64 ~arm ~arm64 ~hppa ~ppc ~ppc64 ~s390 ~sparc ~x86 ~amd64-linux ~x86-linux"
+KEYWORDS="~alpha ~amd64 ~arm ~arm64 ~hppa ~ppc ~ppc64 ~s390 ~sparc ~x86 "
 IUSE="doc test"
 RESTRICT="!test? ( test )"
 

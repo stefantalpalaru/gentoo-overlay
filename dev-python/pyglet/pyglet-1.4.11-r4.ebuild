@@ -11,7 +11,7 @@ HOMEPAGE="http://www.pyglet.org/"
 SRC_URI="https://github.com/pyglet/pyglet/archive/v${PV}.tar.gz -> ${P}.gh.tar.gz"
 LICENSE="BSD"
 SLOT="python2"
-KEYWORDS="~amd64 ~x86 ~amd64-linux ~x86-linux"
+KEYWORDS="~amd64 ~x86 "
 IUSE="examples image +sound test"
 # pyglet.gl.glx_info.GLXInfoException: pyglet requires an X server with GLX
 # Other tests fail or stall for unknown reasons.

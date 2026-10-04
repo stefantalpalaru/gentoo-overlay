@@ -13,7 +13,7 @@ HOMEPAGE="https://github.com/pyca/pynacl/
 SRC_URI="https://github.com/pyca/${PN}/archive/${PV}.tar.gz -> ${P}.gh.tar.gz"
 LICENSE="Apache-2.0"
 SLOT="python2"
-KEYWORDS="~alpha amd64 arm arm64 hppa ppc ppc64 ~s390 sparc x86 ~amd64-linux ~x86-linux"
+KEYWORDS="~alpha amd64 arm arm64 hppa ppc ppc64 ~s390 sparc x86 "
 RESTRICT="mirror test"
 
 RDEPEND="

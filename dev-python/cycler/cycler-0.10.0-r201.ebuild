@@ -16,7 +16,7 @@ HOMEPAGE="
 	https://github.com/matplotlib/cycler"
 LICENSE="BSD"
 SLOT="python2"
-KEYWORDS="amd64 ~arm ~arm64 ~ppc ppc64 x86 ~amd64-linux ~x86-linux ~ppc-macos ~x64-macos"
+KEYWORDS="amd64 ~arm ~arm64 ~ppc ppc64 x86 ~x64-macos"
 IUSE="test"
 # Not shipped
 # https://github.com/matplotlib/cycler/issues/21

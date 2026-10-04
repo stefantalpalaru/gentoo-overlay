@@ -12,7 +12,7 @@ HOMEPAGE="https://github.com/aws/aws-xray-sdk-python
 		https://pypi.org/project/aws-xray-sdk/"
 LICENSE="Apache-2.0"
 SLOT="python2"
-KEYWORDS="amd64 x86 ~amd64-linux ~x86-linux"
+KEYWORDS="amd64 x86 "
 RDEPEND=">=dev-python/botocore-1.11.3:python2[${PYTHON_USEDEP}]
 	dev-python/future:python2[${PYTHON_USEDEP}]
 	dev-python/jsonpickle:python2[${PYTHON_USEDEP}]

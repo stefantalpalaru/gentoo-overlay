@@ -8,7 +8,7 @@ PYPI_PN="${PN/-/.}"
 
 inherit distutils-r1 pypi
 
-DESCRIPTION="A locking API for expiring values while a single thread generates a new value."
+DESCRIPTION="A locking API for expiring values while a single thread generates a new value"
 HOMEPAGE="https://bitbucket.org/zzzeek/dogpile.cache"
 S="${WORKDIR}/dogpile.cache-${PV}"
 LICENSE="Apache-2.0"

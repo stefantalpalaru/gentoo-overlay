@@ -11,7 +11,7 @@ DESCRIPTION="Plugin for testing Cython extension modules"
 HOMEPAGE="https://github.com/lgpage/pytest-cython"
 LICENSE="MIT"
 SLOT="python2"
-KEYWORDS="~amd64 ~x86 ~amd64-linux ~x86-linux"
+KEYWORDS="~amd64 ~x86 "
 RESTRICT="mirror test"
 
 RDEPEND="dev-python/pytest:python2[${PYTHON_USEDEP}]

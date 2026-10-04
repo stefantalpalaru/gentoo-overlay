@@ -11,7 +11,7 @@ DESCRIPTION="Optimized cosmic ray annihilation astropy python module"
 HOMEPAGE="https://github.com/astropy/astroscrappy"
 LICENSE="BSD"
 SLOT="0"
-KEYWORDS="~amd64 ~x86 ~amd64-linux ~x86-linux"
+KEYWORDS="~amd64 ~x86 "
 IUSE="doc openmp test"
 RESTRICT="!test? ( test )"
 

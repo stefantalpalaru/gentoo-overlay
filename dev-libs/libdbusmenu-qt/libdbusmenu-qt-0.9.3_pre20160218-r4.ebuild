@@ -12,7 +12,7 @@ SRC_URI="https://launchpad.net/ubuntu/+archive/primary/+files/${PN}_${MY_PV}.ori
 S="${WORKDIR}"/${PN}-${MY_PV}
 LICENSE="LGPL-2"
 SLOT="0"
-KEYWORDS="amd64 ~arm arm64 ~loong ~ppc ppc64 ~riscv x86 ~amd64-linux ~x86-linux"
+KEYWORDS="amd64 ~arm arm64 ~loong ~ppc ppc64 ~riscv x86 "
 RESTRICT="mirror"
 
 DEPEND="

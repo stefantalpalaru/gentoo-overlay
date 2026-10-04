@@ -11,7 +11,7 @@ DESCRIPTION="Dead-simple Object-XML mapper for Python"
 HOMEPAGE="https://pypi.org/project/dexml/"
 LICENSE="MIT"
 SLOT="python2"
-KEYWORDS="~alpha amd64 ~arm ~hppa ~ppc ~ppc64 ~sparc ~x86 ~amd64-linux ~x86-linux"
+KEYWORDS="~alpha amd64 ~arm ~hppa ~ppc ~ppc64 ~sparc ~x86 "
 IUSE="test"
 RESTRICT="mirror !test? ( test )"
 

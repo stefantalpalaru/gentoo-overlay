@@ -12,7 +12,7 @@ HOMEPAGE="https://github.com/aresch/rencode"
 SRC_URI="https://github.com/aresch/${PN}/archive/v${PV}.tar.gz -> ${P}.gh.tar.gz"
 LICENSE="GPL-3"
 SLOT="python2"
-KEYWORDS="amd64 ~arm ~sparc x86 ~amd64-linux ~x86-linux"
+KEYWORDS="amd64 ~arm ~sparc x86 "
 RESTRICT="mirror test"
 
 RDEPEND="

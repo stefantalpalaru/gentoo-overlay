@@ -10,7 +10,7 @@ DESCRIPTION="Python bindings for the Lightning Database"
 HOMEPAGE="https://github.com/dw/py-lmdb/"
 LICENSE="OPENLDAP"
 SLOT="python2"
-KEYWORDS="amd64 ~arm64 x86 ~amd64-linux ~x86-linux"
+KEYWORDS="amd64 ~arm64 x86 "
 RESTRICT="mirror"
 
 RDEPEND="dev-db/lmdb:=

@@ -12,7 +12,7 @@ HOMEPAGE="http://pygraphviz.github.io/"
 SRC_URI="$(pypi_sdist_url "${PN}" "${PV}" .zip)"
 LICENSE="BSD"
 SLOT="python2"
-KEYWORDS="amd64 ~arm64 ppc x86 ~x86-linux ~ppc-macos ~x64-macos"
+KEYWORDS="amd64 ~arm64 ppc x86 ~x64-macos"
 IUSE="examples test"
 RESTRICT="mirror !test? ( test )"
 

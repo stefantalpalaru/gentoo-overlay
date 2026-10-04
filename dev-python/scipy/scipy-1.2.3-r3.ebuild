@@ -12,7 +12,7 @@ DESCRIPTION="Scientific algorithms library for Python (py2 version)"
 HOMEPAGE="https://www.scipy.org/"
 LICENSE="BSD LGPL-2"
 SLOT="python2"
-KEYWORDS="~amd64 ~arm ~ppc ~ppc64 ~x86 ~amd64-linux ~x86-linux ~ppc-macos"
+KEYWORDS="~amd64 ~arm ~ppc ~ppc64 ~x86 "
 IUSE="sparse test"
 RESTRICT="!test? ( test )"
 

@@ -10,7 +10,7 @@ DESCRIPTION="Compatibility API between asyncio/Twisted/Trollius"
 HOMEPAGE="https://github.com/crossbario/txaio https://pypi.org/project/txaio/"
 LICENSE="MIT"
 SLOT="python2"
-KEYWORDS="amd64 arm ~arm64 x86 ~amd64-linux ~x86-linux"
+KEYWORDS="amd64 arm ~arm64 x86 "
 IUSE="doc test"
 RESTRICT="!test? ( test )"
 

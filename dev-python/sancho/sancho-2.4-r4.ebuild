@@ -13,7 +13,7 @@ SRC_URI="https://www.mems-exchange.org/software/files/${PN}/${MY_P}.tar.gz"
 S="${WORKDIR}/${MY_P}"
 LICENSE="CNRI"
 SLOT="0"
-KEYWORDS="alpha amd64 arm hppa ~m68k ~mips ppc ppc64 ~s390 sparc x86 ~amd64-linux ~x86-linux ~ppc-macos"
+KEYWORDS="alpha amd64 arm hppa ~m68k ~mips ppc ppc64 ~s390 sparc x86 "
 RESTRICT="mirror"
 
 python_test() {

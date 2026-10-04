@@ -10,7 +10,7 @@ DESCRIPTION="An ORM for config files"
 HOMEPAGE="https://pypi.org/project/reconfigure/"
 LICENSE="LGPL-3"
 SLOT="python2"
-KEYWORDS="~amd64 ~x86 ~amd64-linux ~x86-linux"
+KEYWORDS="~amd64 ~x86 "
 RESTRICT="mirror"
 
 RDEPEND="dev-python/chardet:python2[${PYTHON_USEDEP}]

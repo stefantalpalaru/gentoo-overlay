@@ -16,7 +16,7 @@ HOMEPAGE="https://github.com/jaraco/backports.functools_lru_cache"
 S="${WORKDIR}/${MY_PN}-${PV}"
 LICENSE="MIT"
 SLOT="0"
-KEYWORDS="~alpha amd64 arm arm64 hppa ~mips ppc ppc64 sparc x86 ~amd64-linux ~x86-linux ~x64-macos"
+KEYWORDS="~alpha amd64 arm arm64 hppa ~mips ppc ppc64 sparc x86 ~x64-macos"
 IUSE="doc test"
 RESTRICT="!test? ( test )"
 

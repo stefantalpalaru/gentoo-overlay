@@ -9,13 +9,13 @@ PYPI_PN="${MY_PN}"
 
 inherit distutils-r1 pypi
 
-DESCRIPTION="Python bindings to FreeDesktop.org Secret Service API."
+DESCRIPTION="Python bindings to FreeDesktop.org Secret Service API"
 HOMEPAGE="https://github.com/mitya57/secretstorage
 		https://pypi.org/project/SecretStorage/"
 S="${WORKDIR}/${MY_PN}-${PV}"
 LICENSE="BSD"
 SLOT="python2"
-KEYWORDS="amd64 ~arm ~arm64 x86 ~amd64-linux ~x86-linux"
+KEYWORDS="amd64 ~arm ~arm64 x86 "
 RESTRICT="mirror test"
 
 DEPEND="dev-python/setuptools[${PYTHON_USEDEP}]"

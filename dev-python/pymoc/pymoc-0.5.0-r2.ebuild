@@ -10,7 +10,7 @@ DESCRIPTION="Python Multi-Order Coverage maps for Virtual Observatory"
 HOMEPAGE="https://pymoc.readthedocs.org/"
 LICENSE="GPL-3"
 SLOT="0"
-KEYWORDS="~amd64 ~x86 ~amd64-linux ~x86-linux"
+KEYWORDS="~amd64 ~x86 "
 RESTRICT="mirror"
 
 RDEPEND="

@@ -17,7 +17,7 @@ HOMEPAGE="http://genshi.edgewall.org/
 S="${WORKDIR}/${P^}"
 LICENSE="BSD"
 SLOT="python2"
-KEYWORDS="amd64 ppc ~ppc64 ~sparc x86 ~amd64-linux ~x86-linux ~x64-macos"
+KEYWORDS="amd64 ppc ~ppc64 ~sparc x86 ~x64-macos"
 IUSE="doc examples"
 RESTRICT="mirror"
 

@@ -12,7 +12,7 @@ DESCRIPTION="Astronomical image toolkit for Python"
 HOMEPAGE="https://ejeschke.github.io/ginga"
 LICENSE="BSD"
 SLOT="python2"
-KEYWORDS="~amd64 ~x86 ~amd64-linux ~x86-linux"
+KEYWORDS="~amd64 ~x86 "
 IUSE="examples gtk qt5 test tk"
 RESTRICT="!test? ( test )"
 

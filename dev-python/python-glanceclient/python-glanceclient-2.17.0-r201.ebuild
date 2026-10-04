@@ -11,7 +11,7 @@ DESCRIPTION="A client for the OpenStack Glance API"
 HOMEPAGE="https://github.com/openstack/python-glanceclient"
 LICENSE="Apache-2.0"
 SLOT="python2"
-KEYWORDS="amd64 ~arm64 x86 ~amd64-linux ~x86-linux"
+KEYWORDS="amd64 ~arm64 x86 "
 IUSE="test"
 RESTRICT="!test? ( test )"
 

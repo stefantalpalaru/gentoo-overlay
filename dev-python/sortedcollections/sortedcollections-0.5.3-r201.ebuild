@@ -10,7 +10,7 @@ DESCRIPTION="Python library to sort collections and containers"
 HOMEPAGE="http://www.grantjenks.com/docs/sortedcontainers/"
 LICENSE="Apache-2.0"
 SLOT="python2"
-KEYWORDS="amd64 x86 ~amd64-linux ~x86-linux"
+KEYWORDS="amd64 x86 "
 RESTRICT="mirror"
 
 RDEPEND="dev-python/sortedcontainers:python2[${PYTHON_USEDEP}]

@@ -1,4 +1,0 @@
-/var/lib/jackett/.config/Jackett/log.txt{
-    missingok
-    su jackett jackett
-}

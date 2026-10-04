@@ -12,7 +12,7 @@ DESCRIPTION="Python modules for machine learning and data mining"
 HOMEPAGE="https://scikit-learn.org"
 LICENSE="BSD"
 SLOT="python2"
-KEYWORDS="~amd64 ~x86 ~amd64-linux ~x86-linux"
+KEYWORDS="~amd64 ~x86 "
 IUSE="examples test"
 RESTRICT="!test? ( test )"
 

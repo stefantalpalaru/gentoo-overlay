@@ -1,7 +1,7 @@
 BDEPEND=python_targets_python2_7? ( dev-lang/python:2.7 ) dev-python/setuptools[python_targets_python2_7(-)?]
 DEFINED_PHASES=compile configure install prepare test
 DEPEND=dev-python/setuptools[python_targets_python2_7(-)?]
-DESCRIPTION=Cloud middleware for in application use.
+DESCRIPTION=Cloud middleware for in application use
 EAPI=8
 HOMEPAGE=https://github.com/cloudnull/cloudlib
 INHERIT=distutils-r1 pypi
@@ -14,4 +14,4 @@ RESTRICT=mirror test
 SLOT=python2
 SRC_URI=https://files.pythonhosted.org/packages/source/c/cloudlib/cloudlib-0.5.0.tar.gz
 _eclasses_=eapi9-pipestatus	d2c134036ac31c3085aebc9147f572bd	toolchain-funcs	58a918e3a42d0156f010dcfd43725be5	flag-o-matic	fd3558f73f6503093adee69adf41020d	out-of-source-utils	8e5093bd27b7f541a1913271f25d633a	multibuild	83db098a835f71feb71761f72a694aa2	multilib	fc812e8eb2170022c28272d80a1f9e77	multiprocessing	45d0620f25c2f063ad6276ecd9ed9399	ninja-utils	d063ea1900a793f93eb095010d6d9156	python-utils-r1	66a06bbd35f9beac984b377a81053f37	python-r1	fa20a4abee4aa6a3b47c7362cfa8251f	distutils-r1	b034e6482d4e8f8c0dbe2a5ecca5a76d	pypi	a451be5a08e8eb46f927fc6dd163583f
-_md5_=2c72904b8abc8987e7862a46f5497f1b
+_md5_=e98a6434523210b30232bfd5cb065cbb

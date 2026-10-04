@@ -8,7 +8,7 @@ PYTHON_COMPAT=( python2_7 )
 
 inherit distutils-r1 pypi virtualx
 
-DESCRIPTION="Python interface to DBus notifications."
+DESCRIPTION="Python interface to DBus notifications"
 HOMEPAGE="https://bitbucket.org/takluyver/pynotify2"
 LICENSE="BSD"
 SLOT="python2"

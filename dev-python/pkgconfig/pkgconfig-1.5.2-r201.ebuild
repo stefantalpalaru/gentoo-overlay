@@ -10,7 +10,7 @@ DESCRIPTION="Interface Python with pkg-config"
 HOMEPAGE="https://pypi.org/project/pkgconfig/ https://github.com/matze/pkgconfig"
 LICENSE="MIT"
 SLOT="python2"
-KEYWORDS="amd64 x86 ~amd64-linux ~x86-linux"
+KEYWORDS="amd64 x86 "
 IUSE="test"
 RESTRICT="mirror !test? ( test )"
 

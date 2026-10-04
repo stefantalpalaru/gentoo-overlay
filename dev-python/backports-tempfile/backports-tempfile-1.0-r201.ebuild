@@ -17,7 +17,7 @@ HOMEPAGE="https://github.com/PiDelport/backports.tempfile
 S="${WORKDIR}/${MY_P}"
 LICENSE="PSF-2.3"
 SLOT="python2"
-KEYWORDS="amd64 x86 ~amd64-linux ~x86-linux"
+KEYWORDS="amd64 x86 "
 # Tests require backports.test.support
 RESTRICT="mirror test"
 

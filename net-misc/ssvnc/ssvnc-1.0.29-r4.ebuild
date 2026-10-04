@@ -12,7 +12,7 @@ SRC_URI="https://downloads.sourceforge.net/${PN}/${PN}/${P}.src.tar.gz"
 
 LICENSE="GPL-2"
 SLOT="0"
-KEYWORDS="amd64 x86 ~amd64-linux ~x86-linux"
+KEYWORDS="amd64 x86 "
 IUSE="java"
 
 RDEPEND="sys-libs/zlib

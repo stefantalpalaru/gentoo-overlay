@@ -7,7 +7,7 @@ PYPI_NO_NORMALIZE=1
 
 inherit distutils-r1 pypi
 
-DESCRIPTION="Programmatically open an editor, capture the result."
+DESCRIPTION="Programmatically open an editor, capture the result"
 HOMEPAGE="https://github.com/fmoo/python-editor"
 LICENSE="Apache-2.0"
 SLOT="python2"

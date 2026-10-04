@@ -12,7 +12,7 @@ HOMEPAGE="http://www.astropy.org/montage-wrapper/"
 SRC_URI="mirror://pypi/${PN:0:1}/${PN}/${P}.tar.gz"
 LICENSE="BSD"
 SLOT="0"
-KEYWORDS="~amd64 ~x86 ~amd64-linux ~x86-linux"
+KEYWORDS="~amd64 ~x86 "
 IUSE="doc test"
 RESTRICT="mirror !test? ( test )"
 

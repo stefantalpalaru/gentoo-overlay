@@ -10,7 +10,7 @@ DESCRIPTION="utility lib to generate python package version infos from mercurial
 HOMEPAGE="https://pypi.org/project/hgdistver/"
 LICENSE="MIT"
 SLOT="python2"
-KEYWORDS="~alpha amd64 arm arm64 hppa ~m68k ~mips ppc ppc64 ~s390 x86 ~amd64-linux ~x86-linux ~ppc-macos ~x64-macos ~x64-solaris"
+KEYWORDS="~alpha amd64 arm arm64 hppa ~m68k ~mips ppc ppc64 ~s390 x86 ~x64-macos ~x64-solaris"
 IUSE="test"
 RESTRICT="mirror !test? ( test )"
 

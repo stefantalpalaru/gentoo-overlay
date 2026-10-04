@@ -10,7 +10,7 @@ DESCRIPTION="A high performance, concurrent HTTP client library for Python using
 HOMEPAGE="https://github.com/gwik/geventhttpclient"
 LICENSE="MIT"
 SLOT="python2"
-KEYWORDS="~alpha amd64 ~arm arm64 ppc ~ppc64 x86 ~amd64-linux ~x86-linux ~ppc-macos ~x64-macos ~x64-solaris"
+KEYWORDS="~alpha amd64 ~arm arm64 ppc ~ppc64 x86 ~x64-macos ~x64-solaris"
 IUSE="test"
 RESTRICT="mirror !test? ( test )"
 

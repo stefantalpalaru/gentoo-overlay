@@ -7,11 +7,11 @@ PYPI_NO_NORMALIZE=1
 
 inherit distutils-r1 pypi
 
-DESCRIPTION="A package of common support modules for writing OSC plugins."
+DESCRIPTION="A package of common support modules for writing OSC plugins"
 HOMEPAGE="https://github.com/openstack/osc-lib"
 LICENSE="Apache-2.0"
 SLOT="python2"
-KEYWORDS="amd64 ~arm64 x86 ~amd64-linux ~x86-linux"
+KEYWORDS="amd64 ~arm64 x86 "
 RESTRICT="test"
 
 CDEPEND=">=dev-python/pbr-2.0.0:python2[${PYTHON_USEDEP}]

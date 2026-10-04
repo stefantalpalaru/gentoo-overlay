@@ -12,5 +12,5 @@ HOMEPAGE="https://pypi.org/project/pyutmp/
 		https://bmc.github.com/pyutmp/"
 LICENSE="BSD"
 SLOT="0"
-KEYWORDS="~amd64 ~x86 ~amd64-linux ~x86-linux"
+KEYWORDS="~amd64 ~x86 "
 RESTRICT="mirror"

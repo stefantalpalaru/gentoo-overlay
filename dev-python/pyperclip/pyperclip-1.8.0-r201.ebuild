@@ -6,7 +6,7 @@ EAPI=8
 PYTHON_COMPAT=( python2_7 )
 inherit distutils-r1 pypi virtualx
 
-DESCRIPTION="A cross-platform clipboard module for Python."
+DESCRIPTION="A cross-platform clipboard module for Python"
 HOMEPAGE="https://github.com/asweigart/pyperclip"
 LICENSE="BSD"
 SLOT="python2"

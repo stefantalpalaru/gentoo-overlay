@@ -17,7 +17,7 @@ HOMEPAGE="https://github.com/jaraco/keyrings.alt
 S=${WORKDIR}/${MY_P}
 LICENSE="MIT"
 SLOT="python2"
-KEYWORDS="~alpha ~amd64 ~arm ~hppa ~ppc ~ppc64 ~x86 ~amd64-linux ~x86-linux"
+KEYWORDS="~alpha ~amd64 ~arm ~hppa ~ppc ~ppc64 ~x86 "
 RESTRICT="test"
 
 RDEPEND="dev-python/six:python2[${PYTHON_USEDEP}]

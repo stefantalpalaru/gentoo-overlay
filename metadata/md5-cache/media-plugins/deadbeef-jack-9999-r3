@@ -1,7 +1,7 @@
 BDEPEND=>=dev-vcs/git-1.8.2.1[curl]
 DEFINED_PHASES=compile install unpack
 DEPEND=media-sound/deadbeef virtual/jack
-DESCRIPTION=JACK output plugin for DeaDBeeF.
+DESCRIPTION=JACK output plugin for DeaDBeeF
 EAPI=8
 HOMEPAGE=https://github.com/DeaDBeeF-Player/jack
 INHERIT=git-r3 toolchain-funcs
@@ -10,4 +10,4 @@ PROPERTIES=live
 RDEPEND=media-sound/deadbeef virtual/jack
 SLOT=0
 _eclasses_=git-r3	e6c2f983e006e805160436c75a0c1562	toolchain-funcs	58a918e3a42d0156f010dcfd43725be5
-_md5_=160488e93065e9ba8e1ee05026a4ca21
+_md5_=1679df3cd31ae1217c45f07a6af25479

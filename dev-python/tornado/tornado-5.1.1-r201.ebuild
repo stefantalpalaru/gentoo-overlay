@@ -12,7 +12,7 @@ DESCRIPTION="Python web framework and asynchronous networking library"
 HOMEPAGE="http://www.tornadoweb.org/"
 LICENSE="Apache-2.0"
 SLOT="python2"
-KEYWORDS="~alpha amd64 arm ~arm64 ~hppa ppc ppc64 ~s390 ~sparc x86 ~amd64-linux ~x86-linux"
+KEYWORDS="~alpha amd64 arm ~arm64 ~hppa ppc ppc64 ~s390 ~sparc x86 "
 IUSE="examples test"
 RESTRICT="!test? ( test )"
 

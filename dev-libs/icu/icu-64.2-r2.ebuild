@@ -13,7 +13,7 @@ SRC_URI="https://github.com/unicode-org/icu/releases/download/release-${PV/./-}/
 S="${WORKDIR}/${PN}/source"
 LICENSE="BSD"
 SLOT="0/${PV}"
-KEYWORDS="~alpha amd64 arm arm64 hppa ~m68k ~mips ppc ppc64 ~riscv ~s390 sparc x86 ~amd64-linux ~x86-linux ~ppc-macos ~x64-macos ~x64-solaris"
+KEYWORDS="~alpha amd64 arm arm64 hppa ~m68k ~mips ppc ppc64 ~riscv ~s390 sparc x86 ~x64-macos ~x64-solaris"
 IUSE="debug doc examples static-libs"
 
 BDEPEND="

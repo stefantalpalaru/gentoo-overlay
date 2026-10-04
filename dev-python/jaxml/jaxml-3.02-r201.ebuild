@@ -11,7 +11,7 @@ HOMEPAGE="http://www.librelogiciel.com/software/jaxml/action_Presentation
 		https://pypi.org/project/jaxml/"
 LICENSE="GPL-2"
 SLOT="python2"
-KEYWORDS="amd64 hppa ppc x86 ~amd64-linux ~x86-linux"
+KEYWORDS="amd64 hppa ppc x86 "
 RESTRICT="mirror"
 
 DEPEND="dev-python/setuptools[${PYTHON_USEDEP}]"

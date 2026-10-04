@@ -17,7 +17,7 @@ SRC_URI="https://github.com/chardet/chardet/archive/${PV}.tar.gz -> ${P}.gh.tar.
 
 LICENSE="LGPL-2.1"
 SLOT="python2"
-KEYWORDS="~alpha amd64 arm arm64 hppa ~m68k ~mips ppc ppc64 ~riscv s390 sparc x86 ~amd64-linux ~x86-linux ~x64-macos ~x64-solaris"
+KEYWORDS="~alpha amd64 arm arm64 hppa ~m68k ~mips ppc ppc64 ~riscv s390 sparc x86 ~x64-macos ~x64-solaris"
 IUSE="test"
 RESTRICT="mirror !test? ( test )"
 

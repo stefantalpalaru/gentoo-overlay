@@ -10,7 +10,7 @@ DESCRIPTION="Extra features for standard library's cmd module"
 HOMEPAGE="https://github.com/python-cmd2/cmd2"
 LICENSE="MIT"
 SLOT="python2"
-KEYWORDS="amd64 arm arm64 hppa ~ppc64 sparc x86 ~amd64-linux ~x86-linux"
+KEYWORDS="amd64 arm arm64 hppa ~ppc64 sparc x86 "
 
 RDEPEND="
 	dev-python/attrs[${PYTHON_USEDEP}]

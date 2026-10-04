@@ -12,7 +12,7 @@ HOMEPAGE="https://pypi.org/project/terminado/
 		https://github.com/jupyter/terminado"
 LICENSE="BSD-2"
 SLOT="python2"
-KEYWORDS="amd64 ~arm ~arm64 ~ppc ~ppc64 ~x86 ~amd64-linux ~x86-linux"
+KEYWORDS="amd64 ~arm ~arm64 ~ppc ~ppc64 ~x86 "
 IUSE="test"
 RESTRICT="!test? ( test )"
 

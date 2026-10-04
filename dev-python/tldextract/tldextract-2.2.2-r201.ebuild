@@ -6,7 +6,7 @@ PYTHON_COMPAT=( python2_7 )
 
 inherit distutils-r1 pypi
 
-DESCRIPTION="Accurately separate the TLD from the registered domain and subdomains of a URL."
+DESCRIPTION="Accurately separate the TLD from the registered domain and subdomains of a URL"
 HOMEPAGE="https://pypi.org/project/tldextract/"
 LICENSE="BSD"
 SLOT="python2"

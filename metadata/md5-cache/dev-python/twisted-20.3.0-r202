@@ -6,7 +6,7 @@ EAPI=8
 HOMEPAGE=https://www.twisted.org/ https://github.com/twisted/twisted
 INHERIT=distutils-r1 virtualx
 IUSE=conch crypt http2 serial test python_targets_python2_7 test
-KEYWORDS=~alpha amd64 arm arm64 ~mips ppc ppc64 s390 sparc x86 ~amd64-linux ~x86-linux
+KEYWORDS=~alpha amd64 arm arm64 ~mips ppc ppc64 s390 sparc x86
 LICENSE=MIT
 RDEPEND=>=dev-python/attrs-19.2.0[python_targets_python2_7(-)?] >=dev-python/automat-0.3.0[python_targets_python2_7(-)?] >=dev-python/constantly-15.1.0:python2[python_targets_python2_7(-)?] >=dev-python/hyperlink-17.1.1[python_targets_python2_7(-)?] >=dev-python/incremental-16.10.1:python2[python_targets_python2_7(-)?] >=dev-python/pyhamcrest-1.9.0[python_targets_python2_7(-)?] >=dev-python/zope-interface-4.4.2[python_targets_python2_7(-)?] conch? ( dev-python/pyasn1:python2[python_targets_python2_7(-)?] >=dev-python/cryptography-1.5.0[python_targets_python2_7(-)?] >=dev-python/appdirs-1.4.0:python2[python_targets_python2_7(-)?] ) crypt? ( >=dev-python/pyopenssl-16.0.0[python_targets_python2_7(-)?] dev-python/service-identity:python2[python_targets_python2_7(-)?] >=dev-python/idna-0.6[python_targets_python2_7(-)?] ) serial? ( >=dev-python/pyserial-3.0[python_targets_python2_7(-)?] ) http2? ( >=dev-python/h2-3.0.0[python_targets_python2_7(-)?] <dev-python/h2-4.0.0[python_targets_python2_7(-)?] >=dev-python/priority-1.1.0[python_targets_python2_7(-)?] <dev-python/priority-2.0[python_targets_python2_7(-)?] ) !dev-python/twisted-core !dev-python/twisted-conch !dev-python/twisted-lore !dev-python/twisted-mail !dev-python/twisted-names !dev-python/twisted-news !dev-python/twisted-pair !dev-python/twisted-runner !dev-python/twisted-words !dev-python/twisted-web !<dev-python/twisted-20.3.0-r2[python_targets_python2_7(-)?] python_targets_python2_7? ( dev-lang/python:2.7[threads(+)] )
 REQUIRED_USE=|| ( python_targets_python2_7 )
@@ -14,4 +14,4 @@ RESTRICT=!test? ( test ) !test? ( test )
 SLOT=python2
 SRC_URI=https://github.com/twisted/twisted/archive/refs/tags/twisted-20.3.0.tar.gz -> twisted-20.3.0.gh.tar.gz https://dev.gentoo.org/~mgorny/dist/twisted-regen-cache.gz
 _eclasses_=eapi9-pipestatus	d2c134036ac31c3085aebc9147f572bd	toolchain-funcs	58a918e3a42d0156f010dcfd43725be5	flag-o-matic	fd3558f73f6503093adee69adf41020d	out-of-source-utils	8e5093bd27b7f541a1913271f25d633a	multibuild	83db098a835f71feb71761f72a694aa2	multilib	fc812e8eb2170022c28272d80a1f9e77	multiprocessing	45d0620f25c2f063ad6276ecd9ed9399	ninja-utils	d063ea1900a793f93eb095010d6d9156	python-utils-r1	66a06bbd35f9beac984b377a81053f37	python-r1	fa20a4abee4aa6a3b47c7362cfa8251f	distutils-r1	b034e6482d4e8f8c0dbe2a5ecca5a76d	virtualx	9741d451eb64ea8bb9faee90d68a9b68
-_md5_=0ed1ed98915324c62d75f0c9eca5d264
+_md5_=deca1255333a3b01f66ace5e3e3c84c0

@@ -16,7 +16,7 @@ DESCRIPTION="Command Line Interface Formulation Framework"
 HOMEPAGE="https://github.com/openstack/cliff"
 LICENSE="Apache-2.0"
 SLOT="python2"
-KEYWORDS="amd64 arm64 hppa ~mips ~ppc64 s390 x86 ~amd64-linux ~x86-linux"
+KEYWORDS="amd64 arm64 hppa ~mips ~ppc64 s390 x86 "
 IUSE="test"
 RESTRICT="!test? ( test )"
 

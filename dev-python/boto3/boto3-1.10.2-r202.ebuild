@@ -11,7 +11,7 @@ HOMEPAGE="https://github.com/boto/boto3"
 SRC_URI="https://github.com/boto/${PN}/archive/${PV}.tar.gz -> ${P}.tar.gz"
 LICENSE="Apache-2.0"
 SLOT="python2"
-KEYWORDS="~amd64 ~arm64 ~x86 ~amd64-linux ~x86-linux"
+KEYWORDS="~amd64 ~arm64 ~x86 "
 IUSE="doc test"
 RESTRICT="mirror !test? ( test )"
 

@@ -5,7 +5,7 @@ EAPI=8
 
 inherit git-r3 toolchain-funcs
 
-DESCRIPTION="JACK output plugin for DeaDBeeF."
+DESCRIPTION="JACK output plugin for DeaDBeeF"
 HOMEPAGE="https://github.com/DeaDBeeF-Player/jack"
 EGIT_REPO_URI="https://github.com/DeaDBeeF-Player/jack.git"
 

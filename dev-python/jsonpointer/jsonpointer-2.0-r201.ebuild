@@ -11,7 +11,7 @@ HOMEPAGE="https://github.com/stefankoegl/python-json-pointer
 		https://pypi.org/project/jsonpointer/"
 LICENSE="BSD"
 SLOT="python2"
-KEYWORDS="~alpha amd64 arm arm64 hppa ppc ppc64 sparc x86 ~amd64-linux ~x86-linux"
+KEYWORDS="~alpha amd64 arm arm64 hppa ppc ppc64 sparc x86 "
 RESTRICT="mirror"
 
 RDEPEND="

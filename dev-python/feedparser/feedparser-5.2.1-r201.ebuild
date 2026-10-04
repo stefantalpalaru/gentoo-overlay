@@ -13,7 +13,7 @@ HOMEPAGE="https://github.com/kurtmckee/feedparser
 # sgmllib is licensed under PSF-2.
 LICENSE="BSD-2 PSF-2"
 SLOT="python2"
-KEYWORDS="~alpha amd64 arm arm64 ~hppa ppc ppc64 ~s390 sparc x86 ~amd64-linux ~x86-linux"
+KEYWORDS="~alpha amd64 arm arm64 ~hppa ppc ppc64 ~s390 sparc x86 "
 # Tests have issues with chardet installed, and are just kind of buggy.
 RESTRICT="mirror test"
 

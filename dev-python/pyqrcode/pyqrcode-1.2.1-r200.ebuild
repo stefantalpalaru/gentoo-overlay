@@ -17,7 +17,7 @@ S=${WORKDIR}/${PN}-${EGIT_COMMIT}
 
 LICENSE="BSD"
 SLOT="python2"
-KEYWORDS="amd64 arm ~arm64 x86 ~amd64-linux ~x86-linux"
+KEYWORDS="amd64 arm ~arm64 x86 "
 IUSE="png"
 
 RDEPEND="

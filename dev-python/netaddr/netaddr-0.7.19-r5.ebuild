@@ -13,7 +13,7 @@ HOMEPAGE="https://github.com/drkjam/netaddr
 		https://netaddr.readthedocs.org"
 LICENSE="BSD"
 SLOT="python2"
-KEYWORDS="amd64 ~arm ~arm64 x86 ~amd64-linux ~x86-linux"
+KEYWORDS="amd64 ~arm ~arm64 x86 "
 IUSE="test"
 RESTRICT="mirror !test? ( test )"
 

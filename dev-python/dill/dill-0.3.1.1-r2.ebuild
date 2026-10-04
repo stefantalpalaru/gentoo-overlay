@@ -11,7 +11,7 @@ DESCRIPTION="Serialize all of python (almost)"
 HOMEPAGE="https://pypi.org/project/dill/"
 LICENSE="BSD"
 SLOT="python2"
-KEYWORDS="~amd64 ~arm64 ~ppc ~x86 ~amd64-linux ~x86-linux"
+KEYWORDS="~amd64 ~arm64 ~ppc ~x86 "
 RESTRICT="mirror"
 
 RDEPEND="

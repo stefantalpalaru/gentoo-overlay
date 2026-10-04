@@ -12,7 +12,7 @@ DESCRIPTION="Python parser for the CommonMark Markdown spec"
 HOMEPAGE="https://github.com/readthedocs/commonmark.py"
 LICENSE="BSD"
 SLOT="python2"
-KEYWORDS="~alpha ~amd64 ~arm ~arm64 ~hppa ~ppc ~ppc64 ~sparc ~x86 ~amd64-linux ~x86-linux"
+KEYWORDS="~alpha ~amd64 ~arm ~arm64 ~hppa ~ppc ~ppc64 ~sparc ~x86 "
 IUSE="test"
 RESTRICT="mirror !test? ( test )"
 

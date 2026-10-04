@@ -15,7 +15,7 @@ SRC_URI="https://github.com/hamcrest/PyHamcrest/archive/V${PV}.tar.gz -> ${MY_PN
 S="${WORKDIR}/${MY_PN}-${PV}"
 LICENSE="BSD"
 SLOT="python2"
-KEYWORDS="~alpha amd64 arm arm64 hppa ~mips ppc ppc64 s390 sparc x86 ~amd64-linux ~x86-linux"
+KEYWORDS="~alpha amd64 arm arm64 hppa ~mips ppc ppc64 s390 sparc x86 "
 IUSE="examples"
 
 RDEPEND="

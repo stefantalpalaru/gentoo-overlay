@@ -13,7 +13,7 @@ HOMEPAGE="https://pythonhosted.org/blinker/
 		https://pypi.org/project/blinker/"
 LICENSE="MIT"
 SLOT="python2"
-KEYWORDS="~alpha amd64 arm arm64 hppa ppc ppc64 ~riscv ~s390 sparc x86 ~amd64-linux ~x86-linux"
+KEYWORDS="~alpha amd64 arm arm64 hppa ppc ppc64 ~riscv ~s390 sparc x86 "
 IUSE="doc"
 RESTRICT="mirror"
 

@@ -11,7 +11,7 @@ DESCRIPTION="Python package for gamma-ray astronomy"
 HOMEPAGE="http://naima.readthedocs.io/"
 LICENSE="BSD"
 SLOT="python2"
-KEYWORDS="~amd64 ~x86 ~amd64-linux ~x86-linux"
+KEYWORDS="~amd64 ~x86 "
 IUSE="doc test"
 RESTRICT="!test? ( test )"
 

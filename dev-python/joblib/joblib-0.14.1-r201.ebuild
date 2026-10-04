@@ -11,7 +11,7 @@ HOMEPAGE="https://joblib.readthedocs.io/en/latest/
 	https://github.com/joblib/joblib"
 LICENSE="BSD"
 SLOT="python2"
-KEYWORDS="amd64 x86 ~amd64-linux ~x86-linux"
+KEYWORDS="amd64 x86 "
 IUSE="doc test"
 RESTRICT="mirror !test? ( test )"
 

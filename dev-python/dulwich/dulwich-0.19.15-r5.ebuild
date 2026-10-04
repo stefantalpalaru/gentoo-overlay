@@ -12,7 +12,7 @@ HOMEPAGE="https://github.com/jelmer/dulwich/
 		https://pypi.org/project/dulwich/"
 LICENSE="GPL-2+"
 SLOT="python2"
-KEYWORDS="~alpha amd64 ~arm arm64 ppc ~ppc64 x86 ~amd64-linux ~x86-linux ~ppc-macos ~x64-macos ~x64-solaris"
+KEYWORDS="~alpha amd64 ~arm arm64 ppc ~ppc64 x86 ~x64-macos ~x64-solaris"
 IUSE="doc examples test"
 RESTRICT="!test? ( test )"
 

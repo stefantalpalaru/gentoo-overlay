@@ -13,7 +13,7 @@ SRC_URI="https://github.com/dgentry/${PN^}/archive/v${PV}.tar.gz -> ${P}.gh.tar.
 S="${WORKDIR}/${P^}"
 LICENSE="GPL-2+"
 SLOT="python2"
-KEYWORDS="amd64 arm ~hppa ppc ppc64 ~s390 x86 ~amd64-linux ~x86-linux ~ppc-macos"
+KEYWORDS="amd64 arm ~hppa ppc ppc64 ~s390 x86 "
 
 RDEPEND="
 	!app-emacs/pymacs:0

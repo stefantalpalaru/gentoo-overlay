@@ -12,7 +12,7 @@ HOMEPAGE="https://github.com/google/gdata-python-client
 		https://pypi.org/project/gdata/"
 LICENSE="Apache-2.0"
 SLOT="0"
-KEYWORDS="alpha amd64 arm hppa ppc ppc64 sparc x86 ~amd64-linux ~x86-linux"
+KEYWORDS="alpha amd64 arm hppa ppc ppc64 sparc x86 "
 IUSE="examples"
 RESTRICT="mirror"
 

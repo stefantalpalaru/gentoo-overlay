@@ -10,7 +10,7 @@ DESCRIPTION="Python library for distributed computation"
 HOMEPAGE="https://distributed.readthedocs.io/en/latest/"
 LICENSE="BSD"
 SLOT="python2"
-KEYWORDS="amd64 x86 ~amd64-linux ~x86-linux"
+KEYWORDS="amd64 x86 "
 IUSE="test"
 RESTRICT="!test? ( test )"
 

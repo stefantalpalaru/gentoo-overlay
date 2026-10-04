@@ -13,7 +13,7 @@ HOMEPAGE="https://distro.readthedocs.io/en/latest/
 		https://github.com/nir0s/distro"
 LICENSE="Apache-2.0"
 SLOT="python2"
-KEYWORDS="amd64 arm arm64 ppc ppc64 ~sparc x86 ~amd64-linux ~x86-linux"
+KEYWORDS="amd64 arm arm64 ppc ppc64 ~sparc x86 "
 RESTRICT="mirror test"
 
 RDEPEND="

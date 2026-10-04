@@ -11,7 +11,7 @@ DESCRIPTION="Software library for solar physics based on Python"
 HOMEPAGE="https://sunpy.org/"
 LICENSE="BSD"
 SLOT="python2"
-KEYWORDS="~amd64 ~x86 ~amd64-linux ~x86-linux"
+KEYWORDS="~amd64 ~x86 "
 IUSE="jpeg2k test"
 RESTRICT="!test? ( test )"
 

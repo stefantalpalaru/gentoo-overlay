@@ -12,7 +12,7 @@ HOMEPAGE="https://github.com/esheldon/fitsio"
 SRC_URI="https://github.com/esheldon/fitsio/archive/v${PV}.tar.gz -> ${P}.gh.tar.gz"
 LICENSE="GPL-2"
 SLOT="python2"
-KEYWORDS="~amd64 ~x86 ~amd64-linux ~x86-linux"
+KEYWORDS="~amd64 ~x86 "
 
 RDEPEND="
 	>=dev-python/numpy-1.11:python2[${PYTHON_USEDEP}]

@@ -10,7 +10,7 @@ DESCRIPTION="Utility for mocking out the Python Requests library"
 HOMEPAGE="https://github.com/getsentry/responses"
 LICENSE="Apache-2.0"
 SLOT="python2"
-KEYWORDS="~amd64 ~x86 ~amd64-linux ~x86-linux"
+KEYWORDS="~amd64 ~x86 "
 RESTRICT="mirror test"
 
 RDEPEND="

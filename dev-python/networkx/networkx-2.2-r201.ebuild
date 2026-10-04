@@ -13,7 +13,7 @@ HOMEPAGE="http://networkx.github.io/
 	SRC_URI="$(pypi_sdist_url "${PN}" "${PV}" .zip)"
 LICENSE="BSD"
 SLOT="python2"
-KEYWORDS="~amd64 ~arm64 ~x86 ~amd64-linux ~x86-linux ~ppc-macos ~x64-macos"
+KEYWORDS="~amd64 ~arm64 ~x86 ~x64-macos"
 IUSE="examples extras pandas scipy test xml yaml"
 
 REQUIRED_USE="

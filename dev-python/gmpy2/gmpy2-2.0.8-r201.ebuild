@@ -13,7 +13,7 @@ HOMEPAGE="https://github.com/aleaxit/gmpy"
 SRC_URI="$(pypi_sdist_url "${PN}" "${PV}" .zip)"
 LICENSE="LGPL-3+"
 SLOT="python2"
-KEYWORDS="~alpha amd64 arm arm64 hppa ~mips ppc ppc64 s390 sparc x86 ~amd64-linux ~x86-linux ~ppc-macos"
+KEYWORDS="~alpha amd64 arm arm64 hppa ~mips ppc ppc64 s390 sparc x86 "
 
 RDEPEND="
 	>=dev-libs/mpc-1.0.2:=

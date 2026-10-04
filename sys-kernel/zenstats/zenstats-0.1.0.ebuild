@@ -14,7 +14,9 @@ KEYWORDS="~amd64"
 
 CONFIG_CHECK="HWMON PCI AMD_NB"
 
-PATCHES="${FILESDIR}/zenpower3-0.2.0-use-symlink-to-detect-kernel-version.patch"
+PATCHES=(
+	"${FILESDIR}"/zenpower3-0.2.0-use-symlink-to-detect-kernel-version.patch
+)
 
 src_compile() {
 	export TARGET=${KV_FULL}

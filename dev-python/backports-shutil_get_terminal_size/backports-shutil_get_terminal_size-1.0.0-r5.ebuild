@@ -17,7 +17,7 @@ HOMEPAGE="https://pypi.org/project/backports.shutil_get_terminal_size/ https://g
 S=${WORKDIR}/${MY_P}
 LICENSE="MIT"
 SLOT="0"
-KEYWORDS="amd64 ~arm ~arm64 ~ppc ppc64 x86 ~amd64-linux ~x86-linux"
+KEYWORDS="amd64 ~arm ~arm64 ~ppc ppc64 x86 "
 RESTRICT="mirror test"
 
 DEPEND="dev-python/setuptools[${PYTHON_USEDEP}]"

@@ -7,12 +7,12 @@ PYTHON_COMPAT=( python2_7 )
 
 inherit distutils-r1 pypi
 
-DESCRIPTION="A low-level ctypes wrapper for Ed25519 digital signatures."
+DESCRIPTION="A low-level ctypes wrapper for Ed25519 digital signatures"
 HOMEPAGE="https://bitbucket.org/dholth/ed25519ll/
 		https://pypi.org/project/ed25519ll/"
 LICENSE="MIT"
 SLOT="0"
-KEYWORDS="~alpha ~amd64 ~arm ~ppc ~ppc64 ~sparc ~x86 ~amd64-linux ~x86-linux"
+KEYWORDS="~alpha ~amd64 ~arm ~ppc ~ppc64 ~sparc ~x86 "
 IUSE="test"
 RESTRICT="mirror !test? ( test )"
 

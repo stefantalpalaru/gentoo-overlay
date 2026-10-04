@@ -6,11 +6,11 @@ PYTHON_COMPAT=( python2_7 )
 
 inherit distutils-r1 pypi
 
-DESCRIPTION="A Python data validation library."
+DESCRIPTION="A Python data validation library"
 HOMEPAGE="https://github.com/alecthomas/voluptuous"
 LICENSE="BSD"
 SLOT="python2"
-KEYWORDS="~alpha ~amd64 ~arm ~arm64 ~hppa ~mips ~ppc ~ppc64 ~s390 ~sparc ~x86 ~amd64-linux ~x86-linux"
+KEYWORDS="~alpha ~amd64 ~arm ~arm64 ~hppa ~mips ~ppc ~ppc64 ~s390 ~sparc ~x86 "
 RESTRICT="mirror"
 
 RDEPEND="

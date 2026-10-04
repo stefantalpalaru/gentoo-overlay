@@ -10,7 +10,7 @@ DESCRIPTION="File-based locks for Python"
 HOMEPAGE="https://github.com/mwilliamson/locket.py"
 LICENSE="BSD"
 SLOT="python2"
-KEYWORDS="amd64 x86 ~amd64-linux ~x86-linux"
+KEYWORDS="amd64 x86 "
 RESTRICT="mirror"
 
 DEPEND="dev-python/setuptools[${PYTHON_USEDEP}]"

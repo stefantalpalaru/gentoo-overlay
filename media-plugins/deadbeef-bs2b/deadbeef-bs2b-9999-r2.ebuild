@@ -5,7 +5,7 @@ EAPI=8
 
 inherit git-r3
 
-DESCRIPTION="bs2b DSP plugin for DeaDBeeF, using libbs2b."
+DESCRIPTION="bs2b DSP plugin for DeaDBeeF, using libbs2b"
 HOMEPAGE="https://github.com/DeaDBeeF-Player/bs2b"
 EGIT_REPO_URI="https://github.com/DeaDBeeF-Player/bs2b.git"
 LICENSE="MIT"

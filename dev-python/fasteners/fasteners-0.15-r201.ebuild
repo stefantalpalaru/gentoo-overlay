@@ -11,7 +11,7 @@ DESCRIPTION="Python package that provides useful locks"
 HOMEPAGE="https://github.com/harlowja/fasteners"
 LICENSE="Apache-2.0"
 SLOT="python2"
-KEYWORDS="amd64 ~arm arm64 x86 ~amd64-linux ~x86-linux"
+KEYWORDS="amd64 ~arm arm64 x86 "
 IUSE="test"
 RESTRICT="mirror !test? ( test )"
 

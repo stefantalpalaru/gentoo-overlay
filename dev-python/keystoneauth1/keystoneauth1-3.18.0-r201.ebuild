@@ -6,7 +6,7 @@ PYTHON_COMPAT=( python2_7 )
 
 inherit distutils-r1 pypi
 
-DESCRIPTION="This package contains tools for authenticating to an OpenStack-based cloud."
+DESCRIPTION="This package contains tools for authenticating to an OpenStack-based cloud"
 HOMEPAGE="https://github.com/openstack/keystoneauth"
 LICENSE="Apache-2.0"
 SLOT="python2"

@@ -11,7 +11,7 @@ DESCRIPTION="LZ4 Bindings for Python"
 HOMEPAGE="https://pypi.org/project/lz4/ https://github.com/python-lz4/python-lz4"
 LICENSE="BSD"
 SLOT="python2"
-KEYWORDS="amd64 ~arm ~arm64 x86 ~amd64-linux ~x86-linux"
+KEYWORDS="amd64 ~arm ~arm64 x86 "
 RESTRICT="test"
 
 RDEPEND="app-arch/lz4

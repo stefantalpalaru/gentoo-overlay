@@ -13,7 +13,7 @@ HOMEPAGE="http://www.zeromq.org/bindings:python
 		https://pypi.org/project/pyzmq/"
 LICENSE="LGPL-3"
 SLOT="python2"
-KEYWORDS="amd64 ~arm ~arm64 ~mips ~ppc ~ppc64 ~x86 ~amd64-linux ~x86-linux ~ppc-macos ~x64-macos"
+KEYWORDS="amd64 ~arm ~arm64 ~mips ~ppc ~ppc64 ~x86 ~x64-macos"
 IUSE="doc test"
 RESTRICT="!test? ( test )"
 

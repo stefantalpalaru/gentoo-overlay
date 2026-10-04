@@ -18,7 +18,7 @@ SRC_URI="https://github.com/dstndstn/astrometry.net/releases/download/${PV}/${MY
 S="${WORKDIR}/${MYP}"
 LICENSE="BSD GPL-2 GPL-3"
 SLOT="0"
-KEYWORDS="~amd64 ~x86 ~amd64-linux ~x86-linux"
+KEYWORDS="~amd64 ~x86 "
 IUSE="examples"
 REQUIRED_USE="${PYTHON_REQUIRED_USE}"
 

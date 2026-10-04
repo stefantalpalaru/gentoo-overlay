@@ -13,7 +13,7 @@ HOMEPAGE="https://pysvn.sourceforge.io/"
 SRC_URI="https://sourceforge.net/projects/pysvn/files/pysvn/V${PV}/${P}.tar.gz"
 LICENSE="Apache-1.1"
 SLOT="python2"
-KEYWORDS="amd64 ~arm ppc x86 ~amd64-linux ~x86-linux ~ppc-macos"
+KEYWORDS="amd64 ~arm ppc x86 "
 IUSE="doc examples"
 RESTRICT="mirror"
 

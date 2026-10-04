@@ -17,7 +17,7 @@ SRC_URI="$(pypi_sdist_url --no-normalize "${MY_PN}" "${PV}" .zip)"
 S="${WORKDIR}/${MY_P}"
 LICENSE="GPL-2"
 SLOT="python2"
-KEYWORDS="alpha amd64 arm ~arm64 hppa ppc ppc64 ~s390 sparc x86 ~amd64-linux ~x86-linux ~ppc-macos ~x64-macos ~x64-solaris"
+KEYWORDS="alpha amd64 arm ~arm64 hppa ppc ppc64 ~s390 sparc x86 ~x64-macos ~x64-solaris"
 IUSE="doc"
 RESTRICT="mirror test"
 

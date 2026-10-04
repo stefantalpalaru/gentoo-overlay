@@ -10,7 +10,7 @@ DESCRIPTION="RPC protocol for Twisted"
 HOMEPAGE="http://foolscap.lothar.com/trac https://pypi.org/project/foolscap/"
 LICENSE="MIT"
 SLOT="python2"
-KEYWORDS="~amd64 ~ppc ~ppc64 ~x86 ~amd64-linux ~x86-linux ~ppc-macos ~x64-macos"
+KEYWORDS="~amd64 ~ppc ~ppc64 ~x86 ~x64-macos"
 IUSE="doc +ssl test"
 
 # Many tests still failing (#657604), others rely on network

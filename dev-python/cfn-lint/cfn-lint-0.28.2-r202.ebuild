@@ -11,7 +11,7 @@ DESCRIPTION="CloudFormation Linter"
 HOMEPAGE="https://pypi.org/project/cfn-lint/ https://github.com/aws-cloudformation/cfn-python-lint"
 LICENSE="MIT"
 SLOT="python2"
-KEYWORDS="amd64 x86 ~amd64-linux ~x86-linux"
+KEYWORDS="amd64 x86 "
 
 RDEPEND="
 	dev-python/importlib-resources:python2[${PYTHON_USEDEP}]

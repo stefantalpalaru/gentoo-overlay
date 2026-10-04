@@ -14,7 +14,7 @@ SRC_URI="https://github.com/spacetelescope/gwcs/archive/${MY_PV}.tar.gz -> ${P}.
 S="${WORKDIR}/${PN}-${MY_PV}"
 LICENSE="BSD"
 SLOT="0"
-KEYWORDS="~amd64 ~x86 ~amd64-linux ~x86-linux"
+KEYWORDS="~amd64 ~x86 "
 IUSE="doc test"
 RESTRICT="mirror !test? ( test )"
 

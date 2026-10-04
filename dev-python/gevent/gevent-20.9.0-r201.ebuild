@@ -15,7 +15,7 @@ HOMEPAGE="https://www.gevent.org/
 		https://github.com/gevent/gevent"
 LICENSE="MIT"
 SLOT="python2"
-KEYWORDS="~alpha ~amd64 ~arm ~arm64 ~mips ~ppc ~ppc64 ~s390 ~sparc ~x86 ~amd64-linux ~x86-linux"
+KEYWORDS="~alpha ~amd64 ~arm ~arm64 ~mips ~ppc ~ppc64 ~s390 ~sparc ~x86 "
 IUSE="doc examples test"
 RESTRICT="mirror !test? ( test )"
 

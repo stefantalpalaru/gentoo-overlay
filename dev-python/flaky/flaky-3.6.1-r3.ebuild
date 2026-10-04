@@ -13,7 +13,7 @@ HOMEPAGE="https://pypi.org/project/flaky/
 		https://github.com/box/flaky"
 LICENSE="Apache-2.0"
 SLOT="python2"
-KEYWORDS="~alpha amd64 arm arm64 hppa ~m68k ~mips ppc ppc64 ~riscv s390 sparc x86 ~amd64-linux ~x86-linux ~x64-solaris"
+KEYWORDS="~alpha amd64 arm arm64 hppa ~m68k ~mips ppc ppc64 ~riscv s390 sparc x86 ~x64-solaris"
 IUSE="test"
 RESTRICT="mirror !test? ( test )"
 

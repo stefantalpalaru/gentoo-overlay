@@ -14,7 +14,7 @@ DESCRIPTION="pytest plugin to facilitate comparison of arrays"
 HOMEPAGE="https://github.com/astrofrog/pytest-arraydiff/"
 LICENSE="BSD"
 SLOT="python2"
-KEYWORDS="~amd64 ~x86 ~amd64-linux ~x86-linux"
+KEYWORDS="~amd64 ~x86 "
 RESTRICT="test"
 
 RDEPEND="

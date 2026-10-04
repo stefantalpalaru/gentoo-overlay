@@ -14,7 +14,7 @@ SRC_URI="https://bazaar.launchpad.net/~bzr-pqm/bzr/$(ver_cut 1-2)/tarball/${MY_R
 S="${WORKDIR}/~bzr-pqm/bzr/2.7"
 LICENSE="GPL-2"
 SLOT="0"
-KEYWORDS="~alpha ~amd64 ~arm ~arm64 ~hppa ~mips ~ppc ~ppc64 ~s390 ~sparc ~x86 ~amd64-linux ~x86-linux ~ppc-macos ~x64-macos"
+KEYWORDS="~alpha ~amd64 ~arm ~arm64 ~hppa ~mips ~ppc ~ppc64 ~s390 ~sparc ~x86 ~x64-macos"
 IUSE="curl doc +sftp test"
 PLOCALES="ar ast bs ca cs de el en_AU en_GB es fa fo fr gl he id it ja ko ms my nb nl oc pl pt_BR ro ru sco si sk sr sv tr ug uk vi zh_CN"
 

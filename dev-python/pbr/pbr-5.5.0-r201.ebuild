@@ -12,7 +12,7 @@ DESCRIPTION="Inject some useful and sensible default behaviors into setuptools"
 HOMEPAGE="https://github.com/openstack-dev/pbr"
 LICENSE="Apache-2.0"
 SLOT="python2"
-KEYWORDS="~alpha ~amd64 ~arm ~arm64 ~hppa ~mips ~ppc ~ppc64 ~riscv ~s390 ~sparc ~x86 ~amd64-linux ~x86-linux"
+KEYWORDS="~alpha ~amd64 ~arm ~arm64 ~hppa ~mips ~ppc ~ppc64 ~riscv ~s390 ~sparc ~x86 "
 IUSE="test"
 RESTRICT="mirror !test? ( test )"
 

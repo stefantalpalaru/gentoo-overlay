@@ -11,7 +11,7 @@ HOMEPAGE="https://code.google.com/p/prettytable/"
 SRC_URI="mirror://pypi/P/PrettyTable/${P}.tar.bz2"
 LICENSE="BSD"
 SLOT="python2"
-KEYWORDS="~alpha amd64 arm64 hppa ppc64 sparc x86 ~amd64-linux ~x86-linux"
+KEYWORDS="~alpha amd64 arm64 hppa ppc64 sparc x86 "
 IUSE="test"
 RESTRICT="mirror !test? ( test )"
 

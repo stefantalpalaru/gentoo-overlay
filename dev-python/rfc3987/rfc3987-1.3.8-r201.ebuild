@@ -11,7 +11,7 @@ HOMEPAGE="https://github.com/dgerber/rfc3987
 		https://pypi.org/project/rfc3987/"
 LICENSE="GPL-3"
 SLOT="python2"
-KEYWORDS="~alpha amd64 arm arm64 hppa ~m68k ~mips ppc ppc64 s390 sparc x86 ~amd64-linux ~x86-linux"
+KEYWORDS="~alpha amd64 arm arm64 hppa ~m68k ~mips ppc ppc64 s390 sparc x86 "
 RESTRICT="mirror"
 
 RDEPEND="dev-python/regex:python2[${PYTHON_USEDEP}]

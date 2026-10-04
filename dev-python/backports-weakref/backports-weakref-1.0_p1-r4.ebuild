@@ -17,7 +17,7 @@ HOMEPAGE="https://github.com/PiDelport/backports.weakref
 S="${WORKDIR}/${MY_P}"
 LICENSE="PSF-2.3"
 SLOT="python2"
-KEYWORDS="amd64 x86 ~amd64-linux ~x86-linux"
+KEYWORDS="amd64 x86 "
 RDEPEND="dev-python/backports[${PYTHON_USEDEP}]
 	!<dev-python/backports-weakref-1.0_p1-r3[${PYTHON_USEDEP}]
 "

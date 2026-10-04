@@ -18,7 +18,7 @@ HOMEPAGE="http://atpy.readthedocs.org/"
 S="${WORKDIR}/${MYP}"
 LICENSE="GPL-3"
 SLOT="0"
-KEYWORDS="~amd64 ~x86 ~amd64-linux ~x86-linux"
+KEYWORDS="~amd64 ~x86 "
 IUSE="hdf5 mysql postgres sqlite"
 
 DEPEND="dev-python/numpy:python2[${PYTHON_USEDEP}]"

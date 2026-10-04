@@ -13,7 +13,7 @@ EGIT_BRANCH="v1.3.3-branch"
 EGIT_COMMIT="a112e78aaa901c5f9dbbced2b60425c992edf896"
 LICENSE="BSD"
 SLOT="python2"
-KEYWORDS="~amd64 ~x86 ~amd64-linux ~x86-linux"
+KEYWORDS="~amd64 ~x86 "
 IUSE="doc test"
 RESTRICT="!test? ( test )"
 

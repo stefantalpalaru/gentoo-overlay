@@ -13,7 +13,7 @@ HOMEPAGE="https://ipyparallel.readthedocs.io/
 		https://github.com/ipython/ipyparallel"
 LICENSE="BSD"
 SLOT="python2"
-KEYWORDS="~amd64 ~arm64 ~x86 ~amd64-linux ~x86-linux"
+KEYWORDS="~amd64 ~arm64 ~x86 "
 IUSE="doc test"
 RESTRICT="!test? ( test )"
 

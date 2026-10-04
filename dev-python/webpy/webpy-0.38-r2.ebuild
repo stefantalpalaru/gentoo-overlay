@@ -15,7 +15,7 @@ HOMEPAGE="http://www.webpy.org
 S="${WORKDIR}/${MY_PN}-${PV}"
 LICENSE="public-domain"
 SLOT="0"
-KEYWORDS="~amd64 ~hppa ~x86 ~amd64-linux ~x86-linux"
+KEYWORDS="~amd64 ~hppa ~x86 "
 
 python_test() {
 	local t

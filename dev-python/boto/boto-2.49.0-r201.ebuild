@@ -11,7 +11,7 @@ DESCRIPTION="Amazon Web Services API"
 HOMEPAGE="https://github.com/boto/boto https://pypi.org/project/boto/"
 LICENSE="MIT"
 SLOT="python2"
-KEYWORDS="amd64 arm arm64 ppc sparc x86 ~amd64-linux ~x86-linux ~ppc-macos ~x64-macos"
+KEYWORDS="amd64 arm arm64 ppc sparc x86 ~x64-macos"
 IUSE="test"
 # requires Amazon Web Services keys to pass some tests
 RESTRICT="mirror test"

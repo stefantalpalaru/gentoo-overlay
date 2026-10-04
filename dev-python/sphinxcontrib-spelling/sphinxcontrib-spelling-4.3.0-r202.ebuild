@@ -11,7 +11,7 @@ DESCRIPTION="Sphinx spelling extension"
 HOMEPAGE="https://github.com/sphinx-contrib/spelling"
 LICENSE="BSD-2"
 SLOT="python2"
-KEYWORDS="amd64 ~arm arm64 ~x86 ~amd64-linux ~x86-linux"
+KEYWORDS="amd64 ~arm arm64 ~x86 "
 IUSE="doc test"
 RESTRICT="mirror !test? ( test )"
 

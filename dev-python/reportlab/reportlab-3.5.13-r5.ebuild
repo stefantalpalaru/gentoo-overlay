@@ -12,7 +12,7 @@ HOMEPAGE="http://www.reportlab.com/"
 SRC_URI+=" http://www.reportlab.com/ftp/fonts/pfbfer-20070710.zip"
 LICENSE="BSD"
 SLOT="python2"
-KEYWORDS="~alpha amd64 arm ~arm64 ~hppa ppc ppc64 sparc x86 ~amd64-linux ~x86-linux"
+KEYWORDS="~alpha amd64 arm ~arm64 ~hppa ppc ppc64 sparc x86 "
 IUSE="doc examples"
 
 RDEPEND="

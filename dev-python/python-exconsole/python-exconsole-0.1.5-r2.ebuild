@@ -12,5 +12,5 @@ HOMEPAGE="https://github.com/Eugeny/exconsole
 		https://pypi.org/project/python-exconsole/"
 LICENSE="LGPL-3"
 SLOT="0"
-KEYWORDS="~amd64 ~x86 ~amd64-linux ~x86-linux"
+KEYWORDS="~amd64 ~x86 "
 RESTRICT="mirror"

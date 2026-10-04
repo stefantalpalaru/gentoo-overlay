@@ -13,7 +13,7 @@ SRC_URI="https://downloads.sourceforge.net/healpix/${MYP}/${MYPF}.tar.gz"
 S="${WORKDIR}/${MYP}"
 LICENSE="GPL-2"
 SLOT="0"
-KEYWORDS="~amd64 ~x86 ~amd64-linux ~x86-linux"
+KEYWORDS="~amd64 ~x86 "
 # might add fortran in the future if requested
 IUSE="cxx doc idl java openmp static-libs"
 RESTRICT="mirror test"

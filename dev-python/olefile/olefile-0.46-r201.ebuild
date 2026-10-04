@@ -11,7 +11,7 @@ HOMEPAGE="https://www.decalage.info/olefile"
 SRC_URI="https://github.com/decalage2/${PN}/archive/v${PV}.tar.gz -> ${P}.gh.tar.gz"
 LICENSE="BSD-2"
 SLOT="python2"
-KEYWORDS="~alpha amd64 arm arm64 hppa ppc ppc64 sparc x86 ~amd64-linux ~x86-linux"
+KEYWORDS="~alpha amd64 arm arm64 hppa ppc ppc64 sparc x86 "
 RESTRICT="mirror test"
 
 distutils_enable_sphinx doc

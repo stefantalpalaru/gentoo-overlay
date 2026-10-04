@@ -12,7 +12,7 @@ HOMEPAGE="https://github.com/postmanlabs/httpbin
 	https://pypi.org/project/httpbin/"
 LICENSE="MIT"
 SLOT="python2"
-KEYWORDS="~alpha amd64 arm arm64 hppa ppc ppc64 ~riscv ~s390 sparc x86 ~amd64-linux ~x86-linux"
+KEYWORDS="~alpha amd64 arm arm64 hppa ppc ppc64 ~riscv ~s390 sparc x86 "
 RESTRICT="mirror test"
 
 RDEPEND="

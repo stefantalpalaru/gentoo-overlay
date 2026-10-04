@@ -11,7 +11,7 @@ HOMEPAGE="http://pychecker.sourceforge.net/ https://pypi.org/project/PyChecker/"
 SRC_URI="https://downloads.sourceforge.net/pychecker/${P}.tar.gz"
 LICENSE="BSD"
 SLOT="0"
-KEYWORDS="alpha amd64 hppa ppc ppc64 sparc x86 ~amd64-linux ~x86-linux ~ppc-macos ~x64-macos"
+KEYWORDS="alpha amd64 hppa ppc ppc64 sparc x86 ~x64-macos"
 RESTRICT="mirror test"
 
 DOCS=( pycheckrc ChangeLog KNOWN_BUGS MAINTAINERS NEWS README TODO )

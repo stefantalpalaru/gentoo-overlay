@@ -10,7 +10,7 @@ DESCRIPTION="Simple interactive astronomical image examination and plotting"
 HOMEPAGE="https://imexam.readthedocs.io"
 LICENSE="BSD"
 SLOT="0"
-KEYWORDS="~amd64 ~x86 ~amd64-linux ~x86-linux"
+KEYWORDS="~amd64 ~x86 "
 IUSE="doc test"
 RESTRICT="!test? ( test )"
 

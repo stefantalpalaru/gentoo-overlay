@@ -13,7 +13,7 @@ HOMEPAGE="https://github.com/erocarrera/pydot
 SRC_URI="https://github.com/erocarrera/pydot/archive/v${PV}.tar.gz -> ${P}.gh.tar.gz"
 LICENSE="MIT"
 SLOT="python2"
-KEYWORDS="~alpha amd64 arm ~arm64 hppa ~mips ppc ppc64 s390 ~sparc x86 ~amd64-linux ~ppc-macos ~x64-macos"
+KEYWORDS="~alpha amd64 arm ~arm64 hppa ~mips ppc ppc64 s390 ~sparc x86 ~x64-macos"
 IUSE="test"
 RESTRICT="mirror !test? ( test )"
 

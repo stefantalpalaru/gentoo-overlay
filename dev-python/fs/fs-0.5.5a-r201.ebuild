@@ -18,7 +18,7 @@ SRC_URI="$(pypi_sdist_url "${PN}" "${MY_PV}")"
 S="${WORKDIR}/${MY_P}"
 LICENSE="BSD"
 SLOT="python2"
-KEYWORDS="~alpha ~amd64 ~arm ~hppa ~ppc ~ppc64 ~sparc ~x86 ~amd64-linux ~x86-linux"
+KEYWORDS="~alpha ~amd64 ~arm ~hppa ~ppc ~ppc64 ~sparc ~x86 "
 IUSE="test"
 # Tries to access FUSE
 RESTRICT="mirror test"

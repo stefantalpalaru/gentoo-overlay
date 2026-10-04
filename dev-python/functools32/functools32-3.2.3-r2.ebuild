@@ -15,7 +15,7 @@ SRC_URI="$(pypi_sdist_url "${PN}" "${PV}-2")"
 S="${WORKDIR}"/${P}-2
 LICENSE="PSF-2.4"
 SLOT="0"
-KEYWORDS="~alpha amd64 arm arm64 hppa ~m68k ~mips ppc ppc64 s390 sparc x86 ~amd64-linux ~x86-linux"
+KEYWORDS="~alpha amd64 arm arm64 hppa ~m68k ~mips ppc ppc64 s390 sparc x86 "
 RESTRICT="mirror"
 
 python_test() {

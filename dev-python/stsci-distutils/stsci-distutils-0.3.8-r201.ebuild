@@ -14,7 +14,7 @@ SRC_URI="https://github.com/spacetelescope/stsci.distutils/archive/${PV}.tar.gz 
 S="${WORKDIR}/${MY_P}"
 LICENSE="BSD"
 SLOT="python2"
-KEYWORDS="amd64 x86 ~amd64-linux ~x86-linux"
+KEYWORDS="amd64 x86 "
 RESTRICT="mirror test"
 
 DEPEND="

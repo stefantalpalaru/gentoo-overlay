@@ -13,7 +13,7 @@ SRC_URI="https://github.com/pyca/service-identity/archive/${PV}.tar.gz -> ${P}.g
 S=${WORKDIR}/${P/_/-}
 LICENSE="MIT"
 SLOT="python2"
-KEYWORDS="~alpha amd64 arm arm64 hppa ~m68k ~mips ppc ppc64 ~riscv s390 sparc x86 ~amd64-linux ~x86-linux"
+KEYWORDS="~alpha amd64 arm arm64 hppa ~m68k ~mips ppc ppc64 ~riscv s390 sparc x86 "
 RESTRICT="test"
 
 # TODO: upstream made pyopenssl optional

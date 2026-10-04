@@ -11,7 +11,7 @@ HOMEPAGE="https://pypi.org/project/xlwt/
 	https://github.com/python-excel/xlwt"
 LICENSE="BSD"
 SLOT="python2"
-KEYWORDS="amd64 arm ~arm64 ppc ppc64 x86 ~amd64-linux ~x86-linux"
+KEYWORDS="amd64 arm ~arm64 ppc ppc64 x86 "
 IUSE="doc examples test"
 RESTRICT="mirror !test? ( test )"
 

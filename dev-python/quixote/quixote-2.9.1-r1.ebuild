@@ -15,7 +15,7 @@ SRC_URI="http://ftp.fr.netbsd.org/pub/pkgsrc/distfiles/${MY_P}.tar.gz"
 S="${WORKDIR}"/${MY_P}
 LICENSE="CNRI-QUIXOTE-2.4"
 SLOT="0"
-KEYWORDS="amd64 ppc x86 ~amd64-linux ~x86-linux ~ppc-macos"
+KEYWORDS="amd64 ppc x86 "
 IUSE="doc test"
 # tests require a running quixote server, prob. apt. post install. Tried the demo one but no
 RESTRICT="mirror test"

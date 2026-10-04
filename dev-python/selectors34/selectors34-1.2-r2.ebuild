@@ -10,7 +10,7 @@ DESCRIPTION="Backport of the selectors module from Python 3.4"
 HOMEPAGE="https://github.com/berkerpeksag/selectors34"
 LICENSE="PSF-2"
 SLOT="0"
-KEYWORDS="amd64 ~arm64 ppc x86 ~amd64-linux ~x86-linux"
+KEYWORDS="amd64 ~arm64 ppc x86 "
 RESTRICT="mirror test"
 
 DEPEND="dev-python/setuptools[${PYTHON_USEDEP}]"

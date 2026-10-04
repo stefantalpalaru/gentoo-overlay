@@ -12,7 +12,7 @@ DESCRIPTION="Sphinx extension to automatically generate an examples gallery"
 HOMEPAGE="http://sphinx-gallery.readthedocs.io/"
 LICENSE="BSD"
 SLOT="python2"
-KEYWORDS="amd64 ~arm ~arm64 ~ppc ppc64 x86 ~amd64-linux ~x86-linux"
+KEYWORDS="amd64 ~arm ~arm64 ~ppc ppc64 x86 "
 RESTRICT="test"
 
 RDEPEND="

@@ -12,7 +12,7 @@ DESCRIPTION="Python library for the snappy compression library from Google"
 HOMEPAGE="https://pypi.org/project/python-snappy/"
 LICENSE="BSD"
 SLOT="python2"
-KEYWORDS="~amd64 ~arm ~arm64 ~x86 ~amd64-linux ~x86-linux"
+KEYWORDS="~amd64 ~arm ~arm64 ~x86 "
 
 RDEPEND=">=app-arch/snappy-1.0.2:=
 	!<dev-python/python-snappy-0.6.0-r200[${PYTHON_USEDEP}]

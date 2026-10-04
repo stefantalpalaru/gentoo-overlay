@@ -13,7 +13,7 @@ HOMEPAGE="https://github.com/twisted/nevow
 		https://pypi.org/project/Nevow/"
 LICENSE="MIT"
 SLOT="python2"
-KEYWORDS="~alpha amd64 ppc ppc64 sparc x86 ~x86-linux"
+KEYWORDS="~alpha amd64 ppc ppc64 sparc x86 "
 IUSE="doc test"
 RESTRICT="mirror !test? ( test )"
 

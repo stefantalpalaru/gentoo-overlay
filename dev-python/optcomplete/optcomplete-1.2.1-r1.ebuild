@@ -14,7 +14,7 @@ SRC_URI="https://github.com/blais/optcomplete/archive/${MY_COMMIT}.tar.gz -> ${P
 S="${WORKDIR}/${PN}-${MY_COMMIT}"
 LICENSE="BSD"
 SLOT="0"
-KEYWORDS="amd64 ppc x86 ~x86-linux"
+KEYWORDS="amd64 ppc x86 "
 IUSE="doc examples"
 RESTRICT="mirror"
 

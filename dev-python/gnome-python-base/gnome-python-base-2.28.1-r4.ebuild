@@ -17,7 +17,7 @@ S="${WORKDIR}/${MY_PN}-${PV}"
 REQUIRED_USE="${PYTHON_REQUIRED_USE}"
 LICENSE="LGPL-2.1"
 SLOT="2"
-KEYWORDS="~alpha amd64 arm ~mips ppc ppc64 sparc x86 ~amd64-linux ~x86-linux"
+KEYWORDS="~alpha amd64 arm ~mips ppc ppc64 sparc x86 "
 RESTRICT="${RESTRICT} mirror test"
 
 # From the gnome-python eclass

@@ -12,7 +12,7 @@ HOMEPAGE="https://docutils.sourceforge.net/
 		https://pypi.org/project/docutils/"
 LICENSE="BSD-2 GPL-3 public-domain"
 SLOT="python2"
-KEYWORDS="~alpha amd64 arm arm64 hppa ~m68k ~mips ppc ppc64 ~riscv s390 sparc x86 ~amd64-linux ~x86-linux ~ppc-macos ~x64-macos ~x64-solaris"
+KEYWORDS="~alpha amd64 arm arm64 hppa ~m68k ~mips ppc ppc64 ~riscv s390 sparc x86 ~x64-macos ~x64-solaris"
 RESTRICT="mirror"
 
 BDEPEND="dev-python/setuptools[${PYTHON_USEDEP}]

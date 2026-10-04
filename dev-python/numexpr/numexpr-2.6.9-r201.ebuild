@@ -12,7 +12,7 @@ DESCRIPTION="Fast numerical array expression evaluator for Python and NumPy"
 HOMEPAGE="https://github.com/pydata/numexpr"
 LICENSE="MIT"
 SLOT="python2"
-KEYWORDS="~amd64 ~x86 ~amd64-linux ~x86-linux"
+KEYWORDS="~amd64 ~x86 "
 IUSE="mkl"
 
 RDEPEND="

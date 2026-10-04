@@ -13,7 +13,7 @@ SRC_URI="https://downloads.sourceforge.net/lpsolve/${PN}_${PV}_Python_source.tar
 S="${WORKDIR}/${PN}_5.5/extra/Python/"
 LICENSE="LGPL-2.1"
 SLOT="0"
-KEYWORDS="~amd64 ~x86 ~amd64-linux ~x86-linux"
+KEYWORDS="~amd64 ~x86 "
 IUSE="doc examples"
 
 RDEPEND="

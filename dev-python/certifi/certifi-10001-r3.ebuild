@@ -18,7 +18,7 @@ SRC_URI="
 S=${WORKDIR}/${MY_P}
 LICENSE="CC0-1.0"
 SLOT="python2"
-KEYWORDS="~alpha amd64 arm arm64 hppa ~m68k ~mips ppc ppc64 ~riscv s390 sparc x86 ~amd64-linux ~x86-linux ~ppc-macos ~x64-macos ~x64-solaris"
+KEYWORDS="~alpha amd64 arm arm64 hppa ~m68k ~mips ppc ppc64 ~riscv s390 sparc x86 ~x64-macos ~x64-solaris"
 RESTRICT="mirror test"
 
 RDEPEND="

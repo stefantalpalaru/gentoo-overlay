@@ -7,11 +7,11 @@ PYPI_NO_NORMALIZE=1
 
 inherit distutils-r1 pypi
 
-DESCRIPTION="Standalone tools related to diskimage-builder."
+DESCRIPTION="Standalone tools related to diskimage-builder"
 HOMEPAGE="https://git.openstack.org/cgit/openstack/dib-utils"
 LICENSE="Apache-2.0"
 SLOT="python2"
-KEYWORDS="amd64 ~arm64 x86 ~amd64-linux ~x86-linux"
+KEYWORDS="amd64 ~arm64 x86 "
 RESTRICT="mirror test"
 
 CDEPEND=">=dev-python/pbr-1.6:python2[${PYTHON_USEDEP}]"

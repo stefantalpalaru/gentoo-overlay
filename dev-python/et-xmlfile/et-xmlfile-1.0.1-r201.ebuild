@@ -12,7 +12,7 @@ HOMEPAGE="https://pypi.org/project/et_xmlfile/
 		https://bitbucket.org/openpyxl/et_xmlfile"
 LICENSE="MIT"
 SLOT="python2"
-KEYWORDS="amd64 ~arm x86 ~amd64-linux ~x86-linux"
+KEYWORDS="amd64 ~arm x86 "
 IUSE="test"
 RESTRICT="!test? ( test )"
 

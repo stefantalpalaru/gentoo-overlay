@@ -10,7 +10,7 @@ DESCRIPTION="Mock library for boto"
 HOMEPAGE="https://github.com/spulec/moto"
 LICENSE="Apache-2.0"
 SLOT="python2"
-KEYWORDS="amd64 x86 ~amd64-linux ~x86-linux"
+KEYWORDS="amd64 x86 "
 IUSE="test"
 RESTRICT="!test? ( test )"
 

@@ -9,7 +9,7 @@ SRC_URI="ftp://ftp.astron.nl/outgoing/Measures/WSRT_Measures_${PV}-160001.ztar -
 S="${WORKDIR}"
 LICENSE="LGPL-3"
 SLOT="0"
-KEYWORDS="~amd64 ~x86 ~amd64-linux ~x86-linux"
+KEYWORDS="~amd64 ~x86 "
 
 src_install(){
 	insinto /usr/share/casa/data

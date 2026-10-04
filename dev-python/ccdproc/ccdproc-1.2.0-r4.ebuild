@@ -11,7 +11,7 @@ DESCRIPTION="Astropy affiliated package for reducing optical/IR CCD data"
 HOMEPAGE="https://github.com/astropy/ccdproc"
 LICENSE="BSD"
 SLOT="0"
-KEYWORDS="~amd64 ~x86 ~amd64-linux ~x86-linux"
+KEYWORDS="~amd64 ~x86 "
 IUSE="doc test"
 RESTRICT="!test? ( test )"
 

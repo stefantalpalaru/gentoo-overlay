@@ -14,7 +14,7 @@ DESCRIPTION="Lightweight SOAP client"
 HOMEPAGE="https://github.com/suds-community/suds"
 LICENSE="LGPL-3"
 SLOT="python2"
-KEYWORDS="~amd64 ~arm64 ~x86 ~amd64-linux ~x86-linux"
+KEYWORDS="~amd64 ~arm64 ~x86 "
 RESTRICT="test"
 
 RDEPEND="

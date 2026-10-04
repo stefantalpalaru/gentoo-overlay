@@ -11,7 +11,7 @@ HOMEPAGE="http://labix.org/mocker https://pypi.org/project/mocker/"
 SRC_URI="mirror://pypi/${PN:0:1}/${PN}/${P}.tar.bz2"
 LICENSE="BSD"
 SLOT="0"
-KEYWORDS="amd64 ppc64 x86 ~amd64-linux ~x86-linux ~x64-macos"
+KEYWORDS="amd64 ppc64 x86 ~x64-macos"
 RESTRICT="mirror"
 
 DEPEND="dev-python/setuptools[${PYTHON_USEDEP}]"

@@ -6,7 +6,7 @@ PYTHON_COMPAT=( python2_7 )
 
 inherit distutils-r1 pypi
 
-DESCRIPTION="A collection of libraries for building applications to work with OpenStack."
+DESCRIPTION="A collection of libraries for building applications to work with OpenStack"
 HOMEPAGE="https://github.com/openstack/python-openstacksdk"
 LICENSE="Apache-2.0"
 SLOT="python2"

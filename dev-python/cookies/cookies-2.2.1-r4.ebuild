@@ -10,7 +10,7 @@ DESCRIPTION="Friendlier RFC 6265-compliant cookie parser/renderer"
 HOMEPAGE="https://gitlab.com/sashahart/cookies"
 LICENSE="MIT"
 SLOT="python2"
-KEYWORDS="~amd64 ~x86 ~amd64-linux ~x86-linux"
+KEYWORDS="~amd64 ~x86 "
 RESTRICT="mirror test"
 
 BDEPEND="dev-python/setuptools[${PYTHON_USEDEP}]"

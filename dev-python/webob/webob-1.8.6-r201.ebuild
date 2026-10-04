@@ -16,7 +16,7 @@ HOMEPAGE="https://webob.org/
 S="${WORKDIR}/${MY_P}"
 LICENSE="MIT"
 SLOT="python2"
-KEYWORDS="~alpha amd64 arm arm64 hppa ppc ppc64 s390 sparc x86 ~amd64-linux ~x86-linux ~ppc-macos ~x64-macos"
+KEYWORDS="~alpha amd64 arm arm64 hppa ppc ppc64 s390 sparc x86 ~x64-macos"
 RESTRICT="mirror test"
 
 RDEPEND="

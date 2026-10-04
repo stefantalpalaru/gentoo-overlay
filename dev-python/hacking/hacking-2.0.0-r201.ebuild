@@ -11,7 +11,7 @@ DESCRIPTION="A client for the OpenStack Nova API"
 HOMEPAGE="https://github.com/openstack-dev/hacking"
 LICENSE="Apache-2.0"
 SLOT="python2"
-KEYWORDS="amd64 ~arm64 ~hppa ~ppc64 ~s390 x86 ~amd64-linux ~x86-linux"
+KEYWORDS="amd64 ~arm64 ~hppa ~ppc64 ~s390 x86 "
 IUSE="doc test"
 RESTRICT="!test? ( test )"
 

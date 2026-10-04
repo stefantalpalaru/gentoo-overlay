@@ -12,7 +12,7 @@ HOMEPAGE="https://github.com/jsonpickle/jsonpickle/
 		https://pypi.org/project/jsonpickle/"
 LICENSE="BSD"
 SLOT="python2"
-KEYWORDS="~amd64 ~arm ~x86 ~amd64-linux ~x86-linux"
+KEYWORDS="~amd64 ~arm ~x86 "
 IUSE="doc test"
 RESTRICT="mirror !test? ( test )"
 

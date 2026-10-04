@@ -6,7 +6,7 @@ PYTHON_COMPAT=( python2_7 )
 
 inherit distutils-r1 pypi
 
-DESCRIPTION="Cloud middleware for in application use."
+DESCRIPTION="Cloud middleware for in application use"
 HOMEPAGE="https://github.com/cloudnull/cloudlib"
 LICENSE="Apache-2.0"
 SLOT="python2"

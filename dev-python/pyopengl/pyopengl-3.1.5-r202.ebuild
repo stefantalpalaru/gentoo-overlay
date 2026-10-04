@@ -19,7 +19,7 @@ HOMEPAGE="http://pyopengl.sourceforge.net/
 S="${WORKDIR}/${MY_P}"
 LICENSE="BSD"
 SLOT="python2"
-KEYWORDS="~alpha ~amd64 ~arm ~arm64 ~hppa ~mips ~ppc ~ppc64 ~sparc ~x86 ~amd64-linux ~x86-linux"
+KEYWORDS="~alpha ~amd64 ~arm ~arm64 ~hppa ~mips ~ppc ~ppc64 ~sparc ~x86 "
 IUSE="test tk"
 
 RDEPEND="

@@ -10,7 +10,7 @@ HOMEPAGE="https://developers.google.com/protocol-buffers/ https://github.com/pro
 SRC_URI="https://github.com/protocolbuffers/${PN}/archive/v${PV}.tar.gz -> ${P}.gh.tar.gz"
 LICENSE="BSD"
 SLOT="0/24"
-KEYWORDS="~alpha amd64 arm arm64 ~hppa ~mips ppc ppc64 ~s390 sparc x86 ~amd64-linux ~x86-linux ~x64-macos"
+KEYWORDS="~alpha amd64 arm arm64 ~hppa ~mips ppc ppc64 ~s390 sparc x86 ~x64-macos"
 IUSE="emacs examples static-libs test zlib"
 RESTRICT="mirror !test? ( test )"
 

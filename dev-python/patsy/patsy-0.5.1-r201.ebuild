@@ -11,7 +11,7 @@ HOMEPAGE="https://patsy.readthedocs.org/en/latest/index.html
 			https://github.com/pydata/patsy"
 LICENSE="BSD"
 SLOT="python2"
-KEYWORDS="amd64 x86 ~amd64-linux ~x86-linux"
+KEYWORDS="amd64 x86 "
 IUSE="doc"
 
 RDEPEND="

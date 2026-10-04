@@ -11,7 +11,7 @@ HOMEPAGE="https://pypi.org/project/httplib2/
 		https://github.com/httplib2/httplib2"
 LICENSE="MIT"
 SLOT="python2"
-KEYWORDS="~alpha amd64 arm arm64 hppa ppc ppc64 ~s390 sparc x86 ~amd64-linux ~x86-linux ~x64-macos"
+KEYWORDS="~alpha amd64 arm arm64 hppa ppc ppc64 ~s390 sparc x86 ~x64-macos"
 IUSE="test"
 RESTRICT="mirror !test? ( test )"
 
