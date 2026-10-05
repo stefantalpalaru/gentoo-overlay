@@ -530,7 +530,7 @@ dev-python/pypng 0.0.20-r201: Pure Python PNG image encoder/decoder
 dev-python/pyptlib 0.0.6-r2: Python library for tor's pluggable transport managed-proxy protocol
 dev-python/pyqrcode 1.2.1-r200: A pure Python QR code generator with SVG, EPS, PNG and terminal output
 dev-python/pyqt5 5.15.4-r204 5.15.11-r2: Python bindings for the Qt framework
-dev-python/pyqt5-sip 4.19.25-r202 12.19.0: sip extension module for PyQt5
+dev-python/pyqt5-sip 4.19.25-r202 12.20.0: sip extension module for PyQt5
 dev-python/pyqtwebengine 5.15.4-r4 5.15.7-r1: Python bindings for QtWebEngine
 dev-python/pyquery 1.4.1-r201: A jQuery-like library for python
 dev-python/pyrax 1.9.7-r201: Python language bindings for OpenStack Clouds
@@ -946,7 +946,7 @@ media-sound/tg 0.5.0-r2 9999-r2: a program for timing mechanical watches
 media-sound/yabridge-bin 5.1.1: A modern and transparent way to use Windows VST2, VST3 and CLAP plugins on Linux
 media-tv/dvb-firmware 1.4.0-r1 9999-r4: DVB firmware from the LibreELEC project
 media-tv/w_scan2 1.0.17 9999-r3: Scan for DVB-C/DVB-T/DVB-S channels (w_scan fork)
-media-video/aegisub 3.4.2: Advanced subtitle editor
+media-video/aegisub 3.5.0: Advanced subtitle editor
 media-video/mlvapp 1.16 9999-r2: Magic Lantern Video (MLV) processing suite
 media-video/smplayer 26.8.29-r1: Great Qt GUI front-end for mplayer/mpv
 media-video/subliminal 2.7.1-r1 9999-r13: Python library to search and download subtitles

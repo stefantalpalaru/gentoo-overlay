@@ -7,7 +7,7 @@ LUA_COMPAT=( luajit )
 LUA_REQ_USE="lua52compat"
 
 WX_GTK_VER=3.2-gtk3
-PLOCALES="ar be bg ca cs da de el es eu fa fi fr_FR gl hu id it ja ko nl pl pt_BR pt_PT ru sr_RS sr_RS@latin tr uk_UA vi zh_CN zh_TW"
+PLOCALES="ar be bg ca cs da de el es eu fa fi fr_FR gl hu id it ja ko lt nl pl pt_BR pt_PT ru sr_RS@latin sr_RS th tr uk_UA vi zh_CN zh_TW"
 
 inherit flag-o-matic lua-single meson plocale wxwidgets xdg-utils vcs-snapshot toolchain-funcs
 
@@ -62,10 +62,6 @@ BDEPEND="dev-util/intltool
 
 REQUIRED_USE="${LUA_REQUIRED_USE}
 	|| ( alsa openal portaudio pulseaudio )"
-
-PATCHES=(
-	"${FILESDIR}"/aegisub-3.4.2-gtest.patch
-)
 
 aegisub_check_compiler() {
 	if [[ ${MERGE_TYPE} != "binary" ]] && ! test-flag-CXX -std=c++20; then

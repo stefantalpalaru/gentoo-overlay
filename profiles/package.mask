@@ -10,4 +10,4 @@
 # And no, you cannot set the EAPI in such a file. The main tree is just special and your overlay and local config are not.
 
 #-<dev-libs/openssl-3 # we need to match the exact "/usr/portage/profiles/package.mask" entry here
--net-misc/megasync
+-net-misc/megasync # masked in the "guru" overlay
