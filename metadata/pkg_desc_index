@@ -676,7 +676,7 @@ dev-python/simplejson 3.17.2-r201: Simple, fast, extensible JSON encoder/decoder
 dev-python/simples3 1.0-r2: A fairly simple, decently quick python interface to Amazon's S3 storage service
 dev-python/simplesettings 0.5-r3: Simple settings initialization
 dev-python/singledispatch 3.4.0.3-r3: A library to bring functools.singledispatch from Python 3.4 to Python 2.6-3.3
-dev-python/sip 4.19.25-r203 6.16.0-r100: Python bindings generator for C/C++ libraries
+dev-python/sip 4.19.25-r203 6.15.3 6.16.0-r100: Python bindings generator for C/C++ libraries
 dev-python/six 1.15.0-r201: Python 2 and 3 compatibility library
 dev-python/slowaes 0.1-r4: AES implementation in pure Python
 dev-python/smmap2 2.0.5-r201: A pure python implementation of a sliding window memory map manager
