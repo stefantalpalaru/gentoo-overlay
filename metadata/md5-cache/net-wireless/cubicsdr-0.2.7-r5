@@ -1,6 +1,6 @@
 BDEPEND=app-alternatives/ninja >=dev-build/cmake-3.28.5
 DEFINED_PHASES=compile configure install prepare test
-DEPEND=media-libs/rtaudio:0/6 >=net-libs/liquid-dsp-1.4.0 >=net-wireless/soapysdr-0.4.0[bladerf?,hackrf?,plutosdr?,rtlsdr?,uhd?,airspyhf?] virtual/opengl x11-libs/wxGTK:3.2-gtk3=[opengl] hamlib? ( media-libs/hamlib )
+DEPEND=media-libs/rtaudio:0/6 >=net-libs/liquid-dsp-1.4.0 >=net-wireless/soapysdr-0.4.0:=[bladerf?,hackrf?,plutosdr?,rtlsdr?,uhd?,airspyhf?] virtual/opengl x11-libs/wxGTK:3.2-gtk3=[opengl] hamlib? ( media-libs/hamlib )
 DESCRIPTION=Cross-Platform Software-Defined Radio Application
 EAPI=8
 HOMEPAGE=http://cubicsdr.com/
@@ -8,8 +8,8 @@ INHERIT=cmake wxwidgets
 IUSE=bladerf hackrf plutosdr +rtlsdr uhd hamlib airspyhf
 KEYWORDS=~amd64 ~x86
 LICENSE=GPL-2
-RDEPEND=media-libs/rtaudio:0/6 >=net-libs/liquid-dsp-1.4.0 >=net-wireless/soapysdr-0.4.0[bladerf?,hackrf?,plutosdr?,rtlsdr?,uhd?,airspyhf?] virtual/opengl x11-libs/wxGTK:3.2-gtk3=[opengl] hamlib? ( media-libs/hamlib )
+RDEPEND=media-libs/rtaudio:0/6 >=net-libs/liquid-dsp-1.4.0 >=net-wireless/soapysdr-0.4.0:=[bladerf?,hackrf?,plutosdr?,rtlsdr?,uhd?,airspyhf?] virtual/opengl x11-libs/wxGTK:3.2-gtk3=[opengl] hamlib? ( media-libs/hamlib )
 SLOT=0
 SRC_URI=https://github.com/cjcliffe/CubicSDR/archive/0.2.7.tar.gz -> cubicsdr-0.2.7.tar.gz
 _eclasses_=toolchain-funcs	58a918e3a42d0156f010dcfd43725be5	flag-o-matic	fd3558f73f6503093adee69adf41020d	multiprocessing	45d0620f25c2f063ad6276ecd9ed9399	ninja-utils	d063ea1900a793f93eb095010d6d9156	xdg-utils	42869b3c8d86a70ef3cf75165a395e09	cmake	3530055400d05e64deaba3042af30af6	wxwidgets	c48bf68858bd3c27c272ff034eb1e14d
-_md5_=eb7bbd574844e73c738568d9b10a10c4
+_md5_=4c8a3e96fefb3738d96d99f86ce03df9

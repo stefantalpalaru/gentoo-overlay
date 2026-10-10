@@ -28,20 +28,14 @@ PDEPEND="
 	uhd? ( net-wireless/soapyuhd )
 "
 
-PATCHES=(
-	"${FILESDIR}"/soapysdr-0.8.1-python3.12-distutils.patch
-)
-
 pkg_setup() {
 	use python && python-single-r1_pkg_setup
 }
 
 src_configure() {
 	local mycmakeargs=(
-		-DENABLE_PYTHON=$(usex python)
+		-DENABLE_PYTHON2=OFF
 		-DENABLE_PYTHON3=$(usex python)
-		-DBUILD_PYTHON3=$(usex python)
-		-DUSE_PYTHON_CONFIG=ON
 	)
 
 	cmake_src_configure

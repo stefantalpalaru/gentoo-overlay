@@ -17,7 +17,7 @@ IUSE="bladerf hackrf plutosdr +rtlsdr uhd hamlib airspyhf"
 DEPEND="
 	media-libs/rtaudio:0/6
 	>=net-libs/liquid-dsp-1.4.0
-	>=net-wireless/soapysdr-0.4.0[bladerf?,hackrf?,plutosdr?,rtlsdr?,uhd?,airspyhf?]
+	>=net-wireless/soapysdr-0.4.0:=[bladerf?,hackrf?,plutosdr?,rtlsdr?,uhd?,airspyhf?]
 	virtual/opengl
 	x11-libs/wxGTK:${WX_GTK_VER}=[opengl]
 	hamlib? ( media-libs/hamlib )
