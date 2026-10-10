@@ -14,7 +14,7 @@ DESCRIPTION="GTK version of wxWidgets, a cross-platform C++ GUI toolkit"
 HOMEPAGE="https://wxwidgets.org/"
 SRC_URI="https://github.com/wxWidgets/wxWidgets/releases/download/v${PV}/wxWidgets-${PV}.tar.bz2
 	doc? ( https://github.com/wxWidgets/wxWidgets/releases/download/v${PV}/wxWidgets-${PV}-docs-html.tar.bz2 )"
-S="${WORKDIR}/wxWidgets-v${PV}.1"
+S="${WORKDIR}/wxWidgets-${PV}"
 LICENSE="wxWinLL-3 GPL-2 doc? ( wxWinFDL-3 )"
 SLOT="${WXRELEASE}"
 KEYWORDS="~alpha ~amd64 ~arm ~arm64 ~hppa ~loong ~mips ~ppc ~ppc64 ~riscv ~sparc ~x86"
@@ -77,7 +77,7 @@ BDEPEND="
 PATCHES=(
 	"${FILESDIR}/${PN}-3.3.1-configure-tests.patch"
 	"${FILESDIR}/${PN}-3.3.2-wayland-control.patch"
-	"${FILESDIR}/${PN}-3.2.1-prefer-lib64-in-tests.patch"
+	"${FILESDIR}/${PN}-3.3.4-prefer-lib64-in-tests.patch"
 	"${FILESDIR}/${PN}-3.2.5-dont-break-flags.patch"
 )
 

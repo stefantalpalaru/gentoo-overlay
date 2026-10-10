@@ -1,0 +1,14 @@
+diff '--color=auto' -ur wxWidgets-3.3.4.orig/tests/misc/dynamiclib.cpp wxWidgets-3.3.4/tests/misc/dynamiclib.cpp
+--- wxWidgets-3.3.4.orig/tests/misc/dynamiclib.cpp	2026-10-09 17:46:59.000000000 +0200
++++ wxWidgets-3.3.4/tests/misc/dynamiclib.cpp	2026-10-10 15:45:45.988033147 +0200
+@@ -40,8 +40,9 @@
+ #else // other Unix
+     static const char* const candidateDirs[] =
+     {
+-        "/lib/x86_64-linux-gnu",
+         "/lib64",
++        "/usr/lib64",
++        "/lib/x86_64-linux-gnu",
+         "/lib",
+         "/usr/lib",
+     };
