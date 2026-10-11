@@ -1,0 +1,12 @@
+diff '--color=auto' -ur onnxruntime-1.31.0.orig/cmake/external/onnxruntime_external_deps.cmake onnxruntime-1.31.0/cmake/external/onnxruntime_external_deps.cmake
+--- onnxruntime-1.31.0.orig/cmake/external/onnxruntime_external_deps.cmake	2026-10-09 16:59:56.004073932 +0200
++++ onnxruntime-1.31.0/cmake/external/onnxruntime_external_deps.cmake	2026-10-09 17:01:15.474595280 +0200
+@@ -586,7 +586,7 @@
+                  "protobuf version: ${Protobuf_VERSION}")
+ endif()
+ 
+-if(onnxruntime_USE_VCPKG)
++if(onnxruntime_USE_PREINSTALLED_EIGEN)
+   find_package(Eigen3 CONFIG REQUIRED)
+ else()
+   include(external/eigen.cmake)

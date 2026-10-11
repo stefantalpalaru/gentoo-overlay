@@ -888,7 +888,7 @@ media-gfx/exiv2 0.27.6-r2: EXIF, IPTC and XMP metadata C++ library and command l
 media-gfx/fbcat 0.5.2-r1: utility that takes a screenshot using the framebuffer device
 media-gfx/gifsicle 9999-r2: Create, manipulate, and optimize GIF images and animations
 media-gfx/gmic 4.0.5-r100: GREYC's Magic Image Converter
-media-gfx/imagemagick 7.1.2.32: A collection of tools and libraries for many image formats
+media-gfx/imagemagick 7.1.2.33: A collection of tools and libraries for many image formats
 media-gfx/inkscape 1.4.4-r3: SVG based generic vector-drawing program
 media-gfx/opencomic-bin 1.6.5: Comic and Manga reader, written with Node.js and using Electron
 media-gfx/opentoonz 1.8.0-r1: An open-source full-featured 2D animation creation software
@@ -979,10 +979,11 @@ net-p2p/transmission-og 3.07-r1 9999-r4: Transmission 3.00 fork (BitTorrent clie
 net-p2p/transmission-remote-gtk 1.7.1: GTK+ client for management of the Transmission BitTorrent client, over HTTP RPC
 net-print/pkpgcounter 3.50-r201: Generic PDL (Page Description Language) parser in Python
 net-print/pykota 1.26-r201: Flexible print quota and accounting package for use with CUPS and lpd
-net-wireless/cubicsdr 0.2.7-r4: Cross-Platform Software-Defined Radio Application
+net-wireless/airspyhf 1.6.8_p20260722: User mode driver for Airspy HF+
+net-wireless/cubicsdr 0.2.7-r5: Cross-Platform Software-Defined Radio Application
 net-wireless/sdrpp 1.1.0_pre20230907-r1: a cross-platform SDR software with the aim of being bloat free and simple to use
-net-wireless/soapyairspyhf 0.2.0: SoapySDR Airspyhf-SDR Support Module
-net-wireless/soapysdr 0.8.1-r3: vendor and platform neutral SDR support library
+net-wireless/soapyairspyhf 0.2.1: SoapySDR Airspyhf-SDR Support Module
+net-wireless/soapysdr 0.9.0: vendor and platform neutral SDR support library
 sci-astronomy/astrometry 0.78-r3: Automated astrometric calibration programs and service
 sci-astronomy/calcmysky 0.4.0: Simulator of light scattering by planetary atmospheres
 sci-astronomy/casa-data 20241126: Data and tables for the CASA software
@@ -1008,7 +1009,7 @@ sci-libs/graphblas 10.5.1-r100: Sparse LU factorization for circuit simulation
 sci-libs/hdf5 1.10.5-r3: General purpose library and file format for storing scientific data
 sci-libs/klu 2.3.6-r104: Sparse LU factorization for circuit simulation
 sci-libs/ldl 3.3.3-r104: Simple but educational LDL^T matrix factorization algorithm
-sci-libs/onnxruntime 1.30.0-r1: Cross-platform inference and training machine-learning accelerator
+sci-libs/onnxruntime 1.30.0-r1 1.31.0: Cross-platform inference and training machine-learning accelerator
 sci-libs/spqr 4.3.6-r105: Multithreaded multifrontal sparse QR factorization library
 sci-libs/suitesparse 7.14.1-r100: Metapackage for a suite of sparse matrix tools
 sci-libs/suitesparseconfig 7.14.1-r100: Common configurations for all packages in suitesparse
@@ -1048,7 +1049,7 @@ www-servers/uwsgi 2.0.31-r201: uWSGI server for Python web applications
 x11-libs/dotherside 0.9.0_p20221109-r2: C language library for creating bindings for the Qt QML language
 x11-libs/qscintilla 2.14.1-r1: Qt port of Neil Hodgson's Scintilla C++ editor control
 x11-libs/qwt 6.3.0-r1: 2D plotting library for Qt
-x11-libs/wxGTK 3.2.11-r300 3.3.3-r300: GTK version of wxWidgets, a cross-platform C++ GUI toolkit
+x11-libs/wxGTK 3.2.12-r300 3.3.4-r300: GTK version of wxWidgets, a cross-platform C++ GUI toolkit
 x11-misc/magick-rotation 1.6.2-r6: Application that rotates tablet pc's screen automatically, based on orientation
 x11-misc/obmenu2 1.1-r3: Openbox menu editor
 x11-misc/qt5ct 1.8 1.9: Qt5 configuration tool, similar to qtconfig for Qt4

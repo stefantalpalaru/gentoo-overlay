@@ -1,0 +1,39 @@
+diff '--color=auto' -ur onnxruntime.orig/onnxruntime/contrib_ops/cuda/bert/dynamic_sparse_attention_impl.h onnxruntime/onnxruntime/contrib_ops/cuda/bert/dynamic_sparse_attention_impl.h
+--- onnxruntime.orig/onnxruntime/contrib_ops/cuda/bert/dynamic_sparse_attention_impl.h	2026-10-11 03:16:47.966422416 +0200
++++ onnxruntime/onnxruntime/contrib_ops/cuda/bert/dynamic_sparse_attention_impl.h	2026-10-11 03:59:47.039191978 +0200
+@@ -3,6 +3,8 @@
+ 
+ #pragma once
+ 
++#include <cstdint>
++
+ #include <cuda_runtime.h>
+ 
+ #include "contrib_ops/cpu/bert/dynamic_sparse_attention_parameters.h"
+diff '--color=auto' -ur onnxruntime.orig/onnxruntime/core/framework/kernel_pilot_moe_expert_state.h onnxruntime/onnxruntime/core/framework/kernel_pilot_moe_expert_state.h
+--- onnxruntime.orig/onnxruntime/core/framework/kernel_pilot_moe_expert_state.h	2026-10-11 03:16:47.981422322 +0200
++++ onnxruntime/onnxruntime/core/framework/kernel_pilot_moe_expert_state.h	2026-10-11 03:48:07.225840108 +0200
+@@ -12,9 +12,23 @@
+ 
+ #include <gsl/gsl>
+ #include "core/common/common.h"
++#include "core/common/hash_combine.h"
+ #include "core/common/inlined_containers.h"
+ #include "core/framework/kernel_pilot.h"
+ 
++// Needed by "expert_ids_" which uses a "std::pair" as a hash table key
++namespace std {
++template <typename T1, typename T2>
++struct hash<std::pair<T1, T2>> {
++  std::size_t operator()(std::pair<T1, T2> const& p) const {
++    std::size_t seed(0);
++    onnxruntime::HashCombine(p.first, seed);
++    onnxruntime::HashCombine(p.second, seed);
++    return seed;
++  }
++};
++}  // namespace std
++
+ namespace onnxruntime {
+ 
+ class OpKernel;
