@@ -9,9 +9,8 @@ DESCRIPTION="3D mesh and point-cloud compression library"
 HOMEPAGE="https://google.github.io/draco/
 	https://github.com/google/draco"
 SRC_URI="https://github.com/google/draco/archive/refs/tags/${PV}.tar.gz -> ${P}.gh.tar.gz"
-
 LICENSE="Apache-2.0"
-SLOT="0"
+SLOT="0/${PV}"
 KEYWORDS="~amd64 ~arm64"
 
 src_configure() {
