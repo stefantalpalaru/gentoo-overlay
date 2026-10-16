@@ -28,12 +28,14 @@ RDEPEND="${DEPEND}"
 
 src_prepare() {
 	default
-	sed -e 's#/usr/include/qwt#/usr/include/qwt6#g' \
+	sed -i \
+		-e 's#/usr/include/qwt#/usr/include/qwt6#g' \
 		-e 's#/usr/include/qt5/qwt#/usr/include/qwt6#g' \
 		-e 's#-lqwt#-lqwt6#g' \
+		-e '/+= -flto/d' \
 		-e '/CONFIG\s\++= sdrplay/d' \
 		-e '/CONFIG\s\++= airspy/d' \
-		-i *.pro
+		*.pro
 }
 
 src_configure() {
@@ -41,7 +43,6 @@ src_configure() {
 }
 
 src_install() {
-	cd "${BUILD_DIR}"
 	exeinto "/usr/bin"
 	newexe linux-bin/${PN}-* "${PN}"
 }
