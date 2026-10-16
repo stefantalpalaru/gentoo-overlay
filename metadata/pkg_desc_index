@@ -861,7 +861,7 @@ dev-util/tla-toolbox-bin 1.8.0-r1: IDE for TLA+
 dev-vcs/bzr 2.7.1_pre-r4: Bazaar is a next generation distributed version control system
 dev-vcs/hg-fast-export 260405-r1: mercurial to git converter using git-fast-import
 games-emulation/dbgl-bin 0.99: DOSBox Game Launcher
-games-emulation/rpcs3 9999-r18: PlayStation 3 emulator
+games-emulation/rpcs3 9999-r19: PlayStation 3 emulator
 games-emulation/snes9x 1.63-r1: Super Nintendo Entertainment System (SNES) emulator
 games-engines/uzdoom 5.0.3: A modder-friendly OpenGL source port based on the DOOM engine
 games-fps/gzdoom 4.14.2: A modder-friendly OpenGL source port based on the DOOM engine

@@ -61,6 +61,7 @@ EGIT_SUBMODULES=(
 PATCHES=(
 	"${FILESDIR}"/rpcs3-9999-r8-tests.patch
 	"${FILESDIR}"/rpcs3-9999-gcc-15.patch
+	"${FILESDIR}"/rpcs3-9999-rtmidi.patch
 )
 
 src_prepare() {
@@ -97,6 +98,7 @@ src_configure() {
 		-DUSE_SYSTEM_ZLIB=ON
 		-DUSE_VULKAN=$(usex vulkan ON OFF)
 		-DWITH_LLVM=$(usex llvm ON OFF)
+		-DRTMIDI_BUILD_TESTING=OFF
 	)
 	# https://github.com/RPCS3/rpcs3/pull/8609
 	if use vulkan; then
@@ -107,6 +109,8 @@ src_configure() {
 }
 
 src_install() {
+	# "3rdparty/rtmidi/rtmidi/tests/RunAlsaHotplug.cmake" runs "rtmidi_hotplug_check" which needs this:
+	#SANDBOX_WRITE="/dev/snd/seq" cmake_src_install
 	cmake_src_install
 
 	mv "${ED}"/usr/bin/rpcs3 "${ED}"/usr/bin/rpcs3.bin

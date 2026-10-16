@@ -1,0 +1,15 @@
+diff '--color=auto' -ur rpcs3-9999.orig/3rdparty/rtmidi/rtmidi/CMakeLists.txt rpcs3-9999/3rdparty/rtmidi/rtmidi/CMakeLists.txt
+--- rpcs3-9999.orig/3rdparty/rtmidi/rtmidi/CMakeLists.txt	2026-10-16 22:24:36.675441955 +0200
++++ rpcs3-9999/3rdparty/rtmidi/rtmidi/CMakeLists.txt	2026-10-16 22:31:13.241649705 +0200
+@@ -362,11 +362,6 @@
+   endif()
+ endif()
+ 
+-# Compile and run hotplug regression tests whenever the ALSA library is built.
+-if("alsa" IN_LIST API_LIST)
+-  include(tests/AlsaHotplug.cmake)
+-  rtmidi_add_hotplug_test(rtmidi "${CMAKE_CURRENT_SOURCE_DIR}")
+-endif()
+ 
+ # Add tests if requested.
+ option(RTMIDI_BUILD_TESTING "Build test programs" ON)
