@@ -14,7 +14,7 @@ app-emacs/pymacs 0.26-r201: A tool that allows both-side communication beetween 
 app-emulation/quickemu 4.9.8 4.9.9: Create and run optimised Windows, macOS and Linux desktop virtual machines
 app-misc/electricsheep 3.0.2_p20240213-r6 9999-r14: realize the collective dream of sleeping computers from all over the internet
 app-misc/iccloader 0.5-r1 9999-r2: systray widget used to load ICC color profiles with different color temperatures
-app-misc/openrgb 1.0-r100: Open source RGB lighting control
+app-misc/openrgb 1.1-r100: Open source RGB lighting control
 app-misc/yworklog 0.0.7-r201: Stack based utility with CLI interface helping to monitor time spent on tasks
 app-office/upwork 5.8.0.33: Project collaboration and tracking software for upwork.com
 app-text/djview 4.12.3: Portable DjVu viewer using Qt
@@ -44,7 +44,7 @@ dev-java/jna 5.13.0-r1: Java Native Access
 dev-lang/chapel 2.10.0: Chapel programming language compiler
 dev-lang/nim 1.0.10-r101 1.2.18-r101 1.4.8-r101 1.6.20-r100 2.0.16-r100 2.2.12-r100 9999-r16: compiled, garbage-collected systems programming language
 dev-lang/php 5.3.29-r11 7.4.33-r11 8.0.30-r6: The PHP language runtime engine
-dev-lang/pony 0.76.0: Compiler for the Pony language
+dev-lang/pony 0.77.0: Compiler for the Pony language
 dev-lang/python 2.7.18_p115: An interpreted, interactive, object-oriented programming language
 dev-lang/python-exec 2.4.10-r101: Python script wrapper
 dev-lang/tauthon 2.8.5-r6 9999-r5: Python 2.7 fork with new syntax, builtins, and libraries backported from Python3
