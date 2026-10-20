@@ -19,7 +19,7 @@ KEYWORDS="~amd64"
 RESTRICT="network-sandbox test"
 
 RDEPEND="sys-libs/glibc"
-BDEPEND="dev-lang/go"
+BDEPEND=">=dev-lang/go-1.26.0"
 
 src_compile() {
 	ego build -o out/exercism exercism/main.go
