@@ -71,8 +71,6 @@ DEPEND="
 
 PATCHES=(
 	"${FILESDIR}"/opensubdiv-3.6.0-use-gnuinstalldirs.patch
-	"${FILESDIR}"/opensubdiv-3.6.0-cudaflags.patch
-	"${FILESDIR}"/opensubdiv-3.6.1-CUDA-13.patch
 )
 
 pkg_pretend() {
@@ -169,7 +167,7 @@ src_configure() {
 		# The old cmake CUDA module doesn't use environment variable to initialize flags
 		mycmakeargs+=(
 			-DCUDA_PROPAGATE_HOST_FLAGS="no"
-			-DCUDA_NVCC_FLAGS="-forward-unknown-opts -fno-lto ${NVCCFLAGS}"
+			-DOSD_CUDA_NVCC_FLAGS="-forward-unknown-opts -fno-lto ${NVCCFLAGS}"
 		)
 	fi
 
