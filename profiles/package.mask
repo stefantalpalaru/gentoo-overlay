@@ -11,3 +11,5 @@
 
 #-<dev-libs/openssl-3 # we need to match the exact "/usr/portage/profiles/package.mask" entry here
 -net-misc/megasync # masked in the "guru" overlay
+-dev-python/entrypoints
+-dev-python/pythondialog
