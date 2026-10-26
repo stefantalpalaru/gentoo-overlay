@@ -11,11 +11,11 @@ HOMEPAGE="
 	https://github.com/meganz/MEGAsync
 "
 
-MEGA_SDK_REV="e11a1a4648bdee70dac67ecb2200c1507e4de53c" # commit of src/MEGASync/mega submodule
+MEGA_SDK_REV="d1c0cb76cb98598d93b9fb0bb89612daeb0fb39c" # commit of src/MEGASync/mega submodule
 MEGA_TAG_SUFFIX="Linux"
 SRC_URI="
 	https://github.com/meganz/MEGAsync/archive/v${PV}_${MEGA_TAG_SUFFIX}.tar.gz -> ${P}.tar.gz
-	https://github.com/meganz/sdk/archive/${MEGA_SDK_REV}.tar.gz -> ${PN}-sdk-${PV}.tar.gz
+	https://github.com/meganz/sdk/archive/${MEGA_SDK_REV}.tar.gz -> ${PN}-sdk-${MEGA_SDK_REV}.tar.gz
 "
 S="${WORKDIR}"/MEGAsync-${PV}_${MEGA_TAG_SUFFIX}
 
