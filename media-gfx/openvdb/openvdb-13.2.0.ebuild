@@ -77,7 +77,6 @@ RDEPEND="
 		dev-libs/log4cplus:=
 	)
 	>=dev-cpp/tbb-2020.3:=
-	dev-libs/boost:=
 	dev-libs/jemalloc:=
 	blosc? (
 		dev-libs/c-blosc:=
@@ -96,7 +95,6 @@ RDEPEND="
 	python? (
 		${PYTHON_DEPS}
 		$(python_gen_cond_dep '
-			dev-libs/boost:=[numpy?,${PYTHON_USEDEP}]
 			dev-python/nanobind[${PYTHON_USEDEP}]
 			numpy? ( dev-python/numpy[${PYTHON_USEDEP}] )
 		')
@@ -258,13 +256,6 @@ src_prepare() {
 	# sed \
 	# 	-e "/find_package(OpenGL/s#OpenGL#OpenGL COMPONENTS OpenGL GLX#g" \
 	# 	-i openvdb_cmd/vdb_view/CMakeLists.txt || die
-
-	sed \
-		-e '/find_package(Boost/s/)/ CONFIG)/g' \
-		-i \
-			openvdb/openvdb/CMakeLists.txt \
-			cmake/FindOpenVDB.cmake \
-		|| die
 
 	if use python; then
 		python_fix_shebang openvdb/openvdb/python/test/TestOpenVDB.py
@@ -430,7 +421,6 @@ src_configure() {
 	if use python; then
 		mycmakeargs+=(
 			-DOPENVDB_BUILD_PYTHON_MODULE="yes"
-			-DUSE_NUMPY="$(usex numpy)"
 			-DVDB_PYTHON_INSTALL_DIRECTORY="$(python_get_sitedir)"
 			-DPython_INCLUDE_DIR="$(python_get_includedir)"
 			-Dnanobind_DIR="$(python_get_sitedir)/nanobind/cmake"
