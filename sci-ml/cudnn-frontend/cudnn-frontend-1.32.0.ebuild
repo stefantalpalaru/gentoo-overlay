@@ -1,4 +1,4 @@
-# Copyright 1999-2025 Gentoo Authors
+# Copyright 1999-2026 Gentoo Authors
 # Distributed under the terms of the GNU General Public License v2
 
 EAPI=8
@@ -24,11 +24,11 @@ RESTRICT="!test? ( test )"
 RDEPEND="
 	dev-cpp/nlohmann_json
 	>=dev-libs/cudnn-9:0=
-	>=dev-libs/cutlass-4.6.2:=
+	>=dev-libs/cutlass-4.8.0:=
 	python? (
 		$(python_gen_cond_dep '
 			>=dev-python/apache-tvm-ffi-0.1.10:=[${PYTHON_USEDEP}]
-			dev-python/pybind11[${PYTHON_USEDEP}]
+			dev-python/nanobind[${PYTHON_USEDEP}]
 		')
 		sci-libs/dlpack
 		test? (
@@ -50,6 +50,10 @@ PATCHES=(
 distutils_enable_tests pytest
 
 src_prepare() {
+	sed -i \
+		-e 's/-Werror//g' \
+		CMakeLists.txt || die
+
 	cmake_src_prepare
 	cuda_src_prepare_extra
 
@@ -60,6 +64,7 @@ src_prepare() {
 src_configure() {
 	local mycmakeargs=(
 		-DCUDA_TOOLKIT_ROOT_DIR="${EPREFIX}/opt/cuda"
+		-Dnanobind_DIR="$(python_get_sitedir)/nanobind/cmake"
 		-DCMAKE_CUDA_COMPILER="nvcc"
 		-DCMAKE_CUDA_HOST_COMPILER="$(cuda_gcc)"
 		-DCMAKE_CUDA_FLAGS="-forward-unknown-opts -fno-lto ${NVCCFLAGS//\"/\'}"
