@@ -1,0 +1,16 @@
+BDEPEND=test? ( net-libs/nodejs )
+DEFINED_PHASES=compile install test
+DEPEND=readline? ( sys-libs/readline:= ) sys-libs/zlib
+DESCRIPTION=compiled, garbage-collected systems programming language
+EAPI=8
+HOMEPAGE=https://nim-lang.org/
+INHERIT=bash-completion-r1 multiprocessing
+IUSE=bash-completion boehm-gc +readline test
+KEYWORDS=~amd64 ~arm ~x86
+LICENSE=MIT
+RDEPEND=readline? ( sys-libs/readline:= ) sys-libs/zlib boehm-gc? ( dev-libs/boehm-gc )
+RESTRICT=!test? ( test )
+SLOT=0
+SRC_URI=https://nim-lang.org/download/nim-2.4.0.tar.xz
+_eclasses_=toolchain-funcs	58a918e3a42d0156f010dcfd43725be5	shell-completion	42587a281b8b546975e45fad82edcb50	bash-completion-r1	4386cfb12ede6cd8f0c1987d2e88da5f	multiprocessing	45d0620f25c2f063ad6276ecd9ed9399
+_md5_=392e1b867433068f644558b9a2911833
