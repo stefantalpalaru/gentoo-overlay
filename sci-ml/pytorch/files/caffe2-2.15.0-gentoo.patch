@@ -1,7 +1,7 @@
-diff '--color=auto' -ur pytorch-v2.13.0.orig/aten/src/ATen/CMakeLists.txt pytorch-v2.13.0/aten/src/ATen/CMakeLists.txt
---- pytorch-v2.13.0.orig/aten/src/ATen/CMakeLists.txt	2026-07-09 14:33:47.519895647 +0200
-+++ pytorch-v2.13.0/aten/src/ATen/CMakeLists.txt	2026-07-09 14:27:05.874836696 +0200
-@@ -585,9 +585,6 @@
+diff '--color=auto' -ur pytorch-v2.15.0.orig/aten/src/ATen/CMakeLists.txt pytorch-v2.15.0/aten/src/ATen/CMakeLists.txt
+--- pytorch-v2.15.0.orig/aten/src/ATen/CMakeLists.txt	2026-10-28 19:40:55.841275404 +0100
++++ pytorch-v2.15.0/aten/src/ATen/CMakeLists.txt	2026-10-28 19:42:51.668718664 +0100
+@@ -591,9 +591,6 @@
  
  if(USE_CUDA)
    list(APPEND ATen_CUDA_INCLUDE ${CMAKE_CURRENT_SOURCE_DIR}/cuda)
@@ -11,7 +11,7 @@ diff '--color=auto' -ur pytorch-v2.13.0.orig/aten/src/ATen/CMakeLists.txt pytorc
    list(APPEND ATen_CUDA_CU_SRCS
      ${cuda_cu}
      ${native_cuda_cu}
-@@ -646,9 +643,6 @@
+@@ -652,9 +649,6 @@
      )
    endif()
  
@@ -21,10 +21,10 @@ diff '--color=auto' -ur pytorch-v2.13.0.orig/aten/src/ATen/CMakeLists.txt pytorc
    if(USE_FLASH_ATTENTION AND USE_ROCM_CK_SDPA)
      list(APPEND ATen_HIP_INCLUDE ${CMAKE_CURRENT_SOURCE_DIR}/native/transformers/hip/flash_attn/ck)
    endif()
-diff '--color=auto' -ur pytorch-v2.13.0.orig/c10/CMakeLists.txt pytorch-v2.13.0/c10/CMakeLists.txt
---- pytorch-v2.13.0.orig/c10/CMakeLists.txt	2026-07-09 14:33:47.519975217 +0200
-+++ pytorch-v2.13.0/c10/CMakeLists.txt	2026-07-09 14:27:06.145788247 +0200
-@@ -92,7 +92,7 @@
+diff '--color=auto' -ur pytorch-v2.15.0.orig/c10/CMakeLists.txt pytorch-v2.15.0/c10/CMakeLists.txt
+--- pytorch-v2.15.0.orig/c10/CMakeLists.txt	2026-10-28 19:40:55.770431387 +0100
++++ pytorch-v2.15.0/c10/CMakeLists.txt	2026-10-28 19:43:31.789525818 +0100
+@@ -93,7 +93,7 @@
    endif()
  
    target_link_libraries(c10 PUBLIC headeronly)
@@ -33,10 +33,10 @@ diff '--color=auto' -ur pytorch-v2.13.0.orig/c10/CMakeLists.txt pytorch-v2.13.0/
    target_link_libraries(c10 PRIVATE nlohmann)
    target_link_libraries(c10 PRIVATE moodycamel)
  
-diff '--color=auto' -ur pytorch-v2.13.0.orig/caffe2/CMakeLists.txt pytorch-v2.13.0/caffe2/CMakeLists.txt
---- pytorch-v2.13.0.orig/caffe2/CMakeLists.txt	2026-07-09 14:33:47.520070036 +0200
-+++ pytorch-v2.13.0/caffe2/CMakeLists.txt	2026-07-09 14:27:06.119960965 +0200
-@@ -90,7 +90,7 @@
+diff '--color=auto' -ur pytorch-v2.15.0.orig/caffe2/CMakeLists.txt pytorch-v2.15.0/caffe2/CMakeLists.txt
+--- pytorch-v2.15.0.orig/caffe2/CMakeLists.txt	2026-10-28 19:40:55.725339701 +0100
++++ pytorch-v2.15.0/caffe2/CMakeLists.txt	2026-10-28 19:44:44.784174959 +0100
+@@ -95,7 +95,7 @@
  # Note: the folders that are being commented out have not been properly
  # addressed yet.
  
@@ -45,7 +45,7 @@ diff '--color=auto' -ur pytorch-v2.13.0.orig/caffe2/CMakeLists.txt pytorch-v2.13
    if(NOT TARGET fxdiv)
      set(FXDIV_BUILD_TESTS OFF CACHE BOOL "")
      set(FXDIV_BUILD_BENCHMARKS OFF CACHE BOOL "")
-@@ -1224,7 +1224,6 @@
+@@ -1314,7 +1314,6 @@
  endif()
  
  if(NOT MSVC AND USE_XNNPACK)
@@ -53,9 +53,9 @@ diff '--color=auto' -ur pytorch-v2.13.0.orig/caffe2/CMakeLists.txt pytorch-v2.13
  endif()
  
  # ==========================================================
-diff '--color=auto' -ur pytorch-v2.13.0.orig/cmake/Codegen.cmake pytorch-v2.13.0/cmake/Codegen.cmake
---- pytorch-v2.13.0.orig/cmake/Codegen.cmake	2026-07-09 14:33:47.520165166 +0200
-+++ pytorch-v2.13.0/cmake/Codegen.cmake	2026-07-09 14:27:05.681406012 +0200
+diff '--color=auto' -ur pytorch-v2.15.0.orig/cmake/Codegen.cmake pytorch-v2.15.0/cmake/Codegen.cmake
+--- pytorch-v2.15.0.orig/cmake/Codegen.cmake	2026-10-28 19:13:13.000000000 +0100
++++ pytorch-v2.15.0/cmake/Codegen.cmake	2026-10-28 19:45:14.621031545 +0100
 @@ -64,7 +64,7 @@
    if(MSVC)
      set(OPT_FLAG "/fp:strict ")
@@ -65,10 +65,10 @@ diff '--color=auto' -ur pytorch-v2.13.0.orig/cmake/Codegen.cmake pytorch-v2.13.0
      if("${CMAKE_BUILD_TYPE}" MATCHES "Debug")
        set(OPT_FLAG " ")
      endif()
-diff '--color=auto' -ur pytorch-v2.13.0.orig/cmake/Dependencies.cmake pytorch-v2.13.0/cmake/Dependencies.cmake
---- pytorch-v2.13.0.orig/cmake/Dependencies.cmake	2026-07-09 14:33:47.520237856 +0200
-+++ pytorch-v2.13.0/cmake/Dependencies.cmake	2026-07-09 14:27:05.723643786 +0200
-@@ -1636,7 +1636,6 @@
+diff '--color=auto' -ur pytorch-v2.15.0.orig/cmake/Dependencies.cmake pytorch-v2.15.0/cmake/Dependencies.cmake
+--- pytorch-v2.15.0.orig/cmake/Dependencies.cmake	2026-10-28 19:40:37.747462384 +0100
++++ pytorch-v2.15.0/cmake/Dependencies.cmake	2026-10-28 19:47:11.836468133 +0100
+@@ -1677,7 +1677,6 @@
  set(FMT_INSTALL ON)
  set(TEMP_BUILD_SHARED_LIBS ${BUILD_SHARED_LIBS})
  set(BUILD_SHARED_LIBS OFF CACHE BOOL "Build shared libs" FORCE)
@@ -76,7 +76,7 @@ diff '--color=auto' -ur pytorch-v2.13.0.orig/cmake/Dependencies.cmake pytorch-v2
  
  # Disable compiler feature checks for `fmt`.
  #
-@@ -1645,7 +1644,6 @@
+@@ -1686,7 +1685,6 @@
  # CMAKE_CXX_FLAGS in ways that break feature checks. Since we already know
  # `fmt` is compatible with a superset of the compilers that PyTorch is, it
  # shouldn't be too bad to just disable the checks.
@@ -84,7 +84,7 @@ diff '--color=auto' -ur pytorch-v2.13.0.orig/cmake/Dependencies.cmake pytorch-v2
  
  # Keep fmt's header-only type layout stable across mixed C++ modes by forcing
  # one no_unique_address spelling for all translation units.
-@@ -1654,11 +1652,8 @@
+@@ -1695,11 +1693,8 @@
  else()
    set(_fmt_no_unique_address "[[no_unique_address]]")
  endif()
@@ -96,9 +96,9 @@ diff '--color=auto' -ur pytorch-v2.13.0.orig/cmake/Dependencies.cmake pytorch-v2
  set(BUILD_SHARED_LIBS ${TEMP_BUILD_SHARED_LIBS} CACHE BOOL "Build shared libs" FORCE)
  
  # ---[ Kineto
-diff '--color=auto' -ur pytorch-v2.13.0.orig/cmake/External/nnpack.cmake pytorch-v2.13.0/cmake/External/nnpack.cmake
---- pytorch-v2.13.0.orig/cmake/External/nnpack.cmake	2026-07-09 14:33:47.520309166 +0200
-+++ pytorch-v2.13.0/cmake/External/nnpack.cmake	2026-07-09 14:27:05.681647961 +0200
+diff '--color=auto' -ur pytorch-v2.15.0.orig/cmake/External/nnpack.cmake pytorch-v2.15.0/cmake/External/nnpack.cmake
+--- pytorch-v2.15.0.orig/cmake/External/nnpack.cmake	2026-10-28 19:13:13.000000000 +0100
++++ pytorch-v2.15.0/cmake/External/nnpack.cmake	2026-10-28 19:47:45.065308414 +0100
 @@ -56,7 +56,7 @@
    set(PTHREADPOOL_SOURCE_DIR "${CAFFE2_THIRD_PARTY_ROOT}/pthreadpool" CACHE STRING "pthreadpool source directory")
    set(GOOGLETEST_SOURCE_DIR "${CAFFE2_THIRD_PARTY_ROOT}/googletest" CACHE STRING "Google Test source directory")
@@ -108,9 +108,9 @@ diff '--color=auto' -ur pytorch-v2.13.0.orig/cmake/External/nnpack.cmake pytorch
      set(NNPACK_BUILD_TESTS OFF CACHE BOOL "")
      set(NNPACK_BUILD_BENCHMARKS OFF CACHE BOOL "")
      set(NNPACK_LIBRARY_TYPE "static" CACHE STRING "")
-diff '--color=auto' -ur pytorch-v2.13.0.orig/cmake/PostBuildSteps.cmake pytorch-v2.13.0/cmake/PostBuildSteps.cmake
---- pytorch-v2.13.0.orig/cmake/PostBuildSteps.cmake	2026-07-09 14:33:47.520340765 +0200
-+++ pytorch-v2.13.0/cmake/PostBuildSteps.cmake	2026-07-09 14:33:24.109698479 +0200
+diff '--color=auto' -ur pytorch-v2.15.0.orig/cmake/PostBuildSteps.cmake pytorch-v2.15.0/cmake/PostBuildSteps.cmake
+--- pytorch-v2.15.0.orig/cmake/PostBuildSteps.cmake	2026-10-28 19:13:13.000000000 +0100
++++ pytorch-v2.15.0/cmake/PostBuildSteps.cmake	2026-10-28 20:07:52.893645691 +0100
 @@ -21,7 +21,7 @@
    execute_process(
      COMMAND \"${_python_exe}\"
@@ -144,7 +144,7 @@ diff '--color=auto' -ur pytorch-v2.13.0.orig/cmake/PostBuildSteps.cmake pytorch-
      endif()
    endif()
  
-@@ -72,11 +72,11 @@
+@@ -72,7 +72,7 @@
    # fall back to libuv_ROOT/bin/uv.dll which Windows CI sets.
    if(USE_DISTRIBUTED)
      if(libuv_DLL_PATH AND EXISTS "${libuv_DLL_PATH}")
@@ -153,12 +153,7 @@ diff '--color=auto' -ur pytorch-v2.13.0.orig/cmake/PostBuildSteps.cmake pytorch-
      elseif(DEFINED ENV{libuv_ROOT})
        file(GLOB _uv_dll "$ENV{libuv_ROOT}/bin/uv.dll")
        if(_uv_dll)
--        install(FILES ${_uv_dll} DESTINATION "${TORCH_INSTALL_LIB_DIR}")
-+        install(FILES ${_uv_dll} DESTINATION "${CMAKE_INSTALL_LIBDIR}")
-       endif()
-     endif()
-   endif()
-@@ -105,20 +105,20 @@
+@@ -107,14 +107,14 @@
      foreach(_pattern ${_cuda_dll_patterns})
        file(GLOB _dlls "${_pattern}")
        if(_dlls)
@@ -173,16 +168,9 @@ diff '--color=auto' -ur pytorch-v2.13.0.orig/cmake/PostBuildSteps.cmake pytorch-
 -      install(FILES "${_nvtoolsext}" DESTINATION "${TORCH_INSTALL_LIB_DIR}")
 +      install(FILES "${_nvtoolsext}" DESTINATION "${CMAKE_INSTALL_LIBDIR}")
      endif()
- 
-     # zlibwapi (needed by some CUDA libraries).
-     if(EXISTS "C:/Windows/System32/zlibwapi.dll")
-       install(FILES "C:/Windows/System32/zlibwapi.dll"
--              DESTINATION "${TORCH_INSTALL_LIB_DIR}")
-+              DESTINATION "${CMAKE_INSTALL_LIBDIR}")
-     endif()
    endif()
  endif()
-@@ -133,7 +133,7 @@
+@@ -129,7 +129,7 @@
    # of the OpenMP shared library (e.g. /path/to/libomp.dylib).
    if(OpenMP_libomp_LIBRARY AND EXISTS "${OpenMP_libomp_LIBRARY}")
      install(FILES "${OpenMP_libomp_LIBRARY}"
@@ -191,7 +179,7 @@ diff '--color=auto' -ur pytorch-v2.13.0.orig/cmake/PostBuildSteps.cmake pytorch-
      # Install omp.h so Inductor's C++ backend can find it at runtime.
      # FindOpenMP doesn't export an include-dir variable; OpenMP_C_FLAGS
      # carries -I<path> on macOS, so parse it for the header location.
-@@ -158,7 +158,7 @@
+@@ -154,7 +154,7 @@
          COMMAND \"${_python_exe}\"
            \"${_project_src}/tools/embed_libomp_macos.py\"
            --libomp-path \"${OpenMP_libomp_LIBRARY}\"
@@ -200,10 +188,10 @@ diff '--color=auto' -ur pytorch-v2.13.0.orig/cmake/PostBuildSteps.cmake pytorch-
          COMMAND_ERROR_IS_FATAL ANY
        )
      ")
-diff '--color=auto' -ur pytorch-v2.13.0.orig/CMakeLists.txt pytorch-v2.13.0/CMakeLists.txt
---- pytorch-v2.13.0.orig/CMakeLists.txt	2026-07-09 14:33:47.520399975 +0200
-+++ pytorch-v2.13.0/CMakeLists.txt	2026-07-09 14:27:23.248599847 +0200
-@@ -1092,7 +1092,6 @@
+diff '--color=auto' -ur pytorch-v2.15.0.orig/CMakeLists.txt pytorch-v2.15.0/CMakeLists.txt
+--- pytorch-v2.15.0.orig/CMakeLists.txt	2026-10-28 19:40:55.892275159 +0100
++++ pytorch-v2.15.0/CMakeLists.txt	2026-10-28 20:09:33.301189014 +0100
+@@ -1285,7 +1285,6 @@
    set(CMAKE_COLOR_DIAGNOSTICS ON)
  endif()
  if(NOT MSVC)
@@ -211,7 +199,7 @@ diff '--color=auto' -ur pytorch-v2.13.0.orig/CMakeLists.txt pytorch-v2.13.0/CMak
  
    # This prevents use of `c10::optional`, `c10::nullopt` etc within the codebase
    string(APPEND CMAKE_CXX_FLAGS " -DC10_NODEPRECATED")
-@@ -1103,7 +1102,6 @@
+@@ -1296,7 +1295,6 @@
    # Details at http://eigen.tuxfamily.org/bz/show_bug.cgi?id=1459
    string(APPEND CMAKE_CXX_FLAGS " -Wall")
    string(APPEND CMAKE_CXX_FLAGS " -Wextra")
@@ -219,7 +207,7 @@ diff '--color=auto' -ur pytorch-v2.13.0.orig/CMakeLists.txt pytorch-v2.13.0/CMak
    append_cxx_flag_if_supported("-Werror=non-virtual-dtor" CMAKE_CXX_FLAGS)
    append_cxx_flag_if_supported("-Werror=braced-scalar-init" CMAKE_CXX_FLAGS)
    append_cxx_flag_if_supported("-Werror=range-loop-construct" CMAKE_CXX_FLAGS)
-@@ -1194,7 +1192,6 @@
+@@ -1385,7 +1383,6 @@
    endif()
    append_cxx_flag_if_supported("-fno-math-errno" CMAKE_CXX_FLAGS)
    append_cxx_flag_if_supported("-fno-trapping-math" CMAKE_CXX_FLAGS)
@@ -227,9 +215,9 @@ diff '--color=auto' -ur pytorch-v2.13.0.orig/CMakeLists.txt pytorch-v2.13.0/CMak
    if(CMAKE_COMPILER_IS_GNUCXX AND CMAKE_CXX_COMPILER_VERSION VERSION_GREATER_EQUAL 13)
      append_cxx_flag_if_supported("-Wno-dangling-reference" CMAKE_CXX_FLAGS)
      append_cxx_flag_if_supported("-Wno-error=dangling-reference" CMAKE_CXX_FLAGS)
-diff '--color=auto' -ur pytorch-v2.13.0.orig/test/cpp/c10d/CMakeLists.txt pytorch-v2.13.0/test/cpp/c10d/CMakeLists.txt
---- pytorch-v2.13.0.orig/test/cpp/c10d/CMakeLists.txt	2026-07-09 14:33:47.520468795 +0200
-+++ pytorch-v2.13.0/test/cpp/c10d/CMakeLists.txt	2026-07-09 14:27:06.015647329 +0200
+diff '--color=auto' -ur pytorch-v2.15.0.orig/test/cpp/c10d/CMakeLists.txt pytorch-v2.15.0/test/cpp/c10d/CMakeLists.txt
+--- pytorch-v2.15.0.orig/test/cpp/c10d/CMakeLists.txt	2026-10-28 19:40:55.676594678 +0100
++++ pytorch-v2.15.0/test/cpp/c10d/CMakeLists.txt	2026-10-28 20:10:00.839063765 +0100
 @@ -26,10 +26,9 @@
    target_include_directories(${test_name} PRIVATE
        $<BUILD_INTERFACE:${TORCH_SRC_DIR}/test/cpp/c10d/hip>
@@ -242,9 +230,9 @@ diff '--color=auto' -ur pytorch-v2.13.0.orig/test/cpp/c10d/CMakeLists.txt pytorc
      ${ARG_LINK_LIBRARIES}
    )
    add_test(NAME ${test_name} COMMAND $<TARGET_FILE:${test_name}>)
-diff '--color=auto' -ur pytorch-v2.13.0.orig/torch/CMakeLists.txt pytorch-v2.13.0/torch/CMakeLists.txt
---- pytorch-v2.13.0.orig/torch/CMakeLists.txt	2026-07-09 14:33:47.520518485 +0200
-+++ pytorch-v2.13.0/torch/CMakeLists.txt	2026-07-09 14:27:05.925424534 +0200
+diff '--color=auto' -ur pytorch-v2.15.0.orig/torch/CMakeLists.txt pytorch-v2.15.0/torch/CMakeLists.txt
+--- pytorch-v2.15.0.orig/torch/CMakeLists.txt	2026-10-28 19:40:37.817818508 +0100
++++ pytorch-v2.15.0/torch/CMakeLists.txt	2026-10-28 20:11:44.567591985 +0100
 @@ -56,14 +56,6 @@
      ${CMAKE_BINARY_DIR}
      ${CMAKE_BINARY_DIR}/aten/src
@@ -268,12 +256,12 @@ diff '--color=auto' -ur pytorch-v2.13.0.orig/torch/CMakeLists.txt pytorch-v2.13.
      ATEN_CPU_FILES_GEN_LIB)
  
  if(USE_ASAN AND TARGET Sanitizer::address)
-@@ -513,7 +504,7 @@
+@@ -582,7 +573,7 @@
    else()
      target_link_libraries(nnapi_backend PRIVATE torch)
    endif()
 -  target_link_libraries(nnapi_backend PRIVATE torch_python pybind::pybind11 fmt::fmt-header-only)
 +  target_link_libraries(nnapi_backend PRIVATE torch_python pybind::pybind11 fmt)
-   if(MSVC AND TORCH_PYTHON_LINK_FLAGS)
-     set_target_properties(nnapi_backend PROPERTIES LINK_FLAGS "${TORCH_PYTHON_LINK_FLAGS}")
+   if(MSVC AND TORCH_PYTHON_LINK_OPTIONS)
+     target_link_options(nnapi_backend PRIVATE ${TORCH_PYTHON_LINK_OPTIONS})
    endif()

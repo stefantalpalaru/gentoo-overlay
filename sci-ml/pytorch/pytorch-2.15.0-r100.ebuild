@@ -12,7 +12,8 @@ MYPN=pytorch
 MYP=${MYPN}-${PV}
 # pytorch-2.13.0 depends on specific commit of composable kernel
 # TODO: replace it with DEPEND in the future
-CK_COMMIT=f1746955fdaf80a3414de814bf32437686dac347
+# https://github.com/pytorch/pytorch/tree/main/third_party
+CK_COMMIT="5a74dec07a894484b9489d0c0e00cd3b52652d18"
 CK_P=composable_kernel-${CK_COMMIT:0:8}
 
 inherit distutils-r1 cmake cuda cuda-extra flag-o-matic prefix rocm toolchain-funcs
@@ -127,6 +128,7 @@ RDEPEND="
 	vulkan? ( media-libs/vulkan-loader )
 "
 
+# "dev-python/clang" is needed to let Kineto use CUPTI
 DEPEND="
 	${RDEPEND}
 	dev-cpp/nlohmann_json
@@ -136,6 +138,7 @@ DEPEND="
 	dev-libs/psimd
 	sci-ml/FP16
 	$(python_gen_cond_dep '
+		cuda? ( dev-python/clang[${PYTHON_USEDEP}] )
 		dev-python/pybind11[${PYTHON_USEDEP}]
 		dev-python/pyyaml[${PYTHON_USEDEP}]
 		dev-python/typing-extensions[${PYTHON_USEDEP}]
@@ -153,7 +156,7 @@ DEPEND="
 BDEPEND="dev-build/cmake"
 
 PATCHES=(
-	"${FILESDIR}"/caffe2-2.13.0-gentoo.patch
+	"${FILESDIR}"/caffe2-2.15.0-gentoo.patch
 	"${FILESDIR}"/caffe2-2.6.0-install-dirs.patch
 	"${FILESDIR}"/caffe2-2.13.0-glog-0.6.0.patch
 	"${FILESDIR}"/caffe2-2.9.0-tensorpipe.patch
@@ -168,17 +171,18 @@ PATCHES=(
 	"${FILESDIR}"/caffe2-2.8.0-rocm-minus-flash.patch
 	"${FILESDIR}"/caffe2-2.9.0-CUDA-13.patch
 	"${FILESDIR}"/caffe2-2.10.0-nvrtc.patch
-	"${FILESDIR}"/caffe2-2.11.0-mimalloc.patch
+	"${FILESDIR}"/caffe2-2.15.0-mimalloc.patch
 	"${FILESDIR}"/caffe2-2.12.0-cudss.patch
 	"${FILESDIR}"/caffe2-2.12.0-rocm-distributed-link.patch
 	"${FILESDIR}"/caffe2-2.12.0-rocm-assert-fix.patch
-	"${FILESDIR}"/caffe2-2.13.0-cmake-install-fix.patch
 
 	"${FILESDIR}"/pytorch-2.10.0-global-dlopen.patch
 	"${FILESDIR}"/pytorch-2.5.0-torch_shm_manager.patch
 	"${FILESDIR}"/pytorch-2.10.0-cpp-extension-multilib.patch
 	"${FILESDIR}"/pytorch-2.14.0-cuda.patch
 	"${FILESDIR}"/pytorch-2.13.0-nvcc.patch
+	"${FILESDIR}"/caffe2-2.15.0-cudss-include.patch
+	"${FILESDIR}"/caffe2-2.15.0-skbuild.patch
 )
 
 src_prepare() {
@@ -258,6 +262,7 @@ src_prepare() {
 	# Drop legacy from pyproject.toml
 	sed -i \
 		-e "/build-backend/s|:__legacy__||" \
+		-e '/flatbuffers\/LICENSE/d' \
 		pyproject.toml \
 		|| die
 }
@@ -282,6 +287,9 @@ src_configure() {
 		-DLIBSHM_INSTALL_LIB_SUBDIR="${EPREFIX}"/usr/$(get_libdir)
 		-DPython_EXECUTABLE="${PYTHON}"
 		-DTORCH_INSTALL_LIB_DIR="${EPREFIX}"/usr/$(get_libdir)
+		-DSKBUILD=ON
+		-DSKBUILD_PLATLIB_DIR="${EPREFIX}"/usr
+		-DSKBUILD_METADATA_DIR="${EPREFIX}"/usr
 		-DATEN_NO_TEST=ON
 		-DBUILD_TEST=OFF
 		-DUSE_CCACHE=OFF
@@ -439,8 +447,8 @@ src_install() {
 		"${ED}"/usr/$(get_libdir)/cmake/asmjit \
 		"${ED}"/usr/$(get_libdir)/pkgconfig/mimalloc.pc
 
-	cp -a "${ED}"/usr/torch "${ED}"$(python_get_sitedir)/ || die
-	rm -rf "${ED}"/usr/torch
+	cp -a "${ED}"/usr/{torch,torchgen,profiler} "${ED}"$(python_get_sitedir)/ || die
+	rm -rf "${ED}"/usr/{torch,torchgen,profiler,top_level.txt}
 
 	python_optimize
 }

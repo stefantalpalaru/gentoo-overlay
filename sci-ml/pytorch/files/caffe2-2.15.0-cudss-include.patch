@@ -1,0 +1,15 @@
+diff '--color=auto' -ur pytorch-v2.15.0.orig/aten/src/ATen/native/cuda/linalg/CudssHandlePool.cpp pytorch-v2.15.0/aten/src/ATen/native/cuda/linalg/CudssHandlePool.cpp
+--- pytorch-v2.15.0.orig/aten/src/ATen/native/cuda/linalg/CudssHandlePool.cpp	2026-10-28 19:13:08.000000000 +0100
++++ pytorch-v2.15.0/aten/src/ATen/native/cuda/linalg/CudssHandlePool.cpp	2026-10-28 23:13:41.735894217 +0100
+@@ -2,6 +2,11 @@
+ 
+ #if defined(USE_CUDSS)
+ 
++#include <cudss.h>
++#include <ATen/cuda/Exceptions.h>
++#include <c10/cuda/CUDAStream.h>
++#include <c10/core/Device.h>
++
+ namespace at::cuda {
+ namespace {
+ 

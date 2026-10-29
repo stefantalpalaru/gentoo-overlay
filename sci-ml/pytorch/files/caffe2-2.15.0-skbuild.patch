@@ -1,0 +1,12 @@
+diff '--color=auto' -ur pytorch-v2.15.0.orig/CMakeLists.txt pytorch-v2.15.0/CMakeLists.txt
+--- pytorch-v2.15.0.orig/CMakeLists.txt	2026-10-29 00:29:58.628757932 +0100
++++ pytorch-v2.15.0/CMakeLists.txt	2026-10-29 00:32:01.679563396 +0100
+@@ -113,7 +113,7 @@
+ # rpath and torch/__init__.py resolves bin/ and lib/ off its own __file__, so
+ # the prefix has to be the torch package directory. Enforce it rather than let
+ # a mismatch produce an install that only fails at import time.
+-if(SKBUILD)
++if(FALSE)
+   get_filename_component(_torch_pkg_dir "${SKBUILD_PLATLIB_DIR}/torch" ABSOLUTE)
+   get_filename_component(_torch_prefix "${CMAKE_INSTALL_PREFIX}" ABSOLUTE)
+   if(NOT _torch_pkg_dir STREQUAL _torch_prefix)
