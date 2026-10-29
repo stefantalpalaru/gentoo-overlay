@@ -1,7 +1,7 @@
-diff '--color=auto' -ur openvdb-13.0.0.orig/cmake/config/OpenVDBCXX.cmake openvdb-13.0.0/cmake/config/OpenVDBCXX.cmake
---- openvdb-13.0.0.orig/cmake/config/OpenVDBCXX.cmake	2025-11-04 00:04:25.000000000 +0100
-+++ openvdb-13.0.0/cmake/config/OpenVDBCXX.cmake	2026-03-17 16:47:32.987431130 +0100
-@@ -255,7 +255,7 @@
+diff '--color=auto' -ur openvdb-13.2.0.orig/cmake/config/OpenVDBCXX.cmake openvdb-13.2.0/cmake/config/OpenVDBCXX.cmake
+--- openvdb-13.2.0.orig/cmake/config/OpenVDBCXX.cmake	2026-10-27 00:19:14.000000000 +0100
++++ openvdb-13.2.0/cmake/config/OpenVDBCXX.cmake	2026-10-29 23:08:31.876441389 +0100
+@@ -274,7 +274,7 @@
  # DebugNoInfo - An internal build type only used by the OpenVDB CI. no optimizations, no symbols, asserts enabled
  set(CMAKE_CXX_FLAGS_DebugNoInfo "" CACHE STRING "Flags used by the C++ compiler during DebugNoInfo builds.")
  
@@ -10,10 +10,11 @@ diff '--color=auto' -ur openvdb-13.0.0.orig/cmake/config/OpenVDBCXX.cmake openvd
    set(CMAKE_CXX_FLAGS_${U_TYPE} "" CACHE STRING "Flags used by the C++ compiler during ${TYPE} builds.")
    set(CMAKE_SHARED_LINKER_FLAGS_${U_TYPE} "" CACHE STRING "Flags used by the linker during ${TYPE} builds.")
    set(CMAKE_EXE_LINKER_FLAGS_${U_TYPE} "" CACHE STRING "Flags used by the linker during ${TYPE} builds.")
-diff '--color=auto' -ur openvdb-13.0.0.orig/CMakeLists.txt openvdb-13.0.0/CMakeLists.txt
---- openvdb-13.0.0.orig/CMakeLists.txt	2026-03-17 16:47:14.185858704 +0100
-+++ openvdb-13.0.0/CMakeLists.txt	2026-03-17 16:47:32.987504780 +0100
-@@ -321,9 +321,7 @@
+Only in openvdb-13.2.0/cmake/config: OpenVDBCXX.cmake.orig
+diff '--color=auto' -ur openvdb-13.2.0.orig/CMakeLists.txt openvdb-13.2.0/CMakeLists.txt
+--- openvdb-13.2.0.orig/CMakeLists.txt	2026-10-29 23:08:03.360572337 +0100
++++ openvdb-13.2.0/CMakeLists.txt	2026-10-29 23:08:31.876806617 +0100
+@@ -332,9 +332,7 @@
      cmake/FindBlosc.cmake
      cmake/FindJemalloc.cmake
      cmake/FindLog4cplus.cmake
@@ -23,19 +24,20 @@ diff '--color=auto' -ur openvdb-13.0.0.orig/CMakeLists.txt openvdb-13.0.0/CMakeL
      cmake/OpenVDBGLFW3Setup.cmake
      cmake/OpenVDBHoudiniSetup.cmake
      cmake/OpenVDBMayaSetup.cmake
-diff '--color=auto' -ur openvdb-13.0.0.orig/nanovdb/nanovdb/unittest/CMakeLists.txt openvdb-13.0.0/nanovdb/nanovdb/unittest/CMakeLists.txt
---- openvdb-13.0.0.orig/nanovdb/nanovdb/unittest/CMakeLists.txt	2026-03-17 16:47:14.148858864 +0100
-+++ openvdb-13.0.0/nanovdb/nanovdb/unittest/CMakeLists.txt	2026-03-17 16:47:32.987558790 +0100
-@@ -20,7 +20,7 @@
+Only in openvdb-13.2.0: CMakeLists.txt.orig
+diff '--color=auto' -ur openvdb-13.2.0.orig/nanovdb/nanovdb/unittest/CMakeLists.txt openvdb-13.2.0/nanovdb/nanovdb/unittest/CMakeLists.txt
+--- openvdb-13.2.0.orig/nanovdb/nanovdb/unittest/CMakeLists.txt	2026-10-29 23:08:03.309385113 +0100
++++ openvdb-13.2.0/nanovdb/nanovdb/unittest/CMakeLists.txt	2026-10-29 23:10:17.960954236 +0100
+@@ -65,7 +65,7 @@
+ endif()
  
- ###############################################################################
  # TODO: Benchmark should probably not require gtest.
 -if(NOT TARGET GTest::GTest)
 +if(NOT TARGET GTest::gtest_main)
    message(WARNING " - GTest required to build unittests. Skipping.")
    return()
  endif()
-@@ -42,19 +42,19 @@
+@@ -73,29 +73,29 @@
  # -----------------------------------------------------------------------------
  
  add_executable(nanovdb_test_nanovdb "TestNanoVDB.cc")
@@ -57,17 +59,43 @@ diff '--color=auto' -ur openvdb-13.0.0.orig/nanovdb/nanovdb/unittest/CMakeLists.
 +  target_link_libraries(nanovdb_test_mgpu PRIVATE nanovdb GTest::gtest GTest::gtest_main)
    set_target_properties(nanovdb_test_mgpu PROPERTIES CUDA_SEPARABLE_COMPILATION ON)
    add_test(nanovdb_mgpu_unit_test nanovdb_test_mgpu)
+ 
+   add_executable(nanovdb_test_cuda_memory_resource "TestMemoryResource.cu")
+-  target_link_libraries(nanovdb_test_cuda_memory_resource PRIVATE nanovdb GTest::GTest GTest::Main)
++  target_link_libraries(nanovdb_test_cuda_memory_resource PRIVATE nanovdb GTest::gtest GTest::gtest_main)
+   set_target_properties(nanovdb_test_cuda_memory_resource PROPERTIES CUDA_SEPARABLE_COMPILATION ON)
+   add_test(nanovdb_cuda_memory_resource_unit_test nanovdb_test_cuda_memory_resource)
+ 
+   add_executable(nanovdb_test_cuda_util "TestUtilCuda.cu")
+-  target_link_libraries(nanovdb_test_cuda_util PRIVATE nanovdb GTest::GTest GTest::Main)
++  target_link_libraries(nanovdb_test_cuda_util PRIVATE nanovdb GTest::gtest GTest::gtest_main)
+   set_target_properties(nanovdb_test_cuda_util PROPERTIES CUDA_SEPARABLE_COMPILATION ON)
+   add_test(nanovdb_cuda_util_unit_test nanovdb_test_cuda_util)
+ 
+@@ -103,11 +103,11 @@
+   # the configuration a pool-less vGPU relies on.
+   add_executable(nanovdb_test_cuda_util_sync "TestUtilCuda.cu")
+   target_compile_definitions(nanovdb_test_cuda_util_sync PRIVATE NANOVDB_USE_SYNC_CUDA_MALLOC)
+-  target_link_libraries(nanovdb_test_cuda_util_sync PRIVATE nanovdb GTest::GTest GTest::Main)
++  target_link_libraries(nanovdb_test_cuda_util_sync PRIVATE nanovdb GTest::gtest GTest::gtest_main)
+   set_target_properties(nanovdb_test_cuda_util_sync PROPERTIES CUDA_SEPARABLE_COMPILATION ON)
+   add_test(nanovdb_cuda_util_sync_unit_test nanovdb_test_cuda_util_sync)
+   add_executable(nanovdb_test_cuda_buffer "TestBuffer.cu")
+-  target_link_libraries(nanovdb_test_cuda_buffer PRIVATE nanovdb GTest::GTest GTest::Main)
++  target_link_libraries(nanovdb_test_cuda_buffer PRIVATE nanovdb GTest::gtest GTest::gtest_main)
+   set_target_properties(nanovdb_test_cuda_buffer PROPERTIES CUDA_SEPARABLE_COMPILATION ON)
+   add_test(nanovdb_cuda_buffer_unit_test nanovdb_test_cuda_buffer)
  endif()
-@@ -67,5 +67,5 @@
+@@ -120,5 +120,5 @@
  endif()
  
  add_executable(nanovdb_test_openvdb "TestOpenVDB.cc")
 -target_link_libraries(nanovdb_test_openvdb PRIVATE nanovdb GTest::GTest GTest::Main)
 +target_link_libraries(nanovdb_test_openvdb PRIVATE nanovdb GTest::gtest GTest::gtest_main)
  add_test(nanovdb_openvdb_unit_test nanovdb_test_openvdb)
-diff '--color=auto' -ur openvdb-13.0.0.orig/openvdb/openvdb/unittest/CMakeLists.txt openvdb-13.0.0/openvdb/openvdb/unittest/CMakeLists.txt
---- openvdb-13.0.0.orig/openvdb/openvdb/unittest/CMakeLists.txt	2026-03-17 16:47:14.132473559 +0100
-+++ openvdb-13.0.0/openvdb/openvdb/unittest/CMakeLists.txt	2026-03-17 16:48:18.982578505 +0100
+diff '--color=auto' -ur openvdb-13.2.0.orig/openvdb/openvdb/unittest/CMakeLists.txt openvdb-13.2.0/openvdb/openvdb/unittest/CMakeLists.txt
+--- openvdb-13.2.0.orig/openvdb/openvdb/unittest/CMakeLists.txt	2026-10-29 23:08:03.291572654 +0100
++++ openvdb-13.2.0/openvdb/openvdb/unittest/CMakeLists.txt	2026-10-29 23:08:31.876965766 +0100
 @@ -47,7 +47,7 @@
    list(APPEND OPENVDB_TEST_DEPENDENT_LIBS GTest::gtest GTest::gtest_main)
  else()
@@ -77,9 +105,9 @@ diff '--color=auto' -ur openvdb-13.0.0.orig/openvdb/openvdb/unittest/CMakeLists.
  endif()
  
  if(CONCURRENT_MALLOC STREQUAL "Jemalloc")
-diff '--color=auto' -ur openvdb-13.0.0.orig/openvdb_ax/openvdb_ax/test/CMakeLists.txt openvdb-13.0.0/openvdb_ax/openvdb_ax/test/CMakeLists.txt
---- openvdb-13.0.0.orig/openvdb_ax/openvdb_ax/test/CMakeLists.txt	2026-03-17 16:47:14.115369388 +0100
-+++ openvdb-13.0.0/openvdb_ax/openvdb_ax/test/CMakeLists.txt	2026-03-17 16:48:10.909613414 +0100
+diff '--color=auto' -ur openvdb-13.2.0.orig/openvdb_ax/openvdb_ax/test/CMakeLists.txt openvdb-13.2.0/openvdb_ax/openvdb_ax/test/CMakeLists.txt
+--- openvdb-13.2.0.orig/openvdb_ax/openvdb_ax/test/CMakeLists.txt	2026-10-29 23:08:03.273503905 +0100
++++ openvdb-13.2.0/openvdb_ax/openvdb_ax/test/CMakeLists.txt	2026-10-29 23:08:31.877012646 +0100
 @@ -63,7 +63,7 @@
    list(APPEND OPENVDB_AX_TEST_DEPENDENT_LIBS GTest::gtest GTest::gtest_main)
  else()

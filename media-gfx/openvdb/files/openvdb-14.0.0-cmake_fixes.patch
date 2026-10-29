@@ -1,0 +1,114 @@
+diff '--color=auto' -ur openvdb-14.0.0.orig/cmake/config/OpenVDBCXX.cmake openvdb-14.0.0/cmake/config/OpenVDBCXX.cmake
+--- openvdb-14.0.0.orig/cmake/config/OpenVDBCXX.cmake	2026-10-29 21:34:43.000000000 +0100
++++ openvdb-14.0.0/cmake/config/OpenVDBCXX.cmake	2026-10-29 23:32:42.883879385 +0100
+@@ -274,7 +274,7 @@
+ # DebugNoInfo - An internal build type only used by the OpenVDB CI. no optimizations, no symbols, asserts enabled
+ set(CMAKE_CXX_FLAGS_DebugNoInfo "" CACHE STRING "Flags used by the C++ compiler during DebugNoInfo builds.")
+ 
+-foreach(TYPE ${EXTRA_BUILD_TYPES})
++foreach(TYPE IN LISTS EXTRA_BUILD_TYPES)
+   set(CMAKE_CXX_FLAGS_${U_TYPE} "" CACHE STRING "Flags used by the C++ compiler during ${TYPE} builds.")
+   set(CMAKE_SHARED_LINKER_FLAGS_${U_TYPE} "" CACHE STRING "Flags used by the linker during ${TYPE} builds.")
+   set(CMAKE_EXE_LINKER_FLAGS_${U_TYPE} "" CACHE STRING "Flags used by the linker during ${TYPE} builds.")
+diff '--color=auto' -ur openvdb-14.0.0.orig/CMakeLists.txt openvdb-14.0.0/CMakeLists.txt
+--- openvdb-14.0.0.orig/CMakeLists.txt	2026-10-29 23:32:26.289854392 +0100
++++ openvdb-14.0.0/CMakeLists.txt	2026-10-29 23:32:42.883948685 +0100
+@@ -337,9 +337,7 @@
+ if(OPENVDB_INSTALL_CMAKE_MODULES)
+   set(OPENVDB_CMAKE_MODULES
+     cmake/FindJemalloc.cmake
+-    cmake/FindOpenEXR.cmake
+     cmake/FindOpenVDB.cmake
+-    cmake/FindTBB.cmake
+     cmake/FindZstd.cmake
+     cmake/OpenVDBGLFW3Setup.cmake
+     cmake/OpenVDBHoudiniSetup.cmake
+diff '--color=auto' -ur openvdb-14.0.0.orig/nanovdb/nanovdb/CMakeLists.txt openvdb-14.0.0/nanovdb/nanovdb/CMakeLists.txt
+--- openvdb-14.0.0.orig/nanovdb/nanovdb/CMakeLists.txt	2026-10-29 23:32:26.234011565 +0100
++++ openvdb-14.0.0/nanovdb/nanovdb/CMakeLists.txt	2026-10-29 23:33:33.673980373 +0100
+@@ -526,7 +526,6 @@
+   list(APPEND NANOVDB_CMAKE_FILES ${CMAKE_CURRENT_LIST_DIR}/../../cmake/FindNCCL.cmake)
+ endif()
+ 
+-install(FILES ${NANOVDB_CMAKE_FILES} DESTINATION ${NANOVDB_CMAKE_INSTALL_DIR})
+ 
+ ###############################################################################
+ # Options
+diff '--color=auto' -ur openvdb-14.0.0.orig/nanovdb/nanovdb/unittest/CMakeLists.txt openvdb-14.0.0/nanovdb/nanovdb/unittest/CMakeLists.txt
+--- openvdb-14.0.0.orig/nanovdb/nanovdb/unittest/CMakeLists.txt	2026-10-29 23:32:26.240049974 +0100
++++ openvdb-14.0.0/nanovdb/nanovdb/unittest/CMakeLists.txt	2026-10-29 23:32:42.884011934 +0100
+@@ -66,7 +66,7 @@
+ endif()
+ 
+ # TODO: Benchmark should probably not require gtest.
+-if(NOT TARGET GTest::GTest)
++if(NOT TARGET GTest::gtest_main)
+   message(WARNING " - GTest required to build unittests. Skipping.")
+   return()
+ endif()
+@@ -74,7 +74,7 @@
+ # -----------------------------------------------------------------------------
+ 
+ add_executable(nanovdb_test_nanovdb "TestNanoVDB.cc")
+-target_link_libraries(nanovdb_test_nanovdb PRIVATE nanovdb GTest::GTest GTest::Main)
++target_link_libraries(nanovdb_test_nanovdb PRIVATE nanovdb GTest::gtest GTest::gtest_main)
+ # Layout tests use offsetof on compressed leaf types that are not standard-layout.
+ target_compile_options(nanovdb_test_nanovdb PRIVATE
+   "$<$<COMPILE_LANG_AND_ID:CXX,Clang,AppleClang>:-Wno-invalid-offsetof>")
+@@ -82,7 +82,7 @@
+ 
+ if(NANOVDB_USE_BLOSC)
+   add_executable(nanovdb_test_blosc "TestBlosc.cc")
+-  target_link_libraries(nanovdb_test_blosc PRIVATE nanovdb GTest::GTest GTest::Main)
++  target_link_libraries(nanovdb_test_blosc PRIVATE nanovdb GTest::gtest GTest::gtest_main)
+   add_test(nanovdb_blosc_unit_test nanovdb_test_blosc)
+ endif()
+ 
+@@ -90,22 +90,22 @@
+ 
+ if(NANOVDB_USE_CUDA)
+   add_executable(nanovdb_test_cuda "TestNanoVDB.cu")
+-  target_link_libraries(nanovdb_test_cuda PRIVATE nanovdb GTest::GTest GTest::Main)
++  target_link_libraries(nanovdb_test_cuda PRIVATE nanovdb GTest::gtest GTest::gtest_main)
+   set_target_properties(nanovdb_test_cuda PROPERTIES CUDA_SEPARABLE_COMPILATION ON)
+   add_test(nanovdb_cuda_unit_test nanovdb_test_cuda)
+ 
+   add_executable(nanovdb_test_mgpu "TestMultiGPU.cu")
+-  target_link_libraries(nanovdb_test_mgpu PRIVATE nanovdb GTest::GTest GTest::Main)
++  target_link_libraries(nanovdb_test_mgpu PRIVATE nanovdb GTest::gtest GTest::gtest_main)
+   set_target_properties(nanovdb_test_mgpu PROPERTIES CUDA_SEPARABLE_COMPILATION ON)
+   add_test(nanovdb_mgpu_unit_test nanovdb_test_mgpu)
+ 
+   add_executable(nanovdb_test_cuda_memory_resource "TestMemoryResource.cu")
+-  target_link_libraries(nanovdb_test_cuda_memory_resource PRIVATE nanovdb GTest::GTest GTest::Main)
++  target_link_libraries(nanovdb_test_cuda_memory_resource PRIVATE nanovdb GTest::gtest GTest::gtest_main)
+   set_target_properties(nanovdb_test_cuda_memory_resource PROPERTIES CUDA_SEPARABLE_COMPILATION ON)
+   add_test(nanovdb_cuda_memory_resource_unit_test nanovdb_test_cuda_memory_resource)
+ 
+   add_executable(nanovdb_test_cuda_util "TestUtilCuda.cu")
+-  target_link_libraries(nanovdb_test_cuda_util PRIVATE nanovdb GTest::GTest GTest::Main)
++  target_link_libraries(nanovdb_test_cuda_util PRIVATE nanovdb GTest::gtest GTest::gtest_main)
+   set_target_properties(nanovdb_test_cuda_util PROPERTIES CUDA_SEPARABLE_COMPILATION ON)
+   add_test(nanovdb_cuda_util_unit_test nanovdb_test_cuda_util)
+ 
+@@ -113,11 +113,11 @@
+   # the configuration a pool-less vGPU relies on.
+   add_executable(nanovdb_test_cuda_util_sync "TestUtilCuda.cu")
+   target_compile_definitions(nanovdb_test_cuda_util_sync PRIVATE NANOVDB_USE_SYNC_CUDA_MALLOC)
+-  target_link_libraries(nanovdb_test_cuda_util_sync PRIVATE nanovdb GTest::GTest GTest::Main)
++  target_link_libraries(nanovdb_test_cuda_util_sync PRIVATE nanovdb GTest::gtest GTest::gtest_main)
+   set_target_properties(nanovdb_test_cuda_util_sync PROPERTIES CUDA_SEPARABLE_COMPILATION ON)
+   add_test(nanovdb_cuda_util_sync_unit_test nanovdb_test_cuda_util_sync)
+   add_executable(nanovdb_test_cuda_buffer "TestBuffer.cu")
+-  target_link_libraries(nanovdb_test_cuda_buffer PRIVATE nanovdb GTest::GTest GTest::Main)
++  target_link_libraries(nanovdb_test_cuda_buffer PRIVATE nanovdb GTest::gtest GTest::gtest_main)
+   set_target_properties(nanovdb_test_cuda_buffer PROPERTIES CUDA_SEPARABLE_COMPILATION ON)
+   add_test(nanovdb_cuda_buffer_unit_test nanovdb_test_cuda_buffer)
+ endif()
+@@ -130,5 +130,5 @@
+ endif()
+ 
+ add_executable(nanovdb_test_openvdb "TestOpenVDB.cc")
+-target_link_libraries(nanovdb_test_openvdb PRIVATE nanovdb GTest::GTest GTest::Main)
++target_link_libraries(nanovdb_test_openvdb PRIVATE nanovdb GTest::gtest GTest::gtest_main)
+ add_test(nanovdb_openvdb_unit_test nanovdb_test_openvdb)

@@ -4,7 +4,7 @@ DEPEND=ax? ( llvm_slot_18? ( llvm-core/llvm:18= ) llvm_slot_19? ( llvm-core/llvm
 DESCRIPTION=Library for the efficient manipulation of volumetric data
 EAPI=8
 HOMEPAGE=https://www.openvdb.org
-INHERIT=cmake cuda flag-o-matic llvm-r2 python-single-r1 toolchain-funcs
+INHERIT=cmake cuda cuda-extra flag-o-matic llvm-r2 python-single-r1 toolchain-funcs
 IUSE=abi14-compat +abi13-compat abi12-compat abi11-compat cpu_flags_x86_avx cpu_flags_x86_sse4_2 cpu_flags_arm_neon alembic ax +blosc cuda doc examples jpeg +nanovdb numpy openexr pdal png python static-libs test utils +zlib +llvm_slot_21 llvm_slot_18 llvm_slot_19 llvm_slot_20 python_single_target_python3_11 python_single_target_python3_12 python_single_target_python3_13 python_single_target_python3_14
 KEYWORDS=amd64 ~arm ~arm64 ~ppc64 ~riscv ~x86
 LICENSE=MPL-2.0
@@ -13,5 +13,5 @@ REQUIRED_USE=?? ( abi14-compat abi13-compat abi12-compat abi11-compat ) cpu_flag
 RESTRICT=!test? ( test ) cuda? ( network-sandbox )
 SLOT=0/13.2
 SRC_URI=https://github.com/AcademySoftwareFoundation/openvdb/archive/v13.2.0.tar.gz -> openvdb-13.2.0.tar.gz
-_eclasses_=toolchain-funcs	58a918e3a42d0156f010dcfd43725be5	flag-o-matic	fd3558f73f6503093adee69adf41020d	multiprocessing	45d0620f25c2f063ad6276ecd9ed9399	ninja-utils	d063ea1900a793f93eb095010d6d9156	xdg-utils	42869b3c8d86a70ef3cf75165a395e09	cmake	3530055400d05e64deaba3042af30af6	cuda	8b660e223a1695e3884ee4c7dc2c5059	llvm-utils	e7edb4086e31c8537574b263d899f826	multilib	fc812e8eb2170022c28272d80a1f9e77	llvm-r2	a14333b7a46739f55f45dd77d478805d	python-utils-r1	66a06bbd35f9beac984b377a81053f37	python-single-r1	fce70c93e3be02f91782d976dfdad92b
-_md5_=b5143ffdeffa4c51028507165cc0e351
+_eclasses_=toolchain-funcs	58a918e3a42d0156f010dcfd43725be5	flag-o-matic	fd3558f73f6503093adee69adf41020d	multiprocessing	45d0620f25c2f063ad6276ecd9ed9399	ninja-utils	d063ea1900a793f93eb095010d6d9156	xdg-utils	42869b3c8d86a70ef3cf75165a395e09	cmake	3530055400d05e64deaba3042af30af6	cuda	8b660e223a1695e3884ee4c7dc2c5059	cuda-extra	a09f3d2818fe844e0a7d6807e0c532af	llvm-utils	e7edb4086e31c8537574b263d899f826	multilib	fc812e8eb2170022c28272d80a1f9e77	llvm-r2	a14333b7a46739f55f45dd77d478805d	python-utils-r1	66a06bbd35f9beac984b377a81053f37	python-single-r1	fce70c93e3be02f91782d976dfdad92b
+_md5_=cfba3f54b2ad41662a186e1361ceaf66

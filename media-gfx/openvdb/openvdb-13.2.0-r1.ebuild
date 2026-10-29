@@ -2,15 +2,10 @@
 # Distributed under the terms of the GNU General Public License v2
 
 EAPI=8
-
-# TODO
-# drop OPENVDB_SIMD
-# split out nanovdb
-
 PYTHON_COMPAT=( python3_{11..14} )
 LLVM_COMPAT=( {16..21} )
 
-inherit cmake cuda flag-o-matic llvm-r2 python-single-r1 toolchain-funcs
+inherit cmake cuda cuda-extra flag-o-matic llvm-r2 python-single-r1 toolchain-funcs
 
 DESCRIPTION="Library for the efficient manipulation of volumetric data"
 HOMEPAGE="https://www.openvdb.org"
@@ -62,10 +57,6 @@ REQUIRED_USE="
 		)
 	)
 "
-
-# OPTDEPEND=(
-# 	dev-util/gcovr
-# )
 
 RDEPEND="
 	ax? (
@@ -141,106 +132,13 @@ PATCHES=(
 	"${FILESDIR}/${PN}-8.1.0-glfw-libdir.patch"
 	"${FILESDIR}/${PN}-9.0.0-fix-atomic.patch"
 	"${FILESDIR}/${PN}-10.0.1-log4cplus-version.patch"
-	"${FILESDIR}/${PN}-13.0.0-cmake_fixes.patch"
+	"${FILESDIR}/${PN}-13.2.0-cmake_fixes.patch"
 	"${FILESDIR}/${PN}-12.0.0-loosen-float-equality-tolerances.patch"
 )
-
-cuda_get_host_compiler() {
-	if [[ -v NVCC_CCBIN ]]; then
-		echo "${NVCC_CCBIN}"
-		return
-	fi
-
-	if [[ -v CUDAHOSTCXX ]]; then
-		echo "${CUDAHOSTCXX}"
-		return
-	fi
-
-	einfo "Trying to find working CUDA host compiler"
-
-	if ! tc-is-gcc && ! tc-is-clang; then
-		die "$(tc-get-compiler-type) compiler is not supported (use gcc or clang)"
-	fi
-
-	local compiler compiler_type compiler_version
-	local package package_version
-	local NVCC_CCBIN_default
-
-	compiler_type="$(tc-get-compiler-type)"
-	compiler_version="$("${compiler_type}-major-version")"
-
-	# try the default compiler first
-	NVCC_CCBIN="$(tc-getCXX)"
-	NVCC_CCBIN_default="${NVCC_CCBIN}-${compiler_version}"
-
-	compiler="${NVCC_CCBIN/%-${compiler_version}}"
-
-	# store the package so we can re-use it later
-	package="sys-devel/${compiler_type}"
-	package_version="${package}"
-
-	ebegin "testing ${NVCC_CCBIN_default} (default)"
-
-	while ! nvcc -v -ccbin "${NVCC_CCBIN}" - -x cu <<<"int main(){}" &>> "${T}/cuda_get_host_compiler.log" ; do
-		eend 1
-
-		while true; do
-			# prepare next version
-			if ! package_version="<$(best_version "${package_version}")"; then
-				die "could not find a supported version of ${compiler}"
-			fi
-
-			NVCC_CCBIN="${compiler}-$(ver_cut 1 "${package_version/#<${package}-/}")"
-
-			[[ "${NVCC_CCBIN}" != "${NVCC_CCBIN_default}" ]] && break
-		done
-		ebegin "testing ${NVCC_CCBIN}"
-	done
-	eend $?
-
-	# clean temp file
-	nonfatal rm -f a.out
-
-	echo "${NVCC_CCBIN}"
-	export NVCC_CCBIN
-
-	einfo "Using ${NVCC_CCBIN} to build (via ${package} iteration)"
-}
-
-# We could default to all-major, all here
-cuda_get_host_native_arch() {
-	if [[ -n ${CUDAARCHS} ]]; then
-		echo "${CUDAARCHS}"
-		return
-	fi
-
-	if ! SANDBOX_WRITE=/dev/nvidiactl test -w /dev/nvidiactl ; then
-		eerror
-		eerror "Can not access the GPU at /dev/nvidiactl."
-		eerror "User $(id -nu) is not in the group \"video\"."
-		eerror
-		ewarn
-		ewarn "Can not query the native device."
-		ewarn "Not setting CUDAARCHS."
-		ewarn
-		ewarn "Continuing with default value."
-		ewarn "Set CUDAARCHS manually if needed."
-		ewarn
-		return 1
-	fi
-
-	__nvcc_device_query || eerror "failed to query the native device"
-}
 
 pkg_setup() {
 	use ax && llvm-r2_pkg_setup
 	use python && python-single-r1_pkg_setup
-
-	if use cuda; then
-		# sets up /dev files as a side-effect
-		# needs to be run in pkg_setup as root
-		nvidia-smi -L >/dev/null
-	fi
 }
 
 src_prepare() {
@@ -253,12 +151,12 @@ src_prepare() {
 			-i "nanovdb/nanovdb/"*"/CMakeLists.txt" || die
 	fi
 
-	# sed \
-	# 	-e "/find_package(OpenGL/s#OpenGL#OpenGL COMPONENTS OpenGL GLX#g" \
-	# 	-i openvdb_cmd/vdb_view/CMakeLists.txt || die
-
 	if use python; then
 		python_fix_shebang openvdb/openvdb/python/test/TestOpenVDB.py
+	fi
+
+	if use cuda; then
+		cuda_src_prepare_extra
 	fi
 
 	cmake_src_prepare
@@ -283,32 +181,23 @@ src_configure() {
 	fi
 
 	local mycmakeargs=(
-		# -DCMAKE_CXX_STANDARD="20"
 		-DCMAKE_FIND_PACKAGE_PREFER_CONFIG="yes"
 		-DCMAKE_INSTALL_DOCDIR="share/doc/${PF}/"
 
 		-DOPENVDB_ABI_VERSION_NUMBER="${abi_version}"
 
 		-DOPENVDB_BUILD_DOCS="$(usex doc)"
-		# -DOPENVDB_BUILD_MAYA_PLUGIN="no"
 		-DOPENVDB_BUILD_BINARIES="$(usex utils)"
 		-DOPENVDB_BUILD_NANOVDB="$(usex nanovdb)"
 		-DOPENVDB_BUILD_UNITTESTS="$(usex test)"
 
 		-DOPENVDB_CORE_SHARED="yes"
 		-DOPENVDB_CORE_STATIC="$(usex static-libs)"
-		# -DOPENVDB_CXX_STRICT="yes"
 		-DOPENVDB_ENABLE_UNINSTALL="no"
 		-DOPENVDB_FUTURE_DEPRECATION="yes"
-		# -DOPENVDB_USE_DELAYED_LOADING="yes"
 
 		-DUSE_CCACHE="no"
-		# -DUSE_COLORED_OUTPUT="no" # only adds the flag
 		-DUSE_EXPLICIT_INSTANTIATION="no"
-
-		# not packaged
-		# -DOPENVDB_BUILD_HOUDINI_PLUGIN="no"
-		# -DOPENVDB_BUILD_HOUDINI_ABITESTS="$(usex houdini "$(usex test)"))"
 
 		# for nanovdb
 		-DUSE_BLOSC="$(usex blosc)"
@@ -346,6 +235,15 @@ src_configure() {
 		)
 	fi
 
+	if use cuda; then
+		mycmakeargs+=(
+			-DCUDA_TOOLKIT_ROOT_DIR="${EPREFIX}/opt/cuda"
+			-DCMAKE_CUDA_COMPILER="nvcc"
+			-DCMAKE_CUDA_HOST_COMPILER="$(cuda_gcc | sed 's/gcc/g++/')"
+			-DCMAKE_CUDA_FLAGS="-forward-unknown-opts -fno-lto ${NVCCFLAGS//\"/\'}"
+		)
+	fi
+
 	if use doc; then
 		mycmakeargs+=(
 			-DOPENVDB_DOXYGEN_HOUDINI="no"
@@ -379,31 +277,6 @@ src_configure() {
 			cuda_add_sandbox -w
 			addwrite "/proc/self/task/"
 			addpredict "/dev/char"
-
-			if [[ ! -v CUDAARCHS ]]; then
-				local -x CUDAARCHS
-				CUDAARCHS="$(cuda_get_host_native_arch)"
-			fi
-			einfo "Building with CUDAARCHS=${CUDAARCHS}"
-
-			if [[ ! -v CUDAHOSTCXX ]]; then
-				local -x CUDAHOSTCXX
-				CUDAHOSTCXX="$(cuda_get_host_compiler)"
-			fi
-
-			if [[ ! -v CUDAHOSTLD ]]; then
-				local -x CUDAHOSTLD
-				CUDAHOSTLD="$(tc-getCXX)"
-			fi
-
-			if tc-is-gcc; then
-				# Filter out IMPLICIT_LINK_DIRECTORIES picked up by CMAKE_DETERMINE_COMPILER_ABI(CUDA)
-				# See /usr/share/cmake/Help/variable/CMAKE_LANG_IMPLICIT_LINK_DIRECTORIES.rst
-				CMAKE_CUDA_IMPLICIT_LINK_DIRECTORIES_EXCLUDE=$(
-					"${CUDAHOSTLD}" -E -v - <<<"int main(){}" |& \
-					grep LIBRARY_PATH | cut -d '=' -f 2 | cut -d ':' -f 1
-				)
-			fi
 		fi
 
 		if use python; then

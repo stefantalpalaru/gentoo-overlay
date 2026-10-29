@@ -881,7 +881,7 @@ media-fonts/breeze-sans 20170821-r5: humanist sans-serif typeface designed by Da
 media-fonts/ipamonafont 1.0.8-r2: Hacked version of IPA fonts, which is suitable for browsing 2ch
 media-gfx/GTS 2.5.1-r1: scanning tool developed by Studio Ghibli
 media-gfx/ansel 4.0.0_pre20260624 9999-r7: Darktable 4.0 fork
-media-gfx/blender 4.5.15 5.2.3: 3D Creation/Animation/Publishing System
+media-gfx/blender 4.5.15 5.2.3-r1: 3D Creation/Animation/Publishing System
 media-gfx/displaycal 3.8.9.3-r5: Display calibration and characterization powered by Argyll CMS
 media-gfx/exiv2 0.27.6-r2: EXIF, IPTC and XMP metadata C++ library and command line utility
 media-gfx/fbcat 0.5.2-r1: utility that takes a screenshot using the framebuffer device
@@ -891,7 +891,7 @@ media-gfx/imagemagick 7.1.2.34: A collection of tools and libraries for many ima
 media-gfx/inkscape 1.4.4-r3: SVG based generic vector-drawing program
 media-gfx/opencomic-bin 1.6.5: Comic and Manga reader, written with Node.js and using Electron
 media-gfx/opentoonz 1.8.0-r1: An open-source full-featured 2D animation creation software
-media-gfx/openvdb 13.2.0: Library for the efficient manipulation of volumetric data
+media-gfx/openvdb 13.2.0-r1 14.0.0: Library for the efficient manipulation of volumetric data
 media-gfx/scantailor-advanced 1.2.1: Interactive post-processing tool for scanned pages
 media-gfx/yomikiru-bin 2.25.1: manga, manhwa, comic, and novel reader for desktop
 media-gfx/zart 3.2.2_p20231127-r3: G'MIC GUI for video streams
@@ -1054,7 +1054,7 @@ x11-misc/obmenu2 1.1-r3: Openbox menu editor
 x11-misc/qt5ct 1.8 1.9: Qt5 configuration tool, similar to qtconfig for Qt4
 x11-misc/qxkb 0.5.1_pre20190821-r1: Qt-based keyboard layout switcher
 x11-misc/slim 1.4.1-r2: Simple Login Manager resurrected
-x11-misc/xlockmore 5.89: Just another screensaver application for X
+x11-misc/xlockmore 5.90: Just another screensaver application for X
 x11-themes/adwaita-qt 1.4.2 1.4.2-r1: A style to bend Qt applications to look like they belong into GNOME Shell
 x11-themes/chameleon-xcursors 0.5-r4: Style neutral scalable cursor theme
 x11-themes/numix-solarized 9999-r2: solarized version of Numix

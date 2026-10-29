@@ -15,6 +15,9 @@
 		Chance of Meatballs2' and 'How to Train Your Dragon 2'. 
 	</longdescription>
 	<use>
+		<flag name="abi15-compat">
+			Disables newer features to maintain compatibility with ABI15
+		</flag>
 		<flag name="abi14-compat">
 			Disables newer features to maintain compatibility with ABI14
 		</flag>
