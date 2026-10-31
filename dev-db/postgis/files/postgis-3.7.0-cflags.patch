@@ -1,0 +1,11 @@
+diff '--color=auto' -ur postgis-3.7.0.orig/configure.ac postgis-3.7.0/configure.ac
+--- postgis-3.7.0.orig/configure.ac	2026-10-31 12:56:17.465173086 +0100
++++ postgis-3.7.0/configure.ac	2026-10-31 12:58:52.792201146 +0100
+@@ -1416,7 +1416,6 @@
+ if test $ENABLE_DEBUG -eq 1; then
+   CFLAGS="$CFLAGS -g"
+ else
+-  CFLAGS="$CFLAGS -O2"
+   if test $ENABLE_LTO -eq 1; then
+     if test "$GCC" = yes; then
+       _LT_COMPILER_OPTION([if $compiler supports -flto=auto],[_cv_flto_auto],[-flto=auto],[],[CFLAGS="$CFLAGS -flto=auto"],[])

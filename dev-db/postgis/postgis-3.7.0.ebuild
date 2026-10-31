@@ -3,7 +3,7 @@
 
 EAPI=8
 
-POSTGRES_COMPAT=( {12..18} )
+POSTGRES_COMPAT=( {14..19} )
 POSTGRES_USEDEP="server"
 inherit autotools postgres-multi toolchain-funcs
 
@@ -25,7 +25,7 @@ S="${WORKDIR}/${MY_P}"
 
 LICENSE="GPL-2"
 SLOT="0"
-IUSE="address-standardizer doc gtk static-libs topology"
+IUSE="doc gtk lto static-libs topology"
 
 REQUIRED_USE="${POSTGRES_REQ_USE}"
 
@@ -33,13 +33,13 @@ REQUIRED_USE="${POSTGRES_REQ_USE}"
 RESTRICT="test"
 
 RDEPEND="${POSTGRES_DEP}
+	dev-libs/gmp:=
 	dev-libs/json-c:=
 	dev-libs/libxml2:2=
 	dev-libs/protobuf-c:=
-	>=sci-libs/geos-3.9.0
+	>=sci-libs/geos-3.15.0
 	>=sci-libs/proj-6.1.0:=
 	>=sci-libs/gdal-1.10.0:=
-	address-standardizer? ( dev-libs/libpcre2 )
 	gtk? ( x11-libs/gtk+:2 )
 "
 DEPEND="${RDEPEND}
@@ -53,7 +53,8 @@ DEPEND="${RDEPEND}
 "
 
 PATCHES=(
-	"${FILESDIR}/${PN}-3.0.3-try-other-cpp-names.patch"
+	"${FILESDIR}"/postgis-3.0.3-try-other-cpp-names.patch
+	"${FILESDIR}"/postgis-3.7.0-cflags.patch
 )
 
 src_prepare() {
@@ -84,9 +85,9 @@ src_configure() {
 	export CPP=$(tc-getCPP)
 
 	local myeconfargs=(
-		$(use_with address-standardizer)
 		$(use_with gtk gui)
 		$(use_with topology)
+		$(use_enable lto)
 	)
 	postgres-multi_foreach econf "${myeconfargs[@]}"
 }
@@ -105,7 +106,7 @@ src_install() {
 	postgres-multi_foreach emake DESTDIR="${D}" install
 	postgres-multi_forbest dobin ./utils/postgis_restore.pl
 
-	dodoc CREDITS TODO loader/README.* doc/*txt
+	dodoc CREDITS loader/README.* doc/*txt
 
 	docinto topology
 	dodoc topology/{TODO,README}
