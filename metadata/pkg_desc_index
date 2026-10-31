@@ -888,7 +888,7 @@ media-gfx/fbcat 0.5.2-r1: utility that takes a screenshot using the framebuffer 
 media-gfx/gifsicle 9999-r2: Create, manipulate, and optimize GIF images and animations
 media-gfx/gmic 4.0.7-r100: GREYC's Magic Image Converter
 media-gfx/imagemagick 7.1.2.34: A collection of tools and libraries for many image formats
-media-gfx/inkscape 1.4.4-r3: SVG based generic vector-drawing program
+media-gfx/inkscape 1.4.4-r4: SVG based generic vector-drawing program
 media-gfx/opencomic-bin 1.6.5: Comic and Manga reader, written with Node.js and using Electron
 media-gfx/opentoonz 1.8.0-r1: An open-source full-featured 2D animation creation software
 media-gfx/openvdb 13.2.0-r1 14.0.0: Library for the efficient manipulation of volumetric data
@@ -1003,7 +1003,7 @@ sci-libs/cholmod 5.3.5-r103: Sparse Cholesky factorization and update/downdate l
 sci-libs/clapack 3.2.1-r10: f2c'ed version of LAPACK
 sci-libs/colamd 3.3.5-r104: Column approximate minimum degree ordering algorithm
 sci-libs/cxsparse 4.4.2-r104: Extended sparse matrix package
-sci-libs/gdal 3.0.4-r206 3.11.5-r1 3.12.4 3.13.3: Translator library for raster geospatial data formats (includes OGR support)
+sci-libs/gdal 3.0.4-r206 3.11.5-r1 3.12.4 3.13.3-r1: Translator library for raster geospatial data formats (includes OGR support)
 sci-libs/graphblas 10.5.1-r100: Sparse LU factorization for circuit simulation
 sci-libs/hdf5 1.10.5-r3: General purpose library and file format for storing scientific data
 sci-libs/klu 2.3.6-r104: Sparse LU factorization for circuit simulation
