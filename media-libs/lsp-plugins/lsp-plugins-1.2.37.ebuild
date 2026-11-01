@@ -70,7 +70,7 @@ DEPEND="
 RDEPEND="${DEPEND}"
 
 PATCHES=(
-	"${FILESDIR}"/lsp-plugins-1.2.34-system-freetype.patch
+	"${FILESDIR}"/lsp-plugins-1.2.37-system-freetype.patch
 )
 
 src_configure() {
