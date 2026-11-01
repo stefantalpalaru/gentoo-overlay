@@ -1025,6 +1025,7 @@ sci-ml/torchcodec 0.17.0-r100: Media decoding and encoding for PyTorch: videos, 
 sci-ml/torchvision 0.29.2-r100: Datasets, transforms and models to specific to computer vision
 sys-apps/memtest86-bin 11.2.2000: Stand alone memory testing software for x86 EFI hardware
 sys-apps/udevil 0.4.4-r7: Mount and unmount removable devices without a password
+sys-auth/oath-toolkit 2.6.15: Toolkit for using one-time password authentication with HOTP/TOTP algorithms
 sys-auth/polkit-qt 0.200.0: Qt wrapper around polkit-1 client libraries
 sys-devel/bison 2.7.1-r4: A general-purpose (yacc-compatible) parser generator
 sys-devel/flamegraph 1.0-r2: stack trace visualizer
