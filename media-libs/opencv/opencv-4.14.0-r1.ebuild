@@ -381,6 +381,8 @@ PATCHES=(
 	"${FILESDIR}/${PN}-4.11.0-cmake-CMP0177.patch"
 
 	"${FILESDIR}/${PN}-4.12.0-cmake-4.patch"
+
+	"${FILESDIR}"/opencv-4.14.0-ffmpeg-9.patch
 )
 
 pkg_pretend() {
