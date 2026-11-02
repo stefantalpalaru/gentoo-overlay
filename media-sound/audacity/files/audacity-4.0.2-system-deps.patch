@@ -1,13 +1,13 @@
-diff '--color=auto' -ur audacity-4.0.0.orig/buildscripts/cmake/DependencyManifest.cmake audacity-4.0.0/buildscripts/cmake/DependencyManifest.cmake
---- audacity-4.0.0.orig/buildscripts/cmake/DependencyManifest.cmake	2026-09-03 10:35:12.683388607 +0200
-+++ audacity-4.0.0/buildscripts/cmake/DependencyManifest.cmake	2026-09-03 23:30:59.039064911 +0200
+diff '--color=auto' -ur audacity-4.0.2.orig/buildscripts/cmake/DependencyManifest.cmake audacity-4.0.2/buildscripts/cmake/DependencyManifest.cmake
+--- audacity-4.0.2.orig/buildscripts/cmake/DependencyManifest.cmake	2026-11-02 10:49:23.788243915 +0100
++++ audacity-4.0.2/buildscripts/cmake/DependencyManifest.cmake	2026-11-02 13:12:04.398772141 +0100
 @@ -1,4 +1,4 @@
 -require_dep(expat)
 +require_dep(expat SYSTEM)
  
  if (AU_USE_LIBCURL)
      if (NOT OS_IS_WIN)
-@@ -7,29 +7,29 @@
+@@ -7,21 +7,21 @@
      require_dep(libcurl SYSTEM)
  endif()
  
@@ -35,7 +35,10 @@ diff '--color=auto' -ur audacity-4.0.0.orig/buildscripts/cmake/DependencyManifes
 +require_dep(mpg123 SYSTEM)
 +require_dep(wavpack SYSTEM)
 +require_dep(libsndfile SYSTEM)
- if (OS_IS_WIN)
+ # zlib is also required by muse, but libid3tag needs it resolved first
+ require_dep(zlib)
+ require_dep(libid3tag)
+@@ -29,10 +29,10 @@
      require_source_dep(asiosdk)
      require_dep(portaudio REBUILD)
  else()
@@ -49,9 +52,9 @@ diff '--color=auto' -ur audacity-4.0.0.orig/buildscripts/cmake/DependencyManifes
  
  
  if (AU_MODULE_EFFECTS_LV2)
-diff '--color=auto' -ur audacity-4.0.0.orig/muse/buildscripts/cmake/ExtDepsManifest.cmake audacity-4.0.0/muse/buildscripts/cmake/ExtDepsManifest.cmake
---- audacity-4.0.0.orig/muse/buildscripts/cmake/ExtDepsManifest.cmake	2026-09-03 10:35:44.136709830 +0200
-+++ audacity-4.0.0/muse/buildscripts/cmake/ExtDepsManifest.cmake	2026-09-03 23:32:02.822259603 +0200
+diff '--color=auto' -ur audacity-4.0.2.orig/muse/buildscripts/cmake/ExtDepsManifest.cmake audacity-4.0.2/muse/buildscripts/cmake/ExtDepsManifest.cmake
+--- audacity-4.0.2.orig/muse/buildscripts/cmake/ExtDepsManifest.cmake	2026-11-02 10:49:48.660468580 +0100
++++ audacity-4.0.2/muse/buildscripts/cmake/ExtDepsManifest.cmake	2026-11-02 13:13:59.819269215 +0100
 @@ -1,25 +1,25 @@
 -require_dep(zlib)
 +require_dep(zlib SYSTEM)

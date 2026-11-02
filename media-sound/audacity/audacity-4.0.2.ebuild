@@ -108,8 +108,8 @@ BDEPEND="
 "
 
 PATCHES=(
-	"${FILESDIR}"/audacity-4.0.0-system-deps.patch
-	"${FILESDIR}"/audacity-4.0.1-headers.patch
+	"${FILESDIR}"/audacity-4.0.2-system-deps.patch
+	"${FILESDIR}"/audacity-4.0.2-headers.patch
 )
 
 src_prepare() {
