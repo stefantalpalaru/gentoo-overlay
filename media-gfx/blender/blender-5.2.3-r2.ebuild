@@ -249,6 +249,7 @@ PATCHES=(
 	"${FILESDIR}"/blender-5.0.0-system-eigen3.patch
 	"${FILESDIR}"/blender-5.1.2-nvcc.patch
 	"${FILESDIR}"/blender-5.2.0-template-symbols.patch
+	"${FILESDIR}"/blender-5.2.3-ffmpeg-9.patch
 )
 
 blender_check_requirements() {

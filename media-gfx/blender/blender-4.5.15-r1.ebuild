@@ -258,6 +258,7 @@ PATCHES=(
 	"${FILESDIR}"/blender-5.0.0-FMA-auto-vectorization-r1.patch
 	"${FILESDIR}"/blender-4.5.6-ffmpeg-8.patch
 	"${FILESDIR}"/blender-4.5.10-nvcc.patch
+	"${FILESDIR}"/blender-5.2.3-ffmpeg-9.patch
 )
 
 blender_check_requirements() {
