@@ -30,7 +30,6 @@ app-vim/neocomplete 9999-r1: vim plugin: Next generation completion framework af
 app-vim/nim-syntax 1.2_pre20211111-r1 9999-r1: Nim language support
 app-vim/pony-syntax 0.1_pre20170926-r2 9999-r1: vim plugin: Pony language support
 app-vim/vim-linux-coding-style 0.4_p20200610-r2: Vim plugin to respect the Linux kernel coding style
-dev-cpp/eigen 3.4.1-r1 5.0.0-r1: C++ template library for linear algebra
 dev-cpp/mustache 4.1-r1: Mustache implementation for modern C++
 dev-db/atlas 1.3.0: declarative schema migrations with schema-as-code workflows
 dev-db/atlas-bin 1.3.0: declarative schema migrations - binary package
