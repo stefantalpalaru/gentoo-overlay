@@ -317,8 +317,6 @@ PATCHES=(
 	"${FILESDIR}"/opencv-4.10.0-dnn-explicitly-include-abseil-cpp.patch
 	"${FILESDIR}"/opencv-4.10.0-tbb-detection.patch
 	"${FILESDIR}"/opencv-4.11.0-cmake-CMP0177.patch
-	"${FILESDIR}"/opencv-5.0.0-caffe-protobuf.patch
-	"${FILESDIR}"/opencv-4.14.0-ffmpeg-9.patch
 )
 
 pkg_pretend() {
