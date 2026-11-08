@@ -9,7 +9,7 @@ if [[ ${PV} != *9999* ]]; then
 fi
 
 QT5_MODULE="qtbase"
-inherit qt5-build
+inherit flag-o-matic qt5-build
 
 DESCRIPTION="Network abstraction library for the Qt5 framework"
 
@@ -43,7 +43,15 @@ QT5_GENTOO_PRIVATE_CONFIG=(
 
 PATCHES=(
 	"${FILESDIR}"/qtnetwork-5.15.19-libproxy.patch
+	"${FILESDIR}"/qtnetwork-5.15.19-QSslCertificate-remove-manual-parsing-code-for-ASN.1.patch
+	"${FILESDIR}"/qtnetwork-5.15.19-Update-sources-to-support-OpenSSL-4.patch
 )
+
+src_prepare() {
+	append-cxxflags -fpermissive
+
+	qt5-build_src_prepare
+}
 
 src_configure() {
 	local myconf=(
