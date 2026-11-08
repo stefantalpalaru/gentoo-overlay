@@ -971,7 +971,7 @@ net-p2p/go-ethereum 1.17.10: Official golang implementation of the Ethereum prot
 net-p2p/nicotine+ 3.3.11 9999-r2: A fork of nicotine, a Soulseek client in Python
 net-p2p/nimbus-eth2 26.10.2 9999-r19: Nim implementation of the Ethereum 2.0 blockchain
 net-p2p/pybitmessage 0.6.3.2_p20180521-r4: Reference client for Bitmessage: a P2P communications protocol
-net-p2p/retroshare 0.6.7.2-r100: Decentralized, private and secure communication and sharing platform
+net-p2p/retroshare 0.6.7.2-r101: Decentralized, private and secure communication and sharing platform
 net-p2p/transmission-og 3.07-r1 9999-r4: Transmission 3.00 fork (BitTorrent client)
 net-p2p/transmission-remote-gtk 1.7.1: GTK+ client for management of the Transmission BitTorrent client, over HTTP RPC
 net-print/pkpgcounter 3.50-r201: Generic PDL (Page Description Language) parser in Python

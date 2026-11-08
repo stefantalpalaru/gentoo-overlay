@@ -1,0 +1,235 @@
+From 36a11735f5238fa262b8a0faee2f390639a43e27 Mon Sep 17 00:00:00 2001
+From: jolavillette <jolavillette@gmail.com>
+Date: Sat, 17 Oct 2026 07:55:42 +0200
+Subject: [PATCH] pqi: build against OpenSSL 4
+
+OpenSSL 4 removes ASN1_STRING_data(), makes ASN1_STRING opaque and returns
+const pointers from X509_NAME_get_entry() and X509_NAME_ENTRY_get_*(), so
+sslfns.cc and authssl.cc stopped compiling (libretroshare#419). Use the
+accessors that exist since 1.1.0, make the X509_NAME helpers take const, and
+on OpenSSL 4 set the certificate signature through ASN1_BIT_STRING_set1()
+instead of poking the struct.
+---
+ src/pqi/authssl.cc | 15 +++++++++++++--
+ src/pqi/sslfns.cc  | 48 +++++++++++++++++++++++-----------------------
+ src/pqi/sslfns.h   | 14 +++++++-------
+ 3 files changed, 44 insertions(+), 33 deletions(-)
+
+diff --git a/libretroshare/src/pqi/authssl.cc b/libretroshare/src/pqi/authssl.cc
+index c2210b0562..57f9d73b1d 100644
+--- a/libretroshare/src/pqi/authssl.cc
++++ b/libretroshare/src/pqi/authssl.cc
+@@ -1042,6 +1042,16 @@ X509 *AuthSSLimpl::SignX509ReqWithGPG(X509_REQ *req, long /*days*/)
+ 
+         /* ADD Signature back into Cert... Signed!. */
+ 
++#if OPENSSL_VERSION_NUMBER >= 0x40000000L && !defined(LIBRESSL_VERSION_NUMBER)
++        /* ASN1_STRING is opaque since OpenSSL 4; set1() copies the bytes and records 0 unused bits. */
++        if (!ASN1_BIT_STRING_set1(signature, buf_sigout, sigoutl, 0))
++        {
++            fprintf(stderr, "AuthSSLimpl::SignX509Req: ASN1_BIT_STRING_set1 failed\n");
++            goto err;
++        }
++        OPENSSL_free(buf_sigout);
++        buf_sigout=NULL;
++#else
+         if (signature->data != NULL) OPENSSL_free(signature->data);
+         signature->data=buf_sigout;
+         buf_sigout=NULL;
+@@ -1051,6 +1061,7 @@ X509 *AuthSSLimpl::SignX509ReqWithGPG(X509_REQ *req, long /*days*/)
+          */
+         signature->flags&= ~(ASN1_STRING_FLAG_BITS_LEFT|0x07);
+         signature->flags|=ASN1_STRING_FLAG_BITS_LEFT;
++#endif
+ 
+         std::cerr << "Certificate Complete" << std::endl;
+ 
+@@ -1174,7 +1185,7 @@ bool AuthSSLimpl::AuthX509WithGPG(X509 *x509,bool verbose, uint32_t& diagnostic)
+ 
+ 		PGPSignatureInfo signature_info ;
+ 		PGPKeyManagement::parseSignature(
+-		            signature->data, static_cast<size_t>(signature->length),
++		            ASN1_STRING_get0_data(signature), static_cast<size_t>(ASN1_STRING_length(signature)),
+ 		            signature_info );
+ 
+ 		if(signature_info.signature_version != PGP_PACKET_TAG_SIGNATURE_VERSION_V4)
+@@ -1233,7 +1244,7 @@ bool AuthSSLimpl::AuthX509WithGPG(X509 *x509,bool verbose, uint32_t& diagnostic)
+ 
+ 		// passed, verify the signature itself
+ 
+-        if (!AuthPGP::VerifySignBin( signed_data, signed_data_length, signature->data, static_cast<unsigned int>(signature->length), pd.fpr ))
++        if (!AuthPGP::VerifySignBin( signed_data, signed_data_length, const_cast<unsigned char*>(ASN1_STRING_get0_data(signature)), static_cast<unsigned int>(ASN1_STRING_length(signature)), pd.fpr ))
+ 		{
+ 			diagnostic = RS_SSL_HANDSHAKE_DIAGNOSTIC_WRONG_SIGNATURE;
+ 			goto err;
+diff --git a/libretroshare/src/pqi/sslfns.cc b/libretroshare/src/pqi/sslfns.cc
+index 003b89e334..2c63ccf17d 100644
+--- a/libretroshare/src/pqi/sslfns.cc
++++ b/libretroshare/src/pqi/sslfns.cc
+@@ -241,7 +241,7 @@ X509_REQ *GenerateX509Req(
+ #define SERIAL_RAND_BITS 	64
+ 
+ #ifdef UNUSED_CODE
+-X509 *SignX509Certificate(X509_NAME *issuer, EVP_PKEY *privkey, X509_REQ *req, long days)
++X509 *SignX509Certificate(const X509_NAME *issuer, EVP_PKEY *privkey, X509_REQ *req, long days)
+ {
+ 	const EVP_MD *digest = EVP_sha1();
+ 	ASN1_INTEGER *serial = ASN1_INTEGER_new();
+@@ -634,7 +634,7 @@ bool getX509id(X509 *x509, RsPeerId& xid)
+ 		if(RsPeerId::SIZE_IN_BYTES > Sha256CheckSum::SIZE_IN_BYTES)
+ 			return false ;
+ 
+-		xid = RsPeerId(RsDirUtil::sha256sum(ASN1_STRING_data(const_cast<ASN1_BIT_STRING*>(signature)),ASN1_STRING_length(signature)).toByteArray()) ;
++		xid = RsPeerId(RsDirUtil::sha256sum(ASN1_STRING_get0_data(signature),ASN1_STRING_length(signature)).toByteArray()) ;
+ 	}
+ 	else
+ 	{
+@@ -649,7 +649,7 @@ bool getX509id(X509 *x509, RsPeerId& xid)
+ 		}
+ 
+ 		// else copy in the first CERTSIGNLEN.
+-		unsigned char *signdata = ASN1_STRING_data(const_cast<ASN1_BIT_STRING*>(signature));
++		const unsigned char *signdata = ASN1_STRING_get0_data(signature);
+ 
+ 		/* switched to the other end of the signature. for
+ 	 	 * more randomness
+@@ -709,14 +709,14 @@ uint32_t getX509RetroshareCertificateVersion(X509 *cert)
+ 	}
+ }
+ 
+-std::string getX509NameString(X509_NAME *name)
++std::string getX509NameString(const X509_NAME *name)
+ {
+ 	std::string namestr;
+ 	for(int i = 0; i < X509_NAME_entry_count(name); i++)
+ 	{
+-		X509_NAME_ENTRY *entry = X509_NAME_get_entry(name, i);
+-		ASN1_STRING *entry_data = X509_NAME_ENTRY_get_data(entry);
+-		ASN1_OBJECT *entry_obj = X509_NAME_ENTRY_get_object(entry);
++		const X509_NAME_ENTRY *entry = X509_NAME_get_entry(name, i);
++		const ASN1_STRING *entry_data = X509_NAME_ENTRY_get_data(entry);
++		const ASN1_OBJECT *entry_obj = X509_NAME_ENTRY_get_object(entry);
+ 
+ 		namestr += "\t";
+ 		namestr += OBJ_nid2ln(OBJ_obj2nid(entry_obj));
+@@ -729,9 +729,9 @@ std::string getX509NameString(X509_NAME *name)
+ 		//namestr += entry_data -> flags;
+ 		//entry -> set; 
+ 
+-		if (entry_data -> data != NULL)
++		if (ASN1_STRING_get0_data(entry_data) != NULL)
+ 		{
+-			namestr += (char *) entry_data -> data;
++			namestr += (const char *) ASN1_STRING_get0_data(entry_data);
+ 		}
+ 		else
+ 		{
+@@ -746,21 +746,21 @@ std::string getX509NameString(X509_NAME *name)
+ 	return namestr;
+ }
+ 
+-std::string getX509CNString(X509_NAME *name)
++std::string getX509CNString(const X509_NAME *name)
+ {
+ 	std::string namestr;
+ 	for(int i = 0; i < X509_NAME_entry_count(name); i++)
+ 	{
+-		X509_NAME_ENTRY *entry = X509_NAME_get_entry(name, i);
+-		ASN1_STRING *entry_data = X509_NAME_ENTRY_get_data(entry);
+-		ASN1_OBJECT *entry_obj = X509_NAME_ENTRY_get_object(entry);
++		const X509_NAME_ENTRY *entry = X509_NAME_get_entry(name, i);
++		const ASN1_STRING *entry_data = X509_NAME_ENTRY_get_data(entry);
++		const ASN1_OBJECT *entry_obj = X509_NAME_ENTRY_get_object(entry);
+ 
+ 		if (0 == strncmp("CN", OBJ_nid2sn(OBJ_obj2nid(entry_obj)), 2))
+ 		{
+-			if (entry_data -> data != NULL)
++			if (ASN1_STRING_get0_data(entry_data) != NULL)
+ 			{
+ 				// do we need to convert ASN1_STRING to utf8 (ASN1_STRING_to_UTF8)?
+-				namestr = (char *) entry_data->data;
++				namestr = (const char *) ASN1_STRING_get0_data(entry_data);
+ 			}
+ 			else
+ 			{
+@@ -772,21 +772,21 @@ std::string getX509CNString(X509_NAME *name)
+ 	return namestr;
+ }
+ 
+-std::string getX509TypeString(X509_NAME *name, const char *type, int len)
++std::string getX509TypeString(const X509_NAME *name, const char *type, int len)
+ {
+ 	std::string namestr;
+ 	for(int i = 0; i < X509_NAME_entry_count(name); i++)
+ 	{
+-		X509_NAME_ENTRY *entry = X509_NAME_get_entry(name, i);
+-		ASN1_STRING *entry_data = X509_NAME_ENTRY_get_data(entry);
+-		ASN1_OBJECT *entry_obj = X509_NAME_ENTRY_get_object(entry);
++		const X509_NAME_ENTRY *entry = X509_NAME_get_entry(name, i);
++		const ASN1_STRING *entry_data = X509_NAME_ENTRY_get_data(entry);
++		const ASN1_OBJECT *entry_obj = X509_NAME_ENTRY_get_object(entry);
+ 
+ 		if (0 == strncmp(type, OBJ_nid2sn(OBJ_obj2nid(entry_obj)), len))
+ 		{
+-			if (entry_data -> data != NULL)
++			if (ASN1_STRING_get0_data(entry_data) != NULL)
+ 			{
+ 				// do we need to convert ASN1_STRING to utf8 (ASN1_STRING_to_UTF8)?
+-				namestr = (char *) entry_data -> data;
++				namestr = (const char *) ASN1_STRING_get0_data(entry_data);
+ 			}
+ 			else
+ 			{
+@@ -798,17 +798,17 @@ std::string getX509TypeString(X509_NAME *name, const char *type, int len)
+ 	return namestr;
+ }
+ 
+-std::string getX509LocString(X509_NAME *name)
++std::string getX509LocString(const X509_NAME *name)
+ {
+ 	return getX509TypeString(name, "L", 2);
+ }
+ 
+-std::string getX509OrgString(X509_NAME *name)
++std::string getX509OrgString(const X509_NAME *name)
+ {
+ 	return getX509TypeString(name, "O", 2);
+ }
+ 
+-std::string getX509CountryString(X509_NAME *name)
++std::string getX509CountryString(const X509_NAME *name)
+ {
+ 	return getX509TypeString(name, "C", 2);
+ }
+diff --git a/libretroshare/src/pqi/sslfns.h b/libretroshare/src/pqi/sslfns.h
+index 7027dbba11..d114e0ce77 100644
+--- a/libretroshare/src/pqi/sslfns.h
++++ b/libretroshare/src/pqi/sslfns.h
+@@ -79,7 +79,7 @@ X509_REQ *GenerateX509Req(
+ 		std::string loc, std::string state, std::string country, 
+ 		int nbits_in, std::string &errString);
+ 
+-X509 *SignX509Certificate(X509_NAME *issuer, EVP_PKEY *privkey, X509_REQ *req, long days);
++X509 *SignX509Certificate(const X509_NAME *issuer, EVP_PKEY *privkey, X509_REQ *req, long days);
+ 
+ /********************************************************************************/
+ /********************************************************************************/
+@@ -119,12 +119,12 @@ bool getX509id(X509 *x509, RsPeerId &xid);
+ 
+ int pem_passwd_cb(char *buf, int size, int rwflag, void *password);
+ 
+-std::string getX509NameString(X509_NAME *name);
+-std::string getX509CNString(X509_NAME *name);
+-std::string getX509TypeString(X509_NAME *name, const char *type, int len);
+-std::string getX509LocString(X509_NAME *name);
+-std::string getX509OrgString(X509_NAME *name);
+-std::string getX509CountryString(X509_NAME *name);
++std::string getX509NameString(const X509_NAME *name);
++std::string getX509CNString(const X509_NAME *name);
++std::string getX509TypeString(const X509_NAME *name, const char *type, int len);
++std::string getX509LocString(const X509_NAME *name);
++std::string getX509OrgString(const X509_NAME *name);
++std::string getX509CountryString(const X509_NAME *name);
+ std::string getX509Info(X509 *cert);
+ 
+ uint64_t getX509SerialNumber(X509 *cert);

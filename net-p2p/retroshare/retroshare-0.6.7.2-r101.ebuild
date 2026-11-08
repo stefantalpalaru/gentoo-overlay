@@ -62,7 +62,16 @@ PATCHES=(
 	"${FILESDIR}"/retroshare-0.6.7-miniupnpc-2.2.8.patch
 	"${FILESDIR}"/retroshare-0.6.7-bool.patch
 	"${FILESDIR}"/retroshare-0.6.7-RsFriendListModel.patch
+	"${FILESDIR}"/retroshare-0.6.7.2-flags.patch
+	"${FILESDIR}"/retroshare-0.6.7.2-openssl-4.patch
 )
+
+src_prepare() {
+	export CMAKE_POLICY_VERSION_MINIMUM="3.5"
+	append-cxxflags -fpermissive
+
+	default
+}
 
 src_configure() {
 	if use plugins; then
@@ -71,6 +80,7 @@ src_configure() {
 	fi
 
 	local qconfigs=(
+		release
 		$(usex cli '' 'no_')rs_service_terminal_login
 		$(usex keyring '' 'no_')rs_autologin
 		$(usex gui '' 'no_')retroshare_gui

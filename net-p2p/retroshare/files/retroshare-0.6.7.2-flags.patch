@@ -1,0 +1,16 @@
+diff '--color=auto' -ur retroshare-0.6.7.2.orig/retroshare.pri retroshare-0.6.7.2/retroshare.pri
+--- retroshare-0.6.7.2.orig/retroshare.pri	2026-11-08 19:59:28.820003856 +0100
++++ retroshare-0.6.7.2/retroshare.pri	2026-11-08 20:02:28.875122119 +0100
+@@ -608,12 +608,6 @@
+ 
+ debug {
+     rs_mutex_debug:DEFINES *= RS_MUTEX_DEBUG
+-
+-    QMAKE_CXXFLAGS -= -O2 -fomit-frame-pointer
+-    QMAKE_CFLAGS -= -O2 -fomit-frame-pointer
+-
+-    QMAKE_CXXFLAGS *= -O0 -g -fno-omit-frame-pointer
+-    QMAKE_CFLAGS *= -O0 -g -fno-omit-frame-pointer
+ }
+ 
+ profiling {
