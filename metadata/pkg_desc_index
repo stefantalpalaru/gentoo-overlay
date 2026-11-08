@@ -9,7 +9,7 @@ app-arch/libzim 9.8.2: reference implementation for the ZIM archive format
 app-crypt/acme 1.8.0-r201 1.32.0-r2: An implementation of the ACME protocol
 app-crypt/certbot 1.8.0-r202 1.32.0-r4: Let’s Encrypt client to automate deployment of X.509 certificates
 app-crypt/certbot-s3front 0.4.2_p20201118-r7: S3/CloudFront plugin for Let's Encrypt client
-app-crypt/qca 2.3.10: Qt Cryptographic Architecture (QCA)
+app-crypt/qca 2.3.12: Qt Cryptographic Architecture (QCA)
 app-emacs/pymacs 0.26-r201: A tool that allows both-side communication beetween Python and Emacs Lisp
 app-emulation/quickemu 4.9.8 4.9.9: Create and run optimised Windows, macOS and Linux desktop virtual machines
 app-misc/electricsheep 3.0.2_p20240213-r6 9999-r14: realize the collective dream of sleeping computers from all over the internet
@@ -963,7 +963,6 @@ net-misc/magic-wormhole-mailbox-server 0.4.1-r201: Rendezvous / mailbox server f
 net-misc/magic-wormhole-transit-relay 0.2.1-r201: Transit Relay server for Magic-Wormhole
 net-misc/megasync 6.7.0.3: The official Qt-based program for syncing your MEGA account in your PC
 net-misc/s3cmd 2.4.0-r1: Command line client for Amazon S3
-net-misc/ssvnc 1.0.29-r4: VNC viewer that adds encryption security to VNC connections
 net-misc/streamtuner2 2.2.2_p20240918-r1: Internet radio browser
 net-p2p/deluge 2.2.0-r1: BitTorrent client with a client/server model
 net-p2p/fms 0.3.86-r1: Spam-resistant message board application for Freenet
