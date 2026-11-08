@@ -90,7 +90,6 @@ src_prepare() {
 	local PATCHES=(
 		"${FILESDIR}"/patches/0003_all_libdir-r1.patch
 		"${FILESDIR}"/patches/0010-use_pyxml.patch
-		"${FILESDIR}"/tauthon-9999-openssl-4.patch
 	)
 
 	default
