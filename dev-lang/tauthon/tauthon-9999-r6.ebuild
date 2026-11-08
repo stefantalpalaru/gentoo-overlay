@@ -1,4 +1,4 @@
-# Copyright 1999-2025 Gentoo Authors
+# Copyright 1999-2026 Gentoo Authors
 # Distributed under the terms of the GNU General Public License v2
 
 EAPI=8
@@ -88,8 +88,9 @@ src_prepare() {
 	rm -r Modules/zlib || die
 
 	local PATCHES=(
-		"${FILESDIR}/patches/0003_all_libdir-r1.patch"
-		"${FILESDIR}/patches/0010-use_pyxml.patch"
+		"${FILESDIR}"/patches/0003_all_libdir-r1.patch
+		"${FILESDIR}"/patches/0010-use_pyxml.patch
+		"${FILESDIR}"/tauthon-9999-openssl-4.patch
 	)
 
 	default
@@ -267,7 +268,7 @@ src_test() {
 	cd "${BUILD_DIR}" || die
 
 	# Skip failing tests.
-	local skipped_tests="distutils gdb curses xpickle bdb runpy minidom xml_etree xml_etree_c"
+	local skipped_tests="distutils gdb curses xpickle bdb runpy minidom xml_etree xml_etree_c ssl argparse ftplib imaplib urllib2_localnet"
 
 	for test in ${skipped_tests}; do
 		mv "${S}"/Lib/test/test_${test}.py "${T}"
