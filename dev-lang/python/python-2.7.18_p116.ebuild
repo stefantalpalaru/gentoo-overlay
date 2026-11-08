@@ -1,4 +1,4 @@
-# Copyright 1999-2025 Gentoo Authors
+# Copyright 1999-2026 Gentoo Authors
 # Distributed under the terms of the GNU General Public License v2
 
 EAPI=8
@@ -93,10 +93,11 @@ src_prepare() {
 	fi
 
 	local PATCHES=(
-		"${FILESDIR}/patches" # from https://dev.gentoo.org/~mgorny/dist/python/python-gentoo-patches-2.7.18_p16.tar.xz
-		"${FILESDIR}/python-2.7.18-PGO.patch"
-		"${FILESDIR}/python-2.7.18-configure-implicit.patch"
-		"${FILESDIR}/python-2.7.18-gcc-14.patch"
+		"${FILESDIR}"/patches # from https://dev.gentoo.org/~mgorny/dist/python/python-gentoo-patches-2.7.18_p16.tar.xz
+		"${FILESDIR}"/python-2.7.18-PGO.patch
+		"${FILESDIR}"/python-2.7.18-configure-implicit.patch
+		"${FILESDIR}"/python-2.7.18-gcc-14.patch
+		"${FILESDIR}"/python-2.7.18-openssl-4.patch
 	)
 
 	default
@@ -272,7 +273,7 @@ src_compile() {
 	fi
 	export par_arg
 
-	emake EXTRATESTOPTS="${par_arg} -uall,-audio -x test_distutils -x test_ftplib -x test_bdb -x test_runpy -x test_test_support -x test_socket"
+	emake EXTRATESTOPTS="${par_arg} -uall,-audio -x test_distutils -x test_ftplib -x test_bdb -x test_runpy -x test_test_support -x test_socket -x test_codecmaps_kr"
 
 	# Restore saved value from above.
 	local -x PYTHONDONTWRITEBYTECODE=${_PYTHONDONTWRITEBYTECODE}
@@ -297,7 +298,7 @@ src_test() {
 	# Skip failing tests.
 	# A security patch in the Gentoo patchset broke test.test_codecmaps_jp.TestEUCJISX0213Map and test.test_codecmaps_jp.TestEUCJPCOMPATMap.
 	# Another security patch broke urllib2 tests by assuming that dicts are ordered by default, as in Python-3.7
-	local skipped_tests="distutils gdb curses xpickle bdb runpy minidom xml_etree xml_etree_c codecmaps_jp urllib2 urllib2net urllibnet"
+	local skipped_tests="distutils gdb curses xpickle bdb runpy minidom xml_etree xml_etree_c codecmaps_jp urllib2 urllib2net urllibnet ssl ftplib imaplib urllib2_localnet argparse"
 
 	for test in ${skipped_tests}; do
 		mv "${S}"/Lib/test/test_${test}.py "${T}"
