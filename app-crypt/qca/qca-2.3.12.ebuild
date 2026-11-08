@@ -3,7 +3,7 @@
 
 EAPI=8
 
-inherit cmake kde.org multibuild out-of-source-utils qmake-utils
+inherit cmake flag-o-matic kde.org multibuild out-of-source-utils qmake-utils
 
 DESCRIPTION="Qt Cryptographic Architecture (QCA)"
 HOMEPAGE="https://userbase.kde.org/QCA"
@@ -59,6 +59,12 @@ qca_plugin_use() {
 
 pkg_setup() {
 	MULTIBUILD_VARIANTS=( $(usev qt5) $(usev qt6) )
+}
+
+src_prepare() {
+	append-cxxflags -fpermissive
+
+	cmake_src_prepare
 }
 
 src_configure() {

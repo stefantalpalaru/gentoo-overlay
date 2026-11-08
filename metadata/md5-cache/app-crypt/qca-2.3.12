@@ -4,7 +4,7 @@ DEPEND=botan? ( dev-libs/botan:3= ) gcrypt? ( dev-libs/libgcrypt:= ) gpg? ( app-
 DESCRIPTION=Qt Cryptographic Architecture (QCA)
 EAPI=8
 HOMEPAGE=https://userbase.kde.org/QCA
-INHERIT=cmake kde.org multibuild out-of-source-utils qmake-utils
+INHERIT=cmake flag-o-matic kde.org multibuild out-of-source-utils qmake-utils
 IUSE=botan debug doc examples gcrypt gpg logger nss pkcs11 qt5 +qt6 sasl softstore +ssl test
 KEYWORDS=amd64 ~arm arm64 ~loong ppc64 ~riscv ~x86
 LICENSE=LGPL-2.1
@@ -12,6 +12,6 @@ RDEPEND=botan? ( dev-libs/botan:3= ) gcrypt? ( dev-libs/libgcrypt:= ) gpg? ( app
 REQUIRED_USE=|| ( qt5 qt6 )
 RESTRICT=!test? ( test )
 SLOT=2
-SRC_URI=mirror://kde/stable/qca/2.3.10/qca-2.3.10.tar.xz
+SRC_URI=mirror://kde/stable/qca/2.3.12/qca-2.3.12.tar.xz
 _eclasses_=toolchain-funcs	58a918e3a42d0156f010dcfd43725be5	flag-o-matic	fd3558f73f6503093adee69adf41020d	multiprocessing	45d0620f25c2f063ad6276ecd9ed9399	ninja-utils	d063ea1900a793f93eb095010d6d9156	xdg-utils	42869b3c8d86a70ef3cf75165a395e09	cmake	3530055400d05e64deaba3042af30af6	kde.org	83d81f56e21d7fcdb6319ad4cf7cec16	out-of-source-utils	8e5093bd27b7f541a1913271f25d633a	multibuild	83db098a835f71feb71761f72a694aa2	qmake-utils	28f99dba9219112f4785f46ed426a021
-_md5_=a468d52e06b1eefd7288c42cf0d14a41
+_md5_=578bd1e03e8a01d567a696a8149e98aa
