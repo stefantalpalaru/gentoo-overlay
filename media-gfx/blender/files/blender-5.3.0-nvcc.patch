@@ -1,0 +1,48 @@
+diff '--color=auto' -ur blender-5.3.0.orig/intern/cycles/kernel/device/cuda/CMakeLists.txt blender-5.3.0/intern/cycles/kernel/device/cuda/CMakeLists.txt
+--- blender-5.3.0.orig/intern/cycles/kernel/device/cuda/CMakeLists.txt	2026-11-10 13:15:31.004382317 +0100
++++ blender-5.3.0/intern/cycles/kernel/device/cuda/CMakeLists.txt	2026-11-10 13:31:38.778609101 +0100
+@@ -159,14 +159,14 @@
+ 
+   # No suitable explicit toolkit found. Fallback to the default.
+ 
+-  cuda_get_arch_supported("${CUDA_NVCC_EXECUTABLE}" "${arch}" _is_supported)
++  cuda_get_arch_supported("nvcc" "${arch}" _is_supported)
+   if(NOT _is_supported)
+     return()
+   endif()
+ 
+-  cuda_get_version("${CUDA_NVCC_EXECUTABLE}" _version)
++  cuda_get_version("nvcc" _version)
+   set(${out_root_dir}        "${CUDA_TOOLKIT_ROOT_DIR}" PARENT_SCOPE)
+-  set(${out_nvcc_executable} "${CUDA_NVCC_EXECUTABLE}"  PARENT_SCOPE)
++  set(${out_nvcc_executable} "nvcc"  PARENT_SCOPE)
+   set(${out_version}         "${_version}"              PARENT_SCOPE)
+ endfunction()
+ 
+@@ -278,12 +278,12 @@
+     if(WITH_COMPILER_CCACHE AND CCACHE_PROGRAM)
+       add_custom_command(
+         OUTPUT ${cuda_file}
+-        COMMAND ${CCACHE_PROGRAM} ${cuda_nvcc_executable} ${_cuda_nvcc_args}
++        COMMAND ${CCACHE_PROGRAM} nvcc ${_cuda_nvcc_args}
+         DEPENDS ${kernel_sources})
+     else()
+       add_custom_command(
+         OUTPUT ${cuda_file}
+-        COMMAND ${cuda_nvcc_executable} ${_cuda_nvcc_args}
++        COMMAND nvcc ${_cuda_nvcc_args}
+         DEPENDS ${kernel_sources})
+     endif()
+ 
+diff '--color=auto' -ur blender-5.3.0.orig/intern/cycles/kernel/device/optix/CMakeLists.txt blender-5.3.0/intern/cycles/kernel/device/optix/CMakeLists.txt
+--- blender-5.3.0.orig/intern/cycles/kernel/device/optix/CMakeLists.txt	2026-11-10 13:15:30.977567190 +0100
++++ blender-5.3.0/intern/cycles/kernel/device/optix/CMakeLists.txt	2026-11-10 13:32:52.915282858 +0100
+@@ -83,7 +83,7 @@
+         ${SRC_KERNEL_DEVICE_OPTIX_HEADERS}
+         $<TARGET_PROPERTY:cycles_kernel,INTERFACE_SOURCES>
+       COMMAND
+-        ${cuda_nvcc_executable}
++        nvcc
+         --ptx
+         -arch=${arch}
+         ${CUDA_NVCC_FLAGS}

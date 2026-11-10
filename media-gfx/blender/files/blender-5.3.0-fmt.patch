@@ -1,0 +1,22 @@
+diff '--color=auto' -ur blender-5.3.0.orig/source/blender/nodes/geometry/nodes/node_geo_foreach_geometry_element.cc blender-5.3.0/source/blender/nodes/geometry/nodes/node_geo_foreach_geometry_element.cc
+--- blender-5.3.0.orig/source/blender/nodes/geometry/nodes/node_geo_foreach_geometry_element.cc	2026-10-08 22:27:14.000000000 +0200
++++ blender-5.3.0/source/blender/nodes/geometry/nodes/node_geo_foreach_geometry_element.cc	2026-11-10 15:18:09.429721860 +0100
+@@ -27,6 +27,7 @@
+ #include "WM_api.hh"
+ 
+ #include "fmt/core.h"
++#include <fmt/format.h>
+ 
+ namespace blender {
+ 
+diff '--color=auto' -ur blender-5.3.0.orig/source/blender/nodes/geometry/nodes/node_geo_import_text.cc blender-5.3.0/source/blender/nodes/geometry/nodes/node_geo_import_text.cc
+--- blender-5.3.0.orig/source/blender/nodes/geometry/nodes/node_geo_import_text.cc	2026-10-08 22:27:14.000000000 +0200
++++ blender-5.3.0/source/blender/nodes/geometry/nodes/node_geo_import_text.cc	2026-11-10 15:18:19.460576736 +0100
+@@ -19,6 +19,7 @@
+ #include "node_geometry_util.hh"
+ 
+ #include "fmt/core.h"
++#include <fmt/format.h>
+ 
+ namespace blender::nodes::node_geo_import_text {
+ 
