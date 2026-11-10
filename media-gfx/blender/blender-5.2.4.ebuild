@@ -96,6 +96,7 @@ REQUIRED_USE="${PYTHON_REQUIRED_USE}
 # build_files/build_environment/cmake/versions.cmake
 RDEPEND="${PYTHON_DEPS}
 	app-arch/zstd
+	>=dev-cpp/eigen-5.0.0:=
 	dev-cpp/gflags:=
 	dev-cpp/glog:=
 	dev-libs/lzo:2=
@@ -250,6 +251,7 @@ PATCHES=(
 	"${FILESDIR}"/blender-5.1.2-nvcc.patch
 	"${FILESDIR}"/blender-5.2.0-template-symbols.patch
 	"${FILESDIR}"/blender-5.2.3-ffmpeg-9.patch
+	"${FILESDIR}"/blender-5.2.4-ceres.patch
 )
 
 blender_check_requirements() {
@@ -447,6 +449,7 @@ src_configure() {
 		-DWITH_SYSTEM_FREETYPE="yes"
 		-DWITH_SYSTEM_GFLAGS="yes"
 		-DWITH_SYSTEM_GLOG="yes"
+		-DEigen3_DIR=/usr/$(get_libdir)/cmake/eigen3
 
 		# Compiler Options:
 		# -DWITH_BUILDINFO="yes"

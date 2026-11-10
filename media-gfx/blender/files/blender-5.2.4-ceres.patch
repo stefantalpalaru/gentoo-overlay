@@ -1,0 +1,11 @@
+diff '--color=auto' -ur blender-5.2.4.orig/build_files/cmake/platform/platform_unix.cmake blender-5.2.4/build_files/cmake/platform/platform_unix.cmake
+--- blender-5.2.4.orig/build_files/cmake/platform/platform_unix.cmake	2026-10-15 14:51:55.000000000 +0200
++++ blender-5.2.4/build_files/cmake/platform/platform_unix.cmake	2026-11-10 12:00:25.235483671 +0100
+@@ -661,7 +661,6 @@
+   # Dep of Ceres
+   mark_as_advanced(absl_DIR)
+ endif()
+-add_bundled_libraries(ceres/lib)
+ 
+ if(WITH_DRACO)
+   if(WITH_LIBS_PRECOMPILED OR WITH_STRICT_BUILD_OPTIONS)

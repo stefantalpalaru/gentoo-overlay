@@ -11,7 +11,8 @@ DOCS_DIR="docs/source"
 inherit cmake-multilib cuda cuda-extra flag-o-matic python-any-r1 docs
 
 DESCRIPTION="Nonlinear least-squares minimizer"
-HOMEPAGE="http://ceres-solver.org/"
+HOMEPAGE="http://ceres-solver.org/
+		https://github.com/ceres-solver/ceres-solver"
 SRC_URI="https://github.com/ceres-solver/ceres-solver/archive/${MY_COMMIT}.tar.gz -> ${P}.gh.tar.gz"
 S="${WORKDIR}/${PN}-${MY_COMMIT}"
 
@@ -24,7 +25,6 @@ REQUIRED_USE="sparse? ( lapack ) abi_x86_32? ( !sparse !lapack )"
 RESTRICT="!test? ( test )"
 
 BDEPEND="${PYTHON_DEPS}
-	>=dev-cpp/eigen-3.3.4
 	lapack? ( virtual/pkgconfig )
 	doc? ( <dev-libs/mathjax-3 )
 "
@@ -33,6 +33,7 @@ RDEPEND="
 		dev-libs/cudss:=
 		dev-util/nvidia-cuda-toolkit:=
 	)
+	>=dev-cpp/eigen-3.3.4:=
 	lapack? ( virtual/lapack )
 	sparse? (
 		sci-libs/amd
