@@ -65,9 +65,6 @@ src_configure() {
 	local mycmakeargs=(
 		-DCUDA_TOOLKIT_ROOT_DIR="${EPREFIX}/opt/cuda"
 		-Dnanobind_DIR="$(python_get_sitedir)/nanobind/cmake"
-		-DCMAKE_CUDA_COMPILER="nvcc"
-		-DCMAKE_CUDA_HOST_COMPILER="$(cuda_gcc)"
-		-DCMAKE_CUDA_FLAGS="-forward-unknown-opts -fno-lto ${NVCCFLAGS//\"/\'}"
 		-DCUDNN_FRONTEND_BUILD_SAMPLES=OFF
 		-DCUDNN_FRONTEND_BUILD_TESTS=$(usex test)
 		-DCUDNN_FRONTEND_BUILD_PYTHON_BINDINGS=$(usex python)
@@ -84,6 +81,11 @@ src_compile() {
 }
 
 src_test() {
+	cuda_add_sandbox -w
+	addwrite "/proc/self/task"
+	addpredict "/dev/char/"
+	cuda_check_permissions || die "Cannot access CUDA device. Aborting."
+
 	"${BUILD_DIR}"/bin/tests || die
 	distutils-r1_src_test
 }
