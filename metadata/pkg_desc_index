@@ -42,9 +42,10 @@ dev-go/golangci-lint 2.15.0-r100: Fast linters runner for Go
 dev-java/jna 5.13.0-r1: Java Native Access
 dev-lang/chapel 2.10.0: Chapel programming language compiler
 dev-lang/nim 1.0.10-r101 1.2.18-r101 1.4.8-r101 1.6.20-r100 2.0.16-r100 2.2.14-r100 2.4.0-r100 9999-r16: compiled, garbage-collected systems programming language
-dev-lang/pony 0.78.1: Compiler for the Pony language
+dev-lang/pony 0.78.2: Compiler for the Pony language
 dev-lang/python 2.7.18_p116: An interpreted, interactive, object-oriented programming language
 dev-lang/python-exec 2.4.10-r101: Python script wrapper
+dev-lang/rust-bin 1.94.0: Systems programming language from Mozilla
 dev-lang/tauthon 2.8.5-r7 9999-r6: Python 2.7 fork with new syntax, builtins, and libraries backported from Python3
 dev-libs/boost 1.90.0-r1 1.91.0-r2: Boost Libraries for C++
 dev-libs/cudnn 9.10.2.21-r1100 9.28.1.4-r1200 9.28.1.4-r1300: NVIDIA Accelerated Deep Learning on GPU library
