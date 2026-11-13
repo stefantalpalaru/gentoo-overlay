@@ -1,12 +1,12 @@
-diff '--color=auto' -ur onnxruntime-1.28.0.orig/cmake/onnxruntime_providers_cuda.cmake onnxruntime-1.28.0/cmake/onnxruntime_providers_cuda.cmake
---- onnxruntime-1.28.0.orig/cmake/onnxruntime_providers_cuda.cmake	2026-07-25 04:02:42.000000000 +0200
-+++ onnxruntime-1.28.0/cmake/onnxruntime_providers_cuda.cmake	2026-07-25 14:22:19.273523923 +0200
-@@ -404,7 +404,7 @@
+diff '--color=auto' -ur onnxruntime-1.32.0.orig/cmake/onnxruntime_providers_cuda.cmake onnxruntime-1.32.0/cmake/onnxruntime_providers_cuda.cmake
+--- onnxruntime-1.32.0.orig/cmake/onnxruntime_providers_cuda.cmake	2026-11-13 07:12:11.000000000 +0100
++++ onnxruntime-1.32.0/cmake/onnxruntime_providers_cuda.cmake	2026-11-13 15:58:23.738764994 +0100
+@@ -425,7 +425,7 @@
        target_include_directories(${target} PRIVATE ${CUDNN_INCLUDE_DIR})
        # cuDNN and cuFFT are loaded dynamically at runtime (see cudnn_stub.cc / cufft_stub.cc), so they are
        # intentionally not linked here to avoid a hard runtime dependency when the related ops are not used.
 -      target_link_libraries(${target} PRIVATE CUDA::cublasLt CUDA::cublas cudnn_frontend CUDA::curand CUDA::cudart CUDA::cuda_driver
 +      target_link_libraries(${target} PRIVATE CUDA::cublasLt CUDA::cublas CUDA::curand CUDA::cudart CUDA::cuda_driver
-               ${ABSEIL_LIBS} ${ONNXRUNTIME_PROVIDERS_SHARED} Boost::mp11 safeint_interface)
+               ${ABSEIL_LIBS} ${ONNXRUNTIME_PROVIDERS_SHARED} onnxruntime_mlas Boost::mp11 safeint_interface)
      endif()
  

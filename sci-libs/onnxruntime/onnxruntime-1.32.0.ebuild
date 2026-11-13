@@ -20,7 +20,7 @@ HOMEPAGE="https://onnxruntime.ai
 SAFEINT_COMMIT=3.0.28
 FLATBUFFERS_PV=23.5.26
 DATE_PV=3.0.1
-DLPACK_PV=1.2
+DLPACK_PV=1.3
 # We need to fetch CUTLASS, to use some example headers - that
 # never get installed, but are needed by some contrib ops.
 CUTLASS_PV=4.7.0
@@ -113,7 +113,7 @@ PATCHES=(
 	"${FILESDIR}"/onnxruntime-1.27.0-abseil.patch
 	"${FILESDIR}"/onnxruntime-1.19.0-eigen.patch
 	"${FILESDIR}"/onnxruntime-1.31.0-system-eigen.patch
-	"${FILESDIR}"/onnxruntime-1.28.0-cudnn_frontend.patch
+	"${FILESDIR}"/onnxruntime-1.32.0-cudnn_frontend.patch
 	"${FILESDIR}"/onnxruntime-1.30.0-external-downloads.patch
 	"${FILESDIR}"/onnxruntime-1.23.0-include.patch
 	"${FILESDIR}"/onnxruntime-1.24.1-string-view.patch
