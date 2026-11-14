@@ -27,7 +27,7 @@ RDEPEND="${DEPEND}
 "
 
 PATCHES=(
-	"${FILESDIR}"/opencomic-bin-1.6.1-desktop.patch
+	"${FILESDIR}"/opencomic-bin-2.0.0-desktop.patch
 )
 
 src_unpack() {
