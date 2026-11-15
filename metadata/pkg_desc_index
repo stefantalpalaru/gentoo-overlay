@@ -978,7 +978,7 @@ net-print/pkpgcounter 3.50-r201: Generic PDL (Page Description Language) parser 
 net-print/pykota 1.26-r201: Flexible print quota and accounting package for use with CUPS and lpd
 net-wireless/airspyhf 1.6.8_p20260722: User mode driver for Airspy HF+
 net-wireless/cubicsdr 0.2.7-r5: Cross-Platform Software-Defined Radio Application
-net-wireless/sdrpp 1.1.0_pre20230907-r1: a cross-platform SDR software with the aim of being bloat free and simple to use
+net-wireless/sdrpp 1.1.0_pre20261107: a cross-platform SDR software with the aim of being bloat free and simple to use
 net-wireless/soapyairspyhf 0.2.1: SoapySDR Airspyhf-SDR Support Module
 net-wireless/soapysdr 0.9.0: vendor and platform neutral SDR support library
 sci-astronomy/astrometry 0.78-r3: Automated astrometric calibration programs and service

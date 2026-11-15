@@ -1,9 +1,9 @@
-# Copyright 2022-2025 Gentoo Authors
+# Copyright 2022-2026 Gentoo Authors
 # Distributed under the terms of the GNU General Public License v2
 
 EAPI=8
 CMAKE_MAKEFILE_GENERATOR="emake"
-MY_COMMIT="a55d1d9c06122e25a5d5dab5d54c11dda30f2010"
+MY_COMMIT="ea6f755ac9f746cb05e34238ec5d69e5c5d17da8"
 
 inherit cmake
 
@@ -18,28 +18,28 @@ IUSE="+rtaudio +rtlsdr soapysdr hackrf airspy plutosdr discord portaudio bladerf
 RESTRICT="mirror"
 
 DEPEND="
-	sci-libs/fftw
-	media-libs/glfw
-	media-libs/glew
-	sci-libs/volk
-	airspy? ( net-wireless/airspy )
-	bladerf? ( net-wireless/bladerf )
-	hackrf? ( net-libs/libhackrf )
-	limesdr? ( net-wireless/limesuite )
-	rtlsdr? ( net-wireless/rtl-sdr )
-	soapysdr? ( net-wireless/soapysdr )
-	rtaudio? ( media-libs/rtaudio )
-	portaudio? ( media-libs/portaudio )
+	sci-libs/fftw:=
+	media-libs/glfw:=
+	media-libs/glew:=
+	sci-libs/volk:=
+	airspy? ( net-wireless/airspy:= )
+	bladerf? ( net-wireless/bladerf:= )
+	hackrf? ( net-libs/libhackrf:= )
+	limesdr? ( net-wireless/limesuite:= )
+	rtlsdr? ( net-wireless/rtl-sdr:= )
+	soapysdr? ( net-wireless/soapysdr:= )
+	rtaudio? ( media-libs/rtaudio:= )
+	portaudio? ( media-libs/portaudio:= )
 	plutosdr? (
-		net-libs/libiio
-		net-libs/libad9361-iio
+		net-libs/libiio:=
+		net-libs/libad9361-iio:=
 	)
 "
 
 PATCHES=(
-	"${FILESDIR}/${PN}-plugins-prefix.patch"
-	"${FILESDIR}/${PN}-portaudio_sink.patch"
-	"${FILESDIR}/${PN}-installdirs.patch"
+	"${FILESDIR}"/sdrpp-plugins-prefix.patch
+	"${FILESDIR}"/sdrpp-portaudio_sink.patch
+	"${FILESDIR}"/sdrpp-1.1.0_pre20261107-installdirs.patch
 )
 
 src_configure() {
