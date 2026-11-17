@@ -11,7 +11,7 @@ HOMEPAGE="
 	https://github.com/meganz/MEGAsync
 "
 
-MEGA_SDK_REV="d1c0cb76cb98598d93b9fb0bb89612daeb0fb39c" # commit of src/MEGASync/mega submodule
+MEGA_SDK_REV="7e4519cc1d8c42312444482766b761c899894e6f" # commit of src/MEGASync/mega submodule
 MEGA_TAG_SUFFIX="Linux"
 SRC_URI="
 	https://github.com/meganz/MEGAsync/archive/v${PV}_${MEGA_TAG_SUFFIX}.tar.gz -> ${P}.tar.gz
@@ -23,6 +23,7 @@ LICENSE="MEGA"
 SLOT="0"
 KEYWORDS="~amd64 ~x86"
 IUSE="dolphin mediainfo nautilus nemo thumbnail thunar"
+RESTRICT="mirror"
 
 # Qt6 issue: https://github.com/meganz/MEGAsync/issues/954
 DEPEND="
