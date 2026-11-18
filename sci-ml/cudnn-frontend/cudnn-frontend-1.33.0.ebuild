@@ -63,7 +63,6 @@ src_prepare() {
 
 src_configure() {
 	local mycmakeargs=(
-		-DCUDA_TOOLKIT_ROOT_DIR="${EPREFIX}/opt/cuda"
 		-Dnanobind_DIR="$(python_get_sitedir)/nanobind/cmake"
 		-DCUDNN_FRONTEND_BUILD_SAMPLES=OFF
 		-DCUDNN_FRONTEND_BUILD_TESTS=$(usex test)
