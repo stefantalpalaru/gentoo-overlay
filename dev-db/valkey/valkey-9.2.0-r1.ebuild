@@ -27,6 +27,7 @@ DEPEND="
 	ssl? ( dev-libs/openssl:0= )
 	systemd? ( sys-apps/systemd:= )
 	tcmalloc? ( dev-util/google-perftools )
+	zstd? ( app-arch/zstd:= )
 "
 
 RDEPEND="
@@ -130,7 +131,7 @@ src_test() {
 
 		--skiptest "Active defrag eval scripts" # see bug #851654
 		--skipunit unit/mptcp
-		--skiptest "/hrottl"
+		--skipunit integration/throttle-repl
 		--skiptest "Obuf soft limit with copy avoidance enabled"
 	)
 
