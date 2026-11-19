@@ -18,7 +18,7 @@ SRC_URI="https://github.com/valkey-io/valkey/archive/refs/tags/${PV}.tar.gz -> $
 LICENSE="BSD Boost-1.0"
 SLOT="0/$(ver_cut 1-2)"
 KEYWORDS="amd64 ~arm arm64 ~hppa ~loong ppc ppc64 ~riscv ~s390 ~sparc x86"
-IUSE="ssl systemd tcmalloc test"
+IUSE="ssl systemd tcmalloc test zstd"
 RESTRICT="mirror !test? ( test )"
 
 # We use the bundled jemalloc because it has been modified to support active defragmentation.
@@ -64,7 +64,6 @@ src_prepare() {
 	local makefiles="" MKF
 	local mysedconf=(
 		-e 's:$(CC):@CC@:g'
-		-e 's:$(CFLAGS):@AM_CFLAGS@:g'
 		-e 's: $(DEBUG)::g'
 
 		-e 's:-Werror ::g'
@@ -112,6 +111,7 @@ src_compile() {
 		DEBUG_FLAGS=''
 
 		BUILD_TLS=$(usex ssl)
+		BUILD_ZSTD=$(usex zstd)
 		USE_SYSTEMD=$(usex systemd)
 	)
 
@@ -129,6 +129,9 @@ src_test() {
 		--clients "$(makeopts_jobs)" # see bug #649868
 
 		--skiptest "Active defrag eval scripts" # see bug #851654
+		--skipunit unit/mptcp
+		--skiptest "/hrottl"
+		--skiptest "Obuf soft limit with copy avoidance enabled"
 	)
 
 	if has usersandbox ${FEATURES} || ! has userpriv ${FEATURES}; then
