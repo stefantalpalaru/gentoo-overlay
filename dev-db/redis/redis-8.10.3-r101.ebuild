@@ -21,7 +21,7 @@ SRC_URI="
 LICENSE="|| ( AGPL-3 RSAL-2 SSPL-1 ) Boost-1.0 MIT"
 SLOT="0/$(ver_cut 1-2)"
 KEYWORDS="~amd64 ~arm ~arm64 ~hppa ~loong ~ppc ~ppc64 ~riscv ~s390 ~sparc ~x86"
-IUSE="selinux ssl systemd tcmalloc test"
+IUSE="selinux ssl systemd tcmalloc test zstd"
 RESTRICT="!test? ( test )"
 
 # We use the bundled jemalloc because it has been modified to support active defragmentation.
@@ -30,6 +30,7 @@ DEPEND="
 	ssl? ( dev-libs/openssl:0= )
 	systemd? ( sys-apps/systemd:= )
 	tcmalloc? ( dev-util/google-perftools )
+	zstd? ( app-arch/zstd:= )
 "
 
 RDEPEND="
@@ -55,6 +56,10 @@ PATCHES=(
 	"${FILESDIR}"/redis-sentinel-7.2.0-config.patch
 	"${FILESDIR}"/redis-7.0.4-no-which.patch
 	"${FILESDIR}"/redis-8.2.6-tcmalloc-deprecated.patch
+	"${FILESDIR}"/redis-8.10.3-tls-testing.patch
+	"${FILESDIR}"/redis-8.10.3-pidfile-testing.patch
+	"${FILESDIR}"/redis-8.10.3-stat_terminated_by_signal.patch
+	"${FILESDIR}"/redis-8.10.3-stat_terminated_in_restore.patch
 )
 
 src_prepare() {
@@ -67,7 +72,6 @@ src_prepare() {
 	local makefiles="" MKF
 	local mysedconf=(
 		-e 's:$(CC):@CC@:g'
-		-e 's:$(CFLAGS):@AM_CFLAGS@:g'
 		-e 's: $(DEBUG)::g'
 
 		-e 's:-Werror ::g'
@@ -113,6 +117,7 @@ src_compile() {
 		DEBUG_FLAGS=''
 
 		BUILD_TLS=$(usex ssl)
+		BUILD_COMPRESSION=$(usex zstd)
 		USE_SYSTEMD=$(usex systemd)
 	)
 
@@ -127,7 +132,7 @@ src_compile() {
 
 src_test() {
 	local runtestargs=(
-		--clients "$(get_makeopts_jobs)" # see bug #649868
+		--clients "$(makeopts_jobs)" # see bug #649868
 
 		# The Active defrag for argv test fails with edge values, it does not seem to be
 		# critical issue, see https://github.com/redis/redis/issues/14006

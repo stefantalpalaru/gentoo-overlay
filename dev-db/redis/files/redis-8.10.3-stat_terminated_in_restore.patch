@@ -1,0 +1,21 @@
+diff '--color=auto' -ur redis-8.10.3.orig/tests/integration/corrupt-dump-fuzzer.tcl redis-8.10.3/tests/integration/corrupt-dump-fuzzer.tcl
+--- redis-8.10.3.orig/tests/integration/corrupt-dump-fuzzer.tcl	2026-11-19 20:56:38.522903285 +0100
++++ redis-8.10.3/tests/integration/corrupt-dump-fuzzer.tcl	2026-11-19 20:59:35.586678292 +0100
+@@ -133,6 +133,8 @@
+         if {$min_duration * 2 > $::timeout} {
+             fail "insufficient timeout"
+         }
++        set stat_terminated_in_restore 0
++        set stat_terminated_in_traffic 0
+         set stat_terminated_by_signal 0
+         # start a server, fill with data and save an RDB file once (avoid re-save)
+         start_server [list overrides [list "save" "" use-exit-on-panic yes crash-memcheck-enabled no loglevel verbose] ] {
+@@ -144,8 +146,6 @@
+             set dbsize [r dbsize]
+             r save
+             set cycle 0
+-            set stat_terminated_in_restore 0
+-            set stat_terminated_in_traffic 0
+             set stat_successful_restore 0
+             set stat_rejected_restore 0
+             set stat_traffic_commands_sent 0

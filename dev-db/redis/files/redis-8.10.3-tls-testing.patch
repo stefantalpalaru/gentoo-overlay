@@ -1,0 +1,12 @@
+diff '--color=auto' -ur redis-8.10.3.orig/tests/test_helper.tcl redis-8.10.3/tests/test_helper.tcl
+--- redis-8.10.3.orig/tests/test_helper.tcl	2026-10-26 12:37:04.000000000 +0100
++++ redis-8.10.3/tests/test_helper.tcl	2026-11-19 20:36:44.181640066 +0100
+@@ -642,7 +642,7 @@
+     } elseif {$opt eq {--quiet}} {
+         set ::quiet 1
+     } elseif {$opt eq {--tls} || $opt eq {--tls-module}} {
+-        package require tls 1.6
++        package require tls
+         set ::tls 1
+         ::tls::init \
+             -cafile "$::tlsdir/ca.crt" \

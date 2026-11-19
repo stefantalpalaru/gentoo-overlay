@@ -1,0 +1,21 @@
+diff '--color=auto' -ur redis-8.10.3.orig/tests/support/server.tcl redis-8.10.3/tests/support/server.tcl
+--- redis-8.10.3.orig/tests/support/server.tcl	2026-10-26 12:37:04.000000000 +0100
++++ redis-8.10.3/tests/support/server.tcl	2026-11-19 20:50:24.534073829 +0100
+@@ -674,6 +674,9 @@
+     set unixsocket [file normalize [format "%s/%s" [dict get $config "dir"] "socket"]]
+     dict set config "unixsocket" $unixsocket
+ 
++    set pidfile [file normalize [format "%s/%s" [dict get $config "dir"] "pid"]]
++    dict set config "pidfile" $pidfile
++
+     # apply overrides from global space and arguments
+     foreach {directive arguments} [concat $::global_overrides $overrides] {
+         dict set config $directive $arguments
+@@ -791,6 +794,7 @@
+     dict set srv "stdout" $stdout
+     dict set srv "stderr" $stderr
+     dict set srv "unixsocket" $unixsocket
++    dict set srv "pidfile" $pidfile
+     if {$::tls} {
+         dict set srv "pport" $pport
+     }
