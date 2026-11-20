@@ -24,7 +24,7 @@ REQUIRED_USE="${PYTHON_REQUIRED_USE}
 	test? ( postgres )
 "
 
-RESTRICT="!test? ( test )"
+RESTRICT="mirror !test? ( test )"
 
 COMMON_DEPEND="
 	app-crypt/qca:2[qt5,ssl]
