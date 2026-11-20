@@ -4,8 +4,8 @@
 EAPI=8
 CMAKE_MAKEFILE_GENERATOR="emake"
 CMAKE_BUILD_TYPE=Release
-GMIC_COMMIT="c4cf71713aebe18b4145fa72906bd8ba515ee7dc"
-GMIC_QT_COMMIT="aee7e94d7306825c5537222c920531086a107eb3"
+GMIC_COMMIT="dbd46cb141583381d13fa1de5edf1e90f639151e"
+GMIC_QT_COMMIT="761ae5d48b5075541ffb39193c666c18268f3583"
 GMIC_QT_URI="https://github.com/GreycLab/gmic-qt/archive/${GMIC_QT_COMMIT}.tar.gz -> gmic-qt-${GMIC_QT_COMMIT}.gh.tar.gz"
 
 inherit cmake flag-o-matic qmake-utils shell-completion toolchain-funcs
