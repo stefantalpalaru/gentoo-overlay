@@ -60,6 +60,7 @@ PATCHES=(
 	"${FILESDIR}"/redis-8.10.3-pidfile-testing.patch
 	"${FILESDIR}"/redis-8.10.3-stat_terminated_by_signal.patch
 	"${FILESDIR}"/redis-8.10.3-stat_terminated_in_restore.patch
+	"${FILESDIR}"/redis-8.10.3-tls-2.0.patch
 )
 
 src_prepare() {
@@ -131,6 +132,8 @@ src_compile() {
 }
 
 src_test() {
+	ulimit -n 4096
+
 	local runtestargs=(
 		--clients "$(makeopts_jobs)" # see bug #649868
 
@@ -161,10 +164,11 @@ src_test() {
 		)
 	fi
 
-	if use ssl; then
-		edo ./utils/gen-test-certs.sh
-		runtestargs+=( --tls )
-	fi
+	# TLS tests fail and hang, with dev-tcltk/tls-2.0.1-r1
+	#if use ssl; then
+		#edo ./utils/gen-test-certs.sh
+		#runtestargs+=( --tls )
+	#fi
 
 	edo ./runtest "${runtestargs[@]}"
 }

@@ -1,0 +1,100 @@
+diff '--color=auto' -ur redis-8.10.3.orig/tests/support/util.tcl redis-8.10.3/tests/support/util.tcl
+--- redis-8.10.3.orig/tests/support/util.tcl	2026-10-26 12:37:04.000000000 +0100
++++ redis-8.10.3/tests/support/util.tcl	2026-11-20 01:06:13.608756274 +0100
+@@ -1232,7 +1232,7 @@
+ }
+ 
+ proc get_nonloopback_client {} {
+-    return [redis [get_nonloopback_addr] [srv 0 "port"] 0 $::tls]
++    return [redis [get_nonloopback_addr] [srv 0 "port"] 0 $::tls {-servername localhost}]
+ }
+ 
+ # The following functions and variables are used only when running large-memory
+diff '--color=auto' -ur redis-8.10.3.orig/tests/unit/networking.tcl redis-8.10.3/tests/unit/networking.tcl
+--- redis-8.10.3.orig/tests/unit/networking.tcl	2026-10-26 12:37:04.000000000 +0100
++++ redis-8.10.3/tests/unit/networking.tcl	2026-11-20 01:06:13.608861433 +0100
+@@ -168,18 +168,18 @@
+ 
+             # Setting a password should disable protected mode
+             assert_equal {OK} [r config set requirepass "secret"]
+-            set r2 [redis $myaddr [srv 0 "port"] 0 $::tls]
++            set r2 [get_nonloopback_client]
+             assert_equal {OK} [$r2 auth secret]
+             assert_equal {PONG} [$r2 ping]
+ 
+             # Clearing the password re-enables protected mode
+             assert_equal {OK} [r config set requirepass ""]
+-            set r2 [redis $myaddr [srv 0 "port"] 0 $::tls]
++            set r2 [get_nonloopback_client]
+             assert_match {*DENIED*} $err
+ 
+             # Explicitly disabling protected-mode works
+             assert_equal {OK} [r config set protected-mode no]
+-            set r2 [redis $myaddr [srv 0 "port"] 0 $::tls]
++            set r2 [get_nonloopback_client]
+             assert_equal {PONG} [$r2 ping]
+         }
+     }
+diff '--color=auto' -ur redis-8.10.3.orig/tests/unit/tls.tcl redis-8.10.3/tests/unit/tls.tcl
+--- redis-8.10.3.orig/tests/unit/tls.tcl	2026-10-26 12:37:04.000000000 +0100
++++ redis-8.10.3/tests/unit/tls.tcl	2026-11-20 01:07:57.387421091 +0100
+@@ -76,28 +76,28 @@
+ 
+         test {TLS: Verify tls-auth-clients behaves as expected} {
+             set s [redis [srv 0 host] [srv 0 port]]
+-            ::tls::import [$s channel]
++            ::tls::import [$s channel] -cafile $::tlsdir/ca.crt
+             catch {$s PING} e
+             assert_match {*error*} $e
+ 
+             r CONFIG SET tls-auth-clients no
+ 
+             set s [redis [srv 0 host] [srv 0 port]]
+-            ::tls::import [$s channel]
++            ::tls::import [$s channel] -cafile $::tlsdir/ca.crt
+             catch {$s PING} e
+             assert_match {PONG} $e
+ 
+             r CONFIG SET tls-auth-clients optional
+ 
+             set s [redis [srv 0 host] [srv 0 port]]
+-            ::tls::import [$s channel]
++            ::tls::import [$s channel] -cafile $::tlsdir/ca.crt
+             catch {$s PING} e
+             assert_match {PONG} $e
+ 
+             r CONFIG SET tls-auth-clients yes
+ 
+             set s [redis [srv 0 host] [srv 0 port]]
+-            ::tls::import [$s channel]
++            ::tls::import [$s channel] -cafile $::tlsdir/ca.crt
+             catch {$s PING} e
+             assert_match {*error*} $e
+         }
+diff '--color=auto' -ur redis-8.10.3.orig/utils/gen-test-certs.sh redis-8.10.3/utils/gen-test-certs.sh
+--- redis-8.10.3.orig/utils/gen-test-certs.sh	2026-10-26 12:37:04.000000000 +0100
++++ redis-8.10.3/utils/gen-test-certs.sh	2026-11-20 01:10:27.328773890 +0100
+@@ -48,6 +48,7 @@
+ [ server_cert ]
+ keyUsage = digitalSignature, keyEncipherment
+ nsCertType = server
++subjectAltName = IP:127.0.0.1, IP:::1, DNS:localhost
+ 
+ [ client_cert ]
+ keyUsage = digitalSignature, keyEncipherment
+@@ -56,11 +57,14 @@
+ [ san_cert ]
+ keyUsage = digitalSignature, keyEncipherment
+ subjectAltName = DNS:redis.local, DNS:cluster.local
++
++[ generic_cert ]
++subjectAltName = IP:127.0.0.1, IP:::1, DNS:localhost
+ _END_
+ 
+ generate_cert server "Server-only" "-extfile tests/tls/openssl.cnf -extensions server_cert"
+ generate_cert client "Client-only" "-extfile tests/tls/openssl.cnf -extensions client_cert"
+-generate_cert redis "Generic-cert"
++generate_cert redis "Generic-cert" "-extfile tests/tls/openssl.cnf -extensions generic_cert"
+ generate_cert san "SAN-cert" "-extfile tests/tls/openssl.cnf -extensions san_cert"
+ 
+ [ -f tests/tls/redis.dh ] || openssl dhparam -out tests/tls/redis.dh 2048
