@@ -8,11 +8,11 @@ inherit qmake-utils
 DESCRIPTION="Free Music Instrument Tuner"
 HOMEPAGE="https://gillesdegottex.github.io/fmit"
 SRC_URI="https://github.com/gillesdegottex/fmit/archive/v${PV}.tar.gz -> ${P}.gh.tar.gz"
-
 LICENSE="GPL-2+ LGPL-2.1"
 SLOT="0"
 KEYWORDS="~amd64 ~x86"
 IUSE="alsa jack oss portaudio"
+RESTRICT="mirror"
 
 RDEPEND=">=sci-libs/fftw-3.3.4:3.0=
 	dev-qt/qtbase:6[gui,opengl,widgets]
