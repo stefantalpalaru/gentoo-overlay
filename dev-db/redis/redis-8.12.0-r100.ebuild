@@ -43,24 +43,24 @@ RDEPEND="
 BDEPEND="
 	acct-group/redis
 	acct-user/redis
-	virtual/pkgconfig
+	sys-apps/which
 	test? (
 		dev-lang/tcl:0=
 		ssl? ( <dev-tcltk/tls-2 )
 	)
+	virtual/pkgconfig
 "
 
 PATCHES=(
 	"${FILESDIR}"/redis-6.2.1-config.patch
 	"${FILESDIR}"/redis-6.2.3-ppc-atomic.patch
 	"${FILESDIR}"/redis-sentinel-7.2.0-config.patch
-	"${FILESDIR}"/redis-7.0.4-no-which.patch
 	"${FILESDIR}"/redis-8.2.6-tcmalloc-deprecated.patch
 	"${FILESDIR}"/redis-8.10.3-tls-testing.patch
 	"${FILESDIR}"/redis-8.10.3-pidfile-testing.patch
 	"${FILESDIR}"/redis-8.10.3-stat_terminated_by_signal.patch
 	"${FILESDIR}"/redis-8.10.3-stat_terminated_in_restore.patch
-	"${FILESDIR}"/redis-8.10.3-tls-2.0.patch
+	"${FILESDIR}"/redis-8.12.0-tls-2.0.patch
 )
 
 src_prepare() {
@@ -132,7 +132,7 @@ src_compile() {
 }
 
 src_test() {
-	ulimit -n 4096
+	ulimit -n 10032
 
 	local runtestargs=(
 		--clients "$(makeopts_jobs)" # see bug #649868

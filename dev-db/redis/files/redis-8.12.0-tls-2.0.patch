@@ -1,7 +1,7 @@
-diff '--color=auto' -ur redis-8.10.3.orig/tests/support/util.tcl redis-8.10.3/tests/support/util.tcl
---- redis-8.10.3.orig/tests/support/util.tcl	2026-10-26 12:37:04.000000000 +0100
-+++ redis-8.10.3/tests/support/util.tcl	2026-11-20 01:06:13.608756274 +0100
-@@ -1232,7 +1232,7 @@
+diff '--color=auto' -ur redis-8.12.0.orig/tests/support/util.tcl redis-8.12.0/tests/support/util.tcl
+--- redis-8.12.0.orig/tests/support/util.tcl	2026-11-22 13:33:24.000000000 +0100
++++ redis-8.12.0/tests/support/util.tcl	2026-11-22 17:27:17.739456629 +0100
+@@ -1523,7 +1523,7 @@
  }
  
  proc get_nonloopback_client {} {
@@ -10,10 +10,10 @@ diff '--color=auto' -ur redis-8.10.3.orig/tests/support/util.tcl redis-8.10.3/te
  }
  
  # The following functions and variables are used only when running large-memory
-diff '--color=auto' -ur redis-8.10.3.orig/tests/unit/networking.tcl redis-8.10.3/tests/unit/networking.tcl
---- redis-8.10.3.orig/tests/unit/networking.tcl	2026-10-26 12:37:04.000000000 +0100
-+++ redis-8.10.3/tests/unit/networking.tcl	2026-11-20 01:06:13.608861433 +0100
-@@ -168,18 +168,18 @@
+diff '--color=auto' -ur redis-8.12.0.orig/tests/unit/networking.tcl redis-8.12.0/tests/unit/networking.tcl
+--- redis-8.12.0.orig/tests/unit/networking.tcl	2026-11-22 13:33:24.000000000 +0100
++++ redis-8.12.0/tests/unit/networking.tcl	2026-11-22 17:29:43.597810323 +0100
+@@ -212,18 +212,18 @@
  
              # Setting a password should disable protected mode
              assert_equal {OK} [r config set requirepass "secret"]
@@ -35,10 +35,10 @@ diff '--color=auto' -ur redis-8.10.3.orig/tests/unit/networking.tcl redis-8.10.3
              assert_equal {PONG} [$r2 ping]
          }
      }
-diff '--color=auto' -ur redis-8.10.3.orig/tests/unit/tls.tcl redis-8.10.3/tests/unit/tls.tcl
---- redis-8.10.3.orig/tests/unit/tls.tcl	2026-10-26 12:37:04.000000000 +0100
-+++ redis-8.10.3/tests/unit/tls.tcl	2026-11-20 01:07:57.387421091 +0100
-@@ -76,28 +76,28 @@
+diff '--color=auto' -ur redis-8.12.0.orig/tests/unit/tls.tcl redis-8.12.0/tests/unit/tls.tcl
+--- redis-8.12.0.orig/tests/unit/tls.tcl	2026-11-22 13:33:24.000000000 +0100
++++ redis-8.12.0/tests/unit/tls.tcl	2026-11-22 17:31:13.783410708 +0100
+@@ -120,28 +120,28 @@
  
          test {TLS: Verify tls-auth-clients behaves as expected} {
              set s [redis [srv 0 host] [srv 0 port]]
@@ -71,21 +71,13 @@ diff '--color=auto' -ur redis-8.10.3.orig/tests/unit/tls.tcl redis-8.10.3/tests/
              catch {$s PING} e
              assert_match {*error*} $e
          }
-diff '--color=auto' -ur redis-8.10.3.orig/utils/gen-test-certs.sh redis-8.10.3/utils/gen-test-certs.sh
---- redis-8.10.3.orig/utils/gen-test-certs.sh	2026-10-26 12:37:04.000000000 +0100
-+++ redis-8.10.3/utils/gen-test-certs.sh	2026-11-20 01:10:27.328773890 +0100
-@@ -48,6 +48,7 @@
- [ server_cert ]
- keyUsage = digitalSignature, keyEncipherment
- nsCertType = server
-+subjectAltName = IP:127.0.0.1, IP:::1, DNS:localhost
- 
- [ client_cert ]
- keyUsage = digitalSignature, keyEncipherment
-@@ -56,11 +57,14 @@
+diff '--color=auto' -ur redis-8.12.0.orig/utils/gen-test-certs.sh redis-8.12.0/utils/gen-test-certs.sh
+--- redis-8.12.0.orig/utils/gen-test-certs.sh	2026-11-22 13:33:24.000000000 +0100
++++ redis-8.12.0/utils/gen-test-certs.sh	2026-11-22 17:32:33.632056894 +0100
+@@ -68,11 +68,14 @@
  [ san_cert ]
  keyUsage = digitalSignature, keyEncipherment
- subjectAltName = DNS:redis.local, DNS:cluster.local
+ subjectAltName = DNS:redis.local, DNS:cluster.local, DNS:*.wild.local, DNS:f*.partial.local
 +
 +[ generic_cert ]
 +subjectAltName = IP:127.0.0.1, IP:::1, DNS:localhost
