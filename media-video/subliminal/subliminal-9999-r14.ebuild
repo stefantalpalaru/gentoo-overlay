@@ -1,4 +1,4 @@
-# Copyright 1999-2025 Gentoo Authors
+# Copyright 1999-2026 Gentoo Authors
 # Distributed under the terms of the GNU General Public License v2
 
 EAPI=8
@@ -21,6 +21,8 @@ RESTRICT=test
 
 RDEPEND="
 	$(python_gen_cond_dep '
+		dev-python/aiofiles[${PYTHON_USEDEP}]
+		dev-python/aiohttp[${PYTHON_USEDEP}]
 		>=dev-python/babelfish-0.6.1[${PYTHON_USEDEP}]
 		>=dev-python/beautifulsoup4-4.4.0[${PYTHON_USEDEP}]
 		>=dev-python/chardet-5.0[${PYTHON_USEDEP}]
@@ -29,6 +31,7 @@ RDEPEND="
 		>=dev-python/dogpile-cache-1.0[${PYTHON_USEDEP}]
 		>=dev-python/enzyme-0.4.1[${PYTHON_USEDEP}]
 		>=dev-python/guessit-3.0.0[${PYTHON_USEDEP}]
+		dev-python/knowit[${PYTHON_USEDEP}]
 		>=dev-python/platformdirs-4.2[${PYTHON_USEDEP}]
 		>=dev-python/pysubs2-1.7[${PYTHON_USEDEP}]
 		>=dev-python/rarfile-2.7[compressed,${PYTHON_USEDEP}]
