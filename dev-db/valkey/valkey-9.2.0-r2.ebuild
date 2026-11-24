@@ -27,7 +27,7 @@ DEPEND="
 	ssl? ( dev-libs/openssl:0= )
 	systemd? ( sys-apps/systemd:= )
 	tcmalloc? ( dev-util/google-perftools )
-	zstd? ( app-arch/zstd:= )
+	zstd? ( app-arch/zstd:=[static-libs] )
 "
 
 RDEPEND="
