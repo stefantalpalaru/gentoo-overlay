@@ -1,0 +1,114 @@
+From 9844cdded9b004fa910cfeddade5345922e513fa Mon Sep 17 00:00:00 2001
+From: smplayer-dev <10128951+smplayer-dev@users.noreply.github.com>
+Date: Tue, 29 Sep 2026 09:35:09 +0200
+Subject: [PATCH] Remove empty connection blocks from .ui files
+
+---
+ src/eqslider.ui      | 14 --------------
+ src/prefadvanced.ui  | 12 ------------
+ src/prefinterface.ui | 24 ------------------------
+ src/prefsubtitles.ui | 12 ------------
+ 4 files changed, 62 deletions(-)
+
+diff --git a/src/eqslider.ui b/src/eqslider.ui
+index a3bee67d4..bec0316c8 100644
+--- a/src/eqslider.ui
++++ b/src/eqslider.ui
+@@ -102,18 +102,4 @@
+   <include location="local" >verticaltext.h</include>
+  </includes>
+  <resources/>
+- <connections>
+-  <connection>
+-   <hints>
+-    <hint type="sourcelabel" >
+-     <x>64</x>
+-     <y>156</y>
+-    </hint>
+-    <hint type="destinationlabel" >
+-     <x>36</x>
+-     <y>305</y>
+-    </hint>
+-   </hints>
+-  </connection>
+- </connections>
+ </ui>
+diff --git a/src/prefadvanced.ui b/src/prefadvanced.ui
+index e303ff395..ee05361d1 100644
+--- a/src/prefadvanced.ui
++++ b/src/prefadvanced.ui
+@@ -875,17 +875,5 @@
+     </hint>
+    </hints>
+   </connection>
+-  <connection>
+-   <hints>
+-    <hint type="sourcelabel">
+-     <x>305</x>
+-     <y>372</y>
+-    </hint>
+-    <hint type="destinationlabel">
+-     <x>491</x>
+-     <y>372</y>
+-    </hint>
+-   </hints>
+-  </connection>
+  </connections>
+ </ui>
+diff --git a/src/prefinterface.ui b/src/prefinterface.ui
+index dae9be812..223ddf74c 100644
+--- a/src/prefinterface.ui
++++ b/src/prefinterface.ui
+@@ -1204,30 +1204,6 @@
+  </tabstops>
+  <resources/>
+  <connections>
+-  <connection>
+-   <hints>
+-    <hint type="sourcelabel">
+-     <x>282</x>
+-     <y>137</y>
+-    </hint>
+-    <hint type="destinationlabel">
+-     <x>484</x>
+-     <y>137</y>
+-    </hint>
+-   </hints>
+-  </connection>
+-  <connection>
+-   <hints>
+-    <hint type="sourcelabel">
+-     <x>332</x>
+-     <y>172</y>
+-    </hint>
+-    <hint type="destinationlabel">
+-     <x>480</x>
+-     <y>150</y>
+-    </hint>
+-   </hints>
+-  </connection>
+   <connection>
+    <sender>auto_scale_check</sender>
+    <signal>toggled(bool)</signal>
+diff --git a/src/prefsubtitles.ui b/src/prefsubtitles.ui
+index 986a5f457..0ba86d110 100644
+--- a/src/prefsubtitles.ui
++++ b/src/prefsubtitles.ui
+@@ -925,17 +925,5 @@
+     </hint>
+    </hints>
+   </connection>
+-  <connection>
+-   <hints>
+-    <hint type="sourcelabel">
+-     <x>275</x>
+-     <y>318</y>
+-    </hint>
+-    <hint type="destinationlabel">
+-     <x>299</x>
+-     <y>318</y>
+-    </hint>
+-   </hints>
+-  </connection>
+  </connections>
+ </ui>
