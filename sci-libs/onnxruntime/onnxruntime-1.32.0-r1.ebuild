@@ -23,9 +23,10 @@ DATE_PV=3.0.1
 DLPACK_PV=1.3
 # We need to fetch CUTLASS, to use some example headers - that
 # never get installed, but are needed by some contrib ops.
+#https://github.com/microsoft/${PN}/archive/refs/tags/v${PV}.tar.gz -> ${P}.tar.gz
 CUTLASS_PV=4.7.0
 SRC_URI="
-	https://github.com/microsoft/${PN}/archive/refs/tags/v${PV}.tar.gz -> ${P}.tar.gz
+	https://github.com/stefantalpalaru/onnxruntime-backup/releases/download/v${PV}/onnxruntime-${PV}.tar.gz
 	https://github.com/dcleblanc/SafeInt/archive/${SAFEINT_COMMIT}.tar.gz -> SafeInt-${SAFEINT_COMMIT:0:10}.tar.gz
 	https://github.com/google/flatbuffers/archive/v${FLATBUFFERS_PV}.tar.gz -> flatbuffers-${FLATBUFFERS_PV}.tar.gz
 	https://github.com/HowardHinnant/date/archive/v${DATE_PV}.tar.gz -> hhdate-${DATE_PV}.tar.gz
