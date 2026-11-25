@@ -46,6 +46,7 @@ inherit multiprocessing toolchain-funcs
 # All supported Python implementations, most preferred last.
 _PYTHON_ALL_IMPLS=(
 	pypy3_11
+	pypy3_12
 	python2_7
 	tauthon2_8
 	python3_{13..15}t
@@ -145,7 +146,7 @@ _python_set_impls() {
 			# please keep them in sync with _PYTHON_ALL_IMPLS
 			# and _PYTHON_HISTORICAL_IMPLS
 			case ${i} in
-				pypy3_11|python2_7|tauthon2_8|python3_9|python3_1[1-5]|python3_1[3-5]t)
+				pypy3_1[1-2]|python2_7|tauthon2_8|python3_9|python3_1[1-5]|python3_1[3-5]t)
 					;;
 				jython2_7|pypy|pypy1_[89]|pypy2_0|pypy3|python2_[5-6]|python3_[1-9]|python3_10)
 					obsolete+=( "${i}" )
@@ -454,7 +455,7 @@ _python_export() {
 						PYTHON_PKG_DEP="dev-lang/python:${impl#python}${PYTHON_REQ_USE:+[${PYTHON_REQ_USE}]}"
 						;;
 					pypy3)
-						PYTHON_PKG_DEP="dev-lang/pypy:3.10=[symlink${PYTHON_REQ_USE:+,${PYTHON_REQ_USE}}]"
+						PYTHON_PKG_DEP="dev-lang/pypy:3.12=[symlink${PYTHON_REQ_USE:+,${PYTHON_REQ_USE}}]"
 						;;
 					pypy3.*)
 						PYTHON_PKG_DEP="dev-lang/pypy:${impl#pypy}=${PYTHON_REQ_USE:+[${PYTHON_REQ_USE}]}"
