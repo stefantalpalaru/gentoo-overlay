@@ -57,7 +57,6 @@ src_configure() {
 		-DRTLSDR=$(usex rtlsdr)
 		-DSDRPLAY=$(usex sdrplay)
 		-DSDRPLAY_V3=OFF
-		-DUSE_SPI=ON
 	)
 	cmake_src_configure
 }
